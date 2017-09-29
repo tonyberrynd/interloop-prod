@@ -1,0 +1,29 @@
+.audit-log-pagination .pagination {
+	margin:0px !important;
+	margin-top:-5px !important;
+	margin-bottom:5px !important;
+}
+
+.audit-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.audit-log.table-wrapper {
+	min-height:720px;
+
+	tbody {
+		min-height:640px;
+
+		span {
+			max-width: 100%;
+		    display: inline-block;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		}
+	}
+
+
+}

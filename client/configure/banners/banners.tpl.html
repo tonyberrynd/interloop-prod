@@ -1,0 +1,49 @@
+<!-- loading -->
+<div class="loop-loader loop-loader-light loop-loader-xs centered" ng-class="{'hidden': data.activated }"></div>
+
+<div class="settings-right" ng-class="{'hidden': !data.activated }">
+	<h4>Banners</h4>
+			
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			Test Variosu Banners Below
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<h5>Static Banners</h5>
+
+				<button class="btn btn-primary" ng-click="$root.showBanner = !$root.showBanner; $root.stagingBanner = !$root.stagingBanner">
+					Staging Banner
+				</button>
+
+				<button class="btn btn-success" ng-click="$root.showBanner = !$root.showBanner; $root.fileUploading = !$root.fileUploading"></button>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-xs-3">
+					<h5>Dynmic Banners:</h5>
+						
+						<p style="margin:15px;">Coming Soon...</p>
+
+					<br>
+				</div>
+				<div class="col-xs-8 col-xs-offset-1">
+					<div class="form-group">
+						<label for="notification-title">Banner Title</label>
+						<input id="notification-title" type="text" class="form-control" ng-model="data.title">
+					</div>
+
+					<div class="form-group">
+						<label for="notification-body">Banner Link</label>
+						<input id="notification-link" type="text" class="form-control" ng-model="data.link">
+					</div>
+					
+							
+					<button class="btn btn-primary pull-right" ng-disabled="!data.title" ng-click="addBanner()">Add Banner</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+

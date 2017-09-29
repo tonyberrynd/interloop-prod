@@ -1,0 +1,36 @@
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Edit System View</h3>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding" id="modal-body">
+        
+        <h5>Available Dynamic Values</h5>
+
+        <h5 class="text-inline" ng-repeat="value in data.dynamicValues" style="display:inline-block; margin:0 5px;">
+            <span class="badge badge-primary">
+            <icon class="wb-info-circle" uib-tooltip="{{value.description}}"></icon>
+            <span ng-bind="value.key"></span>
+            </span>
+        </h5>
+        <hr>
+
+        <form>
+          <div class="form-group">
+            <label for="title">View Name</label>
+            <input type="text" class="form-control" id="title" ng-model="data.thisView.name">
+          </div>
+
+          <!-- //underlaying data -->
+          <div pretty-json="data.thisView" edition="true" />
+
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Save View</button>
+    </div>

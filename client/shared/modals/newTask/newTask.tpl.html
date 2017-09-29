@@ -1,0 +1,42 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">New Task</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+
+                    <form name="companyForm" novalidate>
+
+                        <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                      <label for="title">Name</label>
+                                      <input type="text" class="form-control" ng-model="data.note.title" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                   <div class="form-group">
+                                    <label for="title">Description</label>
+                                    <textarea class="form-control" rows="3" ng-model="data.note.body" ng-change="parseNote()" 
+
+                                    mentio 
+                                    mentio-typed-term="typedTerm" 
+                                    mentio-items="people | filter:label:typedTerm" 
+
+                                    ></textarea>
+                                </div>
+                              </div>
+                          </div>
+
+                    </form>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default btn-link" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
+        </div>

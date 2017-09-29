@@ -1,0 +1,111 @@
+<div class="settings-wrapper">
+
+	<!-- left bar -->
+	<div class="settings-left">
+
+		<h5 class="settings-title">My Settings</h5>
+		<ul class="list-unstyled">
+		  <li>
+		  	<a href ui-sref="app.main.settings.profile" ui-sref-active="active">Profile</a>
+		  </li>
+<!-- 		  <li>
+		  	<a href ui-sref="app.main.settings.creation" ui-sref-active="active">Creation Preferences</a>
+		  </li> -->
+		  <li>
+		  	<a href ui-sref="app.main.settings.notifications" ui-sref-active="active">Notification Preferences</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.connected" ui-sref-active="active">Connected Apps</a>
+		  </li>
+		</ul>
+
+		<h5 class="settings-title">Team Settings</h5>
+		<ul class="list-unstyled">
+		  <li>
+		  	<a href ui-sref="app.main.settings.company" ui-sref-active="active">Company Info</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.permissions" ui-sref-active="active">Roles & Visibility</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.users" ui-sref-active="active">Users</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.teams" ui-sref-active="active">Teams</a>
+		  </li>
+		</ul>
+
+
+		<h5 class="settings-title">Configuration</h5>
+		<ul class="list-unstyled">
+		  <li>
+		  	<a href ui-sref="app.main.settings.pipelines" ui-sref-active="active">Pipelines</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.forecasting" ui-sref-active="active">Forecasting</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.won-loss" ui-sref-active="active">Won / Loss</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.goals" ui-sref-active="active">Goals</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.products" ui-sref-active="active">Products</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.fields" ui-sref-active="active">Detail Fields</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.custom-fields" ui-sref-active="active">Custom Fields</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.types" ui-sref-active="active">Activity Types</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.integrations" ui-sref-active="active">Integrations</a>
+		  </li>
+		</ul>
+
+
+		<h5 class="settings-title">Data Management</h5>
+		<ul class="list-unstyled">
+		  <li>
+		  	<a href ui-sref="app.main.settings.views" ui-sref-active="active">Manage Views</a>
+		  </li>
+		  <li>
+		  	<a href ui-sref="app.main.settings.tags" ui-sref-active="active">Manage Tags</a>
+		  </li>
+		  <li>
+		  		<a href ui-sref="app.main.settings.import" ui-sref-active="active">Import Data</a>
+		  </li>
+		  <li>
+		  		<a href ui-sref="app.main.settings.export" ui-sref-active="active">Export Data</a>
+		  </li>
+		  <li>
+		  		<a href ui-sref="app.main.settings.audit-log" ui-sref-active="active">Audit Log</a>
+		  </li>
+		</ul>
+
+
+		<h5 class="settings-title">Billing</h5>
+		<ul class="list-unstyled">
+		  <li>
+		  		<a href ui-sref="app.main.settings.subscription" ui-sref-active="active">Subscription</a>
+		  </li>
+		  <li>
+		  		<a href ui-sref="app.main.settings.invoices" ui-sref-active="active">Invoices</a>
+		  </li>
+		</ul>
+
+
+	</div>
+
+	<!-- right content -->
+	<div class="settings-content">
+		
+		<div ui-view="content"></div>
+		
+	</div>
+
+</div>

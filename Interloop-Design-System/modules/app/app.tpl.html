@@ -1,0 +1,89 @@
+
+<div class="banner banner-success" role="banner">
+    <b>Success!</b> Find out more <a href="">at this location</a>
+</div>
+
+  <div id="wrapper" ng-class="{'toggled': $root.sidebarToggle, 'has-banner': $root.hasBanner }">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" ng-mouseover="$root.sidebarToggle = true" ng-mouseout="$root.sidebarToggle = false">
+
+            <ul class="sidebar-header">
+              <li class="menu-toggle">
+                  <div class="header-wrapper">
+                    <div class="header-emblem">I</div>
+                    <span class="nav-row">Interloop [INTERNAL]</span>
+                  </div>
+                </li>
+            </ul>
+            
+            <ul class="sidebar-menu with-footer footer-1">
+
+                <li class="deployments" ng-class="{active: $state.includes('app.admin')}">
+                    <a ui-sref="app.admin.dashboard"><span class="nav-row">Admin</span></a>
+                </li>
+
+                <li class="sidebar-label">Design System</li>
+
+                <li class="branding" ng-class="{active: $state.includes('app.brand')}">
+                    <a ui-sref="app.brand.overview"><span class="nav-row">Brand</span></a>
+                </li>
+                <li class="marketing" ng-class="{active: $state.includes('app.marketing')}">
+                    <a ui-sref="app.marketing.overview"><span class="nav-row">Marketing</span></a>
+                </li>
+                <li class="product" ng-class="{active: $state.includes('app.product')}">
+                    <a ui-sref="app.product.overview"><span class="nav-row">Product</span></a>
+                </li>
+
+                <li class="mobile" ng-class="{active: $state.includes('app.mobile')}">
+                    <a ui-sref="app.mobile.overview"><span class="nav-row">Mobile</span></a>
+                </li>
+
+                <li class="sidebar-label">Handy Links</li>
+
+                <li class="ideas">
+                    <a href="https://wantoo.io/interloop/ideas/" target="_blank"><span class="nav-row">Idea Forum</span></a>
+                </li>
+
+<!--                 <li class="roadmap">
+                    <a href="#"><span class="nav-row">Roadmap</span></a>
+                </li> -->
+
+                <li class="updates">
+                    <a href="https://headwayapp.co/interloop-changelog" target="_blank"><span class="nav-row">Recent Updates</span></a>
+                </li>
+
+                <li class="link">
+                    <a href="#"><span class="nav-row">Privacy Policy</span></a>
+                </li>
+
+                <li class="link">
+                    <a href="#"><span class="nav-row">Terms of Service</span></a>
+                </li>
+
+            </ul>
+
+            <ul class="sidebar-footer footer-2">
+               <li class="feedback">
+                    <a href="#"><span class="nav-row">Feedback</span></a>
+                </li>
+                <li class="logout">
+                    <a href="#"><span class="nav-row">Logout</span></a>
+                </li>
+            </ul>
+
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            
+            <span ui-view="page-content"></span>
+
+
+            <span id="sidepanel-wrapper" ui-view="sidepanel-content"></span>    
+
+        </div>  
+
+    </div>
+    <!-- /#wrapper -->

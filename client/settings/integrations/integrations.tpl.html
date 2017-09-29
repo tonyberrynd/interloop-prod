@@ -1,0 +1,185 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section fadeInOut" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Integrations</h3>
+			<p>Connect your CRM, Marketing, And Service apps to create a richer view within Interloop</p>
+
+
+		</div>
+		<div class="panel-body">
+
+
+			<!-- ======================================================================================== -->
+			<!-- Slack -->
+			<!-- ======================================================================================== -->
+			<div class="integration slack">
+				<div class="integration-logo">
+					<img src="../../assets/img/integrations/slack_logo.svg" alt="Slack">
+				</div>
+				<div class="integration-text">
+					<h5>Slack</h5>
+					<p>Get notified when users win Opportunities right within a Slack channel</p>
+				</div>
+
+				<!-- //if not connected -->
+				<span ng-if="!$root.activeOrg.slackIntegration">
+				<a ng-href="{{data.connectSlackUrl}}" class="btn btn-outline btn-primary">Connect</a>
+				</span>
+
+				<!-- //if connected -->
+				<span class="connected" ng-if="$root.activeOrg.slackIntegration">
+					<p class="text-inline"><icon class="wb-check"></icon> Connected</p>
+				</span>
+
+			
+			</div>
+
+			<!-- ======================================================================================== -->
+			<!-- Mailchimp -->
+			<!-- ======================================================================================== -->
+			<div class="integration mailchimp">
+				<div class="integration-logo">
+					<img src="../../assets/img/integrations/mailchimp_logo.jpg" alt="Mailchimp">
+				</div>
+				<div class="integration-text">
+					<h5>Mailchimp</h5>
+					<p>Add Contacts to MailChimp lists and see which campaigns and lists they belong to.</p>
+				</div>
+
+				<!-- //if not connected -->
+				<span ng-if="!$root.activeOrg.mailchimpIntegration">
+				<a ng-href="{{data.connectMailchimpUrl}}" class="btn btn-outline btn-primary">Connect</a>
+				</span>
+
+				<!-- //if connected -->
+				<span class="connected" ng-if="$root.activeOrg.mailchimpIntegration">
+					<p class="text-inline"><icon class="wb-check"></icon> Connected</p>
+				</span>
+			</div>
+
+
+			<!-- ======================================================================================== -->
+			<!-- Quickbooks -->
+			<!-- ======================================================================================== -->
+			<div class="integration quickbooks">
+				<div class="integration-logo">
+					<img src="../../assets/img/integrations/quickbooks_logo.png" alt="Quickbooks">
+				</div>
+				<div class="integration-text">
+					<h5>Quickbooks</h5>
+					<p>Track invoices to determine bookings vs actual realization</p>
+				</div>
+
+				<!-- //if not connected -->
+				<span ng-if="!$root.activeOrg.quickbooksIntegration">
+				<a ng-href="{{data.connectQuickbooksUrl}}" class="btn btn-outline btn-primary">Connect</a>
+				</span>
+
+				<!-- //if connected -->
+				<span class="connected" ng-if="$root.activeOrg.quickbooksIntegration">
+					<p class="text-inline"><icon class="wb-check"></icon> Connected</p>
+				</span>
+			</div>
+
+
+			<!-- ======================================================================================== -->
+			<!-- Salesforce -->
+			<!-- ======================================================================================== -->
+			<div class="integration salesforce">
+				<div class="integration-logo">
+					<img src="../../assets/img/integrations/salesforce_logo.png" alt="Salesforce">
+				</div>
+				<div class="integration-text">
+					<h5>Salesforce</h5>
+					<p>Connect to salesforce to view Opportunities, Contact, and companies in Interloop</p>
+				</div>
+
+				<!-- //if not connected -->
+				<span ng-if="!$root.activeOrg.salesforceIntegration">
+				<a ng-href="{{data.connectSalesforceUrl}}" class="btn btn-outline btn-primary">Connect</a>
+				</span>
+
+				<!-- //if connected -->
+				<span class="connected" ng-if="$root.activeOrg.salesforceIntegration">
+					<p class="text-inline"><icon class="wb-check"></icon> Connected</p>
+				</span>
+
+			</div>
+
+
+			<!-- ======================================================================================== -->
+			<!-- Dyanmics -->
+			<!-- ======================================================================================== -->
+<!-- 			<div class="integration dynamics" feature-flag="dynamics">
+				<div class="integration-logo">
+					<img src="../../assets/img/integrations/ms_dynamics_logo.png" alt="Microsoft Dyanmics">
+				</div>
+				<div class="integration-text">
+					<h5>Microsoft Dynamics</h5>
+					<p>Connect to Dynamics to view Opportunities, Contact, and companies in Interloop</p>
+				</div>
+				<button class="btn btn-outline btn-primary">Connect</button>
+			</div> -->
+
+			<!-- ======================================================================================== -->
+			<!-- Dropbox -->
+			<!-- ======================================================================================== -->
+			<div class="integration dropbox">
+				<div class="integration-logo">
+					<img src="../../assets/img/integrations/dropbox_logo.jpg" alt="Dropbox">
+				</div>
+				<div class="integration-text">
+					<h5>Dropbox</h5>
+					<p>Connect dropbox to manage files and documents in the cloud.</p>
+				</div>
+				
+				<!-- //if not connected -->
+				<span ng-if="!$root.activeUser.dropboxIntegration">
+				<a ng-href="{{data.dropboxUrl}}" class="btn btn-outline btn-primary">Connect</a>
+				</span>
+
+				<!-- //if connected -->
+				<span class="connected" ng-if="$root.activeUser.dropboxIntegration">
+					<p class="text-inline"><icon class="wb-check"></icon> Connected</p>
+				</span>
+
+			</div>
+
+
+			<!-- ======================================================================================== -->
+			<!-- Box -->
+			<!-- ======================================================================================== -->
+			<div class="integration dropbox">
+				<div class="integration-logo">
+					<img src="../../assets/img/integrations/box_logo.png" alt="Box">
+				</div>
+				<div class="integration-text">
+					<h5>Box</h5>
+					<p>Connect box to manage files and documents in the cloud.</p>
+				</div>
+				<button class="btn btn-outline btn-primary">Connect</button>
+			</div>
+
+
+			<!-- ======================================================================================== -->
+			<!-- Zapier -->
+			<!-- ======================================================================================== -->
+			<div class="integration zapier" feature-flag="zapier">
+				<div class="integration-logo">
+					<img src="../../assets/img/integrations/zapier_logo.png" alt="Zapier">
+				</div>
+				<div class="integration-text">
+					<h5>Zapier</h5>
+					<p>Enable more than 150 integrations with Zapier.</p>
+				</div>
+				<button class="btn btn-outline btn-primary">Generate Token</button>
+			</div>
+
+
+
+
+		</div>
+	</div>
+</div>

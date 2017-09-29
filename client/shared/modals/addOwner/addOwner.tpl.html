@@ -1,0 +1,102 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">Add Owner</h3>
+            <p>Add Owners for <span ng-bind="data.thisRecord.name || 'this record'"></span></p>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+
+    <div class="callout callout-danger fadeInOut" ng-if="data.splitError">
+      <p class="title"><icon class="wb-warning"></icon> Error</p>
+      <p> Splits percentages must add up to 100%, please adjust the values below</p>
+    </div>
+
+
+
+    <ul class="nav nav-tabs" role="tablist" feature-flag="--OVERLAY-SPLIT--">
+        <li ng-class="{'active': data.currentType == 'standard'}">
+          <a href ng-click="changeType('standard')">
+            Standard Split
+          </a>
+        </li>
+        <li ng-class="{'active': data.currentType == 'overlay'}">
+          <a href ng-click="changeType('overlay')">
+            Overlay Split
+          </a>
+        </li>
+    </ul>
+
+
+    <div class="tab-wrap" style="padding:15px;">
+          
+
+          <div ng-if="data.currentType == 'standard'">
+ <!--            <p class="text-center">
+              <icon class="wb-info-circle"></icon>
+              Standard Splits directly split the revenue potential for this opportunity and must add up to 100%
+            </p> -->
+            <br>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-xs-4">Owner</th>
+                  <th class="col-xs-2">Split %</th>
+                  <th class="col-xs-2">Value</th>
+                  <th class="col-xs-3">Note</th>
+                  <th class="col-xs-1"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="owner in data.owners">
+                  <td>
+                     <ol class="nya-bs-select" ng-model="owner.value" data-live-search="true" data-size="15" ng-change="isAlreadyChosen(owner.value)">
+                        <li nya-bs-option="option in data.ownerOptions | orderBy: 'fullName'" ng-class="{disabled: option.disabled }">
+                          <a href>
+                           <span> {{option.fullName}} </span>
+                           </a>
+                        </li>
+                      </ol>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                        <input ng-if="data.owners.length !== 1" type="number" class="form-control" id="splitPercent" ng-model="owner.splitPercent" ng-change="checkValues()">
+                        <p ng-if="data.owners.length == 1" class="form-control-static">100%</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                         <p class="form-control-static">$<span ng-bind="(owner.splitValue | number:0) || 0"></span></p>
+                     </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="note" ng-model="owner.splitNote">
+                    </div>
+                  </td>
+                  <td>
+                  <button class="btn btn-default" ng-click="removeOwner(owner)" ng-click="removeOwner(owner)">
+                    <icon class="wb-close"></icon>
+                  </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- add new owner -->
+            <a class="btn btn-default btn-outline" href ng-click="addOwner()" style="margin:8px;"><icon class="wb-plus"></icon> Add Owner</a>
+               
+
+          </div>
+        </div>
+             
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="data.splitError">Save Owners</button>
+        </div>

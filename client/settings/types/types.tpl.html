@@ -1,0 +1,69 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section fadeInOut" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Activity Types</h3>
+			<p>Manage and extend the various activity types</p>
+
+			<button class="btn btn-primary button-top new-users" ng-click="addType()">+ New Activity Type</button>
+		</div>
+		<div class="panel-body" style="padding:0px;">
+
+
+		<div class="tab-wrap" style="padding:20px;">
+			<div class="row">
+				<div class="col-xs-12">
+					
+					  <table class="table settings-table">
+					    <thead>
+					      <tr>
+					        <th class="col-xs-2">Icon</th>
+					        <th class="col-xs-3">Type Label</th>
+		              	    <th class="col-xs-3">Key</th>
+		              	    <th class="col-xs-3">Description</th>
+		                    <th class="col-xs-1"></th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr ng-repeat="type in data.activityTypes">
+					      	<td>
+					       		<icon class="wb-phone"></icon>    	
+					        </td>
+					        <td>
+					       	<p style="display:inline-block;" ng-bind="type.label || '--'"></p>      	
+					        </td>
+					        <td>
+								<p ng-bind="type.field || '--'"></p>
+					        </td>
+					        <td>
+								<p ng-bind="type.description || '--'"></p>
+					        </td>
+					        <td>
+								<!-- if locked -->
+					        	<span ng-if="type.locked" class="locked-item" uib-tooltip="This Field Is Required">
+					        		<icon class="wb-lock"></icon>
+					        	</span>
+					        	<!-- //if can be activated -->
+					        	<span class="toggle toggle-success" ng-if="!type.locked">
+							        <input class="toggle-range" id="{{type.field}}" type="checkbox" ng-model="type.active">
+							        <label class="toggle-btn" for="{{type.field}}" style="margin-left: 20px; margin-bottom:-5px;"></label>
+						        </span>
+
+					        </td>
+					        <td>
+					      	<button class="btn btn-default edit-label" ng-click="editField(field)">
+					      		<icon class="fa fa-pencil"></icon>
+					      	</button>
+					      </td>
+					      </tr>
+					      
+					    </tbody>
+					  </table>
+
+			  </div>
+			</div>
+		  </div>
+		</div>
+	</div>
+</div>

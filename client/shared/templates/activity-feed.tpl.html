@@ -1,0 +1,213 @@
+
+<p>{{data.thisRecord.history}}</p>
+
+<h5 class="sidepanel-title">Activity Stream</h5>
+<ul class="activity-feed">
+  <!-- //header -->
+  <li class="feed-item feed-header">
+    <div class="tabs-wrapper">
+    <ul class="nav nav-pills">
+          <li ng-class="{ 'active': data.historyFilter == 1 }"><a href ng-click="data.historyFilter = 1">ALL</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 2 }"><a href ng-click="data.historyFilter = 2">TASKS</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 3 }"><a href ng-click="data.historyFilter = 3">NOTES</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 4 }"><a href ng-click="data.historyFilter = 4">MEETINGS</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 5 }"><a href ng-click="data.historyFilter = 5">EMAILS</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 6 }"><a href ng-click="data.historyFilter = 6">CHANGELOG</a></li>
+        </ul>
+    </div>
+  </li>
+
+  <span class="feed-items" ng-repeat="activity in data.thisRecord.history | orderBy: '-activity.completedDate'" ng-switch="activity.activity.type.value">
+
+  <!-- status change -->
+  <li class="feed-item" ng-switch-when="status_change">
+        <span class="text">
+            <div class="avatar avatar-24 lime">
+              <span ng-bind="activity.createdBy.firstName | limitTo:1"></span><span ng-bind="activity.createdBy.lastName | limitTo:1"></span>
+            </div>
+            <b>
+              <span ng-bind="activity.createdBy.firstName"></span>
+              <span ng-bind="activity.createdBy.lastName"></span>
+            </b> 
+            <span class="value">changed status: 
+                <span class="color-primary">Open</span> 
+                <span class="arrow">→</span> 
+                <span class="color-success">Closed-Won</span>
+            </span>
+        </span>
+       <time class="date" datetime="{{activity.activity.completedDate}}">
+         <span ng-bind="(activity.activity.completedDate | date:'MMM d, y')"></span>
+       </time>
+  </li>
+
+   <!-- //changelog item forecast -->
+  <li class="feed-item" ng-switch-when="forecast_change">
+        <span class="text">
+            <div class="avatar avatar-24 lime">
+              <span ng-bind="activity.createdBy.firstName | limitTo:1"></span><span ng-bind="activity.createdBy.lastName | limitTo:1"></span>
+            </div>
+            <b>
+              <span ng-bind="activity.createdBy.firstName"></span>
+              <span ng-bind="activity.createdBy.lastName"></span>
+            </b>
+            <span class="value">changed forecast: 
+                <span class="dark">Pipeline</span> 
+                <span class="arrow">→</span> 
+                <span class="dark">Hard Commit</span>
+            </span>
+        </span>
+       <time class="date" datetime="{{activity.activity.completedDate}}">
+         <span ng-bind="(activity.activity.completedDate | date:'MMM d, y')"></span>
+       </time>
+  </li>
+
+  <!-- //push / pull estimated close -->
+  <li class="feed-item" ng-switch-when="close_change">
+    <span class="text">
+      <div class="avatar avatar-24 lime">
+        <span ng-bind="activity.createdBy.firstName | limitTo:1"></span><span ng-bind="activity.createdBy.lastName | limitTo:1"></span>
+      </div>
+      <b>
+        <span ng-bind="activity.createdBy.firstName"></span>
+        <span ng-bind="activity.createdBy.lastName"></span>
+      </b>
+      updated the estimated close date to 
+      <span class="positive-arrow">
+        <icon class="fa fa-arrow-up"></icon>
+      </span>
+      <span class="negative-arrow">
+        <icon class="fa fa-arrow-down"></icon>
+      </span>
+      <b>March 5, 2017</b>
+    </a>
+    </span>
+    <time class="date" datetime="{{activity.activity.completedDate}}">
+         <span ng-bind="(activity.activity.completedDate | date:'MMM d, y')"></span>
+    </time>
+  </li>
+
+  <!-- changelog other -->
+  <li class="feed-item" ng-switch-when="data_change">
+    <span class="text">
+      <div class="avatar avatar-24 lime">
+        <span ng-bind="activity.createdBy.firstName | limitTo:1"></span><span ng-bind="activity.createdBy.lastName | limitTo:1"></span>
+      </div>
+      <b>
+        <span ng-bind="activity.createdBy.firstName"></span>
+        <span ng-bind="activity.createdBy.lastName"></span>
+      </b>
+      updated the record details</a>
+    </span>
+    <time class="date" datetime="{{activity.activity.completedDate}}">
+         <span ng-bind="(activity.activity.completedDate | date:'MMM d, y')"></span>
+    </time>
+  </li>
+
+  <li class="feed-item file" ng-switch-when="file">
+    <span class="text"><div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> uploaded 3 files</span>
+    <time class="date" datetime="9-17">Sep 17</time>
+
+    <!-- //repeat files that were uploaded -->
+     <div class="panel panel-default card file-card" ng-repeat="file in activity.files">
+        <div class="panel-body">
+            <div class="name-wrapper">
+            <div class="file-icon"><img src="../assets/img/icons/files/pdf.svg" alt="PDF"></div>
+            <h4>Important Document</h4>
+            <p>35MB <span class="spacer">&middot;</span> PDF Document</p>
+            </div>
+        </div>
+    </div>
+
+  </li>
+
+
+  <!-- task added -->
+  <li class="feed-item meeting" ng-switch-when="task_added">
+    <span class="text"><div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> Added  “Volunteer Activities”</span>
+    <time class="date" datetime="9-24">Sep 24</time>
+  </li>
+
+
+  <!-- task completed -->
+  <li class="feed-item meeting" ng-switch-when="task_completed">
+      <span class="text"><div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> Added  “Volunteer Activities”</span>
+      <time class="date" datetime="9-24">Sep 24</time>
+  </li>
+
+
+  <!-- note -->
+  <li class="feed-item note" ng-switch-when="note">
+    <span class="text"><div class="avatar avatar-24 sky">KM</div><b>Kevin Myers</b> Joined the group <a href="single-group.php">“Boardsmanship Forum”</a></span>
+    <time class="date" datetime="9-23">Sep 23</time>
+
+    <div class="panel panel-default card note-card">
+            <div class="panel-body">
+                <div class="name-wrapper">
+                    <div class="avatar avatar-24 note-avatar square clover"></div>
+                    <h4>Monthly Objectives</h4>
+                    <p><span ng-bind="data.noteText | limitTo: 90"></span>...</p>
+                </div>
+            </div>
+        </div>
+
+  </li>
+
+
+  <!-- meeting -->
+  <li class="feed-item meeting" ng-switch-when="meeting">
+    <span class="text"><div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> Responded to need <a href="single-need.php">“In-Kind Opportunity”</a></span>
+    <time class="date" datetime="9-21">Sep 21</time>
+
+    <div class="panel panel-default card meeting-card">
+            <div class="panel-body">
+                <div class="name-wrapper">
+                    <div class="avatar avatar-24 meeting-avatar square sunset"></div>
+                    <h4>Let's Discuss Our Progress</h4>
+                    <p>Jordan Berry < > Susan Mets, +3</p>
+                    <p>May 15 <span class="spacer">&middot;</span> 8AM - 9AM ET</p>
+                </div>
+            </div>
+        </div>
+
+  </li>
+
+
+  <!-- email -->
+  <li class="feed-item email" ng-switch-when="email">
+    <span class="text"><div class="avatar avatar-24 royal">TB</div><b>Tony Berry</b> Created need <a href="single-need.php">“Volunteer Opportunity”</a></span>
+    <time class="date" datetime="9-18">Sep 18</time>
+
+    <div class="panel panel-default card email-card">
+            <div class="panel-body">
+                <div class="name-wrapper">
+                    <div class="avatar avatar-24 email-avatar square sky"></div>
+                    <h4>Email Subject Goes Here and cn be a long one</h4>
+                    <p>Hi Susan, Hope this finds you well would like to connect</p>
+                    <p>3 Recipients</p>
+                </div>
+            </div>
+        </div>
+  </li>
+
+  </span>
+  <!-- end ng repeat -->
+
+  <!-- //creation date -->
+  <li class="feed-item">
+        <span class="text">
+            <div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> 
+            <span class="value">created Opportunity</span>
+        </span>
+       <time class="date" datetime="{{activity.activity.completedDate}}">
+         <span ng-bind="(activity.activity.completedDate | date:'MMM d, y')"></span>
+       </time>
+  </li>
+
+
+    <!-- //changelog item Status -->
+  <li class="feed-item start">
+        <span class="text">
+            Start of History
+        </span>
+  </li>
+</ul>

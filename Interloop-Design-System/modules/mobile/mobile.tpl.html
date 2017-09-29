@@ -1,0 +1,29 @@
+ <div id="local-nav" class="">
+            <div class="local-nav-header">
+              Mobile
+            </div>
+            <div class="local-nav-menu with-header">
+            <ul class="nav nav-pills nav-stacked">
+              <li ui-sref-active="active"><a ui-sref="app.mobile.overview">Overview</a></li>
+              <li class="sidebar-label">Components</li>
+              <li ui-sref-active="active"><a ui-sref="app.mobile.buttons">Buttons</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.mobile.forms">Forms</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.mobile.modals">Modals</a></li>
+
+              <li class="sidebar-label">Operating System</li>
+              <li ui-sref-active="active"><a ui-sref="app.mobile.ios">Ios</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.mobile.android">Android</a></li>
+            </ul>
+            </div>
+          </div>
+
+
+          <div id="main-content" class="with-nav">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                        <div id="mobile-content" ui-view="mobile-content"></div>
+                    </div>
+                </div>
+            </div>
+          </div>

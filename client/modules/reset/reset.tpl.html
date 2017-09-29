@@ -1,0 +1,94 @@
+<div class="reset">
+    
+    <!-- //if access token is valid show this -->
+    <div class="reset-inner" ng-if="data.showForm">
+      <div class="reset-card"> 
+      <div class="reset-title">
+        <div ng-if="!data.updateSuccess" class="">
+        <h3>Password Reset</h3>
+        <p>Enter your new password for your Interloop account.</p>
+        </div>
+        </div>
+
+
+        <div ng-if="!data.updateSuccess">
+          <form class="reset-form" name="resetForm" ng-submit="updatePassword()">
+              <div class="reset-errors animated" ng-if="resetForm.passwordConfirm.$touched && resetForm.passwordConfirm.$error.match">
+
+                <p class="text-center text-danger"><icon class="wb-alert-circle"></icon> Passwords do not match</p>
+              </div>
+              <div class="reset-main">
+                <!-- password1 -->
+                <div class="form-group">
+                <label for="password">New Password</label>
+                  <input type="password" name="password" class="password form-control" id="password" placeholder="" ng-model="data.password" required>
+                  <!-- password strength -->
+                  <div class="passStrengthMeter" ng-class="{'very-weak': data.passStrength > 0, 'weak': data.passStrength > 15, 'so-so': data.passStrength > 25, 'good': data.passStrength > 50, 'great': data.passStrength > 75}">
+                  <!-- bars -->
+                  <div class="strengthBar"></div>
+                  <div class="strengthBar"></div>
+                  <div class="strengthBar"></div>
+                  <div class="strengthBar"></div>
+
+                  <!-- text -->
+                  <p class="strengthMessage" ng-if="data.passStrength > 0 && data.passStrength < 10">Very Weak</p>
+                  <p class="strengthMessage" ng-if="data.passStrength > 10 && data.passStrength < 24">Weak</p>
+                  <p class="strengthMessage" ng-if="data.passStrength > 24 && data.passStrength < 54">So-so</p>
+                  <p class="strengthMessage" ng-if="data.passStrength > 54 && data.passStrength < 75">Good</p>
+                  <p class="strengthMessage" ng-if="data.passStrength > 75">Great!</p>
+                </div>
+
+
+                </div>
+
+                <!-- password2 -->
+                 <div class="form-group">
+                <label for="passwordConfirm">Confirm New Password</label>
+                  <input type="password" name="passwordConfirm" class="password form-control" id="passwordConfirm" placeholder="" ng-model="data.passwordConfirm" match="data.password" required>
+                </div>
+              <!-- sign in -->
+              <button class="submit btn btn-lg btn-primary btn-block" type="submit" ladda="data.loading" data-style="slide-up" data-spinner-color="#FFFFFF" ng-disabled="resetForm.$invalid">Change my password</button>
+              </div>
+          </form>
+        </div>
+
+        <!-- success -->
+        <div class="updateSuccess animated text-center" ng-if="data.updateSuccess">
+          <h3 class="successIcon"><icon class="wb-check"></icon></h3>
+          <h3>Successfully Updated Password</h3>
+          <p>You can now log in with your updated password</p>
+          <br>
+          <p><a ui-sref="login">Go to login</a></p>
+          
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- //if access token is not valid show this -->
+     <div class="reset-inner" ng-if="!data.showForm">
+        <div class="reset-card text-center">
+          <h3>Oops...</h3>
+
+           <div class="reset-main">
+
+          <p style="font-size:120%">It looks like you're trying to reset your password, but the URL you followed was invalid. Password reset links expire after 24 hours - if your link is old, <br><a href="/forgot">send yourself a new one.</a></p>
+
+          </div>
+
+        </div>
+     </div>
+
+</div>
+
+
+
+
+<!-- hidden password strength calculator -->
+ <div class="hidden" ng-password-strength="data.password"
+      strength="data.passStrength"
+      calculation-mode="formula"
+      goal="75"
+      inner-class="hidden">
+  </div>

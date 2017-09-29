@@ -1,0 +1,119 @@
+.toggle-list {
+	list-style: none;
+	padding:0px;
+	margin:0px;
+}
+
+.toggle {
+	margin: 0 2em;
+	display: inline-block;
+}
+
+.toggle-range {
+	display: none;
+	// add default box-sizing for this scope
+	&, &:after, &:before,
+	& *, & *:after, & *:before,
+	& + .toggle-btn{
+		box-sizing: border-box;
+		&::selection{
+			background: none;
+		}
+	}
+	+ .toggle-btn{
+		outline: 0;
+		display: block;
+		width: 45px;
+	    height: 24px;
+		position: relative;
+		cursor: pointer;
+        user-select: none;
+        background: darken($limestone, 20%);
+		border-radius: 2em;
+		padding: 2px;
+		transition: all .4s ease;
+
+		&:after, &:before{
+			position: relative;
+			display: block;
+			content: "";
+			width: 50%;
+			height: 100%;
+		}
+		&:after{
+			left: 0;
+			border-radius: 50%;
+			background: #fff;
+			transition: all .2s ease;
+			-webkit-box-shadow: 0 0 0 2px transparent, 0 2px 2px rgba(0,0,0,.3);
+		    -moz-box-shadow: 0 0 0 2px transparent,0 2px 2px rgba(0,0,0,.3);
+		    box-shadow: 0 0 0 2px transparent, 0 2px 2px rgba(0,0,0,.3);
+		}
+		&:before{
+			display: none;
+		}
+	}
+	&:checked{
+		+ .toggle-btn{
+			background: $topaz;
+			&:after{
+				left: 50%;
+			}
+		}
+	}
+}
+
+//success
+.toggle-primary {
+	.toggle-range {
+		&:checked{
+			+ .toggle-btn {
+				background: $topaz;
+			}
+		}
+	}
+}
+
+//success
+.toggle-success {
+	.toggle-range {
+		&:checked{
+			+ .toggle-btn {
+				background: $success;
+			}
+		}
+	}
+}
+
+//warning
+.toggle-warning {
+	.toggle-range {
+		&:checked{
+			+ .toggle-btn {
+				background: $warning;
+			}
+		}
+	}
+}
+
+//danger
+.toggle-danger {
+	.toggle-range {
+		&:checked{
+			+ .toggle-btn {
+				background: $danger;
+			}
+		}
+	}
+}
+
+//info
+.toggle-info {
+	.toggle-range {
+		&:checked{
+			+ .toggle-btn {
+				background: $info;
+			}
+		}
+	}
+}

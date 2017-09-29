@@ -1,0 +1,42 @@
+<div class="settings-section">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Goals</h3>
+			<p>Set Up and manage goals for reps</p>
+
+			<button class="btn btn-primary button-top new-users" ng-click="addGoal()">+ Add User</button>
+		</div>
+		<div class="panel-body" style="padding:0px;">
+
+
+		<ul class="nav nav-tabs" role="tablist">
+		    <li ng-class="{'active': data.goalType == 'revenue'}">
+		      <a href ng-click="changeType('revenue')">
+		      	Revenue Goals
+		      </a>
+		    </li>
+		    <li ng-class="{'active': data.goalType == 'activity'}">
+		      <a href ng-click="changeType('activity')">
+		      	Activity Goals
+		      </a>
+		    </li>
+		</ul>
+
+	
+			
+		<div class="empty-state" ng-if="!data.goals.length && data.activated">
+					<div class="empty-circle">
+						<icon class="wb-list"></icon>
+					</div>
+					<h5>No Users with goals</h5>
+					<p>Add a new goal below</p>
+					<buttton class="btn btn-sm btn-primary" ng-click="addGoal()">Add Goal for User</buttton>
+		</div>
+			
+
+
+
+
+		</div>
+	</div>
+</div>

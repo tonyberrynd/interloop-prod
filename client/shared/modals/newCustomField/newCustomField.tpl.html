@@ -1,0 +1,173 @@
+    <!-- header -->
+    <div class="modal-header text-center">
+      <h3 class="modal-title" id="myModalLabel">Create Custom Field</h3>
+      <p>Custom fields help you track data relevant to your business</p>
+
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+    </div>
+
+
+      <!-- body -->
+      <div class="modal-body">
+        
+      <form role="form">
+            <div class="row">
+              <div class="col-md-12">
+
+                <div ng-switch="data.currentStep.number">
+                  <!-- import spreadsheet -->
+                  <!-- ===================-->
+                  <div ng-switch-when="1">
+                        <p class="text-center">
+                            <b>Select Field Type:</b>
+                        </p>
+
+                        <div class="field-types">
+
+                          <div class="row">
+                            <div class="col-xs-12">
+                              
+                           
+                            <!-- value -->
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'string'}" ng-click="data.fieldType = 'string'">
+                                <span class="field-icon">ABC</span>
+                                <h5>Value</h5>
+                            </div>
+                            <!-- currency -->
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'currency'}" ng-click="data.fieldType = 'currency'">
+                                <span class="field-icon">$$$</span>
+                                <h5>Currency</h5>
+                            </div>
+                            <!-- number -->
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'number'}" ng-click="data.fieldType = 'number'">
+                                <span class="field-icon">123</span>
+                                <h5>Number</h5>
+                            </div>
+                            <!-- date -->
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'date'}" ng-click="data.fieldType = 'date'">
+                                <span class="field-icon">
+                                    <icon class="wb-calendar"></icon>
+                                </span>
+                                <h5>Date</h5>
+                            </div>
+
+                             </div>
+                          </div>
+
+                          <br>
+                          <br>
+
+                          <div class="row">
+                            <div class="col-xs-12">
+                              
+                            
+                            <!-- picklists -->
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'category'}" ng-click="data.fieldType = 'category'">
+                                <span class="field-icon">
+                                    <icon class="wb-menu"></icon>
+                                </span>
+                                <h5>Picklists</h5>
+                            </div>
+
+                            <!-- mutli select -->
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'multi'}" ng-click="data.fieldType = 'multi'">
+                                <span class="field-icon">
+                                    <icon class="wb-list"></icon>
+                                </span>
+                                <h5>Multiselect</h5>
+                            </div>
+
+                            <!-- divider -->
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'divider'}" ng-click="data.fieldType = 'divider'">
+                                <span class="field-icon">
+                                    <icon class="wb-minus"></icon>
+                                </span>
+                                <h5>Divider</h5>
+                            </div>
+
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+
+                  <!-- assign columns -->
+                  <!-- ===================-->
+                  <div ng-switch-when="2">
+                    
+                    <div class="field-details">
+                        <div class="form-group">
+                            <label for="title">Field Name</label>
+                              <input type="text" class="form-control" id="title" ng-model="data.field.name">
+                          </div>
+                          <div class="form-group" ng-if="data.fieldType !== 'divider'">
+                            <label for="comment">Field Description <span class="text-muted">(Optional)</span></label>
+                            <textarea class="form-control" rows="3" id="comment" ng-model="data.field.description"></textarea>
+                         </div>
+
+                         <div class="field-options" ng-if="data.fieldType == 'category'">
+                            <p>Add in the various dropdown options</p>
+
+                             <div class="form-group field-option" ng-repeat="option in data.options">
+                              <input type="text" class="form-control" id="title" ng-model="option.value" placeholder="Enter Value">
+                              <button class="btn btn-link removeOption" ng-if="$index !== 0" ng-click="removeOption(option)">
+                                   <icon  class="wb-close"></icon>
+                              </button>
+                             
+                             </div>
+
+                             <button class="btn btn-block btn-outline btn-primary" ng-click="addOption()">
+                                 + Add Option
+                             </button>
+
+                         </div>
+
+                    </div>
+                        
+                  </div>
+
+                  <!-- check & import data -->
+                  <!-- ===================-->
+                  <div ng-switch-when="3">
+                   
+                    <div class="confirm-field">
+      
+                            
+                        <p>Which Entities Should this field be used with?</p>
+
+                        <div class="checkbox-custom checkbox-primary" ng-repeat="entity in data.entities">
+                            <input type="checkbox" id="{{entity.singular}}" checklist-model="data.useWith" checklist-value="entity.singular">
+                            <label for="{{entity.singular}}">{{entity.singular}}</label>
+                        </div>
+
+
+                        </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+      </form>
+
+      </div>
+      <!-- footer -->
+      <div class="modal-footer customField-footer">
+        <!-- cancel -->
+        <button ng-if="data.currentStep.number == 1" class="btn btn-default btn-outline" ng-click="$close()">Cancel</button>
+        <!-- go back -->
+        <button  ng-if="data.currentStep.number  > 1" class="btn btn-default btn-outline" ng-click="previousStep()">Go Back</button>
+        <!-- next -->
+        <button ng-disabled="!data.fieldType" ng-if="data.currentStep.number == 1" type="button" class="btn btn-primary" ng-click="nextStep()">Next</button>
+        <!-- next2 -->
+        <button ng-disabled="!data.field.name" ng-if="data.currentStep.number == 2" type="button" class="btn btn-primary" ng-click="nextStep()" >Next</button>
+        <!-- submit -->
+        <button ng-if="data.currentStep.number == 3" type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="!data.useWith.length">Create Custom Field</button>
+      </div>
+
+

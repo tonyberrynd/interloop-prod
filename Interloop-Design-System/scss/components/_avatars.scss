@@ -1,0 +1,322 @@
+@mixin avatar-color-mixin($background, $border) {
+  background-color: $background;
+  // border-color: $border;
+}
+
+.avatar {
+	display: inline-block;
+	width:32px;
+	height:32px;
+	line-height: 32px;
+	border-radius: 50%;
+	color:#fff;
+	text-align:center;
+	vertical-align: middle;
+	margin-right:5px;
+	text-transform:uppercase;
+
+	//background
+	background-color: transparent;
+	background-color:$neutral;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    // display: -webkit-box;
+    // display: -moz-box;
+    // display: -ms-flexbox;
+    // display: -webkit-flex;
+    // display: flex;
+    // flex: 1;
+    // -ms-flex: 1;
+    // -webkit-flex: 1;
+    height: 100%;
+    width: 100%;
+    overflow:hidden;
+
+	&.avatar-96 {
+		width:96px;
+		height:96px;
+		line-height: 96px;
+		font-size:48px;
+	}
+
+	&.avatar-48 {
+		width:48px;
+		height:48px;
+		line-height: 48px;	
+		font-size:24px;
+	}
+
+	&.avatar-32 {
+		width:32px;
+		height:32px;
+		line-height: 32px;
+		font-size:16px;
+	}
+
+	&.avatar-24 {
+		width:24px;
+		height:24px;
+		line-height: 24px;
+		font-size:12px;
+	}
+
+	&.avatar-16 {
+		width:16px;
+		height:16px;
+		line-height: 16px;
+		font-size:8px;
+	}
+
+	&.square {
+		border-radius:5px;
+	}
+
+	//avatar colors
+		&.clover {
+		 @include avatar-color-mixin($clover, $clover);
+	}
+
+	&.lime {
+		 @include avatar-color-mixin($lime, $lime);
+	}
+
+	&.seafoam {
+		 @include avatar-color-mixin($seafoam, $seafoam);
+	}
+
+	&.gemstone {
+		 @include avatar-color-mixin($gemstone, $gemstone);
+	}
+
+	&.sky {
+		 @include avatar-color-mixin($sky, $sky);
+	}
+
+	&.royal {
+		 @include avatar-color-mixin($royal, $royal);
+	}
+
+	&.ocean {
+		 @include avatar-color-mixin($ocean, $ocean);
+	}
+
+	&.sunlight {
+		 @include avatar-color-mixin($sunlight, $sunlight);
+	}
+
+	&.tangerine {
+		 @include avatar-color-mixin($tangerine, $tangerine);
+	}
+
+	&.sunset {
+		 @include avatar-color-mixin($sunset, $sunset);
+	}
+
+	&.lipstick {
+		 @include avatar-color-mixin($lipstick, $lipstick);
+	}
+
+	&.barbie {
+		 @include avatar-color-mixin($barbie, $barbie);
+	}
+
+	&.grape {
+		 @include avatar-color-mixin($grape, $grape);
+	}
+
+	&.neutral {
+		 @include avatar-color-mixin($neutral, $neutral);
+	}
+
+
+	//alignment
+
+	&.centered {
+		margin:0 auto;
+	}
+}
+
+
+//avatar bundle
+
+.avatar-bundle {
+	.avatar {
+		width:45px;
+		height:45px;
+		line-height: 45px;
+		margin-left:-30px;
+		border:solid 3px #fff;
+		font-size:18px;
+		vertical-align: middle;
+
+			&.avatar-96 {
+				width:96px;
+				height:96px;
+				line-height: 96px;
+				font-size:48px;
+			}
+
+			&.avatar-48 {
+				width:48px;
+				height:48px;
+				line-height: 48px;	
+				font-size:24px;
+			}
+
+			&.avatar-32 {
+				width:29px;
+				height:29px;
+				line-height: 26px;
+				font-size:14px;
+
+				margin-left:-18px;
+			}
+
+			&.avatar-24 {
+				width: 28px;
+			    height: 28px;
+			    line-height: 24px;
+			    font-size: 12px;
+			    margin-left: -15px;
+			}
+
+			&.avatar-16 {
+				width:16px;
+				height:16px;
+				line-height: 16px;
+				font-size:8px;
+			}
+
+	}
+
+	.avatar-plus {
+	    display: inline-block;
+	    width: 45px;
+	    height: 45px;
+	    border:solid 3px #fff;
+	    background-color: darken($limestone, 6%);;
+	    border-radius: 50%;
+	    color: $slate;
+	    text-align: center;
+	    overflow: hidden;
+	    line-height: 42px;
+	    font-weight: 600;
+	    margin-left: -30px;
+	    font-size:14px;
+	    vertical-align: middle;
+
+	    &.square {
+	    	border-radius: 5px;
+	    }
+	}
+}
+
+//avatar-items
+
+.avatar-item {
+	border:none;
+	border-radius: 5px;
+	padding:10px 5px;
+	position:relative;
+
+	&:hover {
+		background-color:darken($limestone, 6%);
+	}
+
+	.avatar {
+		position:absolute;
+		top:10px;
+		left:10px;
+
+		&.inline-avatar {
+			position:relative;
+			top:unset;
+			left:unset;
+			margin-right:2px;
+		}
+	}
+
+	.avatar-indicator {
+		display: block;
+		width:20px;
+		height:20px;
+		border-radius: 50%;
+		background-color:$success;
+		position:absolute;
+		top:25px;
+		left:25px;
+		border:solid 2px #fff;
+		color:#fff;
+		font-size:8px;
+	}
+
+	.forecast-indicator {
+		position:absolute;
+		right:15px;
+		top:7px;
+		font-weight:500;
+		font-size:17px;
+	}
+
+	.owners {
+		position:absolute;
+		right:15px;
+		bottom:15px;
+		font-weight:600;
+		color:$slate;
+		font-size:90%;
+		// color:$topaz;
+	}
+
+	.amount {
+		color:$success;
+	}
+
+	h3,h4 {
+		margin:0px;
+		margin-left:45px;
+		margin-bottom:2px;
+		font-size:98%;
+	}
+
+	p {
+		color:$dragonstone;
+		margin:0px;
+		margin-bottom:2px;
+		margin-left:45px;
+		font-size:95%;
+		font-weight:500;
+	}
+
+	.spacer {
+		margin:0 3px;
+	}
+
+	.est-close {
+		position:absolute;
+		top:10px;
+		right:15px;
+		color:$dragonstone;
+		font-size:13px;
+	}
+
+	.avatar-bundle {
+		position:absolute;
+		right:5px;
+		bottom:12px;
+
+		.avatar {
+			position:relative;
+			top:unset;
+			left:unset;
+		}
+
+		.avatar-plus {
+			position:relative;
+		}
+	}
+}
+
+

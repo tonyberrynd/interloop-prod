@@ -1,0 +1,27 @@
+ <div id="local-nav" class="">
+            <div class="local-nav-header">
+              Marketing
+            </div>
+            <div class="local-nav-menu with-header">
+            <ul class="nav nav-pills nav-stacked">
+              <li ui-sref-active="active"><a ui-sref="app.marketing.overview">Overview</a></li>
+              <li class="sidebar-label">Resources</li>
+              <li ui-sref-active="active"><a ui-sref="app.marketing.case-studies">Case Studies</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.marketing.videos">Videos</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.marketing.presentations">Presentations</a></li>
+              <li class="sidebar-label">Templates</li>
+              <li ui-sref-active="active"><a ui-sref="app.marketing.templates">All</a></li>
+            </ul>
+            </div>
+          </div>
+
+
+          <div id="main-content" class="with-nav" ng-controller="marketingCtrl">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                        <div id="marketing-content" ui-view="marketing-content"></div>
+                    </div>
+                </div>
+            </div>
+          </div>

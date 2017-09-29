@@ -1,0 +1,25 @@
+<h3>Payments</h3>
+<br>
+
+<div class="tabs-wrapper">
+	<ul class="nav nav-tabs">
+	  <li ng-class="{ 'active': data.currentTab == 1 }"><a href ng-click="data.currentTab = 1">All</a></li>
+	  <li ng-class="{ 'active': data.currentTab == 2 }"><a href ng-click="data.currentTab = 2">Successfull</a></li>
+	  <li ng-class="{ 'active': data.currentTab == 3 }"><a href ng-click="data.currentTab = 3">Errors</a></li>
+	</ul>
+</div>
+<div class="tabs-content" ng-switch="data.currentTab">
+	
+	<div class="tab-content" ng-switch-when="1">
+		Tab 1
+	</div>
+
+	<div class="tab-content" ng-switch-when="2">
+		Tab 2
+	</div>
+
+	<div class="tab-content" ng-switch-when="3">
+		Tab 3
+	</div>
+</div>
+

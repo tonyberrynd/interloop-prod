@@ -1,0 +1,133 @@
+
+<div class="banner banner-success" role="banner">
+    <b>Success!</b> Find out more <a href="">at this location</a>
+</div>
+
+  <div id="wrapper" ng-class="{'toggled': $root.sidebarToggle, 'has-banner': $root.hasBanner }">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+
+            <ul class="sidebar-header">
+              <li class="menu-toggle">
+                  <div class="header-wrapper">
+                    <div class="header-emblem">I</div>
+                    <span class="nav-row">Interloop HQ</span>
+                  </div>
+                </li>
+            </ul>
+            
+            <ul class="sidebar-menu with-footer">
+                <!-- <li class="sidebar-label">Secondary</li> -->
+                <li class="dashboards active">
+                    <a href="#"><span class="nav-row">Dashboards</span></a>
+                </li>
+                <li class="goals">
+                    <a href="#"><span class="nav-row">Goals</span></a>
+                </li>
+                <li class="performance">
+                    <a href="#"><span class="nav-row">Performance</span></a>
+                </li>
+                <li class="opportunities">
+                    <a href="#"><span class="nav-row">Opportunities</span></a>
+                </li>
+                <li class="contacts">
+                    <a href="#"><span class="nav-row">Contacts</span></a>
+                </li>
+                <li class="companies">
+                    <a href="#"><span class="nav-row">Companies</span></a>
+                </li>
+                <li class="tasks">
+                    <a href="#"><span class="nav-row">Tasks</span></a>
+                </li>
+                <li class="content">
+                    <a href="#"><span class="nav-row">Content</span></a>
+                </li>
+                <li class="analytics">
+                    <a href="#"><span class="nav-row">Analytics</span></a>
+                </li>
+            </ul>
+
+            <ul class="sidebar-footer">
+                <!-- <li class="sidebar-label">Secondary</li> -->
+                <li class="setup">
+                    <a href="#"><span class="nav-row">Setup Guide</span></a>
+                </li>
+                <li class="settings">
+                    <a href="#"><span class="nav-row">Settings</span></a>
+                </li>
+                <li class="configure">
+                    <a href="#"><span class="nav-row">Configure</span></a>
+                </li>
+            </ul>
+
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="grey with-nav with-subheader">
+            <ng-include src="'modules/layouts/navbar.tpl.html'"></ng-include>
+
+            <div class="subheader">
+              <div class="subheader-left pull-left">
+                <button class="btn btn-defaults show-sidebar" uib-tooltip="Show Sidebar" tooltip-placement="bottom-left">
+                  <img src="../assets/img/icons/dark/show-sidebar.svg" alt="Open Sidebar">
+                </button>
+                <button class="btn btn-default view-switcher">
+                  Switch Views
+                  <img src="../assets/img/icons/dark/cheveron-down.svg" alt="Switch Views">
+                </button>
+              </div>
+              <div class="subheader-right pull-right">
+                <div class="date-picker-wrapper">
+                  <input date-range-picker class="form-control date-picker" id="datepicker1" placeholder="" ng-model="datepicker" options="$root.options2" change-on-blur=""/>
+                  <img src="../assets/img/icons/states/date.svg" alt="Date Picker">
+                  </div>
+              </div>
+            </div>
+
+
+            <div class="layout chart-layout">
+              <!-- chart -->
+              <div class="chart-wrapper" ng-controller="chartCtrl">
+                <div class="chart-header">
+                <div class="chart-title pull-left">
+                  <h3>What opportunities are at risk?</h3>
+                  <p><b>22%</b> of filtered opportunties by Value have score below a <b>50 Smart Score</b></p>
+                </div>
+                <div class="chart-options pull-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default">Standard</button>
+                    <button type="button" class="btn btn-default">Cumulative</button>
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default">Options</button>
+                  </div>
+                </div>
+                </div>
+                <div class="chart">
+                  <highchart id="chart1" config="chartConfig"></highchart>
+                </div>
+
+              </div>
+              <div class="filter-bar">
+                Filters: <div class="tag rounded">Filter 1</div>
+              </div>
+              <!-- grid -->
+              <div class="grid-wrapper" ng-controller="datagridCtrl">
+                <div ag-grid="data.gridOptions" class="data-grid ag-fresh" style="height:100%;width:100%;"></div>
+              </div>
+
+            </div>
+
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+        
+        <div id="sidepanel-wrapper"></div>
+
+      
+
+    </div>
+    <!-- /#wrapper -->

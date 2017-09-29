@@ -1,0 +1,164 @@
+<div class="subheader">
+              <div class="subheader-left pull-left">
+                <button class="btn btn-default show-sidebar" uib-tooltip="Show Sidebar" tooltip-placement="bottom-left" tooltip-popup-delay="500" ng-click="$root.showDrawer = !$root.showDrawer">
+                  <img src="../assets/img/icons/dark/show-sidebar.svg" alt="Open Sidebar">
+                </button>
+                  <!-- view dropdown -->
+                <div class="btn-group view-toggler fadeInOut" uib-dropdown keyboard-nav ng-if="data.activated" auto-close="outsideClick">
+                    <button id="viewDropdown" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle>
+                        <span ng-bind="data.thisView.name || 'Select View'"></span> <span class="caret pull-right" style="margin-top:8px;"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="Views">
+
+                      <!-- search views -->
+                      <div class="search-input">
+                        <icon class="wb-search search-icon"></icon>
+                          <input type="text" class="form-control" id="LocalSearch" placeholder="Search..." ng-model="data.searchViews">
+                          <button class="btn btn-link clear-search" ng-if="data.localSearch" ng-click="data.searchViews = ''">
+                              <icon class="wb-plus-circle"></icon>
+                          </button>
+                      </div>
+
+                      <li class="dropdown-header">Forecasting</li> 
+
+                        <li role="menuitem">
+                            <a href ng-click="changeInsight('current-forecasts')">
+                                Current Forecast
+                            </a>
+                        </li>
+
+                        <li role="menuitem">
+                            <a href ng-click="changeInsight('bookings-forecast')">
+                                Bookings Forecast
+                            </a>
+                        </li>
+
+                        <li role="menuitem">
+                            <a href ng-click="changeInsight('revenue-forecast')">
+                                Revenue Forecast
+                            </a>
+                        </li>
+
+                        <li role="menuitem">
+                            <a href ng-click="changeInsight('forecast-close')">
+                                Forecast To Close
+                            </a>
+                        </li>
+
+                        <li role="menuitem">
+                            <a href ng-click="changeInsight('forecast-accuracy')">
+                                Forecast Accuracy
+                            </a>
+                        </li>
+
+                        <br>
+
+                        <li class="dropdown-header">Pipeline</li>
+                        <li role="menuitem">
+                            <a href ng-click="changeInsight('opp-risk-matrix')">
+                                Opportunity Risk Matrix
+                            </a>
+                        </li>     
+                         <li role="menuitem">
+                            <a href ng-click="changeInsight('opp-momentum')">
+                                Opportunity Momentum
+                            </a>
+                        </li>     
+                         <li role="menuitem">
+                            <a href ng-click="changeInsight('opp-flow')">
+                                Pipeline Flow
+                            </a>
+                        </li>     
+                        <li role="menuitem">
+                            <a href ng-click="changeInsight('sales-cycle')">
+                                Sales Cycle
+                            </a>
+                        </li> 
+                        <li role="menuitem">
+                            <a href ng-click="changeInsight('sales-performance')">
+                                Sales Performance
+                            </a>
+                        </li> 
+                        <li role="menuitem">
+                            <a href ng-click="changeInsight('win-loss')">
+                                Win / Loss Analysis
+                            </a>
+                        </li> 
+
+                        <br> 
+
+                        <li class="dropdown-header">Activity</li>   
+                        <li role="menuitem">
+                            <a href ng-click="changeInsight('activity-tracker')">
+                                Activity Tracker
+                            </a>
+                        </li> 
+
+<!--                         <li class="dropdown-header">{{key}} Views</li>
+                        <li role="menuitem"  ng-class="{'active': view.id == data.thisView.id}" ng-repeat="view in value | orderBy: 'name' | filter: data.searchViews">
+                            <a href ng-click="changeView(view)">
+                                <span ng-bind="view.name"></span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0"></span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix"></span> 
+                                </span>
+                            </a>
+                        </li>  -->
+
+                    </ul>
+                </div>
+              </div>
+              <div class="subheader-right pull-right">
+                <div class="date-picker-wrapper">
+                  <input date-range-picker class="form-control date-picker" id="datepicker1" placeholder="Select Date Range" ng-model="datepicker" options="$root.options3" change-on-blur=""/>
+                  <img src="../assets/img/icons/states/date.svg" alt="Date Picker">
+                  </div>
+              </div>
+            </div>
+
+
+            <div class="layout chart-layout">
+              <!-- chart -->
+              <div class="chart-wrapper">
+                <div class="chart-header">
+                <div class="chart-title pull-left">
+                  <h4>What opportunities are at risk?</h4>
+                  <p><b>22%</b> of filtered opportunties by Value have score below a <b>50 Smart Score</b></p>
+                </div>
+                <div class="chart-options pull-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default">Standard</button>
+                    <button type="button" class="btn btn-default">Cumulative</button>
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default">Options</button>
+                  </div>
+                </div>
+                </div>
+                <div class="chart">
+                  <span ng-if="data.activated">
+                    <highchart id="insightsChart" config="data.chartConfig" class="insight-chart" style="height:550px; width:100%;margin: 0 auto" >
+                    </highchart>
+                  </span>
+                </div>
+
+              </div>
+              <div class="filter-bar">
+                <div class="filterLabel" >
+                      <span><icon class="wb-help-circle" uib-tooltip="See Your Current Applied Filters to the right" tooltip-placement="right" tooltip-popup-delay="500"></icon> Matches:</span>
+
+                      <span class="matches">
+                        <a href ng-click="data.filterMatches = 'all'; updateGrid();" ng-class="{'active': data.filterMatches == 'all' }">All</a>
+                        <span>|</span>
+                        <a href ng-click="data.filterMatches = 'any'; updateGrid();" ng-class="{'active': data.filterMatches == 'any' }">Any</a>
+                      </span>
+                  </div>
+              </div>
+
+              <!-- grid -->
+              <div class="grid-wrapper">
+                <div ag-grid="data.gridOptions" class="data-grid ag-fresh" style="height:100%;width:100%;"></div>
+              </div>
+
+            </div>

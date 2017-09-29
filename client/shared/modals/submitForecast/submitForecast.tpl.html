@@ -1,0 +1,71 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">Submit Forecast</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+
+                    <form name="companyForm" novalidate>
+
+                        <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                      <label for="title">Title</label>
+                                      <input type="text" class="form-control" ng-model="data.note.title" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                   <div class="form-group">
+                                    <label for="title">Body</label>
+                                    <textarea class="form-control" rows="3" ng-model="data.note.body" ng-change="parseNote()" 
+
+                                    mentio 
+                                    mentio-typed-term="typedTerm" 
+                                    mentio-items="people | filter:label:typedTerm" 
+
+                                    ></textarea>
+                                </div>
+                              </div>
+                          </div>
+
+                            <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="title">Related To</label>
+                                <ui-select ng-model="data.relatedTo" multiple theme="bootstrap" class="form-control" title="Choose a person" spinner-enabled="true">
+               
+                                    <ui-select-match placeholder="Search...">
+                                        {{$item.name}}
+                                    </ui-select-match>
+                                    <!-- choices -->
+                                    <ui-select-choices repeat="result in data.results | filter: $select.search track by $index " refresh="lookupEntities($select.search)" refresh-delay="0">
+                                      <div ng-bind-html="result.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+
+                                            <ui-select-no-choice>
+                                             <div class="no-results">
+                                              <p>No Results Found </p> 
+                                             </div>
+                                            </ui-select-no-choice>
+
+                                  </ui-select>
+                            </div>
+                          </div>
+                        </div>
+
+
+                                       <p>metioned: {{typedTerm}}</p>
+                                      <p>model: {{activity.description}}</p>
+
+
+                    </form>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
+        </div>

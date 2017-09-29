@@ -1,0 +1,41 @@
+.cfp-hotkeys-close {
+    border:none;
+    color:$slate;
+    font-size:50px;
+    top: 0px;
+    right: 15px;
+    padding:0px;
+
+}
+
+
+.cfp-hotkeys-close:hover {
+    background-color: transparent;
+    cursor: pointer;
+    opacity: .8;
+}
+
+.cfp-hotkeys-key {
+    display: inline-block;
+    color: #fff;
+    background-color: $topaz;
+    border: 1px solid $topaz;
+    border-radius: 5px;
+    text-align: center;
+    margin-right: 5px;
+    box-shadow: inset 0 1px 0 $topaz, 0 1px 0 $topaz;
+    padding: 5px 9px;
+    font-size: 1em;
+}
+
+.cfp-hotkeys-container {
+    display: table !important;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    color: #333;
+    font-size: 1em;
+    background-color: rgba(255,255,255,.92);
+}

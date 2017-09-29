@@ -1,0 +1,109 @@
+<div class="panel panel-default sidepanel-panel clear">	
+	<div class="panel-body">
+	
+	<span ng-repeat="entityType in data.entityTypes">
+	<h5 class="sidepanel-title" >
+		{{entityType.plural}} ({{(data.thisRecord.entities | filter: {entityType: entityType.singular}).length}})
+	</h5>
+
+	<span class="empty-add" ng-if="!(data.thisRecord.entities | filter: {entityType: entityType.singular}).length">
+      <p class="empty-section">No {{entityType.plural}}</p>
+    </span>
+
+	<span ng-if="(data.thisRecord.entities | filter: {entityType: entityType.singular}).length" ng-repeat="relatedEntity in data.thisRecord.entities | filter: { entityType: entityType.singular }" ng-switch="entityType.singular">
+
+		<!-- contact -->
+		<div class="panel panel-default card contact-card" ng-switch-when="Contact" ng-click="goForward(relatedEntity.entityType, relatedEntity.entityId)">
+			<div class="panel-body">
+				<div class="name-wrapper">
+				<div class="avatar avatar-32 royal">
+					<span class="initials" ng-bind="(relatedEntity.entity.firstName | limitTo:1)"></span><span class="initials" ng-bind="(relatedEntity.entity.lastName | limitTo:1)"></span>
+				</div>
+				<h4>
+					<span ng-bind="relatedEntity.entity.firstName"></span>
+					<span ng-bind="relatedEntity.entity.lastName"></span>
+					<span ng-if="!relatedEntity.entity.firstName && !relatedEntity.entity.lastName">No Name</span>
+				</h4>
+				<p>
+				<span ng-bind="relatedEntity.entity.title || 'No Title'"></span>
+				</p>
+				<p>
+					<span ng-bind="primaryCompanyName(relatedEntity.entityLinks) || 'No Primary Company'"></span>
+				</p>
+				</div>
+			</div>
+			<div class="panel-footer" ng-if="relatedEntity.description">
+				<icon class="fa fa-user"></icon> <span ng-bind="relatedEntity.description"></span>
+			</div>
+		</div>
+
+		<!-- company -->
+		<div class="panel panel-default card company-card" ng-switch-when="Company" ng-click="goForward(relatedEntity.entityType, relatedEntity.entityId)">
+			<div class="panel-body">
+				<div class="name-wrapper">
+				<div class="avatar avatar-32 sky square">
+					<span class="initials" ng-bind="(relatedEntity.entity.name | limitTo:1)"></span>
+				</div>
+				<h4>
+					<span ng-bind="relatedEntity.entity.name || 'No Name'"></span>
+				</h4>
+				<p>
+					<span ng-bind="relatedEntity.entity.description || 'No Description'"></span>
+				</p>
+				<p>
+					<span ng-bind="relatedEntity.entity.domain || 'No Domain'"></span>
+				</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- opportunity -->
+		<div class="panel panel-default card opportunity-card" ng-switch-when="Opportunity" ng-click="goForward(relatedEntity.entityType, relatedEntity.entityId)">
+			<div class="panel-body">
+
+				<div class="name-wrapper">
+				<div class="avatar avatar-24 lime">
+					<span ng-bind="relatedEntity.entity.smartScore || '--'"></span>
+				</div>
+				<h4>
+					<span ng-bind="relatedEntity.entity.name || 'No Name'"></span>
+				</h4>
+				<p>
+					<span ng-bind="primaryCompanyName(relatedEntity.entityLinks) || 'No Primary Company'"></span>
+				</p>
+				</div>
+
+				<div class="detail-wrapper">
+					  <div class="row" style="margin-top:12px;">
+                      <div class="col-xs-3 rich-card_padding">
+                        <p class="card-subtitle">Value</p>
+                        <p class="card-data opportunity-value">$<span ng-bind="relatedEntity.entity.value | number:0"></span></p>
+                      </div>
+                      <div class="col-xs-3 rich-card_padding">
+                        <p class="card-subtitle">Est Close</p>
+                        <p class="card-data opportunity-value">
+                           <!----><span ng-if="relatedEntity.entity.status.value !== 'Won' &amp;&amp; relatedEntity.entity.status.value !== 'Lost'" class="opp-value open"><span ng-bind="relatedEntity.entity.estimatedClose | date:'mediumDate'"></span></span><!---->
+                            <!---->
+                            <!---->
+                        </p>
+                      </div>
+                      <div class="col-xs-3 rich-card_padding">
+                        <p class="card-subtitle">Stage</p>
+                        <p class="card-data opportunity-value"><span ng-bind="relatedEntity.entity.stage.score"></span>%<span> - </span><span ng-bind="relatedEntity.entity.stage.value"></span></p>
+                      </div>
+                      <div class="col-xs-3 rich-card_padding">
+                        <p class="card-subtitle">Forecast</p>
+                        <p class="card-data opportunity-value"><span ng-bind="relatedEntity.entity.forecast.value"></span>%<span> - </span><span ng-bind="relatedEntity.entity.forecast.value"></span></p>
+                      </div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- other entities go here -->
+		
+	</span>
+	</span>
+
+  </div>
+</div>

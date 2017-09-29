@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="interloop">
+
+<head>
+
+    <base href="./">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- fonts first -->
+    <script src="https://use.typekit.net/grl7dox.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <title ng-bind="pageTitle">Interloop</title>
+
+    <!-- cdn css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://file.myfontastic.com/rC29FChZSxwfNGqaLLUSkd/icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/styles-b1979e9b.css"/>
+
+
+</head>
+
+<body ng-class="{'electron': $root.ELECTRON }">
+
+    <!-- //main app ui view -->
+    <div ui-view></div>
+
+    <!-- ELECTRON SPECIFIC WRAPPER FOR SCRIPTS  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <!-- //cdn popular libraries -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.1/moment-timezone.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chrono-node/1.2.5/chrono.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
+    <script type="text/javascript" src="https://js.pusher.com/3.0/pusher.min.js"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <!-- //local pure js files -->
+    <script src="assets/js/jslibs-1b43cc4d.js"></script>
+
+    <!-- third party angular libs -->
+    <script src="assets/js/nglibs-8b921efa.js"></script>
+
+    <!-- app files -->
+    <script src="assets/js/modules-a8501180.js"></script>
+
+
+    <!-- templates from $templateCache [replaced and then rev()] -->
+    <script src="assets/js/templates-eb648f4e.js"></script>
+
+    <!-- Electron Preload Images -->
+    <div id="preload"><img src="assets/img/docs/ai.svg" width="1" height="1" />
+		<img src="assets/img/docs/avi.svg" width="1" height="1" />
+		<img src="assets/img/docs/css.svg" width="1" height="1" />
+		<img src="assets/img/docs/dmg.svg" width="1" height="1" />
+		<img src="assets/img/docs/doc.svg" width="1" height="1" />
+		<img src="assets/img/docs/gif.svg" width="1" height="1" />
+		<img src="assets/img/docs/html.svg" width="1" height="1" />
+		<img src="assets/img/docs/jpg.svg" width="1" height="1" />
+		<img src="assets/img/docs/js.svg" width="1" height="1" />
+		<img src="assets/img/docs/mov.svg" width="1" height="1" />
+		<img src="assets/img/docs/mp3.svg" width="1" height="1" />
+		<img src="assets/img/docs/mpg.svg" width="1" height="1" />
+		<img src="assets/img/docs/pdf.svg" width="1" height="1" />
+		<img src="assets/img/docs/png.svg" width="1" height="1" />
+		<img src="assets/img/docs/ppt.svg" width="1" height="1" />
+		<img src="assets/img/docs/psd.svg" width="1" height="1" />
+		<img src="assets/img/docs/svg.svg" width="1" height="1" />
+		<img src="assets/img/docs/txt.svg" width="1" height="1" />
+		<img src="assets/img/docs/xls.svg" width="1" height="1" />
+		<img src="assets/img/docs/xml.svg" width="1" height="1" />
+		<img src="assets/img/docs/zip.svg" width="1" height="1" />
+		<img src="assets/img/grid/checkboxChecked.svg" width="1" height="1" />
+		<img src="assets/img/grid/checkboxIndeterminate.svg" width="1" height="1" />
+		<img src="assets/img/grid/checkboxUnchecked.svg" width="1" height="1" />
+		<img src="assets/img/grid/groupContracted.svg" width="1" height="1" />
+		<img src="assets/img/grid/groupExpanded.svg" width="1" height="1" />
+		<img src="assets/img/grid/sortAscending.svg" width="1" height="1" />
+		<img src="assets/img/grid/sortDescending.svg" width="1" height="1" />
+		<img src="assets/img/integrations/box_logo.png" width="1" height="1" />
+		<img src="assets/img/integrations/dropbox_logo.jpg" width="1" height="1" />
+		<img src="assets/img/integrations/evernote_logo.png" width="1" height="1" />
+		<img src="assets/img/integrations/google_logo.png" width="1" height="1" />
+		<img src="assets/img/integrations/Icloud_logo.png" width="1" height="1" />
+		<img src="assets/img/integrations/mailchimp_logo.jpg" width="1" height="1" />
+		<img src="assets/img/integrations/ms_dynamics_logo.png" width="1" height="1" />
+		<img src="assets/img/integrations/office_365.png" width="1" height="1" />
+		<img src="assets/img/integrations/oneNote_logo.png" width="1" height="1" />
+		<img src="assets/img/integrations/salesforce_logo.png" width="1" height="1" />
+		<img src="assets/img/integrations/slack_logo.svg" width="1" height="1" />
+		<img src="assets/img/integrations/zapier_logo.png" width="1" height="1" />
+		<img src="assets/img/logo-dark.svg" width="1" height="1" />
+		<img src="assets/img/logo.svg" width="1" height="1" />
+		<img src="assets/img/mail.png" width="1" height="1" />
+		</div>
+
+
+    <!-- ELECTRON WRAPPER END -->
+    <script>if (window.module) module = window.module;</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,856 @@
+<span ng-controller="interactionController">
+  <!-- container -->
+  <div class="container" ng-if="data.activated" style="padding:0px;margin:0px;">
+    
+    <div class="row">
+      <div class="col-md-12" style="padding:0px; margin:0px;">
+        <div id="accordion" class="checkout">
+          <!-- header -->
+          <!-- 
+          <div class="panel text-center panel-title">
+            <h4>New Interaction</h4>
+          </div>
+          --> 
+
+          <!-- ============ -->
+          <!--    Step 1    -->
+          <!-- ============ -->
+          <div class="panel checkout-step">
+            <!-- panel-number -->
+            <div> 
+              <span class="checkout-step-number" ng-class="{'checkout-error': detailsForm.$invalid }">1</span>
+              <h4 class="checkout-step-title"> <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFirst" > Details</a></h4>
+            </div>
+            <!-- collapse -->
+            <div id="collapseFirst" class="collapse in">
+              <div class="checkout-step-body">
+                 <button class="btn btn-success text-right" role="button" style="margin:0 5px;" ng-click="save2()"> Top</button>
+                  <div class="row">
+                    <div class="col-xs-12 col-lg-8">
+                      
+
+                        <!-- form -->
+                        <form name="detailsForm" novalidate>
+                          <div class="row">
+                            
+                            
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-6">
+                              <div class="form-group" ng-class="{'has-error': detailsForm.name.$invalid && !detailsForm.name.$pristine }">
+                              <label for="name">Subject <span class="required">*</span></label>
+                                <input id="name" name="name" type="text" class="form-control" placeholder="" ng-model="data.interaction.name" required autofocus capitalize-first autocomplete="false">
+                              </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6">
+                              <div class="form-group" ng-class="{'has-error': detailsForm.interactionType.$invalid && !detailsForm.interactionType.$pristine }">
+                                <label for="interactionType">Topic <span class="required">*</span></label>
+
+                                 <select id="interactionType" 
+                                    ng-model="data.selectedTopic" 
+                                    ng-options="item.label for item in data.topics track by item.value" 
+                                    class="form-control" 
+                                    ng-change="updateTopic(data.selectedTopic)"
+                                    required>
+                                 </select>
+                              </div>
+                            </div>
+                            
+                           <!-- col -->
+                            <div class="col-xs-12 col-sm-12">
+                              <div class="form-group" ng-class="{'has-error': detailsForm.interactionType.$invalid && !detailsForm.interactionType.$pristine }">
+                                <label for="interactionType">Products <span class="required">*</span></label>
+                                <br>
+                                <div class="col-xs-6 col-sm-3" ng-repeat="product in data.products" style="padding:5px 0px;">
+                                <div class="radio-inline">
+                                  <label><input type="radio" ng-model="data.selectedProducts" value="{{product.label}}">{{product.label}}</label>
+                                </div>
+                                </div>
+                                <br>
+                                <br>
+                                
+                              </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                              <p>Location - <small>Select Account or Venue - Only Select Venue if interaction occured outside of account</small></p>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-6">
+                              <div class="form-group" ng-class="{'has-error': detailsForm.locationTypeAccount.$invalid && !detailsForm.locationTypeAccount.$pristine }">
+                                <label class="radio-inline" style="width:100%;">
+                                  <input type="radio" 
+                                    name="locationTypeAccountRadio" 
+                                    ng-model="data.locationType" 
+                                    value="account" 
+                                    ng-change="data.selectedVenue = null"
+                                  />
+                                  Account <span class="required">*</span>
+                                  <br>
+                                  <input name="locationTypeAccount" type="text" 
+                                         ng-model="data.selectedAccount"
+                                         uib-typeahead="account as account.name for account in findAccounts($viewValue)" 
+                                         typeahead-template-url="searchAccount.html" 
+                                         typeahead-loading="data.findAccountsLoading"
+                                         typeahead-min-length="0"
+                                         placeholder="Search..." 
+                                         class="form-control toggle-input" 
+                                         ng-disabled="data.locationType !== 'account'"
+                                         typeahead-editable="false" 
+                                         ng-required="data.locationType == 'account'" 
+                                         typeahead-on-select="selectAccount(item)" 
+                                         autocomplete="off" 
+                                         typeahead-no-results="data.findAccountsLoadingNoResults"
+                                         ng-change="alert('changed')"
+                                    
+                                  />
+                                  
+                                  <icon ng-if="data.findAccountsLoading" class="loading-indicator fa fa-spinner fa-spin"></icon>
+                                  <span class="clear-typeahead" ng-if="!data.findAccountsLoading && data.selectedAccount" ng-click="data.selectedAccount = null" style="margin-top:3px;">Clear</span>
+                                  <span style="margin-left:-20px;" ng-if="data.findAccountsLoadingNoResults" class="help-text">No Results Found</span>
+                                  
+                                </label>
+                              </div>
+                            </div>
+                            
+                            
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-6">
+                              <div class="form-group" ng-class="{'has-error': detailsForm.locationTypeVenue.$invalid && !detailsForm.locationTypeVenue.$pristine }">
+                                <label class="radio-inline" style="width:100%;">
+                                  <input type="radio" 
+                                    name="locaionTypeVenueRadio" 
+                                    ng-model="data.locationType" 
+                                    value="venue" 
+                                    ng-change="data.selectedAccount = null"
+                                  />
+                                  Venue <span class="required">*</span>
+                                  <br>
+                                  <input class="form-control toggle-input" 
+                                    type="text" 
+                                    g-places-autocomplete 
+                                    ng-model="data.selectedVenue" 
+                                    ng-disabled="data.locationType !== 'venue'" 
+                                    ng-required="data.locationType == 'venue'" 
+                                    autocomplete="off"
+                                  />
+                                  <span class="clear-typeahead" ng-if="data.selectedVenue" ng-click="data.selectedVenue = null;"  style="margin-top:3px;">Clear</span>
+                                </label>
+                              </div>
+                            </div>
+                            
+                            <br>
+                            
+                          <div class="col-xs-12 col-sm-6">
+                            <div class="form-group" ng-class="{'has-error': detailsForm.name.$invalid && !detailsForm.name.$pristine }">
+                              <div class="input-group">
+                                <label for="name">Date <span class="required">*</span></label>
+                                <input type="text" class="form-control" 
+                                  uib-datepicker-popup 
+                                  ng-model="data.interaction.date" 
+                                  is-open="dt.opened" 
+                                  datepicker-options="dateOptions" 
+                                  ng-required="true" 
+                                  close-text="Close" 
+                                />
+                                <span class="input-group-btn">
+                                  <button type="button" class="btn btn-default" ng-click="dtOpen()" style="margin-top: 25px; height: 36px;"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+  
+                          <!-- hidden for now but need to show for ML Profile   
+                          <div class="col-xs-12 col-sm-6">
+                            <div class="form-group" style="max-width:320px;">
+                              <label for="interactionType"># of Interactions - <small>For ML's Only</small></label>
+                              <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default btn-number" ng-click="decrease()">
+                                          <span class="glyphicon glyphicon-minus"></span>
+                                      </button>
+                                  </span>
+                                  <input type="number" class="form-control input-number" style="height:34px;" ng-model="data.interactionCount">
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default btn-number" ng-click="increase()">
+                                          <span class="glyphicon glyphicon-plus"></span>
+                                      </button>
+                                  </span>
+                              </div>
+                            </div>
+                          </div>
+                          --> 
+                            
+
+
+                          <!-- footer -->
+                          <div class="buttons-footer">
+                            <a class="collapsed btn btn-primary pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" style="margin-right:0px;">
+                               Next Step
+                            </a>
+                          </div>
+
+                          </div>
+                        </form>
+                        <!-- end form -->
+                      </div>
+                    </div>
+                    <!-- end row -->
+
+              </div>
+            </div>
+          </div>
+            <!-- end collapse -->
+
+          <!-- ============ -->
+          <!--    Step 2    -->
+          <!-- ============ -->
+          <div class="panel checkout-step">
+            <!-- panel-header -->
+            <div role="tab" id="headingTwo"> <span class="checkout-step-number">2</span>
+              <h4 class="checkout-step-title">
+                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" > 
+                  People Involved 
+                  <span ng-if="data.attendees.length">({{data.attendees.length}})</span>
+                 </a> 
+              </h4>
+            </div> 
+            
+             
+                     
+            <!-- collapse -->
+            <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="checkout-step-body">
+                 <button class="btn btn-success text-right" role="button" style="margin:0 5px;" ng-click="save2('People')"> People</button>
+                  <div class="row">
+                    <div class="col-xs-12 col-lg-8">
+
+                      <form name="peopleInvolvedForm" novalidate>
+                        <div class="row">
+                          
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-12">
+                              <div class="form-group">
+                                <div class="radio-inline">
+                                <label for="peopleTypeByAccount">
+                                  <input type="radio" name="peopleTypeByAccount" id="peopleTypeByAccount" value="by-account" ng-model="data.peopleType"> By Account </label>
+                                </div>
+                                <div class="radio-inline">
+                                  <label for="peopleTypeSearch">
+                                    <input type="radio" name="peopleTypeSearch" id="peopleTypeSearch" value="all" ng-model="data.peopleType"> Search All Contacts</label>
+                                </div>
+
+                                </div>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-6" ng-if="data.peopleType == 'by-account'">
+                               <div class="form-group">
+                                <label for="">Account </label>
+                               <div id="scrollable-dropdown-menu">
+                                <input type="text" ng-model="data.searchByAccount" 
+                                  uib-typeahead="account as account.name for account in findAccounts($viewValue)" class="form-control" typeahead-template-url="searchAccount.html" placeholder="Search..." typeahead-editable="false" typeahead-on-select="showContactsByAccount($item, $model, $label, $event)" typeahead-loading="data.accountContactLoading" typeahead-no-results="data.accountContactNoResults">
+                                  <icon ng-if="data.accountContactLoading" class="loading-indicator fa fa-spinner fa-spin"></icon>
+                                  <span class="clear-typeahead" ng-if="!data.accountContactLoading && data.searchByAccount" ng-click="data.searchByAccount = null;">Clear</span>
+                                  <span ng-if="data.accountContactNoResults" class="help-text">No Results Found</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-6" ng-if="data.peopleType == 'by-account'">
+                              <label class="control-label" for="name">Select Contact</label>
+                              <br>
+                              <p class="form-static text-muted" ng-if="!data.searchByAccount">No Account Selected</p>
+
+                              <div id="scrollable-dropdown-menu2" ng-if="data.searchByAccount">
+                              <input type="text" 
+                                ng-model="data.selectedAttendee" 
+                                uib-typeahead="contact as contact.firstName + ' ' + contact.lastName for contact in findContactsByAccount($viewValue, data.searchByAccount) " 
+                                class="form-control" 
+                                typeahead-template-url="searchContacts.html" 
+                                placeholder="Search..." 
+                                typeahead-on-select="addAttendeeCard($item, $model, $label, $event)" 
+                                typeahead-show-hint="true" 
+                                typeahead-min-length="0" 
+                                ng-focus="onFocus($event)" 
+                                typeahead-loading="data.contactByAccountLoading" 
+                                typeahead-no-results="data.contactByAccountNoResults">
+                                
+                              <icon ng-if="data.contactByAccountLoading" class="loading-indicator fa fa-spinner fa-spin"></icon>
+                              <span class="clear-typeahead" ng-if="!data.contactByAccountLoading && data.selectedAttendee" ng-click="data.selectedAttendee = null;">Clear</span>
+                              <span ng-if="data.contactByAccountNoResults" class="help-text">No Results Found</span>
+                              </div>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12" ng-if="data.peopleType == 'all'">
+                              <label class="control-label" for="name">Search Contacts</label>
+                              <input id="selectedPeople" 
+                                  type="text" 
+                                  ng-model="data.selectedAttendee" 
+                                  uib-typeahead="contact as contact.firstName + ' ' + contact.lastName for contact in findContacts($viewValue)" 
+                                  class="form-control" 
+                                  typeahead-template-url="searchContacts.html" 
+                                  placeholder="Search..." 
+                                  typeahead-on-select="addAttendeeCard($item, $model, $label, $event, data.contacts)" 
+                                  typeahead-loading="data.pickContactLoading" 
+                                  typeahead-no-results="data.pickContactLoadingNoResults">
+                              <icon ng-if="data.pickContactLoading" class="loading-indicator fa fa-spinner fa-spin"></icon>
+                              <span class="clear-typeahead" ng-if="!data.pickContactLoading && data.selectedAttendee" ng-click="data.selectedAttendee = null;">Clear</span>
+                              <span ng-if="data.pickContactLoadingNoResults" class="help-text">No Results Found</span>
+                              <br>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12" style="padding:0px;">
+                              <div class="contact-cards" style="min-height:150px;" ng-if="data.attendees.length">
+                                <p style="margin:5px 15px; margin-bottom:15px;"><b>Selected Contacts:</b></p>
+                                <div class="col-xs-12 col-sm-6" ng-repeat="attendee in data.attendees | orderBy:'lastName'">
+                                    <div class="submission-record with-icon">
+                                      <span class="entity-icon contact-icon">
+                                        <img src="/resource/1500149180000/SLDS231/assets/icons/standard/contact.svg"></img>
+                                      </span>
+                                      <h5 ng-bind="(attendee.firstName + ' ' + attendee.lastName) || '--'"></h5>
+                                      <p><small ng-bind="attendee.title || 'No Title'"></small></p>
+                                      <p><small ng-bind="attendee.accountName || '--'"></small></p>
+
+                                      <button class="btn btn-link remove-submission" ng-click="removeAttendee(attendee)">
+                                        <icon class="fa fa-plus-circle"></icon>
+                                      </button>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                            <!-- col -->
+                            <div class="col-xs-12">
+                              <div class="empty-state" ng-if="!data.attendees.length">
+                                <h5>No People Selected</h5>
+                                <p>Search For Related People Above</p>
+                              </div>
+                            </div>
+
+
+                          </div>
+                        </form>
+                        <!-- end form -->
+
+                        <br>
+                        <br>
+
+                          <!-- footer -->
+                          <div class="buttons-footer text-right">
+                              <a class="collapsed btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFirst"> Previous Step</a>
+
+                              <a class="collapsed btn btn-primary" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> Next Step</a>
+                          </div>
+
+
+                      </div>
+                    </div>
+                    <!-- end row -->
+              </div>
+            </div>
+            <!-- end collapse -->
+          </div>
+
+          <!-- ============ -->
+          <!--    Step 3    -->
+          <!-- ============ -->
+          <div class="panel checkout-step">
+              <div role="tab" id="headingThree"> <span class="checkout-step-number">3</span>
+                <h4 class="checkout-step-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" > Presentation Materials <span ng-if="data.presentations.length">({{data.presentations.length}})</span></a> </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse">
+                <div class="checkout-step-body">
+                  <div class="checkout-address-step">
+                    
+                     <button class="btn btn-success text-right" role="button" style="margin:0 5px;" ng-click="save2('Material')"> Material</button>
+                
+                    <div class="row">
+                      <div class="col-xs-12 col-lg-8">
+
+                       <form class="">
+                        <div class="row">
+
+
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-12">
+                              <div class="form-group">
+                               
+
+                                </div>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-6" ng-if="data.presentationType == 'by-type'">
+                                <label for="">Presentation Category </label>
+
+                                   <ol id="singleSelection" class="nya-bs-select" ng-model="data.findPresentationsByType" ng-change="showPresentationsByType(data.findPresentationsByType)">
+                                    <li class="nya-bs-option" nya-bs-option="type in data.materialTypes">
+                                      <a>{{type.label}}</a>
+                                    </li>
+                                  </ol>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-6" ng-if="data.presentationType == 'by-type'">
+                              <label class="control-label" for="name">Select Presentation</label>
+                              <br>
+                              <p class="form-static text-muted" ng-if="!data.findPresentationsByType">No Type Selected</p>
+
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12" ng-if="data.presentationType == 'all'">
+                              <label class="control-label" for="name">Search Presentations</label>
+                              <input type="text" 
+                                ng-model="data.selectedPresentation" 
+                                uib-typeahead="presentation for presentation in findPresentations($viewValue)" 
+                                class="form-control" 
+                                typeahead-template-url="searchContent.html" 
+                                placeholder="Search..." 
+                                typeahead-on-select="addPresentationCard($item, $model, $label, $event, data.presentations)" 
+                                typeahead-loading="data.allPresentationsLoading" 
+                                typeahead-no-results="data.allPresentationsNoResults">
+                              <icon ng-if="data.allPresentationsLoading" class="loading-indicator fa fa-spinner fa-spin"></icon>
+                              <span class="clear-typeahead" ng-if="!data.allPresentationsLoading && data.selectedPresentation" ng-click="data.selectedPresentation = null;">Clear</span>
+                              <span ng-if="data.allPresentationsNoResults" class="help-text">No Results Found</span>
+                              <br>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12" style="padding:0px;">
+                              <div class="contact-cards" style="min-height:150px;" ng-if="data.presentations.length">
+                              <p style="margin:5px 15px; margin-bottom:15px;"><b>Selected Presentations:</b></p>
+                                <div class="col-xs-12 col-sm-6" ng-repeat="presentation in data.presentations | orderBy:'name'">
+                                    <div class="submission-record with-icon">
+                                      <span class="entity-icon document-icon">
+                                        <img src="/resource/1500149180000/SLDS231/assets/icons/standard/document.svg">
+                                      </span>
+                                      <h5>{{presentation.materialName}}</h5>
+                                      <p><small ng-bind="presentation.materialVersion || 'No Version'"></small></p>
+                                      <p><small ng-bind="presentation.materialCategory || 'No Category'"></small></p>
+                                       
+
+                                      <button class="btn btn-link remove-submission" ng-click="removeItem(presentation, data.presentations)">
+                                        <icon class="fa fa-plus-circle"></icon>
+                                      </button>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                            <!-- col -->
+                            <div class="col-xs-12">
+                              <div class="empty-state" ng-if="!data.presentations.length">
+                                <h5>No Presentations Selected</h5>
+                                <p>Search For Related Presentations Above</p>
+                              </div>
+                            </div>
+
+                            </div>
+                          </form>
+
+                          <br>
+                          <br>
+
+                          <!-- footer -->
+                          <div class="buttons-footer text-right">
+                              <a class="collapsed btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> Previous Step</a>
+
+                              <a class="collapsed btn btn-primary" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"> Next Step</a>
+                          </div>
+
+
+                        </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+          <!-- ============ -->
+          <!--    Step 4    -->
+          <!-- ============ -->
+          <div class="panel checkout-step">
+                <div role="tab" id="headingFour"> <span class="checkout-step-number">4</span>
+                  <h4 class="checkout-step-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"  > Leave Behinds <span ng-if="data.leaveBehinds.length">({{data.leaveBehinds.length}})</span></a> 
+                  </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                  <div class="checkout-step-body">
+                   <div class="checkout-address-step">
+                     
+                       <button class="btn btn-success text-right" role="button" style="margin:0 5px;" ng-click="save2('Leave Behinds')"> Leave Behind</button>
+                
+                    <div class="row">
+                      <div class="col-xs-12 col-lg-8">
+
+                       <form class="">
+                        <div class="row">
+                          
+
+                           <!-- col -->
+                            <div class="col-xs-12 col-sm-12">
+                              <div class="form-group">
+                                <div class="radio-inline">
+                                <label for="leaveBehindByType">
+                                  <input type="radio" name="leaveBehindByType" id="leaveBehindByType" value="by-type" ng-model="data.leaveBehindType"> By Category </label>
+                                </div>
+                                <div class="radio-inline">
+                                  <label for="leaveBehindSearch">
+                                    <input type="radio" name="leaveBehindSearch" id="leaveBehindSearch" value="all" ng-model="data.leaveBehindType"> Search All Leave Behinds</label>
+                                </div>
+
+                                </div>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-6" ng-if="data.leaveBehindType == 'by-type'">
+                                <label for="">Leave Behind Category </label>
+                                  <ol id="singleSelection" class="nya-bs-select" ng-model="data.findLeaveBehindsBytype" ng-change="showLeaveBehindsByType(data.findLeaveBehindsBytype)">
+                                    <li class="nya-bs-option" nya-bs-option="type in data.materialTypes">
+                                      <a>{{type.label}}</a>
+                                    </li>
+                                  </ol>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12 col-sm-6" ng-if="data.leaveBehindType == 'by-type'">
+                              <label class="control-label" for="name">Select Leave Behinds</label>
+                              <br>
+                              <p class="form-static text-muted" ng-if="!data.findLeaveBehindsBytype">No Type Selected</p>
+  
+                              <div id="scrollable-dropdown-menu-12355" ng-if="data.findLeaveBehindsBytype">
+                              <input type="text" 
+                                ng-model="data.selectedLeaveBehind" 
+                                uib-typeahead="leaveBehind for leaveBehind in findLeaveBehindsByType($viewValue, data.findLeaveBehindsBytype)" 
+                                class="form-control" 
+                                typeahead-template-url="searchContent.html" 
+                                placeholder="Search..." 
+                                typeahead-on-select="addLeaveBehindCard($item, $model, $label, $event)" 
+                                typeahead-show-hint="true" 
+                                typeahead-min-length="0" 
+                                ng-focus="onFocus($event)" 
+                                typeahead-loading="data.leaveBehindsByTypeLoading" 
+                                typeahead-no-results="data.leaveBehindsByTypeNoResults">
+                              <icon ng-if="data.leaveBehindsByTypeLoading" class="loading-indicator fa fa-spinner fa-spin"></icon>
+                              <span class="clear-typeahead" ng-if="!data.leaveBehindsByTypeLoading && data.selectedLeaveBehind" ng-click="data.selectedLeaveBehind = null;">Clear</span>
+                              <span ng-if="data.leaveBehindsByTypeNoResults" class="help-text">No Results Found</span>
+                            </div>
+
+
+                            <!-- col -->
+                            <div class="col-xs-12" ng-if="data.leaveBehindType == 'all'">
+                              <label class="control-label" for="name">Search Leave Behinds</label>
+                              <input type="text" 
+                                ng-model="data.selectedLeaveBehind" 
+                                uib-typeahead="leaveBehind for leaveBehind in findLeaveBehinds($viewValue)" 
+                                class="form-control" 
+                                typeahead-template-url="searchContent.html" 
+                                placeholder="Search..." 
+                                typeahead-on-select="addLeaveBehindCard($item, $model, $label, $event)" 
+                                typeahead-loading="data.allLeaveBehindsLoading" 
+                                typeahead-no-results="data.allLeaveBehindsNoResults">
+                              <icon ng-if="data.allLeaveBehindsLoading" class="loading-indicator fa fa-spinner fa-spin"></icon>
+                              <span class="clear-typeahead" ng-if="!data.allLeaveBehindsLoading && data.selectedLeaveBehind" ng-click="data.selectedLeaveBehind = null;">Clear</span>
+                              <span ng-if="data.allLeaveBehindsNoResults" class="help-text">No Results Found</span>
+                              <br>
+                            </div>
+
+                            <!-- col -->
+                            <div class="col-xs-12" style="padding:0px;">
+                              <div class="contact-cards" style="min-height:150px;" ng-if="data.leaveBehinds.length">
+                              <p style="margin:5px 15px; margin-bottom:15px;"><b>Selected Leave Behinds:</b></p>
+                                <div class="col-xs-12 col-sm-6" ng-repeat="leaveBehind in data.leaveBehinds | orderBy:'name'">
+                                    <div class="submission-record with-icon">
+                                      <span class="entity-icon document-icon">
+                                        <img src="/resource/1500149180000/SLDS231/assets/icons/standard/document.svg">
+                                      </span>
+                                      <h5>{{leaveBehind.materialName}}</h5>
+                                      <p><small ng-bind="leaveBehind.materialVersion || 'No Version'"></small></p>
+                                      <p><small ng-bind="leaveBehind.materialCategory || 'No Category'"></small></p>
+
+                                      <button class="btn btn-link remove-submission" ng-click="removeItem(leaveBehind, data.leaveBehinds)">
+                                        <icon class="fa fa-plus-circle"></icon>
+                                      </button>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                            <!-- col -->
+                            <div class="col-xs-12">
+                              <div class="empty-state" ng-if="!data.leaveBehinds.length">
+                                <h5>No Leave Behinds Selected</h5>
+                                <p>Search For Related Leave Behinds Above</p>
+                              </div>
+                            </div>
+
+                          <span class="relateLeaveBehinds" ng-if="data.leaveBehinds.length">
+                            
+                            <div class="col-xs-12">
+                              <h4 style="margin-bottom:20px; margin-top:15px;" class="text-center;">Select Leave Behinds and Who Received Them</h4>
+
+                              <div class="col-xs-12 col-sm-6" style="padding:0px;padding-right:10px;">
+                                <span class="leaveBehind-listgroup">
+                                  <p>1. Select Which Leave Behinds were left</p>
+              
+                                  <p class="select-deselect text-left"><small>
+                                    <a href ng-click="selectAllLeaveBehinds()">Select All</a> | 
+                                    <a href ng-click="deselectAllLeaveBehinds()">De-Select All</a></small>
+                                  </p>
+                                  <list-group 
+                                    items="data.leaveBehinds" 
+                                    label-fn="leaveBehindName(item)"
+                                    selectable="multiple" 
+                                    selected-items="data.leaveBehindsToRelate"
+                                    after-selection-change="getAttendeesForLeaveBehind(item)">
+                                  </list-group>
+                                </span>
+                              </div>
+                              <div class="col-xs-12 col-sm-6" style="padding:0px; padding-left:10px;">
+                                <span>
+                                  <p>2. Select Recipients</p>
+
+                                  <p class="select-deselect text-left"><small>
+                                    <a href ng-click="selectAllAttendees()">Select All</a> | 
+                                    <a href ng-click="deselectAllAttendees()">De-Select All</a></small>
+                                  </p>
+                                  <list-group 
+                                      ng-if="data.attendees.length" 
+                                      items="data.attendees"
+                                      label-fn="attendeeName(item)"
+                                      selectable="multiple" 
+                                      selected-items="data.attendeesToRelate"
+                                  >
+                                  </list-group>
+                                </span>
+
+                                <p class="text-center empty-state" ng-if="!data.attendees.length" style="margin:0px;">No Contacts Involved</p>
+                              </div>
+                            </div>
+                          
+                            <hr>
+
+                            <div class="col-xs-12 col-sm-6" style="padding-top:15px;">
+                              <span class="distribution-counter">
+                              <p class="text-left" style="margin-top:5px;">
+                                <b>{{data.attendeesWithLeaveBehinds.length}} contact(s) </b> received <b>{{data.leaveBehindsAssigned.length}} Leave Behinds</b> 
+                              </p>
+                              <p class="text-left" ng-if="data.leaveBehindsAssigned.length < data.selectedLeaves.length"><span class="text-danger">Warning! <b>{{data.selectedLeaves.length - data.leaveBehindsAssigned.length}}</b> Leave Behinds Not Related</span></p>
+
+                              <p class="text-left text-success" ng-if="data.selectedLeaveBehindss.length == data.leaveBehindsAssigned.length">All Leave Behinds Related to Contacts</p>
+                              </span>
+                            </div>
+                            
+                            
+                            <div class="col-xs-12 col-sm-6" style="padding-top:15px;">
+                              <button class="btn btn-default btn-outline pull-right" 
+                                ng-disabled="!data.attendeesToRelate.length || !data.leaveBehindsToRelate.length" 
+                                ng-click="relateLeaveBehindsAttendees()">3. Relate Leave Behind to Contact
+                              </button>
+                            </div>
+                          </span>
+                                        
+          
+                        </div>
+                      </form>
+
+                      <!-- footer -->
+                      <div class="buttons-footer text-right">
+                          <a class="collapsed btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> Previous Step</a>
+
+                          <a class="collapsed btn btn-primary" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"> Next Step</a>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+          </div>
+
+          <!-- ============ -->
+          <!--    Step 5    -->
+          <!-- ============ -->
+          <div class="panel checkout-step">
+            <div role="tab" id="headingFive"> <span class="checkout-step-number">5</span>
+              <h4 class="checkout-step-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"  > Confirm & Submit </a> </h4>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse">
+              <div class="checkout-step-body">
+
+                <button class="btn btn-success text-right" role="button" style="margin:0 5px;" ng-click="save2('Submit')"> Submit</button>
+                
+                <div class="row">
+                 <div class="col-xs-12 col-lg-8">
+
+
+                  <!-- Confirmation Details -->
+
+                  <form action="">
+                    <div class="row">
+
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label"><b>Subject</b></label>
+                          <div class="">
+                            <p class="form-control-static" ng-bind="data.interaction.name || '--'"></p>
+                          </div>
+                        </div>
+                      </div>
+
+                     <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label"><b>Topic</b></label>
+                          <div class="">
+                            <p class="form-control-static" ng-bind="data.interaction.topic || '--'"></p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      
+                       <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label"><b>Product</b></label>
+                          <div class="">
+                            <p class="form-control-static" ng-bind="data.selectedProducts || '--'"></p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label"><b>Account</b></label>
+                          <div class="">
+                            <p class="form-control-static" ng-bind="data.selectedAccount.name  || '--'"></p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label"><b>Venue</b></label>
+                          <div class="">
+                            <p class="form-control-static" ng-bind="data.selectedVenue.formatted_address || '--'"></p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label"><b>Date</b></label>
+                          <div class="">
+                      
+                            <p class="form-control-static"  ng-bind="data.interaction.date || '--' | date:'MM/dd/yyyy'"></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </form>
+                  
+                  <hr>
+
+                  <br>
+                  
+                  
+                  <div>
+                    <label class="control-label"><b>Presentation Materials</b></label>
+                     <button class="btn btn-success text-right" role="button" style="margin:0 5px;" ng-click="save2('Material2')"> Material2</button>
+
+                    <p ng-repeat="presentation in data.presentations">
+                      {{presentation.materialName}}
+                    </p>
+
+                    <p ng-if="!data.presentations.length">No Presentations</p>
+                  
+                    <br>
+                    <hr>
+                  
+                  </div>
+                  
+               
+                  
+                  <label class="control-label"><b>Contacts & Leave Behinds</b></label>
+
+                  <p ng-if="!data.attendees.length" style="margin:10px 0;">No Contacts Involved</p>
+                  
+                  <button class="btn btn-success text-right" role="button" style="margin:0 5px;" ng-click="save2('Contacts')"> Contacts No BS with NG</button>
+
+                <div class="row" style="margin-top:15px;margin-left:-20px; margin-right:-20px;">
+                   
+                    <!-- submission-record-1 -->
+                  <div class="col-xs-12 col-sm-6" ng-repeat="attendee in data.attendees">
+                      
+                    <!-- <div class="submission-record"> --> 
+                    <div >
+                      <h4><span ng-bind="attendee.firstName"></span> <span ng-bind="attendee.lastName"></span></h4>
+                        
+                      <div class="row">
+                      
+                        
+                        <div>
+                        <!-- <div class="col-xs-12 col-sm-12"> --> 
+                          
+                          <p><b>Leave Behinds ({{attendee.leaveBehinds.length && 0}})</b></p> 
+                         
+                          <ul class="list-unstyled">
+                            <li ng-repeat="leaveBehind in attendee.leaveBehinds">
+                              <p>{{leaveBehind.materialName}} - 
+                                    <a href ng-click="removeLeaveBehind(attendee, leaveBehind)">Remove</a> 
+                              </p>
+                            </li>
+                          </ul>
+
+                          <p ng-if="!attendee.leaveBehinds.length"><small>No Leave Behinds</small></p>
+                         
+                        </div>
+                       
+                       
+                      </div>
+                    </div>
+                    
+                    <!-- end record -->
+
+                  </div>
+                </div>
+
+                <br>
+                <br>
+                  
+                <!-- footer -->
+                <div class="buttons-footer text-right">
+                      <a class="collapsed btn btn-default" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" style="margin:0 5px;"> Previous Step</a>
+
+                      <br class="visible-xs">
+                      <br class="visible-xs">
+                      
+                      Load Two buttons
+                      
+                      <button class="btn btn-success text-right" role="button" style="margin:0 5px;" ng-click="save2()"> Test</button>
+                      
+                      <a class="collapsed btn btn-success text-right" role="button" href style="margin:0 5px;z-index:99999" ng-click="save()" ng-disabled="detailsForm.$invalid"> Save Interaction</a>
+                      
+                </div>
+              </div>   
+            </div>
+          </div>
+
+          <!-- end panel -->
+
+        </div>
+        </div>
+      </div>
+    </div>
+   </div>
+  </div>
+</span>

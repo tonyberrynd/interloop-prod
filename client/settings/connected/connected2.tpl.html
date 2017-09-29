@@ -1,0 +1,275 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Connected Apps</h4>
+					<p>Connect your email, calendar, and other integrations to make Interloop more useful.</p>
+					</div>
+
+
+					<div class="row">
+
+						<!-- Office 365 -->
+						<!-- =========================== -->
+						<div class="col-xs-4">
+							<div class="panel panel-default integration-card">
+									<div class="panel-body">
+									<div class="integration-logo">
+										<img src="../../assets/img/integrations/office_365.png" alt="Office 365">
+									</div>
+									<div class="integration-text">
+										<h5>Office 365</h5>
+										<p>Enable your work account to sync Email, Calendar, & More</p>
+									</div>
+									</div>
+									<div class="panel-footer">
+										<div class="integration-action">
+											<button class="btn btn-primary">
+												Connect Now
+											</button>
+
+											<div ng-if="data.connected" class="currently-connected">
+												<h5>Currently Connected</h5>
+												<p><small><a href="">Disconnect</a></small></p>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						<!-- =========================== -->
+
+						<!-- Google -->
+						<!-- =========================== -->
+						<div class="col-xs-4">
+							<div class="panel panel-default integration-card">
+									<div class="panel-body">
+									<div class="integration-logo">
+										<img src="../../assets/img/integrations/google_logo.png" alt="Google">
+									</div>
+									<div class="integration-text">
+										<h5>Google</h5>
+										<p>Enable 2 way sync with your Google account</p>
+									</div>
+									</div>
+									<div class="panel-footer">
+										<div class="integration-action">
+
+											<p ng-if="!integration.enabled">Coming Soon...</p>
+
+											<button class="btn btn-primary" ng-if="integration.enabled">
+												Connect Now
+											</button>
+
+											<div ng-if="data.connected" class="currently-connected">
+												<h5>Currently Connected</h5>
+												<p><small><a href="">Disconnect</a></small></p>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						<!-- =========================== -->
+
+						<!-- Icloud -->
+						<!-- =========================== -->
+						<div class="col-xs-4">
+							<div class="panel panel-default integration-card">
+									<div class="panel-body">
+									<div class="integration-logo">
+										<img src="../../assets/img/integrations/Icloud_logo.png" alt="iCloud">
+									</div>
+									<div class="integration-text">
+										<h5>iCloud</h5>
+										<p>Import contacts From your iCloud account</p>
+									</div>
+									</div>
+									<div class="panel-footer">
+										<div class="integration-action">
+											<button class="btn btn-primary">
+												Connect Now
+											</button>
+
+											<div ng-if="data.connected" class="currently-connected">
+												<h5>Currently Connected</h5>
+												<p><small><a href="">Disconnect</a></small></p>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						<!-- =========================== -->
+
+						<!-- Dropbox -->
+						<!-- =========================== -->
+						<div class="col-xs-4">
+							<div class="panel panel-default integration-card">
+									<div class="panel-body">
+									<div class="integration-logo">
+										<img src="../../assets/img/integrations/dropbox_logo.jpg" alt="Dropbox">
+									</div>
+									<div class="integration-text">
+										<h5>Dropbox</h5>
+										<p>Connect dropbox to manage files and documents in the cloud.</p>
+									</div>
+									</div>
+									<div class="panel-footer">
+										<div class="integration-action">
+											<button class="btn btn-primary">
+												Connect Now
+											</button>
+
+											<div ng-if="data.connected" class="currently-connected">
+												<h5>Currently Connected</h5>
+												<p><small><a href="">Disconnect</a></small></p>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						<!-- =========================== -->
+
+						<!-- Box -->
+						<!-- =========================== -->
+						<div class="col-xs-4">
+							<div class="panel panel-default integration-card">
+									<div class="panel-body">
+									<div class="integration-logo">
+										<img src="../../assets/img/integrations/box_logo.png" alt="Box">
+									</div>
+									<div class="integration-text">
+										<h5>Box</h5>
+										<p>Connect box to manage files and documents in the cloud.</p>
+									</div>
+									</div>
+									<div class="panel-footer">
+										<div class="integration-action">
+											<p>Coming Soon...</p>
+
+											<button class="btn btn-primary" ng-if="integration.enabled">
+												Connect Now
+											</button>
+
+											<div ng-if="data.connected" class="currently-connected">
+												<h5>Currently Connected</h5>
+												<p><small><a href="">Disconnect</a></small></p>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						<!-- =========================== -->
+
+
+												<!-- Evernote -->
+						<!-- =========================== -->
+						<div class="col-xs-4">
+							<div class="panel panel-default integration-card">
+									<div class="panel-body">
+									<div class="integration-logo">
+										<img src="../../assets/img/integrations/evernote_logo.png" alt="Evernote">
+									</div>
+									<div class="integration-text">
+										<h5>Evernote</h5>
+										<p>Add Notes, Log Details, and More</p>
+									</div>
+									</div>
+									<div class="panel-footer">
+										<div class="integration-action">
+											<p ng-if="!integration.enabled">Coming Soon...</p>
+
+											<button class="btn btn-primary" ng-if="integration.enabled">
+												Connect Now
+											</button>
+
+											<div ng-if="data.connected" class="currently-connected">
+												<h5>Currently Connected</h5>
+												<p><small><a href="">Disconnect</a></small></p>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						<!-- =========================== -->
+
+
+
+						<!-- Quip -->
+						<!-- =========================== -->
+						<div class="col-xs-4">
+							<div class="panel panel-default integration-card">
+									<div class="panel-body">
+									<div class="integration-logo">
+										<img src="../../assets/img/integrations/quip_logo.png" alt="Quip">
+									</div>
+									<div class="integration-text">
+										<h5>Quip</h5>
+										<p>Attach Quip documents to entities & more</p>
+									</div>
+									</div>
+									<div class="panel-footer">
+										<div class="integration-action">
+											
+											<p ng-if="!integration.enabled">Coming Soon...</p>
+
+											<button class="btn btn-primary" ng-if="integration.enabled">
+												Connect Now
+											</button>
+
+											<div ng-if="data.connected" class="currently-connected">
+												<h5>Currently Connected</h5>
+												<p><small><a href="">Disconnect</a></small></p>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						<!-- =========================== -->
+
+
+
+						<!-- ToDoist -->
+						<!-- =========================== -->
+						<div class="col-xs-4">
+							<div class="panel panel-default integration-card">
+									<div class="panel-body">
+									<div class="integration-logo">
+										<img src="../../assets/img/integrations/todoist_logo.png" alt="ToDoist">
+									</div>
+									<div class="integration-text">
+										<h5>ToDoist</h5>
+										<p>Track Tasks and activities from your task list</p>
+									</div>
+									</div>
+									<div class="panel-footer">
+										<div class="integration-action">
+											
+											<p ng-if="!integration.enabled">Coming Soon...</p>
+
+											<button class="btn btn-primary" ng-if="integration.enabled">
+												Connect Now
+											</button>
+
+											<div ng-if="data.connected" class="currently-connected">
+												<h5>Currently Connected</h5>
+												<p><small><a href="">Disconnect</a></small></p>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						<!-- =========================== -->
+
+
+
+
+					</div>
+
+
+				</div>
+		</div>
+
+					

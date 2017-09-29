@@ -1,0 +1,153 @@
+.reset {
+    background-color:$limestone;
+    width:100vw;
+    height:100vh;
+    position: relative;
+
+.reset-inner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.reset-card {
+    width:500px;
+    background-color:$diamond;
+    border:solid 1px $border;
+    border-radius:5px;
+    padding:54px;
+    padding-top:40px;
+}
+
+
+.reset-title {
+	text-align:center;
+	margin-bottom:20px;
+
+	h3 {
+		margin:10px;
+	}
+}
+
+input[password] {
+	font-size:20px !important;
+}
+
+.reset-errors {
+	background-color:transparent;
+	border-top: solid 1px rgba(232,82,82,.5);
+	border-bottom: solid 1px rgba(232,82,82,.5);
+	color:$diamond;
+	font-weight:600;
+	padding:5px;
+	margin-bottom:20px;
+
+	&.ng-enter {
+	   animation: fadeIn 0.25s;
+      -webkit-animation: fadeIn 0.25s;
+	}
+
+	&.ng-leave {
+	   animation: fadeOut 0.25s;
+      -webkit-animation: fadeOut 0.25s;
+	}
+
+	p {
+		margin:0px;
+	}
+}
+
+.form-group {
+	position:relative;
+}
+
+.return {
+	color:$topaz;
+	margin-top:10px;
+	text-align:center;
+}
+
+
+}
+
+.successIcon icon {
+	font-size:32px;
+	color:$success;
+}
+
+.updateSucces {
+	font-size:16px;
+	&.ng-enter {
+    animation: fadeIn 0.25s;
+    -webkit-animation: fadeIn 0.25s;
+	}
+}
+
+
+//components
+
+.passStrengthMeter {
+	display: relative;
+	width:100%;
+	margin:5px 0;
+	margin-bottom:20px;
+	white-space: nowrap;
+	
+	.strengthBar {
+		display: inline-block;
+		height:4px;
+		border-radius: 1px;
+		width:25%;
+		background-color:$gravel;
+	}
+
+	.strengthMessage {
+		position: absolute;
+		right:5px;
+		font-size:11px;
+		font-weight:500;
+	}
+	//weak
+	&.weak {
+		.strengthBar:first-child {
+			background-color:danger;
+		}
+		.strengthMessage {
+			color:danger;
+		}
+	}
+
+	//so-so
+	&.so-so {
+		.strengthBar:first-child,
+		.strengthBar:nth-child(2) {
+			background-color:$sunlight;
+		}
+		.strengthMessage {
+			color:$sunlight;
+		}
+	}
+
+	//good
+	&.good {
+		.strengthBar:first-child,
+		.strengthBar:nth-child(2),
+		.strengthBar:nth-child(3) {
+			background-color:$warning;
+		}
+		.strengthMessage {
+			color:$warning;
+		}
+	}
+
+	//good
+	&.great {
+		.strengthBar {
+			background-color:$success !important;
+		}
+		.strengthMessage {
+			color:$success;
+		}
+	}
+}

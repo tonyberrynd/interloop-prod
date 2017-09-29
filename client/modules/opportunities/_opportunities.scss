@@ -1,0 +1,425 @@
+	.pane-wrapper {
+			padding:0px;
+
+			.list-group li {
+				border-left:none;
+				border-right:none;
+				color:$seamonster;
+				font-weight:500;
+				font-size: 14px;
+			}
+
+			.list-group .pull-right {
+				color:$seamonster;
+			}
+
+			.pane-title {
+				color:$dragonstone;
+				padding:5px 0px;
+				font-size:14px;
+				padding-bottom:15px;
+				font-weight:500;
+				margin:0px;
+			}
+
+			.pane {
+				width:100%;
+				margin-top:10px;
+				background-color:#fff;
+				display: block;
+				padding:0px 15px;
+				border-top:solid 1px $border;
+				border-bottom:solid 1px $border;
+				margin-bottom:10px;
+
+
+				.label {
+					font-size:14px;
+				}
+			}
+		}
+
+//Opportunity Insights
+//===========================
+.opp-insights-overview {
+
+	p {
+		margin-bottom: 0px !important;
+	}
+
+	span {
+		text-transform: uppercase;
+	}
+
+	.row {
+		padding:0px 5px;
+	}
+
+	.col-xs-4 {
+		padding:10px 15px;
+
+		&:first-child {
+			border-right:solid 1px $border;
+		}
+		&:last-child {
+			border-left:solid 1px $border;
+		}
+	}
+
+	.days {
+		font-size:25px;
+		display: inline-block;
+		color:$dragonstone;
+		opacity: .85;
+	}
+
+	.size {
+		font-size:25px;
+		display: inline-block;
+		color:$topaz;
+		opacity: .85;
+
+        &.won {
+            color:$success;
+        }
+
+        &.lost {
+            color:$danger;
+        }
+	}
+
+	.score {
+		font-size:25px;
+		display: inline-block;
+		color:$dragonstone;
+		opacity: .85;
+	}
+
+	span {
+		color:$dragonstone;
+		font-weight:500;
+		font-size:13px;
+	}
+
+	//colors for text item
+	.high {
+		color:$success !important;	
+	}
+
+    .med {
+        color:$warning !important;
+    }
+
+    .low {
+        color:$danger !important;
+    }
+}
+
+.process-insights {
+	color: $text-dark;
+}
+
+
+.pane-wrapper.last-activities {
+
+	.pane {
+		padding:0px !important;
+		padding-bottom:15px !important;
+
+		.pane-title {
+			padding:10px 15px;
+		}
+	}
+
+	.panel {
+		margin:5px 10px;
+		padding:0px;
+
+		.panel-body {
+			padding:10px 15px;
+		}
+
+		h5 {
+			margin-top:5px;
+		}
+
+		p {
+			margin-bottom:5px;
+		}
+	}
+}
+
+//Progress Steps
+//========================
+
+.progress-steps {
+    padding: 0px;
+    background: transparent;
+    list-style: none;
+    overflow: hidden;
+    margin:10px;
+    border-radius: 4px;
+}
+
+.progress-steps>li {
+    display: table-cell;
+    vertical-align: top;
+    width: 1%;
+}
+
+.progress-steps>li+li:before {
+    padding: 0;
+}
+
+.progress-steps li a {
+    color: $diamond;
+    font-size:13px;
+    text-decoration: none;
+    padding: 3px 0 3px 45px;
+    position: relative;
+    display: inline-block;
+    width: calc( 100% - 10px );
+    background-color: $border;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: capitalize;
+}
+
+.progress-steps li.completed a {
+    background: $success;
+}
+
+.progress-steps li.completed a:after {
+    border-left: 30px solid $success;
+}
+
+.progress-steps li.active a {
+    background: $topaz;
+}
+
+.progress-steps li.active a:after {
+    border-left: 30px solid $topaz;
+}
+
+.progress-steps li:first-child a {
+    padding-left: 20px;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+}
+
+.progress-steps li:last-child a:after {
+   display: none;
+}
+
+.progress-steps li:last-of-type a {
+    width: 100%;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    padding-right:20px;
+    padding-left:25px;
+}
+
+.progress-steps li a:before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    border-left: 30px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -30px;
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1;
+}
+
+.progress-steps li a:after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    border-left: 30px solid $border;
+    position: absolute;
+    top: 50%;
+    margin-top: -30px;
+    left: 100%;
+    z-index: 2;
+}
+
+//STAGES ABove
+//DATES BELOW
+
+.progress-stages {
+    padding: 0px;
+    background: transparent;
+    list-style: none;
+    overflow: hidden;
+    margin:0 5px;
+    border-radius: 4px;
+    padding-top:20px;
+}
+
+.progress-stages li {
+    display: table-cell;
+    vertical-align: top;
+    width: 1%;  
+}
+
+.progress-stages li span {
+    color: $seamonster;
+    font-weight:600;
+    text-decoration: none;
+    padding: 0px;
+    font-size:12px;
+    text-align: left;
+    position: relative;
+    display: inline-block;
+    width: calc( 100% - 10px );
+    text-align: center;
+    text-transform: capitalize;
+}
+
+
+
+//DATES BELOW
+
+.progress-dates {
+    padding: 0px;
+    background: transparent;
+    list-style: none;
+    overflow: hidden;
+    margin:0 10px;
+    border-radius: 4px;
+    padding:0 30px;
+    padding-bottom:20px;
+}
+
+.progress-dates li {
+    display: table-cell;
+    vertical-align: top;
+    width: 1%;  
+}
+
+.progress-dates li span {
+    color: $dragonstone;
+    text-decoration: none;
+    padding: 0px;
+    font-size:12px;
+    text-align: left;
+    position: relative;
+    display: inline-block;
+    width: calc( 100% - 10px );
+    text-align: center;
+    text-transform: capitalize;
+}
+
+
+
+//Milestone Item
+//=========================
+
+// activities
+
+.won-loss-buttons {
+	padding:5px 15px;
+
+	.btn {
+		width:49%;
+		display: inline-block;
+	}
+
+	.btn-block + .btn-block {
+	    margin-top: 0px;
+	}
+}
+
+.stage-completed {
+	color:$success;
+}
+
+.doc-actions .btn {
+	background-color:$diamond;
+}
+
+.doc-actions .btn:hover {
+	icon {
+		color:$topaz !important;
+	}
+}
+
+.milestone-item {
+	display: block;
+	position: relative;
+	min-height: 64px;
+	background-color:$diamond;
+	border-bottom: solid 1px $border;
+
+	&:first-child {
+		border-top-right-radius: 5px;
+		border-top-left-radius: 5px;
+	}
+
+	&:last-child {
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		border-bottom:none;
+	}
+
+
+	.checkbox {
+		position: absolute;
+		left:15px;
+		top:5px;
+		cursor:pointer;
+	}
+
+	input[type="checkbox"] {
+	 cursor:pointer; 
+
+	  &:checked + label::after{
+      font-family: "Web Icons" !important;
+      content: "\f129" !important;
+      }
+	}
+
+	.milestone-details {
+		padding: 10px 0px;
+	    margin-left: 50px;
+	    padding-right:100px;
+	}
+
+	.milestone-header {
+		color:$seamonster;
+		font-weight:600;
+	}
+
+	.milestone-description {
+		color:$dragonstone;
+	}
+
+	.complete-stage {
+		text-decoration: none;
+		color:$success !important;
+		font-weight:500;
+	}
+
+	.milestone-completed {
+		position: absolute;
+		display: block;
+		right:10px;
+		top:10px;
+		padding:2px;
+		border:solid 1px $border;
+		border-radius: 5px;
+		min-width: 80px;
+		text-align: center;
+	}
+
+	.optional {
+		color:$granite;
+	}
+}

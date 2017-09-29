@@ -1,0 +1,25 @@
+<!-- loading -->
+<div class="loop-loader loop-loader-light loop-loader-xs centered" ng-class="{'hidden': data.activated }"></div>
+
+<div class="settings-right" ng-class="{'hidden': !data.activated }">
+	<h4>Onboarding</h4>
+			
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			Launch Each Onboarding Flow Below:
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-12">
+
+					<button class="btn btn-primary" ng-click="$root.showOnboardingCorner = !$root.showOnboardingCorner"></button>
+					
+					<button class="btn btn-primary" ng-click="launchUserOnboarding()">Launch User Onboarding</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+

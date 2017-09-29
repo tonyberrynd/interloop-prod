@@ -1,0 +1,1 @@
+angular.module("coil.adminCtrl",[]).controller("adminCtrl",function(a,l){a.data={},a.data.currentTab="1"});

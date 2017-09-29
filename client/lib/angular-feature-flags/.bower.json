@@ -1,0 +1,38 @@
+{
+  "name": "angular-feature-flags",
+  "version": "1.6.1",
+  "authors": [
+    {
+      "name": "Michael Taranto",
+      "homepage": "https://github.com/mjt01"
+    },
+    {
+      "name": "Mark Dalgleish",
+      "homepage": "https://github.com/markdalgleish"
+    }
+  ],
+  "dependencies": {
+    "angular": ">=1.2"
+  },
+  "description": "Feature Flag module for Angular JS apps",
+  "homepage": "https://github.com/mjt01/angular-feature-flags",
+  "ignore": [
+    "*",
+    "!dist/**/*",
+    "!README.md"
+  ],
+  "main": [
+    "dist/featureFlags.js"
+  ],
+  "license": "MIT",
+  "_release": "1.6.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.6.1",
+    "commit": "fe17a3b4d7c4e939bac3e09385de18a6a7ec0786"
+  },
+  "_source": "https://github.com/mjt01/angular-feature-flags.git",
+  "_target": "^1.6.1",
+  "_originalSource": "angular-feature-flags",
+  "_direct": true
+}

@@ -1,0 +1,49 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">New Team</h3>
+            <p>Create a new team and add members</p>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+
+            <form name="newTeam" novalidate>
+
+              <div class="form-group">
+                <label for="title">Team Name</label>
+                  <input type="text" class="form-control" id="title" ng-model="data.team.name" required>
+              </div>
+              <div class="form-group">
+                <label for="comment">Description <span class="text-muted">(Optional)</span></label>
+                <textarea class="form-control" rows="3" id="comment" ng-model="data.team.description"></textarea>
+              </div>
+<!--               <div class="form-group">
+            
+                <label for="comment">Team Manager</label>
+                  <ui-select ng-model="data.manager" theme="bootstrap" class="form-control" title="Choose a person" required>
+                      <ui-select-match placeholder="Select or search a person in the list..." allow-clear="true" minimum-input-length="2">{{$select.selected.fullName}}
+                      </ui-select-match>
+                      <ui-select-choices repeat="item in data.people | filter: $select.search">
+                        <div ng-bind-html="item.fullName | highlight: $select.search"></div>
+                        <small ng-bind-html="item.email | highlight: $select.search"></small>
+                      </ui-select-choices>
+
+                      <ui-select-no-choice>
+                       No Results Found
+                      </ui-select-no-choice>
+
+                    </ui-select>
+              </div> -->
+
+
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <span class="modal-info pull-left text-muted">You Can Add Members once a team is created</span>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="newTeam.$invalid">Create</button>
+        </div>

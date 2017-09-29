@@ -1,0 +1,13 @@
+
+
+.label{
+	padding-top:.3em;
+	font-weight:500;
+
+	&.label-subtle {
+		background-color:$limestone;
+		color:$dragonstone;
+		font-weight:600;
+		letter-spacing:.5px;
+	}
+}

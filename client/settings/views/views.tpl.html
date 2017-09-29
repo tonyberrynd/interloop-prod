@@ -1,0 +1,89 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section fadeInOut" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Manage Views</h3>
+			<p>Control which views are active</p>
+		</div>
+		<div class="panel-body" style="padding:0px;">
+
+
+		<ul class="nav nav-tabs" role="tablist">
+		    <li ng-class="{'active': data.currentEntity == 'Opportunity'}">
+		      <a href ng-click="changeEntity('Opportunity')">
+		      	Opportunity
+		      </a>
+		    </li>
+		    <li ng-class="{'active': data.currentEntity == 'Contact'}">
+		      <a href ng-click="changeEntity('Contact')">
+		      	Contact
+		      </a>
+		    </li>
+		    <li ng-class="{'active': data.currentEntity == 'Company'}">
+		      <a href ng-click="changeEntity('Company')">
+		      	Company
+		      </a>
+		    </li>
+		    <li ng-class="{'active': data.currentEntity == 'Activity'}">
+		      <a href ng-click="changeEntity('Activity')">
+		      	Activity
+		      </a>
+		    </li>
+		</ul>
+
+		<div class="tab-wrap" style="padding:20px;">
+			<div class="row">
+				<div class="col-xs-12">
+					
+					  <table class="table settings-table">
+					    <thead>
+					      <tr>
+					        <th class="col-xs-2">Name</th>
+					        <th class="col-xs-2">Type</th>
+					        <th class="col-xs-2">Shared With</th>
+		              	    <th class="col-xs-2">Created By</th>
+		              	    <th class="col-xs-2">Created On</th>
+		                    <th class="col-xs-2 text-center">Active</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr ng-repeat="view in data.views | orderBy: 'createdOn' ">
+
+					        <td>
+					        	<p ng-bind="view.name || '--'"></p>
+					        </td>
+					        <td>
+					        	<p ng-bind="view.type || '--'"></p>
+					        </td>
+					        <td>
+					        	<p>Everyone</p>
+					        </td>
+					        <td>
+								<p ng-bind="view.createdBy.fullName || '--'"></p>
+					        </td>
+					        <td>
+					        	<p ng-bind="(view.createdOn | formatDate) || '--'"></p>
+					        </td>
+					        <td>
+					        	<!-- if locked -->
+					        	<span ng-if="view.locked" class="locked-item" uib-tooltip="This Field Is Required">
+					        		<icon class="wb-lock"></icon>
+					        	</span>
+					        	<!-- //if can be activated -->
+					        	<span class="toggle toggle-success" ng-if="!view.locked">
+							        <input class="toggle-range" id="{{view.id}}" type="checkbox" ng-model="view.active">
+							        <label class="toggle-btn" for="{{view.id}}" style="margin-left: 20px; margin-bottom:-5px;"></label>
+						        </span>
+					        </td>
+					      </tr>
+					      
+					    </tbody>
+					  </table>
+
+			  </div>
+			</div>
+		  </div>
+		</div>
+	</div>
+</div>

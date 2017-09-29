@@ -1,0 +1,315 @@
+
+
+.team-card {
+	.panel-body {
+		padding:25px;
+
+		h4 {
+			margin-bottom:3px;
+		}
+
+		p {
+			color:$dragonstone;
+			margin-bottom:0px;
+		}
+	}
+}
+
+.member-list {
+	display: block;
+	padding:0 10px;
+	padding-bottom:25px;
+
+	.avatar-bundle .avatar {
+		margin-left:-15px;
+		line-height:44px;
+	}
+}
+
+
+
+// .empty-state {
+// 	display: block;
+// 	margin:auto 0;
+// 	padding:80px 40px;
+// 	text-align: center;
+
+// 	h5 {
+// 		color:$charcoal;
+// 		font-size:17px;
+// 	}
+
+// 	p {
+// 		color:$slate;
+// 		margin-bottom:20px;
+// 	}
+
+// 	.empty-circle {
+// 		display: inline-block;
+// 		background-color:$placeholder-bg;
+// 		height:80px;
+// 		width:80px;
+// 		line-height: 96px;
+// 		border-radius: 50%;
+// 		text-align: center;
+// 		margin-bottom:15px;
+
+// 		icon {
+// 			color:#fff;
+// 			font-size:28px;
+// 		}
+// 	}
+// }
+
+// .searchTeams {
+// 	position:relative; 
+
+// 	input {
+// 		padding-left:30px;
+// 		width: 240px;
+// 	}
+
+// 	icon {
+// 		position: absolute;
+// 		left:10px;
+// 		top:14px;
+// 		color:$granite;
+// 		font-size:16px;
+// 	}
+
+// 	.clearSearch {
+// 		position: absolute;
+// 		right:0px;
+// 		top:0px;
+// 		font-size: 18px;
+// 	    -ms-transform: rotate(45deg);
+// 	    -webkit-transform: rotate(45deg);
+// 	    transform: rotate(45deg);
+
+// 	    &:hover {
+// 	    	box-shadow: none !important;
+// 	    }
+// 	}
+// }
+
+// .team-card {
+// 	h5 {
+// 		color:$slate;
+// 		font-weight:600;
+// 	}
+
+// 	.panel-heading {
+// 		padding-bottom:5px;
+// 	}
+
+// 	.team-name {
+
+// 		h4 {
+// 			margin-bottom:5px;
+// 		}
+
+// 		p {
+// 			color:$slate;
+// 			font-size:15px;
+// 			margin-bottom:0px;
+// 		}
+// 	}
+
+// 	.team-block {
+// 		p {
+// 			color:$granite;
+// 			padding:5px 0;
+// 		}
+// 	}
+
+// 	.panel-footer {
+// 		.btn {
+// 			font-weight:600;
+// 			// width:100px;
+// 			color:$topaz;
+
+// 			&:hover {
+// 				color:$topaz;
+// 			}
+// 		}
+
+// 		.btn.delete-team {
+// 			color:$granite;
+
+// 			&:hover {
+// 				color:$ruby;
+// 			}
+// 		}
+// 	}
+
+// 	.members {
+// 		white-space: nowrap;
+// 		overflow: hidden;
+
+// 		.avatar {
+// 			display: inline-block;
+// 			margin-right:5px;
+// 		}
+// 	}
+// }
+
+// .createTeam {
+// 	border:dashed 2px $gravel;
+// 	height:275px;
+// 	padding:25px;
+// 	cursor:pointer;
+
+
+// 	p {
+// 		font-weight:600;
+// 		color:$topaz;
+// 		font-size:15px;
+// 	}
+
+// 	icon {
+// 		font-size:28px;
+// 		margin-bottom:15px;
+// 		color:$topaz;
+// 	}
+
+// 	.new-text {
+// 		padding:50px 20px;
+// 	}
+// }
+
+// .team-description {
+// 	position: absolute;
+// 	left:20px;
+// 	top:15px;
+
+// 	.editable-click, a.editable-click {
+// 	    text-decoration: none;
+// 	    color: $charcoal;
+// 	    border-bottom: none;
+// 	}
+// }
+
+// .expanded .team-description  {
+// 	.editable-click, 
+// 	a.editable-click {
+// 		color:$charcoal;
+// 		border-bottom: dashed 1px $granite;
+// 		cursor:text;
+// 	} 
+// }
+
+
+// .team-box {
+// 	position: relative;
+// 	padding:10px 20px;
+// 	border:solid 1px $gravel;
+// 	border-radius: 5px;
+// 	margin-bottom:15px;
+
+// 	.team-box-header {
+// 		min-height: 75px;
+// 	}
+
+// 	.team-details {
+// 		position: absolute;
+// 		top:24px;
+// 		right:20px;
+// 		color:$granite;
+// 		font-size:90%;
+// 	}
+
+// 	.btn.btn-default.delete-team {
+// 		color:$ruby !important;
+
+// 		&:hover {
+// 			background-color:$ruby;
+// 			color:$diamond !important;
+// 			border-color:$ruby !important;
+// 		}
+// 	}
+
+// 	.delete-team {
+// 		position: absolute;
+// 		top:20px;
+// 		right:20px;
+// 	}
+
+// 	.save-cancel {
+// 		position: absolute;
+// 		top:20px;
+// 		right:20px;
+
+// 		.btn {
+// 			display: inline-block;
+// 		}
+// 	}
+
+// 	&:hover {
+// 		box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+// 		cursor:pointer;
+// 	}
+
+// 	&.expanded:hover {
+// 			box-shadow:none !important;
+// 	}
+// }
+
+// .add-team-members {
+// 	position: relative;
+
+// 	icon {
+// 		position: absolute;
+// 		left:12px;
+// 		top:14px;
+// 		z-index: 10;
+// 	}
+
+// 	input {
+// 		padding-left:40px;
+// 	}
+// }
+
+// .team-members {
+// 	border:solid 1px $gravel;
+// 	border-radius:5px;
+// 	margin-bottom:15px;
+// }
+
+
+
+
+// .team-member {
+
+// 	position: relative;
+// 	display: block;
+// 	border-bottom:solid 1px $gravel;
+// 	padding:10px 15px;
+// 	padding-left:72px;
+// 	font-weight:600;
+
+// 	&:last-child {
+// 		border-bottom:none;
+// 	}
+
+// 	.avatar {
+// 		position: absolute;
+// 		top:8px;
+// 		left:15px;
+// 	}
+
+// 	.remove-member {
+// 		position: absolute;
+// 		right:10px;
+// 		top:7px;
+// 	}
+// }
+
+
+
+
+// //Team Details
+// //--------------------------
+// .editTeam {
+// 	min-height:500px;
+// 	padding:15px;
+// }

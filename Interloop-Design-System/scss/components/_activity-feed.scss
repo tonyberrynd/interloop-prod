@@ -1,0 +1,213 @@
+.activity-feed {
+  padding: 15px 30px;
+  padding-top:30px;
+  padding-left:20px;
+  list-style: none;
+  background:#fff;
+  border-top:solid 1px $border;
+  border-bottom:solid 1px $border;
+
+  b {
+    font-weight:600 !important;
+  }
+
+  .panel {
+    margin-left:10px;
+  }
+
+  .card .name-wrapper h4 {
+    font-size:14px;
+  }
+
+  .card .name-wrapper p {
+    font-size:90%;
+  }
+
+  .nav.nav-pills {
+     li > a {
+      font-size:12px;
+     color:$dragonstone;
+   }
+
+   li.active > a {
+    background-color:$topaz;
+    color:#fff;
+   }
+  }
+
+  .feed-item {
+    position: relative;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    border-left: 2px solid $border;
+    color:$dragonstone;
+
+    .card:last-child {
+      margin-bottom:15px;
+    }
+
+    b {
+      color:$seamonster;
+    }
+
+    span.dark {
+      color:$seamonster;
+      font-weight:500;
+    }
+
+    .arrow {
+      margin:0 3px;
+    }
+
+    .color-primary {
+      color:$brand-primary;
+      font-weight:500;
+    }
+
+    .color-info {
+      color:$info;
+      font-weight:500;
+    }
+
+    .color-success {
+      color:$success;
+      font-weight:500;
+    }
+
+    .color-danger {
+      color:$danger;
+      font-weight:500;
+    }
+
+    .avatar {
+      margin-right:7px;
+      line-height:26px;
+    }
+
+    &:last-child {
+      border-color: transparent;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: -6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid $border;
+    }
+
+    // header
+    &.feed-header {
+      padding-bottom:15px;
+
+      .tabs-wrapper {
+        transform: translateY(-12px);
+      }
+
+      &::after {
+        background: $border;
+      }
+    }
+
+    &.start {
+      .text {
+        text-transform: uppercase;
+        font-weight:500;
+      }
+
+      &::after {
+        background: $border;
+      }
+    }
+
+    // &.file {
+    //   &::after {
+    //     width: 30px;
+    //     height: 30px;
+    //     left: -16px;
+    //     border-radius: 50%;
+    //     margin-top: -8px;
+    //     background-image: url(../img/icons/activity-feed/note.svg);
+    //     background-size:15px;
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //   }
+    // }
+
+    // //activity types
+    // &.email {
+    //   &::after {
+    //     width: 30px;
+    //     height: 30px;
+    //     left: -16px;
+    //     border-radius: 50%;
+    //     margin-top: -8px;
+    //     background-image: url(../img/icons/activity-feed/email.svg);
+    //     background-size:15px;
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //   }
+    // }
+
+    // &.meeting {
+    //   &::after {
+    //     width: 30px;
+    //     height: 30px;
+    //     left: -16px;
+    //     border-radius: 50%;
+    //     margin-top: -8px;
+    //     background-image: url(../img/icons/activity-feed/meeting.svg);
+    //     background-size:15px;
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //   }
+    // }
+
+    // &.task {
+    //   &::after {
+    //     width: 30px;
+    //     height: 30px;
+    //     left: -16px;
+    //     border-radius: 50%;
+    //     margin-top: -8px;
+    //     background-image: url(../img/icons/activity-feed/task.svg);
+    //     background-size:15px;
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //   }
+    // }
+
+    // &.note {
+    //   &::after {
+    //     width: 30px;
+    //     height: 30px;
+    //     left: -16px;
+    //     border-radius: 50%;
+    //     margin-top: -8px;
+    //     background-image: url(../img/icons/activity-feed/pen.svg);
+    //     background-size:15px;
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //   }
+    // }
+
+    .date {
+      display: block;
+      position: relative;
+      top: -8px;
+      color: $dragonstone;
+      // text-transform: uppercase;
+      margin-left:32px;
+      font-size: 13px;
+    }
+    .text {
+      position: relative;
+      top: -5px;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+    <div class="modal-header header-dark">
+        <h3 class="modal-title" id="modal-title">Export Data</h3>
+        <p>Configure Your Export File</p>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding" id="modal-body">
+
+
+        <form>
+
+            <div class="form-group">
+            <label for="file-name">Select Fields To Include:</label>
+  
+            <!-- //select fields to export -->
+            <select
+            ng-options="field as field.label for field in data.fields"
+            multiple
+            ng-model="data.selectedFields"
+            bs-duallistbox
+            ></select>
+
+          </div>
+
+
+          <div class="form-group">
+                <div class="checkbox-custom checkbox-primary">
+                    <input type="checkbox" id="include-deleted" ng-model="data.includeDeleted">
+                    <label for="include-deleted">Include Deleted Items?</label>
+                </div>
+          </div>
+
+
+            
+
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Start Export</button>
+
+    </div>

@@ -1,0 +1,14 @@
+
+.pagination {
+	font-weight:600;
+}
+
+.pagination > li > a, .pagination > li > span {
+    padding: 2px 12px;
+  }
+
+.pagination > .active > a, .pagination > .active > a:hover, 
+.pagination > .active > a:focus, .pagination > .active > span, 
+.pagination > .active > span:hover, .pagination > .active > span:focus {
+	font-weight:700;
+}

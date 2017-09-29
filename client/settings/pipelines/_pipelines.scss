@@ -1,0 +1,19 @@
+
+.pipeline-wrapper {
+	display: inline-block;
+	overflow: hidden;
+	overflow-x:auto;
+	white-space: nowrap;
+	width:100%;
+}
+
+.pipeline-stage {
+	display: inline-block;
+	padding:25px 60px;
+
+	icon {
+		color:$icon;
+		margin-right:5px;
+		font-size:12px;
+	}
+}

@@ -1,0 +1,64 @@
+<!-- loading -->
+<div class="loop-loader loop-loader-light loop-loader-xs centered" ng-class="{'hidden': data.activated }"></div>
+
+<div class="settings-right" ng-class="{'hidden': !data.activated }">
+	<h4>Feature Flags <small>- Feature Flags Exposed for this org - May also be limited by User Edition Type</small></h4>
+	<div class="panel panel-default panel-light">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-6">
+					<h5>Initial Landing Page</h5>
+					<p>This determines where a user goes when they log into the app</p>	
+				</div>
+				<div class="col-xs-6 text-right">
+			     	<ol id="singleSelection" class="nya-bs-select" ng-model="data.thisOrg.defaultRoute" ng-change="saveOrg()" style="margin-top:10px;">
+						  <li class="nya-bs-option" data-value="app.main.pulse.today">
+						    <a>Pulse - Today</a>
+						  </li>
+						  <li class="nya-bs-option" data-value="app.main.dashboards">
+						    <a>Dashboards</a>
+						  </li>
+						  <li class="nya-bs-option" data-value="app.main.opportunities">
+						    <a>Opportunities</a>
+						  </li>
+						</ol>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<div class="panel panel-default panel-light">
+		<div class="panel-body">
+			
+				<table class="table" ng-repeat="(key, value) in data.masterFeatureFlags | groupBy: 'group'">
+				    <thead>
+				      <tr>
+				        <th>
+				          <h4>{{key}}</h4>
+				        </th>
+				        <th>
+				        	
+				        </th>
+				      </tr>
+				    </thead>
+				    <tbody>
+
+
+				      <tr ng-repeat="feature in value">
+				        <td>
+				        	<h5 ng-bind="feature.name"></h5>
+				        	<p style="margin:0px" ng-bind="feature.description"></p>
+				        </td>
+				        <td class="text-right">
+				        	<div class="toggle toggle-success" style="margin:15px 5px; margin-bottom:0px;">
+					        	<input class="toggle-range" id="{{feature.key}}" type="checkbox" ng-model="feature.active" ng-change="addRemoveFeatureFlag(feature)">
+					        	<label class="toggle-btn" for="{{feature.key}}"></label>
+					        </div>
+				        </td>
+				      </tr>
+				    </tbody>
+				  </table>
+
+		</div>
+	</div>
+</div>

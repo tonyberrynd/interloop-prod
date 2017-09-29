@@ -1,0 +1,233 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Profile</h3>
+			<p>Upload an avatar, edit profile details, and change password.</p>	
+		</div>
+		<div class="panel-body">
+				<div class="settings-block">
+				<div class="row">
+					<!-- first Name -->
+					  <div class="form-group col-xs-4">
+					    <label for="firstName">First Name</label>
+					    <br>
+					    <input type="text" class="form-control" id="firstName" placeholder="" ng-model="data.thisUser.firstName" ng-change="save()" ng-model-options="{updateOn: 'blur'}">
+					  </div>
+					  <!-- last name -->
+					  <div class="form-group col-xs-4">
+					    <label for="lastName">Last Name</label>
+					    <br>
+					    <input type="text" class="form-control" id="lastName" placeholder="" ng-model="data.thisUser.lastName" ng-change="save()" ng-model-options="{updateOn: 'blur'}">
+					  </div>
+
+				</div>
+				<div class="row">
+						<!-- title -->
+					  <div class="form-group col-xs-4">
+					    <label for="title">Title</label>
+					    <br>
+					    <input type="text" class="form-control" id="title" placeholder="" ng-model="data.thisUser.title" ng-change="save()" ng-model-options="{updateOn: 'blur'}">
+					  </div>
+					  <!-- email-->
+					  <div class="form-group col-xs-4">
+					    <label for="email">
+					    Email
+					    <icon class="wb-info-circle support-icon" uib-tooltip="Your email is tied to your Interloop login, to make a change - please contact support"></icon>
+					    </label>
+					    <br>
+					    <input type="email" class="form-control w-padding" id="email" placeholder="" ng-model="data.thisUser.email" disabled>
+					  </div>
+				</div>
+				<div class="row">
+					 
+					   <!-- phoneNumber -->
+					  <div class="form-group col-xs-4">
+					    <label for="phoneNumber">Phone Number</label>
+					    <br>
+					    <input type="text" class="form-control" id="phoneNumber" placeholder="" ng-model="data.thisUser.phone" ui-us-phone-number ng-change="save()" ng-model-options="{updateOn: 'blur'}">
+					  </div>
+					  <!-- location -->
+					  <div class="form-group col-xs-4">
+					    <label for="location">Location</label>
+					    <br>
+					    <input type="text" class="form-control" id="location" placeholder="" ng-model="data.thisUser.location" ng-change="save()" ng-model-options="{updateOn: 'blur'}">
+					  </div>
+				</div>
+
+				<div class="row">
+					 <div class="form-group col-xs-8">
+					    <label for="email">
+					    User ID
+					    <icon class="wb-info-circle support-icon" uib-tooltip="For Support Reference Only"></icon>
+					    </label>
+					    <br>
+					    <input type="email" class="form-control w-padding" id="email" placeholder="" ng-model="data.thisUser.id" disabled>
+					  </div>
+				</div>
+
+			</div>	
+
+			<hr>
+
+<!-- 			<div class="settings-block">
+			<div class="row">
+					  <div class="form-group col-xs-4">
+					    <label for="language">Language</label>
+					    <br>
+					    <label for="languageSelect" class="select">
+						    <select class="form-control" id="languageSelect">
+						    <option value="" default="" selected="">Select your option</option>
+						    <option label="English" value="1">English</option>
+						    </select>
+						</label>
+
+					  </div>
+					  <div class="form-group col-xs-4">
+					    <label for="dateFormat">Date Format</label>
+					    <br>
+					    <label for="dateFormatSelect" class="select">
+						    <select class="form-control" id="dateFormatSelect">
+						    <option value="" default="" selected="">Select your option</option>
+						    <option label="Option 1" value="1">MM-DD-YYY</option>
+						    </select>
+						</label>
+
+					  </div>
+					  <div class="form-group col-xs-4">
+					    <label for="timezone">Timezone</label>
+					    <br>
+					    <label for="timezoneSelect" class="select">
+						    <select class="form-control" id="timezoneSelect">
+						    <option value="" default="" selected="">Select your option</option>
+						    <option label="Option 1" value="1">Option 1</option>
+						    </select>
+						</label>
+					  </div>
+				</div>
+			</div>
+			<hr> -->
+
+			<!-- change your password -->
+			<div class="settings-block">
+				<div class="row">
+					<div class="col-xs-12">
+						<h4>Change Your Password</h4>	
+					</div>		
+				</div>
+
+				<div class="row">
+					
+
+						  <!-- title -->
+<!-- 						  <div class="form-group col-xs-3">
+						    <label for="currentPassword">Current Password</label>
+						    <br>
+						    <input type="password" class="form-control" id="currentPassword" placeholder="" ng-model="data.currentPassword" name="currentPassword" required>
+						  </div> -->
+						   <!-- phoneNumber -->
+						  <div class="form-group col-xs-4">
+						    <label for="newPassword">New Password</label>
+						    <br>
+						    <input type="password" class="form-control" id="newPassword" placeholder="" ng-model="data.newPassword" name="newPassword">
+						  </div>
+						  <!-- location -->
+						  <div class="form-group col-xs-4">
+						    <label for="confirmPassword">Confirm Password</label>
+						    <br>
+						    <input type="password" class="form-control" id="confirmPassword" placeholder="" ng-model="data.confirmPassword" name="confirmPassword" match="data.newPassword" match-ignore-empty="true" required>
+						  </div>
+
+
+
+						</form>
+
+				</div>
+				<div class="row">
+					<div class="form-group col-xs-4 change-password">
+				  		<button type="submit" class="btn btn-primary" ng-disabled="changePasswordForm.$invalid || data.updatingPassword" ng-click="updatePassword()">Update Password</button>
+				  	</div>
+				</div>
+
+			  <form name="changePasswordForm">
+
+				<div class="row">
+						<div class="col-xs-4" ng-if="data.newPassword || data.confirmPassword">
+						  	<!-- password strength -->
+							  <div class="strength-wrapper" style="width: 100%;display: inline-block; white-space: nowrap;">
+			                  <div class="passStrengthMeter" ng-class="{'very-weak': data.passStrength > 0, 'weak': data.passStrength > 15, 'so-so': data.passStrength > 25, 'good': data.passStrength > 50, 'great': data.passStrength > 75}">
+			                  <!-- bars -->
+			                  <div class="strengthBar"></div>
+			                  <div class="strengthBar"></div>
+			                  <div class="strengthBar"></div>
+			                  <div class="strengthBar"></div>
+
+			                  <!-- text -->
+			                  <p class="strengthMessage text-left" ng-if="data.passStrength > 0 && data.passStrength < 10">Very Weak</p>
+			                  <p class="strengthMessage text-left" ng-if="data.passStrength > 10 && data.passStrength < 24">Weak</p>
+			                  <p class="strengthMessage text-left" ng-if="data.passStrength > 24 && data.passStrength < 54">So-so</p>
+			                  <p class="strengthMessage text-left" ng-if="data.passStrength > 54 && data.passStrength < 75">Good</p>
+			                  <p class="strengthMessage text-left" ng-if="data.passStrength > 75">Great!</p>
+			                  </div>
+			                 </div>
+						  </div>
+
+						  <div class="col-xs-4 text-center" >
+						  	<!-- error messages -->
+							<p class="color-ruby" ng-show="changePasswordForm.newPassword.$error.match">
+							<icon class="wb-warning"></icon>
+							<b>New password can't be the same as previous password</b>
+							</p>
+							<p class="color-ruby" ng-show="changePasswordForm.confirmPassword.$error.match">
+							<icon class="wb-warning"></icon>
+							<b>Passwords do not match!</b>
+							</p>
+						 </div>
+				</div>
+
+			</div>	
+
+			<br>
+
+			<hr>
+
+				<div class="settings-block">
+				<div class="row">
+					<div class="col-xs-6">
+						<h4>Application Cache</h4>	
+					</div>
+					<div class="col-xs-6" permission="['LOAD_FULLCONTACT']">
+						<h4>Load Contacts</h4>	
+					</div>
+				</div>
+				<div class="row">	
+					<div class="col-xs-6">
+						<button class="btn btn-default btn-outline" ng-click="clearCache()">
+							Clear Cache Data
+						</button>
+						<p style="margin-top:15px;">Clearing cache will refresh the application</p>
+					</div>
+					<div class="col-xs-6" permission="['LOAD_FULLCONTACT']">
+						<button class="btn btn-default btn-outline" ng-click="loadContacts()">
+							Load Contacts
+						</button>
+						<p style="margin-top:15px;">Load contacts from Full Contact - page {{data.page}}</p>
+					</div>	
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+
+
+<!-- hidden password strength calculator -->
+ <div class="hidden" ng-password-strength="data.newPassword"
+      strength="data.passStrength"
+      calculation-mode="formula"
+      goal="75"
+      inner-class="hidden">
+  </div>

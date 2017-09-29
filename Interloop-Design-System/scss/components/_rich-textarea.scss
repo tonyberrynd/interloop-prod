@@ -1,0 +1,25 @@
+
+.rich-textarea {
+	border:solid 1px $border;
+	border-radius: 5px;
+	padding-top:5px;
+	max-width:500px;
+	padding:3px;
+	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    -webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+	&.focused {
+		padding-top:4px;
+		padding:3px 2px;
+		padding-top:2px;
+		border:solid 2px $topaz;
+	}
+
+	trix-editor {
+		border:none;
+		border-top:solid 1px $border;
+		border-top-left-radius: 0px;
+		border-top-right-radius: 0px;
+		min-height:120px;
+	}
+}

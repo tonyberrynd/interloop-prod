@@ -1,0 +1,1 @@
+angular.module("coil.addAddressCtrl",[]).controller("addAddressCtrl",function(a,l,d,e){a.data={},a.data.ac=null,a.$watch("data.ac",function(a,l){_.has(a,"geometry")&&console.log("select new value",a)})});

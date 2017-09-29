@@ -1,0 +1,25 @@
+
+tr.valid {
+	background-color:rgba(0, 180, 142 ,.5);
+}
+
+.import-table-wrapper {
+	width:100%;
+	display: block;
+	overflow:auto;
+	max-height:480px;
+
+	table {
+		border:solid 1px $gravel;
+	}
+
+	td {
+		overflow: hidden;
+	}
+
+	td span {
+		width:80%;
+		overflow: hidden;
+		text-overflow:ellipsis;
+	}
+}

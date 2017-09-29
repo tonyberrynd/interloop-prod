@@ -1,0 +1,103 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section fadeInOut" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Custom Fields</h3>
+			<p>Create and manage custom fields</p>
+
+			<button class="btn btn-primary button-top new-users" ng-click="newCustomField()">+ New Custom Field</button>
+		</div>
+		<div class="panel-body" style="padding:0px;">
+
+
+		<ul class="nav nav-tabs" role="tablist">
+		    <li ng-class="{'active': data.currentEntity == 'Opportunity'}">
+		      <a href ng-click="changeEntity('Opportunity')">
+		      	Opportunity
+		      </a>
+		    </li>
+		    <li ng-class="{'active': data.currentEntity == 'Contact'}">
+		      <a href ng-click="changeEntity('Contact')">
+		      	Contact
+		      </a>
+		    </li>
+		    <li ng-class="{'active': data.currentEntity == 'Company'}">
+		      <a href ng-click="changeEntity('Company')">
+		      	Company
+		      </a>
+		    </li>
+		    <li ng-class="{'active': data.currentEntity == 'Activity'}">
+		      <a href ng-click="changeEntity('Activity')">
+		      	Activity
+		      </a>
+		    </li>
+		</ul>
+
+		<div class="tab-wrap" style="padding:20px;">
+			<div class="row">
+				<div class="col-xs-12">
+					
+					  <table class="table settings-table" ng-if="data.customFields.length">
+					    <thead>
+					      <tr>
+					        <th class="col-xs-3">Label</th>
+		              	    <th class="col-xs-3">Key</th>
+		              	    <th class="col-xs-3">Type</th>
+		                    <th class="col-xs-2 text-center">Active</th>
+		                    <th class="col-xs-1"></th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr ng-repeat="field in data.customFields">
+					        <td>
+					       	<p style="display:inline-block;" ng-bind="field.label || '--'"></p>      	
+					        </td>
+					        <td>
+								<p ng-bind="field.key || '--'"></p>
+					        </td>
+					        <td>
+								<p ng-bind="field.type || '--'"></p>
+					        </td>
+					        <td>
+								<!-- if locked -->
+					        	<span ng-if="field.locked" class="locked-item" uib-tooltip="This Field Is Required">
+					        		<icon class="wb-lock"></icon>
+					        	</span>
+					        	<!-- //if can be activated -->
+					        	<span class="toggle toggle-success" ng-if="!field.locked">
+							        <input class="toggle-range" id="{{field.key}}" type="checkbox" ng-model="field.active">
+							        <label class="toggle-btn" for="{{field.key}}" style="margin-left: 20px; margin-bottom:-5px;"></label>
+						        </span>
+
+					        </td>
+					        <td>
+					      	<button class="btn btn-default edit-label" ng-click="editField(field)">
+					      		<icon class="fa fa-pencil"></icon>
+					      	</button>
+					      	<button class="btn btn-default edit-label" ng-click="deleteField(field)">
+					      		<icon class="fa fa-trash"></icon>
+					      	</button>
+					      </td>
+					      </tr>
+					      
+					    </tbody>
+					  </table>
+
+
+
+				<div class="empty-state" ng-if="!data.customFields.length && data.activated">
+					<div class="empty-circle">
+						<icon class="wb-list"></icon>
+					</div>
+					<h5>No Custom Field for this entity</h5>
+					<p>Add a custom field below</p>
+					<buttton class="btn btn-sm btn-primary" ng-click="newCustomField()">Add Custom Field</buttton>
+				</div>
+
+			  </div>
+			</div>
+		  </div>
+		</div>
+	</div>
+</div>

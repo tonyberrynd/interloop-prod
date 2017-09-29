@@ -1,0 +1,78 @@
+
+            <div class="sidepanel">
+                <div class="sidepanel-header">
+                    <a class="btn btn-link btn-left" href ng-click="$state.go('app.product.sidepanels', {}, {notify: true, reload:false})">
+                        <img src="../assets/img/icons/states/close.svg" alt="Close">
+                    </a>
+                    <!-- <span class="text-left">Opportunity</span> -->
+                    <a class="btn btn-link edit-button" ui-sref="opportunity-edit">
+                        <icon class="fa fa-pencil"></icon> Edit
+                    </a>
+                    <button class="btn btn-primary btn-action">
+                        <icon class="fa fa-bolt"></icon> Action
+                    </button>
+                    <button class="btn btn-link btn-right">
+                        <icon class="fa fa-link"></icon>
+                    </button>
+                </div>
+                <div class="sidepanel-cover">
+                    <div class="avatar avatar-32 lime">88</div>
+                    <div class="name-wrapper">
+                        <h4>Opportunity Name Goes Here</h4>
+                        <p>Company Name Goes Here</p>
+                    </div>
+                    <div class="detail-wrapper">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <h5>Value</h5>
+                                <p>$100K</p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Close</h5>
+                                <p>Mar 5</p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Forecast</h5>
+                                <p>Hard Commit</p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Stage</h5>
+                                <p>Stage 3</p>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+                <div class="sidepanel-tabs">
+                    <div class="tabs-wrapper">
+                        <ul class="nav nav-tabs nav-justified">
+                          <li ng-class="{ 'active': data.currentTab == 1 }"><a href ng-click="data.currentTab = 1">Insights</a></li>
+                          <li ng-class="{ 'active': data.currentTab == 2 }"><a href ng-click="data.currentTab = 2">Details</a></li>
+                          <li ng-class="{ 'active': data.currentTab == 7 }"><a href ng-click="data.currentTab = 7">Milestones</a></li>
+                          <li ng-class="{ 'active': data.currentTab == 3 }"><a href ng-click="data.currentTab = 3">Tasks</a></li>
+                          <li ng-class="{ 'active': data.currentTab == 4 }"><a href ng-click="data.currentTab = 4">Related</a></li>
+                          <li ng-class="{ 'active': data.currentTab == 5 }"><a href ng-click="data.currentTab = 5">History</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidepanel-content" ng-switch="data.currentTab">
+                   
+                    <span ng-switch-when="1">
+                      <ng-include src="'modules/sidepanel/insights.tpl.html'"></ng-include>
+                    </span>
+                    <span ng-switch-when="2">
+                      <ng-include src="'modules/sidepanel/details.tpl.html'"></ng-include>
+                    </span>
+                    <span ng-switch-when="3">
+                      <ng-include src="'modules/sidepanel/tasks.tpl.html'"></ng-include>
+                    </span>
+                    <span ng-switch-when="4">
+                      <ng-include src="'modules/sidepanel/related.tpl.html'"></ng-include>
+                    </span>
+                    <span ng-switch-when="5">
+                      <ng-include src="'modules/sidepanel/activity-feed.html'"></ng-include>
+                    </span>
+
+                </div>
+
+            </div>

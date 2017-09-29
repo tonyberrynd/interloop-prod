@@ -1,0 +1,63 @@
+<div class="login-wrapper">
+	
+
+	<div class="row">
+		<!-- //carousel -->
+		<div class="hidden-xs col-sm-7">
+			<div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+		      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+		        <img ng-src="{{slide.image}}" style="margin:auto;">
+		        <div class="carousel-caption">
+		          <h4>Slide {{slide.id}}</h4>
+		          <p>{{slide.text}}</p>
+		        </div>
+		      </div>
+		    </div>
+		</div>
+		<div class="col-xs-12 col-sm-5 login-page">
+			<div class="page-login-main">
+		        <h3 class="font-size-24">Sign In</h3>
+		        <p>[ FOR INTERNAL USE ONLY ]</p>
+		        <br>
+
+		        <form method="post" action="login-v2.html">
+		          <div class="form-group">
+		            <label class="sr-only" for="inputEmail">Email</label>
+		            <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email">
+		          </div>
+		          <div class="form-group">
+		            <label class="sr-only" for="inputPassword">Password</label>
+		            <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
+		          </div>
+		          <div class="form-group clearfix">
+		            <input class="magic-checkbox" type="checkbox" name="layout" id="1" value="option">
+					<label class="text text-left" for="1">
+						Remember Me
+					</label>
+		          </div>
+		          <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+		          <br>
+		          <a class="text-center" href="forgot-password.html">Forgot password?</a>
+		        </form>
+				
+				<br>
+		        <footer class="page-copyright">
+		          <p>© 2017. All RIGHT RESERVED.</p>
+		          <div class="social">
+		            <a class="btn btn-icon btn-round social-twitter" href="javascript:void(0)">
+		              <i class="icon bd-twitter" aria-hidden="true"></i>
+		            </a>
+		            <a class="btn btn-icon btn-round social-facebook" href="javascript:void(0)">
+		              <i class="icon bd-facebook" aria-hidden="true"></i>
+		            </a>
+		            <a class="btn btn-icon btn-round social-google-plus" href="javascript:void(0)">
+		              <i class="icon bd-google-plus" aria-hidden="true"></i>
+		            </a>
+		          </div>
+		        </footer>
+		      </div>
+		</div>
+	</div>
+
+
+</div>

@@ -1,0 +1,190 @@
+
+<div class="content">
+
+<!-- subheader -->
+<div class="subheader insights-subheader">
+
+	
+	<div class="pull-left">
+			<div class="subheader-buttons build-query">
+				
+
+				<div class="explorer-icon">
+					<icon class="wb-search"></icon>
+				</div>
+
+
+				
+				<input type="text" class="form-control explorer-input fadeInOut" placeholder="Select Entity..." ng-focus="toggleEntitySelect($event)" ng-if="!data.exploreModule.entity" autofocus>
+
+
+			     <!-- Single button using append-to-body -->
+			    <div class="btn-group" uib-dropdown auto-close="disabled" is-open="data.entitySelectOpen" >
+			      <button id="selectEntity" type="button" class="btn btn-default fadeInOut" uib-dropdown-toggle ng-if="data.exploreModule.entity">
+			      	<div class="insight-emblem">
+			      		<icon class="icon-budicon-classic-73"></icon>	
+			      	</div>
+			        <span ng-bind="data.exploreModule.entity"></span> 
+			        <icon class="wb-close"></icon>
+			      </button>
+
+			      <ul class="dropdown-menu explore-dropdown fadeInOut" uib-dropdown-menu role="menu" aria-labelledby="selectEntity">
+			         <li role="menuitem" ng-repeat="entity in data.entityTypes">
+			        	<a href ng-click="selectEntity(entity.singular)">
+			        		<span ng-bind="entity.plural"></span>
+			        	</a>
+			        </li>
+			      </ul>
+			    </div>
+
+				 <!-- Single button using append-to-body -->
+			    <div class="btn-group" uib-dropdown auto-close="disabled" is-open="data.segmentedByOpen" uib-tooltip="Segmented By" tooltip-placement="bottom" tooltip-append-to-body="true">
+			      <button id="segmentedBy" type="button" class="btn btn-seperator fadeInOut"  uib-dropdown-toggle ng-if="data.exploreModule.entity">
+			        <icon class="wb-plus"></icon>
+			      </button>
+
+			      <ul class="dropdown-menu explore-dropdown fadeInOut" uib-dropdown-menu role="menu" aria-labelledby="segmentedBy">
+			        <li role="menuitem" ng-repeat="segment in data.segmentTypes">
+			        	<a href ng-click="selectSegmentBy(segment)">
+			        		<span ng-bind="segment"></span>
+			        	</a>
+			        </li>
+			      </ul>
+			    </div>
+
+
+				
+				 <div class="seperator-block fadeInOut" ng-if="data.exploreModule.entity">
+				  By
+				 </div>
+
+
+				 <input type="text" class="form-control explorer-input fadeInOut" placeholder="Select Group..." ng-focus="toggleGroupBy($event)" ng-if="data.exploreModule.entity && !data.exploreModule.group" autofocus>
+
+			     <!-- Single button using append-to-body -->
+			    <div class="btn-group" uib-dropdown auto-close="disabled" is-open="data.groupByOpen" >
+			      <button id="groupBy" type="button" class="btn btn-default fadeInOut" uib-dropdown-toggle ng-if="data.exploreModule.group">
+			      	<div class="insight-emblem">
+			      		<icon class="icon-budicon-classic-73"></icon>	
+			      	</div>
+			        <span ng-bind="data.exploreModule.group"></span> 
+			        <icon class="wb-close"></icon>
+			      </button>
+
+			      <ul class="dropdown-menu explore-dropdown fadeInOut" uib-dropdown-menu role="menu" aria-labelledby="groupBy">
+			        <li role="menuitem" ng-repeat="group in data.groupTypes">
+			        	<a href ng-click="selectGroup(group)">
+			        		<span ng-bind="group.label"></span>
+			        	</a>
+			        </li>
+			      </ul>
+			    </div>
+
+				 
+				 <div class="seperator-block fadeInOut" ng-if="data.exploreModule.entity && data.exploreModule.group">
+				  As
+				 </div>
+
+
+				 <input type="text" class="form-control explorer-input fadeInOut" placeholder="Select Chart Type..." ng-focus="toggleChartType($event)" ng-if="data.exploreModule.entity && data.exploreModule.group && !data.exploreModule.chartType" autofocus>
+
+			  	<div class="btn-group" uib-dropdown auto-close="disabled" is-open="data.chartTypeOpen">
+			      <button id="chartType" type="button" class="btn btn-default fadeInOut" uib-dropdown-toggle ng-if="data.exploreModule.entity && data.exploreModule.group && data.exploreModule.chartType">
+			      	<div class="insight-emblem">
+			      		<icon class="icon-budicon-classic-73"></icon>	
+			      	</div>
+			        <span ng-bind="data.exploreModule.chartType"></span> 
+			        <icon class="wb-close clearExplorerCategory" ng-click="data.exploreModule.chartType = null"></icon>
+			      </button>
+
+			      <ul class="dropdown-menu explore-dropdown fadeInOut" uib-dropdown-menu role="menu" aria-labelledby="chartType">
+			        <li role="menuitem" ng-repeat="type in data.chartTypes">
+			        	<a href ng-click="selectChartType(type.value)">
+			        		<span ng-bind="type.label"></span>
+			        	</a>
+			        </li>
+			      </ul>
+			    </div>
+
+			</div>
+		</div>
+
+	<div class="pull-right">
+		<div class="subheader-buttons">
+			<button class="btn btn-link clear-insights" ng-click="resetQuery()" ng-if="data.exploreModule.entity">
+				Reset Query
+			</button>
+
+			<button class="btn btn-default btn-outline" uib-tooltip="A PNG version of the insight will be downloaded" tooltip-placement="bottom" ng-disabled="!data.exploreModule.entity || !data.exploreModule.group || !data.exploreModule.chartType">
+				<icon class="wb-download"></icon>
+			</button>
+
+			<button class="btn btn-primary" ng-disabled="!data.exploreModule.entity || !data.exploreModule.group || !data.exploreModule.chartType">
+				<icon class="wb-plus-circle"></icon> Save Module
+			</button>
+		</div>
+	</div>
+	
+</div>
+
+<!-- content -->
+<div class="inner-content with-subheader">
+
+<div class="scroll-content with-subheader">
+
+	<div class="query-header" ng-if="data.exploreModule.entity && data.exploreModule.group && data.exploreModule.chartType">
+		<div class="daterange">
+		<h4>Last 30 Days</h4>
+		<div class="insights-dateRangePicker">
+		<input date-range-picker class="form-control" type="text" options="options3" ng-model="field.date" placeholder="Select Date Range..."/>
+		</div>
+
+<!-- 		<p><button class="btn btn-link dateRangePicker">From 3/15/2017 to 4/15/2017 <icon class="wb-chevron-down-mini"></icon></button></p> -->
+		</div>
+
+		<div class="aggregate-type">
+			 <ol class="nya-bs-select" ng-model="model2">
+			    <li nya-bs-option="option in options" title="{{option.title}}">
+			      <a>
+			        Entity Type Here
+			      </a>
+			    </li>
+			  </ol>
+		</div>
+	
+		<highchart id="insightsChart" config="data.chartConfig" class="insight-chart"></highchart>
+	</div>
+
+	<div class="query-details" ng-if="data.exploreModule.entity && data.exploreModule.group && data.exploreModule.chartType">
+		  <table class="table table-striped">
+		    <thead>
+		      <tr>
+		        <th ng-repeat="header in data.tableHeaders">{{header}}</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr ng-repeat="dataItem in data.results">
+		        <td ng-repeat="header in data.tableHeaders">{{ dataItem[header] }}</td>
+		      </tr>
+		    </tbody>
+		  </table>
+
+	</div>
+
+
+			<!-- empty state -->
+	<div class="empty-state explorer-empty" ng-if="!data.exploreModule.entity || !data.exploreModule.group || !data.exploreModule.chartType">
+		<icon class="wb-search"></icon>
+		<h5>Welcome to the Data Explorer</h5>
+		<p>Please Select an Entity, Grouping & Chart Type Above</p>
+	</div>
+
+	
+	</div>
+
+</div>
+
+</div>
+
+
+	

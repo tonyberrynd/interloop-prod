@@ -1,0 +1,61 @@
+    <div class="modal-header header-dark">
+        <h3 class="modal-title" id="modal-title">Select Users</h3>
+        <p>{{data.selectedPeople.length}} users selected</p>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding addGoal" id="modal-body">
+
+
+        <form name="selectUsers" class="form-horizontal" novalidate style="min-height:50px;">
+            <div class="row search-row">
+                <div class="col-xs-12 text-left">
+
+                 <!-- search group -->
+                 <div class="form-group search-group" style="width:100%;">
+                    <icon class="wb-search search"></icon>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search..." ng-model="data.search">
+                    <icon class="wb-plus-circle clear" ng-show="data.search" ng-click="data.search = ''"></icon>
+                  </div>
+                </div>
+
+            </div>
+    
+            <!-- users to select for goals -->
+            <div class="row" ng-repeat="user in data.people | orderBy: 'firstName' | filter:data.search">
+                <div class="col-xs-12">
+                
+                <div class="select-user">
+                <div class="checkbox-custom checkbox-primary">
+                    <input type="checkbox" id="{{user.id}}" checklist-model="data.selectedPeople" checklist-value="user">
+                    <label for="{{user.id}}">
+                        <div class="avatar-item">
+                            <div class="avatar">
+                                <span ng-bind="user.initials || '--'"></span>
+                            </div>
+                            <div class="avatar-details">
+                                <h5 ng-bind="user.fullName || '--'"></h5>
+                                <p ng-bind="user.email || '--'"></p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                </div>
+
+                </div>
+            </div>
+                
+
+        </form>
+
+        <br>
+        <br>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!data.selectedPeople.length">Add Goals</button>
+    </div>

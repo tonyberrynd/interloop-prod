@@ -1,0 +1,72 @@
+  <div id="sidepanel-wrapper" class="sidepanel-wrapper">
+            <div class="sidepanel">
+                <div class="sidepanel-header">
+                    <button class="btn btn-link btn-left">
+                        <img src="../assets/img/icons/states/close.svg" alt="Close">
+                    </button>
+             <!--        <span class="title">Opportunity</span> -->
+                    <button class="btn btn-link btn-right">
+                        <img src="../assets/img/icons/states/more.svg" alt="More">
+                    </button>
+                </div>
+                <div class="sidepanel-cover">
+                    <div class="avatar avatar-32 lime">88</div>
+                    <div class="name-wrapper">
+                        <h4>Opportunity Name Goes Here</h4>
+                        <p>Company Name Goes Here</p>
+                    </div>
+                    <div class="detail-wrapper">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <h5>Value</h5>
+                                <p>$100K</p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Close</h5>
+                                <p>Mar 5</p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Forecast</h5>
+                                <p>Hard Commit</p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Stage</h5>
+                                <p>Stage 3</p>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+                <div class="sidepanel-tabs">
+                    <div class="tabs-wrapper">
+                        <ul class="nav nav-tabs nav-justified">
+                          <li ng-class="{ 'active': data.currentTab == 1 }"><a href ng-click="data.currentTab = 1">Insights</a></li>
+                          <li ng-class="{ 'active': data.currentTab == 2 }"><a href ng-click="data.currentTab = 2">Details</a></li>
+                          <li ng-class="{ 'active': data.currentTab == 3 }"><a href ng-click="data.currentTab = 3">Tasks</a></li>
+                          <li ng-class="{ 'active': data.currentTab == 3 }"><a href ng-click="data.currentTab = 4">Related</a></li>
+                          <li ng-class="{ 'active': data.currentTab == 3 }"><a href ng-click="data.currentTab = 5">History</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidepanel-content" ng-switch="data.currentTab">
+                   
+                    <span ng-switch-when="1">
+                      <ng-include src="'modules/sidepanel/activity-feed.html'"></ng-include>
+                    </span>
+                    <span ng-switch-when="2">
+                      
+                    </span>
+                    <span ng-switch-when="3">
+                      
+                    </span>
+                    <span ng-switch-when="4">
+                      
+                    </span>
+                    <span ng-switch-when="5">
+                      <ng-include src="'modules/sidepanel/activity-feed.html'"></ng-include>
+                    </span>
+
+                </div>
+
+            </div>
+        </div>

@@ -1,0 +1,347 @@
+* {
+	outline:none !important;
+}
+
+
+.required-field {
+    color:$danger;
+}
+
+.color-topaz {
+    color: $topaz !important;
+}
+
+.config-loading {
+    width:100%;
+    height:100%;
+    display: block;
+    z-index: 500;
+    background-color:$limestone;
+    position:absolute;
+    left:0px;
+    right:0px;
+    top:0px;
+    bottom:0px;
+}
+
+
+.loop-loader.centered {
+    top:40vh !important;
+}
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.navbar-nav > li > .dropdown-menu {
+    margin-top: 0;
+    border-radius: $border-radius-base !important;
+    margin-top:7px;
+    min-width:240px;
+    margin-right:5px;
+
+    .avatar-item h3, 
+    .avatar-item h4 {
+	    margin-left: 35px;
+	}
+
+	.avatar-item p {
+		margin-left:35px;
+	}
+
+	.avatar {
+		top:12px;
+		left:5px;
+	}
+
+    img {
+    	width:16px;
+    	display: inline-block;
+    	margin-right:10px;
+    }
+
+    .divider {
+	    height: 1px;
+	    margin: 5px 0;
+	    overflow: hidden;
+	    background-color: $border;
+	}
+}
+
+.deleted-record {
+    font-weight:600;
+    color:$danger;
+}
+
+.new-item .dropdown-menu {
+	min-width:200px;
+}
+
+.ag-fresh .checkbox-custom {
+	margin-top: 8px !important;
+    margin-left: 1px !important;
+
+    .magic-checkbox + label:before {
+    	border:solid 2px darken($border, 3%);
+    }
+
+    .magic-checkbox:checked + label:before {
+	    border:solid 2px $topaz;
+	}
+}
+
+
+// /local nav settings pages
+
+#local-nav {
+	position:fixed;
+	height:calc(100% - 50px);
+
+	li.sidebar-label {
+		padding-top:24px;
+	}
+}
+
+#main-content {
+	position:fixed;
+	top:50px;
+	background-color:#fff;
+	min-width:840px;
+}
+
+//gobal search
+//--------------------------
+
+
+// global search
+.globalSearch {
+    display: inline-block;
+    position: relative;
+    padding:6px;
+    margin-right:10px;
+
+    .search-icon {
+        position: absolute;
+        left:16px;
+        top:16px;
+        color:$granite;
+        font-size:16px;
+        z-index:1;
+    }
+
+    .clear-search {
+        position: absolute;
+        right:5px;
+        top:5px;
+        height:38px;
+
+        icon {
+            font-size:15px;
+            color:$granite;
+            transform:rotate(45deg);
+            -webkit-transform:rotate(45deg);
+        }
+    }
+
+    .dropdown-menu {
+        margin-top:10px;
+        width:400px;
+        padding:0px;
+        min-height:225px;
+        max-height:calc(100vh - 100px);
+        overflow: auto;
+
+        li {
+            padding:0px;
+
+            &:focus {
+                background-color:$limestone;
+            }
+        }
+
+        li a {
+            display: block;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            -webkit-transition: background-color .25s;
+            -o-transition: background-color .25s;
+            transition: background-color .25s;
+             border-radius: 0px;
+
+            &:hover {
+                background-color: $limestone;
+            }
+
+            p {
+                color:$seamonster;
+                margin:0px;
+                font-weight:medium;
+            }
+
+            small {
+                color:$dragonstone;
+            }
+        }
+
+        li > a:focus,
+        li a:focus {
+            background-color:$limestone;
+            outline:none;
+        }
+
+
+        .search-header {
+            padding:10px 15px;
+            padding-right:5px;
+            background-color:$limestone;
+            color:$dragonstone;
+
+            b {
+                color:$seamonster;
+            }
+        }
+
+
+        .no-results,
+        .loading-results {
+            padding:50px;
+            text-align: center;
+
+            icon {
+                font-size:20px;
+                color:$granite;
+            }
+
+            p {
+                color:$dragonstone;
+            }
+        }
+
+
+    }
+
+    input {
+        width:320px;
+        height:36px;
+        padding-left: 36px;
+        background-color:rgba(255,255,255,.125);
+        border:none;
+        // background
+        transition: background-color .1s ease-in-out;
+        -webkit-transition: background-color .1s ease-in-out;
+        // width: 
+        transition: width .1s ease-in-out;
+        -webkit-transition: width .1s ease-in-out;
+
+        &:focus,
+        &.focus {
+            background-color:#fff;
+            width:400px;
+            padding-left: 36px;
+        }
+    }
+}
+
+//local search / global Search
+//------------------------------
+.localSearch{
+    position: relative;
+    padding:0px;
+    display: inline-block;
+
+    .search-icon {
+        position: absolute;
+        left:14px;
+        top:11px;
+        color:$granite;
+        font-size:16px;
+        z-index: 1;
+    }
+
+    .clear-search {
+        position: absolute;
+        right:3px;
+        top:0px;
+        height:40px;
+        background-color:transparent;
+        border:none;
+
+        icon {
+            font-size:15px;
+            color:$granite;
+            transform:rotate(45deg);
+            -webkit-transform:rotate(45deg);
+        }
+    }
+
+    input {
+        width:280px;
+        height:38px;
+        padding-left: 36px;
+
+        &:focus {
+        	padding-left:35px;
+        }
+    }
+}
+
+
+//grid stuff
+
+  //star item
+  //-------------------------
+  .btn.star-button {
+    padding:10px;
+	min-width:20px;
+
+    icon {
+      color: lighten($granite, 12%);
+      font-size:20px;
+    }
+
+    &.starred {
+      icon {
+        color: $sunlight;
+      }
+    }
+  }
+
+  .checkbox-custom.grid-checkbox-div {
+  margin:0px;
+
+  ::before {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    left: 0;
+    margin-top: -3px;
+    margin-left: -22px;
+  }
+
+  ::after {
+    display: inline-block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+    left: 0;
+    top: 0;
+    margin-left: -25px;
+    text-align: center;
+    padding-top: 1px;
+    font-size: 12px;
+    color: #76838f;
+    border-radius: 50%;
+  }
+}
+
+.grid-checkbox-span {
+    left: 36px;
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    width: calc(100% - 40px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor:default;
+}

@@ -1,0 +1,78 @@
+<div class="sidebar-section">
+  <div class="card">
+		<!-- Milestones overview -->
+<!-- 		<div class="detail-title">{{data.thisOpp.process.name}}</div> -->	
+		<ul class="progress-stages">
+          <li ng-repeat="stage in data.thisOpp.process.stages | filter: {showInPipe:true}" class="stage-wrapper">
+          <span>{{stage.value}}</span>
+          </li>
+         
+        </ul>
+        <ul class="progress-steps">
+				
+          <li ng-repeat="stage in data.thisOpp.process.stages |  filter: {showInPipe:true}" 
+						ng-class="getStageClass(stage)" ><a href="javascript:void(0);">{{stage.score}}%</a></li>
+          
+        </ul>
+        <ul class="progress-dates">
+          <li ng-repeat="stage in data.thisOpp.process.stages |  filter: {showInPipe:true}" class="date-wrapper">
+          <span ng-bind="(stage.completedDate | amDateFormat:'M/DD/YY') || ''"></span>
+          </li>
+        </ul>
+
+
+</div>
+</div>
+
+			<!-- Milestones Details --> 
+
+
+<!-- <div class="sidebar-section">
+<p class="sidebar-section-header">Sales Process</p>
+<p class="sidebar-section-action">
+  <a href ui-sref="app.sidebar.opportunity.process-details">Update Stage</a>
+</p>
+<div class="card"> -->
+
+
+<div class="sidebar-section" ng-repeat="stage in data.thisOpp.process.stages | filter: {showInPipe:true} ">
+	<p class="sidebar-section-header"  >{{stage.value}}</p>
+
+<!-- 	<span ng-if="stage.completed" class="pull-right stage-completed"><icon class="wb-check"></icon> {{stage.completedDate | date: 'MMM d, y'}}</span> -->
+<!-- 	<a ng-if="data.thisOpp.process.currentStage == stage.value" class=" btn btn-sm btn-success complete-stage pull-right" href ng-click="completeStage()">Complete Stage</a> -->
+	<div class="card">
+				<!-- milestones -->
+				<div class="milestone-item" ng-repeat="step in stage.steps">
+						<!-- checkbox -->
+						<div class="checkbox checkbox-custom checkbox-primary">
+						    <input type="checkbox" id="{{stage.value}}-{{$index}}" ng-model="step.completed" ng-change="updateStep(step, stage, data.thisOpp.process.stages)">
+						    <label for="{{stage.value}}-{{$index}}">
+							</label>
+					    </div>
+
+					    <!-- details -->
+					    <div class="milestone-details">
+					    	<!-- milestone header -->
+					    	<div class="milestone-header">
+					    	<span ng-bind="step.value || '--'"></span>
+					    	<span ng-if="step.optional"><i>- Optional</i></span>
+					    	</div>
+							<!-- description -->
+					    	<div class="milestone-description">
+					    	<span class="optional" ng-bind="step.description || '--'"></span>
+					    	</div>
+					    	<!--  <p class="milestone-comments">
+				            <icon class="fa fa-comment-o"></icon>
+				              <a href="">{{step.comments.length}} Comments</a>
+											
+				              <span class="comments-days-ago">- {{daysAgo(step.comments)}} Days ago</span>
+				          </p> -->
+				          <div class="milestone-completed" ng-if="step.completed">
+				          	<span ng-bind="(step.completedDate | date: 'MMM d') || '--'"></span>
+				          </div>
+					    </div>
+				</div>
+</div>
+
+
+	

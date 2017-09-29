@@ -1,0 +1,23 @@
+<h3>Pagination</h3>
+<p>Pagination is used with standard tables that require larges amounts of data. If you are using <a href="">Data grid</a>, you should use infinite scrolling </p>
+<br>
+
+<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination" boundary-links="true" num-pages="numPages"></ul>
+
+
+<br>
+<br>
+
+<div class="jumbotron jumbo-footer">
+    <div class="row">
+        <div class="col-xs-6 text-left">
+          <p>Previous</p>
+            <p><a ui-sref="app.product.multi-select">Multi Select</a></p>
+        </div>
+        <div class="col-xs-6 text-right">
+            <p>Up Next</p>
+            <p><a ui-sref="app.product.pricing-table">Pricing Table</a></p>
+        </div>
+    </div>
+</div>
+

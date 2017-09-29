@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
+<!-- build:strictdi -->
+<html lang="en" ng-app="interloop">
+<!-- endbuild -->
+
+<head>
+
+    <!-- build:basehref -->
+    <base href="/">
+    <!-- endbuild -->
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="Interloop | Sales Forecasting & Insights Platform">
+    <meta name="author" content="hi@interloop.ai">
+    
+    <title ng-bind="pageTitle">Interloop</title>
+
+    <!-- fonts first -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
+    <script src="https://use.typekit.net/grl7dox.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <!-- fontastic icons font -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- build:fontastic -->
+    <link rel="stylesheet" href="https://file.myfontastic.com/rC29FChZSxwfNGqaLLUSkd/icons.css">
+    <!-- endbuild -->
+
+    <!-- cdn css -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/2.1.15/jquery.webui-popover.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
+
+    <!-- CSS -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- build:css assets/css/styles.css -->
+    <link rel="stylesheet" type="text/css" href="lib/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/angular-hotkeys/build/hotkeys.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/angular-google-places-autocomplete/src/autocomplete.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/angularjs-slider/dist/rzslider.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/highcharts-ng/dist/highcharts-ng.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap-daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/please-wait/build/please-wait.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/angular-loading-bar/build/loading-bar.min.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/nya-bootstrap-select/dist/css/nya-bs-select.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/interloop.css"/>
+    <!-- endbuild -->
+
+</head>
+
+<body>
+
+    <!-- //main app ui view -->
+    <span ui-view></span>
+
+    <!-- ELECTRON SPECIFIC WRAPPER FOR SCRIPTS  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <!-- cdn popular libraries -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <!-- jquery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/2.1.15/jquery.webui-popover.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+    <!-- moment -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.1/moment-timezone.min.js"></script>
+    <!-- other -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chrono-node/1.2.5/chrono.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.8/xlsx.min.js"></script>
+    <!-- highcharts -->
+    <script type="text/javascript" src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.12/highcharts-more.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <!-- pusher -->
+    <script type="text/javascript" src="https://js.pusher.com/3.0/pusher.min.js"></script>
+    <!-- stripe -->
+    <script type="text/javascript" src="https://js.stripe.com/v2/" async defer></script>
+    <!-- google maps -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB93uI5beGtRVn6ElNu7yXX_8pFRxlIdkk&libraries=places" async defer></script>
+    <!-- end cdn -->
+
+
+    <!-- js files -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- build:jslibs assets/js/jslibs.js -->
+    <script type="text/javascript" src="lib/please-wait/build/please-wait.js"></script>
+    <script type="text/javascript" src="lib/ladda/js/spin.js"></script>
+    <script type="text/javascript" src="lib/ladda/js/ladda.js"></script>
+    <script type="text/javascript" src="lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="lib/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.js"></script>
+    <script type="text/javascript" src="lib/HTML5-Desktop-Notifications2/desktop-notify.js"></script>
+    <script type="text/javascript" src="lib/mixpanel/mixpanel-jslib-snippet.min.js"></script>
+    <script type="text/javascript" src="lib/slick-carousel/slick/slick.js"></script>
+    <script type="text/javascript" src="assets/js/loading.js"></script>
+    <script type="text/javascript" src="assets/js/highcharts-sankey.js"></script>
+    <script type="text/javascript" src="assets/js/fullstory.js"></script>
+    <!-- endbuild -->
+
+
+    <!-- angular libs -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- build:nglibs assets/js/nglibs.js -->
+    <script type="text/javascript" src="lib/angular/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="lib/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="lib/ui-router-extras/release/ct-ui-router-extras.js"></script>
+    <!-- third party -->
+    <script type="text/javascript" src="lib/ag-grid-enterprise/dist/ag-grid-enterprise.js"></script>
+    <script type="text/javascript" src="lib/angular-bootstrap-duallistbox/dist/angular-bootstrap-duallistbox.js"></script>
+    <script type="text/javascript" src="lib/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+    <script type="text/javascript" src="lib/angular-bootstrap-nav-tree/dist/abn_tree_directive.js"></script>
+    <script type="text/javascript" src="lib/angular-cache/dist/angular-cache.js"></script>
+    <script type="text/javascript" src="lib/angular-clipboard/angular-clipboard.js"></script>
+    <script type="text/javascript" src="lib/angular-elastic/elastic.js"></script>
+    <script type="text/javascript" src="lib/angular-feature-flags/dist/featureFlags.js"></script>
+    <script type="text/javascript" src="lib/angular-filter-count-to/dist/angular-filter-count-to.min.js"></script>
+    <script type="text/javascript" src="lib/angular-filter/dist/angular-filter.js"></script>
+    <script type="text/javascript" src="lib/angular-google-places-autocomplete/src/autocomplete.js"></script>
+    <script type="text/javascript" src="lib/angular-hotkeys/build/hotkeys.js"></script>
+    <script type="text/javascript" src="lib/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+    <script type="text/javascript" src="lib/angular-intercom/angular-intercom.js"></script>
+    <script type="text/javascript" src="lib/angular-knob/src/angular-knob.js"></script>
+    <script type="text/javascript" src="lib/angular-ladda/dist/angular-ladda.min.js"></script>
+    <script type="text/javascript" src="lib/angular-loading-bar/build/loading-bar.js"></script>
+    <script type="text/javascript" src="lib/angular-moment/angular-moment.js"></script>
+    <script type="text/javascript" src="lib/angular-slick/dist/slick.js"></script>
+    <script type="text/javascript" src="lib/angular-stripe/release/angular-stripe.js"></script>
+    <script type="text/javascript" src="lib/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script type="text/javascript" src="lib/angular-trix/dist/angular-trix.min.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-mask/dist/mask.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-select/dist/select.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-sortable/sortable.js"></script>
+    <script type="text/javascript" src="lib/angular-validation-match/dist/angular-validation-match.js"></script>
+    <script type="text/javascript" src="lib/angular-web-notification/angular-web-notification.js"></script>
+    <script type="text/javascript" src="lib/angularjs-slider/dist/rzslider.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="lib/checklist-model/checklist-model.js"></script>
+    <script type="text/javascript" src="lib/highcharts-ng/dist/highcharts-ng.js"></script>
+    <script type="text/javascript" src="lib/ment.io/dist/mentio.js"></script>
+    <script type="text/javascript" src="lib/ng-csv/build/ng-csv.js"></script>
+    <script type="text/javascript" src="lib/ng-file-upload-shim/ng-file-upload-shim.js"></script>
+    <script type="text/javascript" src="lib/ng-file-upload/ng-file-upload.js"></script>
+    <script type="text/javascript" src="lib/ng-password-strength/dist/scripts/ng-password-strength.js"></script>
+    <script type="text/javascript" src="lib/ng-prettyjson/dist/ng-prettyjson.min.js"></script>
+    <script type="text/javascript" src="lib/ng-rollbar/ng-rollbar.js"></script>
+    <script type="text/javascript" src="lib/ng-tags-input/ng-tags-input.js"></script>
+    <script type="text/javascript" src="lib/ng-videosharing-embed/build/ng-videosharing-embed.min.js"></script>
+    <script type="text/javascript" src="lib/nya-bootstrap-select/dist/js/nya-bs-select.js"></script>
+    <script type="text/javascript" src="lib/pusher-angular/lib/pusher-angular.js"></script>
+    <script type="text/javascript" src="lib/simple-web-notification/web-notification.js"></script>
+    <script type="text/javascript" src="lib/angular-mixpanel/src/angular-mixpanel.js"></script>
+    <!-- assets -->
+    <script type="text/javascript" src="assets/js/angular-daterangepicker.js"></script>
+    <script type="text/javascript" src="assets/js/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/lb-services.js"></script>
+    <!-- endbuild -->
+
+
+    <!-- app files -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- build:modules assets/js/modules.js -->
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="client.env.js"></script>
+
+    <!-- values -->
+    <script type="text/javascript" src="shared/values/config.value.js"></script>
+    <script type="text/javascript" src="shared/values/fields.value.js"></script>
+    <script type="text/javascript" src="shared/values/editions.value.js"></script>
+    <script type="text/javascript" src="shared/values/permissions.value.js"></script>
+    <script type="text/javascript" src="shared/values/modalDefs.value.js"></script>
+    <script type="text/javascript" src="shared/values/featureFlags.value.js"></script>
+    <script type="text/javascript" src="shared/values/baseChartConfig.value.js"></script>
+    <script type="text/javascript" src="shared/values/highchartTheme.value.js"></script>
+
+    <!-- config -->
+    <script type="text/javascript" src="app.config.js"></script>
+    <script type="text/javascript" src="shared/config/shortcuts.config.js"></script>
+    <script type="text/javascript" src="shared/config/toastr.config.js"></script>
+    <script type="text/javascript" src="shared/config/http-interceptor.config.js"></script>
+
+    <!-- routes -->
+    <script type="text/javascript" src="app.routes.js"></script>
+    <script type="text/javascript" src="settings/settings.routes.js"></script>
+    <script type="text/javascript" src="configure/configure.routes.js"></script>
+
+    <!-- controllers -->
+    <script type="text/javascript" src="modules/login/loginCtrl.js"></script>
+    <script type="text/javascript" src="modules/forgot/forgotCtrl.js"></script>
+    <script type="text/javascript" src="modules/reset/resetCtrl.js"></script>
+    <!-- //app -->
+    <script type="text/javascript" src="modules/app/navCtrl.js"></script>
+    <!-- insights -->
+    <script type="text/javascript" src="modules/insights/insightsCtrl.js"></script>
+    <script type="text/javascript" src="modules/dashboards/dashboardsCtrl.js"></script>
+    <script type="text/javascript" src="modules/explorer/explorerCtrl.js"></script>
+    <!-- forecasts -->
+    <script type="text/javascript" src="modules/forecasts/forecastsCtrl.js"></script>
+    <script type="text/javascript" src="modules/forecasts/forecastDetailsCtrl.js"></script>
+    <!-- opps -->
+    <script type="text/javascript" src="modules/opportunities/opportunitiesCtrl.js"></script>
+    <script type="text/javascript" src="modules/opportunities/opportunityDetailsCtrl.js"></script>
+    <!-- contacts -->
+    <script type="text/javascript" src="modules/contacts/contactsCtrl.js"></script>
+    <script type="text/javascript" src="modules/contacts/contactDetailsCtrl.js"></script>
+    <!-- companies -->
+    <script type="text/javascript" src="modules/companies/companiesCtrl.js"></script>
+    <script type="text/javascript" src="modules/companies/companyDetailsCtrl.js"></script>
+    <!-- content -->
+    <script type="text/javascript" src="modules/content/contentCtrl.js"></script>
+    <script type="text/javascript" src="modules/content/contentDetailsCtrl.js"></script>
+    <!-- tasks -->
+    <script type="text/javascript" src="modules/tasks/tasksCtrl.js"></script>
+    <script type="text/javascript" src="modules/tasks/taskDetailsCtrl.js"></script>
+    <!-- more -->
+    <script type="text/javascript" src="modules/more/files/filesCtrl.js"></script>
+    <script type="text/javascript" src="modules/more/files/fileDetailsCtrl.js"></script>
+    <script type="text/javascript" src="modules/more/starred/starredCtrl.js"></script>
+    <script type="text/javascript" src="modules/more/directory/directoryCtrl.js"></script>
+    <script type="text/javascript" src="modules/more/mentions/mentionsCtrl.js"></script>
+
+    <!-- other -->
+    <script type="text/javascript" src="modules/search/searchCtrl.js"></script>
+    <script type="text/javascript" src="modules/notifications/notificationsCtrl.js"></script>
+    <!-- ...other modules go here -->
+
+    <!-- //modals -->
+    <script type="text/javascript" src="shared/modals/connectIcloud/connectIcloudCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editField/editFieldCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editCustomField/editCustomFieldCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newSystemView/newSystemViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newTeam/newTeamCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editTeam/editTeamCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/assignRole/assignRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addOwner/addOwnerCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addTag/addTagCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addRole/addRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addTeamMember/addTeamMemberCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addPipeline/addPipelineCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addGoal/addGoalCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addReason/addReasonCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addActivityType/addActivityTypeCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addForecastCategory/addForecastCategoryCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/shareWith/shareWithCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editUser/editUserProfileCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editReason/editReasonCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
+    
+    <!-- //configuration -->
+    <script type="text/javascript" src="configure/permissions/configPermissionsCtrl.js"></script>
+    <script type="text/javascript" src="configure/limits/configLimitsCtrl.js"></script>
+    <script type="text/javascript" src="configure/features/configFeaturesCtrl.js"></script>
+    <script type="text/javascript" src="configure/trialBilling/configTrialBillingCtrl.js"></script>
+    <script type="text/javascript" src="configure/raw/configRawCtrl.js"></script>
+    <script type="text/javascript" src="configure/fields/configFieldsCtrl.js"></script>
+    <script type="text/javascript" src="configure/systemViews/configSystemViewsCtrl.js"></script>
+    <script type="text/javascript" src="configure/banners/configBannersCtrl.js"></script>
+    <script type="text/javascript" src="configure/notifications/configNotificationsCtrl.js"></script>
+    <script type="text/javascript" src="configure/onboarding/configOnboardingCtrl.js"></script>
+
+    <!-- //settings -->
+    <script type="text/javascript" src="settings/profile/settingsProfileCtrl.js"></script>
+    <script type="text/javascript" src="settings/creation/settingsCreationCtrl.js"></script>
+    <script type="text/javascript" src="settings/notifications/settingsNotificationsCtrl.js"></script>
+    <script type="text/javascript" src="settings/connected/settingsConnectedCtrl.js"></script>
+    <!-- ////company settings -->
+    <script type="text/javascript" src="settings/company/settingsCompanyCtrl.js"></script>
+    <script type="text/javascript" src="settings/users/settingsUsersCtrl.js"></script>
+    <script type="text/javascript" src="settings/permissions/settingsPermissionsCtrl.js"></script>
+    <script type="text/javascript" src="settings/teams/settingsTeamsCtrl.js"></script>
+    <script type="text/javascript" src="settings/teams/settingsTeamDetailsCtrl.js"></script>
+    <script type="text/javascript" src="settings/integrations/settingsIntegrationsCtrl.js"></script>
+    <script type="text/javascript" src="settings/subscription/settingsSubscriptionCtrl.js"></script>
+    <script type="text/javascript" src="settings/invoices/settingsInvoicesCtrl.js"></script>
+    <!-- ////configuration -->
+    <script type="text/javascript" src="settings/goals/settingsGoalsCtrl.js"></script>
+    <script type="text/javascript" src="settings/forecasting/settingsForecastingCtrl.js"></script>
+    <script type="text/javascript" src="settings/fields/settingsFieldsCtrl.js"></script>
+    <script type="text/javascript" src="settings/types/settingsTypesCtrl.js"></script>
+    <script type="text/javascript" src="settings/won-loss/settingsWonLossCtrl.js"></script>
+    <script type="text/javascript" src="settings/pipelines/settingsPipelinesCtrl.js"></script>
+    <script type="text/javascript" src="settings/custom-fields/settingsCustomFieldsCtrl.js"></script>
+    <script type="text/javascript" src="settings/views/settingsViewsCtrl.js"></script>
+    <script type="text/javascript" src="settings/tags/settingsTagsCtrl.js"></script>
+    <!-- ////data -->
+    <script type="text/javascript" src="settings/export/settingsExportCtrl.js"></script>
+    <script type="text/javascript" src="settings/import/settingsImportCtrl.js"></script>
+    <script type="text/javascript" src="settings/import/settingsImportWizardCtrl.js"></script>
+    <script type="text/javascript" src="settings/audit-log/settingsAuditLogCtrl.js"></script>
+    <!-- ////settings-modals -->
+    <script type="text/javascript" src="shared/modals/addActivityType/addActivityTypeCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addForecastCategory/addForecastCategoryCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addGoal/addGoalCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addOwner/addOwnerCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addPipeline/addPipelineCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addReason/addReasonCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addRole/addRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addTag/addTagCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addTeamMember/addTeamMemberCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/assignRole/assignRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/bulkAssign/bulkAssignCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/bulkDelete/bulkDeleteCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/bulkEdit/bulkEditCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/bulkTag/bulkTagCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/confirm/confirmCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/connectIcloud/connectIcloudCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/createView/createViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/deleteView/deleteViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editCustomField/editCustomFieldCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editField/editFieldCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editReason/editReasonCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editSystemView/editSystemViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editTeam/editTeamCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editUser/editUserProfileCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editView/editViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/export/exportCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/bulkExport/bulkExportCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/exportData/exportDataCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/exportView/exportViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/fileUpload/fileUploadCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/importData/importDataCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/inviteUsers/inviteUsersCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/lostReason/lostReasonCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/manageRelationships/manageRelationshipsCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/manageTags/manageTagsCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newActivity/newActivityCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newCompany/newCompanyCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newContact/newContactCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newCustomField/newCustomFieldCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newNote/newNoteCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newOpportunity/newOpportunityCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newProspect/newProspectCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newSystemView/newSystemViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newTeam/newTeamCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/shareWith/shareWithCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/submitForecast/submitForecastCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/wonReason/wonReasonCtrl.js"></script>
+    <!-- end controllers -->
+
+    <!-- filters -->
+    <script type="text/javascript" src="shared/filters/asDate.filter.js"></script>
+    <script type="text/javascript" src="shared/filters/formatDate.filter.js"></script>
+    <script type="text/javascript" src="shared/filters/megaNumber.filter.js"></script>
+    <script type="text/javascript" src="shared/filters/thousandSuffix.filter.js"></script>
+    <script type="text/javascript" src="shared/filters/bytes.filter.js"></script>
+    <script type="text/javascript" src="shared/filters/fileTypes.filter.js"></script>
+    <script type="text/javascript" src="shared/filters/fileIcons.filter.js"></script>
+
+    <!-- directives -->
+    <script type="text/javascript" src="shared/directives/autoFocus.directive.js"></script>
+    <script type="text/javascript" src="shared/directives/changeOnBlur.directive.js"></script>
+    <script type="text/javascript" src="shared/directives/dynamicTitle.directive.js"></script>
+    <script type="text/javascript" src="shared/directives/filereader.directive.js"></script>
+    <script type="text/javascript" src="shared/directives/myUiSelect.directive.js"></script>
+    <script type="text/javascript" src="shared/directives/permission.directive.js"></script>
+    <script type="text/javascript" src="shared/directives/scrollClass.directive.js"></script>
+
+    <!-- factories -->
+    <script type="text/javascript" src="shared/factories/logger.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/configService.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/authService.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/newEntity.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/connectivityMonitor.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/modalManager.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/gridManager2.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/queryBuilder.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/queryDecoder.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/aggregateBuilder.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/viewManager.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/insightsManager.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/tagManager.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/shareLink.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/featureFlagManager.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/sidebarRouter.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/sidebarActions.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/smartParse.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/relationshipManager.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/searchService.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/qSerial.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/oauth.factory.js"></script>
+    <!-- endbuild -->
+
+
+    <!-- templates from $templateCache [replaced and then rev()] -->
+    <!-- build:templates assets/js/templates.js -->
+        <!-- build:apptemplates -->
+        <!-- endbuild -->
+    <!-- endbuild -->
+
+    <!-- Electron Preload Images -->
+    <!-- build:preload -->
+    <!-- endbuild -->
+
+
+    <!-- ELECTRON WRAPPER END -->
+    <script>if (window.module) module = window.module;</script>
+
+
+</body>
+
+</html>

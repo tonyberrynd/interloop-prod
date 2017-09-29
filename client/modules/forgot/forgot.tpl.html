@@ -1,0 +1,47 @@
+<div class="forgot">
+    
+    <div class="forgot-inner">
+      <div class="forgot-card"> 
+      <div class="forgot-title">
+         <!-- before -->
+        <span ng-if="!data.resetComplete">
+        <h3>Password Reset</h3>
+        <p>To reset your password, enter the email address linked to your Interloop account.</p>
+        </span>
+        <!-- after -->
+        <span class="resetRecieved animated" ng-if="data.resetComplete">
+        <img src="assets/img/mail.png" alt="Reset Password">
+        <h3>Request Recieved</h3>
+        </span>
+      </div>
+
+      <!-- before submit -->
+          <div ng-if="!data.resetComplete">
+          <form name="forgotForm" class="forgot-form" ng-submit="resetPassword()">
+              <div class="forgot-errors" ng-if="data.forgotError">
+                <p class="text-center text-danger">Invalid email address</p>
+              </div>
+              <div class="forgot-main">
+                <!-- email -->
+                <div class="form-group">
+                  <input type="email" class="email form-control" id="forgotEmail" placeholder="you@example.com" ng-model="data.email" required>
+                </div>
+              <!-- sign in -->
+              <button ng-disabled="forgotForm.$invalid" class="submit btn btn-lg btn-primary btn-block" type="submit">Reset my password</button>
+              </div>
+          </form>
+          </div>
+
+          <div class="resetComplete animated" ng-if="data.resetComplete">
+            <p>If we found an account associated with that email address, you will find an email from us in your inbox shortly.</p>
+            <br>
+            <p>Unsure which email you used to create your Interloop account? Please contact <a href="mailto:support@interloop.ai">support@interloop.ai</a>.</p>
+          </div>
+
+
+      </div>
+      <p class="return"><a ui-sref="login">Return To Login</a></p>
+    </div>
+
+</div>
+

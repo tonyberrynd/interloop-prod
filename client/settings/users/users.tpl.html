@@ -1,0 +1,124 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Manage Users</h4>
+					<p>You have <b class="bright" ng-bind="(data.users | filter:!deactivated).length"></b> <b class="bright">active users</b>  in your account</p>
+
+					<button class="btn btn-primary pull-right" ng-click="inviteUsers()"><icon class="wb-user-add"></icon> Invite New Users</button>
+
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-body">
+
+
+							<div class="row search-row">
+								<div class="col-xs-6">
+
+								<p class="sort-by">Sort By:</p>
+								<ol class="nya-bs-select" ng-model="data.sortBy">
+									<li nya-bs-option="option in data.sortOptions">
+										<a>
+											{{option.label}}
+										</a>
+									</li>
+								</ol>
+
+
+								</div>
+								<div class="col-xs-6 text-right">
+
+								 <!-- search group -->
+								 <div class="form-group search-group">
+								    <icon class="wb-search search"></icon>
+								    <input type="text" class="form-control" id="searchInput" placeholder="Search..." ng-model="data.search">
+								    <icon class="wb-plus-circle clear" ng-show="data.search" ng-click="data.search = ''"></icon>
+								  </div>
+								</div>
+
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12">
+									
+									  <table class="table table-condensed settings-table">
+									    <thead>
+									      <tr>
+									        <th class="col-xs-4">Name</th>
+						              	    <th class="col-xs-3">Role</th>
+						                    <th class="col-xs-3">Teams</th>
+						                    <th class="col-xs-2"></th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									      <tr ng-repeat="user in data.users | filter: data.search | orderBy: data.sortBy.value" ng-class="{'inactive': user.deactivated}">
+									        <td class="user">
+									        	<div class="avatar avatar-32" ng-class="user.color">
+									        		<span ng-bind="user.initials"></span>
+									        	</div>
+									        	<div class="avatar-details">
+									        	<h5 ng-bind="user.firstName + ' ' + user.lastName"> 
+									        		<span ng-if="user.teamOwner" class="label label-info">Team Owner</span>
+									        	</h5>	
+									        	<p ng-bind="user.email || 'No Email'"></p>
+									        	</div>
+									        </td>
+									        <td class="plain">
+
+									        	<span ng-repeat="role in user.role">
+									        		<span ng-bind="role.label"></span>
+									        		<span ng-show="!$last">, </span>
+									        	</span>
+
+									        	<span class="null-cell" ng-if="!user.role || !user.role.length">--</span>
+									        	
+									        </td>
+									        <td class="plain">
+									        	<span ng-repeat="team in user.teams">
+									        		<span ng-bind="team"></span>
+									        		<span ng-show="!$last">, </span>
+									        	</span>
+
+									        	<span class="null-cell" ng-if="!user.teams.length">--</span>
+									        </td>
+									        <td class="text-right plain">
+											    <div class="btn-group" uib-dropdown is-open="status.isopen" ng-if="!user.deactivated">
+											      <button id="single-button" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle ng-disabled="disabled">
+											        Actions <span class="wb-chevron-down-mini"></span>
+											      </button>
+											      <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+											        <li role="menuitem"><a href ng-click="editUser(user)">Edit Profile</a></li>
+											        <li role="menuitem"><a href ng-click="assignRole(user)">Assign Role</a></li>
+											        <li class="divider"></li>
+											        <li role="menuitem"><a href ng-click="deactivate(user)" ><span class="text-danger">Deactivate User</span></a></li>
+											      </ul>
+											    </div>
+
+					
+											    <button class="btn btn-default btn-outline reactivate" ng-click="changeUserState(user, false)" ng-class="{'hidden': !user.deactivated}">
+											    	Reactivate User
+											    </button>
+
+
+									        </td>
+									      </tr>
+									      
+									    </tbody>
+									  </table>
+
+							  </div>
+							</div>
+
+
+
+						</div>
+					</div>
+					</div>
+				</div>
+		</div>
+
+

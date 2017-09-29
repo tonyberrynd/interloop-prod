@@ -1,0 +1,25 @@
+
+
+<!-- loader	 -->
+<div class="loop-loader loop-loader-light loop-loader-xs centered" ng-class="{'hidden': data.loaded }"></div>
+
+
+<div class="settings-right">
+
+	<h4>Raw Config Data <small>- JSON Config File</small></h4>	
+	<div class="panel panel-default panel-light">
+		<div class="panel-body">
+
+		<div class="callout callout-danger">
+			<p class="title"><icon class="wb-warning"></icon> Danger</p>
+			<p> Editing the follow application config data will auto save to the Database and can adversley effect the operation of this app</p>
+		</div>
+
+		<div pretty-json="data.orgConfig" edition="true" ></div>
+	
+
+
+		</div>
+	</div>
+
+</div>

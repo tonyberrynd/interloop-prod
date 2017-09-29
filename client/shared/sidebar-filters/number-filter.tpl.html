@@ -1,0 +1,43 @@
+    <span class="is-value">
+        <div class="radio-custom radio-primary">
+          <input type="radio" id="{{field.key}}-range" name="{{field}}-radios" ng-model="field.filterApplied" value="range" ng-change="isFilterActive(field)">
+          <label for="{{field.key}}-range">Range</label>
+      </div>
+      <input type="number" class="form-control" ng-if="field.filterApplied == 'range'" id="{{field.key}}-range-lower" autofocus placeholder="greater than" style="margin-bottom:3px;" ng-model="field.filterValue['lower']" ng-change="isFilterActive(field)" ng-model-options="{debounce: 250}">
+      <input type="number" class="form-control" ng-if="field.filterApplied == 'range'" id="{{field.key}}-range-upper" placeholder="less than" ng-model="field.filterValue['upper']" ng-change="isFilterActive(field)" ng-model-options="{debounce: 250}">
+  </span>
+
+  <span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" id="{{field.key}}-greater-than" name="{{field}}-radios" ng-model="field.filterApplied" value="greater-than" ng-change="isFilterActive(field)">
+      <label for="{{field.key}}-greater-than">Greater than</label>
+  </div>
+  <input type="number" class="form-control" ng-if="field.filterApplied == 'greater-than'"' id="{{field.key}}-greater-than-input" ng-model="field.filterValue" ng-change="isFilterActive(field)" autofocus ng-model-options="{debounce: 250}">
+</span>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" id="{{field.key}}-less-than" name="{{field}}-radios" ng-model="field.filterApplied" value="less-than" ng-change="isFilterActive(field)">
+      <label for="{{field.key}}-less-than">Less than</label>
+  </div>
+  <input type="number" class="form-control" ng-if="field.filterApplied == 'less-than'" id="{{field.key}}-less-than-input" ng-model="field.filterValue" ng-change="isFilterActive(field)" autofocus ng-model-options="{debounce: 250}">
+</span>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" id="{{field.key}}-is-unknown" name="{{field}}-radios" ng-model="field.filterApplied" value="is-unknown" ng-change="isFilterActive(field)">
+      <label for="{{field.key}}-is-unknown">Is unknown</label>
+  </div>
+</span>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" id="{{field.key}}-has-any-value" name="{{field}}-radios" ng-model="field.filterApplied" value="has-any-value" ng-change="isFilterActive(field)">
+      <label for="{{field.key}}-has-any-value">Has any value</label>
+  </div>
+</span>
+
+<span class="clear-filter" ng-if="field.filterApplied">
+    <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(field)">Clear Filter
+    </button>
+</span>

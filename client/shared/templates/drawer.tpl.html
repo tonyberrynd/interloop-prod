@@ -1,0 +1,746 @@
+ <div class="drawer">
+      <!-- loading indicator -->
+      <div class="loop-loader loop-loader-light loop-loader-xs centered fadeInOut" ng-class="{'hidden': data.grid}" style="z-index:0">Loading...</div>
+
+      <div class="filter-panel-header">
+          <!-- filter panel header -->
+          <div class="btn-group rounded inverse four">
+              <button type="button" class="btn btn-default btn-outline" ng-class="{'active': data.filterView == 'filters'}" ng-click="data.filterView = 'filters'" uib-tooltip="Filters" tooltip-popup-delay="500" tooltip-append-to-body="true">
+                <icon class="icon-budicon-classic-12"></icon>
+              </button>
+              <button type="button" class="btn btn-default btn-outline" ng-class="{'active': data.filterView == 'columns'}" ng-click="data.filterView = 'columns'" uib-tooltip="Columns" tooltip-popup-delay="500" tooltip-append-to-body="true">
+                <icon class="icon-budicon-classic-26"></icon>
+              </button>
+              <button type="button" class="btn btn-default btn-outline" ng-class="{'active': data.filterView == 'groups'}" ng-click="data.filterView = 'groups'" uib-tooltip="Groups" tooltip-popup-delay="500" tooltip-append-to-body="true">
+                <icon class="group-icon icon-budicon-classic-69"></icon>    
+              </button>
+              <button type="button" class="btn btn-default btn-outline" ng-class="{'active': data.filterView == 'settings'}" ng-click="data.filterView = 'settings'" uib-tooltip="Settings" tooltip-popup-delay="500" tooltip-append-to-body="true">
+                <icon class="icon-budicon-classic-30"></icon>
+              </button>
+          </div>
+      </div>
+
+
+   <div class="filter-panel-body">
+     <div class="filter-groups" ng-class="{'hidden': data.filterView !== 'filters' }">
+       <div class="search-filters" style="margin-bottom:10px;">
+          <icon class="search-icon wb-search"></icon>
+          <input type="text" class="form-control" placeholder="Search Filters" ng-model="data.filterSearch">
+          <button class="btn btn-link clear-search" ng-if="data.filterSearch" ng-click="data.filterSearch = '';">
+            <icon class="wb-plus-circle"></icon>
+        </button>
+      </div>
+
+
+      <!-- filters -->
+      <uib-accordion close-others="data.onlyOpenOneAtATime" >
+
+        <!-- accordion group -->
+        <div uib-accordion-group class="panel-default panel-light" is-open="filter.accodionOpen" ng-repeat="filter in data.filters | orderBy: 'label' | filter: data.filterSearch" ng-hide="filter.key == '_isDeleted' && data.includeDeleted == 'false'">
+          <!-- accordion heading -->
+          <uib-accordion-heading ng-click="toggleOpen(filter)">
+            
+            <span class="filter-icon">
+              <icon ng-if="!filter.accodionOpen" class="wb-plus"></icon>
+              <icon ng-if="filter.accodionOpen" class="wb-minus"></icon>
+            </span>
+          
+
+            <span ng-bind="filter.label || '--'" ng-class="{'filterApplied': (filter.filterApplied && filter.filterValue && filter.type !== 'category') || (filter.type == 'category' && filter.filterValue.length) }"></span>
+
+<!--             <span class="panel-icon">
+                <icon class="wb-chevron-down-mini" ng-if="!filter.open"></icon>
+                <icon class="wb-chevron-down-mini" ng-if="filter.open"></icon>
+            </span> -->
+        </uib-accordion-heading>
+        <!-- accordion content -->
+
+        <!-- string -->
+        <span ng-if="filter.type == 'string'">
+
+                  <span class="is-value">
+                          <div class="radio-custom radio-primary">
+                            <input type="radio" class="magic-radio" id="{{filter.key}}-is" name="{{filter}}-radios" ng-model="filter.filterApplied" value="is" ng-change="isFilterActive(filter)">
+                            <label for="{{filter.key}}-is">Is</label>
+                        </div>
+                        <input class="form-control" ng-if="filter.filterApplied == 'is'" id="{{filter.key}}-is" ng-model="filter.filterValue" autofocus ng-model-options="{debounce: 250}" ng-change="isFilterActive(filter)" placeholder="Enter Value">
+                    </span>
+
+                  <span class="is-value">
+                      <div class="radio-custom radio-primary">
+                        <input type="radio" class="magic-radio" id="{{filter.key}}-is-not" name="{{filter}}-radios" ng-model="filter.filterApplied" value="is-not" ng-change="isFilterActive(filter)">
+                        <label for="{{filter.key}}-is-not">Is not</label>
+                    </div>
+                    <input class="form-control" ng-if="filter.filterApplied == 'is-not'" id="{{filter.key}}-is-not" ng-model="filter.filterValue" autofocus ng-model-options="{debounce: 250}" ng-change="isFilterActive(filter)" placeholder="Enter Value">
+                  </span>
+
+                  <span class="is-value">
+                          <div class="radio-custom radio-primary">
+                            <input type="radio" class="magic-radio" id="{{filter.key}}-contains" name="{{filter}}-radios" ng-model="filter.filterApplied" value="contains" ng-change="isFilterActive(filter)">
+                            <label for="{{filter.key}}-contains">Contains</label>
+                        </div>
+                        <input class="form-control" ng-if="filter.filterApplied == 'contains'" id="{{filter.key}}-contains-input" ng-model="filter.filterValue" autofocus ng-model-options="{debounce: 250}" ng-change="isFilterActive(filter)" placeholder="Enter Value">
+                    </span>
+
+                    <span class="is-value">
+                      <div class="radio-custom radio-primary">
+                        <input type="radio" class="magic-radio" id="{{filter.key}}-does-not-contain" name="{{filter}}-radios" ng-model="filter.filterApplied" value="does-not-contain" ng-change="isFilterActive(filter)">
+                        <label for="{{filter.key}}-does-not-contain">Does not contain</label>
+                    </div>
+                    <input class="form-control" ng-if="filter.filterApplied == 'does-not-contain'" id="{{filter.key}}-does-not-contain-input" ng-model="filter.filterValue" autofocus ng-model-options="{debounce: 250}" ng-change="isFilterActive(filter)" placeholder="Enter Value">
+                  </span>
+
+                  <span class="is-value">
+                      <div class="radio-custom radio-primary">
+                        <input type="radio" class="magic-radio" id="{{filter.key}}-is-unkown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="is-unknown" ng-change="isFilterActive(filter)">
+                        <label for="{{filter.key}}-is-unkown">Is unknown</label>
+                    </div>
+                  </span>
+
+                  <span class="is-value">
+                      <div class="radio-custom radio-primary">
+                        <input type="radio" class="magic-radio" id="{{filter.key}}-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="has-any-value" ng-change="isFilterActive(filter)">
+                        <label for="{{filter.key}}-has-any-value">Has any value</label>
+                    </div>
+                  </span>
+
+                  <!-- end of filter box -->
+
+            <span class="clear-filter" ng-if="filter.filterApplied">
+            <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
+            </button>
+          </span>        
+
+        </span>
+        <!-- end string -->
+
+
+        <!-- number -->
+          <span ng-if="filter.type == 'number'">
+
+            <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="range" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-range">Range</label>
+                    </div>
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'range'" id="{{filter.key}}-range-lower" autofocus placeholder="greater than" style="margin-bottom:3px;" ng-model="filter.filterValue['lower']" ng-change="isFilterActive(filter)" ui-number-mask="0">
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'range'" id="{{filter.key}}-range-upper" placeholder="less than" ng-model="filter.filterValue['upper']" ng-change="isFilterActive(filter)" ui-number-mask="0">
+          </span>
+          
+          <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-greater-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="greater-than" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-greater-than">Greater than</label>
+                    </div>
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'greater-than'"' id="{{filter.key}}-greater-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="0">
+          </span>
+          
+          <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-less-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="less-than" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-less-than">Less than</label>
+                    </div>
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'less-than'" id="{{filter.key}}-less-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="0">
+          </span>
+          <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-is-unknown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="is-unknown" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-is-unknown">Is unknown</label>
+                    </div>
+          </span>
+          <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="has-any-value" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-has-any-value">Has any value</label>
+                    </div>
+          </span>
+          <span class="clear-filter" ng-if="filter.filterApplied">
+            <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
+            </button>
+          </span>
+        </span>
+        <!-- end number -->
+
+
+        <span ng-if="filter.type == 'currency'">
+
+            <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="range" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-range">Range</label>
+                    </div>
+                     <div class="input-group" ng-if="filter.filterApplied == 'range'" style="margin-bottom:5px;">
+                        <span class="input-group-addon"><span class="fa fa-dollar"></span></span>
+                         <input class="field-input form-control" id="{{filter.key}}-range-lower" autofocus placeholder="greater than" ng-model="filter.filterValue['lower']" ng-change="isFilterActive(filter)" ui-number-mask="2">
+                    </div>
+                    <div class="input-group" ng-if="filter.filterApplied == 'range'">
+                        <span class="input-group-addon"><span class="fa fa-dollar"></span></span>
+                         <input class="field-input form-control" id="{{filter.key}}-range-upper" placeholder="less than" ng-model="filter.filterValue['upper']" ng-change="isFilterActive(filter)" ui-number-mask="2">
+                    </div>
+          </span>
+          
+          <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-greater-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="greater-than" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-greater-than">Greater than</label>
+                    </div>
+                    <div class="input-group" ng-if="filter.filterApplied == 'greater-than'">
+                        <span class="input-group-addon"><span class="fa fa-dollar"></span></span>
+                        <input class="field-input form-control" id="{{filter.key}}-greater-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="2">
+                    </div>
+
+                     
+          </span>
+          
+          <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-less-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="less-than" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-less-than">Less than</label>
+                    </div>
+                    <div class="input-group" ng-if="filter.filterApplied == 'less-than'">
+                        <span class="input-group-addon"><span class="fa fa-dollar"></span></span>
+                        <input class="field-input form-control" id="{{filter.key}}-less-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="2">
+                    </div>
+          </span>
+          <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-is-unknown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="is-unknown" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-is-unknown">Is unknown</label>
+                    </div>
+          </span>
+          <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="has-any-value" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-has-any-value">Has any value</label>
+                    </div>
+          </span>
+          <span class="clear-filter" ng-if="filter.filterApplied">
+            <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
+            </button>
+          </span>
+        </span>
+        <!-- end number -->
+
+
+<!-- lookup -->
+<span ng-if="filter.type == 'lookup'" class="lookup-filter">
+    <!-- is -->
+    <span class="is-value">
+        <div class="radio-custom radio-primary">
+          <input type="radio" class="magic-radio" id="{{filter.key}}-value-contains" name="{{filter}}-radios" ng-model="filter.filterApplied" value="value-contains" ng-change="isFilterActive(filter)">
+          <label for="{{filter.key}}-value-contains">Equals</label>
+      </div>
+
+      <span ng-if="filter.filterApplied == 'value-contains'" class="lookup-input">
+          <ui-select ng-model="filter.filterValue" multiple theme="bootstrap" class="form-control" title="Search..." ng-change="isFilterActive(filter)" on-select="clearLookupValues(filter)" placeholder-always-visible>
+            <!-- match -->
+
+            <ui-select-match placeholder="Search ...">
+                <div ng-switch="filter.lookupEntity">
+                <!-- contact / appuser -->
+                <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                  <span class="mini-avatar"> <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span></span>
+                  <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
+                </span>
+
+                <!-- contact / appuser -->
+                <span ng-switch-when="Company|Opportunity|Tag" ng-switch-when-separator="|">
+                  <span ng-bind="$item.name"></span>
+                </span>
+
+            </div>
+            </ui-select-match>
+            <!-- choices -->
+            <ui-select-choices repeat="item in filter.lookupResults | filter: $select.search | limitTo:10" refresh="getLookupValue(filter, filter.lookupEntity, $select.search)" refresh-delay="250" minimum-input-length="1">
+
+            <div ng-switch="filter.lookupEntity">
+                <!-- contact / appuser -->
+                <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                  <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
+                  <br>
+                  <span class="text-light"><small ng-bind-html="item.email"></small></span>
+                </span>
+
+                <!-- contact / appuser / tag-->
+                <span ng-switch-when="Company|Opportunity|Tag" ng-switch-when-separator="|">
+                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+                </span>
+
+            </div>
+          </ui-select-choices>
+
+
+<!--           <ui-select-refresh>
+              Loading...
+          </ui-select-refresh> -->
+
+<!--           <ui-select-no-choice>
+             No Results Found Matching Search
+         </ui-select-no-choice> -->
+
+     </ui-select>
+     <p class="helper-text" ng-if="data.searchVal.length && !data.searching && !filter.lookupResults.length">
+     <small>
+     No Results Found
+     </small>
+     </p>
+      <!-- //loading indicator -->
+      <div class="loop-loader loop-loader-xs pre-loader" ng-class="{'hidden': !data.searching  }"></div>
+ </span>
+</span>
+
+<!-- is not -->
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-value-does-not-contain" name="{{filter}}-radios" ng-model="filter.filterApplied" value="value-does-not-contain" ng-change="isFilterActive(filter)">
+      <label for="{{filter.key}}-value-does-not-contain">Does not equal</label>
+  </div>
+      <span ng-if="filter.filterApplied == 'value-does-not-contain'" class="lookup-input">
+          <ui-select ng-model="filter.filterValue" multiple theme="bootstrap" class="form-control" title="Search..." ng-change="isFilterActive(filter)" on-select="clearLookupValues(filter)" placeholder-always-visible>
+            <!-- match -->
+
+            <ui-select-match placeholder="Search ...">
+                <div ng-switch="filter.lookupEntity">
+                <!-- contact / appuser -->
+                <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                  <span class="mini-avatar"> <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span></span>
+                  <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
+                </span>
+
+                <!-- contact / appuser -->
+                <span ng-switch-when="Company|Opportunity|Tag" ng-switch-when-separator="|">
+                  <span ng-bind="$item.name"></span>
+                </span>
+
+            </div>
+            </ui-select-match>
+            <!-- choices -->
+            <ui-select-choices repeat="item in filter.lookupResults | filter: $select.search | limitTo:10" refresh="getLookupValue(filter, filter.lookupEntity, $select.search)" refresh-delay="250" minimum-input-length="1">
+
+            <div ng-switch="filter.lookupEntity">
+                <!-- contact / appuser -->
+                <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                  <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
+                  <br>
+                  <span class="text-light"><small ng-bind-html="item.email"></small></span>
+                </span>
+
+                <!-- contact / appuser / tag-->
+                <span ng-switch-when="Company|Opportunity|Tag" ng-switch-when-separator="|">
+                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+                </span>
+
+            </div>
+          </ui-select-choices>
+     </ui-select>
+     <p class="helper-text" ng-if="data.searchVal.length && !data.searching && !filter.lookupResults.length">
+     <small>
+     No Results Found
+     </small>
+     </p>
+      <!-- //loading indicator -->
+      <div class="loop-loader loop-loader-xs pre-loader" ng-class="{'hidden': !data.searching  }"></div>
+</span>
+</span>
+
+<!-- clear filter -->
+<span class="clear-filter" ng-if="filter.filterApplied">
+    <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
+    </button>
+</span>
+
+</span>
+<!-- lookup -->
+
+
+<!-- category -->
+<span ng-if="filter.type == 'category'">
+
+    <div class="checkbox-custom checkbox-primary" ng-repeat="category in filter.values">
+        <input type="checkbox" class="magic-checkbox" id="{{filter.key}}-{{category.value}}" checklist-model="filter.filterValue" checklist-value="category" ng-change="isCategoryActive(category, checked, filter)">
+        <label for="{{filter.key}}-{{category.value}}">{{category.label}}</label>
+    </div>
+
+    <!-- clear filter -->
+    <span class="clear-filter" ng-if="filter.filterApplied">
+        <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
+        </button>
+    </span>
+
+
+</span>
+<!-- category -->
+
+
+<!-- boolean -->
+<span ng-if="filter.type == 'boolean'">
+
+   <div class="radio-custom radio-primary">
+        <input type="radio" class="magic-radio" id="{{filter.key}}-true" ng-model="filter.filterValue" value="true" ng-change="filter.filterApplied = 'boolean'; filter.filterActive = true; isFilterActive(filter); ">
+        <label for="{{filter.key}}-true">True</label>
+    </div>
+
+    <div class="radio-custom radio-primary">
+        <input type="radio" class="magic-radio" id="{{filter.key}}-false" ng-model="filter.filterValue" value="false" ng-change="filter.filterApplied = 'boolean'; filter.filterActive = true; isFilterActive(filter);">
+        <label for="{{filter.key}}-false">False</label>
+    </div>
+
+    <!-- clear filter -->
+    <span class="clear-filter" ng-if="filter.filterApplied">
+        <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
+        </button>
+    </span>
+
+
+</span>
+<!-- category -->
+
+
+<!-- daterange -->
+<span ng-if="filter.type == 'date'">
+
+
+    <span feature-flag="--RELATIVE-DATE--">
+        <p><small>RELATIVE</small></p>
+
+        <span class="is-value">
+            <div class="radio-custom radio-primary">
+              <input type="radio" class="magic-radio" id="{{filter.key}}-date-more-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-more-than" ng-change="isFilterActive(filter)">
+              <label for="{{filter.key}}-date-more-than">More Than</label>
+          </div>
+
+          <span ng-if="filter.filterApplied == 'date-more-than'" style="display: block;height:50px;">
+
+             <div class="input-group" style="width:50%; float:left; margin-right:3px;">
+                <input class="form-control" id="{{filter.key}}-date-more-than-input" ng-model="filter.filterValue['days']" autofocus ng-change="isFilterActive(filter)" style="height:40px;" placeholder="--">
+                <span class="input-group-addon">days</span>
+            </div>
+
+
+            <!-- timeframe -->
+            <ol id="singleSelection" class="nya-bs-select relative-date-input" ng-model="filter.filterValue['timeframe']" title="--" style="width:48%; float:left;" ng-change="isFilterActive(filter)">
+              <li class="nya-bs-option" data-value="ago">
+                <a>ago</a>
+            </li>
+            <li class="nya-bs-option" data-value="from-now">
+                <a>from now</a>
+            </li>
+        </ol>
+    </span>
+
+
+</span>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-exactly" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-exactly" ng-change="isFilterActive(filter)">
+      <label for="{{filter.key}}-date-exactly">Exactly</label>
+  </div>
+
+  <span ng-if="filter.filterApplied == 'date-exactly'" style="display: block;height:50px;">
+
+     <div class="input-group" style="width:50%; float:left; margin-right:3px;">
+        <input class="form-control" id="{{filter.key}}-date-exactly" ng-model="filter.filterValue['days']" autofocus ng-change="isFilterActive(filter)" style="height:40px;" placeholder="--">
+        <span class="input-group-addon">days</span>
+    </div>
+
+
+    <!-- timeframe -->
+    <ol id="singleSelection" class="nya-bs-select relative-date-input" ng-model="filter.filterValue['timeframe']" title="--" style="width:48%; float:left;" ng-change="isFilterActive(filter)" >
+      <li class="nya-bs-option" data-value="ago">
+        <a>ago</a>
+    </li>
+    <li class="nya-bs-option" data-value="from-now">
+        <a>from now</a>
+    </li>
+</ol>
+</span>
+
+</span>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-less-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-less-than" ng-change="isFilterActive(filter)">
+      <label for="{{filter.key}}-date-less-than">Less Than</label>
+  </div>
+
+  <span ng-if="filter.filterApplied == 'date-less-than'" style="display: block;height:50px;">
+
+     <div class="input-group" style="width:50%; float:left; margin-right:3px;">
+        <input class="form-control" id="{{filter.key}}-less-than" ng-model="filter.filterValue['days']" autofocus ng-change="isFilterActive(filter)" style="height:40px;" placeholder="--">
+        <span class="input-group-addon">days</span>
+    </div>
+
+
+    <!-- timeframe -->
+    <ol id="singleSelection" class="nya-bs-select relative-date-input" ng-model="filter.filterValue['timeframe']" title="--" style="width:48%; float:left;" ng-change="isFilterActive(filter)">
+      <li class="nya-bs-option" data-value="ago">
+        <a>ago</a>
+    </li>
+    <li class="nya-bs-option" data-value="from-now">
+        <a>from now</a>
+    </li>
+</ol>
+</span>
+
+</span>
+
+</span>
+
+
+<p><small>ABSOLUTE</small></p>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-range" ng-change="isFilterActive(filter)">
+      <label for="{{filter.key}}-date-range">Range</label>
+  </div>
+  <input date-range-picker class="form-control date-picker" type="text" options="options2" ng-model="filter.filterValue" ng-if="filter.filterApplied == 'date-range'" ng-change="isFilterActive(filter)" placeholder="Select Date Range"/>
+</span>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-after" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-after" ng-change="isFilterActive(filter)">
+      <label for="{{filter.key}}-date-after">After</label>
+  </div>
+  <input date-range-picker class="form-control date-picker" type="text" options="options" ng-model="filter.filterValue" ng-if="filter.filterApplied == 'date-after'" ng-change="isFilterActive(filter)" placeholder="Select Date"/>
+</span>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-on" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-on" ng-change="isFilterActive(filter)">
+      <label for="{{filter.key}}-date-on">On</label>
+  </div>
+  <input date-range-picker class="form-control date-picker" type="text" options="options" ng-model="filter.filterValue" ng-if="filter.filterApplied == 'date-on'" ng-change="isFilterActive(filter)" placeholder="Select Date"/>
+</span>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-before" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-before" ng-change="isFilterActive(filter)">
+      <label for="{{filter.key}}-date-before">Before</label>
+  </div>
+  <input date-range-picker class="form-control date-picker" type="text" options="options" ng-model="filter.filterValue" ng-if="filter.filterApplied == 'date-before'" ng-change="isFilterActive(filter)" placeholder="Select Date"/>
+</span>
+
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-is-unknown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-is-unknown" ng-change="isFilterActive(filter)">
+      <label for="{{filter.key}}-date-is-unknown">Is unknown</label>
+  </div>
+</span>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-has-any-value" ng-change="isFilterActive(filter)">
+      <label for="{{filter.key}}-date-has-any-value">Has any value</label>
+  </div>
+</span>
+
+<!-- clear filter -->
+<span class="clear-filter" ng-if="filter.filterApplied">
+    <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
+    </button>
+</span>
+
+</span>
+<!-- end daterange -->
+
+</div>
+
+</uib-accordion>
+
+</div>
+
+<!-- groups -->
+<div class="groups" ng-class="{'hidden': data.filterView !== 'groups' }">
+
+     <div class="search-filters" style="margin-bottom:10px;">
+        <icon class="search-icon wb-search"></icon>
+        <input type="text" class="form-control" placeholder="Search Groups" ng-model="data.groupSearch">
+        <button class="btn btn-link clear-search" ng-if="data.groupSearch" ng-click="data.groupSearch = '';">
+          <icon class="wb-plus-circle"></icon>
+      </button>
+    </div>
+
+
+    <div class="group-section">
+        <h5 class="subtitle">Active Groups</h5>
+
+        <!-- //groups & order -->
+        <ul class="list-group" ui-sortable="{ 'ui-floating': true }" ng-model="data.activeGroups">
+          <li class="list-group-item" ng-repeat="group in data.activeGroups">
+              <span class="cleat">
+                <icon class="wb-more-vertical"></icon>
+                <icon class="wb-more-vertical second-icon"></icon>
+            </span>
+            <span ng-bind="group.label"></span>
+            <span class="pull-right remove-group">
+                <a href ng-click="removeGroup(group)"><icon class="wb-close-mini"></icon></a>
+            </span>
+        </li>
+    </ul>
+
+    <div class="no-groups" ng-if="!data.activeGroups.length">
+        <icon class="icon-budicon-classic-69"></icon>
+        <p>No Groups Applied <br> Select A Group Below</p>
+    </div>
+
+</div>
+
+<div class="group-section">
+    <h5 class="subtitle">Add Group</h5>
+
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="group in data.groups | orderBy: 'label' | filter: data.groupSearch" ng-click="addGroup(group)">
+        <a href class="add-group">
+            <icon class="wb-plus-circle"></icon>
+        </a>
+        <span ng-bind="group.label"></span>
+
+    </li>
+</ul>
+
+<div class="no-groups" ng-if="!data.groups.length">
+    <icon class="icon-budicon-classic-69"></icon>
+    <p>All Groups Applied</p>
+</div>
+
+</div>
+
+</div>
+<!-- end groups -->
+
+<!-- columns -->
+<div class="columns" ng-class="{'hidden': data.filterView !== 'columns' }">
+
+     <div class="search-filters" style="margin-bottom:10px;">
+        <icon class="search-icon wb-search"></icon>
+        <input type="text" class="form-control" placeholder="Search Columns" ng-model="data.columnSearch">
+        <button class="btn btn-link clear-search" ng-if="data.columnSearch" ng-click="data.columnSearch = '';">
+          <icon class="wb-plus-circle"></icon>
+      </button>
+    </div>
+
+    <div class="panel panel-default panel-light">
+        <div class="panel-heading column-heading">
+          <div class="checkbox-custom checkbox-primary">
+              <input type="checkbox" class="magic-checkbox" id="toggleColumns" ng-model="data.toggleColumns" ng-change="toggleColumns(data.toggleColumns)">
+              <label for="toggleColumns"></label>
+          </div>
+
+          <h5>All Columns</h5>
+        </div>
+        <div class="panel-body">
+
+            <span class="column-row" ng-repeat="column in data.columns | filter: {colDef: {headerName: data.columnSearch }} track by $index">
+                <div class="checkbox-custom checkbox-primary">
+                    <input type="checkbox" class="magic-checkbox" id="{{column.colDef.headerName}} - $index" ng-model="column.visible" ng-change="showHideColumn(column.colId, column.visible)">
+                    <label for="{{column.colDef.headerName}} - $index">{{column.colDef.headerName}}</label>
+                </div>
+
+                <button class="btn btn-link pin-column" ng-click="pinUnpinColumn(column)" ng-class="{'pinned': column.pinned }">
+                    <icon class="fa fa-thumb-tack"></icon>
+                </button>
+            </span>
+
+        </div>
+    </div> 
+    <br>  
+
+</div>
+<!-- end columns -->
+
+
+<!-- settings / overlays -->
+<div class="groups" ng-class="{'hidden': data.filterView !== 'settings' }">
+
+    <div class="panel panel-default panel-light" style="margin-top:10px !important;">
+    <div class="panel-heading">
+      <h5>Displayed Value</h5>
+    </div>
+    <div class="panel-body">
+      <div class="radio-custom radio-primary">
+            <input type="radio" class="magic-radio" id="valueType-total" name="valueType" ng-model="data.valueType" value="total" ng-change="changeContext('valueType', data.valueType)">
+            <label for="valueType-total">Total</label>
+          </div>
+        <div class="radio-custom radio-primary">
+            <input type="radio" class="magic-radio" id="valueType-weighted" name="valueType" ng-model="data.valueType" value="weighted" ng-change="changeContext('valueType', data.valueType)">
+            <label for="valueType-weighted">Weighted</label>
+          </div>
+        <div class="radio-custom radio-primary">
+            <input type="radio" class="magic-radio" id="valueType-predicted" name="valueType" ng-model="data.valueType" value="predicted" ng-change="changeContext('valueType', data.valueType)">
+            <label for="valueType-predicted">Predicted</label>
+          </div>
+    </div>
+  </div>
+
+  
+  <div class="panel panel-default panel-light">
+    <div class="panel-heading">
+      <h5>Change History Overlay</h5>
+    </div>
+    <div class="panel-body">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="overlay-none" name="overlay-show" ng-model="data.overlay" value="none" ng-change="changeContext('changeHistory', data.overlay)">
+                      <label for="overlay-none">None</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="overlay-full" name="overlay-show" ng-model="data.overlay" value="full" ng-change="changeContext('changeHistory', data.overlay)">
+                      <label for="overlay-full">Full Cell</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="overlay-indicator" name="overlay-show" ng-model="data.overlay" value="indicator" ng-change="changeContext('changeHistory', data.overlay)">
+                      <label for="overlay-indicator">Cell Indicator</label>
+              </div>
+              <div class="divider-line">
+                <hr>
+              </div>
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="overlayDuration-7" name="overlay-duration" ng-model="data.overlayDuration" value="7" ng-change="changeContext('changeHistoryDuration', data.overlayDuration)">
+                      <label for="overlayDuration-7">Last 7 Days</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="overlayDuration-30" name="overlay-duration" ng-model="data.overlayDuration" value="30" ng-change="changeContext('changeHistoryDuration', data.overlayDuration)">
+                      <label for="overlayDuration-30">Last 30 Days</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="overlayDuration-90" name="overlay-duration" ng-model="data.overlayDuration" value="90" ng-change="changeContext('changeHistoryDuration', data.overlayDuration)">
+                      <label for="overlayDuration-90">Last 90 Days</label>
+              </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default panel-light" style="margin-bottom:15px !important;">
+    <div class="panel-heading">
+      <h5>Deleted Records</h5>
+    </div>
+    <div class="panel-body">
+        <div class="radio-custom radio-primary">
+            <input type="radio" class="magic-radio" id="hide-deleted" name="hide-deleted" ng-model="data.includeDeleted" value="false" ng-change="changeContext('showDeleted', data.includeDeleted)">
+            <label for="hide-deleted">Hide Deleted</label>
+        </div>
+         <div class="radio-custom radio-primary">
+            <input type="radio" class="magic-radio" id="show-deleted" name="show-deleted" ng-model="data.includeDeleted" value="true" ng-change="changeContext('showDeleted', data.includeDeleted)">
+            <label for="show-deleted">Show Deleted</label>
+        </div>
+    </div>
+  </div>
+
+</div>
+<!-- end settings / overlays -->
+
+
+</div>
+
+<!-- FILTERS TOOLBAR -->
+<!-- <div class="row filter-toolbar" ng-class="{'hidden': data.filterView !== 'filters' }">
+    <div class="col-xs-12">
+    <div class="btn-group" style="width:100%">
+        <label class="btn btn-primary btn-outline" ng-model="data.filterMatches" uib-btn-radio="'all'" uncheckable ng-change="updateGrid()">Matches All</label>
+        <label class="btn btn-primary btn-outline" ng-model="data.filterMatches" uib-btn-radio="'any'" uib-uncheckable="uncheckable" ng-change="updateGrid()">Matches Any</label>
+    </div>
+  </div>
+</div> -->
+
+</div>

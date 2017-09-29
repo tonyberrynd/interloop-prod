@@ -1,0 +1,101 @@
+.form-control {
+	-webkit-box-shadow: none;
+    box-shadow: none;
+    position:relative;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    -webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+    &.w-75 {
+        width:unset;
+        width:75px !important;
+    }
+
+    &.w-150 {
+        width:unset;
+        width:150px !important;
+    }
+
+    &.w-250 {
+        width:unset;
+        width:250px !important;
+    }
+
+    &.w-350 {
+        width:unset;
+        width:350px !important;
+    }
+}
+
+.form-group {
+
+    &.w-75 {
+        width:unset;
+        width:75px !important;
+    }
+
+    &.w-150 {
+        width:unset;
+        width:150px !important;
+    }
+
+    &.w-250 {
+        width:unset;
+        width:250px !important;
+    }
+
+    &.w-350 {
+        width:unset;
+        width:350px !important;
+    }
+}
+
+
+.form-control:focus {
+    outline: 0 !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none;
+    border-width:2px;
+    padding-left:11px;
+}
+
+.has-success .form-control {
+    box-shadow:none !important;
+}
+
+.has-warning .form-control {
+    box-shadow:none !important;
+}
+
+.has-error .form-control {
+    box-shadow:none !important;
+}
+
+
+.has-success.has-feedback .form-control-feedback {
+    right: 5px;
+    background-image: url(../img/icons/states/success.svg);
+    /* background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.has-warning.has-feedback .form-control-feedback {
+    right: 5px;
+    background-image: url(../img/icons/states/warning.svg);
+    /* background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.has-error.has-feedback .form-control-feedback {
+    right: 5px;
+    background-image: url(../img/icons/states/danger.svg);
+    /* background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+label {
+	color:$seamonster;
+	font-weight:600;
+}

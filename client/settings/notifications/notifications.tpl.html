@@ -1,0 +1,135 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section fadeInOut" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Notification Preferences</h3>
+			<p>Manage your alert notifications</p>	
+
+		</div>
+		<div class="panel-body">
+
+			<div class="settings-block">
+				<div class="row">
+					<div class="col-xs-12">
+						<h5 style="margin-bottom:20px;">Opportunities</h5>
+
+					    <div class="checkbox-custom checkbox-primary">
+					      <input type="checkbox" id="taskCheckbox0" ng-model="data.thisUser.alertSettings.oppAssigned" ng-change="save()">
+					      <label for="taskCheckbox0">
+					          An Opportunity is Assigned to You
+					      </label>
+					    </div>
+
+				    </div>
+				</div>
+			</div>
+
+					<hr>
+			
+			<div class="settings-block">
+				<div class="row">
+					<div class="col-xs-12">
+						<h5 style="margin-bottom:20px;">Tasks</h5>
+
+					    <div class="checkbox-custom checkbox-primary">
+					      <input type="checkbox" id="taskCheckbox1" ng-model="data.thisUser.alertSettings.taskFollowComplete" ng-change="save()">
+					      <label for="taskCheckbox1">
+					          A task you follow is marked complete
+					      </label>
+					    </div>
+
+					    <div class="checkbox-custom checkbox-primary">
+					      <input type="checkbox" id="taskCheckbox2" ng-model="data.thisUser.alertSettings.taskAssigned" ng-change="save()">
+					      <label for="taskCheckbox2">
+					          A task is assigned to you
+					      </label>
+					    </div>
+
+					    <div class="checkbox-custom checkbox-primary">
+					      <input type="checkbox" id="taskCheckbox3" ng-model="data.thisUser.alertSettings.taskReminder" ng-change="save()">
+					      <label for="taskCheckbox3">
+					          A reminder triggers on a task that is assigned to you 
+					      </label>
+					    </div>
+				    </div>
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="settings-block avatar-settings">
+				<div class="row">
+					<div class="col-xs-12">
+						<h5 style="margin-bottom:20px;">Comments</h5>
+
+						<div class="checkbox-custom checkbox-primary">
+					      <input type="checkbox" id="commentCheckbox1" ng-model="data.thisUser.alertSettings.commentFollowPosted" ng-change="save()">
+					      <label for="commentCheckbox1">
+					          A comment is posted on an item you follow
+					      </label>
+					    </div>
+
+					    <div class="checkbox-custom checkbox-primary">
+					      <input type="checkbox" id="commentCheckbox2" ng-model="data.thisUser.alertSettings.commentPosted" ng-change="save()">
+					      <label for="commentCheckbox2">
+					          A comment is posted on an item you commented
+					      </label>
+					    </div>
+
+					   	<div class="checkbox-custom checkbox-primary">
+					      <input type="checkbox" id="commentCheckbox3" ng-model="data.thisUser.alertSettings.commentCreatedItem" ng-change="save()">
+					      <label for="commentCheckbox3">
+					          A new conversation is started on an item you created
+					      </label>
+					    </div>
+
+					    <div class="checkbox-custom checkbox-primary">
+					      <input type="checkbox" id="commentCheckbox4" ng-model="data.thisUser.alertSettings.commentOwnerItem" ng-change="save()">
+					      <label for="commentCheckbox4">
+					          A new conversation is started on an item where you are the owner
+					      </label>
+					    </div>
+			    	</div>
+
+			    </div>
+
+			</div>
+
+			<hr>
+
+			<div class="settings-block avatar-settings">
+				<div class="row">
+					<div class="col-xs-12">
+						<h5 style="margin-bottom:20px;">Daily Planner</h5>	
+
+						<div class="checkbox-custom checkbox-primary">
+					      <input type="checkbox" id="plannerCheckbox1" ng-model="data.thisUser.alertSettings.dailyPlanner" ng-change="save()">
+					      <label for="plannerCheckbox1">
+					         Recieve a daily planner email each morning at 7:00 AM
+					      </label>
+					    </div>
+
+					</div>	
+
+				</div>
+
+			</div>
+
+			<hr>
+
+			<div class="well">
+				<button style="margin-top:10px" class="btn btn-primary pull-right" ng-disabled="data.webNotifications" ng-click="allowWebNotifications()">
+				<span ng-if="data.webNotifications"><icon class="wb-check"></icon> Notifications Enabled</span>
+				<span ng-if="!data.webNotifications">Allow Desktop Notifications</span>
+				</button>
+				<h5>Desktop Notifications</h5>
+				<p>Keep an eye on what’s going on inside Interloop without keeping the browser focused on it.</p>
+	        </div>
+			
+
+		</div>
+
+		</div>
+	</div>
+</div>

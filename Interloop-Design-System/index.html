@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="coil">
+
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+<script src="/lib/angular-google-places-autocomplete/src/autocomplete.js"></script> -->
+
+
+<head>
+
+    <base href="/">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Design System | Interloop</title>
+
+    <!-- fonts first -->
+    <script src="https://use.typekit.net/grl7dox.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <!-- Custom CSS Includes Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-google-places-autocomplete/src/autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/angularjs-slider/dist/rzslider.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/highcharts-ng/dist/highcharts-ng.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/please-wait/build/please-wait.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/chosen/chosen.css" />
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-hotkeys/build/hotkeys.css">
+
+    <!-- css cdns -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- desktop ui kit styles -->
+    <link href="assets/css/interloop-system.css" rel="stylesheet">
+
+    <!-- //mobile styles -->
+    <link href="assets/css/interloop-mobile.css" rel="stylesheet">
+
+    <!-- overrides for this app -->
+    <link href="assets/css/interloop-internal.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <span ui-view></span>
+
+
+    <!-- //cdn popular libraries -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB93uI5beGtRVn6ElNu7yXX_8pFRxlIdkk&libraries=places" type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.1/moment-timezone.min.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.12/highcharts-more.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.js"></script>
+
+    <!-- third party angular libs -->
+    <script type="text/javascript" src="bower_components/please-wait/build/please-wait.js"></script>
+    
+    <!-- //please wait -->
+    <script>
+      window.loading_screen = window.pleaseWait({
+        logo: "",
+        backgroundColor: '#F5F8FA',
+        loadingHtml: '<div style="width:36px; height:36px;" class="loop-loader limestone-bg">Loading...</div>'
+     });
+    </script>
+
+    <!-- //ionic used for mobile demonstrations - already includes angular, ng-animate, etc -->
+<!--     <script type="text/javascript" src="bower_components/ionic/js/ionic.bundle.js"></script> -->
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="bower_components/ui-router-extras/release/ct-ui-router-extras.js"></script>
+    
+    <!-- //other third party libs -->
+    <script type="text/javascript" src="bower_components/chosen/chosen.jquery.js"></script>
+    <script type="text/javascript" src="bower_components/angular-chosen-localytics/dist/angular-chosen.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script type="text/javascript" src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script type="text/javascript" src="bower_components/angular-trix/dist/angular-trix.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="bower_components/angularjs-slider/dist/rzslider.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-mask/dist/mask.js"></script>
+    <script type="text/javascript" src="bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+    <script type="text/javascript" src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+    <script type="text/javascript" src="bower_components/angular-clipboard/angular-clipboard.js"></script>
+    <script type="text/javascript" src="bower_components/ag-grid-enterprise/dist/ag-grid-enterprise.js"></script>
+    <script type="text/javascript" src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
+    <script type="text/javascript" src="assets/js/angular-daterangepicker.js"></script>
+    <script type="text/javascript" src="assets/js/ui-bootstrap.js"></script>
+
+
+
+    <!-- app files -->
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="app.config.js"></script>
+    <script type="text/javascript" src="app.routes.js"></script>
+
+    <!-- //shared -->
+    <script type="text/javascript" src="shared/directives/autoFocus.directive.js"></script>
+    <script type="text/javascript" src="shared/directives/scrollClass.directive.js"></script>
+    <script type="text/javascript" src="shared/directives/changeOnBlur.directive.js"></script>
+
+    <!-- config -->
+    <script type="text/javascript" src="shared/config/toastr.config.js"></script>
+
+    <!-- values -->
+    <script type="text/javascript" src="shared/values/baseChartConfig.value.js"></script>
+
+    <!-- //controllers -->
+    <script type="text/javascript" src="modules/login/loginCtrl.js"></script>
+    <script type="text/javascript" src="modules/admin/adminCtrl.js"></script>
+    <script type="text/javascript" src="modules/marketing/marketingCtrl.js"></script>
+    <script type="text/javascript" src="modules/product/productCtrl.js"></script>
+    <script type="text/javascript" src="modules/product/chartCtrl.js"></script>
+    <script type="text/javascript" src="modules/product/datagridCtrl.js"></script>
+    <script type="text/javascript" src="modules/product/addAddressCtrl.js"></script>
+    <script type="text/javascript" src="modules/mobile/mobileCtrl.js"></script>
+
+
+</body>
+
+</html>

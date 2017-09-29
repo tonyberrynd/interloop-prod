@@ -1,0 +1,35 @@
+
+
+Steps to Create Interloop For New Client
+
+
+//Create API For Client
+
+
+
+//Create MONGODB with Compose
+$ cf api https://api.ng.bluemix.net
+$ cf login
+
+
+//Run Setup With Remote Hook
+
+//create organization
+$ Curl - ENTER CUSTOMER INFORMATION HERE, Trial Date, Etc
+
+
+//creates team owner
+$ Curl - Enter Team Owner Information
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+<h3>Toasts</h3>
+<p>Use flags for messages containing confirmations, alerts, and acknowledgments that require minimal user interaction. These event-driven messages appear at the bottom left of the screen and overlay any content.</p>
+<br>
+
+
+<button class="btn btn-success btn-inline" ng-click="showSuccess()">Success</button>
+<button class="btn btn-info btn-inline" ng-click="showInfo()">Info</button>
+<button class="btn btn-warning btn-inline" ng-click="showWarning()">Warning</button>
+<button class="btn btn-danger btn-inline" ng-click="showError()">Error</button>
+
+
+
+
+<br>
+<br>
+<div class="jumbotron jumbo-footer">
+  <div class="row">
+      <div class="col-xs-6 text-left">
+        <p>Previous</p>
+          <p><a ui-sref="app.product.tags">Tags</a></p>
+      </div>
+      <div class="col-xs-6 text-right">
+          <p>Up Next</p>
+          <p><a ui-sref="app.product.toggles">Toggles</a></p>
+      </div>
+  </div>

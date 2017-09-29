@@ -1,0 +1,38 @@
+<h2>Banners</h2>
+<p>Use banners at the top of the screen to display critical messaging about loss of data or functionality, and only once per page. Banners should not include a dismiss icon, and should only disappear once the related issue is resolved.</p>
+
+<br>
+
+<div class="banner banner-success example-banner" role="banner">
+	<b>Success!</b> Find out more <a href="">at this location</a>
+</div>
+<div class="banner banner-info example-banner" role="banner">
+	<b>Info</b> Something as happened <a href="">See More</a>
+</div>
+<div class="banner banner-warning example-banner" role="banner">
+	<b>Warning</b> Need more information? <a href="">Find Out More</a>
+</div>
+<div class="banner banner-danger example-banner" role="banner">
+	<b>Danger!</b> Looks like there was an error <a href="">See More</a>
+</div>
+<div class="banner banner-calm example-banner" role="banner">
+	<b>Staging Environment</b>
+</div>
+
+<br>
+
+<button class="btn btn-success" ng-click="$root.hasBanner = !$root.hasBanner">Show Banner</button>
+
+
+<div class="jumbotron jumbo-footer">
+	<div class="row">
+		<div class="col-xs-6 text-left">
+			<p>Previous</p>
+			<p><a ui-sref="app.product.badges">Badges</a></p>
+		</div>
+		<div class="col-xs-6 text-right">
+			<p>Up Next</p>
+			<p><a ui-sref="app.product.breadcrumbs">Breadcrumbs</a></p>
+		</div>
+	</div>
+</div>

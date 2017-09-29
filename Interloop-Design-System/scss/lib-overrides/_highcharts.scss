@@ -1,0 +1,14 @@
+.highcharts-tooltip-box {
+	fill: $sapphire;
+	fill-opacity: 0.85;
+	stroke-width: 0;
+	border-radius:3px;
+}
+
+.highcharts-tooltip text {
+    fill: #fff !important;
+}
+
+.highcharts-tooltip .highcharts-header {
+    font-size: 18px;
+}

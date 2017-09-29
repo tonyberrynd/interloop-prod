@@ -1,0 +1,71 @@
+<!-- loading -->
+<div class="loop-loader loop-loader-light loop-loader-xs centered" ng-class="{'hidden': data.activated }"></div>
+
+<div class="settings-right" ng-if="data.activated">
+	<h4>Manage Limits</h4>
+			
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="panel panel-default panel-light">
+						<div class="panel-heading">
+							Storage
+						</div>
+						<div class="panel-body text-center">
+							<knob knob-data="data.storageValue" knob-options="data.options"></knob>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="panel panel-default panel-light">
+						<div class="panel-heading">
+							API
+						</div>
+						<div class="panel-body text-center">
+							<knob knob-data="data.apiValue" knob-options="data.options"></knob>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="panel panel-default panel-light">
+						<div class="panel-heading">
+							Contact Enrichments
+						</div>
+						<div class="panel-body text-center">
+							<knob knob-data="data.contactEnrichmentValue" knob-options="data.companyOptions"></knob>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="panel panel-default panel-light">
+						<div class="panel-heading">
+							Company Enrichments
+						</div>
+						<div class="panel-body text-center">
+							<knob knob-data="data.companyEnrichmentValue" knob-options="data.contactOptions"></knob>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="panel panel-default panel-light">
+						<div class="panel-heading">
+							Salesforce
+						</div>
+						<div class="panel-body text-center">
+							<knob knob-data="data.salesforceValue" knob-options="data.options"></knob>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6">
+					<div class="panel panel-default panel-light">
+						<div class="panel-heading">
+							Twitter
+						</div>
+						<div class="panel-body text-center">
+							<knob knob-data="data.twitterValue" knob-options="data.options"></knob>
+						</div>
+					</div>
+				</div>
+	</div>
+</div>
+

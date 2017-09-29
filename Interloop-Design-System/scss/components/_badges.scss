@@ -1,0 +1,102 @@
+
+
+.badge {
+
+	min-width:24px;
+
+	&.badge-info {
+		background-color:$info;
+	}
+
+	&.badge-success {
+		background-color:$success;
+	}
+
+	&.badge-warning {
+		background-color:$warning;
+	}
+
+	&.badge-danger {
+		background-color:$danger;
+	}
+
+	&.badge-calm {
+		background-color:$calm;
+	}
+
+	&.badge-neutral {
+			background-color:$neutral;
+	}
+	
+
+	// subtle
+
+	&.badge-subtle {
+
+		&.badge-info {
+			background-color:$info-bg;
+			color:$info;
+		}
+
+		&.badge-success {
+			background-color:$success-bg;
+			color:$success;
+		}
+
+		&.badge-warning {
+			background-color:$warning-bg;
+			color:$warning;
+		}
+
+		&.badge-danger {
+			background-color:$danger-bg;
+			color:$danger;
+		}
+
+		&.badge-calm {
+			background-color:$calm-bg;
+			color:$calm;
+		}
+
+		&.badge-neutral {
+			color:#fff;
+			background-color:$neutral;
+		}
+
+	}
+
+	//dot
+
+	&.badge-dot {
+	    width: 10px;
+	    height: 10px;
+	    min-width: 10px;
+	    display: inline-block;
+	    padding: 0px;
+
+		&.badge-info {
+			background-color:$info;
+		}
+
+		&.badge-success {
+			background-color:$success;
+		}
+
+		&.badge-warning {
+			background-color:$warning;
+		}
+
+		&.badge-danger {
+			background-color:$danger;
+		}
+
+		&.badge-calm {
+			background-color:$calm;
+		}
+
+		&.badge-neutral {
+			background-color:$neutral;
+		}
+
+	}
+}

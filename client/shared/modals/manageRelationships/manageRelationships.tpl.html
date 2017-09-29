@@ -1,0 +1,163 @@
+    <div class="modal-header header-dark">
+        <h3 class="modal-title" id="modal-title">Add Relationships</h3>
+        <p>Add Related Entities for <span ng-bind="data.thisRecord.name || 'this record'"></span></p>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body relationships" id="modal-body">
+
+
+    <div class="relationships-search">
+        
+        <div class="relationship-search-header">
+            <div class="search-entities">
+                <icon class="wb-search search-icon"></icon>
+                <input type="text" class="form-control" placeholder="Search..." ng-model="data.searchValue" ng-change="searchRelated(data.searchValue)" ng-model-options="{ debounce: 250 }" autofocus>
+                <button class="btn btn-link clear-search" ng-click="clearSearch()" ng-if="data.searchValue">
+                    <icon class="wb-plus-circle"></icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="relationship-search-body">
+                
+            <!-- suggested relationships -->
+            <div class="suggested-relationships">
+                
+                <span ng-repeat="item in data.availableItems">
+                    <div class="card with-padding" ng-click="selectItem(item)" style="margin-bottom:10px;">
+                        <h5 ng-bind="item.name || '--'"></h5>
+                   <!--      <p>CTO at Test Company 1</p> -->
+                    </div>
+                </span>
+
+            </div> 
+
+            <!-- searched relationships  -->
+
+
+
+            <div class="loop-loader loop-loader-xs loop-loader-light" ng-class="{'hidden': !data.searching}" style="z-index:999">Loading...</div>
+
+        
+            <!-- pre-search-instructions -->
+            <div class="search-relationships-empty" ng-if="!data.availableItems.length && !data.searching && !data.searched">
+                <icon class="wb-search"></icon>
+                <h5>Search for entities</h5>
+                <p>Search for entities above and select correct records to add relationship details</p>
+            </div>
+
+            <!-- empty state  -->
+            <div class="search-relationships-empty" ng-if="!data.availableItems.length && !data.searching && data.searched">
+                <icon class="wb-search"></icon>
+                <h5>No Results Found</h5>
+                <p>Does the entity you are looking for exist? <br> If not you can create a new one in the top right</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="relationships-canvas">
+
+        <div class="relationship-header text-left">
+            <h5>{{data.selectedItems.length}} Records Selected</h5>
+
+         <!-- Single button -->
+            <div class="btn-group new-record" uib-dropdown is-open="status.isopen">
+              <button id="single-button" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle ng-disabled="disabled">
+                Create New <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                <li role="menuitem"><a href ng-click="newEntity('Contact')">Contact</a></li>
+                <li role="menuitem"><a href ng-click="newEntity('Company')">Company</a></li>
+                <li role="menuitem"><a href ng-click="newEntity('Opportunity')">Opportunity</a></li>
+              </ul>
+            </div>
+
+        </div>
+            
+        <!-- body -->
+        <div class="relationship-body">
+        <div class="row">
+            <div class="col-xs-6" ng-repeat="item in data.selectedItems">
+            <div class="card with-padding">
+
+                <div class="remove-entity" ng-click="removeEntity(item)">
+                    <button class="btn btn-link" tabindex="-1">
+                        <icon class="wb-close"></icon>
+                    </button>
+                </div>
+
+                <!-- //switch out based on entity type -->
+                <div class="relationship-card-header">
+                    <h5>{{item.name}}</h5>
+                    <p>{{item.type}}</p>
+                </div>
+
+                <br>
+                <div class="form-group">
+                <label for="comment">Role:</label>
+                <ol id="singleSelection" class="nya-bs-select" ng-model="item.role" style="width:100%;">
+                  <li class="nya-bs-option" data-value="a">
+                    <a>Alpha</a>
+                  </li>
+                  <li class="nya-bs-option" data-value="b">
+                    <a>Bravo</a>
+                  </li>
+                  <li class="nya-bs-option" data-value="c">
+                    <a>Charlie</a>
+                  </li>
+                </ol>
+                </div>
+
+                <div class="form-group">
+                  <label for="comment">Description:</label>
+                  <textarea class="form-control" rows="2" id="comment" ng-model="item.description"></textarea>
+                </div>
+
+            </div> 
+            </div>
+        </div>
+
+
+            <!-- empty state  -->
+            <div class="relationships-empty" ng-if="!data.selectedItems.length">
+                <icon class="wb-link"></icon>
+                <h5>Selected Records Will Appear Here</h5>
+                <p>Select a record from the left to add relationship details</p>
+            </div>
+
+
+        </div>
+
+
+
+        <!-- footer -->
+
+        <div class="relationship-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Add Relationships</button>
+        </div>
+    </div>
+
+    <!-- <pre>Model: {{asyncSelected | json}}</pre>
+    <input type="text" ng-model="data.currentSearch" placeholder="Search for Opportunities, Contacts, Companies, etc..." uib-typeahead="item for item in searchRelated($viewValue)" typeahead-loading="data.loadingRelated" typeahead-no-results="noResults" class="form-control" typeahead-on-select="addRelated($item, $model, $label, $event)">
+    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+    <div ng-show="noResults">
+      <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+
+    <div class="panel panel-default panel-light" ng-repeat="item in data.relatedToAdd">
+        <div class="panel-heading">
+            <p>{{item.name}}</p>
+        </div>
+    </div> -->
+
+
+    <!-- //ability to add notes etc -->
+
+    </div>

@@ -1,0 +1,121 @@
+
+            <div class="sidepanel more-sidepanel">
+                <div class="sidepanel-header with-header-tabs">
+                    <a class="btn btn-link btn-left" href ng-click="$root.sidePanelOpen = !$root.sidePanelOpen">
+                        <img src="../assets/img/icons/states/close.svg" alt="Close">
+                    </a>
+
+                    Starred Items
+                </div>
+
+                <div class="sidepanel-header-tabs">
+                    <div class="tabs-wrapper">
+                        <ul class="nav nav-tabs nav-justified">
+                          <li ng-repeat="entity in data.entityTypes" ng-class="{'active': data.currentEntity == entity.singular}">
+                            <a href ng-click="data.currentEntity = entity.singular">
+                              {{entity.singular}}
+                            </a>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sidepanel-content with-header-tabs" ng-switch="data.currentTab">
+                   
+                      <span ng-repeat="item in data.starredItems | filter:{ itemType: data.currentEntity }" ng-switch="item.itemType">
+
+
+                       <div class="rich-card opportunity" ng-switch-when="Opportunity">
+                            <!-- body -->
+                            <div class="rich-card_body">
+                              <a href class="rich-card_body__details" ng-click="goToRecord('Opportunity', item.itemId)">
+                                <div class="row">
+                                  <div class="col-xs-12 rich-card_padding">
+                                    <h5 class="entity-name" ng-bind="::item.name || '--'"></h5>
+                                    <p class="entity-secondary" ng-bind="::item.primaryCompanyLink.name || 'No Primary Company'"></p>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-xs-3 rich-card_padding">
+                                    <p class="card-subtitle">Value</p>
+                                    <p class="card-data opportunity-value">$<span ng-bind="::item.value | number:0"></span></p>
+                                  </div>
+                                  <div class="col-xs-3 rich-card_padding">
+                                    <p class="card-subtitle">Est Close</p>
+                                    <p class="card-data opportunity-value">
+                                       <span ng-if="item.status.value !== 'Won' && item.status.value !== 'Lost'" class="opp-value open"><span ng-bind="::item.estimatedClose | date:'mediumDate'"></span></span>
+                                        <span ng-if="item.status.value == 'Won'" class="won-opp">WON</span>
+                                        <span ng-if="item.status.value == 'Lost'" class="lost-opp">LOST</span>
+                                    </p>
+                                  </div>
+                                  <div class="col-xs-3 rich-card_padding">
+                                    <p class="card-subtitle">Stage</p>
+                                    <p class="card-data opportunity-value"><span ng-bind="::item.stage.score"></span>%<span> - </span><span ng-bind="::item.stage.value"></span></p>
+                                  </div>
+                                  <div class="col-xs-3 rich-card_padding">
+                                    <p class="card-subtitle">Forecast</p>
+                                    <p class="card-data opportunity-value"><span ng-bind="::item.forecast.value"></span>%<span> - </span><span ng-bind="::item.forecast.value"></span></p>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+
+                          </div>
+
+
+                      <!-- contact card -->
+                               <div class="panel panel-default panel-light card" ng-switch-when="Contact">
+                                    <div class="panel-heading">
+                                        <div class="card_avatar card_avatar--round">
+                                            <span>JB</span>
+                                            <span class="launch">
+                                                <icon class="wb-arrow-right"></icon>
+                                            </span>
+                                        </div>
+
+                                        <div class="card_headerDetails card_headerDetails--hasAvatar">
+                                            <p>Jordan Berry</p>
+                                            <p class="sub">CTO at Interloop.io</p>
+                                            <p class="sub-hover">Click to view company record</p>
+                                        </div>
+                                    </div>
+                                </div>  
+
+                      <!-- company card -->
+                               <div class="panel panel-default panel-light card" ng-switch-when="Company">
+                                    <div class="panel-heading">
+                                        <div class="card_avatar">
+                                            <span>JB</span>
+                                            <span class="launch">
+                                                <icon class="wb-arrow-right"></icon>
+                                            </span>
+                                        </div>
+
+                                        <div class="card_headerDetails card_headerDetails--hasAvatar">
+                                            <p>Company Name</p>
+                                            <p class="sub">companydomain.com</p>
+                                            <p class="sub-hover">Click to view company record</p>
+                                        </div>
+
+                                        <!-- actions -->
+                                        <div class="card_actionsWrapper">
+                                                <div class="card_action">
+                                                    <icon class="wb-chat"></icon>
+                                                </div>
+
+                                                <div class="card_action">
+                                                    <icon class="wb-more-vertical"></icon>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                      </span>
+
+                </div>
+
+            </div>

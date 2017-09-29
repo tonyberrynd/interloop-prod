@@ -1,0 +1,25 @@
+ <div id="local-nav" class="">
+            <div class="local-nav-header">
+              Brand
+            </div>
+            <div class="local-nav-menu with-header">
+            <ul class="nav nav-pills nav-stacked">
+              <li ui-sref-active="active"><a ui-sref="app.brand.overview">Overview</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.brand.mission">Mission / Values</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.brand.color">Color</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.brand.typography">Typography</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.brand.logos">Logos</a></li>
+            </ul>
+            </div>
+          </div>
+
+
+          <div id="main-content" class="with-nav">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                        <div id="brand-content" ui-view="brand-content"></div>
+                    </div>
+                </div>
+            </div>
+          </div>

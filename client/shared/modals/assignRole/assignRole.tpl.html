@@ -1,0 +1,41 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">Assign Role</h3>
+            <p>Assign <b ng-bind="data.thisUser.fullName"></b> a new role</p>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+
+            <form name="assignRole" novalidate>
+
+            <div class="form-group">
+              <div class="col-sm-12">
+
+               <ol class="nya-bs-select w-padding" style="width:100%" ng-model="data.selectedRole" data-size="10">
+              <li nya-bs-option="role in data.roles">
+                <a>
+                    <span class="name">
+                      <span><b ng-bind="role.label"></b></span>
+                      <span><small ng-bind="role.description"></small></span>
+                    </span>
+                </a>
+              </li>
+            </ol>
+
+              </div>
+            </div>
+
+            <br>
+            <br>
+
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="assignRole.$invalid">Assign Role</button>
+        </div>

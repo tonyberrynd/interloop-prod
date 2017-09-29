@@ -1,0 +1,1 @@
+angular.module("coil.directive.scrollClass",[]).directive("scrollClass",function(){return{restrict:"C",link:function(l,s,r){s.bind("scroll",function(){$(s).scrollTop()>0?$(s).addClass("scrolled"):$(s).removeClass("scrolled")})}}});

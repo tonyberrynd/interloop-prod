@@ -1,0 +1,80 @@
+.dropdown-menu {
+	background: #FFFFFF;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    overflow: auto;
+    padding: 4px 0;
+    max-height: 317.5px;
+    border:solid 1px #fff;
+    margin: 4px 0 0;
+
+    .dropdown-header {
+    	color:$dragonstone;
+    	text-transform: uppercase;
+    	padding:6px 12px;
+    	font-weight:600;
+        letter-spacing: .5px;
+    }
+
+    li > a {
+    	padding:8px 16px;
+        padding-right:16px;
+    }
+}
+
+.drop-menu {
+    display: inline-block;
+
+    .dropdown-menu {
+        min-width:100%;
+    }
+
+    .btn {
+            transition-duration: 0s;
+    -webkit-transition-duration: 0s;
+    // transition: background 0.1s ease-out, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+    // -webkit-transition: background 0.1s ease-out, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+    }
+
+    .btn span.cheveron-down {
+        background-image: url(../img/icons/dark/cheveron-down.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 16px;
+        height: 16px;
+        display: block;
+        float: right;
+        margin: 2px 0px;
+        margin-left: 6px;
+    }
+
+    .btn-primary span.cheveron-down {
+        background-image: url(../img/icons/light/cheveron-down.svg);
+    }
+
+    .btn:active, .btn.active, .open > .btn.dropdown-toggle,
+    .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
+        color: #fff;
+        background-color: $obsidian;
+        border-color: $obsidian;
+
+        span.cheveron-down {
+            background-image: url("../img/icons/light/cheveron-down.svg");
+        }
+    }
+
+    .drop-title {
+        display: block;
+        font-weight:600;
+        font-size:90%;
+        color:$dragonstone;
+        margin-bottom:3px;
+    }
+
+    .btn {
+        padding-top:5px;
+        padding-bottom:5px;
+    }
+}

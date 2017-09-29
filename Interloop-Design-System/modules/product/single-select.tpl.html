@@ -1,0 +1,133 @@
+<h2>Single Select</h2>
+<p>Use Single Selects to either simply replace a select or to allow user to search for value</p>
+<br>
+
+
+		<h5>UI-Select</h5>
+
+		<br>
+		<br>
+
+			<div class="single-select">
+				<label for="">No Search</label>
+	            <ui-select search-enabled="false" ng-model="data.selectedPerson" theme="bootstrap">
+	              <ui-select-match placeholder="Choose a Company">{{$select.selected.name}}</ui-select-match>
+	              <ui-select-choices repeat="item in data.people | filter: $select.search">
+	                <span ng-bind-html="item.name | highlight: $select.search"></span>
+	                <small ng-bind-html="item.email | highlight: $select.search"></small>
+	              </ui-select-choices>
+	            </ui-select>
+            </div>
+
+
+            <br>
+            <br>
+
+           	<div class="single-select">
+				<label for="">With Avatars</label>
+	            <ui-select search-enabled="false" ng-model="data.selectedPerson" theme="bootstrap">
+	              <ui-select-match placeholder="Choose a Company">{{$select.selected.name}}</ui-select-match>
+	              <ui-select-choices repeat="item in data.people | filter: $select.search">
+	              	<div class="avatar avatar-24 lime">JB</div>
+	                <span ng-bind-html="item.name | highlight: $select.search"></span>
+	                <small ng-bind-html="item.email | highlight: $select.search"></small>
+	              </ui-select-choices>
+	            </ui-select>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="single-select">
+				<label for="">Grouped</label>
+	            <ui-select search-enabled="false" ng-model="data.selectedPerson" minimum-input-length="2" theme="bootstrap">
+	              <ui-select-match placeholder="Choose a Company">{{$select.selected.name}}</ui-select-match>
+	              <ui-select-choices repeat="item in data.people | filter: $select.search" group-by="'country'">
+	                <span ng-bind-html="item.name | highlight: $select.search"></span>
+	                <small ng-bind-html="item.email | highlight: $select.search"></small>
+	              </ui-select-choices>
+	            </ui-select>
+            </div>
+
+            <br>
+            <br>
+
+			<div class="single-select">
+				<label for="">Basic Search (Data already fetched in controller)</label>
+	            <ui-select allow-clear="true" ng-model="data.selectedPerson" minimum-input-length="2" theme="bootstrap">
+	              <ui-select-match placeholder="Choose a Company">{{$select.selected.name}}</ui-select-match>
+	              <ui-select-choices repeat="item in data.people | filter: $select.search">
+	                <span ng-bind-html="item.name | highlight: $select.search"></span>
+	                <small ng-bind-html="item.email | highlight: $select.search"></small>
+	              </ui-select-choices>
+	              <ui-select-no-choice>
+	              	<span class="no-results" ng-if="!(data.people | filter: $select.search).length && !data.serverError">
+				    No Results Found Matching <b>"{{$select.search}}"</b>
+				    </span>
+				    <span class="server-error" ng-if="!(data.people | filter: $select.search).length && data.serverError">
+				    	The servier did not respond
+				    	<br>
+				    	<button class="btn btn-default">Retry</button>
+				    </span>
+				  </ui-select-no-choice>
+	            </ui-select>
+            </div>
+			
+			<br>
+			<br>
+
+            <div class="single-select">
+				<label for="">Async Search</label>
+	            <ui-select allow-clear="true" ng-model="data.selectedPerson" minimum-input-length="2" theme="bootstrap">
+	              <ui-select-match placeholder="Choose a User">{{$select.selected.name}}</ui-select-match>
+	              <ui-select-choices repeat="item in data.results track by $index" refresh="getPeople($select.search)" refresh-delay="0">
+	                <span ng-bind-html="item.name | highlight: $select.search"></span>
+	                <small ng-bind-html="item.email | highlight: $select.search"></small>
+	              </ui-select-choices>
+	              <ui-select-no-choice>
+	              	<span class="loading" ng-if="data.loadingResults">
+	              		<div class="loop-loader loop-loader-xs">Loading...</div>
+	              	</span>
+	              	<span class="no-results" ng-if="!(data.results | filter: $select.search).length && !data.serverError && !data.loadingResults">
+				    No Results Found Matching <b>"{{$select.search}}"</b>
+				    </span>
+				    <span class="server-error" ng-if="!(data.results | filter: $select.search).length && data.serverError && !data.loadingResults">
+				    	The servier did not respond
+				    	<br>
+				    	<button class="btn btn-default">Retry</button>
+				    </span>
+				  </ui-select-no-choice>
+	            </ui-select>
+            </div>
+
+			<br>
+			<br>
+
+           	<div class="single-select">
+				<label for="">Dropup</label>
+	            <ui-select search-enabled="false" ng-model="data.selectedPerson" minimum-input-length="2" theme="bootstrap">
+	              <ui-select-match placeholder="Choose a Company">{{$select.selected.name}}</ui-select-match>
+	              <ui-select-choices repeat="item in data.people | filter: $select.search" position="up">
+	                <span ng-bind-html="item.name | highlight: $select.search"></span>
+	                <small ng-bind-html="item.email | highlight: $select.search"></small>
+	              </ui-select-choices>
+	            </ui-select>
+            </div>
+
+
+
+<br>
+<br>
+
+<div class="jumbotron jumbo-footer">
+  <div class="row">
+      <div class="col-xs-6 text-left">
+        <p>Previous</p>
+          <p><a ui-sref="app.product.radio-buttons">Radio Buttons</a></p>
+      </div>
+      <div class="col-xs-6 text-right">
+          <p>Up Next</p>
+          <p><a ui-sref="app.product.spinners">Spinners</a></p>
+      </div>
+  </div>
+</div>

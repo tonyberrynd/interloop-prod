@@ -1,0 +1,34 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">New Note</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body" id="modal-body" style="padding:0px;">
+                
+               <form name="newNoteForm" novalidate autocomplete="off">
+                <div class="row">
+                      <div class="col-xs-12">
+                          <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" ng-model="data.note.title" autofocus>
+                          </div>
+                      </div>
+                      <div class="col-xs-12">
+                         <div class="rich-textarea" ng-class="{'focused': $root.richTextFocus }">
+                            <trix-editor angular-trix ng-model="data.note.body" trix-focus="trixFocus(e, editor)" trix-blur="trixBlur(e, editor)"></trix-editor>
+                          </div>
+                      </div>
+                  </div>
+                </form>
+
+          </div>
+       
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default btn-link" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="newNoteForm.$invalid">Create</button>
+        </div>

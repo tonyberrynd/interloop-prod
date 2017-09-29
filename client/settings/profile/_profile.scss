@@ -1,0 +1,165 @@
+@mixin background-color-mixin($background, $border) {
+  background-color: $background;
+  border-color: $border;
+}
+
+.color-picker {
+
+	.color {
+		display:inline-block;
+		width:25px;
+		height:25px;
+		border-radius: 50%;
+		background-color:$gravel;
+		border:solid 2px $border;
+
+		&:hover {
+			cursor:pointer;
+		}
+
+		&.active {
+			border:solid 2px $topaz !important;
+		}
+
+
+			&.topaz {
+		 @include background-color-mixin($topaz, $topaz);
+	}
+
+	&.sapphire {
+		 @include background-color-mixin($sapphire, $sapphire);
+	}
+
+	&.diamond {
+		 @include background-color-mixin($diamond, $border);
+	}
+
+	// states
+
+	&.info {
+		 @include background-color-mixin($info, $info);
+	}
+	
+	&.success {
+		 @include background-color-mixin($success, $success);
+	}
+
+	&.warning {
+		 @include background-color-mixin($warning, $warning);
+	}
+
+	&.danger {
+		 @include background-color-mixin($danger, $danger);
+	}
+
+	&.calm {
+		 @include background-color-mixin($calm, $calm);
+	}
+
+	// secondary
+
+	&.clover {
+		 @include background-color-mixin($clover, $clover);
+	}
+
+	&.lime {
+		 @include background-color-mixin($lime, $lime);
+	}
+
+	&.seafoam {
+		 @include background-color-mixin($seafoam, $seafoam);
+	}
+
+	&.gemstone {
+		 @include background-color-mixin($gemstone, $gemstone);
+	}
+
+	&.sky {
+		 @include background-color-mixin($sky, $sky);
+	}
+
+	&.royal {
+		 @include background-color-mixin($royal, $royal);
+	}
+
+	&.ocean {
+		 @include background-color-mixin($ocean, $ocean);
+	}
+
+	&.sunlight {
+		 @include background-color-mixin($sunlight, $sunlight);
+	}
+
+	&.tangerine {
+		 @include background-color-mixin($tangerine, $tangerine);
+	}
+
+	&.sunset {
+		 @include background-color-mixin($sunset, $sunset);
+	}
+
+	&.lipstick {
+		 @include background-color-mixin($lipstick, $lipstick);
+	}
+
+	&.barbie {
+		 @include background-color-mixin($barbie, $barbie);
+	}
+
+	&.grape {
+		 @include background-color-mixin($grape, $grape);
+	}
+
+	&.neutral {
+		 @include background-color-mixin($neutral, $neutral);
+	}
+
+	//greys
+
+	&.obsidian {
+		 @include background-color-mixin($obsidian, $obsidian);
+	}
+	
+	&.charcoal {
+		 @include background-color-mixin($charcoal, $charcoal);
+	}
+
+	&.slate {
+		 @include background-color-mixin($slate, $slate);
+	}
+	
+	&.granite {
+		 @include background-color-mixin($granite, $granite);
+	}
+
+	&.gravel{
+		 @include background-color-mixin($gravel, $gravel);
+	}
+
+	&.limestone{
+		 @include background-color-mixin($limestone, $limestone);
+	}
+
+	//accent
+
+	&.bright-green {
+		 @include background-color-mixin($bright-green, $bright-green);
+	}
+	
+	&.bright-blue {
+		 @include background-color-mixin($bright-blue, $bright-blue);
+	}
+
+
+	// typography
+
+	&.dragonstone {
+		 @include background-color-mixin($dragonstone, $dragonstone);
+	}
+	
+	&.seamonster {
+		 @include background-color-mixin($seamonster, $seamonster);
+	}
+	}
+
+}

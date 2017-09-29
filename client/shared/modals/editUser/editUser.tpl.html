@@ -1,0 +1,81 @@
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Edit User Profile</h3>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding" id="modal-body">
+
+        <form name="userProfileForm" novalidate>
+                <div class="row">
+                    <!-- first Name -->
+                      <div class="form-group col-xs-6">
+                        <label for="firstName">First Name</label>
+                        <br>
+                        <input type="text" class="form-control" id="firstName" placeholder="" ng-model="data.thisUser.firstName">
+                      </div>
+                      <!-- last name -->
+                      <div class="form-group col-xs-6">
+                        <label for="lastName">Last Name</label>
+                        <br>
+                        <input type="text" class="form-control" id="lastName" placeholder="" ng-model="data.thisUser.lastName">
+                      </div>
+
+                </div>
+                <div class="row">
+                    <!-- title -->
+                      <div class="form-group col-xs-12">
+                        <label for="title">Title</label>
+                        <br>
+                        <input type="text" class="form-control" id="title" placeholder="" ng-model="data.thisUser.title">
+                      </div>
+                </div>
+                <div class="row">
+                 <!-- last name -->
+                      <div class="form-group col-xs-6">
+                        <label for="initials">Initials</label>
+                        <br>
+                        <input type="text" class="form-control" id="initials" placeholder="" ng-model="data.thisUser.initial">
+                      </div>
+                      <!-- email-->
+                      <div class="form-group col-xs-6">
+                        <label for="email">
+                        <icon class="wb-info-circle support-icon" uib-tooltip="Your email is tied to your Interloop login, to make a change - please contact support"></icon>
+                        Email</label>
+                        <br>
+                        <input type="email" class="form-control w-padding" id="email" placeholder="" ng-model="data.thisUser.email" disabled>
+                      </div>
+                </div>
+                <div class="row">
+                     
+                       <!-- phoneNumber -->
+                      <div class="form-group col-xs-6">
+                        <label for="phoneNumber">Phone Number</label>
+                        <br>
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="" ng-model="data.thisUser.phone" ui-us-phone-number>
+                      </div>
+                      <!-- location -->
+                      <div class="form-group col-xs-6">
+                        <label for="extension">Extension</label>
+                        <br>
+                        <input type="text" class="form-control" id="extension" placeholder="" ng-model="data.thisUser.extension">
+                      </div>
+                </div>
+                <div class="row">
+                     
+                       <!-- phoneNumber -->
+                      <div class="form-group col-xs-12">
+                        <label for="location">Location</label>
+                        <br>
+                        <input type="text" class="form-control" id="location" placeholder="" ng-model="data.thisUser.location">
+                      </div>
+                </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Save Profile</button>
+    </div>

@@ -1,0 +1,92 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section fadeInOut" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<p style="margin-left:-5px;"><a ui-sref="app.main.settings.teams"><icon class="wb-arrow-left"></icon> Back To Teams</a></p>
+			<h3><span ng-bind="data.thisTeam.name"></span>
+			<button class="btn btn-link" uib-tooltip="Edit Team Name & Description" ng-click="editTeam()"><icon class="wb-edit"></icon></button>
+			<button class="btn btn-link" uib-tooltip="Delete Team" ng-click="deleteTeam()"><icon class="wb-trash"></icon></button>
+			</h3> 
+			<p ng-if="data.thisTeam.description" ng-bind="data.thisTeam.description"></p>
+			
+			<button class="btn btn-primary button-top new-users" ng-click="addMembers()">+ Add Members</button>
+		</div>
+		<div class="panel-body" style="padding:0px;">
+
+<!-- 
+		<ul class="nav nav-tabs" role="tablist">
+		    <li ng-class="{'active': data.editTeamType == 'members'}">
+		      <a href ng-click="changeType('members')">
+		      	Members
+		      </a>
+		    </li>
+		    <li ng-class="{'active': data.editTeamType == 'visibility'}">
+		      <a href ng-click="changeType('visibility')">
+		      	Visibilty
+		      </a>
+		    </li>
+		</ul> -->
+
+		<!-- edit members -->
+		<div class="editTeam" ng-show="data.editTeamType == 'members' ">
+			
+			  	<table class="table settings-table" ng-if="data.thisTeam.members.length">
+					    <thead>
+					      <tr>
+					        <th class="col-xs-10">Member Name</th>
+		                    <th class="col-xs-2"></th>
+					      </tr>
+					    </thead>
+					    <tbody>
+
+					      <tr ng-repeat="member in data.thisTeam.members">
+					        <td class="user">
+					        	<div class="avatar">
+					        		<span ng-bind="member.initials"></span>
+					        	</div>
+					        	<div class="avatar-details">
+					        	<h5 ng-bind="member.fullName || '--'" style="margin-bottom:3px;"> </h5>	
+					        	<p ng-bind="member.email || 'No Email'"></p>
+					        	</div>
+					        </td>
+					        <td class="text-right plain">
+					        	
+					        	<button class="btn btn-default" ng-click="removeMember(member)" uib-tooltip="Remove Member">
+					        		<icon class="wb-close"></icon>
+					        	</button>
+
+					        </td>
+					      </tr>
+					      
+					    </tbody>
+				</table>
+
+
+
+				<div class="empty-state" ng-if="!data.thisTeam.members.length">
+					<div class="empty-circle">
+						<icon class="wb-users"></icon>
+					</div>
+					<h5>No Team Members</h5>
+					<p>Add a member to this team</p>
+					<buttton class="btn btn-sm btn-primary" ng-click="addMembers()">Add Members</buttton>
+				</div>
+
+
+		</div>
+
+		<!-- edit visibility -->
+		<div class="editTeam" ng-show="data.editTeamType == 'visibility' ">
+			
+
+
+
+		</div>
+
+
+		
+
+		</div>
+	</div>
+</div>

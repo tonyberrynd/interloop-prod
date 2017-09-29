@@ -1,0 +1,192 @@
+.relationships {
+	position:relative;
+	min-height:80vh;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+
+	.card.relationship-card {
+		max-width:48%;
+		margin:5px;
+		display: inline-block;
+		float:left;
+	}
+
+	.card {
+		margin-bottom:10px;
+	}
+
+	.relationships-search {
+		position: absolute;
+		left:0px;
+		top:0px;
+		bottom:0px;
+		width:280px;
+		background-color:$limestone;
+
+		.relationship-search-header {
+			position: absolute;
+			top:0px;
+			left:0px;
+			right:0px;
+			height:50px;
+			border-bottom:solid 1px $border;
+			display: block;
+			padding:5px 10px;
+			border-right:solid 1px $border;
+
+			.search-entities {
+				position: relative;
+
+				.search-icon {
+					position: absolute;
+					left:12px;
+					top:12px;
+					color:$granite;
+				}
+
+				.clear-search {
+					position: absolute;
+					right:0px;
+					top:2px;
+					color:$granite;
+
+					icon {
+						font-size:16px;
+						color:$granite;
+						transform:rotate(45deg);
+						-webkit-transform:rotate(45deg);
+					}
+				}
+			}
+
+			input.form-control {
+				border-radius: 24px;
+				background-color:#fff;
+				padding-left:30px;
+			}
+		}
+
+		.relationship-search-body {
+			position: absolute;
+			top:50px;
+			left:0px;
+			right:0px;
+			bottom:0px;
+			overflow-y:auto;
+			padding:10px;
+			border-right:solid 1px $border;
+
+			.card {
+				cursor:pointer;
+			}
+
+			.search-relationships-empty {
+				display: block;
+				margin:auto;
+				padding:10px;
+				text-align: center;
+				margin-top:200px;
+
+				p {
+					color:$granite;
+					font-size:95%;
+				}
+
+				icon {
+					font-size:30px;
+					color:$granite;
+				}
+			}
+		}
+	}
+
+	.relationships-canvas {
+		position: absolute;
+		left:280px;
+		top:0px;
+		right:0px;
+		bottom:0px;
+		overflow:hidden;
+
+		.relationships-empty {
+			display: block;
+			margin:auto;
+			padding:10px;
+			text-align: center;
+			margin-top:200px;
+
+			p {
+				color:$granite;
+				font-size:95%;
+			}
+
+			icon {
+				font-size:30px;
+				color:$granite;
+			}
+		}
+
+		.relationship-header {
+			position: absolute;
+			top:0px;
+			left:0px;
+			right:0px;
+			height:50px;
+			border-bottom:solid 1px $border;
+			padding:8px 15px;
+
+			.new-record {
+				position: absolute;
+				right:15px;
+				top:5px;
+			}
+		}
+
+		.relationship-body {
+			position: absolute;
+			top:50px;
+			bottom:50px;
+			left:0px;
+			right:0px;
+			padding:15px;
+			overflow-y:auto;
+			background-color:lighten($limestone, 1%);
+
+			.row {
+				margin-bottom:10px;
+			}
+
+			.card .remove-entity {
+				position: absolute;
+				top:10px;
+				right:10px;
+				background-color:#fff;
+				border-radius: 50%;
+
+				icon {
+					font-size:15px;
+					color:$granite;
+				}
+			}
+		}
+
+		.relationship-footer {
+			position: absolute;
+			bottom:0px;
+			left:0px;
+			right:0px;
+			height:50px;
+			border-top:solid 1px $border;
+			background-color:#fff;
+			padding:5px 10px;
+
+			.btn {
+				float:right;
+			}
+		}
+	}
+
+
+
+
+}

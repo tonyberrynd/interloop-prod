@@ -1,0 +1,120 @@
+
+.date-picker-wrapper {
+    position:relative;
+    width:250px;
+
+    img {
+        position:absolute;
+        right:15px;
+        top:10px;
+        width:16px;
+        height:16px;
+        display:block;
+    }
+}
+
+.daterangepicker {
+    color:$seamonster;
+}
+
+.daterangepicker:before {
+    display: none;
+    border: none !important;
+}
+
+.daterangepicker:after {
+     display: none;
+    border:none !important;
+}
+
+.daterangepicker td.start-date.end-date.available {
+    border-radius: $border-radius-base;
+    background-color:$topaz;
+    color:#fff;
+
+    &.off {
+    	background-color:#fff;
+    	color:inherit;
+    }
+
+    &:hover {
+    	background-color:$topaz;
+    	color:#fff;
+    }
+}
+
+// .daterangepicker td.available.today {
+//    background-color:#fff;
+//    border-bottom:solid 1px $topaz;
+//    color:$topaz;
+// }
+
+.daterangepicker td.today::after {
+    content: '';
+    height:2px;
+    display: block;
+    background-color:$topaz;
+}
+
+.daterangepicker td.today {
+    border-radius: 4px;
+    color: $topaz;
+}
+
+.daterangepicker td.available:hover, .daterangepicker th.available:hover {
+    background-color: $topaz;
+    color:#fff;
+    border-radius: $border-radius-base;
+}
+
+
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: $topaz;
+    border-color: transparent;
+    color: #fff;
+}
+
+.daterangepicker td.start-date {
+    border-radius: $border-radius-base;
+}
+
+
+.daterangepicker td.end-date {
+    border-radius: $border-radius-base;
+}
+
+
+.ranges li.active {
+    background-color: $topaz;
+    border: 1px solid $topaz;
+    color: #fff;
+}
+
+.ranges li {
+    background-color: $limestone;
+    border: 1px solid $limestone;
+    color: $seamonster;
+}
+
+.ranges li {
+    font-size: 13px;
+    background-color: $limestone;
+    border: 1px solid $limestone;
+    border-radius: 4px;
+    color: darken($dragonstone, 12%);
+    font-weight:500;
+    padding: 2px 10px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+
+.daterangepicker .input-mini.active {
+    border: 1px solid $topaz;
+}
+
+.ranges li:hover {
+    background-color: $topaz;
+    border: 1px solid $topaz;
+    color: #fff;
+}

@@ -1,0 +1,106 @@
+
+<!-- banner -->
+<div class="banner banner-success" role="banner" ng-if="$root.hasBanner && $root.announcement">
+    <b>!</b> Find out more <a href="">at this location</a>
+</div>
+
+<!-- timezone -->
+<div class="banner banner-info" role="banner" ng-if="$root.timzoneError">
+    <b>Timezone Mismatch!</b> Your current time zone settings doesn't match your current time, would you like us to change it? <a href="">Yes?</a><span>&#9679;</span><a href="">No Thanks</a>
+</div>
+
+<!-- offline -->
+<div class="banner banner-warning" role="banner" ng-if="$root.offline">
+    <b>Connection Error!</b> Looks like you are currently offline, please connect to the internet
+</div>
+
+<div id="wrapper" ng-class="{'toggled': $root.sidebarToggle, 'has-banner': $root.hasBanner || $root.offline }">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+
+            <ul class="sidebar-header">
+              <li class="menu-toggle">
+                  <div class="header-wrapper">
+                    <div class="header-emblem">I</div>
+                    <span class="nav-row">Interloop HQ</span>
+                  </div>
+                </li>
+            </ul>
+            
+            <ul class="sidebar-menu with-footer footer-2">
+                <li class="pulse" ui-sref-active="active">
+                    <a ui-sref="app.pulse"><span class="nav-row">Pulse</span></a>
+                </li>
+                <li class="sidebar-label">Analytics</li>
+                <li class="dashboards" ui-sref-active="active">
+                    <a ui-sref="app.dashboards"><span class="nav-row">Dashboards</span></a>
+                </li>
+                <li class="analytics"  ui-sref-active="active">
+                    <a ui-sref="app.insights"><span class="nav-row">Insights</span></a>
+                </li>
+                <li class="explorer"  ui-sref-active="active">
+                    <a ui-sref="app.explorer"><span class="nav-row">Explorer</span></a>
+                </li>
+                <li class="sidebar-label">Coaching</li>
+                <li class="goals" ui-sref-active="active">
+                    <a ui-sref="app.goals"><span class="nav-row">Goals</span></a>
+                </li>
+                <li class="pace" ui-sref-active="active">
+                    <a ui-sref="app.pace"><span class="nav-row">Pace</span></a>
+                </li>
+                <li class="one-on-ones"  ui-sref-active="active">
+                    <a ui-sref="app.1-1"><span class="nav-row">Catch Ups</span></a>
+                </li>
+                <li class="performance"  ui-sref-active="active">
+                    <a ui-sref="app.performance"><span class="nav-row">Performance</span></a>
+                </li>
+                <li class="sidebar-label">Data</li>
+                <li class="forecasts"  ui-sref-active="active">
+                    <a ui-sref="app.forecasts"><span class="nav-row">Forecasts</span></a>
+                </li>
+                <li class="opportunities"  ui-sref-active="active">
+                    <a ui-sref="app.opportunities"><span class="nav-row">Opportunities</span></a>
+                </li>
+                <li class="contacts"  ui-sref-active="active">
+                    <a ui-sref="app.contacts"><span class="nav-row">Contacts</span></a>
+                </li>
+                <li class="companies"  ui-sref-active="active">
+                    <a ui-sref="app.companies"><span class="nav-row">Companies</span></a>
+                </li>
+                <li class="meetings"  ui-sref-active="active">
+                    <a ui-sref="app.tasks"><span class="nav-row">Tasks</span></a>
+                </li>
+<!--                 <li class="content"  ui-sref-active="active">
+                    <a ui-sref="app.content"><span class="nav-row">Content</span></a>
+                </li> -->
+            </ul>
+
+            <ul class="sidebar-footer">
+                <!-- <li class="sidebar-label">Secondary</li> -->
+                <li class="setup" ui-sref-active="active">
+                    <a href ui-sref="app.configure.features"><span class="nav-row">Configure</span></a>
+                </li>
+                <li class="settings" ui-sref-active="active">
+                    <a href ui-sref="app.settings.company"><span class="nav-row">Settings</span></a>
+                </li>
+            </ul>
+
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Content -->
+        <div id="content-wrapper" class="grey with-nav with-subheader">
+
+            <span id="nav-content" ui-view="nav-content"></span>
+            
+            <!-- //main content area for application -->
+            <span id="page-content" ui-view="page-content" ng-class="{'show-drawer' : $root.showDrawer }"></span>
+
+            <!-- //sidebar states -->
+            <span id="sidepanel-content" ui-view="sidepanel-content" ng-class="{'hidden': !$root.sidePanelOpen }"></span>    
+
+        </div>  
+
+    </div>
+    <!-- /#wrapper -->

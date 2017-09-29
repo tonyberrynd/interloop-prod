@@ -1,0 +1,85 @@
+.new-users {
+	padding-top:5px;
+	padding-bottom:7px;
+
+	icon {
+		font-size:20px;
+		transform:translateY(4px);
+		display: inline-block;
+		margin-right:4px;
+	}
+}
+
+td.user {
+	position:relative;
+	
+	.avatar {
+		position:absolute;
+		left:3px;
+		top:12px;
+	}
+
+	.avatar-details {
+		display: inline-block;
+		margin-left:40px;
+	}
+
+	h5 {
+		margin-bottom:3px;
+		margin-top:0px;
+		font-size:105%;
+	}
+
+	.label {
+		margin-left:5px;
+	}
+
+	p {
+		color:$dragonstone;
+		margin-bottom:0px;
+		font-size:90%;
+	}
+}
+
+tr, td {
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	max-width:300px;
+
+	p {
+		text-overflow:ellipsis;
+	}
+
+	a {
+		text-decoration: none;
+	}
+}
+
+tr.inactive {
+	opacity: .65;
+    height: auto;
+    width: 100%;
+    -webkit-background-size: 48px 49px;
+    -moz-background-size: 48px 49px;
+    background-size: 48px 49px;
+    background-color: white;
+    background-repeat:none;
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, $limestone), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, $limestone), color-stop(.75, $limestone), color-stop(.75, transparent), to(transparent));
+    background-image: -webkit-linear-gradient(-45deg, $limestone 25%, transparent 25%, transparent 50%, $limestone 50%, $limestone 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(-45deg, $limestone 25%, transparent 25%, transparent 50%, $limestone 50%, $limestone 75%, transparent 75%, transparent);
+    background-image: -ms-linear-gradient(-45deg, $limestone 25%, transparent 25%, transparent 50%, $limestone 50%, $limestone 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(-45deg, $limestone 25%, transparent 25%, transparent 50%, $limestone 50%, $limestone 75%, transparent 75%, transparent);
+    background-image: linear-gradient(-45deg, $limestone 25%, transparent 25%, transparent 50%, $limestone 50%, $limestone 75%, transparent 75%, transparent);
+}
+
+
+.btn.reactivate {
+		font-weight:400;
+
+	&:hover {
+		color:$success;
+		border:solid 1px $success;
+		font-weight:700;
+	}
+}
+

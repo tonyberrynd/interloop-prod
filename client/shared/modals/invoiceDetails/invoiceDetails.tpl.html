@@ -1,0 +1,31 @@
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Invoice Preferences</h3>
+        <p style="max-width:360px; margin:auto;">Specify your company name, add a billing contact, or include other information on your invoices.</p>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding" id="modal-body">
+
+        <form name="invoicPreferences" novalidate>
+          <div class="form-group">
+            <label for="companyName">Company Name</label>
+            <input type="text" class="form-control" id="companyName" placeholder="" ng-model="data.companyName">
+          </div>
+          <div class="form-group">
+            <label for="billingEmail">Billing Email</label>
+            <input type="text" class="form-control" id="billingEmail" placeholder="" ng-model="data.billingEmail">
+          </div>
+          <div class="form-group">
+            <label for="billingDetails">Billing Details</label>
+            <textarea id="billingDetails" class="form-control" rows="3" ng-model="data.billingDetails"></textarea>
+          </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+    </div>

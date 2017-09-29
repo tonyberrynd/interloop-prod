@@ -1,0 +1,136 @@
+.notifications-container {
+	position: absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	padding:15px;
+
+	.notifications-header {
+		border-bottom:solid 1px $border;
+		margin-bottom:15px;
+		white-space: nowrap;
+
+		h4 {
+			margin-bottom:15px;
+		}
+
+		a {
+			line-height: 20px;
+			margin-top: 8px;
+    		margin-bottom: 10px;
+    		display: block;
+		}
+	}
+
+	.col-xs-12 {
+		padding:0px;
+	}
+
+	a.content {
+		 text-decoration:none;
+		 background:#fff;
+		 border-bottom:solid 1px $border;
+	 }
+
+	// notification
+	.notification-item {
+				 padding:5px 15px;
+				 margin:0px;
+				 background:#fff;
+				 border-radius:0px;
+				 margin-bottom:0px;
+				 border-bottom:solid 1px $border;
+
+				 .time-ago {
+				 	color:$dragonstone;
+				 	font-size:90%;
+				 	font-weight:400;
+				 }
+
+				 h5 {
+				 	color:$seamonster;
+				 }
+
+				 p {
+				 	color:$dragonstone;
+				 	font-size:95%;
+				 }
+
+				 a {
+				 	color:$topaz;
+				 	text-decoration: none;
+				 }
+
+				 &:hover {
+				 	background-color: darken(#fff, 2%);
+				 }
+
+	}
+
+	 .notification-actions {
+	 	padding-bottom:10px;
+
+	 	.btn.btn-default {
+	 		padding:4px 8px;
+	 		background-color:#fff;
+	 		height:32px;
+	 	}
+	 }
+
+}
+
+
+// .app-content {
+// 	position: absolute;
+// 	top:50px;
+// 	left:0px;
+// 	right:0px;
+// 	bottom:0px;
+// 	overflow: auto;
+// 	background-color: $background-light;
+// 	z-index: 1;
+// 	transition: left .25s;
+// 	-webkit-transition: left .25s;
+// }
+
+
+
+// .stream {
+// 	padding-top:15px;
+
+// 	.stream-container {
+// 		margin-top:15px;
+// 		width: 640px;
+// 	    margin: 0 auto;
+// 	}
+
+
+// 	.stream-item {
+// 		display: block;
+// 		float:left;
+// 		width:100%;
+
+// 		.panel-body {
+// 			min-height: 72px;
+// 		}
+// 	}	
+
+
+// 	.date-ago {
+// 		width: 100px;
+// 	    margin-right: 20px;
+// 	    margin-left: -120px;
+// 	    text-align: right;
+// 	    color: $dragonstone;
+// 	    margin-top:10px;
+// 	    display:block;
+// 	    float:left;
+
+// 	    .day {
+// 	    	color: $seamonster;
+// 	    	margin-bottom:5px;
+// 	    }
+// 	}
+
+// }

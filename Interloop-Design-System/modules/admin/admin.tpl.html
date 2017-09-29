@@ -1,0 +1,24 @@
+ <div id="local-nav" class="">
+            <div class="local-nav-header">
+              Admin
+            </div>
+            <div class="local-nav-menu with-header">
+            <ul class="nav nav-pills nav-stacked">
+              <li ui-sref-active="active"><a ui-sref="app.admin.dashboard">Dashboard</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.admin.payments">Payments</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.admin.deployments">Deployments</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.admin.bugs">Bugs</a></li>
+            </ul>
+            </div>
+          </div>
+
+
+          <div id="main-content" class="with-nav" ng-controller="adminCtrl">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                        <div id="admin-content" ui-view="admin-content"></div>
+                    </div>
+                </div>
+            </div>
+          </div>

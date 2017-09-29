@@ -1,0 +1,177 @@
+<h3>Lists</h3>
+<p>Lists are a way to visualize large amounts of information in a condensed way. List items can be used in dropdowns or search menus to quickly analyze and find information.</p>
+<br>
+
+
+<div class="tabs-wrapper">
+  <ul class="nav nav-tabs">
+    <li ng-class="{ 'active': data.currentTab == 1 }"><a href ng-click="data.currentTab = 1">Opportunities</a></li>
+    <li ng-class="{ 'active': data.currentTab == 2 }"><a href ng-click="data.currentTab = 2">Companies</a></li>
+    <li ng-class="{ 'active': data.currentTab == 3 }"><a href ng-click="data.currentTab = 3">Contacts</a></li>
+    <li ng-class="{ 'active': data.currentTab == 4 }"><a href ng-click="data.currentTab = 4">Files</a></li>
+    <li ng-class="{ 'active': data.currentTab == 5 }"><a href ng-click="data.currentTab = 5">Other</a></li>
+  </ul>
+</div>
+<div class="tabs-content" ng-switch="data.currentTab">
+  
+  <div class="tab-content" ng-switch-when="1">
+    
+       <div class="list-group">
+         <a href="#" class="list-group-item avatar-item">
+            <div class="avatar avatar-32 lime">88</div>
+            <h4>Large Renewal Opportunity - Mobile</h4>
+            <p>Big Company Name Here</p>
+            <p>John Smith, Jordan Berry, +1</p>
+            <span class="forecast-indicator"><p><span class="label label-subtle">$5K <span class="spacer">&middot;</span> Commit</span></p></span>
+            <span class="owners">May 5, '17</span>
+          </a>
+
+           <a href="#" class="list-group-item avatar-item">
+            <div class="avatar avatar-32 lime">88</div>
+            <h4>Large Renewal Opportunity - Mobile</h4>
+            <p>Big Company Name Here</p>
+            <p>Jordan Berry</p>
+            <span class="forecast-indicator"><p><span class="label label-subtle">$5K <span class="spacer">&middot;</span> Commit</span></p></span>
+             <span class="owners">May 5, '17</span>
+          </a>
+
+           <a href="#" class="list-group-item avatar-item">
+            <div class="avatar avatar-32 sunlight">88</div>
+            <h4>Large Renewal Opportunity - Mobile </h4>
+            <p>Big Company Name Here</p>
+            <p>John Doe</p>
+            <span class="forecast-indicator"><p><span class="label label-subtle">$5K <span class="spacer">&middot;</span> Commit</span></p></span>
+             <span class="owners">Q2 | May 5, '18</span>
+          </a>
+
+         
+      </div>
+
+  </div>
+
+  <div class="tab-content" ng-switch-when="2">
+    
+       <div class="list-group">
+          <a href="#" class="list-group-item avatar-item">
+            <div class="avatar avatar-32 royal square">L</div>
+            <h4>Large Company A</h4>
+            <p>testcompany.a</p>
+          </a>
+          <a href="#" class="list-group-item avatar-item">
+            <div class="avatar avatar-32 royal square">L</div>
+            <h4>Large Company A</h4>
+            <p>testcompany.a</p>
+          </a>
+          <a href="#" class="list-group-item avatar-item">
+            <div class="avatar avatar-32 royal square">L</div>
+            <h4>Large Company A</h4>
+            <p>testcompany.a</p>
+          </a>
+      </div>
+
+  </div>
+
+  <div class="tab-content" ng-switch-when="3">
+    
+       <div class="list-group">
+          <a href="#" class="list-group-item avatar-item">
+            <div class="avatar avatar-32 royal">JB</div>
+            <h4>Jordan Berry</h4>
+            <p>CTO at Big Company A</p>
+          </a>
+          <a href="#" class="list-group-item avatar-item">
+            <div class="avatar avatar-32 royal">JB</div>
+            <h4>Jordan Berry</h4>
+            <p>CTO at Big Company A</p>
+          </a>
+          <a href="#" class="list-group-item avatar-item">
+            <div class="avatar avatar-32 royal">JB</div>
+            <h4>Jordan Berry</h4>
+            <p>CTO at Big Company A</p>
+          </a>
+      </div>
+
+  </div>
+
+  <div class="tab-content" ng-switch-when="4">
+    
+       <div class="list-group">
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/avi.svg" alt="Avi">
+            <h4>Awesome-Movie</h4>
+            <p>awesome_movei.avi</p>
+            <p>54MB <span class="spacer">&middot;</span> Avi Movie</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/badfile-light.svg" alt="Bad File">
+            <h4>Badfile-test.zzz</h4>
+            <p>54MB <span class="spacer">&middot;</span> Corrupted File</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/link-light.svg" alt="Link">
+            <h4>Big Import File Name</h4>
+            <p>http://link-to-file.com</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+             <img src="../assets/img/icons/files/spreadsheet-light.svg" alt="Spreadsheet">
+            <h4>Contact_Import.xslx</h4>
+            <p>54MB <span class="spacer">&middot;</span> Excel Spreadsheet</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/css.svg" alt="Css">
+            <h4>beautiful-styles.css</h4>
+            <p>12KB <span class="spacer">&middot;</span> CSS Stylesheet</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/doc.svg" alt="Doc">
+            <h4>Project Outline.doc</h4>
+            <p>35MB <span class="spacer">&middot;</span> Word Document</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/html.svg" alt="Html">
+            <h4>Website-Page.html</h4>
+            <p>1KB <span class="spacer">&middot;</span> Html File</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/jpg.svg" alt="Jpeg">
+            <h4>Stunning-Scenery.jpg</h4>
+            <p>33MB <span class="spacer">&middot;</span> Jpeg Image</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/mov.svg" alt="Mov">
+            <h4>Skatevideo.mov</h4>
+            <p>88MB <span class="spacer">&middot;</span> MOV Movie</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/mp3.svg" alt="Bad File">
+            <h4>Wack-Flocka.mp3</h4>
+            <p>54MB <span class="spacer">&middot;</span> Mp3 Audio file</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/pdf.svg" alt="Pdf">
+            <h4>Signed-Approved.pdf</h4>
+            <p>11KB <span class="spacer">&middot;</span> PDF File</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/Png.svg" alt="Png">
+            <h4>image1.png</h4>
+            <p>1MB <span class="spacer">&middot;</span> Png Image</p>
+          </a>
+          <a href="#" class="list-group-item file-item">
+            <img src="../assets/img/icons/files/ppt.svg" alt="Ppt">
+            <h4>Quarterly-Presentation.ppt</h4>
+            <p>5KB <span class="spacer">&middot;</span> Powerpoint Presentation</p>
+          </a>
+        </div>
+
+  </div>
+
+  <div class="tab-content" ng-switch-when="3">
+    
+  <p>Other</p>
+  </div>
+
+
+
+</div>
+

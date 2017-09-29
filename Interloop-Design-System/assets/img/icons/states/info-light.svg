@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard">
+            <g id="information-solid">
+                <path d="M3.05312993,17.1931299 C0.453564089,14.6823852 -0.588996039,10.964351 0.326158368,7.46805669 C1.24131277,3.97176238 3.97176238,1.24131277 7.46805669,0.326158368 C10.964351,-0.588996039 14.6823852,0.453564089 17.1931299,3.05312993 C20.982852,6.9769188 20.9286537,13.2139777 17.0713157,17.0713157 C13.2139777,20.9286537 6.9769188,20.982852 3.05312993,17.1931299 L3.05312993,17.1931299 Z" id="Path" fill="#FFFFFF"></path>
+                <path d="M9.12312993,11.1231299 L9.12312993,15.1231299 L11.1231299,15.1231299 L11.1231299,9.12312993 L9.12312993,9.12312993 L9.12312993,11.1231299 Z M9.12312993,5.12312993 L9.12312993,7.12312993 L11.1231299,7.12312993 L11.1231299,5.12312993 L9.12312993,5.12312993 Z" id="Shape" fill="#00B3FC" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

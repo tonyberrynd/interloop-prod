@@ -1,0 +1,74 @@
+.permission-panel {
+	position: relative;
+}
+.edit-role {
+	position: absolute;
+	right:15px;
+	top:15px;
+}
+
+.permission-item {
+	min-height:60px;
+	padding-bottom:15px;
+}
+
+.visibility-wrapper {
+	p {
+		margin-bottom:3px;
+	}
+}
+
+.visibility-item {
+		border:solid 1px $border;
+		border-radius:5px;
+		margin-bottom:15px;
+		display: block;
+		width:100%;
+		padding:10px 15px;
+
+		p:nth-child(2) {
+			color:$granite;
+		}
+	}
+
+.permission-info {
+	border:solid 1px $gravel;
+	border-radius: 5px;
+	display: block;
+	width:100%;
+}
+
+
+td.role {
+	position:relative;
+	
+	.avatar {
+		position:absolute;
+		left:3px;
+		top:12px;
+	}
+
+	.avatar-details {
+		display: inline-block;
+		margin-left:40px;
+	}
+
+	h5 {
+		margin-bottom:3px;
+		margin-top:0px;
+		font-size:110%;
+
+		.badge {
+			padding-top:2px;
+		}
+	}
+
+	.label {
+		margin-left:5px;
+	}
+
+	p {
+		color:$dragonstone;
+		margin-bottom:0px;
+	}
+}

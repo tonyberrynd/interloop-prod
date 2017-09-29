@@ -1,0 +1,102 @@
+
+.pricing-list {
+	background-color:#fff;
+	color:$seamonster;
+}
+
+.pricing-title.standard {
+	background-color:$sky;
+	color:#fff;
+}
+
+.pricing-amount.enterprise {
+	font-size: 28px;
+    display: inline-block;
+    transform: translateY(-12px);
+}
+
+
+.pricing-title.professional {
+	background-color:$clover;
+	color:#fff;
+}
+
+.pricing-title.enterprise {
+	background-color:$tangerine;
+	color:#fff;
+}
+
+.btn-group.subscription-timeframe {
+	width:100%;
+
+	.btn {
+		width:50%;
+		background-color:#fff;
+		border:solid 1px $topaz;
+
+		&.active {
+			background-color:$topaz;
+			color:#fff;
+		}
+	}
+}
+
+// .subscription {
+
+// 	th {
+// 		background-color:$limestone;
+// 	}
+
+// 	h4 {
+// 		margin-bottom:25px;
+// 	}
+
+// 	small {
+// 		color:$text-light;
+// 	}
+
+// 	b.plan {
+// 		color:$topaz;
+// 	}
+
+// 	a {
+// 		text-decoration: underline;
+// 	}
+
+// 	hr {
+// 		margin-top:40px;
+// 		margin-bottom:40px;
+// 	}
+
+// 	.discounted {
+// 		text-decoration: line-through;
+// 		color:$text-medium;
+// 		margin-right:5px; 
+// 		color:$emerald;
+// 	}
+
+// 	.totals {
+// 		width:100%;
+// 		text-align: right;
+// 	}
+
+// }
+// .info-block {
+// 	p {
+// 		font-weight:$medium;
+
+// 		&.title {
+// 			text-transform: uppercase;
+// 			color:$text-light;
+// 			font-size:90%;
+// 		}
+
+// 		&.info {
+// 			font-size:110%;
+// 		}
+
+// 		&.edit {
+// 			font-size:90%;
+// 		}
+// 	}
+// }

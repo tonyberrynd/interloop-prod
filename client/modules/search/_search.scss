@@ -1,0 +1,176 @@
+
+.results-for {
+	position: absolute;
+	width:100%;
+	top:15px;
+	left:25px;
+	right:25px;
+	text-align: left;
+	padding:5px;
+
+	color:$seamonster;
+	text-shadow:none;
+
+	b {
+		color:$topaz;
+	}
+}
+
+.facets {
+	display: inline-block;
+	width:275px;
+	background-color:#fff;
+	border:solid 1px $border;
+	border-radius: 3px;
+	position: fixed;
+	left:25px;
+	top:125px;
+}
+
+.recent-searches {
+	display: inline-block;
+	width:275px;
+	background-color:#fff;
+	border:solid 1px $border;
+	border-radius: 3px;
+	position: absolute;
+	left:25px;
+	top:280px;
+}
+
+.search-results {
+	position: absolute;
+	left:325px;
+	top:75px;
+	right:25px;
+	display: inline-block;
+	background-color:#fff;
+	border-radius: 3px;
+
+	&.no-filters {
+		left:25px;
+	}
+
+	.panel {
+		margin:0px;
+		min-height:100px;
+	}
+
+	.panel-footer {
+		background-color:#fff;
+		padding:15px 25px;
+
+		.view-results-grid {
+			display: inline-block;
+			border-radius: 24px;
+			border:solid 1px $border;
+			color:$seamonster;
+			padding:5px 25px;
+			margin:auto;
+
+			a {
+				text-decoration: none;
+				color:$seamonster;
+			}
+		}
+	}
+
+	.results {
+		padding:15px;
+
+		.search-item {
+			border-radius:5px;
+		}
+
+		li a {
+			display: block;
+			text-decoration: none;
+			padding: 8px 15px;
+		    border-radius: 3px;
+		    -webkit-transition: background-color .25s;
+		    -o-transition: background-color .25s;
+		    transition: background-color .25s;
+		}
+
+		li > a:focus,
+		li a:focus {
+			background-color:$limestone;
+			outline:none;
+		}
+
+
+		.search-header {
+			padding:10px 15px;
+			padding-right:5px;
+			background-color:$limestone;
+			color:$seamonster;
+
+			b {
+				color:$seamonster;
+			}
+		}
+
+
+		.no-results,
+		.loading-results {
+			padding:50px;
+			text-align: center;
+
+			icon {
+				font-size:20px;
+				color:$granite;
+			}
+
+			p {
+				color:$seamonster;
+			}
+		}
+
+
+		li {
+			padding:0px;
+
+			&:focus {
+				background-color:$limestone;
+			}
+		}
+
+
+		li a {
+
+			border-radius: 5px;
+
+			&:hover {
+				background-color: $limestone;
+			}
+
+			p {
+				color:$seamonster;
+				margin:0px;
+				font-weight:medium;
+			}
+
+			small {
+				color:$seamonster;
+			}
+		}
+	}
+
+
+	.empty {
+		display: block;
+		margin:auto;
+		padding:120px 30px;
+		text-align: center;
+		width:360px;
+
+		icon {
+			font-size:36px;
+			color:$granite;
+		}
+
+		p {
+			color:$seamonster;
+		}
+	}
+}

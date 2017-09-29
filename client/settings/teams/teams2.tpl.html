@@ -1,0 +1,43 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Manage Teams</h4>
+					<p>Group users into teams for easier roll up and visibility throughout Interloop.</p>
+					<button class="btn btn-primary button-top new-users" ng-click="newTeam()">+ New Team</button>
+					</div>
+						
+					<div class="row">
+						<div class="col-xs-6" ng-repeat="team in data.teams">
+							<div class="panel panel-default team-card">
+								<div class="panel-body">
+									<h4 ng-bind="team.name"></h4>
+									<p ng-bind="team.description || 'No Description'"></p>
+									<br>
+
+									<span class="member-list">
+									<p ng-if="!team.members.length">No Members</p>
+									<div class="avatar-bundle" ng-if="team.members.length">
+									    <div class="avatar avatar-48" ng-class="member.color" ng-repeat="member in team.members | limitTo:4" uib-tooltip="{{member.firstName}} {{member.lastName}}">
+									    	<span ng-bind="member.initials"></span>
+									    </div>
+									    <div class="avatar-plus" ng-if="team.members.length > 4">
+									    	+<span ng-bind="team.members.length - 4"></span>
+									    </div>
+									</div>
+									</span>
+									<button class="btn btn-default">
+										<icon class="fa fa-gear"></icon> Team Settings</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6"></div>
+						<div class="col-xs-6"></div>
+					</div>
+
+				</div>
+		</div>

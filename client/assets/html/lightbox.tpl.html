@@ -1,0 +1,63 @@
+<div class="modal-header lightbox-header">
+	<div class="lightbox-header-left">
+		<img ng-src="{{Lightbox.image.type | fileIcons }}" alt="{{Lightbox.image.name}}"> {{Lightbox.image.name}}
+	</div>
+	<div class="lightbox-header-right">
+
+		<a ng-href={{Lightbox.imageUrl}} class="btn btn-link" uib-tooltip="Download" tooltip-placement="bottom" download>
+			<img src="../assets/img/icons/light/download.svg" alt="Download">
+		</a>
+
+		<a ng-href={{Lightbox.imageUrl}} target=_blank class="btn btn-link" uib-tooltip="Open In New Window" tooltip-placement="bottom">
+			<img src="../assets/img/icons/light/share-alt.svg" alt="Open In New Window">
+		</a>
+
+		<button class="btn btn-link" uib-tooltip="Copy Link" tooltip-placement="bottom" clipboard supported="supported" text="Lightbox.image.url" on-copied="copySuccess()" on-error="copyFail(err)">
+			<img src="../assets/img/icons/light/copy.svg" alt="Copy Link">
+		</button>
+
+<!-- 		<button class="btn btn-link" uib-tooltip="See Comments" tooltip-placement="bottom">
+			<img src="../assets/img/icons/light/chat-bubble-dots.svg" alt="See Commanes">
+		</button> -->
+
+		<button class="btn btn-link btn-close" aria-hidden="true" ng-click="$dismiss()" uib-tooltip="Close" tooltip-placement="bottom">
+			<img src="../assets/img/icons/light/close.svg" alt="Close">
+		</button>
+	</div>
+</div>
+<div class="modal-body" ng-swipe-left="Lightbox.nextImage()" ng-swipe-right="Lightbox.prevImage()">
+    <!-- previous -->
+    <a class="btn btn-link prev" ng-click=Lightbox.prevImage() ng-if="Lightbox.images.length > 1">
+    	<img src="../assets/img/icons/light/cheveron-left.svg" alt="Previous">
+   	</a> 
+        
+
+    <div class=lightbox-image-container>
+        <div class=lightbox-image-caption><span>{{Lightbox.imageCaption}}</span></div><img ng-if=!Lightbox.isVideo(Lightbox.image) lightbox-src={{Lightbox.imageUrl}}>
+        <div ng-if=Lightbox.isVideo(Lightbox.image) class="embed-responsive embed-responsive-16by9">
+            <video ng-if=!Lightbox.isSharedVideo(Lightbox.image) lightbox-src={{Lightbox.imageUrl}} controls autoplay></video>
+            <embed-video ng-if=Lightbox.isSharedVideo(Lightbox.image) lightbox-src={{Lightbox.imageUrl}} ng-href={{Lightbox.imageUrl}} iframe-id=lightbox-video class=embed-responsive-item><a ng-href={{Lightbox.imageUrl}}>Watch video</a></embed-video>
+        </div>
+    </div>
+	
+	<!-- next -->
+    <a class="btn btn-link next" ng-click=Lightbox.nextImage() ng-if="Lightbox.images.length > 1">
+    	<img src="../assets/img/icons/light/cheveron-right.svg" alt="Next">
+   	</a>
+</div>
+<div class="modal-footer lightbox-footer">
+	<div class="lightbox-footer-left">
+		<div class="avatar-info">
+			<span class="uploaded-by" ng-if="Lightbox.image.createdBy">
+				<div class="avatar avatar-24 royal">
+				<span ng-bind="Lightbox.image.createdBy.initials"></span>
+				</div> 
+				<span ng-bind="Lightbox.image.createdBy.firstName"></span> <span ng-bind="Lightbox.image.createdBy.lastName"></span>
+			</span>
+			<span class="uploaded-on">Uploaded <span ng-bind="Lightbox.image.createdOn | date:'MMM d, y h:mm a'"></span></span>
+		</div>
+	</div>
+	<div class="lightbox-footer-right">
+		Showing {{Lightbox.images.indexOf(Lightbox.image) + 1}} / {{Lightbox.images.length}} Files
+	</div>
+</div>

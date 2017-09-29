@@ -1,0 +1,60 @@
+
+
+.field-types {
+	text-align: center;
+	padding:40px 0;
+
+	.field-type {
+		display: inline-block;
+		width:80px;
+		height:80px;
+		padding:15px 5px;
+		border:solid 2px $gravel;
+		border-radius: 5px;
+		text-align: center;
+		color:$slate;
+		margin-right:10px;
+		cursor:pointer;
+
+		.field-icon {
+			font-size:18px;
+
+			icon {
+				font-size:18px;
+			}
+		}
+
+		&.active {
+			border:solid 2px $topaz;
+			color:$topaz;
+		}
+	}
+
+}
+
+.field-details {
+	padding:20px 40px;
+
+	.field-option {
+		position: relative;
+	}
+
+	.removeOption {
+		position: absolute;
+		left:-35px;
+		top:0px;
+		color:$slate;
+		cursor:pointer;
+	}
+}
+
+.confirm-field {
+	padding:20px;
+}
+
+.customField-footer {
+	.btn {
+		transition:none !important;
+		-webkit-transition:none !important;
+	}
+}

@@ -1,0 +1,59 @@
+<div class="settings-section import-section">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Import Companies</h3>
+			<p>Upload your csv file to add records</p>
+		</div>
+		<div class="panel-body">
+
+			 <div ng-switch="data.currentStep.number">
+	                  <!-- import spreadsheet -->
+	                  <!-- ===================-->
+	                  <div ng-switch-when="1">
+						<h5>Step 1</h5>
+
+	                  </div>
+
+	                  <!-- import spreadsheet -->
+	                  <!-- ===================-->
+	                  <div ng-switch-when="2">
+						<h5>Step 2</h5>
+
+	                  </div>
+
+	                  <!-- import spreadsheet -->
+	                  <!-- ===================-->
+	                  <div ng-switch-when="3">
+						<h5>Step 3</h5>
+
+	                  </div>
+
+	                  <!-- import spreadsheet -->
+	                  <!-- ===================-->
+	                  <div ng-switch-when="4">
+						<h5>Step 4</h5>
+
+	                  </div>
+
+	                  <!-- import spreadsheet -->
+	                  <!-- ===================-->
+	                  <div ng-switch-when="5">
+						<h5>Step 5</h5>
+
+	                  </div>
+
+	        </div>
+
+
+	        <!-- //forward backward buttons -->
+	        <!-- go back -->
+	        <button  ng-if="data.currentStep.number > 1" type="button" class="btn btn-default btn-outline" ng-click="previousStep()">Go Back</button>
+	        <!-- next -->
+	        <button ng-if="data.currentStep.number  !== 5" type="button" class="btn btn-primary" ng-click="nextStep()">Next Step</button>
+	        <!-- submit -->
+	        <button type="button" ng-class="{'hidden': data.currentStep.number !== 5 }" class="btn btn-success" ng-click="ok()">Import Data</button>
+	
+
+		</div>
+	</div>
+</div>

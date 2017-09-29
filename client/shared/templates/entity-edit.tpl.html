@@ -1,0 +1,89 @@
+    <div class="sidepanel">
+        <div class="sidepanel-header">
+            <a class="btn btn-link btn-left" ui-sref="app.opportunity-details">
+                Cancel
+            </a>
+            <span class="text-left">Edit Opportunity</span>
+            <button class="btn btn-success btn-action">
+                Save</icon>
+            </button>
+        </div>
+        <div class="sidepanel-edit">
+            
+           <div class="sidebar-section" ng-if="(data.customFields | filter: {excludeForm: '!true'}).length">
+            <p class="sidebar-section-header">Custom Fields</p>
+            <!-- <p class="sidebar-section-action">
+              <a href ui-sref="app.sidebar.opportunity.forecast-details">ADD</a>
+            </p> -->
+            <div class="card with-padding">
+                <form name="opportunityCustomFields" novalidate>
+             
+                    <div class="row">
+                          <div ng-class="field.class" ng-repeat="field in data.customFields | filter: {excludeForm: '!true'}" ng-switch="field.type">
+
+                              <!-- divider -->
+                              <div class="form-group" ng-switch-when="divider">
+                                <h5 class="pane-title">{{field.label}}</h5>
+                              </div>
+
+                               <!-- string -->
+                               <div class="form-group" ng-switch-when="string">
+                                <label for="{{field.key}}">
+                                  <span ng-bind="field.label"></span>
+                                  <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                                </label>
+                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisOpp[field.key]" change-on-blur="saveData(field.key, data.thisOpp[field.key])" ng-disabled="field.disabled">
+                              </div>
+
+                                <!-- number -->
+                               <div class="form-group" ng-switch-when="number">
+                                <label for="{{field.key}}">
+                                  <span ng-bind="field.label"></span>
+                                  <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                                </label>
+                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisOpp[field.key]" ui-number-mask="2" ng-model="data.thisOpp[field.key]" change-on-blur="saveData(field.key, data.thisOpp[field.key])" ng-disabled="field.disabled">
+                              </div>
+
+                              <!-- currency -->
+                               <div class="form-group" ng-switch-when="currency">
+                                <label for="{{field.key}}">
+                                  <span ng-bind="field.label"></span>
+                                  <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                                </label>
+                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisOpp[field.key]" ui-money-mask="2" ng-model="data.thisOpp[field.key]" change-on-blur="saveData(field.key, data.thisOpp[field.key])" ng-disabled="field.disabled">
+                              </div>
+
+                              <!-- date -->
+                               <div class="form-group" ng-switch-when="date">
+                                <label for="{{field.key}}">
+                                  <span ng-bind="field.label"></span>
+                                  <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                                </label>
+                                <input date-range-picker class="form-control date-picker" id="{{field.key}}" placeholder="" ng-model="data.thisOpp[field.key]" options="$root.options" ng-model="data.thisOpp[field.key]" change-on-blur="saveData(field.key, data.thisOpp[field.key])" ng-disabled="field.disabled"/>
+                              </div>
+
+                              <!-- picklists -->
+                              <div class="form-group" ng-switch-when="category">
+                              <label for="{{field.key}}">
+                                  <span ng-bind="field.label"></span>
+                                  <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                                </label>
+                              <ui-select class="form-control" ng-model="data.thisOpp[field.key]" on-select="saveData(field.key, data.thisOpp[field.key])" ng-disabled="field.disabled">
+                                <ui-select-match placeholder="Select options...">
+                                  <span>
+                                    <span class="name">{{$select.selected.label}}</span>
+                                  </span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="value in field.values | filter: $select.search">
+                                    <span ng-bind-html="value.label | highlight: $select.selected.value"></span>
+                                </ui-select-choices>
+                              </ui-select>
+                              </div>
+                      </div>
+                    </div>
+                    </form>
+            </div>
+            </div>
+
+       </div>
+    </div>

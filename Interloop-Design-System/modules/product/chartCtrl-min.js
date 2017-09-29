@@ -1,0 +1,1 @@
+angular.module("coil.chartCtrl",[]).controller("chartCtrl",function(a,r,t,c,e){a.data={};var i={chart:{type:"bar",height:480},series:[{data:[10,15,12,8,7],id:"series1"}]},l=_.assignIn(angular.copy(e),i);a.chartConfig=l});

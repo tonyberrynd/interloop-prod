@@ -1,0 +1,34 @@
+.configure-header {
+	padding: 0px 15px;
+}
+
+.configure-wrapper {
+	padding:15px;
+	padding-top:0px;
+	position: relative;
+	height: auto;
+
+	.jsoneditor {
+		// height:100%;
+	}
+
+}
+
+//JSON EDITOR
+//============================
+
+div.jsoneditor-menu {
+
+    background-color: $oc-gray-8;
+    border-bottom: 1px solid $oc-gray-8;
+}
+
+div.jsoneditor {
+    color: $text-dark;
+    border: none;
+    background: #fff;
+}
+
+div.jsoneditor-tree {
+	padding:10px 0;
+}

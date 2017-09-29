@@ -1,0 +1,175 @@
+.modal.media-picker {
+
+	.modal-content {
+		min-height:540px;
+	}
+
+	.modal-dialog.modal-lg {
+	    width: 900px;
+	}
+
+	.modal-body {
+		min-height:540px;
+		padding:0px;
+	}
+
+	.modal-left-nav {
+	    width: 200px;
+	    position: absolute;
+	    left: 0px;
+	    top: 0px;
+	    padding: 12px 24px;
+	    height: 100%;
+	    background-color:$limestone;
+	    border-right:none;
+
+	    hr {
+	    	margin:5px 0;
+	    	border-color:$border;
+	    }
+
+	    li > a {
+	    	padding: 10px 0px;
+		    font-size: 15px;
+		    display: block;
+		    color:$granite;
+		    margin-bottom:0px;
+		    text-decoration:none;
+
+		    icon {
+		    	font-size:20px;
+		    	margin-right:5px;
+		    }
+	    }
+
+	    li.active a {
+			color:$topaz;
+	    }
+
+	    ul li {
+	    	margin:0px;
+	    	font-weight:500;
+	    }
+	}
+
+	.drag-and-drop-area {
+		margin:20px 30px;
+		margin-bottom:0px;
+		border: dashed 2px $border;
+		border-radius: 5px;
+		display: block;
+		width:500px;
+		padding:40px;
+		width:640px;
+		text-align:center;
+		color:$granite;
+		background-color:$limestone;
+		font-weight:500;
+		img {
+			width:150px;
+			margin:auto;
+		}
+	}
+
+	.authorization {
+		padding:150px 50px;
+
+		icon {
+			color:$granite;
+			font-size:54px;
+		}
+
+		p {
+			color:$dragonstone;
+			margin:auto;
+			max-width:300px;
+			margin-bottom:15px;
+		}
+	}
+
+	.uploaded-files {
+		padding:30px;
+	}
+
+	.progress {
+		margin-top:5px;
+		margin-left:30px;
+	}
+
+	.picker-header {
+		position: absolute;
+	    top: 0px;
+	    right: 0px;
+	    left: 200px;
+	    padding: 15px;
+	    height:60px;
+	    box-shadow: 0 2px 4px -2px rgba(9, 30, 66, 0.25), 0 0 0px rgba(9, 30, 66, 0.31);
+	}
+
+	.picker-body {
+		height:470px;
+		overflow: hidden;
+		overflow-y:auto;
+		margin-top:60px;
+		width:100%;
+
+		&.with-padding {
+			padding:60px;
+		}
+
+		.row {
+			margin:15px;
+		}
+
+		&.scrolled {
+			border-bottom:solid 1px $border;
+		}
+	}
+
+	.modal-right-content {
+		margin-left:200px;
+		 padding: 10px 0;
+		 padding-bottom:0px;
+	}
+
+	.breadcrumb {
+		background-color:#fff;
+	}
+
+	.btn {
+		img {
+			width:16px;
+		}
+	}
+
+	.view-type .btn {
+		min-width:25px;
+	}
+
+	.view-type .btn img {
+		width:16px;
+	}
+
+	.modal-footer {
+		border-top:none;
+		padding:0px;
+	}
+
+	.footer-left {
+		display: inline-block;
+		width:200px;
+		background-color:$limestone;
+		padding: 12px 24px;
+		text-align:left;
+		color:$granite;
+		float:left;
+		font-size:90%;
+		height:60px;
+	}
+
+	.footer-right {
+		padding: 12px 24px;
+		margin-left:200px;
+	}
+
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard">
+            <g id="Group">
+                <path d="M11.0606602,1.06066017 L18.9393398,8.93933983 L18.9393398,8.93933983 C19.5251263,9.52512627 19.5251263,10.4748737 18.9393398,11.0606602 L11.0606602,18.9393398 L11.0606602,18.9393398 C10.4748737,19.5251263 9.52512627,19.5251263 8.93933983,18.9393398 L1.06066017,11.0606602 L1.06066017,11.0606602 C0.474873734,10.4748737 0.474873734,9.52512627 1.06066017,8.93933983 L8.93933983,1.06066017 L8.93933983,1.06066017 C9.52512627,0.474873734 10.4748737,0.474873734 11.0606602,1.06066017 Z" id="Polygon" fill="#FFFFFF"></path>
+                <polygon id="Path" fill="#F2001D" points="9 4 9 10.5454545 11.1818182 10.5454545 11.1818182 4"></polygon>
+                <polygon id="Path" fill="#F2001D" points="9 13.8181818 9 16 11.1818182 16 11.1818182 13.8181818"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

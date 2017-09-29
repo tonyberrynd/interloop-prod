@@ -1,0 +1,70 @@
+<div class="settings-section import-section">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Audit Logs</h3>
+			<p>The log lets you audit changes by showing who made the change and when it was made</p>
+		</div>
+		<div class="panel-body" style="padding:0px;">
+
+			    <div class="audit-log table-wrapper">
+	    <p class="pull-left" ng-bind="'Showing 50' + ' / ' + data.totalItems"></p>
+
+	    <!-- paginations -->
+	      <div class="text-inline pull-right audit-log-pagination">
+		  <ul uib-pagination total-items="data.totalItems" items-per-page="data.perPage" ng-model="data.currentPage" max-size="3" class="pagination-sm" boundary-link-numbers="true" ng-change="pageChanged()"></ul>
+		  </div>
+
+	    <div ng-class="{'hidden' : data.isLoaded}" class="audit-loader loop-loader loop-loader-light loop-loader-xs">Loading...</div>
+
+	    <table class="table manage-users">
+		    <thead>
+		      <tr>
+		      	<th class="th-time">Time</th>
+		      	<th class="th-actor">User</th>
+		        <th class="th-ip">IP</th>
+		        <th class="th-type">Action</th>
+		        <th class="th-item-changed">Item Changed</th>
+		        <th class="th-changes">Changes</th>
+		      </tr>
+		    </thead>
+
+		    <tbody>
+
+
+		     <!-- repeat list of users -->
+		      <tr ng-repeat="item in data.logs" style="min-height:48px !important;" ng-if="data.isLoaded">
+		      	<!-- Time -->
+		        <td>
+		        	<span ng-bind="::(item.createdOn | date: 'MMM d, h:mm a')"></span>
+		        </td>
+		        <td>
+		        	<span ng-bind="::item.user_name"></span>
+		        </td>
+		        <td>
+		        	<span uib-popover-template="'settings/audit-log/ip_popover.tpl.html'" popover-trigger="'mouseenter'">
+		        	<icon class="fa fa-globe"></icon>
+		        	<span href style="cursor: help;" ng-bind="::item.ip_address"></span>
+		        	</span>
+		        </td>
+		       	<td>
+		        	<span ng-bind="::item.action"></span>
+		        </td>
+		        <td>
+		        	<span ng-bind="::item.entity_type"></span>
+		        </td>
+		        <td>
+		        	<span ng-bind="::item.event" uib-tooltip="{{::item.event}}" style="cursor:help;"></span>
+		        </td>
+		      </tr>
+		      
+		    </tbody>
+		  </table>
+
+		  </div>
+		  <br>
+	
+
+		</div>
+	</div>
+</div>
+

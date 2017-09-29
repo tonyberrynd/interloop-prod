@@ -1,0 +1,71 @@
+.nya-bs-select.btn-group .dropdown-menu li a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nya-bs-select {
+
+	* {
+		outline:none !important;
+	}
+	// match styles 
+	.btn-default {
+		background-color:$diamond !important;
+		font-weight:400 !important;
+		color:$seamonster !important;
+		font-size:13px !important;
+		padding: 10px !important;
+    	border: solid 1px $gravel;
+
+    	&:focus {
+    		border-color: $topaz;
+    	}
+	}
+
+	&.border-less {
+
+
+
+		.btn-default {
+			border:none;
+			border-bottom:solid 1px $gravel;
+			border-radius: 0px;
+			padding: 5px !important;
+		}
+	}
+
+	&.w-padding {
+		.btn-default {
+			padding:10px 6px !important;
+		}
+	}
+
+
+
+}
+
+.nya-bs-select .bs-searchbox, 
+.nya-bs-select .bs-actionsbox {
+    padding: 2px;
+}
+
+
+
+//avatar select
+.avatar-select .name {
+	display: inline-block;
+	margin-bottom:2px;
+	padding:0 5px;
+}
+
+.loopcard .nya-bs-select {
+	height:36px;
+
+	.btn {
+		height:36px;
+	}
+
+	.btn-default {
+		border-color:$border !important;
+	}
+}

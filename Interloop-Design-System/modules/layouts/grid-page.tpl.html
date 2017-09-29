@@ -1,0 +1,92 @@
+
+<div class="banner banner-success" role="banner">
+    <b>Success!</b> Find out more <a href="">at this location</a>
+</div>
+
+  <div id="wrapper" ng-class="{'toggled': $root.sidebarToggle, 'has-banner': $root.hasBanner }">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" ng-mouseover="$root.sidebarToggle = true" ng-mouseout="$root.sidebarToggle = false">
+
+            <ul class="sidebar-header">
+              <li class="menu-toggle">
+                  <div class="header-wrapper">
+                    <div class="header-emblem">I</div>
+                    <span class="nav-row">Interloop HQ</span>
+                  </div>
+                </li>
+            </ul>
+            
+            <ul class="sidebar-menu with-footer footer-1">
+
+                <li class="" ng-class="{active: $state.includes('app.menu1')}">
+                    <a ui-sref="app.menu1"><span class="nav-row">Menu Item 1</span></a>
+                </li>
+                <li class="" ng-class="{active: $state.includes('app.menu2')}">
+                    <a ui-sref="app.menu3"><span class="nav-row">Menu Item 2</span></a>
+                </li>
+                <li class="" ng-class="{active: $state.includes('app.menu3')}">
+                    <a ui-sref="app.menu3"><span class="nav-row">Menu Item 3</span></a>
+                </li>
+            </ul>
+
+            <ul class="sidebar-footer footer-1">
+               <li class="feedback">
+                    <a href="#"><span class="nav-row">Feedback</span></a>
+                </li>
+            </ul>
+
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="grey with-nav with-subheader">
+            <ng-include src="'modules/layouts/navbar.tpl.html'"></ng-include>
+
+            <div class="subheader">
+              <div class="subheader-left pull-left">
+                <button class="btn btn-defaults show-sidebar" uib-tooltip="Show Sidebar" tooltip-placement="bottom-left">
+                  <img src="../assets/img/icons/dark/show-sidebar.svg" alt="Open Sidebar">
+                </button>
+                <button class="btn btn-default view-switcher">
+                  Switch Views
+                  <img src="../assets/img/icons/dark/cheveron-down.svg" alt="Switch Views">
+                </button>
+              </div>
+              <div class="subheader-right pull-right">
+                <div class="date-picker-wrapper">
+                  <input date-range-picker class="form-control date-picker" id="datepicker1" placeholder="" ng-model="datepicker" options="$root.options2" change-on-blur=""/>
+                  <img src="../assets/img/icons/states/date.svg" alt="Date Picker">
+                  </div>
+              </div>
+            </div>
+
+            <div class="layout grid-layout">
+            
+              <div class="grid-toolbar">
+                
+              </div>
+
+              <div class="filter-bar">
+                Filters: <div class="tag rounded">Filter 1</div>
+              </div>
+              <!-- grid -->
+              <div class="grid-wrapper static" ng-controller="datagridCtrl">
+                <div ag-grid="data.gridOptions2" class="data-grid ag-fresh" style="height:100%;width:100%;"></div>
+              </div>
+
+            </div>
+
+            </div>
+
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+        
+        <div id="sidepanel-wrapper"></div>
+
+      
+
+    </div>
+    <!-- /#wrapper -->

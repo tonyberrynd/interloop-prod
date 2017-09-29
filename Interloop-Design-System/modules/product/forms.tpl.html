@@ -1,0 +1,137 @@
+<h3>Forms</h3>
+<p>Forms are the main input method within in the application.</p>
+<br>
+
+
+<h5>Basic Form Elements</h5>
+<br>
+
+
+<form>
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input type="email" class="form-control" id="email">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password</label>
+    <input type="password" class="form-control" id="pwd">
+  </div>
+</form>
+
+<h5>Numbers & Currency</h5>
+
+
+<form>
+  <div class="form-group">
+    <label for="number1">Number</label>
+    <input type="text" class="form-control" id="number1" ui-number-mask="2" ng-model="number">
+  </div>
+  <div class="form-group">
+    <label for="currency1">Currency</label>
+    <input type="text" class="form-control" id="currency1" ui-money-mask="2" ng-model="currency">
+  </div>
+</form>
+
+
+<h5>Phone Number</h5>
+
+<form>
+  <div class="form-group">
+    <label for="phone1">Phone Number</label>
+    <input type="text" class="form-control" id="phone1"  ui-us-phone-number ng-model="phoneNumber">
+  </div>
+</form>
+
+
+
+
+<h5>Rich Text Area</h5>
+
+<div class="rich-textarea" ng-class="{'focused': $root.richTextFocus }">
+	<trix-editor angular-trix ng-model="foo" trix-focus="trixFocus(e, editor)" trix-blur="trixBlur(e, editor)"></trix-editor>
+</div>
+
+<br>
+<br>
+
+<h5>Date Picker & Date Range Picker</h5>
+
+
+<div class="date-picker-wrapper">
+<input date-range-picker class="form-control date-picker" id="datepicker1" placeholder="" ng-model="datepicker" options="$root.options" change-on-blur=""/>
+<img src="../assets/img/icons/states/date.svg" alt="Date Picker">
+</div>
+
+<br>
+
+<div class="date-picker-wrapper">
+<input date-range-picker class="form-control date-picker" id="datepicker1" placeholder="" ng-model="datepicker" options="$root.options2" change-on-blur=""/>
+<img src="../assets/img/icons/states/date.svg" alt="Date Picker">
+</div>
+
+
+<br>
+<br>
+
+<h5>Form Control States</h5>
+<br>
+
+<form class="">
+  <div class="form-group">
+    <label class="control-label">Focused</label>
+      <input class="form-control" id="focusedInput" type="text" value="Click to focus">
+  </div>
+  <div class="form-group">
+    <label for="disabledInput" class="control-label">Disabled</label>
+      <input class="form-control" id="disabledInput" type="text" disabled>
+  </div>
+  <fieldset disabled>
+    <div class="form-group">
+      <label for="disabledTextInput" class="control-label">Fieldset disabled</label>
+        <input type="text" id="disabledTextInput" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="disabledSelect" class="control-label"></label>
+        <select id="disabledSelect" class="form-control">
+          <option>Disabled select</option>
+        </select>
+    </div>
+  </fieldset>
+  <div class="form-group has-success has-feedback">
+    <label class="control-label" for="inputSuccess">
+    Input with success and icon</label>
+      <input type="text" class="form-control" id="inputSuccess">
+      <span class="form-control-feedback"></span>
+  </div>
+  <div class="form-group has-warning has-feedback">
+    <label class="control-label" for="inputWarning">
+    Input with warning and icon</label>
+      <input type="text" class="form-control" id="inputWarning">
+      <span class="form-control-feedback"></span>
+  </div>
+  <div class="form-group has-error has-feedback">
+    <label class="control-label" for="inputError">
+    Input with error and icon</label>
+      <input type="text" class="form-control" id="inputError">
+      <span class="form-control-feedback"></span>
+  </div>
+</form>
+
+
+
+<br>
+<br>
+
+
+<div class="jumbotron jumbo-footer">
+    <div class="row">
+        <div class="col-xs-6 text-left">
+          <p>Previous</p>
+            <p><a ui-sref="app.product.dropdowns">Dropdowns</a></p>
+        </div>
+        <div class="col-xs-6 text-right">
+            <p>Up Next</p>
+            <p><a ui-sref="app.product.lozenges">Lozenges</a></p>
+        </div>
+    </div>
+</div>

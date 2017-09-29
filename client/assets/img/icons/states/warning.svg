@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard">
+            <g id="exclamation-solid" transform="translate(0.000000, -1.000000)">
+                <path d="M11.3416408,2.68328157 L18.9145898,17.8291796 L18.9145898,17.8291796 C19.2850737,18.5701474 18.9847372,19.4711569 18.2437694,19.8416408 C18.0354863,19.9457824 17.8058167,20 17.572949,20 L2.42705098,20 L2.42705098,20 C1.59862386,20 0.927050983,19.3284271 0.927050983,18.5 C0.927050983,18.2671324 0.981268621,18.0374628 1.0854102,17.8291796 L8.65835921,2.68328157 L8.65835921,2.68328157 C9.02884309,1.94231383 9.92985265,1.64197731 10.6708204,2.01246118 C10.9611115,2.15760673 11.1964952,2.39299047 11.3416408,2.68328157 Z" id="Triangle" fill="#FFD11A"></path>
+                <g id="Group" transform="translate(9.000000, 6.000000)" fill="#FFFFFF">
+                    <polygon id="Path" points="0 0 0 6.54545455 2.18181818 6.54545455 2.18181818 0"></polygon>
+                    <polygon id="Path" points="0 9.81818182 0 12 2.18181818 12 2.18181818 9.81818182"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

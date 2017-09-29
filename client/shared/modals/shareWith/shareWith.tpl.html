@@ -1,0 +1,47 @@
+    <div class="modal-header header-dark">
+        <h3 class="modal-title" id="modal-title">Share With</h3>
+        <p>Share this record with specific users or teams</p>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding" id="modal-body">
+
+      <p>Records can be shared with whole Teams or Users</p>
+      
+       <ui-select ng-model="data.sharedWith" multiple theme="bootstrap" class="form-control" title="Choose a team or person">
+
+          <ui-select-match placeholder="Select a team or user...">
+              <span ng-if="$item.type == 'team'"><icon class="wb-users"></icon> {{$item.name}}</span>
+              <span ng-if="$item.type == 'user'"><icon class="wb-user"></icon> {{$item.fullName}}</span>
+          </ui-select-match>
+          <!-- choices -->
+          <ui-select-choices repeat="item in data.choices | filter: $select.search">
+            
+            <div ng-if="item.type == 'team'">
+                <icon class="wb-users"></icon>
+                <span ng-bind="item.name || '--'"></span>
+            </div>
+
+            <div ng-if="item.type == 'user'">
+                <icon class="wb-user"></icon>
+                <span ng-bind="item.fullName"></span>
+            </div>
+
+          </ui-select-choices>
+
+          <ui-select-no-choice>
+           No Results Found
+          </ui-select-no-choice>
+
+        </ui-select>
+  
+
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="shouldDisable()">Save</button>
+    </div>

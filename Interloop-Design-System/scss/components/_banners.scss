@@ -1,0 +1,96 @@
+
+
+.banner {
+	padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 0px;
+    color:#fff;
+    text-align:center;
+    font-weight:600;
+
+    position:fixed;
+    top:0px;
+    left:0px;
+    right:0px;
+    z-index:300;
+    height:36px;
+
+    img {
+    	margin-right:5px;
+    }
+
+    b {
+    	margin:0 3px;
+    }
+
+    a {
+    	text-decoration:none;
+    	color:#fff;
+    	display: inline-block;
+    	position:relative;
+
+    	&::after {
+    		background-color: #fff;
+		    border-radius: 0px;
+		    bottom: 0;
+		    content: '';
+		    height: 2px;
+		    left: 0px;
+		    margin: 0;
+		    position: absolute;
+		    right: 0px;
+		    width: inherit;
+		    opacity: .7;
+    	}
+
+    	&:hover::after {
+    		opacity: 1;
+    	}
+    }
+
+    &.banner-info {
+    	background-color:$info;
+    }
+
+    &.banner-success {
+    	background-color:$success;
+    }
+
+    &.banner-warning {
+    	background-color:$warning;
+    	color:$text-dark;
+
+	    a {
+	    	text-decoration:none;
+	    	color:$text-dark;
+	    	display: inline-block;
+	    	position:relative;
+
+	    	&::after {
+	    		background-color: $text-dark;
+			    border-radius: 0px;
+			    bottom: 0;
+			    content: '';
+			    height: 2px;
+			    left: 0px;
+			    margin: 0;
+			    position: absolute;
+			    right: 0px;
+			    width: inherit;
+			    opacity: .7;
+	    	}
+
+	    	&:hover::after {
+	    		opacity: 1;
+	    	}
+	    }
+    }
+
+    &.banner-danger {
+    	background-color:$danger;
+    }
+
+    &.banner-calm {
+    	background-color:$calm;
+    }
+}

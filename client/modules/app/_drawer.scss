@@ -1,0 +1,327 @@
+   #drawer-content {
+            position: fixed;
+            left:0px;
+            top:50px;
+            bottom:0px;
+            width:250px;
+            background: darken($limestone, 6%);
+            border-right:solid 1px $border;
+            padding:6px 4px;
+            z-index: -1;
+
+            .panel-group {
+                margin-bottom: 10px !important;
+            }
+
+            .panel {
+                margin:0px;
+
+                hr {
+                    border-color: $border !important;
+                }
+
+                .panel-heading {
+                    padding: 4px;
+
+                    h5 {
+                        margin-left:10px;
+                    }
+                }
+            }
+
+            .column-row {
+                display: block;
+                position: relative;
+            }
+
+            .search-filters {
+                position:relative;
+
+                .clear-search {
+                    position: absolute;
+                    right:0px;
+                    top:0px;
+
+                    icon {
+                        color:$granite;
+                        transform:rotate(45deg);
+                    }
+                }
+
+                .search-icon {
+                    position:absolute;
+                    left:8px;
+                    top:12px;
+                    color:$granite;
+                }
+
+                .form-control {
+                    background:transparent;
+                    border:none;
+                    border-bottom:solid 1px darken($border, 6%);
+                    padding-left:30px;
+                    border-radius: 0px;
+                }
+            }
+
+            .pin-column {
+                position: absolute;
+                right:-10px;
+                top:-10px;
+                cursor:pointer;
+
+                icon {
+                    color:$granite;
+                    opacity: .35;
+                    font-size:18px;
+                }
+
+                &.pinned {
+                    icon {
+                        opacity: 1;
+                    }
+                }
+
+
+            }
+
+            .filter-panel-header {
+                position: absolute;
+                top:0px;
+                left:0px;
+                right:0px;
+                height:50px;
+                padding:7px 0px;
+                margin: 0 10px;
+                border-bottom:solid 1px darken($border, 6%);;
+            }
+
+            .panel-heading.column-heading {
+                padding:0 15px !important;
+
+                .checkbox-custom {
+                    display: inline-block;
+                    margin-bottom:0px;
+                }
+
+                h5 {
+                    display: inline-block;
+                    margin:0px;
+                    margin-top:-5px;
+                    margin-left:0px;
+                    transform:translateY(-8px);
+                }
+            }
+
+            .group-section {
+                min-height: 160px;
+
+                .add-group {
+                    cursor:pointer;
+                }
+
+                .list-group-item span {
+                    cursor:pointer;
+                }
+
+                a {
+                    text-decoration: none;
+                }
+
+                .subtitle {
+                    color:$granite;
+                    text-transform: uppercase;
+                    font-size:12px;
+                    padding:0 5px;
+                    font-weight:500;
+                }
+            }
+
+            .cleat {
+                cursor:move !important;
+
+                icon {
+                    color:lighten($granite, 6%);
+                    padding:0px 2px;
+                    margin-left:-10px;
+
+                    &.second-icon {
+                        margin-left:-16px;
+                    }
+                }
+            }
+
+            .add-group {
+                margin-right:5px;
+            }
+
+            .no-groups {
+                text-align: center;
+                padding:15px 0;
+                width:100%;
+                color:$granite;
+                overflow: hidden;
+
+                icon {
+                    font-size:24px;
+                    margin-bottom:5px;
+                    display: block;
+                    transform:rotate(90deg);
+                    -webkit-transform:rotate(90deg);
+                }
+            }
+
+            .filter-toolbar {
+                padding:6px;
+                position: absolute;
+                bottom:0px;
+                left:0px;
+                right:0px;
+                height:45px;
+                margin:0px;
+                border-top:solid 1px darken($border, 6%);
+
+                .btn-group {
+                    margin:auto;
+                    // margin-left:2px;
+                }
+
+
+                .btn {
+                    padding:4px 18px;
+                }
+
+                .btn.active {
+                    z-index: 0;
+                }
+
+                // .btn {
+                //     text-transform: uppercase;
+                //     padding:3px;
+                //     color:$granite;
+                //     font-size:95%;
+
+                //     icon {
+                //         color:$granite;
+                //     }
+
+                //     &.active {
+                //         icon {
+                //             color:$topaz;
+                //         }
+                //     }
+                // }
+            }
+
+            .filter-panel-body {
+                position:absolute;
+                top:50px;
+                bottom:0px;
+                left:0px;
+                right:0px;
+                overflow: auto;
+                padding:0px 10px;
+
+                &.with-footer {
+                    bottom:50px;
+                }
+
+                &.has-toolbar {
+                    bottom:45px;
+                }
+
+              .filter-panel-footer {
+                position: absolute;
+                left:0px;
+                right:0px;
+                bottom:0px;
+                height:50px;
+                border-top:solid 1px $border;
+                padding:5px 10px;
+              }
+            }
+
+            .btn-group {
+                margin-bottom:5px;
+                border:none !important;
+            }
+
+            .panel {
+                margin-top:1px !important;
+            }
+
+            .panel-body {
+                padding: 5px 15px;
+            }
+
+            &.filterPanelOpen {
+                left:0px;
+            }
+
+            .filter-groups {
+
+                .dropdown-menu {
+                    // min-width: 207px;
+                }
+
+                select.form-control { transition: none !important; }
+
+                input {
+                    transition:none;
+                    -webkit-transition:none;
+                }
+
+                .filter-input {
+                    margin-left:25px;
+                    width: 200px;
+                }
+
+                .relative-date-input {
+                    display: inline-block;
+                    width:48%;
+                }
+
+                .panel-group .panel {
+                    border-radius: 4px;
+                    margin:0px;
+                }
+
+                .panel-heading {
+                    cursor:pointer;
+                    padding:0px 4px;
+                    position: relative;
+
+                    .checkbox-custom {
+                        margin:0px;
+                    }
+
+                    .panel-icon {
+                        position:absolute;
+                        right:10px;
+                        top:12px;
+                        color:$granite;
+                    }
+                }
+
+                .panel-body {
+                    padding:10px;
+                }
+
+                .panel-title {
+                    font-size:14px;
+                    color:$text-dark;
+
+                    a {
+                        text-decoration: none;
+                        padding:10px;
+                        display: block;
+                        white-space: nowrap;
+                        overflow:hidden;
+                        padding-right:40px;
+
+                        text-overflow: ellipsis;
+                    }
+                }
+            }
+
+        }

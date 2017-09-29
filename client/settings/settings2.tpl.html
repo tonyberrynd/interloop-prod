@@ -1,0 +1,103 @@
+ <div id="local-nav" class="">
+            <div class="local-nav-menu">
+            <ul class="nav nav-pills nav-stacked">
+
+              <!-- personal settings -->
+              <li class="sidebar-label">My Settings</li>
+              <li ui-sref-active="active">
+                <a href ui-sref="app.settings.profile">Profile</a>
+              </li>
+              <li ui-sref-active="active">
+                <a href ui-sref="app.settings.creation" >Creation Preferences</a>
+              </li>
+              <li ui-sref-active="active">
+                <a href ui-sref="app.settings.notifications">Notification Preferences</a>
+              </li>
+              <li ui-sref-active="active">
+                <a href ui-sref="app.settings.connected">Connected Apps</a>
+              </li>
+
+              <!-- team settings -->
+              <li class="sidebar-label">Team Settings</li>
+              <li ui-sref-active="active">
+                <a href ui-sref="app.settings.company">Company Info</a>
+              </li>
+              <li ui-sref-active="active">
+                <a href ui-sref="app.settings.permissions">Roles & Visibility</a>
+              </li>
+              <li ui-sref-active="active">
+                <a href ui-sref="app.settings.users">Users</a>
+              </li>
+              <li ui-sref-active="active">
+                <a href ui-sref="app.settings.teams">Teams</a>
+              </li>
+
+              <!-- configuration -->
+              <li class="sidebar-label">Configuration</li>
+                <li ui-sref-active="active">
+                  <a href ui-sref="app.settings.pipelines">Pipelines</a>
+                </li>
+                <li ui-sref-active="active">
+                  <a href ui-sref="app.settings.forecasting">Forecasting</a>
+                </li>
+                <li ui-sref-active="active">
+                  <a href ui-sref="app.settings.won-loss">Won / Loss</a>
+                </li>
+                <li ui-sref-active="active">
+                  <a href ui-sref="app.settings.products">Products</a>
+                </li>
+                <li ui-sref-active="active">
+                  <a href ui-sref="app.settings.fields">Detail Fields</a>
+                </li>
+                <li ui-sref-active="active">
+                  <a href ui-sref="app.settings.custom-fields">Custom Fields</a>
+                </li>
+                <li ui-sref-active="active">
+                  <a href ui-sref="app.settings.types">Activity Types</a>
+                </li>
+                <li ui-sref-active="active">
+                  <a href ui-sref="app.settings.integrations">Integrations</a>
+                </li>
+                
+                <!-- data -->
+                <li class="sidebar-label">Data Management</li>
+                 <li ui-sref-active="active">
+                    <a href ui-sref="app.settings.views">Manage Views</a>
+                  </li>
+                  <li ui-sref-active="active">
+                    <a href ui-sref="app.settings.tags">Manage Tags</a>
+                  </li>
+                  <li ui-sref-active="active">
+                      <a href ui-sref="app.settings.import">Import Data</a>
+                  </li>
+                  <li ui-sref-active="active">
+                      <a href ui-sref="app.settings.export">Export Data</a>
+                  </li>
+                  <li ui-sref-active="active">
+                      <a href ui-sref="app.settings.audit-log">Audit Log</a>
+                  </li>
+
+                  <!-- billing -->
+                  <li class="sidebar-label">Billing</li>
+                  <li ui-sref-active="active">
+                      <a href ui-sref="app.settings.subscription">Subscription</a>
+                  </li>
+                  <li ui-sref-active="active">
+                      <a href ui-sref="app.settings.invoices">Invoices</a>
+                  </li>
+
+      
+              </ul>
+            </div>
+          </div>
+
+
+          <div id="main-content" class="with-nav">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="settings-content" ui-view="settings-content"></div>
+                    </div>
+                </div>
+            </div>
+          </div>

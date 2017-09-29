@@ -1,0 +1,213 @@
+
+
+<!-- scores -->
+<div class="pane-wrapper opp-insights-overview">
+	<div class="pane ">
+
+		<div class="row">
+          <div class="col-xs-4">
+            <p ng-if="data.oppStatus !== 'Won' && data.oppStatus !== 'Lost'" class="days go" ng-class="{'low': data.thisOpp.insights.daysToClose < 15, 'med': data.thisOpp.insights.daysToClose < 43, 'high': data.thisOpp.insights.daysToClose >= 43 }" ng-bind="data.thisOpp.insights.daysToClose || '--'"></p>
+            <p class="days go low" ng-if="data.oppStatus == 'Lost'" class="color-ruby">Lost</p>
+            <p class="days go high" ng-if="data.oppStatus == 'Won'" class="color-emerald">Won</p>
+            <br>
+            <span>Days To Close</span>
+          </div>
+          <div class="col-xs-4 opp-insights-size">
+            <p class="size" ng-class="{'won': data.oppStatus == 'Won', 'lost': data.oppStatus == 'Lost'}" ng-bind="data.thisOpp.insights.size || '--'"></p>
+            <br>
+            <span>Opportunity Size</span>
+          </div>
+          <div class="col-xs-4">
+            <p ng-if="data.oppStatus !== 'Won' && data.oppStatus !== 'Lost'" class="score" ng-class="{'low': data.thisOpp.insights.score < 41, 'med': data.thisOpp.insights.score < 71, 'high': data.thisOpp.insights.score < 101}" ng-bind="data.thisOpp.insights.score || '--'"></p>
+            <p ng-if="data.oppStatus == 'Lost'" class="score low">0</p>
+            <p ng-if="data.oppStatus == 'Won'" class="score high">100</p>
+            <br>
+            <span>Smart Score</span>
+          </div>
+        </div>
+
+	</div>
+</div>
+
+<!-- details -->
+<div class="pane-wrapper forecast-insights" >
+	<ul class="list-group">
+        <li class="list-group-item">
+          Forecast
+          <span class="pull-right" ng-bind="data.thisOpp.forecast.value || '--'"></span>
+        </li>
+		<li class="list-group-item">
+          Forecast Last Updated
+          <span class="pull-right">Mar 5, 2017</span>
+        </li>
+</div>
+
+
+<!-- details -->
+<div class="pane-wrapper process-insights" >
+
+	<ul class="list-group">
+        <li class="list-group-item">
+          Current Stage
+          <span class="pull-right" ng-bind="data.thisOpp.stage.value + ' [' + data.thisOpp.stage.score + '%]' || '--'"></span>
+
+        </li>
+        <li class="list-group-item">
+          Days in the Current Stage
+          <ng-pluralize class="pull-right" count="data.thisOpp.insights.daysInStage"
+                when="{'0': '0 days ago',
+                       'one': '1 day ago',
+                       '--': '--',
+                       'other': '{} days ago'}">
+          </ng-pluralize>
+        </li>
+         <li class="list-group-item">
+          Last Update
+          <ng-pluralize class="pull-right" count="data.thisOpp.insights.lastUpdate"
+                when="{'0': '0 days ago',
+                       'one': '1 day ago',
+                       '--': '--',
+                       'other': '{} days ago'}">
+          </ng-pluralize>
+        </li>
+        <li class="list-group-item">
+          Days Since Creation
+          <ng-pluralize class="pull-right" count="data.thisOpp.insights.daysSinceCreation"
+                when="{'0': '0 days ago',
+                       'one': '1 day ago',
+                       '--': '--',
+                       'other': '{} days ago'}">
+          </ng-pluralize>
+
+        </li>
+        <li class="list-group-item">
+          Funding Org Opportunities
+          <span class="pull-right" ng-bind="data.thisOpp.insights.companyOppOpenCount + ' - ' + (data.thisOpp.insights.companyOppOpenValue | currency:undefined:0) || '--'"></span>
+        </li>
+        <li class="list-group-item">
+          Funding Org Closed in the last 12 Months
+          <span class="pull-right" ng-bind="data.thisOpp.insights.companyOppWonCount + ' - ' + (data.thisOpp.insights.companyOppWonValue | currency:undefined:0) || '--'"></span>
+        </li>
+      </ul>
+</div>
+
+<!-- activity chart -->
+<!-- <div class="pane-wrapper">
+	<div class="pane" style="padding:0px;">
+
+		 <nvd3 options="data.options" data="data.graphData"></nvd3>
+
+	</div>
+</div>
+ -->
+
+<div class="pane-wrapper">
+		<ul class="list-group">
+		  <li class="list-group-item">
+		    Follow Ups
+		    <span class="pull-right" ng-bind="data.thisOpp.insights.followUpCount || '0'"></span>
+		  </li>
+		  <li class="list-group-item">
+		    Logged Calls
+		    <span class="pull-right" ng-bind="data.thisOpp.insights.callCount || '0'"></span>
+		  </li>
+		  <li class="list-group-item">
+		    Logged Meetings
+		    <span class="pull-right" ng-bind="data.thisOpp.insights.meetingCount || '0'"></span>
+		  </li>
+		</ul>
+</div>
+
+
+<!-- activity breakdown -->
+<div class="pane-wrapper last-activities">
+	
+
+	<div class="pane">
+
+			<div class="pane-title">Last Note</div>
+				
+                    <div class="panel panel-default panel-light card">
+                        <div class="panel-heading">
+                            <div class="card_headerDetails">
+                                <p>Follow up with Joe and Others</p>
+                                <p>Heard that we were looking really good to win this deal, will know more in a week or so</p>
+                            </div>
+                        </div>
+                    </div>  
+
+
+
+			<div class="pane-title">Last Completed Activity</div>
+				
+            <div class="panel panel-default panel-light card"">
+                <div class="panel-heading">
+                    <div class="card_headerDetails">
+                        <p>Follow up with Joe and Others</p>
+                        <p><span class="dot"></span> Call</p>
+                    </div>
+                </div>
+            </div>  
+
+
+
+			<div class="pane-title">Next Activity</div>
+
+                    <div class="panel panel-default panel-light card">
+                        <div class="panel-heading">
+                            <div class="card_dateTime">
+                                <span class="card_day">MON</span>
+                                <span class="card_number">17</span>
+                                <span class="card_month">Mar</span>
+                            </div>
+
+                            <div class="card_headerDetails card_headerDetails--hasDateTime">
+                                <p>Meeting with Joe to Catch Up</p>
+                                <p>1hr - No Location</p>
+                                <div class="attendee-wrapper">
+                                    <div class="avatar-mini" uib-tooltip="Jordan Berry" tooltip-delay="500">
+                                        JB
+                                    </div>
+
+                                    <div class="avatar-mini">
+                                        JB
+                                    </div>
+
+                                    <div class="avatar-mini">
+                                        JB
+                                    </div>
+
+                                    <div class="avatar-mini">
+                                        JB
+                                    </div>
+
+                                    <div class="avatar-mini">
+                                        JB
+                                    </div>
+                                </div>
+
+                                <p class="text-muted" style="display: inline-block;">+ 3 More</p>
+                            </div>
+
+                            <!-- actions -->
+	                        <div class="card_actionsWrapper">
+	                            <a href ui-sref="app.sidebar.comments({itemType: 'event', id: '1234'})" class="card_action">
+	                                <icon class="wb-chat"></icon>
+	                            </a>
+
+	                            <div class="card_action">
+	                                <icon class="wb-more-vertical"></icon>
+	                            </div>
+	                        </div>
+                       
+
+                       </div>
+
+                      
+
+                    </div>  
+</div>
+
+
+
+<br>

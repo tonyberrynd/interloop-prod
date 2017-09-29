@@ -1,0 +1,77 @@
+.forgot {
+    background-color:$limestone;
+    width:100vw;
+    height:100vh;
+    position: relative;
+
+.forgot-inner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.forgot-card {
+    width:540px;
+    background-color:$diamond;
+    border:solid 1px $border;
+    border-radius:5px;
+    padding:54px;
+    padding-top:40px;
+}
+
+
+.forgot-title {
+	text-align:center;
+	margin-bottom:20px;
+
+	h3 {
+		margin:10px;
+	}
+}
+
+.forgot-errors {
+	background-color:rgba(232,82,82,.3);
+	border: solid 1px rgba(232,82,82,.5);
+	border-radius:5px;
+	color:$diamond;
+	font-weight:600;
+	padding:5px;
+	margin-bottom:20px;
+
+	p {
+		margin:0px;
+	}
+}
+
+.form-group {
+	position:relative;
+}
+
+.submit {
+	margin-top:20px;
+}
+
+.return {
+	color:$topaz;
+	margin-top:10px;
+	text-align:center;
+}
+
+.resetComplete {
+	font-size:16px;
+	text-align: center;
+
+	&.ng-enter {
+	  animation: fadeIn 0.25s;
+      -webkit-animation: fadeIn 0.25s;
+	}
+}
+
+.resetRecieved.ng-enter {
+	  animation: fadeIn 0.25s;
+      -webkit-animation: fadeIn 0.25s;
+}
+
+
+}

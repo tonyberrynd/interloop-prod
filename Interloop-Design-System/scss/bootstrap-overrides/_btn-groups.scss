@@ -1,0 +1,131 @@
+//pill - left and right rounded
+.btn-group.pill > .btn {
+	border-radius:24px;
+}
+
+// .btn-group {
+// 	width:100%;
+// }
+
+
+.btn-group.two {
+	.btn {
+		width:50%;
+	}
+}
+
+
+.btn-group.three {
+	.btn {
+		width:33.3%;
+	}
+
+	.btn:nth-child(2) {
+		width:34%;
+	}
+}
+
+.btn-group.four {
+	.btn {
+		width:25%;
+	}
+
+	.btn:nth-child(4) {
+		width:26%;
+	}
+}
+
+//rounded sides & buttons
+.btn-group.rounded  {
+	 background-color:$limestone;
+	 border:solid 1px $gravel;
+	 border-radius:24px;
+	 width:100%;
+	 white-space: nowrap;
+
+	.btn {
+	 border-radius:24px !important;
+	 border:none;
+	 padding:2px 0;
+	 border:solid 2px #fff;
+
+	 icon {
+	    transform: translateY(3px);
+	    display: block;
+	    font-size: 18px;
+	 }
+
+	 .btn-default:active,
+	 .btn-default.active {
+	 	background-color:transparent;
+	 }
+
+	&:hover {
+		background-color:transparent;
+		color:$topaz;
+	}
+
+	&:not(:first-child):not(:last-child) {
+    border-radius: 24px;
+
+    }
+
+	&.active {
+    border-radius: 24px !important;
+    background-color:$topaz !important;
+	color:$diamond !important;
+  	}	
+}
+}
+
+//rounded inverse
+.btn-group.rounded.inverse  {
+	 background-color:$diamond;
+	 border:solid 1px $diamond;
+	 border-radius:24px;
+
+	.btn {
+	 border-radius:24px;
+	 border:none;
+	 background-color:transparent;
+	 background:transparent;
+	 border:solid 2px transparent;
+
+	&:hover {
+		color:$topaz;
+	}
+
+	&:not(:first-child):not(:last-child) {
+    border-radius: 24px;
+
+    }
+
+	&.active {
+    border-radius: 24px !important;
+    background-color:$topaz !important;
+	color:$diamond !important;
+  	}	
+}
+}
+
+//no box shadow
+.btn-group .btn:hover {
+	box-shadow:none !important;
+}
+
+.btn-group.open .dropdown-toggle {
+	box-shadow:none !important;
+}
+
+
+.btn-group > .btn.active {
+	box-shadow: none !important;
+
+ &.btn-default {
+ 	background-color:darken($gravel, 6%);
+ }
+  &.btn-primary {
+ 	background-color:darken($topaz, 6%);
+ 	color:$diamond;
+ }
+}

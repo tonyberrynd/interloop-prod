@@ -1,0 +1,260 @@
+<div class="navbar navbar-default navbar-fixed-top">
+                <div class="navbar-header pull-left">
+                  <button class="btn btn-link pull-left nav-menu" ng-click="$root.sidebarToggle = !$root.sidebarToggle">
+                    <img src="../../assets/img/icons/light/menu.svg" alt="Menu">
+                  </button>
+                  <a class="navbar-brand" href="#">
+                  <img src="../../assets/img/logo.svg" alt="Interloop"> <span class="nav-divider"><icon class="wb-chevron-right-mini"></icon></span> <span class="nav-title" ng-bind="$root.navTitle"></span></a>
+                </div>
+                <div class="navbar-header pull-right">
+
+                   <div class="new-item dropdown" uib-dropdown>
+                        <a href class="btn btn-primary dropdown-toggle" uib-dropdown-toggle is-open="newDropdownOpen">
+                          <img src="../../assets/img/icons/light/add.svg" alt="+"></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li><a href="#">
+                            + Submit Forecast</a></li>
+                          <li class="divider"></li>
+                          <li role="menuitem">
+                            <a href ng-click="newOpportunity()">
+                            + Opportunity
+                            </a>
+                          </li>
+                          <li role="menuitem">
+                            <a href ng-click="newContact()">
+                            + Contact
+                            </a>
+                          </li>
+                          <li role="menuitem">
+                            <a href ng-click="newCompany()">
+                              + Company
+                            </a>
+                          </li>
+                          <li class="divider"></li>
+                          <li role="menuitem">
+                            <a href ng-click="newTask()">
+                              + Task
+                            </a>
+                          </li>
+                          <li role="menuitem">
+                            <a href ng-click="newTask()">
+                              + Meeting
+                            </a>
+                          </li>
+                          <li role="menuitem">
+                            <a href ng-click="newTask()">
+                              + Log Call
+                            </a>
+                          </li>
+                        </ul>
+                    </div>
+                      <div class="globalSearch pull-left">
+
+                        <icon class="wb-search search-icon"></icon>
+                        <input type="text" class="form-control" id="GlobalSearch" placeholder="Search..." ng-model="data.globalSearch" ng-keydown="focusResult($event)" ng-class="{'focus': data.globalSearch }" ng-change="search()" ng-model-options="{ debounce: 250 }">
+
+                        <button class="btn btn-link clear-search" ng-if="data.globalSearch" ng-click="data.globalSearch = ''">
+                          <icon class="wb-plus-circle"></icon>
+                        </button>
+                        
+                        <!-- //global search results -->
+                        <span uib-dropdown auto-close="outsideClick" is-open="data.globalDropdownOpen && data.globalSearch" keyboard-nav>
+                        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="globalSearch-dropdown">
+
+                          <!-- search header -->
+                          <div class="search-header">
+                            Search Interloop for <b>"<span ng-bind="data.globalSearch"></span>"</b>
+
+                            <span class="pull-right">
+                              <kbd>Enter</kbd>
+                            </span>
+                          </div>
+
+                          <div class="loading-results" ng-class="{'hidden': !data.searchLoading }">
+                            <div class="loop-loader loop-loader-light loop-loader-xs">Loading...</div>
+                          </div>
+
+                          <!-- results -->
+                          <div class="results" ng-repeat="result in data.searchResults" id="globalSearchResults" ng-if="!data.searchLoading">
+
+                            <div class="divider-line" ng-if="(result.results | filter:searchScore).length">
+                              <p ng-bind="result.entityType"></p>
+                              <span class="line"></span>
+                            </div>
+                            
+                            <li class="search-item" ng-repeat="item in result.results | orderBy: '-score' | filter:searchScore | limitTo:15" ng-switch="result.entityType">
+
+                              <!-- contact -->
+                                  <a href ng-switch-when="Contact" ng-click="openTo('app.sidebar.contact.insights', item.id, $event)">
+                                    <div class="avatar">
+                                      <span ng-bind="item.firstName | limitTo:1 | uppercase"></span><span ng-bind="item.lastName | limitTo:1 | uppercase"></span>
+                                      <span ng-if="!item.firstName && !item.lastName">--</span>
+                                    </div>
+                                    <span class="avatar-details">
+                                      <p><span ng-bind="item.firstName || ''"></span> <span ng-bind="item.lastName || ''"></span></p>
+                                      <p><small><span ng-bind="item.title || 'No Title'"></span></small></p>
+                                    </span>
+                                  </a>
+
+                                  <!-- company -->
+                                  <a href ng-switch-when="Company" ng-click="openTo('app.sidebar.company.insights', item.id, $event)">
+                                    <div class="avatar square">
+                                      <span ng-bind="(item.name | limitTo:1 | uppercase) || '--'"></span>
+                                    </div>
+                                    <span class="avatar-details">
+                                      <p><span ng-bind="item.name || ''"></span></p>
+                                      <p><small><span ng-bind="item.website || 'No Website'"></span></small></p>
+                                    </span>
+                                  </a>
+
+                                  <!-- opportunity -->
+                                  <a href ng-switch-when="Opportunity" ng-click="openTo('app.sidebar.opportunity.insights', item.id, $event)">
+                                    <p><span ng-bind="item.name || ''"></span></p>
+                                    <p><small><span ng-bind="item.status.value || 'No Status'"></span> - $<span ng-bind="item.value | number:0"></span></small></p>
+                                  </a>
+
+                                  <!-- attachment -->
+                                  <a href ng-switch-when="Attachment" ng-click="openTo('app.sidebar.attachment-details', item.id, $event)">
+                                    <p><span ng-bind="item.name || ''"></span></p>
+                                    <p><small ng-bind="item.score"></small></p>
+                                  </a>
+
+                                </li>
+
+                              </div>
+
+                              <!-- no results -->
+                          <div class="no-results" ng-if="data.resultsCount == 0 && !data.searchLoading">
+                            <icon class="wb-search"></icon>
+                            <h4>No Results</h4>
+                            <p>Couldn't find anything matching <b><span ng-bind="data.globalSearch"></span></b></p>
+                          </div>
+                            
+                           </ul>
+
+
+
+                         </span>
+
+                      </div>
+                  <ul class="nav navbar-nav">
+
+                    <!-- notifications -->
+                      <li class="dropdown" uib-dropdown>
+                        <a href class="dropdown-toggle" uib-dropdown-toggle is-open="notificationsDropdownOpen"><img src="../../assets/img/icons/light/notification.svg" alt="Notifications"></a>
+                        <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                             <div class="notification-heading">
+                                      <h4 class="menu-title"><icon class="icon-budicon-classic-47"></icon> Notifications</h4>
+                                    </div>
+                                    <li class="divider"></li>
+                                   <div class="notifications-wrapper">
+
+                                   <!-- show loader when fetching latest notifications -->
+                                   <div class="loop-loader loop-loader-xs" ng-class="{'hidden': data.notificationsLoaded}">Loading...</div>
+                              
+                                  <span class="notificationList" ng-if="data.notificationsLoaded">
+
+                                    <!-- notifications -->
+                                       <a class="content" href ng-repeat="notification in data.notifications | orderBy: '!createdOn' track by notification.id ">
+                                        
+                                         <div class="notification-item" ng-class="{'unread': !notification.read }">
+                                          <h5 class="item-title" ng-bind="::notification.title"></h5>
+                                          <p class="item-info" ng-bind="::notification.body"></p>
+                                          <div class="notification-actions" ng-if="notification.actions.length" feature-flag="--NOTIFICATION-ACTIONS--">
+                                            <button class="btn btn-sm btn-default" ng-repeat="action in notification.actions track by $index" ng-bind="::action.label">Action 1</button>
+                                          </div>
+                                        </div>
+                                         
+                                      </a>
+
+
+                                      <!-- //no notifications -->
+                                      <div class="no-notifications" ng-if="data.notificationsLoaded && !data.notifications.length">
+                                        <icon class="wb-bell"></icon>
+                                        <p>No New Notifications</p>
+                                      </div>
+
+                                    </span>
+                        </ul>
+                      </li>
+
+                    <!-- help -->
+                     <li class="dropdown" uib-dropdown>
+                        <a href class="dropdown-toggle" uib-dropdown-toggle is-open="helpDropdownOpen"><img src="../../assets/img/icons/light/question.svg" alt="Help"></a>
+                        <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                            <li role="menuitem">
+                              <a href ng-click="keyboardShortcuts()">
+                                <img src="../../assets/img/icons/dark/keyboard.svg" alt="Keyboard Shortcuts"> Keyboard Shortcuts
+                              </a>
+                            </li>
+                            <li role="menuitem">
+                              <a href="http://help.interloop.ai" target="_blank">
+                                <img src="../../assets/img/icons/dark/book-reference.svg" alt="Help Center"> Help Center
+                              </a>
+                            </li>
+                            <li role="menuitem">
+                              <a href="https://headwayapp.co/interloop-changelog" target="_blank">
+                                <img src="../../assets/img/icons/dark/announcement.svg" alt="Help Center"> Recent Updates
+                              </a>
+                            </li>
+                            <li role="menuitem">
+                              <a href="https://wantoo.io/interloop/" target="_blank">
+                                <img src="../../assets/img/icons/dark/light-bulb.svg" alt="Suggest An Idea"> Suggest An Idea
+                              </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li role="menuitem">
+                              <a href ng-click="contactSupport()">
+                                <img src="../../assets/img/icons/dark/conversation.svg" alt="Contact Support"> Contact Support
+                              </a>
+                            </li>
+                        </ul>
+                      </li>
+
+                      <!-- more -->
+                       <li class="dropdown" uib-dropdown>
+                        <a href class="dropdown-toggle" uib-dropdown-toggle is-open="moreDropdownOpen"><img src="../../assets/img/icons/light/more.svg" alt="More"></a>
+                        <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                             <li role="menuitem">
+                             <a href ui-sref="app.settings.profile" class="avatar-item">
+                                <div class="avatar avatar-32 royal" style="margin-left:5px; margin-top:-3px;">
+                                  <span ng-bind="$root.activeUser.initials"></span>
+                                </div>
+                                <h4 ng-bind="$root.activeUser.firstName + ' '  + $root.activeUser.lastName"></h4>
+                                <p ng-bind="$root.activeUser.email"></p>
+                              </a>
+                              </li>
+                              <li class="divider"></li>
+                              <li role="menuitem">
+                                <a href ng-click="openTo('app.mentions')">
+                                  <img src="../../assets/img/icons/dark/at-symbol.svg" alt="Mentions"> 
+                                  Mentions
+                                </a>
+                              </li>
+                              <li role="menuitem">
+                                <a href ng-click="openTo('app.starred')">
+                                  <img src="../../assets/img/icons/nav/star-full.svg" alt="Starred Items"> Starred Items
+                                </a>
+                              </li>
+                              <li role="menuitem">
+                                <a href ng-click="openTo('app.files')">
+                                  <img src="../../assets/img/icons/nav/attachment.svg" alt="My Files"> 
+                                  My Files
+                                </a>
+                              </li>
+                              <li role="menuitem">
+                                <a href ng-click="openTo('app.directory')">
+                                  <img src="../../assets/img/icons/nav/user-group.svg" alt="Directory"> Directory
+                                </a>
+                              </li>
+                              <li class="divider"></li>
+                              <li role="menuitem">
+                                <a href ng-click="logout()">
+                                <img src="../../assets/img/icons/dark/stand-by.svg" alt="Sign Out"> Sign Out
+                                </a>
+                              </li>
+                        </ul>
+                      </li>
+
+                </div>
+            </div>

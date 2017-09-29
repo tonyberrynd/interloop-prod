@@ -1,0 +1,85 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<div class="settings-section">
+					<div class="settings-header">
+					<h3>Roles & Permissions</h3>
+					<p>Manage what certains roles & users can do within the application</p>
+					<button class="btn btn-primary button-top new-users" ng-click="addRole()">+ Add Role</button>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-body">
+
+
+							<div class="row search-row">
+								<div class="col-xs-6">
+									<p class="sort-by">Sort By:</p>
+									<ol class="nya-bs-select" ng-model="data.sortBy">
+									<li nya-bs-option="option in data.sortOptions">
+										<a>
+											{{option.label}}
+										</a>
+									</li>
+								</ol>
+								</div>
+								<div class="col-xs-6 text-right">
+
+								 <!-- search group -->
+								 <div class="form-group search-group">
+								    <icon class="wb-search search"></icon>
+								    <input type="text" class="form-control" id="searchInput" placeholder="Search..." ng-model="data.search">
+								    <icon class="wb-plus-circle clear" ng-show="data.search" ng-click="data.search = ''"></icon>
+								  </div>
+								</div>
+
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12">
+									
+									  <table class="table">
+									    <thead>
+									      <tr>
+									        <th class="col-xs-4">Role</th>
+						              	    <th class="col-xs-3">Users</th>
+						                    <th class="col-xs-2"></th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									      <tr ng-repeat="role in data.roles | filter: data.search">
+									        <td class="role">
+												<h5><span  ng-bind="role.label"></span> <span class="badge badge-primary" ng-if="role.default">Default</span></h5>
+												<p ng-bind="role.description || 'No Description'"></p>
+									        </td>
+									        <td class="role">
+												<span ng-bind="role.users.length"></span>
+												<span class="null-cell" ng-if="!role.users.length"></span>
+									        </td>
+									        <td class="text-right">
+									        	<div class="btn-group" uib-dropdown>
+													 <button id="single-button" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle>
+												        Actions <span class="wb-chevron-down-mini"></span>
+												      </button>
+												      <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+												        <li role="menuitem"><a href ng-click="editRole(role)">Edit Role</a></li>
+												        <li role="menuitem"><a href ng-click="copyRoleAs(role)">Copy As New</a></li>
+												        <li class="divider"></li>
+												        <li role="menuitem"><a href ng-click="deleteRole(role)" ><span class="text-danger">Delete Role</span></a></li>
+												      </ul>
+												     </div>
+									        </td>
+									      </tr>
+									     </tbody>
+									 </table>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+

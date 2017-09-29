@@ -1,0 +1,71 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">New Note</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body" id="modal-body" style="padding:0px;">
+                
+
+			<div class="row" style="margin:0px !important;">
+				<div class="col-xs-9">
+					<div class="creation-type">
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="active">
+						      <a href>
+						      	Quick Create
+						      </a>
+						    </li>
+						    <li class="">
+						      <a href>
+						      	All Details
+						      </a>
+						    </li>
+						</ul>
+					</div>
+					<div class="creation-type-canvas" style="min-height:400px; padding:15px">
+    
+                <div class="row">
+                      <div class="col-xs-12">
+                          <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" ng-model="data.note.title" autofocus>
+                          </div>
+                      </div>
+                      <div class="col-xs-12">
+                         <div class="form-group">
+                          <label for="title">Body</label>
+                          <textarea class="form-control" rows="3" ng-model="data.note.body" ng-change="parseNote()" 
+
+                          mentio 
+                          mentio-typed-term="typedTerm" 
+                          mentio-items="people | filter:label:typedTerm" 
+
+                          ></textarea>
+                      </div>
+                    </div>
+                </div>
+
+
+					</div>
+				</div>
+				<div class="col-xs-3 relate-side">
+<!-- 					<h5>Owners</h5>
+
+
+					<br>
+					<br> -->
+					<h5>Related To</h5>
+
+					<br>
+					<br>
+				</div>
+			</div>                
+
+        </div>
+		 <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="newProspectForm.$invalid">Create</button>
+        </div>

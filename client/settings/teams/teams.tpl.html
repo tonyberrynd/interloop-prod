@@ -1,0 +1,82 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section fadeInOut" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Manage Teams</h3>
+			<p>Group users into teams for easier roll up and visibility throughout Interloop.</p></p>
+			
+			<button class="btn btn-primary button-top new-users" ng-click="newTeam()">+ New Team</button>
+		</div>
+		<div class="panel-body">
+
+
+			<div class="row">
+				
+				<!-- //placeholder -->
+				<div class="col-xs-6 col-md-4" ng-if="!data.teams.length">
+					<div class="panel panel-default panel-light createTeam">
+						<div class="panel-body text-center" ng-click="newTeam()">
+								
+								<div class="new-text">
+									<icon class="wb-plus"></icon>
+									<p>Create New Team</p>
+								</div>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- repeat teams -->
+				<div class="col-xs-6 col-md-4" ng-repeat="team in data.teams | orderBy: 'name'">
+					<div class="panel panel-default panel-light team-card">
+						<div class="panel-heading">
+							<div class="team-name">
+								<h4><b ng-bind="team.name"></b></h4>
+								<p><small ng-bind="team.description || 'No Description'"></small></p>
+								<br>
+							</div>
+						</div>
+						<div class="panel-body">
+							
+<!-- 							<div class="team-block">
+							<h5>Team Manager</h5>
+								
+							<p ng-if="!team.manager">No Team Manager</p>
+							<br>
+							</div> -->
+
+							<div class="team-block">
+							<h5>Team Members</h5>
+							<br>
+
+							<div class="members">
+								<div class="avatar" ng-repeat="member in team.members | limitTo:5" uib-tooltip="{{member.fullName}}">
+									{{member.initials}}
+								</div>	
+								
+								<span ng-if="team.members.length > 8">+ {{team.members.length - 5}} more</span>
+
+								<p ng-if="!team.members.length">No Team Members</p>
+							</div>
+
+							</div>
+
+						</div>
+						<div class="panel-footer text-right">
+							<a href class="btn btn-link" ui-sref="app.main.settings.team-details({teamId: team.id})">
+								View Details <icon class="wb-chevron-right-mini"></icon>
+							</a>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+
+		
+
+		</div>
+	</div>
+</div>

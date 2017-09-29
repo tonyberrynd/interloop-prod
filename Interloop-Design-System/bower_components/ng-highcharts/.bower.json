@@ -1,0 +1,30 @@
+{
+  "name": "ng-highcharts",
+  "description": "Angular directive for Highcharts",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "directive",
+    "highcharts"
+  ],
+  "homepage": "https://github.com/bielversallini/ng-highcharts",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "sample",
+    "src"
+  ],
+  "_release": "deeb62b143",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "deeb62b143f89af0c29a5a2c065a6379606e8a60"
+  },
+  "_source": "https://github.com/bielversallini/ng-highcharts.git",
+  "_target": "*",
+  "_originalSource": "ng-highcharts",
+  "_direct": true
+}

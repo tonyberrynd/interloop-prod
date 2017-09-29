@@ -1,0 +1,181 @@
+<h5 class="sidepanel-title">Activity Stream</h5>
+<ol class="activity-feed">
+  <li class="feed-item feed-header">
+    <div class="tabs-wrapper">
+    <ul class="nav nav-pills">
+          <li ng-class="{ 'active': data.currentTab == 1 }"><a href ng-click="data.currentTab = 1">ALL</a></li>
+          <li ng-class="{ 'active': data.currentTab == 2 }"><a href ng-click="data.currentTab = 2">TASKS</a></li>
+          <li ng-class="{ 'active': data.currentTab == 3 }"><a href ng-click="data.currentTab = 3">NOTES</a></li>
+          <li ng-class="{ 'active': data.currentTab == 4 }"><a href ng-click="data.currentTab = 4">MEETINGS</a></li>
+          <li ng-class="{ 'active': data.currentTab == 5 }"><a href ng-click="data.currentTab = 5">EMAILS</a></li>
+          <li ng-class="{ 'active': data.currentTab == 6 }"><a href ng-click="data.currentTab = 6">CHANGELOG</a></li>
+          <li ng-class="{ 'active': data.currentTab == 7 }"><a href ng-click="data.currentTab = 7">:</a></li>
+        </ul>
+    </div>
+  </li>
+
+  <!-- //changelog item Status -->
+  <li class="feed-item">
+        <span class="text">
+            <div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> 
+            <span class="value">changed status: 
+                <span class="color-primary">Open</span> 
+                <span class="arrow">→</span> 
+                <span class="color-success">Closed-Won</span>
+            </span>
+        </span>
+       <time class="date" datetime="9-25">an hour ago</time>
+  </li>
+
+    <!-- email -->
+  <li class="feed-item email">
+    <span class="text"><div class="avatar avatar-24 royal">TB</div><b>Tony Berry</b> Created need <a href="single-need.php">“Volunteer Opportunity”</a></span>
+    <time class="date" datetime="9-18">Sep 18</time>
+  </li>
+
+
+   <!-- //changelog item forecast -->
+  <li class="feed-item">
+        <span class="text">
+            <div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> 
+            <span class="value">changed forecast: 
+                <span class="dark">Pipeline</span> 
+                <span class="arrow">→</span> 
+                <span class="dark">Hard Commit</span>
+            </span>
+        </span>
+       <time class="date" datetime="9-25">an hour ago</time>
+  </li>
+
+  <!-- changelog other -->
+  <li class="feed-item">
+    <span class="text"><div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> Attending the event <a href="single-event.php">“Some New Event”</a></span>
+    <time class="date" datetime="9-17">Sep 17</time>
+  </li>
+
+
+  <li class="feed-item file">
+    <span class="text"><div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> uploaded 3 files</span>
+    <time class="date" datetime="9-17">Sep 17</time>
+
+     <div class="panel panel-default card file-card">
+        <div class="panel-body">
+            <div class="name-wrapper">
+            <div class="file-icon"><img src="../assets/img/icons/files/pdf.svg" alt="PDF"></div>
+            <h4>Important Document</h4>
+            <p>35MB <span class="spacer">&middot;</span> PDF Document</p>
+            </div>
+        </div>
+    </div>
+
+     <div class="panel panel-default card file-card">
+        <div class="panel-body">
+            <div class="name-wrapper">
+            <div class="file-icon"><img src="../assets/img/icons/files/pdf.svg" alt="PDF"></div>
+            <h4>Important Document</h4>
+            <p>35MB <span class="spacer">&middot;</span> PDF Document</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default card file-card">
+        <div class="panel-body">
+            <div class="name-wrapper">
+            <div class="file-icon"><img src="../assets/img/icons/files/pdf.svg" alt="PDF"></div>
+            <h4>Important Document</h4>
+            <p>35MB <span class="spacer">&middot;</span> PDF Document</p>
+            </div>
+        </div>
+    </div>
+  </li>
+
+
+    <!-- email -->
+  <li class="feed-item email">
+    <span class="text"><div class="avatar avatar-24 royal">TB</div><b>Tony Berry</b> Created need <a href="single-need.php">“Volunteer Opportunity”</a></span>
+    <time class="date" datetime="9-18">Sep 18</time>
+  </li>
+
+
+  <!-- task -->
+  <li class="feed-item meeting">
+    <span class="text"><div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> Added an interest “Volunteer Activities”</span>
+    <time class="date" datetime="9-24">Sep 24</time>
+  </li>
+
+
+  <!-- note -->
+  <li class="feed-item note">
+    <span class="text"><div class="avatar avatar-24 sky">KM</div><b>Kevin Myers</b> Joined the group <a href="single-group.php">“Boardsmanship Forum”</a></span>
+    <time class="date" datetime="9-23">Sep 23</time>
+
+    <div class="panel panel-default card note-card">
+            <div class="panel-body">
+                <div class="name-wrapper">
+                    <div class="avatar avatar-24 note-avatar square clover"></div>
+                    <h4>Monthly Objectives</h4>
+                    <p><span ng-bind="data.noteText | limitTo: 90"></span>...</p>
+                </div>
+            </div>
+        </div>
+
+  </li>
+
+
+  <!-- meeting -->
+  <li class="feed-item meeting">
+    <span class="text"><div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> Responded to need <a href="single-need.php">“In-Kind Opportunity”</a></span>
+    <time class="date" datetime="9-21">Sep 21</time>
+
+    <div class="panel panel-default card meeting-card">
+            <div class="panel-body">
+                <div class="name-wrapper">
+                    <div class="avatar avatar-24 meeting-avatar square sunset"></div>
+                    <h4>Let's Discuss Our Progress</h4>
+                    <p>Jordan Berry < > Susan Mets, +3</p>
+                    <p>May 15 <span class="spacer">&middot;</span> 8AM - 9AM ET</p>
+                </div>
+            </div>
+        </div>
+
+  </li>
+
+
+  <!-- email -->
+  <li class="feed-item email">
+    <span class="text"><div class="avatar avatar-24 royal">TB</div><b>Tony Berry</b> Created need <a href="single-need.php">“Volunteer Opportunity”</a></span>
+    <time class="date" datetime="9-18">Sep 18</time>
+
+    <div class="panel panel-default card email-card">
+            <div class="panel-body">
+                <div class="name-wrapper">
+                    <div class="avatar avatar-24 email-avatar square sky"></div>
+                    <h4>Email Subject Goes Here and cn be a long one</h4>
+                    <p>Hi Susan, Hope this finds you well would like to connect</p>
+                    <p>3 Recipients</p>
+                </div>
+            </div>
+        </div>
+  </li>
+
+
+    <!-- //changelog item Status -->
+  <li class="feed-item">
+        <span class="text">
+            <div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> 
+            <span class="value">created Opportunity</span>
+        </span>
+       <time class="date" datetime="9-25">an hour ago</time>
+  </li>
+
+
+    <!-- //changelog item Status -->
+  <li class="feed-item start">
+        <span class="text">
+            Start of History
+        </span>
+  </li>
+
+
+
+</ol>

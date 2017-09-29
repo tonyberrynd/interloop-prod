@@ -1,0 +1,24 @@
+    <div class="modal-header header-dark">
+        <h3 class="modal-title" id="modal-title">Export View</h3>
+        <p>Export <b>{{data.thisView.count | number:0 }}</b> Records</p>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding" id="modal-body">
+        
+        <form>
+          <div class="form-group">
+            <label for="file-name">File Name:</label>
+            <input type="text" class="form-control" id="file-name" ng-model="data.fileName">
+          </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="startExport()">Start Export</button>
+
+    </div>

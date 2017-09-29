@@ -1,0 +1,38 @@
+//Main SCSS FILE - USED TO BUILD UIKIT BASIC STYLES
+
+
+//color themes
+@import "colors";
+
+// //variable to be used across application
+@import "config";
+
+// //custom bootstrap theme
+// // @import "ionic-theme";
+
+// //bootstrap scss library
+// @import "../ionic.scss";
+
+// //bootstrap overrides
+// // @import "ionic-overrides/ionic-overrides";
+
+// // //additional components
+// // @import "mobile-components/mobile-components";
+
+// // //third party libs with overrides
+// // @import "mobile-lib-overrides/mobile-lib-overrides";
+
+// // //TODO - Figure Out Best Icons
+// // @import "icons";
+
+// // Basic Layouts Styles
+// @import "mobile-layout";
+
+// //utilities
+// // @import "utilities";
+
+
+// //branding - branding specific overrides
+@import "branding";
+
+@import "../modules/login/login";

@@ -1,0 +1,49 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section fadeInOut" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Manage Products</h3>
+			<p>Products can be added to opportunities to allow teams to segment what type of solution is being sold</p>
+		</div>
+		<div class="panel-body" style="padding:0px;">
+
+		<div class="tab-wrap" style="padding:20px;">
+			<div class="row">
+				<div class="col-xs-12">
+					
+					  <table class="table settings-table">
+					    <thead>
+					      <tr>
+					        <th class="col-xs-3">Name</th>	
+		              	    <th class="col-xs-4">Description</th>
+		              	    <th class="col-xs-2">Allow Calculation</th>
+		              	    <th class="col-xs-2">Active</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr ng-repeat="product in data.products | orderBy: '-count'">
+
+					        <td>
+					        	<span class="product" ng-bind="product.name || '--'"></span>
+					        </td>
+					        <td>
+								<p ng-bind="product.createdBy.fullName || '--'"></p>
+					        </td>
+					        <td>
+					        	<p ng-bind="(product.createdOn | formatDate) || '--'"></p>
+					        </td>
+					        <td style="text-align:center;">
+					        	<p ng-bind="product.count"></p>
+					        </td>
+					      </tr>
+					      
+					    </tbody>
+					  </table>
+
+			  </div>
+			</div>
+		  </div>
+		</div>
+	</div>
+</div>

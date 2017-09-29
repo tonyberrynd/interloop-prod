@@ -1,0 +1,130 @@
+<div class="content">
+<div class="inner-content">
+
+	<div class="results-for">
+		<h4><b>{{data.resultsCount}}</b> results found for <b>"{{data.searchTerm}}"</b></h4>
+	</div>
+
+	
+<!-- 	<div class="facets panel panel-default panel-light">
+		<div class="panel-heading">
+			Filter Results
+		</div>
+		<div class="panel-body">
+
+			<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-createdByMe" checklist-model="data.filterValues" checklist-value="'createdByMe'">
+            <label for="filter-createdByMe">Created By Me</label>
+        	</div>
+
+        	<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-ownedByMe" checklist-model="data.filterValues" checklist-value="'ownedByMe'">
+            <label for="filter-ownedByMe">Owned By Me</label>
+        	</div>
+
+        	<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-sharedWithMe" checklist-model="data.filterValues" checklist-value="'sharedWithMe'">
+            <label for="filter-sharedWithMe">Shared with Me</label>
+        	</div>
+
+        	<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-recentlyCreated" checklist-model="data.filterValues" checklist-value="'recentlyCreated'">
+            <label for="filter-recentlyCreated">Recently Created (30 Days)</label>
+        	</div>
+
+        	<br>
+		</div>
+	</div> -->
+
+<!-- 	<div class="recent-searches panel panel-default panel-light" feature-flag="--RECENT-SEARCHES--">
+		<div class="panel-heading">
+			Recent Searches
+
+			<a href="" class="pull-right">Clear</a>
+		</div>
+		<div class="panel-body">
+			
+		
+
+		</div>
+	</div> -->
+
+	
+	<div class="search-results no-filters" style="margin-bottom:20px;">
+		<!-- loading indicator -->
+		<div class="loop-loader loop-loader-light loop-loader-xs pre-loader" ng-class="{'hidden': !data.searchLoading}" style="z-index:999">Loading...</div>
+
+		<div class="panel panel-default panel-light" ng-if="!data.searchLoading">
+		<div class="panel-body" style="padding:0px;">
+
+			<div class="sidebar-tabs">
+				<ul class="nav nav-tabs" role="tablist">
+
+					<li ng-repeat="result in data.searchResults | orderBy: '-highScore'" ng-class="{'active': data.currentType == result.entityType }">
+				      <a href ng-click="changeSearchType(result.entityType)">
+				      	{{result.entityType}} ({{result.results.length}})
+				      </a>
+				    </li>
+
+				</ul>
+				</div>
+
+			<div class="results">
+				
+				<li class="search-item" ng-repeat="item in data.scopedResults.results" ng-switch="data.scopedResults.entityType">
+
+					  <!-- contact -->
+			          <a href ng-switch-when="Contact" ng-click="openTo('Contact', item.id)">
+			          	<div class="avatar">JB</div>
+			          	<span class="avatar-details">
+				          	<p><span ng-bind="item.firstName || ''"></span> <span ng-bind="item.lastName || ''"></span></p>
+			          		<p><small><span ng-bind="item.title || 'No Title'"></span></small></p>
+			          	</span>
+			          </a>
+
+			          <!-- company -->
+			          <a href ng-switch-when="Company" ng-click="openTo('Company', item.id)">
+			          	<div class="avatar square">JB</div>
+			          	<span class="avatar-details">
+				          	<p><span ng-bind="item.name || ''"></span></p>
+				          	<p><small><span ng-bind="item.website || 'No Website'"></span></small></p>
+			          	</span>
+			          </a>
+
+			          <!-- opportunity -->
+			          <a href ng-switch-when="Opportunity" ng-click="openTo('Opportunity', item.id)">
+			          	<p><span ng-bind="item.name || ''"></span></p>
+			          	<p><small><span ng-bind="item.status.value || 'No Status'"></span> - $<span ng-bind="item.value | number:0"></span></small></p>
+			          </a>
+
+			          <!-- attachment -->
+<!-- 			          <a href ng-switch-when="Attachment" ng-click="openTo('app.sidebar.attachment-details', item.id, $event)">
+			          	<p><span ng-bind="item.name || ''"></span></p>
+			          	<p><small>{{item.score}}</small></p>
+			          </a> -->
+
+			        </li>
+
+			</div>
+
+<!-- 			<div class="panel-footer" ng-if="data.scopedResults.results.length">
+				<span class="view-results-grid">
+					<a href ng-click="viewInGrid()">Views results in grid <icon class="wb-chevron-right-mini"></icon></a>
+				</span>
+			</div>
+			 -->
+			
+			<div class="empty" ng-if="!data.scopedResults.results.length">
+				<icon class="wb-search"></icon>
+				<h4>No Results for "<b>{{data.searchTerm}}</b>"</h4>
+				<p>Please try changing filters or searching again</p>
+			</div>
+
+		</div>
+	</div>
+
+
+</div>
+
+
+</div>

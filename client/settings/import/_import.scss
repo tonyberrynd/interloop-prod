@@ -1,0 +1,23 @@
+.import {
+	padding:10px;
+}
+
+.import-card {
+	padding:25px 15px;
+	border:solid 1px $gravel;
+	border-radius: 5px;
+
+	icon {
+		margin:10px 0;
+		font-size:64px;
+		color:$granite;
+		display: block;
+		text-align: center;
+	}
+}
+
+
+.import-section .btn {
+	transition:none !important;
+	-webkit-transition:none !important;
+}

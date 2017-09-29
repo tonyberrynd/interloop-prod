@@ -1,0 +1,26 @@
+.addGoal {
+
+	.select-user {
+		padding:5px 0;
+	}
+
+	.checkbox-custom label:before,
+	.checkbox-custom label:after {
+		top:10px;
+	}
+
+	.avatar-item {
+		margin-left:15px;
+		.avatar {
+			position: absolute;
+			left:0px;
+			top:-5px;
+		}
+
+		h5 {
+			margin-bottom:5px;
+			margin-top:0px;
+		}
+	}
+
+}

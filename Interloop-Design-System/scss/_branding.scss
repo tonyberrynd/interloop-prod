@@ -1,0 +1,269 @@
+@mixin background-color-mixin($background, $border) {
+  background-color: $background;
+  border-color: $border;
+}
+
+.copy-button img {
+	width:16px;
+	height:16px;
+}
+
+
+.color-block {
+	display: block;
+	width:100%;
+	height:150px;
+	border:solid 1px $border;
+	background-color:$gravel;
+	padding:15px;
+	border-radius:5px;
+	margin-bottom:15px;
+
+	p {
+		color:#fff;
+	}
+
+	&.text-dark p {
+		color:$text-dark;
+	}
+
+
+	&.topaz {
+		 @include background-color-mixin($topaz, $topaz);
+	}
+
+	&.sapphire {
+		 @include background-color-mixin($sapphire, $sapphire);
+	}
+
+	&.diamond {
+		 @include background-color-mixin($diamond, $border);
+	}
+
+	// states
+
+	&.info {
+		 @include background-color-mixin($info, $info);
+	}
+	
+	&.success {
+		 @include background-color-mixin($success, $success);
+	}
+
+	&.warning {
+		 @include background-color-mixin($warning, $warning);
+	}
+
+	&.danger {
+		 @include background-color-mixin($danger, $danger);
+	}
+
+	&.calm {
+		 @include background-color-mixin($calm, $calm);
+	}
+
+	// secondary
+
+	&.clover {
+		 @include background-color-mixin($clover, $clover);
+	}
+
+	&.lime {
+		 @include background-color-mixin($lime, $lime);
+	}
+
+	&.seafoam {
+		 @include background-color-mixin($seafoam, $seafoam);
+	}
+
+	&.gemstone {
+		 @include background-color-mixin($gemstone, $gemstone);
+	}
+
+	&.sky {
+		 @include background-color-mixin($sky, $sky);
+	}
+
+	&.royal {
+		 @include background-color-mixin($royal, $royal);
+	}
+
+	&.ocean {
+		 @include background-color-mixin($ocean, $ocean);
+	}
+
+	&.sunlight {
+		 @include background-color-mixin($sunlight, $sunlight);
+	}
+
+	&.tangerine {
+		 @include background-color-mixin($tangerine, $tangerine);
+	}
+
+	&.sunset {
+		 @include background-color-mixin($sunset, $sunset);
+	}
+
+	&.lipstick {
+		 @include background-color-mixin($lipstick, $lipstick);
+	}
+
+	&.barbie {
+		 @include background-color-mixin($barbie, $barbie);
+	}
+
+	&.grape {
+		 @include background-color-mixin($grape, $grape);
+	}
+
+	&.neutral {
+		 @include background-color-mixin($neutral, $neutral);
+	}
+
+	//greys
+
+	&.obsidian {
+		 @include background-color-mixin($obsidian, $obsidian);
+	}
+	
+	&.charcoal {
+		 @include background-color-mixin($charcoal, $charcoal);
+	}
+
+	&.slate {
+		 @include background-color-mixin($slate, $slate);
+	}
+	
+	&.granite {
+		 @include background-color-mixin($granite, $granite);
+	}
+
+	&.gravel{
+		 @include background-color-mixin($gravel, $gravel);
+	}
+
+	&.limestone{
+		 @include background-color-mixin($limestone, $limestone);
+	}
+
+	//accent
+
+	&.bright-green {
+		 @include background-color-mixin($bright-green, $bright-green);
+	}
+	
+	&.bright-blue {
+		 @include background-color-mixin($bright-blue, $bright-blue);
+	}
+
+
+	// typography
+
+	&.dragonstone {
+		 @include background-color-mixin($dragonstone, $dragonstone);
+	}
+	
+	&.seamonster {
+		 @include background-color-mixin($seamonster, $seamonster);
+	}
+
+}
+
+.avatar-example {
+	pre {
+		margin-top:15px;
+	}
+
+	.btn {
+		margin-bottom:25px;
+	}
+}
+
+.jumbo-footer {
+	margin-top:75px;
+	padding:25px 15px;
+
+	.col-xs-6:nth-child(2) {
+		border-left:solid 2px $gravel;
+	}
+
+	p {
+		font-size:16px;
+		font-weight:600;
+		margin-bottom:0px;
+	}
+
+	p > a {
+		font-weight:400 !important;
+	}
+}
+
+
+//typography
+
+.jumbotron.georgia {
+	font-family: Georgia, "Times New Roman", Times, serif !important;
+}
+
+//icons
+
+.interloop-icon {
+	text-align:center;
+	display: inline-block;
+
+	img {
+		width:32px;
+		height:32px;
+		margin-top:15px;
+	}
+
+	pre {
+		display: block;
+		margin-top:15px;
+	}
+}
+
+.example-banner {
+	margin-bottom:20px;
+	position:relative;
+	width:100%;
+}
+
+//mobile
+
+#mobile-preview {
+	display: block;
+	width:375px;
+	height:667px;
+	border:solid 2px $topaz;
+	border-radius: 0px;
+	position:absolute;
+	left:00px;
+	top:00px;
+	overflow:hidden;
+
+	.mobile-wrapper {
+		position:aboslute;
+		top:0px;
+		left:0px;
+		right:0px;
+		bottom:0px;
+		overflow-y:auto;
+	}
+
+	.ionic-body {
+		height:640px;
+	}
+}
+
+.mobile-text {
+	left:400px;
+	top:0px;
+	// bottom:0px;
+	right:0px;
+	// border:solid 2px green;
+	overflow:hidden;
+	position:absolute;
+	display: block;
+	padding:15px;
+}

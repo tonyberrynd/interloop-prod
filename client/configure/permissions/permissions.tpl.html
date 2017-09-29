@@ -1,0 +1,39 @@
+<!-- loading -->
+<div class="loop-loader loop-loader-light loop-loader-xs centered" ng-class="{'hidden': data.activated }"></div>
+
+<div class="settings-right" ng-class="{'hidden': !data.activated }">
+	<h4>Permissions <small>- User capabilities determined by role</small></h4>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			
+				<table class="table">
+				    <thead>
+				      <tr>
+				        <th>
+				          Permission Name
+				          </th>
+				        <th class="text-right">
+				        	Enabled?
+				        </th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr ng-repeat="permission in data.masterPermissions">
+				        <td>
+				        	<h5 ng-bind="permission.name"></h5>
+				        	<p style="margin:0px" ng-bind="permission.description"></p>
+				        </td>
+				        <td class="text-right">
+				        	<div class="toggle toggle-success" style="margin:15px 5px; margin-bottom:0px;" uib-tooltip="Permissions can only be enabled, to disable - please edit the backend to ensure all rolePermissions are handled correctly" tooltip-delay="500">
+					        	<input class="toggle-range" id="{{permission.key}}" type="checkbox" ng-model="permission.active" ng-change="addRemovePermission(permission)" ng-disabled="permission.active">
+					        	<label class="toggle-btn" for="{{permission.key}}"></label>
+					        </div>
+				        </td>
+				      </tr>
+				    </tbody>
+				  </table>
+
+		</div>
+	</div>
+</div>
+

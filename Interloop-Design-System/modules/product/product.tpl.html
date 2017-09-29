@@ -1,0 +1,66 @@
+ <div id="local-nav" class="">
+            <div class="local-nav-header">
+              Product
+            </div>
+            <div class="local-nav-menu with-header scrollClass">
+            <ul class="nav nav-pills nav-stacked">
+              <li ui-sref-active="active"><a ui-sref="app.product.overview">Overview</a></li>
+              <li class="sidebar-label">Foundations</li>
+              <li ui-sref-active="active"><a ui-sref="app.product.color">Color</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.typography">Typography</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.icons">Icons</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.layouts">Layouts</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.pages">Pages</a></li>
+              <li class="sidebar-label">Components</li>
+              <li ui-sref-active="active"><a ui-sref="app.product.avatars">Avatars</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.badges">Badges</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.banners">Banners</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.breadcrumbs">Breadcrumbs</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.buttons">Buttons</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.checkboxes">Checkboxes</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.dropdowns">Dropdowns</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.data-grid">Data Grid</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.forms">Forms</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.lozenges">Lozenges</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.modals">Modals</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.multi-select">Multi Select</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.pagination">Pagination</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.pricing-table">Pricing Table</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.popovers">Popovers</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.progress">Progress</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.radio-buttons">Radio Buttons</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.single-select">Single Select</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.spinners">Spinners</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.slider">Slider</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.tables">Tables</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.tabs">Tabs</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.tags">Tags</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.toasts">Toasts</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.toggles">Toggles</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.tooltips">Tooltips</a></li>
+              <li class="sidebar-label">Patterns</li>
+              <li ui-sref-active="active"><a ui-sref="app.product.lists">Lists</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.cards">Cards</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.activity-feed">Activity Feed</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.comments">Comments</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.graphs">Graphs</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.lightbox">Lightbox</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.sidepanels">Side Panels</a></li>
+              <li ui-sref-active="active"><a ui-sref="app.product.media-picker">Media Picker</a></li>
+              <li class="sidebar-label">Resources</li>
+              <li><a href="#">Github Repo</a></li>
+              <li><a href="#">Sketch Lib</a></li>
+            </ul>
+            </div>
+          </div>
+
+
+          <div id="main-content" class="with-nav" ng-controller="productCtrl">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                        <div id="product-content" ui-view="product-content"></div>
+                    </div>
+                </div>
+            </div>
+          </div>

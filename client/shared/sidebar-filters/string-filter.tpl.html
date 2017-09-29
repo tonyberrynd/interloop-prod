@@ -1,0 +1,59 @@
+           
+<div class="filter-box">
+
+  <button class="btn-link clear-this-filter" ng-click="clearFilter(field)" ng-if="field.filterApplied">
+    Clear Filter
+  </button>
+
+  <span class="is-value">
+          <div class="radio-custom radio-primary">
+            <input type="radio" id="{{field.key}}-is" name="{{field}}-radios" ng-model="field.filterApplied" value="is" ng-change="isFilterActive(field)">
+            <label for="{{field.key}}-is">Is</label>
+        </div>
+        <input class="form-control" ng-if="field.filterApplied == 'is'" id="{{field.key}}-is" ng-model="field.filterValue" autofocus ng-model-options="{debounce: 250}" ng-change="isFilterActive(field)">
+    </span>
+
+  <span class="is-value">
+      <div class="radio-custom radio-primary">
+        <input type="radio" id="{{field.key}}-is-not" name="{{field}}-radios" ng-model="field.filterApplied" value="is-not" ng-change="isFilterActive(field)">
+        <label for="{{field.key}}-is-not">Is not</label>
+    </div>
+    <input class="form-control" ng-if="field.filterApplied == 'is-not'" id="{{field.key}}-is-not" ng-model="field.filterValue" autofocus ng-model-options="{debounce: 250}" ng-change="isFilterActive(field)">
+  </span>
+
+  <span class="is-value">
+          <div class="radio-custom radio-primary">
+            <input type="radio" id="{{field.key}}-contains" name="{{field}}-radios" ng-model="field.filterApplied" value="contains" ng-change="isFilterActive(field)">
+            <label for="{{field.key}}-contains">Contains</label>
+        </div>
+        <input class="form-control" ng-if="field.filterApplied == 'contains'" id="{{field.key}}-contains-input" ng-model="field.filterValue" autofocus ng-model-options="{debounce: 250}" ng-change="isFilterActive(field)">
+    </span>
+
+    <span class="is-value">
+      <div class="radio-custom radio-primary">
+        <input type="radio" id="{{field.key}}-does-not-contain" name="{{field}}-radios" ng-model="field.filterApplied" value="does-not-contain" ng-change="isFilterActive(field)">
+        <label for="{{field.key}}-does-not-contain">Does not contain</label>
+    </div>
+    <input class="form-control" ng-if="field.filterApplied == 'does-not-contain'" id="{{field.key}}-does-not-contain-input" ng-model="field.filterValue" autofocus ng-model-options="{debounce: 250}" ng-change="isFilterActive(field)">
+  </span>
+
+  <span class="is-value">
+      <div class="radio-custom radio-primary">
+        <input type="radio" id="{{field.key}}-is-unkown" name="{{field}}-radios" ng-model="field.filterApplied" value="is-unknown" ng-change="isFilterActive(field)">
+        <label for="{{field.key}}-is-unkown">Is unknown</label>
+    </div>
+  </span>
+
+  <span class="is-value">
+      <div class="radio-custom radio-primary">
+        <input type="radio" id="{{field.key}}-has-any-value" name="{{field}}-radios" ng-model="field.filterApplied" value="has-any-value" ng-change="isFilterActive(field)">
+        <label for="{{field.key}}-has-any-value">Has any value</label>
+    </div>
+  </span>
+
+  </div>
+
+  <span class="clear-filter" ng-if="field.filterApplied">
+      <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="addFilter(field)">Add Filter
+      </button>
+  </span>

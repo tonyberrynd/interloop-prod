@@ -1,0 +1,24 @@
+ <div class="subheader">
+      <div class="subheader-left pull-left">
+       	<div class="tabs-wrapper ng-scope">
+			<ul class="nav nav-tabs">
+			  <li ng-class="{ 'active': data.currentTab == 1 }" class="active"><a href="" ng-click="data.currentTab = 1">View All</a></li>
+			  <li ng-class="{ 'active': data.currentTab == 2 }"><a href="" ng-click="data.currentTab = 2">Schedule</a></li>
+			  <li ng-class="{ 'active': data.currentTab == 3 }"><a href="" ng-click="data.currentTab = 3">Templates</a></li>
+			</ul>
+		</div>
+      </div>
+      <div class="subheader-right pull-right">
+       <div class="localSearch">
+        <icon class="wb-search search-icon"></icon>
+          <input type="text" class="form-control" id="LocalSearch" placeholder="Search..." ng-model="data.localSearch" ng-change="changeLocalSearch()" ng-model-options="{debounce: 250}">
+          <button class="btn btn-link clear-search" ng-if="data.localSearch" ng-click="data.localSearch = ''; changeLocalSearch()">
+              <icon class="wb-plus-circle"></icon>
+          </button>
+      </div>
+      </div>
+    </div>
+
+<h1>Pace</h1>
+
+<h1>1-1's</h1>

@@ -1,0 +1,62 @@
+<!-- loading -->
+<div class="loop-loader loop-loader-light loop-loader-xs centered" ng-class="{'hidden': data.activated }"></div>
+
+<div class="settings-right" ng-class="{'hidden': !data.activated }">
+	<h4>Trial / Billing <small>- Basic Stats and Info about trial and current billing situation</small></h4>
+	<div class="panel panel-default">
+		<div class="panel-body">
+
+			
+			<div class="row">
+				<div class="col-xs-12">
+					<h5>Current Utilization</h5>
+				</div>
+				<div class="col-xs-4">
+					<h2>22</h2>
+					<p>Advanced Editions</p>
+				</div>
+				<div class="col-xs-4">
+					<h2>12</h2>
+					<p>Pro Editions</p>
+				</div>
+				<div class="col-xs-4">
+					<h2>5</h2>
+					<p>Basic Editions</p>
+				</div>
+			</div>
+
+			<br>
+			<br>
+			
+			<div class="row">
+				<div class="col-xs-2">
+					<h5>Trial Enabled</h5>
+					<div class="toggle toggle-success" style="margin:15px 5px; margin-bottom:0px;">
+				        	<input class="toggle-range" id="trialEnabled" type="checkbox" ng-model="data.thisOrg.trialEnabled" ng-change="save()">
+				        	<label class="toggle-btn" for="trialEnabled"></label>
+				        </div>
+				</div>
+				<div class="col-xs-4">
+					<h5>Trial End Date</h5>
+					<input date-range-picker class="form-control date-picker" type="text" options="$root.options" ng-model="data.thisOrg.trialEndDate">
+				</div>
+			</div>
+
+			<br>
+			<br>
+		
+			<div class="row">
+				<div class="col-xs-12">
+					<h5>Discounts</h5>
+					<p>No Discounts</p>
+				</div>
+			</div>
+
+			<br>
+			<br>
+
+
+		</div>
+	</div>
+</div>
+

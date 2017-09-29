@@ -1,0 +1,105 @@
+// .layout.chart-layout {
+
+// 	padding:15px;
+
+// 	.chart-toolbar {
+// 		display: block;
+// 		width:100%;
+// 		margin-bottom:5px;
+// 		height:40px;
+// 		padding:5px;
+
+// 		h5 {
+// 			margin:10px 0px;
+// 			font-weight:400;
+// 		}
+
+// 		icon {
+// 			color:$slate;
+// 			margin-right:10px;
+// 		}
+
+// 		a {
+// 			text-decoration:none;
+// 		}
+// 	}
+
+// 	.chart-wrapper {
+// 		.chart-help {
+// 			width:100%;
+// 			height:auto;
+// 		}
+
+// 		.chart-title {
+// 			display:block;
+// 			padding:20px;
+// 			padding-bottom:0px;
+// 			background-color:#fff;
+
+// 			b {
+// 				color:$seamonster;
+// 			}
+
+// 			h3,h4 {
+// 				margin:0px;
+// 				margin-bottom:3px;
+// 			}
+
+// 			p {
+// 				color:$dragonstone;
+// 			}
+// 		}
+
+// 		.chart-options {
+// 			padding:20px;
+// 			padding-bottom:0px;
+// 		}
+
+// 		.chart {
+// 			width:100%;
+// 			min-height:500px;
+// 			background-color:#fff;
+// 			border-radius: 3px;
+// 			margin-bottom:20px;
+// 			padding:10px;
+
+// 		}
+// 	}
+
+
+// 	.grid-wrapper {
+// 		width:100%;
+// 		min-height:400px;
+// 		background-color:#fff;
+// 		border-radius: 3px;
+
+// 		&.static {
+// 			height:calc(100vh - 300px);
+// 		}
+// 	}
+// }
+
+
+// //grid layout
+
+// .layout.grid-layout {
+// 	padding:0px;
+
+// 	.filter-bar {
+// 		height:40px;
+// 		background-color:#fff;
+// 		width:100%;
+// 		display: block;
+// 	}
+
+// 	.grid-toolbar {
+// 		height:50px;
+// 		width:100%;
+// 		display:block;
+// 	}
+
+// 	.grid-wrapper {
+// 		height:calc(100vh - 250px);
+// 		width:100%;
+// 	}
+// }

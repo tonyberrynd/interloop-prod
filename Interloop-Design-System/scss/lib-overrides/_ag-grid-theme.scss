@@ -1,0 +1,199 @@
+
+//interloop theme override
+
+// override the font size of the entire grid 
+$ag-root-font-size: 14px !important;
+
+$ag-root-font-family: "proxima-nova", "Proxima Nova", helvetica, arial, sans-serif !important;
+
+$ag-border-1: $border !important;
+
+$ag-background-1: $limestone !important;
+
+$ag-foreground-1: $seamonster !important;
+
+$ag-header-foreground-1: $seamonster !important;
+
+$ag-header-background-1: linear-gradient(white, white) !important;
+
+$ag-separator-color: $border !important;
+
+$ag-cell-focused-border: solid 1px transparent !important;
+
+$ag-cell-highlight-border: $topaz !important;
+
+$ag-row-selected-background-color: $topaz-light !important;
+
+$ag-row-odd-background-color: #fff !important;
+
+$ag-row-even-background-color: $limestone !important;
+
+$ag-row-floating-background-color: #fff !important;
+
+$ag-value-change-delta-up-color: $success !important;
+
+$ag-value-change-delta-down-color: $danger !important;
+
+$ag-value-change-value-highlight-background-color: darken($limestone, 3%) !important;
+
+$ag-button-background-1: #fff !important;
+
+$ag-button-foreground-1: $seamonster !important;
+
+$ag-button-border-1: $btn-default-border !important;
+
+$ag-select-background: $topaz-light !important;
+
+$g-select-foreground: $seamonster !important;
+
+@import "../../bower_components/ag-grid/src/styles/ag-grid.scss";
+@import "../../bower_components/ag-grid/src/styles/theme-fresh.scss";
+
+.data-grid {
+	border-radius: 2px;
+	border-top:solid 1px $border;
+	background-color:#fff;
+
+	.filter-bar {
+		height:40px;
+		width:100%;
+		padding:3px;
+		white-space: nowrap;
+		overflow:hidden;
+		overflow-x:auto;
+	}
+}
+
+.ag-fresh {
+	* { 
+		outline:none !important;
+	}
+
+	.ag-pinned-left-header {
+		border-right:solid 2px $border;
+	}
+
+	.ag-ltr .ag-cell-last-left-pinned,
+	.ag-ltr .ag-cell-no-focus.ag-cell-last-left-pinned,
+	.ag-ltr .ag-cell-focus.ag-cell-last-left-pinned {
+		border-right:solid 2px $border !important;
+	}
+
+	.ag-header {
+		border-bottom:solid 1px $border !important;
+	}
+
+	.ag-header-cell {
+		line-height: 36px;
+		font-weight:600;
+		padding:0 10px !important;
+	}
+
+	.ag-ltr .ag-header-cell {
+	    border-right: 1px solid lighten($border, 3%) !important;
+	}
+
+	.ag-cell {
+		line-height: 35px;
+		border:solid 1px transparent;
+		padding:0 10px !important;
+	}
+
+	.ag-cell-not-inline-editing {
+	    padding: 0px !important;
+	    padding-left: 1px;
+	}
+
+	.ag-row {
+		border-bottom:solid 1px lighten($border, 3%);
+		cursor:pointer !important;
+	}
+
+	.ag-row-hover {
+			background-color: #D7F1FF !important;
+	}
+
+	.ag-row-focus {
+		background-color: #D7F1FF !important;
+	}
+
+	.ag-row.ag-row-selected.ag-row-hover {
+		background-color: #D7F1FF !important;
+	}
+
+
+	.ag-ltr .ag-cell-no-focus {
+	    border-right: 1px solid lighten($border, 3%) !important;
+	    border-left: 1px solid transparent;
+	}
+
+	.cell-wrapper {
+		width:100%;
+		height:100%;
+		border-radius: 5px;
+		border:solid 1px transparent;
+		display: block;
+		padding-left:7px;
+		font-weight:500;
+		overflow:hidden;
+		text-overflow:ellipsis;
+
+		.avatar {
+			margin-right:10px;
+		}
+	}
+
+	//has change history - need to highlight
+	.ag-cell.has-history .cell-wrapper {
+		background-color:$topaz;
+		color:#fff;
+	}
+
+	//background styles
+	//provides striped background effect
+	.ag-body-viewport-wrapper, 
+	.ag-pinned-left-cols-viewport,
+	.ag-pinned-right-cols-viewport {
+	    background: repeating-linear-gradient(to bottom, $limestone 0px, $limestone 42px, #FFFFFF 42px, #FFFFFF 84px);
+	    background-position: 0px 44px;
+	    background-attachment:fixed;
+	}
+
+	//groups
+	.ag-group-cell-entire-row {
+	  background-color: #fff;
+	  padding: 5px;
+	}
+	.ag-footer-cell-entire-row {
+	  background-color: #fff;
+	  padding: 5px;
+	}
+
+	.ag-header-cell-label .ag-header-icon {
+	    margin-top: -1px !important;
+	    margin:0 4px;
+
+	    img {
+	    	transform: translateY(-1px);
+	    }
+
+	    &.ag-sort-order {
+	    	margin-left:6px;
+	    	margin-right:2px;
+	    	color:$topaz !important;
+	    }
+	}
+
+	.ag-stub-cell {
+    	padding: 12px !important;
+	}
+
+	.ag-overlay-no-rows-center {
+	    background-color: #ffffff;
+	    border: solid 1px $border !important;
+	    border-radius: 10px;
+	    padding: 10px;
+	}
+
+}
+

@@ -1,0 +1,312 @@
+ <div class="subheader">
+              <div class="subheader-left pull-left">
+                <button class="btn btn-default show-sidebar" uib-tooltip="Show Sidebar" tooltip-placement="bottom-left" tooltip-popup-delay="500" ng-click="$root.showDrawer = !$root.showDrawer">
+                  <img src="../assets/img/icons/dark/show-sidebar.svg" alt="Open Sidebar">
+                </button>
+                  <!-- view dropdown -->
+                <div class="btn-group view-toggler fadeInOut" uib-dropdown keyboard-nav ng-if="data.activated">
+                    <button id="viewDropdown" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle>
+                        <span ng-bind="data.thisView.name || 'Select View'"></span> <span class="caret pull-right" style="margin-top:8px;"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="Views">
+                        <li class="dropdown-header">System Views</li>
+                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'system'} | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
+                            <a href ng-click="changeView(view)">
+                                <span ng-bind="view.name"></span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0"></span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix"></span> 
+                                </span>
+                            </a>
+                        </li> 
+
+                        <li class="dropdown-header" ng-if="(data.views | filter:{'type':'personal'}).length">Personal Views</li>
+                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'personal'} | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
+                            <a href ng-click="changeView(view)">
+                                <span ng-bind="view.name"></span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0"></span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix"></span> 
+                                </span>
+                            </a>
+                        </li>    
+
+                        <li class="dropdown-header" ng-if="(data.views | filter:{'type':'shared'}).length">Shared Views</li>
+                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'shared'} | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
+                            <a href ng-click="changeView(view)">
+                                <span ng-bind="view.name"></span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0"></span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix"></span> 
+                                </span>
+                            </a>
+                        </li>            
+                    </ul>
+                </div>
+              </div>
+              <div class="subheader-right pull-right">
+                switcher / options - etc
+              </div>
+            </div>
+
+    <div class="inner-content with-subheader">
+    <div class="pace-wrapper">
+<!-- 
+    <slick infinite=true slides-to-show="3" slides-to-scroll="3">
+        <div><h3>1</h3></div>
+        <div class="panel panel-default"><h3>2</h3></div>
+        <div class="panel panel-default"> <h3>3</h3></div>
+        <div class="panel panel-default"><h3>4</h3></div>
+        <div class="panel panel-default"><h3>5</h3></div>
+        <div class="panel panel-default"><h3>6</h3></div>
+    </slick> -->
+
+    <!--   <div class="row"">
+        <div class="col-xs-1">
+          <div class="panel panel-default panel-light">
+            <div class="panel-body">
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-1">
+          <div class="panel panel-default panel-light">
+            <div class="panel-body">
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-1">
+          <div class="panel panel-default panel-light">
+            <div class="panel-body">
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-1">
+          <div class="panel panel-default panel-light">
+            <div class="panel-body">
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-1">
+          <div class="panel panel-default panel-light">
+            <div class="panel-body">
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-1">
+          <div class="panel panel-default panel-light">
+            <div class="panel-body">
+              
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+    
+  <!-- div.expandable chart -->
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="pace-control">
+        
+        <div class="pace-rollup">
+
+          <div class="pace-header">
+            <div class="right">
+              <div class="data-col">Goal</div>
+              <div class="data-col">Won</div>
+              <div class="data-col">Commit</div>
+              <div class="data-col">Best Case</div>
+            </div>
+          </div>
+          
+          <!-- //line item -->
+          <div class="line-item">
+            <div class="left">
+              Overall
+            </div>
+            <div class="center">
+              <uib-progress>
+                <uib-bar value="42" type="primary">
+                  <span>3M</span>
+                </uib-bar>
+                <uib-bar value="20" type="warning">
+                  <span>$5M</span>
+                </uib-bar>
+               </uib-progress>
+
+               <div class="marker-label">3.2M</div>
+               <div class="marker"></div>
+            </div>
+            <div class="right">
+              <div class="data-col">
+                $5,000
+              </div>
+              <div class="data-col">
+                $4,3000
+              </div>
+              <div class="data-col">
+                $5,6000
+              </div>
+              <div class="data-col">
+                $5,6000
+              </div>
+            </div>
+          </div>
+
+          <div class="divider-expander">
+            <button class="btn btn-sm btn-default btn-outline">
+              <icon class="wb-plus"></icon>
+              <icon class="wb-minus hidden"></icon>
+            </button>
+            <span class="divider-line"></span>
+          </div>
+
+          <!-- line item   -->
+          <div class="line-item overall">
+            <div class="left">
+              
+              Jordan Berry
+            </div>
+            <div class="center">
+              <uib-progress>
+                <uib-bar value="12" type="primary">
+                  <span>3M</span>
+                </uib-bar>
+                <uib-bar value="5" type="warning">
+                  <span>$5M</span>
+                </uib-bar>
+               </uib-progress>
+            </div>
+            <div class="right">
+              <div class="data-col">
+                $5,000
+              </div>
+              <div class="data-col">
+                $4,3000
+              </div>
+              <div class="data-col">
+                $5,6000
+              </div>
+              <div class="data-col">
+                $5,6000
+              </div>
+            </div>
+          </div>
+
+          <!-- line item   -->
+          <div class="line-item overall">
+            <div class="left">
+              
+              Jordan Berry
+            </div>
+            <div class="center">
+              <uib-progress>
+                <uib-bar value="2" type="primary">
+                  <span>3M</span>
+                </uib-bar>
+                <uib-bar value="80" type="warning">
+                  <span>$5M</span>
+                </uib-bar>
+               </uib-progress>
+            </div>
+            <div class="right">
+              <div class="data-col">
+                $5,000
+              </div>
+              <div class="data-col">
+                $4,3000
+              </div>
+              <div class="data-col">
+                $5,6000
+              </div>
+              <div class="data-col">
+                $5,6000
+              </div>
+            </div>
+          </div>
+
+          <!-- line item   -->
+          <div class="line-item overall">
+            <div class="left">
+              
+              Jordan Berry
+            </div>
+            <div class="center">
+              <uib-progress>
+                <uib-bar value="20" type="primary">
+                  <span>3M</span>
+                </uib-bar>
+                <uib-bar value="20" type="warning">
+                  <span>$5M</span>
+                </uib-bar>
+               </uib-progress>
+            </div>
+            <div class="right">
+              <div class="data-col">
+                $5,000
+              </div>
+              <div class="data-col">
+                $4,3000
+              </div>
+              <div class="data-col">
+                $5,6000
+              </div>
+              <div class="data-col">
+                $5,6000
+              </div>
+            </div>
+          </div>
+
+          <!-- line item   -->
+          <div class="line-item overall">
+            <div class="left">
+              
+              Jordan Berry
+            </div>
+            <div class="center">
+              
+            </div>
+            <div class="right">
+              <div class="data-col">
+                $5,000
+              </div>
+              <div class="data-col">
+                $4,3000
+              </div>
+              <div class="data-col">
+                $5,6000
+              </div>
+              <div class="data-col">
+                $5,6000
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+   
+   </div>
+
+  </div>
+</div>
+
+
+
+<div class="insights-grid">
+  
+  <div ag-grid="data.gridOptions" class="ag-interloop" ng-if="data.activated"></div>
+
+</div>

@@ -1,0 +1,555 @@
+
+        <div class="modal-body" id="modal-body">
+
+          <div class="modal-left-nav">
+            <ul class="list-unstyled">
+              <li ng-class="{ 'active': data.currentTab == 'upload' }">
+                <a href ng-click="data.currentTab = 'upload'">
+                  <icon class="fa fa-cloud-upload"></icon> Upload
+                  <span class="badge badge-rounded badge-primary badge-rounded pull-right">2</span>
+                </a>
+              </li>
+              <hr>
+               <li ng-class="{ 'active': data.currentTab == 'box' }">
+                <a href ng-click="data.currentTab = 'box'">
+                  <icon class="fa fa-cube"></icon> Box</a>
+              </li>
+              <li ng-class="{ 'active': data.currentTab == 'dropbox' }">
+                <a href ng-click="data.currentTab = 'dropbox'">
+                  <icon class="fa fa-dropbox"></icon> Dropbox</a>
+              </li>
+              <li ng-class="{ 'active': data.currentTab == 'o365' }">
+                <a href ng-click="data.currentTab = 'o365'">
+                  <icon class="fa fa-google"></icon> Offce 365</a>
+              </li>
+              <li ng-class="{ 'active': data.currentTab == 'gdrive' }">
+                <a href ng-click="data.currentTab = 'gdrive'">
+                  <icon class="fa fa-google"></icon> Google Drive</a>
+              </li>
+              <li ng-class="{ 'active': data.currentTab == 'link' }">
+                <a href ng-click="data.currentTab = 'link'">
+                  <icon class="fa fa-link"></icon> Link</a>
+              </li>
+            </ul>
+          </div>
+          <div class="modal-right-content" ng-switch="data.currentTab">
+              
+          <div class="media-picker-content" ng-switch-when="upload">
+            <div class="drag-and-drop-area">
+              <img src="../assets/img/media-picker/file-upload.svg" alt="Upload Files">
+              <p>Drag and drop your files here</p>
+              <button class="btn btn-default">Upload a file</button>
+            </div>
+            <div class="uploaded-files">
+              <h5>Uploaded Files (2)</h5>
+                <table class="table">
+                <thead>
+                  <tr>
+                    <th class="col-xs-7">Name</th>
+                    <th class="col-xs-2">Type</th>
+                    <th class="col-xs-2">Size</th>
+                    <th class="col-xs-1"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                    <span class="avatar avatar-24 square">T</span>
+                    <span class="file-name">test_file.png</span>
+                    <uib-progressbar animate="true" value="30" type="primary"></uib-progressbar>
+                    </td>
+                    <td>PNG</td>
+                    <td>1.3MB</td>
+                    <td>
+                    <button class="btn btn-default">
+                        <icon class="fa fa-trash"></icon>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    <span class="avatar avatar-24 square">T</span>
+                    <span class="file-name">test_file2.png</span>
+                    <uib-progressbar animate="true" value="60" type="primary"></uib-progressbar>
+                    </td>
+                    <td>PNG</td>
+                    <td>1.3MB</td>
+                    <td>
+                      <button class="btn btn-default" uib-tooltip="Remove File">
+                        <icon class="fa fa-trash"></icon>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+           <div class="media-picker-content" ng-switch-when="box">
+            <div class="authorization text-center" ng-if="!data.boxAuth">
+              <icon class="fa fa-cube"></icon>
+              <h3>Connect Box</h3>
+              <p>Click the button below to connect Interloop to you box account</p>
+              <button class="btn btn-primary">Connect Box.com</button>
+            </div>
+            <div class="file-viewer" ng-if="data.boxAuth">
+            <div class="picker-header">
+              <div class="picker-header-left pull-left">
+                <ol class="breadcrumb">
+                  <li><a href="#">Jordan Berry</a></li>
+                  <li class="active">Folder 1</li>
+                </ol>
+              </div>
+              <div class="pick-header-right pull-right">
+                  <button class="btn btn-link">
+                    <img src="../assets/img/icons/dark/reload.svg" alt="Refresh">
+                  </button>
+
+                  <div class="btn-group view-type">
+                    <button type="button" class="btn btn-default">
+                      <img src="../assets/img/icons/dark/view-tile.svg" alt="tiles">
+                    </button>
+                    <button type="button" class="btn btn-default">
+                      <img src="../assets/img/icons/dark/view-list.svg" alt="list">
+                    </button>
+                  </div>
+              </div>
+            </div>
+            <div class="picker-body scrollClass" ng-class="{'scrolled': data.items.length >= 6}">
+               <div class="row">
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+               </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="media-picker-content" ng-switch-when="dropbox">
+              <div class="authorization text-center" ng-if="!data.dropboxAuth">
+              <icon class="fa fa-dropbox"></icon>
+              <h3>Connect Dropbox</h3>
+              <p>Click the button below to connect Interloop to your Dropbox account</p>
+              <button class="btn btn-primary">Connect Dropbox</button>
+            </div>
+            <div class="file-viewer" ng-if="data.dropboxAuth">
+            <div class="picker-header">
+              <div class="picker-header-left pull-left">
+                <ol class="breadcrumb">
+                  <li><a href="#">Jordan Berry</a></li>
+                  <li class="active">Folder 1</li>
+                </ol>
+              </div>
+              <div class="pick-header-right pull-right">
+                  <button class="btn btn-link">
+                    <img src="../assets/img/icons/dark/reload.svg" alt="Refresh">
+                  </button>
+
+                  <div class="btn-group view-type">
+                    <button type="button" class="btn btn-default">
+                      <img src="../assets/img/icons/dark/view-tile.svg" alt="tiles">
+                    </button>
+                    <button type="button" class="btn btn-default">
+                      <img src="../assets/img/icons/dark/view-list.svg" alt="list">
+                    </button>
+                  </div>
+              </div>
+            </div>
+            <div class="picker-body scrollClass" ng-class="{'scrolled': data.items.length >= 6}">
+               <div class="row">
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+               </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="media-picker-content" ng-switch-when="o365">
+              <div class="authorization text-center" ng-if="!data.o365Auth">
+              <icon class="fa fa-cube"></icon>
+              <h3>Connect Office 365</h3>
+              <p>Click the button below to connect Interloop to you Office 365 account</p>
+              <button class="btn btn-primary">Connect O365</button>
+            </div>
+            <div class="file-viewer" ng-if="data.o365Auth">
+            <div class="picker-header">
+              <div class="picker-header-left pull-left">
+                <ol class="breadcrumb">
+                  <li><a href="#">Jordan Berry</a></li>
+                  <li class="active">Folder 1</li>
+                </ol>
+              </div>
+              <div class="pick-header-right pull-right">
+                  <button class="btn btn-link">
+                    <img src="../assets/img/icons/dark/reload.svg" alt="Refresh">
+                  </button>
+
+                  <div class="btn-group view-type">
+                    <button type="button" class="btn btn-default">
+                      <img src="../assets/img/icons/dark/view-tile.svg" alt="tiles">
+                    </button>
+                    <button type="button" class="btn btn-default">
+                      <img src="../assets/img/icons/dark/view-list.svg" alt="list">
+                    </button>
+                  </div>
+              </div>
+            </div>
+            <div class="picker-body scrollClass" ng-class="{'scrolled': data.items.length >= 6}">
+               <div class="row">
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+               </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="media-picker-content" ng-switch-when="gdrive">
+              <div class="authorization text-center" ng-if="!data.gdriveAuth">
+              <icon class="fa fa-google"></icon>
+              <h3>Connect Google Drive</h3>
+              <p>Click the button below to connect Interloop to your G-Drive account</p>
+              <button class="btn btn-primary">Connect Drive</button>
+            </div>
+            <div class="file-viewer" ng-if="data.gdriveAuth">
+            <div class="picker-header">
+              <div class="picker-header-left pull-left">
+                <ol class="breadcrumb">
+                  <li><a href="#">Jordan Berry</a></li>
+                  <li class="active">Folder 1</li>
+                </ol>
+              </div>
+              <div class="pick-header-right pull-right">
+                  <button class="btn btn-link">
+                    <img src="../assets/img/icons/dark/reload.svg" alt="Refresh">
+                  </button>
+
+                  <div class="btn-group view-type">
+                    <button type="button" class="btn btn-default">
+                      <img src="../assets/img/icons/dark/view-tile.svg" alt="tiles">
+                    </button>
+                    <button type="button" class="btn btn-default">
+                      <img src="../assets/img/icons/dark/view-list.svg" alt="list">
+                    </button>
+                  </div>
+              </div>
+            </div>
+            <div class="picker-body scrollClass" ng-class="{'scrolled': data.items.length >= 6}">
+               <div class="row">
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="col-xs-4">
+                    <div class="thumbnail">
+                      <img src="http://placehold.it/150X150" alt="...">
+                      <div class="caption">
+                        <h3>Thumbnail label</h3>
+                      </div>
+                    </div>
+                 </div>
+               </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="media-picker-content" ng-switch-when="link">
+            <div class="picker-body with-padding">  
+
+            <form>
+              <div class="form-group">
+                <label for="text">File Link:</label>
+                <input type="text" class="form-control" id="link" placeholder="http://">
+              </div>
+              <button type="submit" class="btn btn-primary pullr-gith">Validate Link</button>
+            </form>
+
+            </div>
+
+
+          </div>
+
+
+
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <div class="footer-left">
+            <!-- help text goes here -->
+          </div>
+          <div class="footer-right">
+          <button class="btn btn-primary" type="button" ng-click="ok()">Insert</button>
+          <button class="btn btn-subtle" type="button" ng-click="$dismiss()">Cancel</button>
+          </div>
+        </div>

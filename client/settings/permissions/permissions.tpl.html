@@ -1,0 +1,52 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section fadeInOut" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Roles & Permissions</h3>
+			<p>Manage what certains roles & users can do within the application</p></p>
+
+						<button class="btn btn-primary button-top new-users" ng-click="addRole()">+ Add Role</button>
+		</div>
+		<div class="panel-body">
+
+			<div class="callout callout-info">
+			<p class="title"><icon class="wb-info-circle"></icon> Info</p>
+				<p> Once Roles are created here, you can assign this role to the users in the <a ui-sref="app.main.settings.users">Manage Users</a> sections of settings</p>
+			</div>
+
+			<div class="panel panel-default panel-light permission-panel" ng-repeat="role in data.roles">
+				<div class="panel-body">
+					<h4><span ng-bind="role.label || '--'"></span> <small ng-if="role.description" ng-bind="'- ' + role.description"></small></h4>
+					<p><span ng-bind="'Visibility:' + role.visibility"></span></p>
+					<p><span ng-bind="role.permissions.length || '0'"></span> Permissions - <span ng-bind="role.users.length || '0'"></span> Users</p>
+					<div class="pull-right edit-role">
+						<div class="btn-group" uib-dropdown>
+						 <button id="single-button" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle>
+					        Actions <span class="wb-chevron-down-mini"></span>
+					      </button>
+					      <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+					        <li role="menuitem"><a href ng-click="editRole(role)">Edit Role</a></li>
+					        <li role="menuitem"><a href ng-click="copyRoleAs(role)">Copy As New</a></li>
+					        <li class="divider"></li>
+					        <li role="menuitem"><a href ng-click="deleteRole(role)" ><span class="text-danger">Delete Role</span></a></li>
+					      </ul>
+					     </div>
+					</div>
+				</div>
+			</div>
+
+			<!-- empty state -->
+			<div class="empty-state" ng-if="!data.roles.length && data.activated">
+						<div class="empty-circle">
+							<icon class="wb-lock"></icon>
+						</div>
+						<h5>No Roles</h5>
+						<p>Add a new role below</p>
+						<buttton class="btn btn-sm btn-primary" ng-click="addRole()">Add role</buttton>
+				</div>
+
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,54 @@
+<div class="settings-section import-section">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Import Your Data</h3>
+			<p>Import data into Interloop from excel templates</p>
+		</div>
+		<div class="panel-body">
+
+
+		<div class="container">
+			<div class="row">
+
+				<div class="col-xs-3 import">
+					<div class="import-card">
+						<icon class="icon-budicon-classic-17"></icon>
+						<a href ng-click="importData('Opportunity')" class="btn btn-block btn-primary">Import Opportunities</a>
+					</div>
+				</div>
+				<div class="col-xs-3 import">
+					<div class="import-card">
+						<icon class="icon-budicon-classic-38"></icon>
+						<a href ng-click="importData('Contact')"class="btn btn-block btn-primary">Import Contacts</a>
+					</div>
+				</div>
+				<div class="col-xs-3 import">
+					<div class="import-card">
+						<icon class="icon-budicon-classic-21"></icon>
+						<a href ng-click="importData('Company')" class="btn btn-block btn-primary">Import Companies</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+		</div>
+		
+
+		<div class="panel panel-default panel-light">
+			<div class="panel-heading">
+				<h5>Import History</h5>
+			</div>
+			<div class="panel-body">
+				
+			
+				<div class="empty-state" ng-if="!data.exports.length">
+					<h5>No Imports</h5>
+					<p>Data Import History will show here</p>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>

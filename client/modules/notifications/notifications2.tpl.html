@@ -1,0 +1,81 @@
+<div class="content">
+
+<div class="inner-content">
+
+	
+	<div class="facets panel panel-default panel-light">
+		<div class="panel-heading">
+			Filter Notifications
+		</div>
+		<div class="panel-body">
+
+			<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-createdByMe" checklist-model="data.filterValues" checklist-value="'createdByMe'">
+            <label for="filter-createdByMe">Notification Type 1</label>
+        	</div>
+
+        	<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-ownedByMe" checklist-model="data.filterValues" checklist-value="'ownedByMe'">
+            <label for="filter-ownedByMe">Notification Type 2</label>
+        	</div>
+
+        	<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-sharedWithMe" checklist-model="data.filterValues" checklist-value="'sharedWithMe'">
+            <label for="filter-sharedWithMe">Notification Type 3</label>
+        	</div>
+
+        	<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-recentlyCreated" checklist-model="data.filterValues" checklist-value="'recentlyCreated'">
+            <label for="filter-recentlyCreated">Notification Type 4</label>
+        	</div>
+
+        	<br>
+		</div>
+	</div>
+
+
+	<div class="search-results">
+		<div class="panel panel-default panel-light">
+			<div class="panel-body">
+
+
+				<span class="notificationList" ng-if="data.notificationsLoaded">
+
+					<!-- notifications -->
+				     <a class="content" href ng-repeat="notification in data.notifications">
+				      
+				       <div class="notification-item" ng-class="{'unread': !notification.read }">
+				        <h5 class="item-title" ng-bind="notification.title"></h5>
+				        <p class="item-info" ng-bind="notification.body"></p>
+				        <div class="notification-actions" ng-if="notification.actions.length" feature-flag="--NOTIFICATION-ACTIONS--">
+					        <button class="btn btn-sm btn-default" ng-repeat="action in notification.actions" ng-bind="action.label">Action 1</button>
+				        </div>
+				      </div>
+				       
+				    </a>
+
+
+				    <!-- //no notifications -->
+				    <div class="no-notifications" ng-if="data.notificationsLoaded && !data.notifications.length">
+				    	<icon class="wb-bell"></icon>
+				    	<p>No New Notifications</p>
+				    </div>
+
+			    </span>
+
+
+				
+<!-- 				<div class="empty" ng-if="!data.results.length">
+					<icon class="wb-bell"></icon>
+					<h4>No Results for "<b>{{data.query}}</b>"</h4>
+					<p>Please try changing filters or searching again</p>
+				</div> -->
+
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+</div>

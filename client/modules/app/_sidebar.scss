@@ -1,0 +1,156 @@
+.sidebar-overlay {
+	position:absolute;
+	top:0px;
+	right:0px;
+	left:0px;
+	bottom:0px;
+	background-color:rgba(255,255,255,.5);
+	z-index: 12;
+	cursor: wait;
+
+	// .loop-loader {
+	// 	left:0px !important;
+	// 	right:0px !important;
+	// }
+}
+
+.sidepanel .floating-action {
+	position:absolute;
+	right:15px;
+	bottom:15px;
+	height:25px;
+	width:25px;
+	background-color:$topaz;
+	border-radius: 5px;
+}
+
+.overlay-close {
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:50px;
+	height:50px;
+	display: block;
+	z-index: 13;
+}
+
+
+.action-menu {
+	min-width:240px;
+	max-height: auto !important;
+}
+
+.detail-wrapper .social,
+.detail-wrapper .company-description {
+	padding-left:80px;
+}
+
+#sidepanel-content .sidepanel.contact-details .sidepanel-cover .name-wrapper,
+#sidepanel-content .sidepanel.company-details .sidepanel-cover .name-wrapper {
+    margin-left: 80px;
+    margin-bottom: 12px;
+}
+
+.empty-add {
+	display: block;
+
+	a {
+		text-decoration: none;
+	}
+}
+
+.field-description {
+	color:$granite;
+}
+
+.color-danger {
+	color:$danger !important;
+}
+
+.more-indicator {
+    position: absolute;
+    top: 153px;
+    right: 0;
+    height: 53px;
+    width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #FFF;
+    border-bottom: solid 2px #E1E8ED;
+    padding-top: 12px;
+    padding-left: 1px;
+
+    .btn {
+	    background-color: #E1E8ED;
+	    border-radius: 5px;
+	    padding: 3px 5px;
+
+	    icon {
+	    	color:$granite;
+	    }
+	}
+
+}
+
+// .sidepanel-title {
+// 	margin-top:20px;
+// }
+
+.sidepanel .panel-footer {
+	background-color:#fff;
+	color:$seamonster;
+	font-weight:600;
+
+	icon {
+		color:$granite;
+		margin-left:6px;
+		margin-right:12px;
+	}
+}
+.card-subtitle {
+	text-transform:uppercase;
+	color:$granite;
+}
+
+.empty-text {
+	color:$granite;
+}
+
+.empty-section {
+	color: #97A0AF;
+    text-align: center;
+    background: #fff;
+    padding: 15px 10px;
+    display: inline-block;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.text-divider {
+            padding: 5px 10px !important;
+            position: relative;
+            width: 100%;
+
+            .text {
+                background: #fff;
+                font-size: 13px;
+                color: $granite;
+                padding: 0 5px;
+                padding-right:10px;
+                display: inline-block;
+                /* z-index: 16; */
+            }
+
+            .line {
+                height: 1px;
+                background: $gravel;
+                /* width: 100%; */
+                display: inline-block;
+                position: absolute;
+                top: 15px;
+                left: 10px;
+                /* bottom: 0; */
+                right: 15px;
+                z-index: -1;
+            }
+        }

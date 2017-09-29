@@ -1,0 +1,61 @@
+<div class="modal-header">
+            <h3 class="modal-title" id="modal-title">New Address</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+           
+
+           <form>
+            <div class="row">
+              <div class="col-xs-12">
+              <div class="form-group">
+                <label for="text">Address Line 1</label>
+                <input type="text" class="form-control" id="address_line1" placeholder="Seach For Address..." g-places-autocomplete ng-model="data.ac" autocomplete="false" autofocus>
+              </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+              <div class="form-group">
+                <label for="text">Address Line 2</label>
+                <input type="text" class="form-control" id="address_line1" placeholder="Unit, Suite, Etc." ng-model="data.address.street_name">
+              </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-8">
+              <div class="form-group">
+                <label for="text">City</label>
+                <input type="text" class="form-control" id="city" placeholder="Anchorage" ng-model="data.address.administrative_area_level_1">
+              </div>
+              </div>
+              <div class="col-xs-4">
+               <div class="form-group">
+                <label for="text">State</label>
+                <input type="text" class="form-control" id="state" placeholder="AK" ng-model="data.address.locality">
+              </div>
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-xs-6">
+              <div class="form-group">
+                <label for="text">Zip</label>
+                <input type="text" class="form-control" id="zip" placeholder="00000" ng-model="data.address.postal_code">
+              </div>
+              </div>
+              
+              <div class="col-xs-6">
+              <div class="form-group">
+                <label for="text">Country</label>
+                <input type="text" class="form-control" id="county" placeholder="USA" ng-model="data.address.country">
+              </div>
+              </div>
+
+            </div>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-subtle pull-left" ng-click="clearAll()">Clear All</button>
+          <button class="btn btn-primary" type="button" ng-click="ok()">Add</button>
+          <button class="btn btn-subtle" type="button" ng-click="$dismiss()">Cancel</button>
+        </div>

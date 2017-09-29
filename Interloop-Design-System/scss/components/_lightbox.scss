@@ -1,0 +1,217 @@
+.lightbox-modal {
+	animation:none !important;
+	min-width:600px;
+	min-height:400px;
+
+	&.fade .modal-dialog {
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0); // IE9 only
+          transform: translate(0, 0);
+	 }
+
+	 .tooltip-inner {
+	 	background-color:#fff;
+	 	color:#000;
+	 }
+
+	.modal-header {
+		border:none;
+		height:50px;
+		background:#000;
+		color:#fff;
+		padding:0px;
+
+		h5 {
+			color:#fff;
+		}
+
+		.lightbox-header-left {
+			float:left;
+			padding:12px;
+			font-weight:600;
+
+			img {
+				height:28px;
+				width:auto;
+			}
+		}
+
+		.lightbox-header-right {
+			float:right;
+
+			.btn {
+				padding:14px;
+				min-width:20px;
+
+				&.btn-close {
+					border-left:solid 1px rgba(255,255,255,.125);
+					padding-left:20px;
+					padding-right:20px;
+				}
+
+				img {
+					width:16px;
+					margin:auto;
+				}
+
+				icon {
+					color:#fff;
+				}
+			}
+		}
+	}
+
+	.lightbox-image-container {
+		height:100%;
+
+		img {
+			 position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+		}
+	}
+
+	.modal-footer {
+		border:none;
+		height:50px;
+		background:#000;
+		color:#fff;
+		padding:0px;
+		position:absolute;
+		right:0px;
+		bottom:0px;
+		left:0px;
+		overflow: hidden;
+		font-size:95%;
+
+		h4 {
+			color:#fff;
+		}
+
+		h5 {
+			color:#fff;
+		}
+
+		p {
+			color:#fff;
+		}
+
+		.lightbox-footer-left {
+			float:left;
+			text-align:left;
+			padding: 12px;
+			padding-left:18px;
+			font-weight:600;
+
+			.uploaded-by {
+				margin-right:15px;
+			}
+
+			.uploaded-on {
+				color:$granite;
+			}
+		}
+
+		.lightbox-footer-right {
+			float:right;
+			padding: 14px 12px;
+			padding-right:18px;
+		}
+	}
+
+
+	.modal-body {
+		height: calc(100% - 100px);
+		padding:0px;
+
+		.prev {
+			position:absolute;
+			left:0px;
+			top:50%;
+			margin-top:-50px;
+			z-index: 5;
+			opacity: .85;
+			padding:50px 0;
+
+			&:hover {
+				opacity: 1;
+			}
+
+
+			img {
+				height:24px;
+			}
+
+			icon {
+				font-size:42px;
+				color:$gravel;
+			}
+		}
+
+		.next {
+			position:absolute;
+			right:0px;
+			top:50%;
+			margin-top:-50px;
+			z-index: 5;
+			opacity: .85;
+			padding:50px 0;
+
+			&:hover {
+				opacity: 1;
+			}
+
+			img {
+				height:24px;
+			}
+
+			icon {
+				font-size:42px;
+				color:$gravel;
+			}
+		}
+	}
+
+	.modal-dialog {
+	  width: 100% !important;
+	  height: 100% !important;
+	  margin: 0;
+	  padding: 0;
+	}
+
+	.modal-content {
+	  height: auto;
+	  min-height: 100%;
+	  border-radius: 0;
+	  box-shadow:none;
+	  border:none;
+
+	  background-color:rgba(0,0,0,.85);
+	}
+
+
+	.lightbox-image-caption {
+	    position: absolute;
+	    bottom: 15px;
+	    top:unset;
+	    left: 0;
+	    right:0px;
+	    margin: 0.5em 0.9em;
+	    color: #fff;
+	    font-size: 14px;
+	    font-weight: normal;
+	    text-align: center;
+	    text-shadow: none;
+
+	    span {
+	    	padding-top: 10px;
+		    padding-bottom: 15px;
+		    background-color: transparent;
+		    box-shadow: none;
+		}
+
+
+	}
+
+}

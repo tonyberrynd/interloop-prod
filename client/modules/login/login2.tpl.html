@@ -1,0 +1,77 @@
+ <div class="login">
+      
+
+        <div class="login-wrapper">
+
+
+          <div class="login-form panel panel-default panel-light">
+            <div class="panel-heading">
+                <img src="assets/img/logo-dark.svg" alt="Interloop">
+            </div>
+            <div class="panel-body">
+
+                <div class="callout callout-danger" ng-if="data.loginFailed" style="margin-top:0px;">
+                  <p class="title" style="margin:0px;"><icon class="wb-warning"></icon> The email address or password you entered is incorrect.</p>
+                </div>
+
+                <form name="loginForm" class="login-form" ng-submit="login()">
+                  <div class="form-group">
+                    <label for="email">Sign in with your e-mail address</label>
+                    <input type="email" class="email form-control" id="loginEmail" placeholder="you@example.com" ng-model="data.email" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Enter your password</label>
+                    <input type="password" class="password form-control" id="loginPassword" placeholder="password" ng-model="data.password" required>
+                  </div>
+
+
+                  <!-- sign me in -->
+                  <div class="checkbox-custom checkbox-primary checkbox-inline pull-left">
+                    <input type="checkbox" id="remember" ng-model="data.rememberMe">
+                    <label for="remember">Stay logged in</label>
+                  </div>
+
+                  <div class="pull-right">
+                    <a ui-sref="forgot" class="forgot-password">Forgot your password?<span class="clearfix"></span></a> 
+                  </div>
+
+
+                  <div class="form-group" ng-if="$root.ELECTRON">
+                    <label for="domain">App Url</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="submdoain" placeholder="domain" ng-model="data.domain" required>
+                        <div class="input-group-addon">.interloop.ai</div>
+                    </div>
+                  </div>
+
+                  <br>
+                  <br>
+
+
+                  <button style="margin-top:10px" class="submit btn btn-lg btn-primary btn-block" ladda="data.loginLoading" data-style="expand-up" data-spinner-color="#FFFFFF" ng-disabled="loginForm.$invalid" type="submit">Sign in <icon class="wb-arrow-right"></icon>
+                  </button>
+                </form>
+
+
+            </div>
+<!--             <div class="panel-footer">
+                <div class="seperator">
+                    Or
+                </div>
+            </div> -->
+
+            <br>
+          </div>
+
+          <p class="copyright text-center">&copy; Interloop Technologies, Inc All rights reserved.</p>
+
+
+<!--           <p class="text-center"><a ui-sref="forgot" class="forgot-password">Forgot your password?</a></p> -->
+        </div>
+
+
+        <div class="version-viewer">
+          <p><span ng-bind="data.version"></span></p>
+        </div>
+
+    </div>

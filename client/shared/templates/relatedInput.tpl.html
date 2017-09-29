@@ -1,0 +1,41 @@
+
+<!-- Tags Templates - different Template for each type of entity -->
+
+
+  <span ng-switch="data.thisEntityType">
+  		
+  	<!-- opportunity -->
+  	<span ng-switch-when="Opportunity" class="custom-autocomplete opportunity">
+		<div class="tag-emblem">
+			<img src="assets/img/nav/opportunities.svg" alt="Opportunities">
+		</div>
+		<div class="tag-body">
+			<span ng-bind="data.name || '--'"></span>
+		</div>
+  	</span>
+
+
+  	<!-- company -->
+	 <span ng-switch-when="Company" class="custom-autocomplete company">
+		<div class="tag-emblem">
+			<img ng-if="data.logo" ng-src="{{data.logo}}" alt="{{data.name}}">
+			<img ng-if="!data.logo" src="assets/img/nav/companies.svg" alt="{{data.name}}">
+		</div>
+		<div class="tag-body">
+			<span ng-bind="data.name || '--'"></span>
+		</div>
+  	</span>
+
+	 <!-- contact -->
+	 <span ng-switch-when="Contact" class="custom-autocomplete contact">
+		<div class="tag-emblem">
+			<img ng-if="data.avatar" ng-src="{{data.logo}}" alt="{{data.firstName}} {{data.lastName}}">
+			<img ng-if="!data.avatar" src="assets/img/nav/contacts.svg" alt="{{data.firstName}} {{data.lastName}}">
+		</div>
+		<div class="tag-body">
+			<span ng-bind="data.firstName || '--'"></span> <span> </span> <span ng-bind="data.lastName"></span>
+		</div>
+  	</span>  	
+
+  </span>
+

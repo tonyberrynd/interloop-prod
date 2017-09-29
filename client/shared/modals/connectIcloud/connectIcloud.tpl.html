@@ -1,0 +1,32 @@
+ <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">Connect Icloud</h3>
+            <p>Connect your icloud account to import contacts</p>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+            <!-- //error -->
+            <div class="callout callout-danger" ng-if="data.loginFailed" style="margin-top:0px;">
+              <p class="title" style="margin:0px;"><icon class="wb-warning"></icon> The apple ID or password you entered is incorrect.</p>
+            </div>
+
+            <form name="connectIcloudForm" novalidate>
+              <div class="form-group">
+                <label for="email">Apple ID:</label>
+                <input type="email" class="form-control" id="email" ng-model="data.user.username" autocomplete="false">
+              </div>
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd" ng-model="data.user.password" autocomplete="false">
+              </div>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="connectIcloudForm.$invalid">Connect iCloud</button>
+        </div>

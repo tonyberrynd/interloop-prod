@@ -1,0 +1,31 @@
+
+            <div class="sidepanel more-sidepanel">
+                <div class="sidepanel-header">
+                    <a class="btn btn-link btn-left" href ng-click="$root.sidePanelOpen = !$root.sidePanelOpen">
+                        <img src="../assets/img/icons/states/close.svg" alt="Close">
+                    </a>
+
+                    Directory 
+                </div>
+
+                <div class="sidepanel-content">
+                   
+                    <div class="panel panel-default card contact-card" ng-repeat="user in data.users | filter:data.memberSearch | orderBy: 'firstName'" ng-class="{'hidden': !data.activated}">
+                        <div class="panel-body">
+                            <div class="name-wrapper">
+                                <div class="avatar avatar-32 royal">
+                                    <span ng-bind="user.initials"></span>
+                                </div>
+                                <h4>
+                                    <span ng-bind="user.firstName"></span> <span ng-bind="user.lastName"></span>
+                                </h4>
+                                <p>
+                                    <span ng-bind="user.email || '--'"></span> 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>

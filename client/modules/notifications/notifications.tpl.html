@@ -1,0 +1,53 @@
+<div class="content">
+<div class="inner-content">
+
+	
+	<div class="facets panel panel-default panel-light">
+		<div class="panel-heading">
+			Filter Results
+		</div>
+		<div class="panel-body">
+
+			<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-createdByMe" checklist-model="data.filterValues" checklist-value="'createdByMe'">
+            <label for="filter-createdByMe">Created By Me</label>
+        	</div>
+
+        	<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-ownedByMe" checklist-model="data.filterValues" checklist-value="'ownedByMe'">
+            <label for="filter-ownedByMe">Owned By Me</label>
+        	</div>
+
+        	<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-sharedWithMe" checklist-model="data.filterValues" checklist-value="'sharedWithMe'">
+            <label for="filter-sharedWithMe">Shared with Me</label>
+        	</div>
+
+        	<div class="checkbox-custom checkbox-primary">
+            <input type="checkbox" id="filter-recentlyCreated" checklist-model="data.filterValues" checklist-value="'recentlyCreated'">
+            <label for="filter-recentlyCreated">Recently Created</label>
+        	</div>
+
+        	<br>
+		</div>
+	</div>
+
+
+	<div class="search-results">
+		<div class="panel panel-default panel-light">
+			<div class="panel-body">
+
+				
+				<div class="empty" ng-if="!data.results.length">
+					<icon class="wb-bell"></icon>
+					<h4>No Results for "<b>{{data.query}}</b>"</h4>
+					<p>Please try changing filters or searching again</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+</div>
+</div>

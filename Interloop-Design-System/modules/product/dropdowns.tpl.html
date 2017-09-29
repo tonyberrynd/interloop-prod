@@ -1,0 +1,99 @@
+<h3>Dropdowns</h3>
+<p>Dropdowns are used for navigation or radio / checkbox selection. For selecting a particular value or array of values, see <a ui-sref="app.product.single-select">Single Select</a> or <a ui-sref="app.product.multi-select">Multi Select</a></p>
+<br>
+
+
+
+ <!-- Single button -->
+  <div class="drop-menu">
+    <span class="drop-title">
+      Value Type
+    </span>
+    <div class="btn-group" uib-dropdown is-open="status.isopen">
+      <button id="single-button" type="button" class="btn" uib-dropdown-toggle ng-disabled="disabled">
+        <span class="value">Choices </span>
+        <span class="cheveron-down"></span>
+      </button>
+      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+      	<li class="dropdown-header">Dropdown header</li>
+        <li role="menuitem"><a href="#">Action</a></li>
+        <li role="menuitem"><a href="#">Another action</a></li>
+        <li role="menuitem"><a href="#">Something else here</a></li>
+      </ul>
+    </div>
+    </div>
+
+  <div class="drop-menu">
+    <span class="drop-title">
+      Value Type
+    </span>
+    <div class="btn-group" uib-dropdown is-open="status2.isopen">
+      <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+        <span class="value">Choices </span>
+        <span class="cheveron-down"></span>
+      </button>
+      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+        <li class="dropdown-header">Dropdown header</li>
+        <li role="menuitem"><a href="#">Action</a></li>
+        <li role="menuitem"><a href="#">Another action</a></li>
+        <li role="menuitem"><a href="#">Something else here</a></li>
+      </ul>
+    </div>
+    </div>
+
+
+    <br>
+    <br>
+
+  <div class="drop-menu">
+    <span class="drop-title">
+      Select User
+    </span>
+    <div class="btn-group" uib-dropdown is-open="status3.isopen">
+      <button id="single-button" type="button" class="btn" uib-dropdown-toggle ng-disabled="disabled">
+        <div class="avatar avatar-topaz avatar-24">
+                RH
+        </div>
+
+        <span class="value">Richard Hendricks</span>
+
+        <span class="cheveron-down"></span>
+      </button>
+      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+        <li role="menuitem"><a href="#">
+            <div class="avatar avatar-topaz avatar-24">
+                RH
+            </div>
+            Richard Hendricks</a></li>
+        <li role="menuitem"><a href="#">
+          <div class="avatar avatar-topaz avatar-24">
+              EB
+          </div>
+          Erlich Bachmann</a></li>
+        <li role="menuitem"><a href="#">
+        <div class="avatar avatar-topaz avatar-24">
+              EM
+          </div>
+        Elon Musk
+        </a></li>
+      </ul>
+    </div>
+
+    </div>
+
+
+
+
+
+    <div class="jumbotron jumbo-footer">
+	<div class="row">
+		<div class="col-xs-6 text-left">
+			<p>Previous</p>
+			<p><a ui-sref="app.product.checkboxes">Checkboxes</a></p>
+		</div>
+		<div class="col-xs-6 text-right">
+			<p>Up Next</p>
+			<p><a ui-sref="app.product.data-grid">Data Grid</a></p>
+		</div>
+	</div>
+</div>

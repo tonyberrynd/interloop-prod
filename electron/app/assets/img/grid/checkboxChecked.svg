@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>checkboxChecked</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="20" height="20" rx="3"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="20" height="20" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="checkboxChecked">
+            <use id="Rectangle" stroke="#199ED9" mask="url(#mask-2)" stroke-width="4" fill="#199ED9" xlink:href="#path-1"></use>
+            <g id="Group-28" transform="translate(2.750000, 3.000000)" fill="#FFFFFF">
+                <path d="M2.92784296,5.78583266 L15.8234852,5.78583266 C15.9754129,5.78583266 16.0985747,5.91090829 16.0985747,6.06037099 L16.0985747,7.61129433 C16.0985747,7.76291766 15.9682193,7.88583266 15.8234852,7.88583266 L2.92784296,7.88583266 L2.92784296,5.78583266 Z" id="Rectangle-319" transform="translate(9.513209, 6.835833) rotate(-45.000000) translate(-9.513209, -6.835833) "></path>
+                <path d="M0.314943211,8.92250404 C0.314943211,8.77088071 0.439217904,8.64796571 0.594764083,8.64796571 L6.54731718,8.64796571 C6.70185798,8.64796571 6.82713805,8.77304134 6.82713805,8.92250404 L6.82713805,10.4734274 C6.82713805,10.6250507 6.70286336,10.7479657 6.54731718,10.7479657 L0.314943211,10.7479657 L0.314943211,8.92250404 Z" id="Rectangle-319" transform="translate(3.571041, 9.697966) rotate(-135.000000) translate(-3.571041, -9.697966) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,15 @@
+{
+  "name": "angular-stripe",
+  "homepage": "https://github.com/bendrucker/angular-stripe",
+  "version": "5.0.0",
+  "_release": "5.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v5.0.0",
+    "commit": "f70e0b1f1ec39ccf3b0ea4a59d2b7ee1d1902d00"
+  },
+  "_source": "https://github.com/bendrucker/angular-stripe.git",
+  "_target": "^5.0.0",
+  "_originalSource": "angular-stripe",
+  "_direct": true
+}

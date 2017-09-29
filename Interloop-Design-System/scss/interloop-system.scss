@@ -1,0 +1,38 @@
+//Main SCSS FILE - USED TO BUILD UIKIT BASIC STYLES
+
+
+//color themes
+@import "colors";
+
+//variable to be used across application
+@import "config";
+
+//custom bootstrap theme
+@import "bootstrap-theme";
+
+//bootstrap scss library
+@import "../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+//bootstrap overrides
+@import "bootstrap-overrides/bootstrap-overrides";
+
+// //additional components
+@import "components/components";
+
+// //third party libs with overrides
+@import "lib-overrides/lib-overrides";
+
+// //TODO - Figure Out Best Icons
+// @import "icons";
+
+// Basic Layouts Styles
+@import "layout";
+
+// various layouts extended styles
+@import "layouts";
+
+// 404, 503, Maintenance, etc
+@import "pages";
+
+//utilities
+@import "utilities";

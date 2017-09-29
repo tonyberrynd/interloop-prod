@@ -1,0 +1,74 @@
+<!-- <div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<h3>Company Info</h3>
+			<p>Manage basic settings for your company.</p>
+		</div>
+		<div class="panel-body">
+	
+			<form ngmae="companyInfo" novalidate style="max-width:600px;">
+			  <div class="form-group">
+			    <label for="companyName">Company Name</label>
+			    <input type="text" class="form-control" id="companyName" placeholder="" ng-model="data.thisOrg.name" ng-change="save()" ng-model-options="{updateOn: 'blur'}">
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="companyName"><icon class="wb-info-circle" uib-tooltip="To change your Interloop URL please contact support" tooltip-placement="top-left"></icon> URL</label>
+			    <input style="padding-left:15px;" type="text" class="form-control" id="companyName" placeholder="" ng-model="data.thisOrg.url" readonly>
+			  </div>
+
+			  <div class="form-group">
+			  	<label for="companyName"><icon class="wb-info-circle" uib-tooltip="Domains are used to determine which contacts are internal or external to yours organization" tooltip-placement="top-left"></icon> Domains</label>
+			    <textarea class="form-control" rows="5" id="domains" placeholder="yourcompany.com" ng-model="data.domains" ng-change="save('domains')" ng-model-options="{updateOn: 'blur'}"></textarea>
+			    <p class="help-block">Please list any applicable domains writing one each per line</p>
+			  </div>
+
+			</form>
+
+		</div>
+	</div>
+</div> -->
+
+
+
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Company Info</h4>
+					<p>Manage basic settings for your company.</p>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-body">
+							
+						<form ngmae="companyInfo" novalidate style="max-width:600px;">
+						  <!-- name -->
+						  <div class="form-group">
+						    <label for="companyName">Company Name</label>
+						    <input type="text" class="form-control" id="companyName" placeholder="" ng-model="data.thisOrg.name" ng-change="save()" ng-model-options="{updateOn: 'blur'}">
+						  </div>
+						  
+						  <!-- url -->
+						  <div class="form-group">
+						    <label for="companyName"><icon class="wb-info-circle support-icon" uib-tooltip="To change your Interloop URL please contact support" tooltip-placement="top-left"></icon> URL</label>
+						    <input style="padding-left:15px;" type="text" class="form-control" id="companyName" placeholder="" ng-model="data.thisOrg.url" readonly>
+						  </div>
+
+						  <div class="form-group">
+						  	<label for="companyName"><icon class="wb-info-circle support-icon" uib-tooltip="Domains are used to determine which contacts are internal or external to yours organization" tooltip-placement="top-left"></icon> Domains</label>
+						    <textarea class="form-control" rows="5" id="domains" placeholder="yourcompany.com" ng-model="data.domains" ng-change="save('domains')" ng-model-options="{updateOn: 'blur'}"></textarea>
+						    <p class="help-block">Please list any applicable domains writing one each per line</p>
+						  </div>
+
+						</form>
+
+						</div>
+					</div>
+				</div>
+		</div>

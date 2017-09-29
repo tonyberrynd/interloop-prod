@@ -1,0 +1,65 @@
+  <div class="settings-wrapper">
+
+  <!-- left bar -->
+  <div class="settings-left">
+
+    <h5 class="settings-title">Setup & Configuration</h5>
+    <ul class="list-unstyled">
+      <li>
+        <a ui-sref="app.main.configure.features" ui-sref-active="active">Features</a>
+      </li>
+      <li>
+        <a ui-sref="app.main.configure.permissions" ui-sref-active="active">Permissions</a>
+      </li>
+      <li>
+        <a ui-sref="app.main.configure.fields" ui-sref-active="active">Fields</a>
+      </li>
+      <li>
+        <a ui-sref="app.main.configure.systemViews" ui-sref-active="active">System Views</a>
+      </li>
+      <li>
+        <a ui-sref="app.main.configure.raw" ui-sref-active="active">Org Config</a>
+      </li>
+    </ul>
+
+
+    <br>
+
+
+    <h5>WORK IN PROGRESS</h5>
+      <ul class="list-unstyled">
+      <li>
+        <a ui-sref="app.main.configure.trialBilling" ui-sref-active="active">Trial / Billing</a>
+      </li>
+      <li>
+        <a ui-sref="app.main.configure.limits" ui-sref-active="active">Limits</a>
+      </li>
+    </ul>
+  
+    <br>
+
+    <h5>DEV HELPERS</h5>
+      <ul class="list-unstyled">
+      <li>
+        <a ui-sref="app.main.configure.banners" ui-sref-active="active">Banners</a>
+      </li>
+      <li>
+        <a ui-sref="app.main.configure.notifications" ui-sref-active="active">Notifications</a>
+      </li>
+      <li>
+        <a ui-sref="app.main.configure.onboarding" ui-sref-active="active">Onboarding</a>
+      </li>
+    </ul>
+
+  </div>
+
+  <!-- right content -->
+  <div class="settings-content">
+    
+    <div ui-view="content"></div>
+    
+  </div>
+
+</div>
+            
+

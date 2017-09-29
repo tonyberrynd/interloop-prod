@@ -1,0 +1,32 @@
+<div class="tag-emblem">
+
+	<!-- contact -->
+	<span ng-if="data.thisEntityType == 'Contact'">
+		<img ng-if="data.logo" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="">
+		<img ng-if="!data.logo" src="assets/img/nav/contacts.svg" alt="{{data.firstName}} {{data.lastName}}">
+	</span>
+
+	<!-- company -->
+	<span ng-if="data.thisEntityType == 'Company'">
+		<img ng-if="data.logo" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="">
+		<img ng-if="!data.logo" src="assets/img/nav/companies.svg" alt="{{data.name}}">
+	</span>
+
+	<!-- opportunity -->
+	<span ng-if="data.thisEntityType == 'Opportunity'">
+		<img src="assets/img/nav/opportunities.svg" alt="{{data.name}}">
+	</span>
+
+</div>
+<div class="tag-body">
+
+	<!-- contact -->
+	<span ng-if="data.thisEntityType == 'Contact'"><span ng-bind="data.firstName"></span> <span ng-bind="data.lastName"></span></span>
+
+	<!-- company -->
+	<span ng-if="data.thisEntityType == 'Company'"><span ng-bind="data.name"></span></span>
+
+	<!-- opportunity -->
+	<span ng-if="data.thisEntityType == 'Opportunity'"><span ng-bind="data.name"></span></span>
+
+</div>

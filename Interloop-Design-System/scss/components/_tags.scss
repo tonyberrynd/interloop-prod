@@ -1,0 +1,136 @@
+@mixin tag-color-mixin($background, $color) {
+  background-color: $background;
+  color: $color;
+
+  .btn icon {
+  	color: $color;
+  }
+}
+
+.tag {
+
+	background-color: $limestone;
+    color: $seamonster;
+    border-radius: 5px;
+    cursor: default;
+	display: inline-block;
+    margin: 4px;
+    padding: 2px 4px;
+    padding-top:3px;
+    overflow: hidden;
+    height:26px;
+    position:relative;
+
+    &:hover {
+    	background-color:darken($limestone, 6%);
+    }
+
+    &.rounded {
+    	border-radius: 12px;
+    	padding:2px 6px;
+    	padding-top:3px;
+    }
+
+    &.avatar-tag {
+    	padding-left:25px;
+    }
+
+    .value {
+		font-size: 14px;
+	    font-weight: normal;
+	    margin-left: 4px;
+	    margin-right: 4px;
+	    padding: 2px 0;
+	    max-width: 180px;
+	    display: inline;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	}
+
+	.avatar {
+		position:absolute;
+		left:5px;
+		top:5px;
+	}
+
+	.remove-tag .btn {
+		padding:0px 3px;
+		color:$slate;
+		cursor:pointer;
+		min-width:20px;
+		width:20px;
+		display: inline;
+
+		icon {
+			color:$slate;
+		}
+
+		&:hover {
+			icon { 
+				color:$danger;
+			}
+		}
+	}
+
+	.avatar {
+		margin-right:3px;
+	}
+
+
+	&.clover {
+		 @include tag-color-mixin($clover, $diamond);
+	}
+
+	&.lime {
+		 @include tag-color-mixin($lime, $diamond);
+	}
+
+	&.seafoam {
+		 @include tag-color-mixin($seafoam, $diamond);
+	}
+
+	&.gemstone {
+		 @include tag-color-mixin($gemstone, $diamond);
+	}
+
+	&.sky {
+		 @include tag-color-mixin($sky, $diamond);
+	}
+
+	&.royal {
+		 @include tag-color-mixin($royal, $diamond);
+	}
+
+	&.ocean {
+		 @include tag-color-mixin($ocean, $diamond);
+	}
+
+	&.sunlight {
+		 @include tag-color-mixin($sunlight, $diamond);
+	}
+
+	&.tangerine {
+		 @include tag-color-mixin($tangerine, $diamond);
+	}
+
+	&.sunset {
+		 @include tag-color-mixin($sunset, $diamond);
+	}
+
+	&.lipstick {
+		 @include tag-color-mixin($lipstick, $diamond);
+	}
+
+	&.barbie {
+		 @include tag-color-mixin($barbie, $diamond);
+	}
+
+	&.grape {
+		 @include tag-color-mixin($grape, $diamond);
+	}
+
+	&.neutral {
+		 @include tag-color-mixin($neutral, $diamond);
+	}
+}

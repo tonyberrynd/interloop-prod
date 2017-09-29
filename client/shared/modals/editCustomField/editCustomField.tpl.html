@@ -1,0 +1,28 @@
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Edit Field</h3>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding" id="modal-body">
+
+        <form>
+          <div class="form-group">
+            <label for="title">Field Label</label>
+            <input type="text" class="form-control" id="title" ng-model="data.field.label">
+            <p class="help-block">This label will be used throughout forms and grid headers.</p>
+          </div>
+          <div class="form-group">
+            <label for="comment">Description <span class="text-muted">(Optional)</span></label>
+            <textarea class="form-control" rows="3" id="comment" ng-model="data.field.description"></textarea>
+            <p class="help-block">This Description will show up next to fields in forms</p>
+          </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!data.field.label">Save Field</button>
+    </div>

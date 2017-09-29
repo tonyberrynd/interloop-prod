@@ -1,0 +1,143 @@
+    <!-- header -->
+    <div class="modal-header header-dark text-center">
+      <button type="button" class="close" ng-click="$close()">
+      <icon class="wb-close-mini"></icon>
+      </button>
+      <h3 class="modal-title" id="myModalLabel">Import Records</h3>
+      <p>Follow the directions below to import records</p>
+    </div>
+
+
+      <!-- body -->
+      <div class="modal-body w-padding" style="overflow:hidden;">
+        
+      <form role="form">
+            <div class="row">
+              <div class="col-md-12">
+
+                <div ng-switch="data.currentStep.number">
+                  <!-- import spreadsheet -->
+                  <!-- ===================-->
+                  <div ng-switch-when="1">
+                    <div class="col-sm-6">
+                      <h4>Step 1</h4>
+                      <p>Download our spreadsheet template and add your own entity information to it in Excel.</p>
+                      <br>
+                      <button class="btn btn-default"><icon class="fa fa-download"></icon> Download Template</button>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <h4>Step 2</h4>
+                      <p>Upload your spreadsheet. We'll check your data for errors before we import it.</p>
+                        <br>
+                      <!-- //bootstrap button file input -->
+                      <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <span class="btn btn-default btn-file"><span><icon class="fa fa-columns"></icon> Select Spreadsheet</span>
+                        <input id="importFile" type="file" accept=".xls,.xlsx,.ods" fileread opts="data.fileContents" multiple="false"/></span>
+                    </div>
+
+                    <br>
+
+                    <p ng-if="data.fileContents.fileName">
+                    <b>Selected: <span ng-bind="data.fileContents.fileName"></span></b>
+                    </p>
+
+                    </div>
+                  </div>
+
+                  <!-- assign columns -->
+                  <!-- ===================-->
+                  <div ng-switch-when="2">
+
+                <span class="text-center">
+                  <p>Match the column headings from your spreadsheet to the opportunity fields they belong to.</p>
+                  <br>
+                </span>
+
+                    <div class="table-responsive">
+                      <form name="columnMatch" novalidate>
+                        <table class="table table-condensed">
+                            <tbody>
+                              <tr ng-repeat="column in data.columns track by $index" ng-class="{'valid': data.selected[$index] }">
+                                <td style="line-height: 42px; margin:5 15px; font-weight:600;">
+
+                                <span ng-if="!data.selected[$index]">
+                                  <icon class="wb-close"></icon>
+                                </span>
+                                <span ng-if="data.selected[$index]">
+                                  <icon class="wb-check"></icon>
+                                </span>
+                                <span ng-bind="column.label"></span>
+                                <span class="text-muted pull-right" ng-if="!column.required"><i>optional</i></span>
+                                </td>
+                                <td>
+                                  <label for="{{column.label}}" class="select pull-right" style="max-width:360px;margin:0px;">
+                                    <select
+                                      class="form-control" ng-model="data.selected[$index]" id="{{column.label}}" style="margin:0px;">
+                                                                            
+                                      <option ng-repeat="item in data.fileContents.columnDefs" value="{{item.field}}" ng-disabled="fieldSelected(item)">
+                                      {{item.field}}
+                                      </option>
+                                      
+                                    </select>
+
+                                   </label>
+
+                                </td>
+                              </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                  </div>
+
+                  <!-- check & import data -->
+                  <!-- ===================-->
+                  <div ng-switch-when="3">
+
+                 <span class="text-center">
+                  <p>Review the data below. If it's correct, import select start import to begin processing records.</p>
+                  <br>
+                </span>
+
+                   <br>
+
+                    <div class="import-table-wrapper">
+                    <table class="table table-striped">
+                        <thead>
+                            <th ng-repeat="column in data.columns">{{::column.label}}</th>
+                         </thead>
+                        <tbody>
+                          <tr ng-repeat="row in data.fileContents.data | limitTo:10">
+                            <td ng-repeat="columnData in data.columns"><span ng-bind="::row[columnData.label] || '--'"></span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+      </form>
+
+      </div>
+      <!-- footer -->
+      <div class="modal-footer">
+
+        <div class="pull-left" ng-class="{'hidden': data.currentStep.number  !== 3}" style="padding:7px;"><b>{{data.fileContents.data.length | number:0 }} Records Will Be Imported</b></div>
+
+        <!-- cancel -->
+        <button ng-class="{'hidden': data.currentStep.number !== 1}" class="btn btn-default btn-outline" ng-click="$close()">Cancel</button>
+        <!-- go back -->
+        <button  ng-class="{'hidden': data.currentStep.number  <= 1}" class="btn btn-default btn-outline" ng-click="previousStep()">Go Back</button>
+        <!-- next -->
+        <button ng-disabled="!data.fileContents" ng-class="{'hidden': data.currentStep.number  !== 1}" type="button" class="btn btn-success" ng-click="nextStep()">Next</button>
+        <!-- next2 -->
+        <button ng-disabled="columnMatch.$invalid" ng-class="{'hidden': data.currentStep.number  !== 2}" type="button" class="btn btn-success" ng-click="nextStep()">Next</button>
+        <!-- submit -->
+        <button ng-class="{'hidden': data.currentStep.number  !== 3}" type="button" class="btn btn-success" ng-click="ok()">Start Import</button>
+      </div>
+
+
