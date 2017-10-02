@@ -1,0 +1,68 @@
+
+
+#powerbi-embedded {
+	height:calc(100vh - 100px); 
+
+	iframe {
+		border-width:0px !important;
+	}
+}
+
+
+
+
+.dashboard-main {
+	position: absolute;
+    top: 50px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: auto;
+    height: auto;
+    overflow: scroll;
+}
+
+.dash-row {
+	padding:15px;
+
+	.panel {
+		min-height:280px;
+		max-height:280px;
+		text-align: center;
+		// padding:50px;
+	}
+}
+
+.dashboard-toolbar {
+	padding:3px;
+}
+
+.static-subheader-icon {
+	width:50px;
+	height:50px;
+	display: inline-block;
+	text-align:center;
+	padding:8px 5px;
+
+	icon {
+		font-size:28px;
+		color:$granite;
+	}
+}
+
+.dashboard-login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%);
+  padding:40px;
+  background-color:$diamond;
+  border-radius:5px;
+  text-align: center;
+  border:solid 1px $border;
+
+	img {
+		width:150px;
+		margin-bottom:15px;
+	}
+}

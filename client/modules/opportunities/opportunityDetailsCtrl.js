@@ -35,10 +35,12 @@ angular.module('interloop.opportunityDetailsCtrl', [])
 	//data
 	//----------------------
 	$scope.data = {};
+  $scope.data.currentEntity = 'Opportunity';
   $scope.data.currentTab = 1;
-  $scope.data.historyFilter = 1;
+  $scope.data.historyFilter = 'all';
 	$scope.data.activated = false;
   $scope.data.entityTypes = entityTypes;
+  $scope.data.copyUrl = shareLink;
 
   $scope.data.sidebarHistory = SidebarRouter.getHistory();
 

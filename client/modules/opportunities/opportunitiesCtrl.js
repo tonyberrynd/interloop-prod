@@ -42,6 +42,7 @@ angular.module('interloop.opportunitiesCtrl', [])
   //data
   //----------------------
   $scope.data = {};
+  $scope.data.currentEntity = "Opportunity";
   $scope.data.activated = false;
   $scope.data.drawerOpen = false;
   $scope.data.filterChanged = false;
@@ -194,22 +195,6 @@ function activate() {
                         SidebarRouter.openTo('Opportunity', oppId)
                       }
 
-                      //track and render popups as needed
-                      //lets see if this works
-                      //---------------------------------------
-                      $timeout(function(){
-                        $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'});
-                      }, 1500)
-                      
-                      //---------------------------------------
-                      $(".ag-body-viewport").scroll(function() {
-                        clearTimeout($.data(this, 'scrollTimer'));
-                        $.data(this, 'scrollTimer', setTimeout(function() {
-                            //activate popovers
-                            $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'});
-          
-                        }, 50));
-                      });
                     },250);
                 })
           })

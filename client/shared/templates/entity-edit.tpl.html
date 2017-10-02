@@ -1,25 +1,213 @@
     <div class="sidepanel">
-        <div class="sidepanel-header">
-            <a class="btn btn-link btn-left" ui-sref="app.opportunity-details">
+        <div class="sidepanel-header edit-header text-center">
+            <a class="btn btn-link btn-left" ng-click="returnToDetails()">
                 Cancel
             </a>
-            <span class="text-left">Edit Opportunity</span>
-            <button class="btn btn-success btn-action">
-                Save</icon>
-            </button>
+              <h5>Edit {{data.currentEntity}}</h5>
+            <div class="pull-right edit-header-right">
+              <button class="btn btn-success save-record" ng-click="save()">
+                  Save
+              </button>
+            </div>
         </div>
         <div class="sidepanel-edit">
-            
-           <div class="sidebar-section" ng-if="(data.customFields | filter: {excludeForm: '!true'}).length">
-            <p class="sidebar-section-header">Custom Fields</p>
-            <!-- <p class="sidebar-section-action">
-              <a href ui-sref="app.sidebar.opportunity.forecast-details">ADD</a>
-            </p> -->
-            <div class="card with-padding">
+
+         <div class="row" ng-class="{'hidden': !data.activated }">
+          <div class="sidebar-section">
+
+            <p class="sidepanel-title first-title">Basic Details</p>
+                <form name="opportunityForm" novalidate>
+                      <div class="row">
+
+                          <div ng-class="field.class || 'col-xs-12'" ng-repeat="field in data.fields | filter: {excludeForm: '!true'}" ng-switch="field.type">
+                                              <!-- divider -->
+                              <div class="form-group" ng-switch-when="divider">
+                                <h5 class="pane-title">{{field.label}}</h5>
+                              </div>
+
+                               <!-- string -->
+                               <div class="form-group" ng-switch-when="string">
+                                <label for="{{field.key}}" ng-bind="field.label"></label>
+                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
+                              </div>
+
+                                <!-- number -->
+                               <div class="form-group" ng-switch-when="number">
+                                <label for="{{field.key}}" ng-bind="field.label"></label>
+                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-number-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
+                              </div>
+
+                              <!-- currency -->
+                               <div class="form-group" ng-switch-when="currency">
+                                <label for="{{field.key}}" ng-bind="field.label"></label>
+                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-money-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
+                              </div>
+
+                              <!-- date -->
+                               <div class="form-group" ng-switch-when="date">
+                                <label for="{{field.key}}" ng-bind="field.label"></label>
+                                <input date-range-picker class="form-control date-picker" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" options="$root.options" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled"/>
+                              </div>
+
+                              <!-- picklists -->
+                              <div class="form-group" ng-switch-when="category">
+                              <label for="{{field.key}}" ng-bind="field.label"></label>
+                              <ui-select class="form-control" ng-model="data.thisRecord[field.key]" on-select="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
+                                <ui-select-match placeholder="Select options...">
+                                  <span>
+                                    <span class="name">{{$select.selected.label}}</span>
+                                  </span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="value in field.values | filter: $select.search">
+                                    <span ng-bind-html="value.label | highlight: $select.selected.value"></span>
+                                </ui-select-choices>
+                              </ui-select>
+                              </div>
+
+
+                              <div class="form-group" ng-switch-when="lookup">         
+                              <label for="{{field.key}}" ng-bind="field.label"></label>
+                                <input id="{{field.key}}" type="text" 
+                                      ng-model="data.thisRecord[field.key]" 
+                                      placeholder="Search..." 
+                                      typeahead-editable="false"
+                                      typeahead-on-select="saveData(field.key, data.thisRecord[field.key]);"
+                                      uib-typeahead="entity as entity.name for entity in getLookupValue(null, field.lookupEntity, $viewValue)" 
+                                      typeahead-loading="field.loadingValues" 
+                                      typeahead-no-results="field.noResults" 
+                                      typeahead-editable="false"
+                                      typeahead-min-length="1" class="form-control"
+                                      >
+
+                                      <span ng-show="field.loadingValues">
+                                        <i  class="wb-loop"></i>
+                                        Searching...
+                                      </span>
+                                      <div ng-show="field.noResults" style="padding:10px 0;">
+                                        No Records found matching search
+                                      </div>
+
+                              </div>
+                              <!-- end form group -->
+
+
+                           <div class="form-group" ng-switch-when="address"> 
+                              <label for="{{field.key}}" ng-bind="field.label"></label>
+                              <br>
+                              <div class="address-list">
+                              <div class="col-xs-6" ng-repeat="address in data.thisRecord[field.key]">
+                                <address>
+                                  <strong><icon class="fa fa-map-marker"></icon> Address Label</strong><br>
+                                    <span ng-bind="address.street_number" ng-if="address.street_number"></span>
+                                    <span ng-bind="address.route" ng-if="address.route"></span>
+                                    <br>
+                                    <span ng-bind="address.locality"></span>, <span ng-bind="address.administrative_area_level_1"></span> <span ng-bind="address.postal_code"></span><br>
+                                    <span ng-bind="address.country"></span><br>
+                                </address>
+                              </div>
+                              <!-- //add new -->
+                              <div class="col-xs-6">
+                                <div class="add-new-address" ng-click="addAddress(field)">
+                                  <icon class="fa fa-map-marker"></icon>
+                                  <p>+ Add Address</p>
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+
+
+                             <!-- email inputs -->
+                            <div class="form-group" ng-switch-when="email">
+                              <label for="{{field.key}}" ng-bind="field.label"></label>
+
+                                <div class="input-group array-input-wrapper" ng-repeat="email in data.thisRecord[field.key]">
+                                  <div class="btn-group input-group-btn" uib-dropdown is-open="status.isopen">
+                                    <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+                                      <span ng-bind="email.type['label'] || data.emailTypes[$index]['label'] || data.emailTypes[0]['label']"></span> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                      <li role="menuitem" ng-repeat="emailType in data.emailTypes"><a href ng-click="email.type = emailType">{{emailType.label}}</a></li>
+                                    </ul>
+                                  </div>
+                                  <input type="text" class="form-control pull-left" ng-model="email.value">   
+                                  <div class="input-group-btn" ng-hide="$first">
+                                  <button class="btn btn-default remove-input" ng-click="removeSocial(email, field)">
+                                    <icon class="fa fa-close"></icon>
+                                  </button>   
+                                  </div>         
+                                </div>
+                                 <button class="btn btn-default array-input-add" ng-click="addEmail(field)">
+                                  <icon class="fa fa-plus-circle"></icon> Add Email
+                                </button>
+                             </div>
+
+
+                            <!-- phone inputs -->
+                            <div class="form-group" ng-switch-when="phone">
+                              <label for="{{field.key}}" ng-bind="field.label"></label>
+
+                                <div class="input-group array-input-wrapper" ng-repeat="phone in data.thisRecord[field.key]">
+                                  <div class="btn-group input-group-btn" uib-dropdown is-open="status.isopen">
+                                    <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+                                      <span ng-bind="phone.type['label'] || data.phoneTypes[$index]['label'] || data.phoneTypes[0]['label']"></span> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                      <li role="menuitem" ng-repeat="socialType in data.phoneTypes"><a href ng-click="phone.type = socialType">{{phoneType.label}}</a></li>
+                                    </ul>
+                                  </div>
+                                  <input type="text" class="form-control pull-left" ng-model="phone.value">   
+                                  <div class="input-group-btn" ng-hide="$first">
+                                  <button class="btn btn-default remove-input" ng-click="removeSocial(social, field)">
+                                    <icon class="fa fa-close"></icon>
+                                  </button>   
+                                  </div>         
+                                </div>
+                                 <button class="btn btn-default array-input-add" ng-click="addPhone(field)">
+                                  <icon class="fa fa-plus-circle"></icon> Add Phone
+                                </button>
+                             </div>
+
+
+                            <!-- social inputs -->
+                            <div class="form-group" ng-switch-when="social">
+                              <label for="{{field.key}}" ng-bind="field.label"></label>
+
+                                <div class="input-group array-input-wrapper" ng-repeat="phone in data.thisRecord[field.key]">
+                                  <div class="btn-group input-group-btn" uib-dropdown is-open="status.isopen">
+                                    <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+                                      <span ng-bind="phone.type['label'] || data.socialTypes[$index]['label'] || data.socialTypes[0]['label']"></span> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                      <li role="menuitem" ng-repeat="socialType in data.socialTypes"><a href ng-click="phone.type = socialType">{{socialType.label}}</a></li>
+                                    </ul>
+                                  </div>
+                                  <input type="text" class="form-control pull-left" ng-model="phone.value">   
+                                  <div class="input-group-btn" ng-hide="$first">
+                                  <button class="btn btn-default remove-input" ng-click="removeSocial(social, field)">
+                                    <icon class="fa fa-close"></icon>
+                                  </button>   
+                                  </div>         
+                                </div>
+                                <button class="btn btn-default array-input-add" ng-click="addSocial(field)">
+                                  <icon class="fa fa-plus-circle"></icon> Add Social
+                                </button>
+                             </div>
+
+
+
+                          </div>
+
+                    </form>
+            </div>
+
+
+            <div class="sidebar-section" ng-if="(data.customFields | filter: {excludeForm: '!true'}).length">
+            <p class="sidepanel-title">Custom Fields</p>
+
                 <form name="opportunityCustomFields" novalidate>
              
                     <div class="row">
-                          <div ng-class="field.class" ng-repeat="field in data.customFields | filter: {excludeForm: '!true'}" ng-switch="field.type">
+                          <div ng-class="field.class || 'col-xs-12'" ng-repeat="field in data.customFields | filter: {excludeForm: '!true'}" ng-switch="field.type">
 
                               <!-- divider -->
                               <div class="form-group" ng-switch-when="divider">
@@ -32,7 +220,7 @@
                                   <span ng-bind="field.label"></span>
                                   <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                 </label>
-                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisOpp[field.key]" change-on-blur="saveData(field.key, data.thisOpp[field.key])" ng-disabled="field.disabled">
+                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
                               </div>
 
                                 <!-- number -->
@@ -41,7 +229,7 @@
                                   <span ng-bind="field.label"></span>
                                   <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                 </label>
-                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisOpp[field.key]" ui-number-mask="2" ng-model="data.thisOpp[field.key]" change-on-blur="saveData(field.key, data.thisOpp[field.key])" ng-disabled="field.disabled">
+                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-number-mask="2" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
                               </div>
 
                               <!-- currency -->
@@ -50,7 +238,7 @@
                                   <span ng-bind="field.label"></span>
                                   <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                 </label>
-                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisOpp[field.key]" ui-money-mask="2" ng-model="data.thisOpp[field.key]" change-on-blur="saveData(field.key, data.thisOpp[field.key])" ng-disabled="field.disabled">
+                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-money-mask="2" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
                               </div>
 
                               <!-- date -->
@@ -59,7 +247,7 @@
                                   <span ng-bind="field.label"></span>
                                   <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                 </label>
-                                <input date-range-picker class="form-control date-picker" id="{{field.key}}" placeholder="" ng-model="data.thisOpp[field.key]" options="$root.options" ng-model="data.thisOpp[field.key]" change-on-blur="saveData(field.key, data.thisOpp[field.key])" ng-disabled="field.disabled"/>
+                                <input date-range-picker class="form-control date-picker" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" options="$root.options" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled"/>
                               </div>
 
                               <!-- picklists -->
@@ -68,7 +256,7 @@
                                   <span ng-bind="field.label"></span>
                                   <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                 </label>
-                              <ui-select class="form-control" ng-model="data.thisOpp[field.key]" on-select="saveData(field.key, data.thisOpp[field.key])" ng-disabled="field.disabled">
+                              <ui-select class="form-control" ng-model="data.thisRecord[field.key]" on-select="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
                                 <ui-select-match placeholder="Select options...">
                                   <span>
                                     <span class="name">{{$select.selected.label}}</span>
@@ -83,7 +271,8 @@
                     </div>
                     </form>
             </div>
-            </div>
+
+
 
        </div>
     </div>

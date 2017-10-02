@@ -4,23 +4,27 @@
                
                 <!-- sidebar overlay -->
                 <div class="sidebar-overlay" ng-class="{'hidden': data.activated }">
-                    <div class="loop-loader loop-loader-light loop-loader-xs fadeInOut centered">Loading...</div>
+                    <div class="loop-loader loop-loader-xs fadeInOut centered">Loading...</div>
                 </div>
 
 
                 <div class="sidepanel-header">
-                    <a class="btn btn-link btn-left" href ng-click="$root.sidePanelOpen = !$root.sidePanelOpen">
+                    <a class="btn btn-link btn-left" href ng-if="!data.sidebarHistory.length" ng-click="$root.sidePanelOpen = !$root.sidePanelOpen">
                         <img src="../assets/img/icons/states/close.svg" alt="Close">
                     </a>
+                    <a class="btn btn-link btn-left" href ng-if="data.sidebarHistory.length" ng-click="goBack()">
+                        <img src="../assets/img/icons/states/cheveron-left.svg" alt="Go Back">
+                        Back
+                    </a>
                     <!-- <span class="text-left">Opportunity</span> -->
-                    <a class="btn btn-link edit-button" ui-sref="app.opportunity-edit">
+                    <a class="btn btn-link edit-button" ui-sref="app.opportunity-edit({id: data.thisRecord.id})">
                         <icon class="fa fa-pencil"></icon> Edit
                     </a>
 
 
                      <div class="btn-group btn-action" uib-dropdown is-open="status.isopen" dropdown-append-to-body="true">
                       <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-                        + <icon class="wb-triangle-down"></icon>
+                        Action<icon class="wb-triangle-down"></icon>
                       </button>
                       <ul class="dropdown-menu dropdown-menu-right action-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
                       
@@ -49,16 +53,12 @@
                     </div>
 
 
-                    <button class="btn btn-link btn-right" uib-popover-template="'link-popover.html'" popover-placement="down" type="button" class="btn btn-default">
-                        <icon class="fa fa-link"></icon>
-                    </button>
-
-                    <button class="btn btn-link btn-right">
+                    <button class="btn btn-link btn-right" popover-title="Link To This Record" popover-placement="bottom"  uib-popover-template="'myPopoverTemplate.html'" popover-trigger="outsideClick">
                         <icon class="fa fa-link"></icon>
                     </button>
 
                 </div>
-                <div class="sidepanel-cover">
+                <div class="sidepanel-cover" ng-class="{'hidden': !data.activated }">
                     <div class="avatar avatar-32 lime">
                       <span ng-bind="data.thisRecord.score || '--'"></span>
                     </div>
@@ -68,7 +68,10 @@
                             <span ng-bind="data.thisRecord.name || '--'"></span>
                         </h4>
                         <p>
-                            <a href ng-if="data.thisRecord.primaryCompany" ng-bind="data.thisRecord.primaryCompany.name" ng-click="goTo('Company', data.thisRecord.primaryCompany.entityId)" title="{{data.thisRecord.primaryCompany.name}}"></a>
+                            <a href ng-if="data.thisRecord.primaryCompany" ng-click="goTo('Company', data.thisRecord.primaryCompany.entityId)" title="{{data.thisRecord.primaryCompany.name}}">
+                              <span ng-bind="data.thisRecord.primaryCompany.name"></span>
+                              <icon style="margin-left:3px;" class="fa fa-external-link"></icon>
+                            </a>
                             <span class="empty-text" ng-if="!data.thisRecord.primaryCompany">No Primary Company</span>
                         </p>
                     </div>
@@ -106,37 +109,38 @@
                           <li ng-class="{ 'active': data.currentTab == 7 }"><a href ng-click="data.currentTab = 7">Milestones</a></li>
                           <li ng-class="{ 'active': data.currentTab == 3 }">
                             <a href ng-click="data.currentTab = 3">Tasks
-                            <span ng-bind="'(' + data.overdueActivities.length + ')'" ng-if="data.overdueActivities.length">2</span>
+                            <span ng-bind="'[' + data.overdueActivities.length + ']'" ng-if="data.overdueActivities.length">2</span>
                             </a>
                           </li>
                           <li ng-class="{ 'active': data.currentTab == 4 }">
                             <a href ng-click="data.currentTab = 4">
                             Related
-                          <span ng-bind="'(' + (data.thisRecord.entities.length + data.thisRecord.files.length) + ')'" ng-if="(data.thisRecord.entities.length + data.thisRecord.files.length) > 0"></span>
+                          <span ng-bind="'[' + (data.thisRecord.entities.length + data.thisRecord.files.length) + ']'" ng-if="(data.thisRecord.entities.length + data.thisRecord.files.length) > 0"></span>
                           </a></li>
                           <li ng-class="{ 'active': data.currentTab == 5 }"><a href ng-click="data.currentTab = 5">History</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="sidepanel-content" ng-switch="data.currentTab">
-                   
-                    <span ng-switch-when="1">
-                      <ng-include src="'shared/templates/opportunity-insights.tpl.html'"></ng-include>
-                    </span>
-                    <span ng-switch-when="2">
-                      <ng-include src="'shared/templates/details.tpl.html'"></ng-include>
-                    </span>
-                    <span ng-switch-when="7">
-                      <ng-include src="'modules/opportunities/milestones.tpl.html'"></ng-include>
-                    </span>
-                    <span ng-switch-when="3">
-                      <ng-include src="'shared/templates/tasks.tpl.html'"></ng-include>
-                    </span>
-                    <span ng-switch-when="4">
-                      <ng-include src="'shared/templates/related.tpl.html'"></ng-include>
-                    </span>
-                    <span ng-switch-when="5">
-                      <ng-include src="'shared/templates/activity-feed.tpl.html'"></ng-include>
+                   <span ng-class="{'hidden': !data.activated }">
+                      <span ng-switch-when="1">
+                        <ng-include src="'shared/templates/opportunity-insights.tpl.html'"></ng-include>
+                      </span>
+                      <span ng-switch-when="2">
+                        <ng-include src="'shared/templates/details.tpl.html'"></ng-include>
+                      </span>
+                      <span ng-switch-when="7">
+                        <ng-include src="'modules/opportunities/milestones.tpl.html'"></ng-include>
+                      </span>
+                      <span ng-switch-when="3">
+                        <ng-include src="'shared/templates/tasks.tpl.html'"></ng-include>
+                      </span>
+                      <span ng-switch-when="4">
+                        <ng-include src="'shared/templates/related.tpl.html'"></ng-include>
+                      </span>
+                      <span ng-switch-when="5">
+                        <ng-include src="'shared/templates/activity-feed.tpl.html'"></ng-include>
+                      </span>
                     </span>
 
                 </div>
@@ -151,17 +155,13 @@
               </button>
 
 
-  <script type="text/ng-template" id="link-popover.html">
-        <div>
-        <a href="" class="pull-left">Close</a>
-        <div>Link To This Record</div>
-        <hr>
-        <div class="form-group">
-          <label>Record Url:</label>
-          <input type="text" ng-model="data.thisRecord.copyUrl" class="form-control">
-          <br>
-          <label>Record ID:</label>
-          <input type="text" ng-model="data.thisRecord.Id" class="form-control">
-        </div>
-        </div>
-    </script>
+              <script type="text/ng-template" id="myPopoverTemplate.html">
+                    <div class="form-group" style="width:250px;">
+                      <label>Record Url:</label>
+                      <input type="text" ng-model="data.copyUrl" class="form-control" readonly focus-select>
+                      <br>
+                      <label>Record ID:</label>
+                      <input type="text" ng-model="data.thisRecord.id" class="form-control" readonly>
+                    </div>
+                    </div>
+                </script>

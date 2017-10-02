@@ -11,8 +11,7 @@ angular.module('interloop.settingsNotificationsCtrl', [])
   $timeout,
   BASE,
   Logger,
-	Appuser,
-  webNotification) {
+	Appuser) {
 
 // BINDABLES
 //===========================================
@@ -25,7 +24,7 @@ angular.module('interloop.settingsNotificationsCtrl', [])
 	//functions
 	//----------------------
 	$scope.save = save;
-  $scope.allowWebNotifications = allowWebNotifications;
+  // $scope.allowWebNotifications = allowWebNotifications;
 
 //-------------------------------------------
 
@@ -106,25 +105,25 @@ Appuser.updateAttributes({ id: $rootScope.activeUser.id }, $scope.data.thisUser)
 /*
 Allow web notifications
 */
-function allowWebNotifications() {
-  webNotification.showNotification('Test Notification', {
-     body: 'You can now recieve notifications',
-     icon: 'assets/img/interloop-icon.ico',
-     onClick: function onNotificationClicked() {
+// function allowWebNotifications() {
+//   webNotification.showNotification('Test Notification', {
+//      body: 'You can now recieve notifications',
+//      icon: 'assets/img/interloop-icon.ico',
+//      onClick: function onNotificationClicked() {
        
-     },
-  }, function onShow(error, hide) {
-     if (error) {
+//      },
+//   }, function onShow(error, hide) {
+//      if (error) {
          
-     } else {
-         setTimeout(function hideNotification() {
-             hide();
-             //close banner on success
-              AlertBanner.closeBanner();
-         }, 4000);
-     }
-  });
-}
+//      } else {
+//          setTimeout(function hideNotification() {
+//              hide();
+//              //close banner on success
+//               AlertBanner.closeBanner();
+//          }, 4000);
+//      }
+//   });
+// }
 
 //-------------------------------------------
 

@@ -1,80 +1,85 @@
+
 <div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
 
-<div class="settings-section fadeInOut" ng-if="data.activated">
-	<div class="panel panel-default panel-light">
-		<div class="panel-heading">
-			<h3>Manage Tags</h3>
-			<p>Control which tags are active</p>
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<div class="settings-section">
+					<div class="settings-header ">
+					<h4>Manage Tags</h4>
+					<p>Control which tags are active</p>
+					</div>
+					<div class="panel panel-default with-tabs">
+						<div class="panel-heading">
+						 	<ul class="nav nav-tabs" role="tablist">
+							    <li ng-class="{'active': data.currentEntity == 'Opportunity'}">
+							      <a href ng-click="changeEntity('Opportunity')">
+							      	Opportunity
+							      </a>
+							    </li>
+							    <li ng-class="{'active': data.currentEntity == 'Contact'}">
+							      <a href ng-click="changeEntity('Contact')">
+							      	Contact
+							      </a>
+							    </li>
+							    <li ng-class="{'active': data.currentEntity == 'Company'}">
+							      <a href ng-click="changeEntity('Company')">
+							      	Company
+							      </a>
+							    </li>
+							    <li ng-class="{'active': data.currentEntity == 'Activity'}">
+							      <a href ng-click="changeEntity('Activity')">
+							      	Task
+							      </a>
+							    </li>
+							</ul>
+						</div>
+						<div class="panel-body">
+							<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': !data.loading}" style="z-index:999">Loading...</div>
+
+							<div class="row" ng-if="!data.loading">
+								<div class="col-xs-12">
+									
+									  <table class="table settings-table">
+									    <thead>
+									      <tr>
+									        <th class="col-xs-3">Name</th>	
+						              	    <th class="col-xs-3">Created By</th>
+						              	    <th class="col-xs-2">Created On</th>
+						              	    <th class="col-xs-2">Related Records</th>
+						                    <th class="col-xs-2 text-center"></th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									      <tr ng-repeat="tag in data.tags | orderBy: '-count'">
+
+									        <td>
+									        	<span class="tag" ng-bind="tag.name || '--'"></span>
+									        </td>
+									        <td>
+												<p ng-bind="tag.createdBy.fullName || '--'"></p>
+									        </td>
+									        <td>
+									        	<p ng-bind="(tag.createdOn | formatDate) || '--'"></p>
+									        </td>
+									        <td style="text-align:center;">
+									        	<p ng-bind="tag.count"></p>
+									        </td>
+									        <td>
+									        	<p><a href ng-click="viewTagRecords(tag)" style="text-decoration:none;">View Records 
+									        	<icon class="wb-chevron-right-mini"></icon>
+									        	</a>
+									        	</p>
+									        </td>
+									      </tr>
+									      
+									    </tbody>
+									  </table>
+
+							  </div>
+							</div>
+						</div>
+					</div>
+				</div>
 		</div>
-		<div class="panel-body" style="padding:0px;">
-
-
-		<ul class="nav nav-tabs" role="tablist">
-		    <li ng-class="{'active': data.currentEntity == 'Opportunity'}">
-		      <a href ng-click="changeEntity('Opportunity')">
-		      	Opportunity
-		      </a>
-		    </li>
-		    <li ng-class="{'active': data.currentEntity == 'Contact'}">
-		      <a href ng-click="changeEntity('Contact')">
-		      	Contact
-		      </a>
-		    </li>
-		    <li ng-class="{'active': data.currentEntity == 'Company'}">
-		      <a href ng-click="changeEntity('Company')">
-		      	Company
-		      </a>
-		    </li>
-		    <li ng-class="{'active': data.currentEntity == 'Activity'}">
-		      <a href ng-click="changeEntity('Activity')">
-		      	Activity
-		      </a>
-		    </li>
-		</ul>
-
-		<div class="tab-wrap" style="padding:20px;">
-			<div class="row">
-				<div class="col-xs-12">
-					
-					  <table class="table settings-table">
-					    <thead>
-					      <tr>
-					        <th class="col-xs-3">Name</th>	
-		              	    <th class="col-xs-3">Created By</th>
-		              	    <th class="col-xs-2">Created On</th>
-		              	    <th class="col-xs-2">Related Records</th>
-		                    <th class="col-xs-2 text-center"></th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					      <tr ng-repeat="tag in data.tags | orderBy: '-count'">
-
-					        <td>
-					        	<span class="tag" ng-bind="tag.name || '--'"></span>
-					        </td>
-					        <td>
-								<p ng-bind="tag.createdBy.fullName || '--'"></p>
-					        </td>
-					        <td>
-					        	<p ng-bind="(tag.createdOn | formatDate) || '--'"></p>
-					        </td>
-					        <td style="text-align:center;">
-					        	<p ng-bind="tag.count"></p>
-					        </td>
-					        <td>
-					        	<p><a href ng-click="viewTagRecords(tag)" style="text-decoration:none;">View Records 
-					        	<icon class="wb-chevron-right-mini"></icon>
-					        	</a>
-					        	</p>
-					        </td>
-					      </tr>
-					      
-					    </tbody>
-					  </table>
-
-			  </div>
-			</div>
-		  </div>
-		</div>
-	</div>
-</div>

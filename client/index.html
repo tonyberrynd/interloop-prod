@@ -65,6 +65,12 @@
     <!-- //main app ui view -->
     <span ui-view></span>
 
+<!--     <div class="spinner" ng-if="$root.initializing">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div> -->
+
     <!-- ELECTRON SPECIFIC WRAPPER FOR SCRIPTS  -->
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
@@ -78,18 +84,24 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
     <!-- moment -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.1/moment-timezone.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.js"></script>
     <!-- other -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chrono-node/1.2.5/chrono.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.8/xlsx.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.11.5/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
     <!-- highcharts -->
     <script type="text/javascript" src="https://code.highcharts.com/stock/highstock.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.12/highcharts-more.js"></script>
     <script type="text/javascript" src="https://code.highcharts.com/modules/heatmap.js"></script>
     <!-- pusher -->
     <script type="text/javascript" src="https://js.pusher.com/3.0/pusher.min.js"></script>
+    <!-- microsoft adal -->
+    <script type="text/javascript" src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.12/js/adal.min.js" async defer></script>
+    <script type="text/javascript" src="https://npmcdn.com/powerbi-client@2.0.0" async defer></script>
+    <!-- ace code editor -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js" async defer></script>
     <!-- stripe -->
     <script type="text/javascript" src="https://js.stripe.com/v2/" async defer></script>
     <!-- google maps -->
@@ -105,7 +117,6 @@
     <script type="text/javascript" src="lib/ladda/js/ladda.js"></script>
     <script type="text/javascript" src="lib/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script type="text/javascript" src="lib/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.js"></script>
-    <script type="text/javascript" src="lib/HTML5-Desktop-Notifications2/desktop-notify.js"></script>
     <script type="text/javascript" src="lib/mixpanel/mixpanel-jslib-snippet.min.js"></script>
     <script type="text/javascript" src="lib/slick-carousel/slick/slick.js"></script>
     <script type="text/javascript" src="assets/js/loading.js"></script>
@@ -137,6 +148,7 @@
     <script type="text/javascript" src="lib/angular-google-places-autocomplete/src/autocomplete.js"></script>
     <script type="text/javascript" src="lib/angular-hotkeys/build/hotkeys.js"></script>
     <script type="text/javascript" src="lib/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+    <script type="text/javascript" src="lib/adal-angular/dist/adal-angular.min.js"></script>
     <script type="text/javascript" src="lib/angular-intercom/angular-intercom.js"></script>
     <script type="text/javascript" src="lib/angular-knob/src/angular-knob.js"></script>
     <script type="text/javascript" src="lib/angular-ladda/dist/angular-ladda.min.js"></script>
@@ -168,6 +180,8 @@
     <script type="text/javascript" src="lib/pusher-angular/lib/pusher-angular.js"></script>
     <script type="text/javascript" src="lib/simple-web-notification/web-notification.js"></script>
     <script type="text/javascript" src="lib/angular-mixpanel/src/angular-mixpanel.js"></script>
+    <script type="text/javascript" src="lib/angular-card/src/card.js"></script>
+    <script type="text/javascript" src="lib/angular-powerbi/dist/angular-powerbi.js"></script>
     <!-- assets -->
     <script type="text/javascript" src="assets/js/angular-daterangepicker.js"></script>
     <script type="text/javascript" src="assets/js/ui-bootstrap.js"></script>
@@ -189,7 +203,6 @@
     <script type="text/javascript" src="shared/values/modalDefs.value.js"></script>
     <script type="text/javascript" src="shared/values/featureFlags.value.js"></script>
     <script type="text/javascript" src="shared/values/baseChartConfig.value.js"></script>
-    <script type="text/javascript" src="shared/values/highchartTheme.value.js"></script>
 
     <!-- config -->
     <script type="text/javascript" src="app.config.js"></script>
@@ -212,21 +225,26 @@
     <script type="text/javascript" src="modules/insights/insightsCtrl.js"></script>
     <script type="text/javascript" src="modules/dashboards/dashboardsCtrl.js"></script>
     <script type="text/javascript" src="modules/explorer/explorerCtrl.js"></script>
+    <script type="text/javascript" src="modules/powerbi/powerbiCtrl.js"></script>
     <!-- forecasts -->
     <script type="text/javascript" src="modules/forecasts/forecastsCtrl.js"></script>
     <script type="text/javascript" src="modules/forecasts/forecastDetailsCtrl.js"></script>
     <!-- opps -->
     <script type="text/javascript" src="modules/opportunities/opportunitiesCtrl.js"></script>
     <script type="text/javascript" src="modules/opportunities/opportunityDetailsCtrl.js"></script>
+    <script type="text/javascript" src="modules/opportunities/opportunityEditCtrl.js"></script>
     <!-- contacts -->
     <script type="text/javascript" src="modules/contacts/contactsCtrl.js"></script>
     <script type="text/javascript" src="modules/contacts/contactDetailsCtrl.js"></script>
+    <script type="text/javascript" src="modules/contacts/contactEditCtrl.js"></script>
     <!-- companies -->
     <script type="text/javascript" src="modules/companies/companiesCtrl.js"></script>
     <script type="text/javascript" src="modules/companies/companyDetailsCtrl.js"></script>
+    <script type="text/javascript" src="modules/companies/companyEditCtrl.js"></script>
     <!-- content -->
     <script type="text/javascript" src="modules/content/contentCtrl.js"></script>
     <script type="text/javascript" src="modules/content/contentDetailsCtrl.js"></script>
+    <script type="text/javascript" src="modules/content/contentEditCtrl.js"></script>
     <!-- tasks -->
     <script type="text/javascript" src="modules/tasks/tasksCtrl.js"></script>
     <script type="text/javascript" src="modules/tasks/taskDetailsCtrl.js"></script>
@@ -243,6 +261,9 @@
     <!-- ...other modules go here -->
 
     <!-- //modals -->
+    <script type="text/javascript" src="shared/modals/mediaPicker/mediaPickerCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addAddress/addAddressCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editAddress/editAddressCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/connectIcloud/connectIcloudCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editField/editFieldCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editCustomField/editCustomFieldCtrl.js"></script>
@@ -264,6 +285,8 @@
     <script type="text/javascript" src="shared/modals/editUser/editUserProfileCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editReason/editReasonCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/paymentMethod/paymentMethodCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/logDetails/logDetailsCtrl.js"></script>
     
     <!-- //configuration -->
     <script type="text/javascript" src="configure/permissions/configPermissionsCtrl.js"></script>
@@ -369,6 +392,7 @@
 
     <!-- directives -->
     <script type="text/javascript" src="shared/directives/autoFocus.directive.js"></script>
+    <script type="text/javascript" src="shared/directives/focusSelect.directive.js"></script>
     <script type="text/javascript" src="shared/directives/changeOnBlur.directive.js"></script>
     <script type="text/javascript" src="shared/directives/dynamicTitle.directive.js"></script>
     <script type="text/javascript" src="shared/directives/filereader.directive.js"></script>
@@ -397,6 +421,7 @@
     <script type="text/javascript" src="shared/factories/smartParse.factory.js"></script>
     <script type="text/javascript" src="shared/factories/relationshipManager.factory.js"></script>
     <script type="text/javascript" src="shared/factories/searchService.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/excelGenerator.factory.js"></script>
     <script type="text/javascript" src="shared/factories/qSerial.factory.js"></script>
     <script type="text/javascript" src="shared/factories/oauth.factory.js"></script>
     <!-- endbuild -->

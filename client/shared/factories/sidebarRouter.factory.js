@@ -51,7 +51,7 @@ angular.module('interloop.factory.sidebarRouter', [])
 
 
     function goTo(currentState, entity, id) {
-        $state.go('app.sidebar.' + entity.toLowerCase() + '.' + 'insights', {'id': id}, {reload: 'app.sidebar.' + entity.toLowerCase() });
+        $state.go('app.' + entity.toLowerCase() + '-details', {'id': id}, {reload: 'app.' + entity.toLowerCase() + '-details' });
 
          sidebarHistory.stack.push({
             'entity': currentState.entity,
@@ -64,7 +64,7 @@ angular.module('interloop.factory.sidebarRouter', [])
     function goBack() {
        var backState = getSidebarBackState()
 
-        $state.go('app.sidebar.' + backState.entity.toLowerCase() + '.' + 'insights', {'id': backState.id}, {reload: 'app.sidebar.' + backState.entity.toLowerCase() });
+        $state.go('app.' + backState.entity.toLowerCase() + '-details', {'id': backState.id}, {reload: 'app.' + backState.entity.toLowerCase() + '-details' });
 
        //remove last state from stack
        sidebarHistory.stack.pop();

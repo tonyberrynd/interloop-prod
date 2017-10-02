@@ -3,7 +3,7 @@
 <div class="panel panel-default sidepanel-panel clear">
 	<div class="panel-body">
 	
-	<h5 class="sidepanel-title">Open Tasks ({{data.thisRecord.openActivities.length}})</h5>
+	<h5 class="sidepanel-title first-title">Open Tasks (<span ng-bind="data.thisRecord.openActivities.length || '0'"></span>)</h5>
 
 	<div class="panel panel-default card task-card" ng-repeat="activity in data.thisRecord.openActivities | orderBy: 'activity.dueDate'">
 		<div class="panel-body">

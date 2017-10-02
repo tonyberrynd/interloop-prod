@@ -7,6 +7,7 @@ angular.module('interloop.settingsInvoicesCtrl', [])
 .controller('settingsInvoicesCtrl', function(
 	$scope, 
 	$timeout,
+	modalManager,
 	Logger) {
 
 // BINDABLES
@@ -20,7 +21,7 @@ angular.module('interloop.settingsInvoicesCtrl', [])
 
 	//functions
 	//----------------------
-	// $scope.save = save;
+	$scope.updatePayment = updatePayment;
 
 
 //-------------------------------------------
@@ -48,6 +49,16 @@ activate();
 /*
 Function Description
 */
+
+function updatePayment(){
+	var updatePaymentModal = modalManager.openModal('paymentMethod');
+
+	updatePaymentModal.result.then(function(results){
+		activate();
+	}, function(err){
+
+	})
+}
 
 
 //-------------------------------------------

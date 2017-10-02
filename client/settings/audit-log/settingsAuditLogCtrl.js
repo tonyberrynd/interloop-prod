@@ -9,6 +9,7 @@ angular.module('interloop.settingsAuditLogCtrl', [])
 	$http,
 	$sce, 
 	AuditLog,
+	modalManager,
 	Logger) {
 
 // BINDABLES
@@ -19,8 +20,9 @@ angular.module('interloop.settingsAuditLogCtrl', [])
 	 $scope.data = {};
 	 $scope.data.currentPos = 0;
  	 $scope.data.currentPage = 1;
- 	 $scope.data.perPage = 50;
+ 	 $scope.data.perPage = 100;
  	 $scope.data.isLoaded = false;
+ 	 $scope.data.activated = false;
  	 // ip address popover
  	 $scope.data.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
 
@@ -28,6 +30,7 @@ angular.module('interloop.settingsAuditLogCtrl', [])
 	//functions
 	//----------------------
 	$scope.pageChanged = pageChanged;
+	$scope.showFullLog = showFullLog;
 
 //-------------------------------------------
 
@@ -42,7 +45,10 @@ function activate() {
 	.then(function(value){
 		$scope.data.totalItems = value.count;
 		//get logs
-		getLogs();
+		return getLogs();
+	})
+	.catch(function(err){
+		console.log('Error Retrieving Logs')
 	})
 	
 
@@ -63,10 +69,10 @@ function getLogs(){
 	.$promise
 	.then(function(results){
 		$scope.data.logs = results;
-		$scope.data.isLoaded = true;
+		$scope.data.activated = true;
 	})	
 	.catch(function(err){
-		$scope.data.isLoaded = true;
+		$scope.data.activated = true;
 		Logger.error('Error Retrieving Logs');
 	})
 }
@@ -75,7 +81,7 @@ function getLogs(){
 Set Page
 */
 function pageChanged(){
-	$scope.data.isLoaded = false;
+	$scope.data.activated = false;
 	$scope.data.currentPos = $scope.data.currentPage * $scope.data.perPage;
 
 	//get next page of results
@@ -83,15 +89,32 @@ function pageChanged(){
 	AuditLog.find({filter: {limit: $scope.data.perPage, order: 'createdOn DESC', skip: $scope.data.currentPos }})
 	.$promise
 	.then(function(results){
-		$scope.data.isLoaded = true;
+		$scope.data.activated = true;
 		$scope.data.logs = results;
 	})
 	.catch(function(err){
-		$scope.data.isLoaded = true;
+		$scope.data.activated = true;
 		Logger.error('Error Retrieving Logs');
 	})
 }
 
+
+function showFullLog(log){
+
+	var resolvedData = {
+		id: log.id
+	}
+
+	var fullPageModal = modalManager.openModal('logDetails', resolvedData);
+
+	//launch modal
+	fullPageModal.result.then(function(result){
+
+	}, function(){
+		//cancel
+	})
+
+}
 
 //-------------------------------------------
 

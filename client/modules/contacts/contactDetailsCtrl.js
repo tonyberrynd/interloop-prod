@@ -5,39 +5,42 @@
 angular.module('interloop.contactDetailsCtrl', [])
 //declare dependencies
 .controller('contactDetailsCtrl', function(
-	$scope,
-	$rootScope,
-	$stateParams,
-	$q,
+  $scope,
+  $rootScope,
+  $stateParams,
+  $q,
   $state,
   $timeout,
   $location,
   $injector,
-	Logger, 
-	Contact,
-	CustomField,
-	gridManager,
-	RelationshipManager,
-	ContactFields,
-	SidebarActions,
+  Logger, 
+  Contact,
+  CustomField,
+  gridManager,
+  RelationshipManager,
+  ContactFields,
+  SidebarActions,
   SidebarRouter,
   modalManager,
   entityTypes,
-	ShareLinkFactory) {
+  ShareLinkFactory) {
 
 // BINDABLES
 //===========================================
 
-	//vars 
-	//----------------------
-	var shareLink = ShareLinkFactory.getShareLink('Contact', $stateParams.id);
+  //vars 
+  //----------------------
+  var shareLink = ShareLinkFactory.getShareLink('Contact', $stateParams.id);
 
-	//data
-	//----------------------
-	$scope.data = {};
-  $scope.data.currentTab = 1;
-	$scope.data.activated = false;
+  //data
+  //----------------------
+  $scope.data = {};
+  $scope.data.currentEntity = 'Contact';
+  $scope.data.currentTab = 2;
+  $scope.data.historyFilter = 'all';
+  $scope.data.activated = false;
   $scope.data.entityTypes = entityTypes;
+  $scope.data.copyUrl = shareLink;
 
   $scope.data.sidebarHistory = SidebarRouter.getHistory();
 
@@ -128,11 +131,11 @@ angular.module('interloop.contactDetailsCtrl', [])
 
   // $location.url($location.path() + "#id=" + $stateParams.id);
 
-	//functions
-	//----------------------
-	$scope.isStarred = isStarred;
+  //functions
+  //----------------------
+  $scope.isStarred = isStarred;
 
-	//top right
+  //top right
     $scope.cloneItem = cloneItem;
     $scope.copyShareLink = copyShareLink;
     $scope.deleteItem = deleteItem;
@@ -141,26 +144,28 @@ angular.module('interloop.contactDetailsCtrl', [])
 
     $scope.data.endOfToday = moment().endOf('day').format();
 
-  	// action panel
+    // action panel
     $scope.addOwner = addOwner;
     $scope.shareWith = shareWith;
-  	$scope.addActivity = addActivity;
-  	$scope.addNote = addNote;
-  	$scope.manageTags = manageTags; 
+    $scope.addActivity = addActivity;
+    $scope.addNote = addNote;
+    $scope.manageTags = manageTags; 
     $scope.removeTag = removeTag;
     $scope.viewTagList = viewTagList;
-  	$scope.manageRelationships = manageRelationships;
-  	$scope.uploadFiles = uploadFiles;
+    $scope.manageRelationships = manageRelationships;
+    $scope.uploadFiles = uploadFiles;
 
     $scope.goTo = goTo;
     $scope.goBack = goBack;
 
-    //files
-	$scope.triggerUpload = triggerUpload;
-	$scope.uploadFiles = uploadFiles;
+    $scope.primaryCompanyName = primaryCompanyName;
 
-	//details
-	$scope.saveData = saveData;
+    //files
+  $scope.triggerUpload = triggerUpload;
+  $scope.uploadFiles = uploadFiles;
+
+  //details
+  $scope.saveData = saveData;
 
   $scope.updatePrimaryCompany = updatePrimaryCompany;
 
@@ -179,40 +184,41 @@ angular.module('interloop.contactDetailsCtrl', [])
 // ACTIVATE
 //===========================================
 function activate() {
-	console.log($stateParams.id);
+  console.log($stateParams.id);
 
 
-	return $q.all([Contact.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"]}}).$promise,
-				   // Contact.insights({'id': $stateParams.id}).$promise
-           ])
-			.then(function(results){
-        console.log('thisContact', results[0])
-				//basic off details
-				$scope.data.thisRecord = results[0];
-				//insights
-				// $scope.data.thisRecord.insights = results[1];
+  return $q.all([Contact.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"]}}).$promise,
+           // Contact.insights({'id': $stateParams.id}).$promise
+           ]
+          )
+      .then(function(results){
+        console.log('thisRecord', results[0])
+        //basic off details
+        $scope.data.thisRecord = results[0];
+        //insights
+        // $scope.data.thisRecord.insights = results[1];
 
-				//get primary company
-				$scope.data.thisRecord.primaryCompany = RelationshipManager.getPrimary($scope.data.thisRecord.entityLinks, "Company") || null;
-				$scope.data.prevPrimaryCompany = $scope.data.thisRecord.primaryCompany ? angular.copy($scope.data.thisRecord.primaryCompany) : null;
-				//set up fields
-				$scope.data.fields = ContactFields;
+        //get primary company
+        $scope.data.thisRecord.primaryCompany = RelationshipManager.getPrimary($scope.data.thisRecord.entityLinks, "Company") || null;
+        $scope.data.prevPrimaryCompany = $scope.data.thisRecord.primaryCompany ? angular.copy($scope.data.thisRecord.primaryCompany) : null;
+        //set up fields
+        $scope.data.fields = ContactFields;
 
-				//custom fields
-				$scope.data.customFields = _.filter($rootScope.customFields,function(o){
+        //custom fields
+        $scope.data.customFields = _.filter($rootScope.customFields,function(o){
                     return _.includes(o.useWith, 'Contact');
                 })
 
-				//get related entities, items
-				$scope.data.thisRecord.starred = SidebarActions.getStarred($scope.data.thisRecord);
-				$scope.data.thisRecord.tags = SidebarActions.getTags($scope.data.thisRecord);
-				$scope.data.thisRecord.files = SidebarActions.getFiles($scope.data.thisRecord.items);
+        //get related entities, items
+        $scope.data.thisRecord.starred = SidebarActions.getStarred($scope.data.thisRecord);
+        $scope.data.thisRecord.tags = SidebarActions.getTags($scope.data.thisRecord);
+        $scope.data.thisRecord.files = SidebarActions.getFiles($scope.data.thisRecord.items);
         $scope.data.thisRecord.lastActivity = SidebarActions.getLastActivity($scope.data.thisRecord.activities);
         $scope.data.thisRecord.nextActivity = SidebarActions.getNextActivity($scope.data.thisRecord.activities);
         $scope.data.thisRecord.overdueActivities = SidebarActions.getOverdueActivities($scope.data.thisRecord.activities);
         $scope.data.thisRecord.upcomingActivities = SidebarActions.getUpcomingActivities($scope.data.thisRecord.activities);
-				$scope.data.thisRecord.openActivities = SidebarActions.getOpenActivities($scope.data.thisRecord.activities);
-				$scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
+        $scope.data.thisRecord.openActivities = SidebarActions.getOpenActivities($scope.data.thisRecord.activities);
+        $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
 
         //ensure entities are valid
         var validEntities = [];
@@ -232,19 +238,19 @@ function activate() {
 
         console.log(groupedResults);
 
-				
-				//activated
-				$scope.data.activated = true;
+        
+        //activated
+        $scope.data.activated = true;
 
         //monitor scroll once activated
         // monitorScroll();
 
-			})
-			.catch(function(err){
-				Logger.error('Error Retrieving Contact');
-				Logger.log(err);
-				$scope.data.activated = true;
-			})
+      })
+      .catch(function(err){
+        Logger.error('Error Retrieving Contact');
+        Logger.log(err);
+        $scope.data.activated = true;
+      })
 }
 //-------------------------------------------
 //timeout allows transition to finish
@@ -271,6 +277,11 @@ function updatePrimaryCompany(){
      angular.element('#primaryCompany').focus();
   }, 150);
  
+}
+
+function primaryCompanyName(entityLinks) {
+  var primaryCompanyObj =  RelationshipManager.getPrimary(entityLinks, "Company") ;
+  return _.get(primaryCompanyObj, 'name', null); 
 }
 
 
@@ -369,7 +380,7 @@ Is Starred
 function saveData(field, value) {
   //build new value object
  var newValue = {}
- 	 newValue[field] = value;
+   newValue[field] = value;
 
   if(field == 'primaryCompany') {
     primaryCompanyChanged(value)
@@ -399,16 +410,16 @@ Sets Up Dates for Form so doesn't throw errors
 */
 function setUpFields(fields){
 
-	_.forEach(fields, function(value, key){
-		if(value.type == 'date'){
-			$scope.data.thisRecord[value.field || value.key] = {
-				startDate: $scope.data.thisRecord[value.field || value.key] || null,
-				endDate: null //have to stub but don't use all the time
-			}
-		}
-	})
+  _.forEach(fields, function(value, key){
+    if(value.type == 'date'){
+      $scope.data.thisRecord[value.field || value.key] = {
+        startDate: $scope.data.thisRecord[value.field || value.key] || null,
+        endDate: null //have to stub but don't use all the time
+      }
+    }
+  })
 
-	return fields;
+  return fields;
 
 }
 
@@ -417,7 +428,7 @@ function setUpFields(fields){
 Is Starred
 */
 function isStarred(contact) {
-	return true;
+  return true;
 }
 
 
@@ -488,9 +499,9 @@ Star item
 */
 function starItem() {
   SidebarActions.starItem('Contact', $scope.data.thisRecord)
-  	.then(function(results){
-		$scope.data.thisRecord.starred = true;
-	})
+    .then(function(results){
+    $scope.data.thisRecord.starred = true;
+  })
   .catch(function(err){
     console.log(err)
    })
@@ -501,9 +512,9 @@ Un-Star item
 */
 function unStarItem() {
   SidebarActions.unStarItem($scope.data.thisRecord)
-  	 .then(function(results){
-  		$scope.data.thisRecord.starred = false;
-  	 })
+     .then(function(results){
+      $scope.data.thisRecord.starred = false;
+     })
      .catch(function(err){
       console.log(err)
      })
@@ -577,7 +588,7 @@ function addNote() {
 Trigger Upload File
 */
 function triggerUpload() {
-	angular.element('#ContactFileUpload').trigger('click');
+  angular.element('#ContactFileUpload').trigger('click');
 }
 
 /* 

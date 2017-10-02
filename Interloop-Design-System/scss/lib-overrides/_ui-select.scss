@@ -5,6 +5,10 @@
  * License: MIT
  */
 
+.sidepanel-edit .form-control.ui-select-container {
+  border:none !important;
+  padding:0px !important;
+}
 
 /* Style when highlighting a search. */
 .ui-select-highlight {

@@ -1,0 +1,73 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Audit Log</h4>
+					<p>The log lets you audit changes by showing who made the change and when it was made.</p>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-body">
+
+							<b><span class="pull-left" ng-bind="'Showing ' + (data.perPage * (data.currentPage - 1)) + ' - ' + (data.perPage * data.currentPage) + ' of ' + (data.totalItems | number:0)"></span></b>
+
+							<ul uib-pagination total-items="data.totalItems" items-per-page="data.perPage" ng-model="data.currentPage" max-size="3" class="pagination-sm pull-right" style="margin-top:0px;" boundary-link-numbers="true" ng-change="pageChanged()"></ul>
+
+							<div class="row">
+								<div class="col-xs-12">
+							
+
+								<table class="table table-condensed settings-table">
+									    <thead>
+									      <tr>
+									        <th>Time</th>
+									      	<th>User</th>
+									        <th>IP</th>
+									        <th>Action</th>
+									        <th>Entity</th>
+		        							<th>Deails</th>
+		        							<th></th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									      <tr ng-repeat="item in data.logs track by $index">
+									        	<td>
+										        	<span ng-bind="::(item.createdOn | date: 'MMM d, h:mm a')"></span>
+										        </td>
+										        <td>
+										        	<span ng-bind="::item.user_name"></span>
+										        </td>
+										        <td>
+										        	<span uib-popover-template="'settings/audit-log/ip_popover.tpl.html'" popover-trigger="'mouseenter'">
+										        	<icon class="fa fa-globe"></icon>
+										        	<span href style="cursor: help;" ng-bind="::item.ip_address"></span>
+										        	</span>
+										        </td>
+										       	<td>
+										        	<span ng-bind="::item.action"></span>
+										        </td>
+										        <td>
+										        	<span ng-bind="::item.entity_type"></span>
+										        </td>
+										        <td style="overflow: hidden;">
+										        	<span ng-bind="::item.event" uib-tooltip="{{::item.event}}" style="cursor:help;"></span>
+										        </td>
+										        <td>
+										        	<button class="btn btn-default btn-small" ng-click="showFullLog(item)">View Full</button>
+										        </td>
+										  </tr>
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+
+							<ul uib-pagination total-items="data.totalItems" items-per-page="data.perPage" ng-model="data.currentPage" max-size="3" class="pagination-sm pull-right" style="margin-bottom:0px;" boundary-link-numbers="true" ng-change="pageChanged()"></ul>
+
+						</div>
+					</div>
+				</div>
+		</div>

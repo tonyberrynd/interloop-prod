@@ -348,14 +348,16 @@
                             <span>
                                 <span style="font-weight:600" ng-count-to="{{data.count}}" value="0" duration=".25" filter="number"></span> Opportunities
                             </span>
+                            <span ng-if="data.currentEntity == 'Opportunity'">
                             <span class="footer-seperator">|</span>
                             <span>
                                 <span style="font-weight:600" ng-count-to="{{data.sum}}" value="0" duration=".25" filter="currency" params="$"></span> 
                                 Total
                             </span>
+                            </span>
                         </div>
 
-                        <div class="pull-right">
+                        <div class="pull-right" ng-if="data.currentEntity == 'Opportunity'">
                             <span><b>Min</b> - <span ng-count-to="{{data.min}}" value="0" duration=".25" filter="currency" params="$"></span></span>
                             <span><b>Max</b> - <span ng-count-to="{{data.max}}" value="0" duration=".25" filter="currency" params="$"></span></span>
                             <span><b>Avg</b> - <span ng-count-to="{{data.avg}}" value="0" duration=".25" filter="currency" params="$"></span></span>

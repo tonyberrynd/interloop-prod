@@ -1,21 +1,63 @@
 
             <div class="sidepanel contact-details">
-                <div class="sidepanel-header">
-                    <a class="btn btn-link btn-left" href ng-click="$root.sidePanelOpen = !$root.sidePanelOpen">
+
+                <!-- sidebar overlay -->
+                <div class="sidebar-overlay" ng-class="{'hidden': data.activated }">
+                    <div class="loop-loader loop-loader-xs fadeInOut centered">Loading...</div>
+                </div>
+
+
+                 <div class="sidepanel-header">
+                    <a class="btn btn-link btn-left" href ng-if="!data.sidebarHistory.length" ng-click="$root.sidePanelOpen = !$root.sidePanelOpen">
                         <img src="../assets/img/icons/states/close.svg" alt="Close">
                     </a>
-                    <!-- <span class="text-left">Opportunity</span> -->
-                    <a class="btn btn-link edit-button" ui-sref="opportunity-edit">
+                    <a class="btn btn-link btn-left" href ng-if="data.sidebarHistory.length" ng-click="goBack()">
+                        <img src="../assets/img/icons/states/cheveron-left.svg" alt="Go Back">
+                        Back
+                    </a>
+                    <!-- <span class="text-left">Contact</span> -->
+                    <a class="btn btn-link edit-button" ui-sref="app.contact-edit({id: data.thisRecord.id})">
                         <icon class="fa fa-pencil"></icon> Edit
                     </a>
-                    <button class="btn btn-primary btn-action">
-                        <icon class="fa fa-bolt"></icon> Action
-                    </button>
-                    <button class="btn btn-link btn-right">
+
+
+                     <div class="btn-group btn-action" uib-dropdown is-open="status.isopen" dropdown-append-to-body="true">
+                      <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                        Action<icon class="wb-triangle-down"></icon>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-right action-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                      
+                        <li class="text-divider">
+                            <span class="text">Visibility and ownership...</span>
+                            <span class="line"></span>
+                        </li>
+                        <li role="menuitem"><a href ng-click="addOwner()">Add Owner</a></li>
+                        <li role="menuitem"><a href ng-click="shareWith()">Share With</a></li>
+                        <li class="text-divider">
+                            <span class="text">Add a new...</span>
+                            <span class="line"></span>
+                        </li>
+    <!--                    <li role="menuitem"><a href ng-click="logCall()">Log Call</a></li>
+                        <li role="menuitem"><a href ng-click="logMeeting()">Log Meeting</a></li> -->
+                        <li role="menuitem"><a href ng-click="addActivity()">Activity</a></li>
+                        <li role="menuitem"><a href ng-click="addNote()">Note</a></li>
+                        <li role="menuitem"><a href ng-click="manageTags()">Tag</a></li>
+                        <li role="menuitem"><a href ng-click="manageRelationships()">Relationship</a></li>
+                        <li class="text-divider">
+                            <span class="text">Add File From...</span>
+                            <span class="line"></span>
+                        </li>
+                        <li role="menuitem"><a href ng-click="triggerUpload()">Upload File</a></li>
+                      </ul>
+                    </div>
+
+
+                    <button class="btn btn-link btn-right" popover-title="Link To This Record" popover-placement="bottom"  uib-popover-template="'myPopoverTemplate.html'" popover-trigger="outsideClick">
                         <icon class="fa fa-link"></icon>
                     </button>
+
                 </div>
-                <div class="sidepanel-cover">
+                <div class="sidepanel-cover" ng-class="{'hidden': !data.activated }">
                     <div class="avatar avatar-48 royal">
                         <span ng-bind="data.thisRecord.firstName | limitTo:1"></span><span ng-bind="data.thisRecord.lastName | limitTo:1"></span>
                     </div>
@@ -31,7 +73,7 @@
                             <span ng-bind="data.thisRecord.primaryCompany.name || 'No Primary Company'"></span>
                         </p>
                     </div>
-                    <div class="detail-wrapper">
+                    <div class="social-wrapper">
                        <span><icon class="fa fa-linkedin-square linkedin"></icon></span>
                        <span><icon class="fa fa-twitter-square twitter"></icon></span>
                        <span><icon class="fa fa-facebook-square facebook"></icon></span>
@@ -42,14 +84,22 @@
                     <div class="tabs-wrapper">
                         <ul class="nav nav-tabs nav-justified">
                           <li ng-class="{ 'active': data.currentTab == 2 }"><a href ng-click="data.currentTab = 2">Details</a></li>
-                          <li ng-class="{ 'active': data.currentTab == 3 }"><a href ng-click="data.currentTab = 3">Tasks</a></li>
-                          <li ng-class="{ 'active': data.currentTab == 4 }"><a href ng-click="data.currentTab = 4">Related</a></li>
+                           <li ng-class="{ 'active': data.currentTab == 3 }">
+                            <a href ng-click="data.currentTab = 3">Tasks
+                            <span ng-bind="'[' + data.overdueActivities.length + ']'" ng-if="data.overdueActivities.length">2</span>
+                            </a>
+                          </li>
+                          <li ng-class="{ 'active': data.currentTab == 4 }">
+                            <a href ng-click="data.currentTab = 4">
+                            Related
+                          <span ng-bind="'[' + (data.thisRecord.entities.length + data.thisRecord.files.length) + ']'" ng-if="(data.thisRecord.entities.length + data.thisRecord.files.length) > 0"></span>
+                          </a></li>
                           <li ng-class="{ 'active': data.currentTab == 5 }"><a href ng-click="data.currentTab = 5">History</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="sidepanel-content" ng-switch="data.currentTab">
-                   
+                    <span ng-class="{'hidden': !data.activated }">
                     <span ng-switch-when="1">
                       <ng-include src="'shared/templates/insights.tpl.html'"></ng-include>
                     </span>
@@ -65,7 +115,26 @@
                     <span ng-switch-when="5">
                       <ng-include src="'shared/templates/activity-feed.tpl.html'"></ng-include>
                     </span>
+                </span>
 
                 </div>
 
             </div>
+
+
+                          <!-- //hidden file upload button -->
+              <button id="ContactFileUpload" type="file" ngf-select="uploadFiles($files)" ngf-multiple="true" accept="image/*, .pdf, .doc, .docx" class="btn upload-btn hidden" ng-model="data.files" ngf-max-size="100MB">
+                Browse Files
+              </button>
+
+
+              <script type="text/ng-template" id="myPopoverTemplate.html">
+                    <div class="form-group" style="width:250px;">
+                      <label>Record Url:</label>
+                      <input type="text" ng-model="data.copyUrl" class="form-control" readonly focus-select>
+                      <br>
+                      <label>Record ID:</label>
+                      <input type="text" ng-model="data.thisRecord.id" class="form-control" readonly>
+                    </div>
+                    </div>
+                </script>

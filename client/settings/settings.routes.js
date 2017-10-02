@@ -61,7 +61,7 @@ angular.module('interloop.routes.settings', [])
       url: "/notifications",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/notifications/notifications.tpl.html",
+              templateUrl: "settings/notifications/notifications2.tpl.html",
               controller: 'settingsNotificationsCtrl'
           }
         },
@@ -173,7 +173,7 @@ angular.module('interloop.routes.settings', [])
       url: "/integrations",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/integrations/integrations.tpl.html",
+              templateUrl: "settings/integrations/integrations2.tpl.html",
                 controller: 'settingsIntegrationsCtrl'
           }
         },
@@ -341,7 +341,7 @@ angular.module('interloop.routes.settings', [])
       url: "/import",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/import/import.tpl.html",
+              templateUrl: "settings/import/import2.tpl.html",
               controller: 'settingsImportCtrl'
           }
         },
@@ -376,7 +376,7 @@ angular.module('interloop.routes.settings', [])
       url: "/export",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/export/export.tpl.html",
+              templateUrl: "settings/export/export2.tpl.html",
               controller: 'settingsExportCtrl'
           }
         },
@@ -390,7 +390,7 @@ angular.module('interloop.routes.settings', [])
       url: "/audit-log",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/audit-log/audit-log.tpl.html",
+              templateUrl: "settings/audit-log/audit-log2.tpl.html",
               controller: 'settingsAuditLogCtrl'
           }
         },

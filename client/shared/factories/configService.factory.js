@@ -8,6 +8,7 @@ angular.module('interloop.factory.configService', [])
     $timeout, 
     $location,
     $state, 
+    $window,
     $mixpanel,
     featureFlags, 
     featureFlagManager, 
@@ -17,7 +18,7 @@ angular.module('interloop.factory.configService', [])
     Appuser, 
     modalManager,
     ActivityType,
-    $injector, 
+    $injector,
     Org) {
 
     //service object
@@ -32,6 +33,7 @@ angular.module('interloop.factory.configService', [])
 
 
     function init(isMobile) {
+
         console.log('init');
         $rootScope.initializing = true;
 
@@ -54,7 +56,6 @@ angular.module('interloop.factory.configService', [])
          .then(function(results){
 
           console.log(results);
-
           //set rootScope values
           //----------------------
           $rootScope.activeUser = results[0];
@@ -82,13 +83,44 @@ angular.module('interloop.factory.configService', [])
           })
           $rootScope.appusers = peopleLabels;
 
+
+          //Set Adal ID to client id for powerbi if needed
+          //-----------------------
+          // if((_.get($rootScope.activeOrg.config, "powerBI.graphClientId", null ) && !window.localStorage.adalClientId) || _.get($rootScope.activeOrg.config, "powerBI.graphClientId", null ) !== window.localStorage.adalClientId){
+          //   //sets localstorage & reloads so adal config will work probably
+          //    $window.localStorage.adalClientId = _.get($rootScope.activeOrg.config, "powerBI.graphClientId", null )
+          //    $window.location.reload();
+          // }
+
+
           //set feature flags
           //------------------------
           featureFlags.set(featureFlagManager.getFeatureFlags($rootScope.activeOrg.id, 'BASIC'));
 
+          //check/set timezone
+          //-----------------------
+          var tz = moment.tz.guess();
 
+          //set timezone based on first entry
+          if(!_.has($rootScope.activeUser, 'timezone')){
+            return Appuser.prototype$patchAttributes({ id: $rootScope.activeUser.id }, $rootScope.activeUser)
+              .$promise
+              .then(function successCallback(response) {
+                  $rootScope.activeUser = response;
+                }, function errorCallback(response) {
+                  console.log('error updated time zone');
+              });
+          }
+
+          //check if timzone mismatch
+          if(_.has($rootScope.activeUser, 'timezone') && tz !== $rootScope.activeUser.timezone) {
+            $rootScope.adjustTimezone = true;
+          }
+
+
+
+          // check if being activated on a mobile device
           if(!isMobile){
-
             //instantiate pusher
             var pusher = $injector.get('$pusher')(client);
 
@@ -184,6 +216,7 @@ angular.module('interloop.factory.configService', [])
       })
       .catch(function(err){
           $rootScope.initializing = false;
+          console.log(err);
           return $q.reject('API-ISSUES');
        })
 

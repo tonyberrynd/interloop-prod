@@ -16,6 +16,15 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Onboarding'
     },
 
+    mediaPicker: {
+        templateUrl: 'shared/modals/mediaPicker/mediaPicker.tpl.html',
+        controller: 'mediaPickerCtrl',
+        size: 'lg',
+        windowClass: 'media-picker',
+        ariaLabelledBy: 'Media Picker',
+        ariaDescribedBy: 'Media Picker'
+    },
+
     inviteUsers: {
         templateUrl: 'shared/modals/inviteUsers/inviteUsers.tpl.html',
         controller: 'inviteUsersCtrl',
@@ -420,6 +429,37 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Edit Team Details'
     },
 
+    paymentMethod: {
+        templateUrl: 'shared/modals/paymentMethod/paymentMethod.tpl.html',
+        controller: 'paymentMethodCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Update Payment Method',
+        ariaDescribedBy: 'Update Payment Method'
+    },
+
+    logDetails: {
+        templateUrl: 'shared/modals/logDetails/logDetails.tpl.html',
+        controller: 'logDetailsCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Audit Log Details',
+        ariaDescribedBy: 'Audit Log Details'
+    },
+
+    addAddress: {
+        templateUrl: 'shared/modals/addAddress/addAddress.tpl.html',
+        controller: 'addAddressCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Add Address',
+        ariaDescribedBy: 'Add Address'
+    },
+
+    editAddress: {
+        templateUrl: 'shared/modals/editAddress/editAddress.tpl.html',
+        controller: 'editAddressCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Edit Address',
+        ariaDescribedBy: 'Edit Address'
+    },
 
     addTeamMembers: {
         templateUrl: 'shared/modals/addTeamMember/addTeamMember.tpl.html',

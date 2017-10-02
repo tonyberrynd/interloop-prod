@@ -1,0 +1,22 @@
+.export-card {
+	border:solid 1px $border;
+
+	.panel-body{
+		padding:30px 40px;
+	}
+
+
+	img {
+		width:60px;
+		height:auto;
+		margin-bottom:15px;
+	}
+
+	h5 {
+		margin:0px;
+	}
+
+	icon {
+		color:$granite;
+	}
+}

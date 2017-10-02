@@ -1,23 +1,20 @@
-
-<p>{{data.thisRecord.history}}</p>
-
-<h5 class="sidepanel-title">Activity Stream</h5>
+<h5 class="sidepanel-title first-title">Activity Stream</h5>
 <ul class="activity-feed">
   <!-- //header -->
   <li class="feed-item feed-header">
     <div class="tabs-wrapper">
     <ul class="nav nav-pills">
-          <li ng-class="{ 'active': data.historyFilter == 1 }"><a href ng-click="data.historyFilter = 1">ALL</a></li>
-          <li ng-class="{ 'active': data.historyFilter == 2 }"><a href ng-click="data.historyFilter = 2">TASKS</a></li>
-          <li ng-class="{ 'active': data.historyFilter == 3 }"><a href ng-click="data.historyFilter = 3">NOTES</a></li>
-          <li ng-class="{ 'active': data.historyFilter == 4 }"><a href ng-click="data.historyFilter = 4">MEETINGS</a></li>
-          <li ng-class="{ 'active': data.historyFilter == 5 }"><a href ng-click="data.historyFilter = 5">EMAILS</a></li>
-          <li ng-class="{ 'active': data.historyFilter == 6 }"><a href ng-click="data.historyFilter = 6">CHANGELOG</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 'all' }"><a href ng-click="data.historyFilter = 'all'">ALL</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 'note' }"><a href ng-click="data.historyFilter = 'note'">NOTES</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 'task' }"><a href ng-click="data.historyFilter = 'task'">TASKS</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 'meeting' }"><a href ng-click="data.historyFilter = 'meeting'">MEETINGS</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 'email' }"><a href ng-click="data.historyFilter = 'email'">EMAILS</a></li>
+          <li ng-class="{ 'active': data.historyFilter == 'changelog' }"><a href ng-click="data.historyFilter = 'changelog'">CHANGELOG</a></li>
         </ul>
     </div>
   </li>
 
-  <span class="feed-items" ng-repeat="activity in data.thisRecord.history | orderBy: '-activity.completedDate'" ng-switch="activity.activity.type.value">
+  <span class="feed-items" ng-repeat="activity in data.thisRecord.history | orderBy: '-activity.completedDate' | filter: (data.historyFilter === 'all' ? undefined : { 'type': data.historyFilter })" ng-switch="activity.activity.type.value">
 
   <!-- status change -->
   <li class="feed-item" ng-switch-when="status_change">
@@ -193,13 +190,22 @@
   <!-- end ng repeat -->
 
   <!-- //creation date -->
-  <li class="feed-item">
-        <span class="text">
-            <div class="avatar avatar-24 lime">JB</div><b>Jordan Berry</b> 
-            <span class="value">created Opportunity</span>
+  <li class="feed-item" ng-if="data.historyFilter == 'all' || data.historyFilter == 'changelog'">
+       <span class="text" ng-if="data.thisRecord.createdBy">
+            <div class="avatar avatar-24" ng-class="data.thisRecord.createdBy.color">
+              <span ng-bind="data.thisRecord.createdBy.firstName | limitTo:1"></span>
+              <span ng-bind="data.thisRecord.createdBy.firstName | limitTo:1"></span>
+            </div><b>
+              <span ng-bind="data.thisRecord.createdBy.firstName"></span>
+              <span ng-bind="data.thisRecord.createdBy.lastName"></span>
+            </b> 
+            <span class="value">created {{data.currentEntity}}</span>
         </span>
-       <time class="date" datetime="{{activity.activity.completedDate}}">
-         <span ng-bind="(activity.activity.completedDate | date:'MMM d, y')"></span>
+        <span class="text" ng-if="!data.thisRecord.createdBy">
+          <b>{{data.currentEntity}} Created</b>
+        </span>
+       <time class="date no-avatar" datetime="{{data.thisRecord.createdOn | date:'MMM d, y'}}">
+         <span ng-bind="(data.thisRecord.createdOn | date:'MMM d, y') || '--'"></span>
        </time>
   </li>
 

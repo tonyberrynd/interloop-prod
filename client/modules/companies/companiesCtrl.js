@@ -36,12 +36,13 @@ angular.module('interloop.companiesCtrl', [])
   var query = $location.search().query || null;
   var count = $location.search().count || 0;
   var backUrl = $location.search().backUrl || null;
-  var companyId = $location.search().id || null;
+  var oppId = $location.search().id || null;
   var viewFilters = null;
 
   //data
   //----------------------
   $scope.data = {};
+  $scope.data.currentEntity = "Company";
   $scope.data.activated = false;
   $scope.data.drawerOpen = false;
   $scope.data.filterChanged = false;
@@ -187,29 +188,13 @@ function activate() {
                       //---------------------------
                       $scope.data.activated = true;
 
-                      //if link to individual company - open sidebar
+                      //if link to individual opp - open sidebar
                       //--------------------------------------
-                      if(companyId) {
+                      if(oppId) {
                         //open sidebar
-                        SidebarRouter.openTo('Company', companyId)
+                        SidebarRouter.openTo('Company', oppId)
                       }
 
-                      //track and render popups as needed
-                      //lets see if this works
-                      //---------------------------------------
-                      $timeout(function(){
-                        $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'});
-                      }, 1500)
-                      
-                      //---------------------------------------
-                      $(".ag-body-viewport").scroll(function() {
-                        clearTimeout($.data(this, 'scrollTimer'));
-                        $.data(this, 'scrollTimer', setTimeout(function() {
-                            //activate popovers
-                            $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'});
-          
-                        }, 50));
-                      });
                     },250);
                 })
           })
@@ -514,16 +499,16 @@ function getLookupValue(filter, entityType, searchVal){
   //Switch based on entity type
   switch(entityType) {
     case 'Company':
-        var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15}}
+        var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
         break;
     case 'Company':
-        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}}
+        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'domain']}
         break;
     case 'Company':
-        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}}
+        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryCompany', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
         break;
     case 'Appuser':
-        var query = {"filter": {"where": {"fullName": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "fullName ASC", limit: 15}}
+        var query = {"filter": {"where": {"fullName": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "fullName ASC", limit: 15}, "fields": ['id', 'firstName', 'lastName', 'initials', 'email']}
         break;
   }
 
@@ -664,6 +649,7 @@ Export To Excel
 */
 function exportView() {
   var resolvedData = {
+    entityModel: 'Company',
     view: $scope.data.thisView,
     columns: $scope.data.columns 
   };
@@ -740,7 +726,7 @@ Assign
 function bulkAssign() {
   var resolveData = {
     entity: 'Company',
-    selectedItems: $scope.data.selectedData.items
+    query: gridManager.getCurrentQuery()
   };
   //open bulk assign modal
   modalManager.openModal('bulkAssign', resolveData);
@@ -753,7 +739,7 @@ function bulkEdit() {
   //resolved information
   var resolveData = {
     entity: 'Company',
-    selectedItems: $scope.data.selectedData.items
+    query: gridManager.getCurrentQuery()
   };
 
   modalManager.openModal('bulkEdit', resolveData);
@@ -766,7 +752,7 @@ function bulkTag() {
   //resolved information
   var resolveData = {
     entity: 'Company',
-    selectedItems: $scope.data.selectedData.items
+    query: gridManager.getCurrentQuery()
   };
   //open bulk tag modal
   modalManager.openModal('bulkTag', resolveData);
@@ -788,18 +774,12 @@ Export
 */
 function bulkExport() {
   var resolveData = {
-    entity: 'Company',
-    selectedItems: $scope.data.selectedData.items
+    entityModel: 'Company',
+    query: gridManager.getCurrentQuery(),
+    columns: $scope.data.columns 
   };
   //exoprt data
-  modalManager.openModal('exportData', resolveData);
-}
-
-/*
-Create View
-*/
-function createView() {
-  modalManager.openModal('createView');
+  modalManager.openModal('bulkExport', resolveData);
 }
 
 /*
@@ -809,7 +789,7 @@ function bulkDelete() {
   //resolved information
   var resolveData = {
     entity: 'Company',
-    selectedItems: $scope.data.selectedData.items
+    query: gridManager.getCurrentQuery()
   };
 
   //open modal
@@ -820,8 +800,17 @@ function bulkDelete() {
 }
 
 
-// TODO - MAJORLY CLEAN THIS LOGIC UP
+/*
+Create View
+*/
+function createView() {
+  modalManager.openModal('createView');
+}
 
+
+/*
+Checks whether filter is active
+*/
 function isFilterActive(filter) {
 
   //default to active
@@ -935,8 +924,10 @@ function clearFilter(field) {
 Update Grid
 */
 function updateGrid() {
+  console.log('update grid');
      var matchType = $scope.data.filterMatches || 'all';
      var filters = getFilters();
+     console.log('filters', filters);
         //change query pased to grid
       gridManager.changeCurrentQuery(filters, matchType)
         .then(function(results){
@@ -951,6 +942,9 @@ function updateGrid() {
         //force refresh of grid
         setFilterModel();
       })
+      .catch(function(err){
+        console.log(err);
+      })
 }
 
 /*
@@ -958,7 +952,7 @@ Changes Grid Context
 */
 function changeContext(contextType, contextValue){
     gridManager.setContext(contextType, contextValue);
-    gridManager.refreshView();
+    updateGrid();
 }
 
 //-------------------------------------------

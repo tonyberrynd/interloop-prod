@@ -3,16 +3,25 @@
 }
 
 .import-card {
-	padding:25px 15px;
-	border:solid 1px $gravel;
-	border-radius: 5px;
+	border:solid 1px $border;
+
+	.panel-body{
+		padding:30px 40px;
+	}
+
+
+	img {
+		width:60px;
+		height:auto;
+		margin-bottom:15px;
+	}
+
+	h5 {
+		margin:0px;
+	}
 
 	icon {
-		margin:10px 0;
-		font-size:64px;
 		color:$granite;
-		display: block;
-		text-align: center;
 	}
 }
 

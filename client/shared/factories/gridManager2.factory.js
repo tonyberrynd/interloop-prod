@@ -1027,7 +1027,28 @@ angular.module('interloop.factory.gridManager', [])
                       return (params.context.changeHistory !== 'none' && changeHistories.length ? 'has-history' : null); 
                     },
                     cellRenderer: function(params){
-                      return '<span class="cell-wrapper">' + getParamValue(params) + '</span>'
+
+                        if(params.data !== undefined){
+                            //change histories
+                            var changeHistories = _.filter(params.data.changeHistories, ['attribute', params.colDef.field]);
+                            if(params.context.changeHistory !== 'none' && changeHistories.length){
+                                var html = '<span href class="cell-wrapper ui-popover">' + getParamValue(params) + '</span>'
+                                    html += '<div class="webui-popover-content">'
+                                    html += '<p class="text-center">Recent Changes</p>'
+                                    html += '<br>'
+                                    //rip through each change
+                                    _.forEach(changeHistories, function(change){
+                                        html += '<p style="whitespace:nowrap;">"' + change.previousValue['value'] + '" <icon class="wb-arrow-right"></icon> "' + change.newValue['value'] + '"</p>'
+                                    })
+                                    //finsh out div
+                                    html += '</div>'
+                                    return html;
+                            } else {
+                                    return '<span class="cell-wrapper">' + getParamValue(params) + '</span>'
+                            }
+                        } else {
+                          return  '<div class="loading-data"></div>';
+                        }
                     }
                 },
 
@@ -1039,7 +1060,10 @@ angular.module('interloop.factory.gridManager', [])
                 onRowSelected: rowSelected,
                 onModelUpdated: modelUpdated,
 				// onCellFocused: cellFocused,
-				onSelectionChanged: selectionChanged
+				onSelectionChanged: selectionChanged,
+
+                //body scroll event
+                onBodyScroll: bodyScrolled
 	    	};
 
 	    	//resolve the options
@@ -1049,6 +1073,15 @@ angular.module('interloop.factory.gridManager', [])
     }
 
 
+    function bodyScrolled(){
+         if(context.changeHistory !== 'none') {
+            if($('.ui-popoover')){
+                 $('.ui-popover').webuiPopover('destroy');
+            }
+
+            $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'})
+          }
+    }
 
 
     function groupRowInnerRendererFunc(params) {
@@ -1269,6 +1302,12 @@ angular.module('interloop.factory.gridManager', [])
     Row Data Changed
     */
     function modelUpdated(params) {
+
+        $timeout(function(){
+            console.log('focus');
+            $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'});
+          }, 0)
+
         console.log('model updated')
         if(selectedData.selectAll){
             selectAll(selectedData.items);

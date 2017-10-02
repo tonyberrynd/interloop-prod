@@ -20,10 +20,10 @@ angular.module('interloop.factory.shareLink', [])
 
     	//different for localhost and deployed
     	if(host.includes('localhost')){
-    		return 'http://' + host + ':' + port + '/' + plural + '/view/default?id=' + id
+    		return 'http://' + host + ':' + port + '/' + entityType.toLowerCase() + '/' + id
     	} else {
         //build shared link
-    		return 'https://' + host + '/' + plural + '/view/default?id=' + id
+    		return 'https://' + host + '/' + entityType.toLowerCase() + '/' + id
     	}
 
     }

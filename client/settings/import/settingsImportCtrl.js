@@ -8,6 +8,7 @@ angular.module('interloop.settingsImportCtrl', [])
 	$scope,
 	Logger,
 	Import,
+	excelGenerator,
 	modalManager) {
 
 // BINDABLES
@@ -15,11 +16,13 @@ angular.module('interloop.settingsImportCtrl', [])
 	//data
 	//----------------------
 	$scope.data = {};
+	$scope.data.activated = false;
 
 
 	//functions
 	//----------------------
 	$scope.importData = importData;
+	$scope.createTemplate = createTemplate;
 
 //-------------------------------------------
 
@@ -30,9 +33,11 @@ function activate(){
 	return Import.find().$promise
 		.then(function(results){
 			$scope.data.imports = results;
+			$scope.data.activated = true;
 		})
 		.catch(function(err){
 			Logger.error('Error Fetching Import History', 'You can still import data');
+			$scope.data.activated = true;
 		})
 }
 //-------------------------------------------
@@ -58,6 +63,11 @@ function importData(entityType){
 		})
 }
 
+
+function createTemplate(entity){
+	console.log('create template');
+	return excelGenerator.createImportTemplate(entity);
+}
 
 //-------------------------------------------
 

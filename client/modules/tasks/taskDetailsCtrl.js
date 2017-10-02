@@ -5,39 +5,42 @@
 angular.module('interloop.taskDetailsCtrl', [])
 //declare dependencies
 .controller('taskDetailsCtrl', function(
-	$scope,
-	$rootScope,
-	$stateParams,
-	$q,
+  $scope,
+  $rootScope,
+  $stateParams,
+  $q,
   $state,
   $timeout,
   $location,
   $injector,
-	Logger, 
-	Activity,
-	CustomField,
-	gridManager,
-	RelationshipManager,
-	ActivityFields,
-	SidebarActions,
+  Logger, 
+  Activity,
+  CustomField,
+  gridManager,
+  RelationshipManager,
+  ActivityFields,
+  SidebarActions,
   SidebarRouter,
   modalManager,
   entityTypes,
-	ShareLinkFactory) {
+  ShareLinkFactory) {
 
 // BINDABLES
 //===========================================
 
-	//vars 
-	//----------------------
-	var shareLink = ShareLinkFactory.getShareLink('Activity', $stateParams.id);
+  //vars 
+  //----------------------
+  var shareLink = ShareLinkFactory.getShareLink('Activity', $stateParams.id);
 
-	//data
-	//----------------------
-	$scope.data = {};
+  //data
+  //----------------------
+  $scope.data = {};
+  $scope.data.currentEntity = 'Activity';
   $scope.data.currentTab = 1;
-	$scope.data.activated = false;
+  $scope.data.historyFilter = 'all';
+  $scope.data.activated = false;
   $scope.data.entityTypes = entityTypes;
+  $scope.data.copyUrl = shareLink;
 
   $scope.data.sidebarHistory = SidebarRouter.getHistory();
 
@@ -128,11 +131,11 @@ angular.module('interloop.taskDetailsCtrl', [])
 
   // $location.url($location.path() + "#id=" + $stateParams.id);
 
-	//functions
-	//----------------------
-	$scope.isStarred = isStarred;
+  //functions
+  //----------------------
+  $scope.isStarred = isStarred;
 
-	//top right
+  //top right
     $scope.cloneItem = cloneItem;
     $scope.copyShareLink = copyShareLink;
     $scope.deleteItem = deleteItem;
@@ -141,26 +144,28 @@ angular.module('interloop.taskDetailsCtrl', [])
 
     $scope.data.endOfToday = moment().endOf('day').format();
 
-  	// action panel
+    // action panel
     $scope.addOwner = addOwner;
     $scope.shareWith = shareWith;
-  	$scope.addActivity = addActivity;
-  	$scope.addNote = addNote;
-  	$scope.manageTags = manageTags; 
+    $scope.addActivity = addActivity;
+    $scope.addNote = addNote;
+    $scope.manageTags = manageTags; 
     $scope.removeTag = removeTag;
     $scope.viewTagList = viewTagList;
-  	$scope.manageRelationships = manageRelationships;
-  	$scope.uploadFiles = uploadFiles;
+    $scope.manageRelationships = manageRelationships;
+    $scope.uploadFiles = uploadFiles;
 
     $scope.goTo = goTo;
     $scope.goBack = goBack;
 
-    //files
-	$scope.triggerUpload = triggerUpload;
-	$scope.uploadFiles = uploadFiles;
+    $scope.primaryCompanyName = primaryCompanyName;
 
-	//details
-	$scope.saveData = saveData;
+    //files
+  $scope.triggerUpload = triggerUpload;
+  $scope.uploadFiles = uploadFiles;
+
+  //details
+  $scope.saveData = saveData;
 
   $scope.updatePrimaryCompany = updatePrimaryCompany;
 
@@ -179,72 +184,72 @@ angular.module('interloop.taskDetailsCtrl', [])
 // ACTIVATE
 //===========================================
 function activate() {
-	console.log($stateParams.id);
+  console.log($stateParams.id);
 
 
-	return $q.all([Activity.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"]}}).$promise,
-				   Activity.insights({'id': $stateParams.id}).$promise]
-				  )
-			.then(function(results){
-        console.log('thisTask', results[0])
-				//basic off details
-				$scope.data.thisTask = results[0];
-				//insights
-				$scope.data.thisTask.insights = results[1];
+  return $q.all([Activity.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["sharedWith", "entities", "items"]}}).$promise,
+           Activity.insights({'id': $stateParams.id}).$promise]
+          )
+      .then(function(results){
+        console.log('thisRecord', results[0])
+        //basic off details
+        $scope.data.thisRecord = results[0];
+        //insights
+        $scope.data.thisRecord.insights = results[1];
 
-				//get primary company
-				$scope.data.thisTask.primaryCompany = RelationshipManager.getPrimary($scope.data.thisTask.entityLinks, "Company") || null;
-				$scope.data.prevPrimaryCompany = $scope.data.thisTask.primaryCompany ? angular.copy($scope.data.thisTask.primaryCompany) : null;
-				//set up fields
-				$scope.data.fields = ActivityFields;
+        //get primary company
+        $scope.data.thisRecord.primaryCompany = RelationshipManager.getPrimary($scope.data.thisRecord.entityLinks, "Company") || null;
+        $scope.data.prevPrimaryCompany = $scope.data.thisRecord.primaryCompany ? angular.copy($scope.data.thisRecord.primaryCompany) : null;
+        //set up fields
+        $scope.data.fields = ActivityFields;
 
-				//custom fields
-				$scope.data.customFields = _.filter($rootScope.customFields,function(o){
+        //custom fields
+        $scope.data.customFields = _.filter($rootScope.customFields,function(o){
                     return _.includes(o.useWith, 'Activity');
                 })
 
-				//get related entities, items
-				$scope.data.thisTask.starred = SidebarActions.getStarred($scope.data.thisTask);
-				$scope.data.thisTask.tags = SidebarActions.getTags($scope.data.thisTask);
-				$scope.data.thisTask.files = SidebarActions.getFiles($scope.data.thisTask.items);
-        $scope.data.thisTask.lastActivity = SidebarActions.getLastActivity($scope.data.thisTask.activities);
-        $scope.data.thisTask.nextActivity = SidebarActions.getNextActivity($scope.data.thisTask.activities);
-        $scope.data.thisTask.overdueActivities = SidebarActions.getOverdueActivities($scope.data.thisTask.activities);
-        $scope.data.thisTask.upcomingActivities = SidebarActions.getUpcomingActivities($scope.data.thisTask.activities);
-				$scope.data.thisTask.openActivities = SidebarActions.getOpenActivities($scope.data.thisTask.activities);
-				$scope.data.thisTask.history = SidebarActions.getHistory($scope.data.thisTask.activities);
+        //get related entities, items
+        $scope.data.thisRecord.starred = SidebarActions.getStarred($scope.data.thisRecord);
+        $scope.data.thisRecord.tags = SidebarActions.getTags($scope.data.thisRecord);
+        $scope.data.thisRecord.files = SidebarActions.getFiles($scope.data.thisRecord.items);
+        $scope.data.thisRecord.lastActivity = SidebarActions.getLastActivity($scope.data.thisRecord.activities);
+        $scope.data.thisRecord.nextActivity = SidebarActions.getNextActivity($scope.data.thisRecord.activities);
+        $scope.data.thisRecord.overdueActivities = SidebarActions.getOverdueActivities($scope.data.thisRecord.activities);
+        $scope.data.thisRecord.upcomingActivities = SidebarActions.getUpcomingActivities($scope.data.thisRecord.activities);
+        $scope.data.thisRecord.openActivities = SidebarActions.getOpenActivities($scope.data.thisRecord.activities);
+        $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
 
         //ensure entities are valid
         var validEntities = [];
-        _.forEach($scope.data.thisTask.entities, function(entity, key){
+        _.forEach($scope.data.thisRecord.entities, function(entity, key){
            if(_.has(entity, 'entity')){
               validEntities.push(entity);
            }
         })
         //valid entities
-        $scope.data.thisTask.entities = validEntities;
+        $scope.data.thisRecord.entities = validEntities;
 
 
         //group activities by month
-        var groupedResults = _.groupBy($scope.data.thisTask.activities, function (result) {
+        var groupedResults = _.groupBy($scope.data.thisRecord.activities, function (result) {
           return moment(result['completedDate']).startOf('month').format('MMMM')
         });
 
         console.log(groupedResults);
 
-				
-				//activated
-				$scope.data.activated = true;
+        
+        //activated
+        $scope.data.activated = true;
 
         //monitor scroll once activated
         // monitorScroll();
 
-			})
-			.catch(function(err){
-				Logger.error('Error Retrieving Activity');
-				Logger.log(err);
-				$scope.data.activated = true;
-			})
+      })
+      .catch(function(err){
+        Logger.error('Error Retrieving Activity');
+        Logger.log(err);
+        $scope.data.activated = true;
+      })
 }
 //-------------------------------------------
 //timeout allows transition to finish
@@ -273,57 +278,62 @@ function updatePrimaryCompany(){
  
 }
 
+function primaryCompanyName(entityLinks) {
+  var primaryCompanyObj =  RelationshipManager.getPrimary(entityLinks, "Company") ;
+  return _.get(primaryCompanyObj, 'name', null); 
+}
+
 
 function primaryCompanyChanged (companyValue){
   Logger.info('Updating Activity...');
 
   $q.when(
      $scope.data.prevPrimaryCompany 
-     ? unlinkCompany($scope.data.thisTask, $scope.data.prevPrimaryCompany, false)
+     ? unlinkCompany($scope.data.thisRecord, $scope.data.prevPrimaryCompany, false)
      : null
   )
   //Now create new link 
   .then(function(){ 
-    linkCompany($scope.data.thisTask, companyValue, true)
+    linkCompany($scope.data.thisRecord, companyValue, true)
   }); 
 }; 
 
 //TB - TODO - Look at moving the broadcast messages into a shared factory 
-function linkCompany(activity, company, updateGrid){
-  return RelationshipManager.linkEntity(activity, company, "Activity", "Company",  
+function linkCompany(record, company, updateGrid){
+  return RelationshipManager.linkEntity(record, company, "Activity", "Company",  
   {
-    "from": { "name": activity.name, "description": "Primary Org", "isPrimary": true}, 
+    "from": { "name": record.name, "description": "Primary Org", "isPrimary": true}, 
     "to" : { "name": company.name, "description": "Primary Org", "isPrimary": true}
   })
   .then(function(results){
     // console.log(results);
-      $scope.data.thisTask.primaryCompany = results; 
+      $scope.data.thisRecord.primaryCompany = results; 
       $scope.data.prevPrimaryCompany = results; //set new current since link was changed 
-       //add this to entityLinks array of this activity
-      $scope.data.thisTask.entityLinks.push(results); 
-      // console.log($scope.data.thisTask);
+       //add this to entityLinks array of this record
+      $scope.data.thisRecord.entityLinks.push(results); 
+      // console.log($scope.data.thisRecord);
       
       if(updateGrid){   
           // //refresh grid
           gridManager.refreshView()
-          // $rootScope.$broadcast('OPP_UPDATED', {"id": activity.id}); //reload activity with changes 
+          // $rootScope.$broadcast('OPP_UPDATED', {"id": record.id}); //reload record with changes 
           Logger.info('Activity Updated');
       }; 
   }); 
 }; 
 
-function unlinkCompany(activity, company, updateGrid) {
+function unlinkCompany(record, company, updateGrid) {
     //do this from company side to get back in format that matches relatedEntities 
-    return RelationshipManager.unlinkEntity(activity, company, "Activity", "Company")
+    return RelationshipManager.unlinkEntity(record, company, "Activity", "Company")
     .then(function(results){
       // console.log(results);
       //remove from the loaded related items - keep as chained promise 
-      _.remove($scope.data.thisTask.entityLinks, {'entityId' :  company.entityId}); 
-      //$rootScope.$broadcast('OPP_UPDATED', {"id": activity.id}); 
+      _.remove($scope.data.thisRecord.entityLinks, {'entityId' :  company.entityId}); 
+      //$rootScope.$broadcast('OPP_UPDATED', {"id": record.id}); 
       if(updateGrid) { 
         //refresh grid
         gridManager.refreshView()
-        // $rootScope.$broadcast('OPP_UPDATED', {"id": activity.id}); //reload activity with changes 
+        // $rootScope.$broadcast('OPP_UPDATED', {"id": record.id}); //reload record with changes 
         Logger.info('Primary Company Removed');
       };
     }); 
@@ -331,7 +341,7 @@ function unlinkCompany(activity, company, updateGrid) {
 
 
 function removePrimaryCompany() {
-  unlinkCompany($scope.data.thisTask, $scope.data.prevPrimaryCompany, true); 
+  unlinkCompany($scope.data.thisRecord, $scope.data.prevPrimaryCompany, true); 
   $scope.data.primaryCompany = null; 
 };
 
@@ -369,25 +379,25 @@ Is Starred
 function saveData(field, value) {
   //build new value object
  var newValue = {}
- 	 newValue[field] = value;
+   newValue[field] = value;
 
   if(field == 'primaryCompany') {
     primaryCompanyChanged(value)
   } else {
 
    //Save data for this task 
-    SidebarActions.saveData('Activity', $scope.data.thisTask, newValue)
+    SidebarActions.saveData('Activity', $scope.data.thisRecord, newValue)
     .then(function(results){
 
       console.log(results);
        // //refresh grid
        // gridManager.refreshView()
 
-       gridManager.setData($scope.data.thisTask.id, field, newValue)
+       gridManager.setData($scope.data.thisRecord.id, field, newValue)
 
        console.log('trying to update data');
 
-       // gridManager.updateRow($scope.data.thisTask.id, results);
+       // gridManager.updateRow($scope.data.thisRecord.id, results);
 
     }) 
 
@@ -399,16 +409,16 @@ Sets Up Dates for Form so doesn't throw errors
 */
 function setUpFields(fields){
 
-	_.forEach(fields, function(value, key){
-		if(value.type == 'date'){
-			$scope.data.thisTask[value.field || value.key] = {
-				startDate: $scope.data.thisTask[value.field || value.key] || null,
-				endDate: null //have to stub but don't use all the time
-			}
-		}
-	})
+  _.forEach(fields, function(value, key){
+    if(value.type == 'date'){
+      $scope.data.thisRecord[value.field || value.key] = {
+        startDate: $scope.data.thisRecord[value.field || value.key] || null,
+        endDate: null //have to stub but don't use all the time
+      }
+    }
+  })
 
-	return fields;
+  return fields;
 
 }
 
@@ -417,7 +427,7 @@ function setUpFields(fields){
 Is Starred
 */
 function isStarred(task) {
-	return true;
+  return true;
 }
 
 
@@ -447,7 +457,7 @@ function monitorScroll() {
 Clone Item
 */
 function cloneItem() {
-  SidebarActions.cloneItem('Activity', $scope.data.thisTask, $scope.data.owners);
+  SidebarActions.cloneItem('Activity', $scope.data.thisRecord, $scope.data.owners);
 }
 
 /*
@@ -461,7 +471,7 @@ function copyShareLink() {
 Delete Opp - Soft Deletes activity
 */
 function deleteItem() {
-  SidebarActions.deleteItem('Activity', $scope.data.thisTask);
+  SidebarActions.deleteItem('Activity', $scope.data.thisRecord);
 };
 
 
@@ -469,14 +479,14 @@ function deleteItem() {
 Un-Archive Item
 */
 function unArchiveItem() {
-  SidebarActions.unArchiveItem('Activity', $scope.data.thisTask);
+  SidebarActions.unArchiveItem('Activity', $scope.data.thisRecord);
 };
 
 /*
 Determine whether to star or unstar item
 */
 function starUnstarItem() {
-  if($scope.data.thisTask.starred) {
+  if($scope.data.thisRecord.starred) {
     unStarItem()
   } else {
     starItem()
@@ -487,10 +497,10 @@ function starUnstarItem() {
 Star item
 */
 function starItem() {
-  SidebarActions.starItem('Activity', $scope.data.thisTask)
-  	.then(function(results){
-		$scope.data.thisTask.starred = true;
-	})
+  SidebarActions.starItem('Activity', $scope.data.thisRecord)
+    .then(function(results){
+    $scope.data.thisRecord.starred = true;
+  })
   .catch(function(err){
     console.log(err)
    })
@@ -500,10 +510,10 @@ function starItem() {
 Un-Star item
 */
 function unStarItem() {
-  SidebarActions.unStarItem($scope.data.thisTask)
-  	 .then(function(results){
-  		$scope.data.thisTask.starred = false;
-  	 })
+  SidebarActions.unStarItem($scope.data.thisRecord)
+     .then(function(results){
+      $scope.data.thisRecord.starred = false;
+     })
      .catch(function(err){
       console.log(err)
      })
@@ -520,7 +530,7 @@ Add / Remove Owners from the task
 function addOwner() {
   var resolvedData = {
     entity: 'Activity',
-    thisRecord: $scope.data.thisTask
+    thisRecord: $scope.data.thisRecord
   }
 
   var addOwnerModal = modalManager.openModal('addOwner', resolvedData)
@@ -529,10 +539,10 @@ function addOwner() {
 
   addOwnerModal.result.then(function(results){
     console.log(results);
-    //update this activity
+    //update this record
     //comes back as array so need to loop through to push in properly
     _.forEach(results, function(value){
-      $scope.data.thisTask.ownerLinks.push(value);
+      $scope.data.thisRecord.ownerLinks.push(value);
     })
 
   })
@@ -542,7 +552,7 @@ function shareWith() {
 
   var resolvedData = {
     entity: 'Activity',
-    thisRecord: $scope.data.thisTask
+    thisRecord: $scope.data.thisRecord
   }
 
   var shareWithModal = modalManager.openModal('shareWith', resolvedData)
@@ -550,9 +560,9 @@ function shareWith() {
   //after result - add / remove from UI
 
   shareWithModal.result.then(function(results){
-    //update this activity
+    //update this record
    _.forEach(results, function(value){
-      $scope.data.thisTask.shareWithLinks.push(value);
+      $scope.data.thisRecord.shareWithLinks.push(value);
     })
   })
 
@@ -563,35 +573,35 @@ function shareWith() {
 Click Hidden file input to trigger file upload process
 */
 function addActivity() {  
-    SidebarActions.createActivity('Activity', $scope.data.thisTask)
+    SidebarActions.createActivity('Activity', $scope.data.thisRecord)
 };
 
 /*
 Click Hidden file input to trigger file upload process
 */
 function addNote() {  
-    SidebarActions.createNote('Activity', $scope.data.thisTask);  
+    SidebarActions.createNote('Activity', $scope.data.thisRecord);  
 };
 
 /*
 Trigger Upload File
 */
 function triggerUpload() {
-	angular.element('#ActivityFileUpload').trigger('click');
+  angular.element('#ActivityFileUpload').trigger('click');
 }
 
 /* 
 Upload Files
 */ 
 function uploadFiles(files) {
-  SidebarActions.uploadFiles('Activity', $scope.data.thisTask, files)
+  SidebarActions.uploadFiles('Activity', $scope.data.thisRecord, files)
 }
 
 /* 
 Manage Tags Modal
 */ 
 function manageTags() {
-  SidebarActions.manageTags('Activity', $scope.data.thisTask)
+  SidebarActions.manageTags('Activity', $scope.data.thisRecord)
 }
 
 /* 
@@ -600,7 +610,7 @@ remove tag from entity
 
 function removeTag(tag) {
   //remove tag from entity
-  SidebarActions.removeTag('Activity', $scope.data.thisTask, tag)
+  SidebarActions.removeTag('Activity', $scope.data.thisRecord, tag)
 }
 
 /* 
@@ -621,7 +631,7 @@ function viewTagList(entityType, tag){
 Relate Entity Wizard
 */
 function manageRelationships() {
-  SidebarActions.manageRelationships('Activity', $scope.data.thisTask, $scope.data.pickLists)
+  SidebarActions.manageRelationships('Activity', $scope.data.thisRecord, $scope.data.pickLists)
 }; 
 
 
@@ -633,14 +643,14 @@ function manageRelationships() {
 Won Reason Modal
 */
 function wonReason(value, oldValue) {
-  SidebarActions.wonReason($scope.data.thisTask, value, oldValue, _.find(activityConfig.picklists, { 'name': 'wonReasons' }))
+  SidebarActions.wonReason($scope.data.thisRecord, value, oldValue, _.find(recordConfig.picklists, { 'name': 'wonReasons' }))
 }
 
 /*
 Lost Reason Modal
 */
 function lostReason(value, oldValue) {
-  SidebarActions.lostReason($scope.data.thisTask, value, oldValue, _.find(activityConfig.picklists, { 'name': 'lostReasons' }))
+  SidebarActions.lostReason($scope.data.thisRecord, value, oldValue, _.find(recordConfig.picklists, { 'name': 'lostReasons' }))
 }
 
 //-------------------------------------------

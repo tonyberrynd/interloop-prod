@@ -1,0 +1,37 @@
+<div class="subheader">
+              <div class="subheader-left pull-left">
+               	<div class="tabs-wrapper">
+					<ul class="nav nav-tabs">
+					  	 <li ng-class="{active: data.thisDashboard.currentPage.displayName == page.displayName}" ng-repeat="page in data.thisDashboard.pages"><a ng-click="selectPage(page)">{{page.displayName}}</a></li>
+					</ul>
+				</div>
+              </div>
+
+
+              <button class="btn btn-primary pull-right" ng-click="o365Logout()">Logout</button>
+</div>
+
+
+<div class="layout powerbi-layout">
+
+		<!-- //if not logged in	 -->
+		<div class="text-center inline-block dashboard-login" ng-if="!data.mConnected">
+			<img src="../assets/img/integrations/o365_login.png" alt="Office 365">
+			<h5>PowerBI Dashboards are linked to your office 365 account</h5>
+			<p>Please Sign In to view the dashboards</p>
+			<br>
+			<button class="btn btn-primary" ng-click="o365Login()">
+				Login with Office 365
+			</button>
+		</div>
+
+		<!-- //if logged in -->
+		<powerbi-component id="powerbi-embedded" 
+			options="data.thisDashboard.currentReport"
+			on-embedded="onEmbedded($embed)">
+		</powerbi-component>
+
+		
+		
+
+</div>

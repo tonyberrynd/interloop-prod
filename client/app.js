@@ -4,6 +4,16 @@ agGrid.LicenseManager.setLicenseKey("Interloop_Interloop_1Devs6_June_2018__MTUyO
 // get ag-Grid to create an Angular module and register the ag-Grid directive
 agGrid.initialiseAgGridWithAngular1(angular);
 
+
+//microsoft adal logging - only log true errors
+//----------------------------------------------------------------------------
+Logging = {
+    level: 0,
+    log: function (message) {
+        console.log(message);
+    }
+};
+
 /* ==========================================================================
    Main App File 
    ========================================================================== */
@@ -21,6 +31,8 @@ angular.module('interloop', [
   'ngSanitize',                           //https://docs.angularjs.org/api/ngSanitize
   'ui.router',                            //https://github.com/angular-ui/ui-router
   'ct.ui.router.extras',                  //https://github.com/christopherthielen/ui-router-extras
+  'AdalAngular',                          //https://github.com/AzureAD/azure-activedirectory-library-for-js
+  'powerbi',                              //https://github.com/Microsoft/PowerBI-Angular
 
 
   //Loopback Generated Resources
@@ -68,6 +80,7 @@ angular.module('interloop', [
   'ui.utils.masks',                       //https://github.com/assisrafael/angular-input-masks
   'validation.match',                     //https://github.com/TheSharpieOne/angular-validation-match
   'videosharing-embed',                   //https://github.com/erost/ng-videosharing-embed
+  'gavruk.card',                          //https://github.com/gavruk/angular-card
 
 
   //Support Services
@@ -100,7 +113,6 @@ angular.module('interloop', [
   'interloop.value.permissions',
   'interloop.value.modalDefs',
   'interloop.value.baseChartConfig',
-  'interloop.value.highchartTheme',
 
   //controllers
   'interloop.loginCtrl',
@@ -113,21 +125,26 @@ angular.module('interloop', [
   'interloop.insightsCtrl',
   'interloop.dashboardsCtrl',
   'interloop.explorerCtrl',
+  'interloop.powerbiCtrl',
   //forecasts
   'interloop.forecastsCtrl',
   'interloop.forecastDetailsCtrl',
   // opps
   'interloop.opportunitiesCtrl',
   'interloop.opportunityDetailsCtrl',
+  'interloop.opportunityEditCtrl',
   // contacts
   'interloop.contactsCtrl',
   'interloop.contactDetailsCtrl',
+  'interloop.contactEditCtrl',
   //companies
   'interloop.companiesCtrl',
   'interloop.companyDetailsCtrl',
+  'interloop.companyEditCtrl',
   //content
   'interloop.contentCtrl',
   'interloop.contentDetailsCtrl',
+  'interloop.contentEditCtrl',
   //tasks
   'interloop.tasksCtrl',
   'interloop.taskDetailsCtrl',
@@ -146,6 +163,9 @@ angular.module('interloop', [
   'interloop.notificationsCtrl',
 
   // modals
+  'interloop.mediaPickerCtrl',
+  'interloop.addAddressCtrl',
+  'interloop.editAddressCtrl',
   'interloop.bulkAssignCtrl',
   'interloop.bulkDeleteCtrl',
   'interloop.bulkEditCtrl',
@@ -183,6 +203,8 @@ angular.module('interloop', [
   'interloop.newTeamCtrl',
   'interloop.submitForecastCtrl',
   'interloop.wonReasonCtrl',
+  'interloop.paymentMethodCtrl',
+  'interloop.logDetailsCtrl',
 
   //configuration
   'interloop.configPermissionsCtrl',
@@ -248,6 +270,7 @@ angular.module('interloop', [
   'interloop.directive.scrollClass',
   'interloop.directive.changeOnBlur',
   'interloop.directive.autofocus',
+  'interloop.directive.focusSelect',
 
   //factories
   'interloop.factory.configService',
@@ -269,6 +292,7 @@ angular.module('interloop', [
   'interloop.factory.featureFlagManager',
   'interloop.factory.tagManager',
   'interloop.factory.smartParse',
+  'interloop.factory.excelGenerator',
   'interloop.factory.logger',
   'interloop.oauth.factory',
   'qSerial.factory'

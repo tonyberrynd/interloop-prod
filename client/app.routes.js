@@ -181,6 +181,25 @@ angular.module('interloop.routes', [])
       }
    });
 
+
+  $stateProvider.state('app.powerbi', {
+      sticky: true,
+      url: "/analytics",
+      views: {
+          'page-content@app': {
+            templateUrl: 'modules/powerbi/powerbi.tpl.html',
+            controller: 'powerbiCtrl',
+          }
+      },
+      params: {
+        query: null
+      },
+      data: {
+          pageTitle: 'Analytics',
+          navTitle: 'Analytics'
+      }
+   });
+
 /* Managment
    ========================================================================== */
   //goals
@@ -362,11 +381,18 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'shared/templates/entity-edit.tpl.html',
-            // controller: 'editOpportunityCtrl'
+            controller: 'opportunityEditCtrl'
           }
+      },
+      onEnter: function($rootScope, $state, $stateParams){
+        $rootScope.sidePanelOpen = true;
       },
       params: {
         id: null,
+      },
+      data: {
+        sidebarState: true,
+        routeThroughState: 'app.opportunities'
       }
    });
 
@@ -403,17 +429,38 @@ angular.module('interloop.routes', [])
             controller: 'contactDetailsCtrl'
           }
       },
-      onEnter: function($state, $stateParams){
-        // event.preventDefault();
-        // $state.go('app.opportunities');
-        // $state.go('app.opportunity-details', $stateParams);
+      onEnter: function($rootScope, $state, $stateParams){
+        $rootScope.sidePanelOpen = true;
       },
       params: {
         id: null,
       },
       data: {
         sidebarState: true,
-        redirectState: 'app.contacts'
+        routeThroughState: 'app.contacts'
+      }
+   });
+
+
+      //edit opportunity
+  $stateProvider.state('app.contact-edit', {
+      url: "/contact/:id/edit",
+      sticky: true,
+      views: {
+          'sidepanel-content@app': {
+            templateUrl: 'shared/templates/entity-edit.tpl.html',
+            controller: 'contactEditCtrl'
+          }
+      },
+      onEnter: function($rootScope, $state, $stateParams){
+        $rootScope.sidePanelOpen = true;
+      },
+      params: {
+        id: null,
+      },
+      data: {
+        sidebarState: true,
+        routeThroughState: 'app.opportunities'
       }
    });
 
@@ -451,17 +498,37 @@ angular.module('interloop.routes', [])
             controller: 'companyDetailsCtrl'
           }
       },
-      onEnter: function($state, $stateParams){
-        // event.preventDefault();
-        // $state.go('app.opportunities');
-        // $state.go('app.opportunity-details', $stateParams);
+      onEnter: function($rootScope, $state, $stateParams){
+        $rootScope.sidePanelOpen = true;
       },
       params: {
         id: null,
       },
       data: {
         sidebarState: true,
-        redirectState: 'app.companies'
+        routeThroughState: 'app.companies'
+      }
+   });
+
+
+    $stateProvider.state('app.company-edit', {
+      url: "/company/:id/edit",
+      sticky: true,
+      views: {
+          'sidepanel-content@app': {
+            templateUrl: 'shared/templates/entity-edit.tpl.html',
+            controller: 'companyEditCtrl'
+          }
+      },
+      onEnter: function($rootScope, $state, $stateParams){
+        $rootScope.sidePanelOpen = true;
+      },
+      params: {
+        id: null,
+      },
+      data: {
+        sidebarState: true,
+        routeThroughState: 'app.opportunities'
       }
    });
 
@@ -499,17 +566,37 @@ angular.module('interloop.routes', [])
             controller: 'contentDetailsCtrl'
           }
       },
-      onEnter: function($state, $stateParams){
-        // event.preventDefault();
-        // $state.go('app.opportunities');
-        // $state.go('app.opportunity-details', $stateParams);
+      onEnter: function($rootScope, $state, $stateParams){
+        $rootScope.sidePanelOpen = true;
       },
       params: {
         id: null,
       },
       data: {
         sidebarState: true,
-        redirectState: 'app.content'
+        routeThroughState: 'app.content'
+      }
+   });
+
+
+    $stateProvider.state('app.content-edit', {
+      url: "/content/:id/edit",
+      sticky: true,
+      views: {
+          'sidepanel-content@app': {
+            templateUrl: 'shared/templates/entity-edit.tpl.html',
+            controller: 'contentEditCtrl'
+          }
+      },
+      onEnter: function($rootScope, $state, $stateParams){
+        $rootScope.sidePanelOpen = true;
+      },
+      params: {
+        id: null,
+      },
+      data: {
+        sidebarState: true,
+        routeThroughState: 'app.opportunities'
       }
    });
 
@@ -547,20 +634,32 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'modules/tasks/task-details.tpl.html',
-            // controller: 'contentDetailsCtrl'
+            controller: 'taskDetailsCtrl'
           }
       },
-      onEnter: function($state, $stateParams){
-        // event.preventDefault();
-        // $state.go('app.opportunities');
-        // $state.go('app.opportunity-details', $stateParams);
+      onEnter: function($rootScope, $state, $stateParams){
+        $rootScope.sidePanelOpen = true;
       },
       params: {
         id: null,
       },
       data: {
         sidebarState: true,
-        redirectState: 'app.tasks'
+        routeThroughState: 'app.tasks'
+      }
+   });
+
+    $stateProvider.state('app.task-edit', {
+      url: "/task/:id/edit",
+      sticky: true,
+      views: {
+          'sidepanel-content@app': {
+            templateUrl: 'shared/templates/entity-edit.tpl.html',
+            // controller: 'editOpportunityCtrl'
+          }
+      },
+      params: {
+        id: null,
       }
    });
 

@@ -64,8 +64,12 @@
 	.btn {
 		height:36px;
 	}
-
-	.btn-default {
-		border-color:$border !important;
-	}
 }
+
+
+
+.nya-bs-select .btn-default {
+    border: solid 1px $border !important;
+}
+
+

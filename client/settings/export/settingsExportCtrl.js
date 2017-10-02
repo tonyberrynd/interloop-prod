@@ -17,6 +17,7 @@ angular.module('interloop.settingsExportCtrl', [])
 	//data
 	//----------------------
 	$scope.data = {};
+	$scope.data.activated = false;
 
 
 	//functions
@@ -33,9 +34,11 @@ function activate() {
 	return Export.find().$promise
 		.then(function(results){
 			$scope.data.exports = results;
+			$scope.data.activated = true;
 		})
 		.catch(function(err){
 			Logger.error('Error Retrieving Previous Exports')
+			$scope.data.activated = true;
 		})
 }
 //-------------------------------------------

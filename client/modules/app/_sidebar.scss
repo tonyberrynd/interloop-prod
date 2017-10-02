@@ -24,6 +24,153 @@
 	border-radius: 5px;
 }
 
+.sidepanel-edit {
+	background-color:#fff !important;
+	padding:20px;
+}
+
+.social-wrapper {
+	margin-left:80px;
+
+	icon {
+		font-size:20px;
+		color:$granite;
+	}
+
+	&.linkedin.active {
+		color: blue;
+	}
+
+	&.facebook.active {
+		color: $ocean;
+	}
+
+	&.twitter.active {
+		color: green;
+	}
+}
+
+.array-input-wrapper {
+	margin-bottom:10px;
+
+	.btn.btn-default:first-child {
+		background-color:#fff;
+		border:solid 1px $border;
+		padding:9px 14px;
+		text-align:left;
+	}
+
+	.btn.btn-default.remove-input {
+		background-color:#fff;
+		border:solid 1px $border;
+		min-width:unset;
+		padding:9px 14px;
+		border-left:none;
+
+		icon {
+			color:$granite;
+		}
+	}
+
+	.removeInput {
+		padding:9px 14px;
+		float:right;
+
+		&:hover {
+			icon {
+				color:$topaz;
+			}
+		}
+	}
+}
+
+.array-input {
+	margin-bottom:15px;
+}
+
+.btn.array-input-add {
+	background-color:#fff;
+	color:$topaz;
+	border:solid 1px transparent;
+	margin-bottom:0px;
+	padding:0px;
+	margin:0px;
+}
+
+.address-list {
+	.col-xs-6 {
+		padding:0px;
+	}
+
+	.col-xs-6:nth-child(odd){
+		padding-right:5px;
+	}
+
+	.col-xs-6:nth-child(even){
+
+		padding-left:5px;
+	}
+
+	address {
+		padding:10px;
+		border-radius:5px;
+		border:solid 1px $border;
+	}
+}
+
+.add-new-address {
+	padding:20px;
+	border-radius: 5px;
+	border:solid 1px $border;
+	text-align:center;
+	cursor:pointer;
+
+	icon {
+		font-size:24px;
+		color:$granite;
+	}
+
+	&:hover {
+		color:$topaz;
+		border-color:$topaz;
+
+		icon {
+			color:$topaz;
+		}
+	}
+}
+
+.sidepanel-edit .row {
+	margin-left:-5px;
+	margin-right:-5px;
+}
+
+.sidepanel-edit .sidepanel-title {
+	margin-left:10px !important;
+}
+
+.edit-header {
+	h5 {
+		position:absolute;
+		left:60px;
+		right:60px;
+		top:14px;
+		font-size:16px;
+		margin:0px;
+	}
+
+	.save-record {
+		background:transparent;
+		border:transparent;
+		color:$success;
+	}
+}
+
+.edit-header-right {
+	white-space: nowrap;
+	padding:0 5px;
+}
+
 .overlay-close {
 	position: absolute;
 	top:0px;
@@ -36,8 +183,9 @@
 
 
 .action-menu {
-	min-width:240px;
-	max-height: auto !important;
+	min-width: 240px;
+    height: auto !important;
+    max-height: unset;
 }
 
 .detail-wrapper .social,
@@ -96,6 +244,10 @@
 // 	margin-top:20px;
 // }
 
+.sidepanel .card {
+	border-radius: 5px;
+}
+
 .sidepanel .panel-footer {
 	background-color:#fff;
 	color:$seamonster;
@@ -109,7 +261,7 @@
 }
 .card-subtitle {
 	text-transform:uppercase;
-	color:$granite;
+	color:$dragonstone;
 }
 
 .empty-text {
@@ -124,6 +276,11 @@
     display: inline-block;
     width: 100%;
     border-radius: 5px;
+    margin-bottom:0px;
+}
+
+.no-value {
+	color:$gravel;
 }
 
 .text-divider {

@@ -1,9 +1,11 @@
 	.pane-wrapper {
 			padding:0px;
 
+			.list-group {
+				margin-bottom:10px;
+			}
+
 			.list-group li {
-				border-left:none;
-				border-right:none;
 				color:$seamonster;
 				font-weight:500;
 				font-size: 14px;
@@ -24,13 +26,16 @@
 
 			.pane {
 				width:100%;
-				margin-top:10px;
 				background-color:#fff;
 				display: block;
-				padding:0px 15px;
-				border-top:solid 1px $border;
-				border-bottom:solid 1px $border;
+				border-radius: 5px;
+				border:solid 1px $border;
 				margin-bottom:10px;
+
+				.row {
+					margin-left:-5px;
+					margin-right:-5px;
+				}
 
 
 				.label {
@@ -67,14 +72,14 @@
 	}
 
 	.days {
-		font-size:25px;
+		font-size:24px;
 		display: inline-block;
 		color:$dragonstone;
 		opacity: .85;
 	}
 
 	.size {
-		font-size:25px;
+		font-size:24px;
 		display: inline-block;
 		color:$topaz;
 		opacity: .85;
@@ -89,7 +94,7 @@
 	}
 
 	.score {
-		font-size:25px;
+		font-size:24px;
 		display: inline-block;
 		color:$dragonstone;
 		opacity: .85;

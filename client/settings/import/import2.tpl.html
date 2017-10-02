@@ -1,0 +1,145 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<!-- import your data -->
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Import Your Data</h4>
+					<p>Import data into Interloop from excel templates</p>
+					</div>
+
+
+
+					<div class="row">
+						<div class="col-xs-3 text-center">
+							<div class="panel panel-default import-card">
+								<div class="panel-body">
+									<img src="../assets/img/icons/dark/currency-dollar.svg" alt="Opportunities">
+									<h5>Import Opportunities</h5>
+									<br>
+									<button class="btn btn-primary" ng-click="importData('Opportunity')">
+										Import Data
+									</button>
+								</div>
+								<div class="panel-footer">
+									<a href ng-click="createTemplate('Opportunity')">
+									<icon class="wb-paperclip"></icon>
+										Download Template
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-3 text-center">
+							<div class="panel panel-default import-card">
+								<div class="panel-body">
+									<img src="../assets/img/icons/dark/user-group.svg" alt="Contacts">
+									<h5>Import Contacts</h5>
+									<br>
+									<button class="btn btn-primary" ng-click="importData('Contact')">
+										Import Data
+									</button>
+								</div>
+								<div class="panel-footer">
+									<a href ng-click="createTemplate('Contact')">
+									<icon class="wb-paperclip"></icon>
+										Download Template
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-3 text-center">
+							<div class="panel panel-default import-card">
+								<div class="panel-body">
+									<img src="../assets/img/icons/dark/company.svg" alt="Companies">
+									<h5>Import Companies</h5>
+									<br>
+									<button class="btn btn-primary" ng-click="importData('Company')">
+										Import Data
+									</button>
+								</div>
+								<div class="panel-footer">
+									<a href ng-click="createTemplate('Company')">
+									<icon class="wb-paperclip"></icon>
+										Download Template
+									</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					
+				</div>
+
+				<!-- //previous imports -->
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Previous Imports</h4>
+					<p>View Historical Data Imports</p>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-body">
+
+
+							<table class="table table-condensed">
+							    <thead>
+							      <tr>
+							      	<th>Imported By</th>
+							        <th>Date</th>
+							        <th>Entity</th>
+							        <th>Records</th>
+							        <th>
+							        	Status
+							        </th>
+							        <th></th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							      <tr ng-repeat="import in data.imports">
+							      	<td>
+							      		<h5>
+							      			<span ng-bind="import.createdBy.firstName"></span> <span ng-bind="import.createdBy.lastName"></span>
+							      		</h5>
+							      		<p>
+							      			<span ng-bind="import.createdBy.email"></span>
+							      		</p>
+							      	</td>
+							      	<td>
+							      		<span ng-bind="import.createdOn | formatDate"></span>
+							      	</td>
+							      	<td>
+							      		<span ng-bind="import.entity || '--'"></span>
+							      	</td>
+							      	<td>
+							      		<span ng-bind="import.records || '--'"></span>
+							      	</td>
+							      	<td>
+							      		<span ng-bind="import.status || '--'"></span>
+							      	</td>
+							      	<td class="text-right">
+							      		<div class="btn-group" uib-dropdown is-open="status.isopen">
+											      <button id="single-button" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle ng-disabled="disabled">
+											        Actions <span class="wb-chevron-down-mini"></span>
+											      </button>
+											      <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+											        <li role="menuitem"><a href ng-click="viewRecords(import)">View Records</a></li>
+											        <li role="menuitem"><a class="text-danger" href ng-click="undoImport(import)">Delete Records</a></li>
+											      </ul>
+										  </div>
+							      	</td>
+							      </tr>
+							      
+							    </tbody>
+							  </table>
+	
+
+						</div>
+					</div>
+				</div>
+
+
+		</div>
+
+

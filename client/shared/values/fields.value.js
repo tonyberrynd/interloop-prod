@@ -952,6 +952,7 @@ angular.module('interloop.value.fields', [])
 	    "key": "primaryCompany",
 	    "type": "lookup",
 	    "lookupEntity": "Company",
+	    "lookupKey": "name",
 	    "locked": true,
 	    //new form
 		"excludeNew": false,
@@ -985,9 +986,27 @@ angular.module('interloop.value.fields', [])
 	},
 
 	{
+	   	"label": "Description",
+	    "key": "description",
+	    "type": "textarea",
+	    "locked": false,
+	    //new form
+		"excludeNew": false,
+		"newClass": "col-xs-12",
+	    //grid
+	    "excludeGrid": false,
+    	"hide": false,
+    	"width": 200,
+		"valueGetter": null,
+		"cellRenderer": null,
+		"pinned": null
+	},
+
+
+	{
 	   	"label": "Email Addresses",
 	    "key": "emailAddresses",
-	    "type": "array",
+	    "type": "email",
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
@@ -1003,7 +1022,7 @@ angular.module('interloop.value.fields', [])
 	{
 	   	"label": "Phone Numbers",
 	    "key": "phoneNumbers",
-	    "type": "array",
+	    "type": "phone",
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
@@ -1020,7 +1039,7 @@ angular.module('interloop.value.fields', [])
 	{
 	   	"label": "Social Accounts",
 	    "key": "socialAccounts",
-	    "type": "array",
+	    "type": "social",
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
@@ -1086,6 +1105,22 @@ angular.module('interloop.value.fields', [])
     	"width": 200,
 		"valueGetter": null,
 		"cellRenderer": 'websiteRender',
+		"pinned": null
+	},
+
+	{
+	   	"label": "Addresses",
+	    "key": "addresses",
+	    "type": "address",
+	    //new form
+		"excludeNew": false,
+		"newClass": "col-xs-12",
+	    //grid
+	    "excludeGrid": false,
+    	"hide": false,
+    	"width": 200,
+		"valueGetter": null,
+		"cellRenderer": null,
 		"pinned": null
 	}
 ])

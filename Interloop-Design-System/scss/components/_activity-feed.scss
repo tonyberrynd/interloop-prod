@@ -4,8 +4,8 @@
   padding-left:20px;
   list-style: none;
   background:#fff;
-  border-top:solid 1px $border;
-  border-bottom:solid 1px $border;
+  border:solid 1px $border;
+  border-radius: 5px;
 
   b {
     font-weight:600 !important;
@@ -37,10 +37,15 @@
 
   .feed-item {
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     padding-left: 15px;
     border-left: 2px solid $border;
     color:$dragonstone;
+
+    &.start {
+      padding-top:5px;
+      padding-bottom:0px;
+    }
 
     .card:last-child {
       margin-bottom:15px;
@@ -204,6 +209,10 @@
       // text-transform: uppercase;
       margin-left:32px;
       font-size: 13px;
+
+      &.no-avatar {
+        margin:0px;
+      }
     }
     .text {
       position: relative;

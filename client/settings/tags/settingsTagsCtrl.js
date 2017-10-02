@@ -52,6 +52,7 @@ activate();
 
 
 function changeEntity(entity){
+	$scope.data.loading = true;
 	$scope.data.currentEntity = entity;
 
 	//find views
@@ -59,9 +60,11 @@ function changeEntity(entity){
 		.then(function(results){
 			$scope.data.tags = results;
 			$scope.data.activated = true;
+			$scope.data.loading = false;
 		})
 		.catch(function(err){
 			Logger.error('Error Fetching Views');
+			$scope.data.loading = false;
 		})
 }
 

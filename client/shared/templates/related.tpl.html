@@ -2,8 +2,8 @@
 	<div class="panel-body">
 	
 	<span ng-repeat="entityType in data.entityTypes">
-	<h5 class="sidepanel-title" >
-		{{entityType.plural}} ({{(data.thisRecord.entities | filter: {entityType: entityType.singular}).length}})
+	<h5 class="sidepanel-title" ng-class="{'first-title': $first}">
+		{{entityType.plural}} (<span ng-bind="(data.thisRecord.entities | filter: {entityType: entityType.singular}).length || '0'"></span>)
 	</h5>
 
 	<span class="empty-add" ng-if="!(data.thisRecord.entities | filter: {entityType: entityType.singular}).length">
@@ -13,7 +13,7 @@
 	<span ng-if="(data.thisRecord.entities | filter: {entityType: entityType.singular}).length" ng-repeat="relatedEntity in data.thisRecord.entities | filter: { entityType: entityType.singular }" ng-switch="entityType.singular">
 
 		<!-- contact -->
-		<div class="panel panel-default card contact-card" ng-switch-when="Contact" ng-click="goForward(relatedEntity.entityType, relatedEntity.entityId)">
+		<div class="panel panel-default card contact-card" ng-switch-when="Contact" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
 			<div class="panel-body">
 				<div class="name-wrapper">
 				<div class="avatar avatar-32 royal">
@@ -38,7 +38,7 @@
 		</div>
 
 		<!-- company -->
-		<div class="panel panel-default card company-card" ng-switch-when="Company" ng-click="goForward(relatedEntity.entityType, relatedEntity.entityId)">
+		<div class="panel panel-default card company-card" ng-switch-when="Company" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
 			<div class="panel-body">
 				<div class="name-wrapper">
 				<div class="avatar avatar-32 sky square">
@@ -58,7 +58,7 @@
 		</div>
 
 		<!-- opportunity -->
-		<div class="panel panel-default card opportunity-card" ng-switch-when="Opportunity" ng-click="goForward(relatedEntity.entityType, relatedEntity.entityId)">
+		<div class="panel panel-default card opportunity-card" ng-switch-when="Opportunity" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
 			<div class="panel-body">
 
 				<div class="name-wrapper">

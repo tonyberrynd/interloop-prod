@@ -22,6 +22,7 @@
 
 //analytics
 @import "modules/explorer/explorer";
+@import "modules/powerbi/powerbi";
 
 //coaching
 @import "modules/pace/pace";
@@ -38,6 +39,15 @@
 //notifications list
 @import "modules/notifications/notifications";
 
+
+//modals
+// @import "shared/modals/confirm/confirm";
+// @import "shared/modals/manageRelationships/relationships";
+// @import "shared/modals/newCustomField/customFields";
+// @import "shared/modals/addGoal/addGoals";
+// @import "shared/modals/importData/import";
+@import "shared/modals/inviteUsers/inviteUsers";
+
 //settings
 @import "settings/settings";
 @import "settings/profile/profile";
@@ -45,10 +55,10 @@
 @import "settings/users/users";
 @import "settings/permissions/permissions";
 @import "settings/teams/teams";
-
-
 @import "settings/subscription/subscription";
 @import "settings/invoices/invoices";
+@import "settings/import/import";
+@import "settings/export/export";
 
 // @import "settings/settings";
 // @import "settings/import/import";

@@ -37,14 +37,14 @@ angular.module('interloop.config', [])
 
 //Ignores unhandled rejections with no cause
 //---------------------
-.config(function ($provide) {
-  $provide.decorator("$exceptionHandler", ["$delegate", function ($delegate) {
-      return function (exception, cause) {
-          if (!cause) return; //do nothing (ignore) exception in this case === 'Possibly unhandled rejection: undefined'               
-          $delegate(exception, cause);
-      };
-  }]);
-})
+// .config(function ($provide) {
+//   $provide.decorator("$exceptionHandler", ["$delegate", function ($delegate) {
+//       return function (exception, cause) {
+//           if (!cause) return; //do nothing (ignore) exception in this case === 'Possibly unhandled rejection: undefined'               
+//           $delegate(exception, cause);
+//       };
+//   }]);
+// })
 
 
 //Compile Provider [Performance]
@@ -73,6 +73,33 @@ angular.module('interloop.config', [])
   // set a custom template
   LightboxProvider.templateUrl = 'assets/html/lightbox.tpl.html';
 })
+
+//Microsoft Adal
+//---------------------
+// .config(function(adalAuthenticationServiceProvider, $httpProvider) {
+
+//     var anonymousEndpoints = [
+//       '/',
+//     ];
+
+//     //set window localstorage to be used in init
+//     window.localStorage.adalClientId = window.localStorage.adalClientId || 'no-client-id-for-this-organization';
+
+//     adalAuthenticationServiceProvider.init(
+//       {
+//           // Config to specify endpoints and similar for your app
+//           clientId: window.localStorage.adalClientId,
+//           anonymousEndpoints: anonymousEndpoints,
+//           popUp: true, 
+//           cacheLocation: 'localStorage', // optional cache location default is sessionStorage
+//           endpoints: {
+//             'https://graph.microsoft.com': 'https://graph.microsoft.com', 
+//             "https://api.powerbi.com": "https://analysis.windows.net/powerbi/api",
+//           }
+//       },
+//       $httpProvider   // pass http provider to inject request interceptor to attach tokens
+//       );
+// }) 
 
 //Stripe
 //---------------------
@@ -105,14 +132,16 @@ angular.module('interloop.config', [])
 //https://github.com/tandibar/ng-rollbar
 //---------------------
 .config(function(RollbarProvider, ENV) {
-  // RollbarProvider.init({
-  //   accessToken: "c16228063677465584fef9ec2262fa20",
-  //   captureUncaught: true,
-  //   captureUnhandledRejections: true,
-  //   payload: {
-  //     environment: ENV
-  //   }
-  // });
+  if (ENV == "PRODUCTION") {
+    RollbarProvider.init({
+      accessToken: "c16228063677465584fef9ec2262fa20",
+      captureUncaught: true,
+      captureUnhandledRejections: false,
+      payload: {
+        environment: ENV
+      }
+    });
+  }
 })
 
 //Run Block
@@ -128,6 +157,7 @@ angular.module('interloop.config', [])
   $window,
   $stickyState,
   $intercom,
+  Appuser,
   Logger,
   authService,
   SidebarRouter,
@@ -159,7 +189,6 @@ angular.module('interloop.config', [])
     //window vars
     //----------------------
     $window.client = new Pusher('9730e70eeebf029780f6');
-
 
     //connectivity monitor
     //-----------------------
@@ -285,6 +314,28 @@ angular.module('interloop.config', [])
       } else {
         return false;
       }
+    }
+
+    //apply timezone
+    $rootScope.applyTimezone = function(){
+      $rootScope.activeUser.timezone = moment.tz.guess();
+      Appuser.prototype$patchAttributes({ id: $rootScope.activeUser.id }, $rootScope.activeUser)
+        .$promise
+        .then(function successCallback(response) {
+            Logger.info('Successfully Updated Profile')
+            //set back into scope
+            $rootScope.activeUser = response;
+            $rootScope.adjustTimezone = false;
+
+          }, function errorCallback(response) {
+            Logger.error('Error Updating Profile')
+            $rootScope.adjustTimezone = false;
+        });
+
+    }
+
+    $rootScope.ignoreTimezone = function(){
+      $rootScope.adjustTimezone = false;
     }
 
   //-------------------------------------------

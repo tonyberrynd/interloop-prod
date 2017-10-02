@@ -27,6 +27,23 @@ table .toggle {
 	}
 }
 
+.panel.with-tabs {
+
+	.panel-heading{
+		padding:6px 36px !important;
+		padding-top:18px;
+	}
+
+	.panel-body{
+		padding:20px 40px;
+	}
+	
+
+	.nav-tabs > li > a {
+		padding:12px 18px;
+	}
+}
+
 
 #main-content {
 	background-color:$limestone;

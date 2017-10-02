@@ -1,7 +1,7 @@
 
 <div class="sidebar-section">
 
-<p class="sidepanel-title">Owners</p>
+<p class="sidepanel-title first-title">Owners</p>
 
     <!-- //may need to get out of owner links --> 
     <div class="card with-padding" ng-repeat="owner in data.thisRecord.ownerLinks">
@@ -28,13 +28,88 @@
 
 <div class="sidebar-section">
 <h5 class="sidepanel-title">Basic Information</h5>
-<div class="panel panel-default sidepanel-panel">
+
+<span class="empty-add" ng-if="!(data.fields | filter: {excludeForm: '!true'}).length">
+  <p class="empty-section">No Details</p>
+</span>
+
+<div class="panel panel-default sidepanel-panel" ng-if="(data.fields | filter: {excludeForm: '!true'}).length">
 	<div class="panel-body">
 		<form>
 		  <!-- //information -->
 		  <div class="form-group" ng-repeat="field in data.fields | filter: {excludeForm: '!true'}">
 		    <label for="{{field.key}}">{{field.label}}</label>
-		    <p id="{{field.key}}" class="form-control-static" ng-bind="data.thisRecord[field.key]"></p>
+
+		    <span ng-switch="field.type">
+			
+			<!-- default -->
+		    <span ng-switch-default>
+		    <p id="{{field.key}}" class="form-control-static" ng-bind="data.thisRecord[field.key]" ng-if="data.thisRecord[field.key]"></p>
+		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+
+			<!-- primaryCompany -->
+			<span ng-switch-when="lookup">
+		   	 <p id="{{field.key}}" class="form-control-static" ng-if="data.thisRecord[field.key][field.lookupKey || 'name']">
+		   	 	<a href ng-click="goTo(field.lookupEntity, data.thisRecord[field.key][field.lookupKey || 'name'].entityId)">
+		   	 		<span ng-bind="data.thisRecord[field.key][field.lookupKey || 'name']"></span>
+		   	 		<span><icon class="fa fa-external-link"></icon></span>
+		   	 	</a>
+		   	 </p>
+		   	 <p class="form-control-static no-value" ng-if="!data.thisRecord[field.key][field.lookupKey || 'name']"> No {{field.label}}</p>
+			</span>
+
+			<!-- category -->
+			<span ng-switch-when="category">
+		   	 <p id="{{field.key}}" class="form-control-static" ng-bind="data.thisRecord[field.key]['label']" ng-if="data.thisRecord[field.key]"></p>
+		   	 <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+			
+			<!-- address -->
+			<span ng-switch-when="address">
+			  <div class="row" ng-if="data.thisRecord[field.key].length" style="margin-top:5px;">
+              <div class="col-xs-6" ng-repeat="address in data.thisRecord[field.key]">
+                  <address>
+                      <strong>Billing Address</strong><br>
+                      1355 Market Street, Suite 900<br>
+                      San Francisco, CA 94103<br>
+                      United States<br>
+                  </address>
+              </div>
+              </div>
+              <p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Addresses</p>
+             </span>
+
+             <!-- phone -->
+			<span ng-switch-when="phone">
+				<p class="form-control-static" ng-repeat="phone in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
+					<a ng-href="'tel:' + {{phone}}" ng-bind="phone"></a>
+				</p>
+				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Phone Numbers</p>
+			</span>
+
+
+             <!-- email -->
+			<span ng-switch-when="email">
+				<p class="form-control-static" ng-repeat="email in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
+					<a ng-href="'mailto:' + {{email}}" ng-bind="email"></a>
+				</p>
+				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Email Addresses</p>
+			</span>
+
+
+             <!-- social -->
+             <span ng-switch-when="social">
+             	<p class="form-control-static" ng-repeat="social in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
+					<a ng-href="social" target="_blank" ng-bind="social"></a>
+				</p>
+				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Social Accounts</p>
+             </span>
+
+
+             </span>
+
+
 		  </div>
 		  
 		</form>
@@ -44,7 +119,12 @@
 
 <div class="sidebar-section">
 <h5 class="sidepanel-title">Custom Fields</h5>
-<div class="panel panel-default sidepanel-panel">
+
+<span class="empty-add" ng-if="!(data.customFields | filter: {excludeForm: '!true'}).length">
+  <p class="empty-section">No Custom Field Details</p>
+</span>
+
+<div class="panel panel-default sidepanel-panel" ng-if="(data.customFields | filter: {excludeForm: '!true'}).length">
 	<div class="panel-body">
 		<form>
 		  <!-- //information -->

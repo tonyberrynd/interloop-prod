@@ -5,16 +5,16 @@
 </div>
 
 <!-- timezone -->
-<div class="banner banner-info" role="banner" ng-if="$root.timzoneError">
-    <b>Timezone Mismatch!</b> Your current time zone settings doesn't match your current time, would you like us to change it? <a href="">Yes?</a><span>&#9679;</span><a href="">No Thanks</a>
+<div class="banner banner-info timezone-banner" role="banner" ng-show="$root.adjustTimezone">
+   <icon class="fa fa-plane"></icon> <b>Timezone Mismatch!</b> Your time zone setting doesn't match your current time, would you like us to change it for you? <a href ng-click="applyTimezone()">Yes</a><span class="timezone-seperator">&#9679;</span><a href ng-click="ignoreTimezone()">No Thanks</a>
 </div>
 
 <!-- offline -->
-<div class="banner banner-warning" role="banner" ng-if="$root.offline">
+<div class="banner banner-warning" role="banner" ng-show="$root.offline">
     <b>Connection Error!</b> Looks like you are currently offline, please connect to the internet
 </div>
 
-<div id="wrapper" ng-class="{'toggled': $root.sidebarToggle, 'has-banner': $root.hasBanner || $root.offline }">
+<div id="wrapper" ng-class="{'toggled': $root.sidebarToggle, 'has-banner': $root.hasBanner || $root.offline || $root.adjustTimezone }">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -22,8 +22,12 @@
             <ul class="sidebar-header">
               <li class="menu-toggle">
                   <div class="header-wrapper">
-                    <div class="header-emblem">I</div>
-                    <span class="nav-row">Interloop HQ</span>
+                    <div class="header-emblem">
+                        <span ng-bind="$root.activeOrg.name | limitTo:1"></span>
+                    </div>
+                    <span class="nav-row">
+                        <span ng-bind="$root.activeOrg.name"></span>
+                    </span>
                   </div>
                 </li>
             </ul>
@@ -32,7 +36,7 @@
                 <li class="pulse" ui-sref-active="active">
                     <a ui-sref="app.pulse"><span class="nav-row">Pulse</span></a>
                 </li>
-                <li class="sidebar-label">Analytics</li>
+                <li class="sidebar-label">Analysis</li>
                 <li class="dashboards" ui-sref-active="active">
                     <a ui-sref="app.dashboards"><span class="nav-row">Dashboards</span></a>
                 </li>
@@ -41,6 +45,9 @@
                 </li>
                 <li class="explorer"  ui-sref-active="active">
                     <a ui-sref="app.explorer"><span class="nav-row">Explorer</span></a>
+                </li>
+                <li class="analytics"  ui-sref-active="active">
+                    <a ui-sref="app.powerbi"><span class="nav-row">Analytics</span></a>
                 </li>
                 <li class="sidebar-label">Coaching</li>
                 <li class="goals" ui-sref-active="active">
