@@ -78,11 +78,22 @@ angular.module('interloop.routes.configure', [])
 
 
   $stateProvider.state('app.configure.systemViews', {
-        url: "/systemViews",
+        url: "/system-views",
         views: {
             'configure-content@app.configure': {
               templateUrl: 'configure/systemViews/systemViews.tpl.html',
               controller: 'configSystemViewsCtrl'
+            }
+        }
+  });
+
+
+  $stateProvider.state('app.configure.create-user', {
+        url: "/create-user",
+        views: {
+            'configure-content@app.configure': {
+              templateUrl: 'configure/createUser/createUser.tpl.html',
+              controller: 'configCreateUserCtrl'
             }
         }
   });

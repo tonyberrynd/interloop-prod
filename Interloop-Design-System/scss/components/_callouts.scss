@@ -1,0 +1,43 @@
+
+
+.callout {
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+    background-color:#fff;
+
+    //danger
+    &.callout-danger {
+	    border-left-color: #ce4844;
+
+        icon {
+            color: $danger;
+        }
+
+        .title {
+            font-weight: 500;
+            color: $danger;
+            font-size:110%;
+        }
+	}
+
+
+    //danger
+    &.callout-info {
+        border-left-color: $info;
+
+        icon {
+            color: $info;
+        }
+
+        .title {
+            font-weight: 500;
+            color: $info;
+            font-size:110%;
+        }
+    }
+
+}
+

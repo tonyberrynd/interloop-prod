@@ -1,0 +1,147 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Create New User</h4>
+					<p>Fill out the details below to create a new user.</p>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-body">
+
+							<div class="row">
+								<div class="col-xs-3 text-center">
+									<div class="avatar avatar-96" ng-class="data.newUser.color">
+										<span ng-bind="data.newUser.initials"></span>
+									</div>
+
+									<br>
+									<br>
+
+									<div class="color-picker">
+										
+										<div class="color ocean" ng-class="{'active': data.newUser.color == 'ocean'}" ng-click="data.newUser.color = 'ocean'; save();">
+										</div>
+										<div class="color royal" ng-class="{'active': data.newUser.color == 'royal'}" ng-click="data.newUser.color = 'royal'; save();">
+										</div>
+										<div class="color sky" ng-class="{'active': data.newUser.color == 'sky'}" ng-click="data.newUser.color = 'sky'; save();">
+										</div>
+										<div class="color lime" ng-class="{'active': data.newUser.color == 'lime'}" ng-click="data.newUser.color = 'lime'; save();">
+										</div>
+										<div class="color clover" ng-class="{'active': data.newUser.color == 'clover'}" ng-click="data.newUser.color = 'clover'; save();">
+										</div>
+										<br>
+										<div class="color grape" ng-class="{'active': data.newUser.color == 'grape'}" ng-click="data.newUser.color = 'grape'; save();">
+										</div>
+										<div class="color lipstick" ng-class="{'active': data.newUser.color == 'lipstick'}" ng-click="data.newUser.color = 'lipstick'; save();">
+										</div>
+										<div class="color sunset" ng-class="{'active': data.newUser.color == 'sunset'}" ng-click="data.newUser.color = 'sunset'; save();">
+										</div>
+										<div class="color tangerine" ng-class="{'active': data.newUser.color == 'tangerine'}" ng-click="data.newUser.color = 'tangerine'; save();">
+										</div>
+										<div class="color sunlight" ng-class="{'active': data.newUser.color == 'sunlight'}" ng-click="data.newUser.color = 'sunlight'; save();">
+										</div>
+									</div>
+
+
+									<br>
+									<br>
+
+									
+								</div>
+								<div class="col-xs-9">
+										
+									<!-- //detials -->
+									<div class="row">
+
+									<form name="createUserForm" novalidate>
+									  <div class="form-group col-xs-6">
+									    <label for="firstName">First Name
+									    <span class="required text-danger">*</span>
+										</label>
+									    <br>
+									    <input type="text" class="form-control" id="firstName" placeholder="" ng-model="data.newUser.firstName" required>
+									  </div>
+									  <div class="form-group col-xs-6">
+									    <label for="lastName">Last Name
+									    <span class="required text-danger">*</span>
+										</label>
+									    <br>
+									    <input type="text" class="form-control" id="lastName" placeholder="" ng-model="data.newUser.lastName" required>
+									  </div>
+
+									  <div class="form-group col-xs-6">
+									    <label for="title">Title
+									    
+										</label>
+									    <br>
+									    <input type="text" class="form-control" id="title" placeholder="" ng-model="data.newUser.title">
+									  </div>
+
+									  <div class="form-group col-xs-6">
+									    <label for="initials">Initials
+									    <span class="required text-danger">*</span>
+										</label>
+									    <br>
+									    <input type="text" class="form-control" id="initials" placeholder="" ng-model="data.newUser.initials" required>
+									  </div>
+
+									  <!-- email-->
+									  <div class="form-group col-xs-6">
+									    <label for="email">
+									    Email
+									    <span class="required text-danger">*</span>
+									    </label>
+									    <br>
+									    <input type="email" class="form-control w-padding" id="email" placeholder="" ng-model="data.newUser.email" autocomplete="new-email" required>
+									  </div>
+
+
+									  <div class="form-group col-xs-6">
+									    <label for="password">
+									    Password
+									    <span class="required text-danger">*</span>
+									    </label>
+									    <br>
+									    <input type="password" class="form-control w-padding" id="password" placeholder="" ng-model="data.newUser.password" autocomplete="new-password" required>
+									  </div>
+
+
+									  <br>
+
+									  <div class="form-group col-xs-12">
+									  	<label for="role">User Role:</label>
+
+										<span ng-repeat="role in data.roles">
+									  	<input class="magic-radio radio-inline" type="radio" name="role" id="{{role.id}}" value="{{role}}">
+										<label for="{{role.id}}">
+										  {{role.label}}
+										</label>
+										</span>	
+
+									  </div>
+
+
+									  <div class="col-xs-12 text-right">
+									  	<button class="btn btn-primary" ng-click="createUser()" ng-disabled="createUserForm.$invalid">Create New User</button>
+									  </div>
+
+									 </form>
+
+									  
+									</div>
+								</div>
+							</div>
+
+
+
+
+						</div>
+					</div>
+				</div>
+
+
+

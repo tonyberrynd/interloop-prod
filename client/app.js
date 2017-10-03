@@ -207,6 +207,7 @@ angular.module('interloop', [
   'interloop.logDetailsCtrl',
 
   //configuration
+  'interloop.configCreateUserCtrl',
   'interloop.configPermissionsCtrl',
   'interloop.configLimitsCtrl',
   'interloop.configFeaturesCtrl',

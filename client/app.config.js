@@ -505,7 +505,7 @@ angular.module('interloop.config', [])
     //------------------
     $rootScope.$on('loginRequired', function() {
       if($state.current.name !== 'login'){
-          $state.go('403');
+          $state.go('login');
       }
     });
 

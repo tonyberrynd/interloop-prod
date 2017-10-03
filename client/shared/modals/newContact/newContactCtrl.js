@@ -23,6 +23,7 @@ angular.module('interloop.newContactCtrl', [])
   //data
   //----------------------
   $scope.data = {};
+  $scope.data.thisRecord = {};
   $scope.data.fieldToggle = 'false';
   $scope.data.loadingOwners = false;
   $scope.data.loadingRelated = false;
@@ -107,6 +108,7 @@ activate();
           }
       })
       .catch(function(err){
+        console.log(err);
         Logger.error('Error Creating Contact', 'Please Try Again in a moment');
       })
   }

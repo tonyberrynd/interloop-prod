@@ -51,32 +51,38 @@ angular.module('interloop.routes', [])
 
   $stateProvider.state('maintenance', {
       url: "/maintenance",
-      templateUrl: 'assets/errors/maintenance.tpl.html'
+      templateUrl: 'assets/errors/maintenance.tpl.html',
+      authenticate: false
   });
 
   $stateProvider.state('offline', {
       url: "/offline",
-      templateUrl: 'assets/errors/offline.tpl.html'
+      templateUrl: 'assets/errors/offline.tpl.html',
+      authenticate: false
   });
 
   $stateProvider.state('403', {
       url: "/403",
-      templateUrl: 'assets/errors/403.tpl.html'
+      templateUrl: 'assets/errors/403.tpl.html',
+      authenticate: false
   });
 
   $stateProvider.state('404', {
       url: "/404",
-      templateUrl: 'assets/errors/404.tpl.html'
+      templateUrl: 'assets/errors/404.tpl.html',
+      authenticate: false
   });
 
   $stateProvider.state('500', {
       url: "/500",
-      templateUrl: 'assets/errors/500.tpl.html'
+      templateUrl: 'assets/errors/500.tpl.html',
+      authenticate: false
   });
 
   $stateProvider.state('503', {
       url: "/503",
-      templateUrl: 'assets/errors/503.tpl.html'
+      templateUrl: 'assets/errors/503.tpl.html',
+      authenticate: false
   });
 
 /* App
@@ -94,6 +100,7 @@ angular.module('interloop.routes', [])
             templateUrl: 'modules/app/app.tpl.html',
           }
       },
+      authenticate: true,
       resolve: {
         CONFIG: function(configService, $q) {
           return configService.init();

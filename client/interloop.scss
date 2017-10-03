@@ -42,10 +42,11 @@
 
 //modals
 // @import "shared/modals/confirm/confirm";
-// @import "shared/modals/manageRelationships/relationships";
-// @import "shared/modals/newCustomField/customFields";
 // @import "shared/modals/addGoal/addGoals";
-// @import "shared/modals/importData/import";
+
+@import "shared/modals/manageRelationships/relationships";
+@import "shared/modals/newCustomField/customFields";
+@import "shared/modals/importData/import";
 @import "shared/modals/inviteUsers/inviteUsers";
 
 //settings

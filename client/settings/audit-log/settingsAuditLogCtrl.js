@@ -82,7 +82,7 @@ Set Page
 */
 function pageChanged(){
 	$scope.data.activated = false;
-	$scope.data.currentPos = $scope.data.currentPage * $scope.data.perPage;
+	$scope.data.currentPos = ($scope.data.currentPage - 1) * $scope.data.perPage;
 
 	//get next page of results
 	$scope.data.logs = [];

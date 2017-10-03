@@ -11,6 +11,47 @@
 
         <form name="userProfileForm" novalidate>
                 <div class="row">
+                    <div class="col-xs-12 text-center">
+                      <div class="avatar avatar-96" ng-class="data.thisUser.color">
+                        <span ng-bind="data.thisUser.initials"></span>
+                      </div>
+
+                      <br>
+                      <br>
+
+                      <div class="color-picker">
+                        
+                        <div class="color ocean" ng-class="{'active': data.thisUser.color == 'ocean'}" ng-click="data.thisUser.color = 'ocean'; save();">
+                        </div>
+                        <div class="color royal" ng-class="{'active': data.thisUser.color == 'royal'}" ng-click="data.thisUser.color = 'royal'; save();">
+                        </div>
+                        <div class="color sky" ng-class="{'active': data.thisUser.color == 'sky'}" ng-click="data.thisUser.color = 'sky'; save();">
+                        </div>
+                        <div class="color lime" ng-class="{'active': data.thisUser.color == 'lime'}" ng-click="data.thisUser.color = 'lime'; save();">
+                        </div>
+                        <div class="color clover" ng-class="{'active': data.thisUser.color == 'clover'}" ng-click="data.thisUser.color = 'clover'; save();">
+                        </div>
+                        <div class="color grape" ng-class="{'active': data.thisUser.color == 'grape'}" ng-click="data.thisUser.color = 'grape'; save();">
+                        </div>
+                        <div class="color lipstick" ng-class="{'active': data.thisUser.color == 'lipstick'}" ng-click="data.thisUser.color = 'lipstick'; save();">
+                        </div>
+                        <div class="color sunset" ng-class="{'active': data.thisUser.color == 'sunset'}" ng-click="data.thisUser.color = 'sunset'; save();">
+                        </div>
+                        <div class="color tangerine" ng-class="{'active': data.thisUser.color == 'tangerine'}" ng-click="data.thisUser.color = 'tangerine'; save();">
+                        </div>
+                        <div class="color sunlight" ng-class="{'active': data.thisUser.color == 'sunlight'}" ng-click="data.thisUser.color = 'sunlight'; save();">
+                        </div>
+                      </div>
+
+
+                      <br>
+                      <br>
+
+                      
+                </div>
+                    
+      
+                <div class="row">
                     <!-- first Name -->
                       <div class="form-group col-xs-6">
                         <label for="firstName">First Name</label>
@@ -73,6 +114,7 @@
                         <input type="text" class="form-control" id="location" placeholder="" ng-model="data.thisUser.location">
                       </div>
                 </div>
+
         </form>
 
     </div>

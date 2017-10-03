@@ -22,6 +22,7 @@ angular.module('interloop.newCompanyCtrl', [])
   //data
   //----------------------
   $scope.data = {};
+  $scope.data.thisRecord = {};
   $scope.data.fieldToggle = 'false';
   $scope.data.loadingOwners = false;
   $scope.data.loadingRelated = false;
