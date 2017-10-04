@@ -150,7 +150,7 @@
 		 <!--      <p>{{tag}}</p> -->
 		      <!-- <div class="tag" ng-repeat="tag in data.thisRecord.tags | unique:'itemId'"> -->
 		        <span ng-bind="tag.name" ng-click="viewTagList('Opportunity', tag)"></span>
-		        <span ng-click="removeTag(tag)" class="removeTag"><icon class="wb-close"></icon></span>
+		        <span ng-click="removeTag(tag)" class="removeTag" ng-if="tag.createdBy.id == $root.activeUser.id"><icon class="fa fa-close"></icon></span>
 		      </div>
 
 		</div>

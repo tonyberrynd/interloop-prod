@@ -5,14 +5,19 @@
 angular.module('interloop.logDetailsCtrl', [])
 //decalre dependencies
 .controller('logDetailsCtrl', function(
-  $scope
+  $scope,
+  resolvedData
 ) {
 
 // BINDABLES
 //===========================================
+  var thisLog = resolvedData;
+
   //data
   //----------------------
   $scope.data = {};
+  $scope.data.activeTab = 1;
+  $scope.data.thisLog = thisLog;
 
 
   //functions
@@ -23,7 +28,6 @@ angular.module('interloop.logDetailsCtrl', [])
 
 // ACTIVATE
 //===========================================
-// activation logic goes here
 //-------------------------------------------
 
 

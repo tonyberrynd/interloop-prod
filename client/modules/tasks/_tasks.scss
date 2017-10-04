@@ -1,0 +1,108 @@
+.calendar-wrapper {
+  position: relative;
+  height: 100%;
+  min-height: 100vh;
+  background-color: #fff; }
+
+.calendar-header {
+  text-align: center;
+  display: block;
+  padding: 15px;
+  padding-bottom: 25px; }
+  .calendar-header .logo {
+    width: 72px;
+    height: 72px;
+    border: solid 1px #E5E7E9;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
+    line-height: 72px; }
+  .calendar-header p {
+    color: #737F8B; }
+
+.calendar-subheader {
+  display: block;
+  border-top: solid 1px #E5E7E9;
+  border-bottom: solid 1px #E5E7E9;
+  padding: 10px;
+  background-color: #F8F9F9; }
+
+.date-selector {
+  display: block;
+  margin: auto 0;
+  text-align: center; }
+
+.week-slide {
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  padding: 10px;
+  border-radius: 50%;
+  line-height: 44px;
+  background-color: #fff;
+  border: solid 2px #E5E7E9;
+  margin-bottom: 10px;
+  margin-top: -10px;
+  margin: 10px;
+  transform: translateY(-15px); }
+  .week-slide.available {
+    border-color: #22A7F0; }
+    .week-slide.available icon {
+      color: #22A7F0; }
+  .week-slide icon {
+    font-size: 20px;
+    color: #737F8B; }
+
+a.date-selection {
+  position: relative;
+  display: inline-block;
+  width: 84px;
+  height: 84px;
+  border: solid 5px #E5E7E9;
+  border-radius: 5px;
+  margin: 10px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #2C3E50;
+  padding: 5px;
+  text-align: center; }
+  a.date-selection.available {
+    border-color: #22A7F0; }
+    a.date-selection.available .number {
+      color: #22A7F0; }
+    a.date-selection.available .day {
+      color: #22A7F0; }
+  a.date-selection:hover {
+    text-decoration: none; }
+  a.date-selection .number {
+    font-weight: 400;
+    font-size: 30px;
+    color: #737F8B;
+    margin: 0px; }
+  a.date-selection .month {
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: uppercase; }
+  a.date-selection .day {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: -14px;
+    color: #737F8B; }
+    a.date-selection .day .day-text {
+      padding: 3px 9px;
+      background-color: #fff; }
+
+.time-card {
+  display: inline-block;
+  border: solid 5px #22A7F0;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px; }
+  .time-card h2 {
+    margin: 0px; }
+
+.day-divider {
+  border-bottom: solid 1px #E5E7E9;
+  margin-bottom: 15px;
+  padding: 10px 5px; }

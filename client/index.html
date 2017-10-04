@@ -56,6 +56,7 @@
     <link rel="stylesheet" type="text/css" href="lib/ng-prettyjson/dist/ng-prettyjson.min.css">
     <link rel="stylesheet" type="text/css" href="lib/angular-loading-bar/build/loading-bar.min.css"/>
     <link rel="stylesheet" type="text/css" href="lib/nya-bootstrap-select/dist/css/nya-bs-select.css">
+    <link rel="stylesheet" type="text/css" href="lib/fullcalendar/dist/fullcalendar.css">
     <link rel="stylesheet" type="text/css" href="assets/css/interloop.css"/>
     <!-- endbuild -->
 
@@ -98,6 +99,8 @@
     <script type="text/javascript" src="https://code.highcharts.com/modules/heatmap.js"></script>
     <!-- pusher -->
     <script type="text/javascript" src="https://js.pusher.com/3.0/pusher.min.js"></script>
+    <!-- full calendar -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.5.1/fullcalendar.min.js"></script>
     <!-- microsoft adal -->
     <script type="text/javascript" src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.12/js/adal.min.js" async defer></script>
     <script type="text/javascript" src="https://npmcdn.com/powerbi-client@2.0.0" async defer></script>
@@ -183,6 +186,7 @@
     <script type="text/javascript" src="lib/angular-mixpanel/src/angular-mixpanel.js"></script>
     <script type="text/javascript" src="lib/angular-card/src/card.js"></script>
     <script type="text/javascript" src="lib/angular-powerbi/dist/angular-powerbi.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-calendar/src/calendar.js"></script>
     <!-- assets -->
     <script type="text/javascript" src="assets/js/angular-daterangepicker.js"></script>
     <script type="text/javascript" src="assets/js/ui-bootstrap.js"></script>
@@ -248,6 +252,7 @@
     <script type="text/javascript" src="modules/content/contentEditCtrl.js"></script>
     <!-- tasks -->
     <script type="text/javascript" src="modules/tasks/tasksCtrl.js"></script>
+    <script type="text/javascript" src="modules/tasks/taskCalendarCtrl.js"></script>
     <script type="text/javascript" src="modules/tasks/taskDetailsCtrl.js"></script>
     <!-- more -->
     <script type="text/javascript" src="modules/more/files/filesCtrl.js"></script>
@@ -275,6 +280,7 @@
     <script type="text/javascript" src="shared/modals/addOwner/addOwnerCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addTag/addTagCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addRole/addRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addStatus/addStatusCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addTeamMember/addTeamMemberCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addPipeline/addPipelineCtrl.js"></script>
@@ -320,7 +326,9 @@
     <script type="text/javascript" src="settings/goals/settingsGoalsCtrl.js"></script>
     <script type="text/javascript" src="settings/forecasting/settingsForecastingCtrl.js"></script>
     <script type="text/javascript" src="settings/fields/settingsFieldsCtrl.js"></script>
+    <script type="text/javascript" src="settings/statuses/settingsStatusesCtrl.js"></script>
     <script type="text/javascript" src="settings/types/settingsTypesCtrl.js"></script>
+    <script type="text/javascript" src="settings/products/settingsProductsCtrl.js"></script>
     <script type="text/javascript" src="settings/won-loss/settingsWonLossCtrl.js"></script>
     <script type="text/javascript" src="settings/pipelines/settingsPipelinesCtrl.js"></script>
     <script type="text/javascript" src="settings/custom-fields/settingsCustomFieldsCtrl.js"></script>
@@ -334,8 +342,11 @@
     <!-- ////settings-modals -->
     <script type="text/javascript" src="shared/modals/addActivityType/addActivityTypeCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addForecastCategory/addForecastCategoryCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addProduct/addProductCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addGoal/addGoalCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addOwner/addOwnerCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addProcess/addProcessCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addProduct/addProductCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addPipeline/addPipelineCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addReason/addReasonCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addRole/addRoleCtrl.js"></script>

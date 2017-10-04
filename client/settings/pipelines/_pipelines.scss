@@ -1,19 +1,13 @@
 
-.pipeline-wrapper {
-	display: inline-block;
-	overflow: hidden;
-	overflow-x:auto;
-	white-space: nowrap;
-	width:100%;
-}
+.pipeline-card .panel-body {
+    padding: 25px;
 
-.pipeline-stage {
-	display: inline-block;
-	padding:25px 60px;
+    p {
+    	color:$dragonstone !important;
+    }
 
-	icon {
-		color:$icon;
-		margin-right:5px;
-		font-size:12px;
-	}
+    .divider {
+    	margin:0 5px;
+    	color:$gravel;
+    }
 }

@@ -70,7 +70,7 @@ angular.module('interloop.routes.configure', [])
         url: "/fields",
         views: {
             'configure-content@app.configure': {
-              templateUrl: 'configure/fields/fields.tpl.html',
+              templateUrl: 'configure/fields/fields2.tpl.html',
               controller: 'configFieldsCtrl'
             }
         }

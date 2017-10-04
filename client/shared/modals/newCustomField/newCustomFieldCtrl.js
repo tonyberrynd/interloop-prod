@@ -101,7 +101,8 @@ function ok() {
     label: $scope.data.field.name,
     type: $scope.data.fieldType,
     description: $scope.data.field.description,
-    useWith: $scope.data.useWith
+    useWith: $scope.data.useWith,
+    active: true
   };
 
   //add optoins is category type

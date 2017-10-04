@@ -107,7 +107,7 @@
                             <textarea class="form-control" rows="3" id="comment" ng-model="data.field.description"></textarea>
                          </div>
 
-                         <div class="field-options" ng-if="data.fieldType == 'category'">
+                         <div class="field-options" ng-if="data.fieldType == 'category' || data.fieldType == 'multi'">
                             <p>Add in the various dropdown options</p>
 
                              <div class="form-group field-option" ng-repeat="option in data.options">
@@ -135,10 +135,10 @@
                     <div class="confirm-field">
       
                             
-                        <p>Which Entities Should this field be used with?</p>
+                        <h5>Which Entities Should this field be used with?</h5>
 
                         <div class="checkbox-custom checkbox-primary" ng-repeat="entity in data.entities">
-                            <input type="checkbox" id="{{entity.singular}}" checklist-model="data.useWith" checklist-value="entity.singular">
+                            <input class="magic-checkbox" type="checkbox" id="{{entity.singular}}" checklist-model="data.useWith" checklist-value="entity.singular">
                             <label for="{{entity.singular}}">{{entity.singular}}</label>
                         </div>
 

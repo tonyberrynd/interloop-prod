@@ -300,6 +300,8 @@ angular.module('interloop.value.fields', [])
 		"valueGetter": null,
 		"cellRenderer": null,
 		"pinned": true,
+		//import
+		"exludeImport": false,
 		//forms
 		"class": "col-xs-12",
 		"excludeForm": false,
@@ -424,105 +426,105 @@ angular.module('interloop.value.fields', [])
 	      "default": '' // default if value is not found (optional, overrides `defaultValue` for column)
 	    },
 	},
-	{
-		"label": "Status",
-		"colId":"status",
-		"key": "status",
-		"type": "category",
-		"locked": true,
+	// {
+	// 	"label": "Status",
+	// 	"colId":"status",
+	// 	"key": "status",
+	// 	"type": "category",
+	// 	"locked": true,
 
-		"exportKey": "status.label",
-		//loopup fields
-	    "queryKey": "oppStatus",
-	   	//grouping
-	    "groupByKey": "status.key",
-	    "groupByLabel": "status.label",
+	// 	"exportKey": "status.label",
+	// 	//loopup fields
+	//     "queryKey": "oppStatus",
+	//    	//grouping
+	//     "groupByKey": "status.key",
+	//     "groupByLabel": "status.label",
 
-	    "values": [
-	    	{
-	    		"index": "0",
-	    	 	"color": "#199ED9",
-	    	 	"label": "Open",
-	    	 	"value": "open"
-	    	 },
-	    	 {
-	    	 	"index": "1",
-	    	  	"color": "#F2AF01",
-	    	 	"label": "Parked",
-	    	 	"value": "parked"
-	    	  },
-	    	 {
-	    	 	"index": "2",
-	    	 	"color": "#18C489",
-	    	 	"label": "Closed - Won",
-	    	 	"value": "closedWon"
-	    	 },
-	    	 {
-	    	 	"index": "3",
-	    	 	"color": "#E85252",
-	    	 	"label": "Closed - Lost",
-	    	 	"value": "closedLost"
-	    	 }
-	    ],
-		//grid
-		"excludeGrid": false,
-		"hide": false,
-		"width": 200,
-		"valueGetter": "getNestedValue",
-		"cellRenderer": "oppStatusRender",
-		"pinned": null,
-		// forms
-		"class": "col-xs-6",
-		"excludeForm": false,
-		//should it be on new form
-		"excludeNew": false,
-		"newRequired": true,
-		"newClass": "col-xs-6",
-		//filters
-		"filterApplied": 'includes',
-		"filterValue": null
-	},
-	{
-	   	"label": "Pipeline",
-	    "key": "pipeline",
-	    "colId": "pipeline",
-	    "type": "category",
-	    "locked": true,
-	    //loopup fields
-	    "queryKey": "oppPipeline",
-	    //grouping
-	    "groupByKey": "pipeline.key",
-	    "groupByLabel": "pipeline.label",
-	    "values": [{
-	    	"index": "0",
-	    	"label": "Pipeline 1",
-	    	"value": "pipeline1"
-	    },
-	    {
-	    	"index": "1",
-	    	"label": "Pipeline 2",
-	    	"value": "pipeline2"
-	    }],
-	    //grid
-	    "excludeGrid": false,
-    	"hide": false,
-    	"width": 200,
-		"valueGetter": "getNestedValue",
-		"cellRenderer": null,
-		"pinned": null,
-		// forms
-		"class": "col-xs-12",
-		"excludeForm": true,
-		//should it be on new form
-		"excludeNew": false,
-		"newRequired": true,
-		"newClass": "col-xs-12",
-		//filters
-		"filterApplied": 'includes',
-		"filterValue": null,
-		//bulk
-		"excludeBulk": true
-	},
+	//     "values": [
+	//     	{
+	//     		"index": "0",
+	//     	 	"color": "#199ED9",
+	//     	 	"label": "Open",
+	//     	 	"value": "open"
+	//     	 },
+	//     	 {
+	//     	 	"index": "1",
+	//     	  	"color": "#F2AF01",
+	//     	 	"label": "Parked",
+	//     	 	"value": "parked"
+	//     	  },
+	//     	 {
+	//     	 	"index": "2",
+	//     	 	"color": "#18C489",
+	//     	 	"label": "Closed - Won",
+	//     	 	"value": "closedWon"
+	//     	 },
+	//     	 {
+	//     	 	"index": "3",
+	//     	 	"color": "#E85252",
+	//     	 	"label": "Closed - Lost",
+	//     	 	"value": "closedLost"
+	//     	 }
+	//     ],
+	// 	//grid
+	// 	"excludeGrid": false,
+	// 	"hide": false,
+	// 	"width": 200,
+	// 	"valueGetter": "getNestedValue",
+	// 	"cellRenderer": "oppStatusRender",
+	// 	"pinned": null,
+	// 	// forms
+	// 	"class": "col-xs-6",
+	// 	"excludeForm": false,
+	// 	//should it be on new form
+	// 	"excludeNew": false,
+	// 	"newRequired": true,
+	// 	"newClass": "col-xs-6",
+	// 	//filters
+	// 	"filterApplied": 'includes',
+	// 	"filterValue": null
+	// },
+	// {
+	//    	"label": "Pipeline",
+	//     "key": "pipeline",
+	//     "colId": "pipeline",
+	//     "type": "category",
+	//     "locked": true,
+	//     //loopup fields
+	//     "queryKey": "oppPipeline",
+	//     //grouping
+	//     "groupByKey": "pipeline.key",
+	//     "groupByLabel": "pipeline.label",
+	//     "values": [{
+	//     	"index": "0",
+	//     	"label": "Pipeline 1",
+	//     	"value": "pipeline1"
+	//     },
+	//     {
+	//     	"index": "1",
+	//     	"label": "Pipeline 2",
+	//     	"value": "pipeline2"
+	//     }],
+	//     //grid
+	//     "excludeGrid": false,
+ //    	"hide": false,
+ //    	"width": 200,
+	// 	"valueGetter": "getNestedValue",
+	// 	"cellRenderer": null,
+	// 	"pinned": null,
+	// 	// forms
+	// 	"class": "col-xs-12",
+	// 	"excludeForm": true,
+	// 	//should it be on new form
+	// 	"excludeNew": false,
+	// 	"newRequired": true,
+	// 	"newClass": "col-xs-12",
+	// 	//filters
+	// 	"filterApplied": 'includes',
+	// 	"filterValue": null,
+	// 	//bulk
+	// 	"excludeBulk": true
+	// },
 	{
 	   	"label": "Owners",
 	    "key": "owners",
@@ -576,7 +578,7 @@ angular.module('interloop.value.fields', [])
 		// forms
 		"class": "col-xs-12",
 		"excludeForm": false,
-		"newClass": "col-xs-12",
+		"newClass": "col-xs-6",
 		//should it be on new form
 		"excludeNew": false,
 		"newRequired": false,
@@ -670,50 +672,50 @@ angular.module('interloop.value.fields', [])
 		"filterApplied": 'includes',
 		"filterValue": null
 	},
-	{
-		"label": "Stage",
-		"colId":"stage",
-		"key": "stage",
-		"sortKey": "stage.score",
-		"type": "category",
-		"locked": true,
-		//loopup fields
-	    "queryKey": "oppStage",
-	   	//grouping
-	    "groupByKey": "stage.key",
-	    "groupByLabel": "stage.label",
+	// {
+	// 	"label": "Stage",
+	// 	"colId":"stage",
+	// 	"key": "stage",
+	// 	"sortKey": "stage.score",
+	// 	"type": "category",
+	// 	"locked": true,
+	// 	//loopup fields
+	//     "queryKey": "oppStage",
+	//    	//grouping
+	//     "groupByKey": "stage.key",
+	//     "groupByLabel": "stage.label",
 
-	    "values": [
-	    	{"label": "Stage 1",
-	    	 "value": "stage1",
-	    	 "percentage": 10},
-	    	 {"label": "Stage 2",
-	    	 "value": "stage2",
-	    	 "percentage": 50},
-	    	 {"label": "Stage 3",
-	    	 "value": "stage3",
-	    	 "percentage": 70},
-	    	 {"label": "Stage 4",
-	    	 "value": "stage4",
-	    	 "percentage": 90}
-	    ],
-		//grid
-		"excludeGrid": false,
-		"hide": false,
-		"width": 200,
-		"valueGetter": "getNestedStage",
-		"cellRenderer": "oppStageRender",
-		"pinned": null,
-		// forms
-		"class": "col-xs-6",
-		"excludeForm": false,
-		//should it be on new form
-		"excludeNew": false,
-		"newClass": "col-xs-6",
-		//filters
-		"filterApplied": 'includes',
-		"filterValue": null
-	},
+	//     "values": [
+	//     	{"label": "Stage 1",
+	//     	 "value": "stage1",
+	//     	 "percentage": 10},
+	//     	 {"label": "Stage 2",
+	//     	 "value": "stage2",
+	//     	 "percentage": 50},
+	//     	 {"label": "Stage 3",
+	//     	 "value": "stage3",
+	//     	 "percentage": 70},
+	//     	 {"label": "Stage 4",
+	//     	 "value": "stage4",
+	//     	 "percentage": 90}
+	//     ],
+	// 	//grid
+	// 	"excludeGrid": false,
+	// 	"hide": false,
+	// 	"width": 200,
+	// 	"valueGetter": "getNestedStage",
+	// 	"cellRenderer": "oppStageRender",
+	// 	"pinned": null,
+	// 	// forms
+	// 	"class": "col-xs-6",
+	// 	"excludeForm": false,
+	// 	//should it be on new form
+	// 	"excludeNew": false,
+	// 	"newClass": "col-xs-6",
+	// 	//filters
+	// 	"filterApplied": 'includes',
+	// 	"filterValue": null
+	// },
 		{
 	   	"label": "Days In Pipeline",
 	    "key": "daysInPipeline",
@@ -917,7 +919,7 @@ angular.module('interloop.value.fields', [])
 		"excludeForm": false,
 	    //new form
 		"excludeNew": false,
-		"newClass": "col-xs-12",
+		"newClass": "col-xs-6",
 	    //grid specifics
 	    "excludeGrid": true,
 		"hide": false,
@@ -937,7 +939,7 @@ angular.module('interloop.value.fields', [])
 		"excludeForm": false,
 	    //new form
 		"excludeNew": false,
-		"newClass": "col-xs-12",
+		"newClass": "col-xs-6",
 	    //grid specifics
 	    "excludeGrid": true,
 		"hide": false,
@@ -1050,6 +1052,22 @@ angular.module('interloop.value.fields', [])
 		"valueGetter": null,
 		"cellRenderer": null,
 		"pinned": null
+	},
+
+	{
+	   	"label": "Addresses",
+	    "key": "addresses",
+	    "type": "address",
+	    //new form
+		"excludeNew": false,
+		"newClass": "col-xs-12",
+	    //grid
+	    "excludeGrid": false,
+    	"hide": false,
+    	"width": 200,
+		"valueGetter": null,
+		"cellRenderer": null,
+		"pinned": null
 	}
 ])
 
@@ -1094,7 +1112,7 @@ angular.module('interloop.value.fields', [])
 	{
 	   	"label": "Website",
 	    "key": "website",
-	    "type": "string",
+	    "type": "website",
 	    "locked": true,
 	    //new form
 	    "excludeNew": false,
@@ -1105,6 +1123,22 @@ angular.module('interloop.value.fields', [])
     	"width": 200,
 		"valueGetter": null,
 		"cellRenderer": 'websiteRender',
+		"pinned": null
+	},
+
+	{
+	   	"label": "Social Accounts",
+	    "key": "socialAccounts",
+	    "type": "social",
+	    //new form
+		"excludeNew": false,
+		"newClass": "col-xs-12",
+	    //grid
+	    "excludeGrid": false,
+    	"hide": false,
+    	"width": 200,
+		"valueGetter": null,
+		"cellRenderer": null,
 		"pinned": null
 	},
 

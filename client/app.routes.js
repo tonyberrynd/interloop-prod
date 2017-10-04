@@ -314,7 +314,7 @@ angular.module('interloop.routes', [])
       views: {
           'page-content@app': {
             templateUrl: 'modules/forecasts/forecasts.tpl.html',
-            // controller: 'opportunitiesCtrl',
+            controller: 'forecastsCtrl',
           }
       },
       params: {
@@ -622,6 +622,30 @@ angular.module('interloop.routes', [])
           'page-content@app': {
             templateUrl: 'modules/tasks/tasks.tpl.html',
             controller: 'tasksCtrl'
+          }
+      },
+      params: {
+        viewId: 'default',
+        query: null
+      },
+      data: {
+          pageTitle: 'Tasks',
+          navTitle: 'Tasks'
+      }
+   });
+
+
+    $stateProvider.state('app.task-calendar', {
+      url: "/tasks/view/:viewId/calendar",
+      sticky: true,
+      views: {
+         'nav-content@app': {
+            templateUrl: 'modules/app/navbar.tpl.html',
+            controller: 'navCtrl'
+          },
+          'page-content@app': {
+            templateUrl: 'modules/tasks/task-calendar.tpl.html',
+            controller: 'taskCalendarCtrl'
           }
       },
       params: {

@@ -190,11 +190,25 @@ angular.module('interloop.routes.settings', [])
   // Configuration Settings
   //====================================//
 
+  $stateProvider.state('app.settings.statuses', {
+      url: "/statuses",
+      views: {
+          'settings-content@app.settings': {
+              templateUrl: "settings/statuses/statuses.tpl.html",
+              controller: 'settingsStatusesCtrl'
+          }
+        },
+      data: {
+          pageTitle: 'Statuses',
+          navTitle: 'Settings'
+      }
+  });
+
   $stateProvider.state('app.settings.pipelines', {
       url: "/pipelines",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/pipelines/pipelines.tpl.html",
+              templateUrl: "settings/pipelines/pipelines2.tpl.html",
               controller: 'settingsPipelinesCtrl'
           }
         },
@@ -222,8 +236,8 @@ angular.module('interloop.routes.settings', [])
       url: "/products",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/products/products.tpl.html",
-              // controller: 'settingsGoalsCtrl'
+              templateUrl: "settings/products/products2.tpl.html",
+              controller: 'settingsProductsCtrl'
           }
         },
       data: {
@@ -250,7 +264,7 @@ angular.module('interloop.routes.settings', [])
       url: "/types",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/types/types.tpl.html",
+              templateUrl: "settings/types/types2.tpl.html",
               controller: 'settingsTypesCtrl'
           }
         },
@@ -264,7 +278,7 @@ angular.module('interloop.routes.settings', [])
       url: "/won-loss",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/won-loss/won-loss.tpl.html",
+              templateUrl: "settings/won-loss/won-loss2.tpl.html",
               controller: 'settingsWonLossCtrl'
           }
         },
@@ -278,7 +292,7 @@ angular.module('interloop.routes.settings', [])
       url: "/fields",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/fields/fields.tpl.html",
+              templateUrl: "settings/fields/fields2.tpl.html",
               controller: 'settingsFieldsCtrl'
           }
         },
@@ -293,7 +307,7 @@ angular.module('interloop.routes.settings', [])
       url: "/custom-fields",
       views: {
           'settings-content@app.settings': {
-              templateUrl: "settings/custom-fields/custom-fields.tpl.html",
+              templateUrl: "settings/custom-fields/custom-fields2.tpl.html",
               controller: 'settingsCustomFieldsCtrl'
           }
         },

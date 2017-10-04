@@ -101,15 +101,13 @@ function pageChanged(){
 
 function showFullLog(log){
 
-	var resolvedData = {
-		id: log.id
-	}
+	var resolvedData = log || {};
 
-	var fullPageModal = modalManager.openModal('logDetails', resolvedData);
+	var lodDetailsModal = modalManager.openModal('logDetails', resolvedData);
 
 	//launch modal
-	fullPageModal.result.then(function(result){
-
+	lodDetailsModal.result.then(function(result){
+		//ignore
 	}, function(){
 		//cancel
 	})

@@ -23,16 +23,12 @@ angular.module('interloop.configFieldsCtrl', [])
 	//----------------------
 	$scope.data = {};
 	$scope.data.currentEntity = 'Opportunity';
-  $scope.data.activated = true;
+  $scope.data.activated = false;
 
   
 	//functions
 	//----------------------
-	// $scope.changeEntity = changeEntity;
-	// $scope.editView = editView;
-	// $scope.newView = newView;
-	// $scope.deleteView = deleteView;
-	// $scope.enableDisableView = enableDisableView;
+	$scope.changeEntity = changeEntity;
 
 //-------------------------------------------
 
@@ -40,11 +36,20 @@ angular.module('interloop.configFieldsCtrl', [])
 // ACTIVATE
 //===========================================
 function activate() {
-
+  $scope.data.fields = $injector.get($scope.data.currentEntity + "Fields")
+  $scope.data.activated = true;
 }
 //-------------------------------------------
 activate();
 //-------------------------------------------
+
+
+//functions
+function changeEntity(entity){
+  $scope.data.currentEntity = entity;
+  activate();
+
+}
 
 
 });

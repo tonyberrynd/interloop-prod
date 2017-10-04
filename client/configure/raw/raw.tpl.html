@@ -6,20 +6,24 @@
 
 <div class="settings-right">
 
-	<h4>Raw Config Data <small>- JSON Config File</small></h4>	
-	<div class="panel panel-default panel-light">
-		<div class="panel-body">
+	        <!-- import your data -->
+        <div class="settings-section">
+			<div class="settings-header">
+				<h4>Raw Config Data</h4>
+				<p>JSON Config File</p>	
+            </div>
 
-		<div class="callout callout-danger">
-			<p class="title"><icon class="wb-warning"></icon> Danger</p>
-			<p> Editing the follow application config data will auto save to the Database and can adversley effect the operation of this app</p>
+            <div class="callout callout-danger">
+				<p class="title"><icon class="wb-warning"></icon> Danger</p>
+				<p> Editing the follow application config data will auto save to the Database and can adversley effect the operation of this app</p>
+			</div>
+
+
+			<div class="panel panel-default panel-light">
+			<div class="panel-body">
+				<div pretty-json="data.orgConfig" edition="true" ></div>
+			</div>
+			</div>
 		</div>
-
-		<div pretty-json="data.orgConfig" edition="true" ></div>
-	
-
-
-		</div>
-	</div>
 
 </div>

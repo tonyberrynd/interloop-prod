@@ -1,19 +1,61 @@
-        <div class="modal-header header-dark">
-            <h3 class="modal-title" id="modal-title">Log Information</h3>
-            
-            <!-- close button -->
+<div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Log Details</h3>
+
+                        <!-- close button -->
             <button type="button" class="close" ng-click="$dismiss()">
                 <icon class="wb-close-mini"></icon>
             </button>
 
         </div>
-        <div class="modal-body w-padding" id="modal-body">
+        <div class="modal-body" id="modal-body">
 
-                
-                
+          <div class="modal-left-nav">
+            <ul class="nav nav-pills nav-stacked">
+              <li ng-class="{'active': data.activeTab == 1}">
+                <a href ng-click="data.activeTab = 1">Details</a>
+              </li>
+              <li ng-class="{'active': data.activeTab == 2}">
+                <a ng-click="data.activeTab = 2">Data</a>
+              </li>
+            </ul>
+          </div>
+          <div class="modal-right-content">
+                <div ng-if="data.activeTab == 1">
+                <form class="form-horizontal" >
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label text-left">Time</label>
+                    <div class="col-sm-10">
+                      <p class="form-control-static" ng-bind="(data.thisLog.createdOn | date: 'MMM d, h:mm a')"></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label text-left">User</label>
+                    <div class="col-sm-10">
+                      <p class="form-control-static" ng-bind="data.thisLog.user_name"></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label text-left">Action</label>
+                    <div class="col-sm-10">
+                      <p class="form-control-static" ng-bind="data.thisLog.action"></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label text-left">Entity</label>
+                    <div class="col-sm-10">
+                      <p class="form-control-static" ng-bind="data.thisLog.entity_type"></p>
+                    </div>  
+                 </div>              
+                </form>
+                </div>
+
+                <!-- data -->
+                <div ng-if="data.activeTab == 2">
+                    <div pretty-json="data.thisLog.data" ></div>
+                 </div>
+          </div>
 
         </div>
+
         <div class="modal-footer">
-            <button class="btn btn-default btn-link" ng-click="$dismiss()">Cancel</button>
-            <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
         </div>

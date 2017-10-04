@@ -2,6 +2,18 @@
 	outline:none !important;
 }
 
+.modal-body .dropdown-menu {
+    width:98% !important;
+}
+
+.modal-body .form-group {
+    margin-bottom:10px;
+}
+
+.modal[data-bootstrap-modal-aria-hidden-count] {
+    display: none !important;
+}
+
 .timezone-banner {
     white-space: nowrap;
 }

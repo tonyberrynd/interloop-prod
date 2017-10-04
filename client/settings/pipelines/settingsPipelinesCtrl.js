@@ -6,13 +6,16 @@ angular.module('interloop.settingsPipelinesCtrl', [])
 //declare dependencies
 .controller('settingsPipelinesCtrl', function(
 	$scope,
-  $rootScope,
+	$rootScope,
 	$log,
-  $timeout,
+	$timeout,
 	$uibModal,
-  Logger,
+	Logger,
+	Process,
 	Appuser,
-  Team) {
+	Team,
+	modalManager
+  ) {
 
 // BINDABLES
 //===========================================
@@ -24,7 +27,7 @@ angular.module('interloop.settingsPipelinesCtrl', [])
   
 	//functions
 	//----------------------
-
+	$scope.addProcess = addProcess;
 
 //-------------------------------------------
 
@@ -33,9 +36,14 @@ angular.module('interloop.settingsPipelinesCtrl', [])
 //===========================================
 function activate() {
 
-	$timeout(function(){
-		$scope.data.activated = true;
-	}, 250)
+	return Process.find({'filter': {'include': ['stages']}}).$promise
+			.then(function(results){
+				$scope.data.processes = results;
+				$scope.data.activated = true;
+			})
+			.catch(function(err){
+				Logger.error("Error Retrieving Processes", "Please try again in a moment");
+			})
 
 }
 //-------------------------------------------
@@ -46,7 +54,15 @@ activate();
 // FUNCTIONS
 //===========================================
 
+function addProcess(){
+	var newProcessModal = modalManager.openModal('addProcess');
 
+		newProcessModal.result.then(function(results){
+			activate();
+		}, function(){
+			//ignroe
+		})
+}
 
 //-------------------------------------------
 

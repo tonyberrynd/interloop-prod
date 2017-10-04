@@ -1,0 +1,137 @@
+<!-- //main content area for application -->
+ <span id="drawer-content">
+    <ng-include src="'shared/templates/drawer.tpl.html'"></ng-include>
+  </span> 
+
+ <div class="subheader">
+              <div class="subheader-left pull-left">
+                <button class="btn btn-default show-sidebar" uib-tooltip="Show Sidebar" tooltip-placement="bottom-left" tooltip-popup-delay="500" ng-click="$root.showDrawer = !$root.showDrawer">
+                  <img src="../assets/img/icons/dark/show-sidebar.svg" alt="Open Sidebar">
+                </button>
+                  <!-- view dropdown -->
+                <div class="btn-group view-toggler fadeInOut" uib-dropdown keyboard-nav ng-if="data.activated" auto-close="outsideClick">
+                    <button id="viewDropdown" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle>
+                        <span ng-bind="data.thisView.name || 'Select View'"></span> <span class="caret pull-right" style="margin-top:8px;"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="Views">
+
+                      <!-- search views -->
+                      <div class="search-input">
+                        <icon class="search-icon"></icon>
+                          <input type="text" class="form-control" id="LocalSearch" placeholder="Search..." ng-model="data.searchViews" autofocus>
+                          <button class="btn btn-link clear-search" ng-if="data.localSearch" ng-click="data.searchViews = ''">
+                              <icon class="wb-plus-circle"></icon>
+                          </button>
+                      </div>
+
+                        <li class="dropdown-header" ng-if="(data.views | filter:{'type':'system'} | filter:data.searchViews ).length">System Views</li>
+                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'system'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
+                            <a href ng-click="changeView(view)">
+                                <span ng-bind="view.name"></span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0"></span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix"></span> 
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="dropdown-header" ng-if="(data.views | filter:{'type':'personal'} | filter:data.searchViews ).length">Personal Views</li>
+                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'personal'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
+                            <a href ng-click="changeView(view)">
+                                <span ng-bind="view.name"></span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0"></span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix"></span> 
+                                </span>
+                            </a>
+                        </li>    
+
+                        <li class="dropdown-header" ng-if="(data.views | filter:{'type':'shared'} | filter:data.searchViews ).length">Shared Views</li>
+                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'shared'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
+                            <a href ng-click="changeView(view)">
+                                <span ng-bind="view.name"></span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0"></span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix"></span> 
+                                </span>
+                            </a>
+                        </li> 
+
+                    </ul>
+                </div>
+
+
+            <span class="view-edit fadeInOut" ng-if="data.activated && !data.filterChanged && data.thisView.createdBy.id == $root.activeUser.id">
+                <!-- edit view -->
+                <button class="btn btn-link view-tool" uib-tooltip="Edit View" tooltip-placement="bottom" ng-click="editView()">
+                    <icon class="wb-edit"></icon>
+                </button>
+
+
+                <span class="light-divider">|</span>
+
+                <!-- edit view -->
+                <button class="btn btn-link view-tool" uib-tooltip="Delete View" tooltip-placement="bottom" ng-click="deleteView()">
+                    <icon class="wb-trash"></icon>
+                </button>
+
+            </span>
+
+            <!-- make changes -->
+            <span class="view-tools fadeInOut" ng-if="data.activated && data.filterChanged">
+                <!-- edit view -->
+                <button class="btn btn-link view-tool" uib-tooltip="Discard Changes" tooltip-placement="bottom" ng-click="discardChanges()">
+                    <icon class="wb-close"></icon>
+                </button>
+
+                <!-- //only allow save view is owner -->
+                <!-- /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/ -->
+                <span ng-if="data.thisView.createdBy.id == $root.activeUser.id">
+
+                    <span class="light-divider">|</span>
+
+                    <!-- edit view -->
+                    <button class="btn btn-link view-tool" uib-tooltip="Save View" tooltip-placement="bottom" ng-click="saveView()">
+                        <icon class="wb-check"></icon>
+                    </button>
+
+                </span>
+
+                <span class="light-divider">|</span>
+
+                <!-- edit view -->
+                <button class="btn btn-link view-tool" uib-tooltip="Save As ..." tooltip-placement="bottom" ng-click="saveViewAs()">
+                    <icon class="wb-check"></icon>...
+                </button>
+            </span>
+
+              </div>
+              <div class="subheader-right pull-right">
+              
+ 			  <div class="view-types pull-left">
+                  <div class="btn-group">
+                    <a href ui-sref-active="active" ui-sref="app.tasks" class="btn btn-default"><ion class="wb-list"></ion></a>
+                    <a href ui-sref-active="active" ui-sref="app.task-calendar" class="btn btn-default"><ion class="wb-calendar"></ion></a>
+                  </div>
+              </div>
+
+               <div class="localSearch">
+                <icon class="wb-search search-icon"></icon>
+                  <input type="text" class="form-control" id="LocalSearch" placeholder="Search..." ng-model="data.localSearch" ng-change="changeLocalSearch()" ng-model-options="{debounce: 250}">
+                  <button class="btn btn-link clear-search" ng-if="data.localSearch" ng-click="data.localSearch = ''; changeLocalSearch()">
+                      <icon class="wb-plus-circle"></icon>
+                  </button>
+              </div>
+              </div>
+            </div>
+
+
+ <div class="layout grid-layout">	
+	 <div ui-calendar="data.uiConfig.calendar" ng-model="data.eventSources">
+ </div>
+
+
+

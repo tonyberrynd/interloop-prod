@@ -152,7 +152,7 @@
                                       <span ng-bind="phone.type['label'] || data.phoneTypes[$index]['label'] || data.phoneTypes[0]['label']"></span> <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                      <li role="menuitem" ng-repeat="socialType in data.phoneTypes"><a href ng-click="phone.type = socialType">{{phoneType.label}}</a></li>
+                                      <li role="menuitem" ng-repeat="phoneType in data.phoneTypes"><a href ng-click="phone.type = phoneType">{{phoneType.label}}</a></li>
                                     </ul>
                                   </div>
                                   <input type="text" class="form-control pull-left" ng-model="phone.value">   

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Tasks Ctrl
+   Opportunities Ctrl
    ========================================================================== */
 
 angular.module('interloop.forecastsCtrl', [])
@@ -20,7 +20,7 @@ angular.module('interloop.forecastsCtrl', [])
   gridManager,
   Logger,
   modalManager,
-  ActivityFields,
+  ForecastFields,
   SidebarRouter,
   View,
   ViewManager
@@ -36,12 +36,13 @@ angular.module('interloop.forecastsCtrl', [])
   var query = $location.search().query || null;
   var count = $location.search().count || 0;
   var backUrl = $location.search().backUrl || null;
-  var taskId = $location.search().id || null;
+  var oppId = $location.search().id || null;
   var viewFilters = null;
 
   //data
   //----------------------
   $scope.data = {};
+  $scope.data.currentEntity = "Forecast";
   $scope.data.activated = false;
   $scope.data.drawerOpen = false;
   $scope.data.filterChanged = false;
@@ -122,14 +123,14 @@ function activate() {
 
   //Get All Views for List
   //------------------------------------------
-  return View.find({"filter": {"where": {"entity": "Activity"}}}).$promise
+  return View.find({"filter": {"where": {"entity": "Forecast"}}}).$promise
           .then(function(results){
             //set views into scope
             $scope.data.views = results;
 
           //Get Current View
           //------------------------------------------
-          return ViewManager.getThisView('Activity', $scope.data.views, $stateParams.viewId, query, count)
+          return ViewManager.getThisView('Forecast', $scope.data.views, $stateParams.viewId, query, count)
               .then(function(results){
                 //set this view
                 $scope.data.thisView = results;
@@ -146,13 +147,13 @@ function activate() {
 
 
                 //whether to show default toggle
-                if($scope.data.thisView.id == $rootScope.activeUser.defaultViews['Activity']) {
+                if($scope.data.thisView.id == $rootScope.activeUser.defaultViews['Forecast']) {
                   $scope.data.default = true;
                 }
 
                 //Init Grid
                 //------------------------------------------
-                return gridManager.initGrid('Activity', $scope.data.thisView)
+                return gridManager.initGrid('Forecast', $scope.data.thisView)
                   .then(function(results){
                     //grid instance
                     $scope.data.grid = results;
@@ -164,12 +165,12 @@ function activate() {
                       viewFilters = $scope.data.thisView.filters || [];
                       //custom fields
                       var customFields = _.filter($rootScope.customFields,function(o){
-                        return _.includes(o.useWith, 'Activity') && o.type !== 'divider';
+                        return _.includes(o.useWith, 'Forecast') && o.type !== 'divider';
                       })
                       //end fields
                       var endFields = EndFields || [];
                       //set up fields for filters
-                      var fields = _.union(ActivityFields, customFields, endFields);
+                      var fields = _.union(ForecastFields, customFields, endFields);
                       //create filters
                       $scope.data.filters = initialFilters(viewFilters, fields);
 
@@ -187,29 +188,13 @@ function activate() {
                       //---------------------------
                       $scope.data.activated = true;
 
-                      //if link to individual task - open sidebar
+                      //if link to individual opp - open sidebar
                       //--------------------------------------
-                      if(taskId) {
+                      if(oppId) {
                         //open sidebar
-                        SidebarRouter.openTo('Activity', taskId)
+                        SidebarRouter.openTo('Forecast', oppId)
                       }
 
-                      //track and render popups as needed
-                      //lets see if this works
-                      //---------------------------------------
-                      $timeout(function(){
-                        $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'});
-                      }, 1500)
-                      
-                      //---------------------------------------
-                      $(".ag-body-viewport").scroll(function() {
-                        clearTimeout($.data(this, 'scrollTimer'));
-                        $.data(this, 'scrollTimer', setTimeout(function() {
-                            //activate popovers
-                            $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'});
-          
-                        }, 50));
-                      });
                     },250);
                 })
           })
@@ -307,7 +292,7 @@ Save View
 function saveView() {
   var viewDetails = {
       name: $scope.data.thisView.name,
-      entity: 'Activity',
+      entity: 'Forecast',
       query: gridManager.getCurrentQuery(),
       filters: getFilters(),
       columnState: gridManager.getColumnState(),
@@ -331,7 +316,7 @@ function saveView() {
 Discard Changes
 */
 function discardChanges() {
-  $scope.data.filters = initialFilters(viewFilters, _.union(ActivityFields, EndFields))
+  $scope.data.filters = initialFilters(viewFilters, _.union(ForecastFields, EndFields))
   //set filter cahnged to false
   $scope.data.filterChanged = false;
   //update grid
@@ -344,7 +329,7 @@ Save View As
 function saveViewAs() {
     //get view details
     var resolvedData = {
-        entity: 'Activity',
+        entity: 'Forecast',
         query: gridManager.getCurrentQuery(),
         filters: getFilters(),
         columnState: gridManager.getColumnState(),
@@ -406,12 +391,12 @@ Bulk Create View
 function bulkCreateView(){
     console.log('bulk create view;')
 
-    //creates static view that only includes these particular tasks
+    //creates static view that only includes these particular forecasts
     var query = buildBulkQuery();
 
       //get view details
     var resolvedData = {
-        entity: 'Activity',
+        entity: 'Forecast',
         query: query,
         filters: null,
         columnState: gridManager.getColumnState(),
@@ -514,16 +499,16 @@ function getLookupValue(filter, entityType, searchVal){
   //Switch based on entity type
   switch(entityType) {
     case 'Contact':
-        var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15}}
+        var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
         break;
     case 'Company':
-        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}}
+        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'domain']}
         break;
-    case 'Activity':
-        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}}
+    case 'Forecast':
+        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryCompany', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
         break;
     case 'Appuser':
-        var query = {"filter": {"where": {"fullName": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "fullName ASC", limit: 15}}
+        var query = {"filter": {"where": {"fullName": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "fullName ASC", limit: 15}, "fields": ['id', 'firstName', 'lastName', 'initials', 'email']}
         break;
   }
 
@@ -621,7 +606,7 @@ function changeView(view) {
   //close sideapnel
   $rootScope.filterPanelOpen = false;
   // change view
-  $state.go('app.tasks', {"viewId": view.id}, {reload: 'app.tasks'});
+  $state.go('app.forecasts', {"viewId": view.id}, {reload: 'app.forecasts'});
 }
 
 /*
@@ -664,6 +649,7 @@ Export To Excel
 */
 function exportView() {
   var resolvedData = {
+    entityModel: 'Forecast',
     view: $scope.data.thisView,
     columns: $scope.data.columns 
   };
@@ -722,12 +708,12 @@ Set Unset Default View
 */
 function setUnsetDefault(value){
   if(value == true) {
-      ViewManager.setDefault($scope.data.thisView, 'Activity')
+      ViewManager.setDefault($scope.data.thisView, 'Forecast')
       .then(function(){
         $scope.data.default = true;
       })
   } else {
-     ViewManager.clearDefault($scope.data.thisView, 'Activity')
+     ViewManager.clearDefault($scope.data.thisView, 'Forecast')
       .then(function(){
         $scope.data.default = false;
       }) 
@@ -739,8 +725,8 @@ Assign
 */
 function bulkAssign() {
   var resolveData = {
-    entity: 'Activity',
-    selectedItems: $scope.data.selectedData.items
+    entity: 'Forecast',
+    query: gridManager.getCurrentQuery()
   };
   //open bulk assign modal
   modalManager.openModal('bulkAssign', resolveData);
@@ -752,8 +738,8 @@ Edit
 function bulkEdit() {
   //resolved information
   var resolveData = {
-    entity: 'Activity',
-    selectedItems: $scope.data.selectedData.items
+    entity: 'Forecast',
+    query: gridManager.getCurrentQuery()
   };
 
   modalManager.openModal('bulkEdit', resolveData);
@@ -765,8 +751,8 @@ Bulk Tag
 function bulkTag() {
   //resolved information
   var resolveData = {
-    entity: 'Activity',
-    selectedItems: $scope.data.selectedData.items
+    entity: 'Forecast',
+    query: gridManager.getCurrentQuery()
   };
   //open bulk tag modal
   modalManager.openModal('bulkTag', resolveData);
@@ -788,18 +774,12 @@ Export
 */
 function bulkExport() {
   var resolveData = {
-    entity: 'Activity',
-    selectedItems: $scope.data.selectedData.items
+    entityModel: 'Forecast',
+    query: gridManager.getCurrentQuery(),
+    columns: $scope.data.columns 
   };
   //exoprt data
-  modalManager.openModal('exportData', resolveData);
-}
-
-/*
-Create View
-*/
-function createView() {
-  modalManager.openModal('createView');
+  modalManager.openModal('bulkExport', resolveData);
 }
 
 /*
@@ -808,8 +788,8 @@ Edit
 function bulkDelete() {
   //resolved information
   var resolveData = {
-    entity: 'Activity',
-    selectedItems: $scope.data.selectedData.items
+    entity: 'Forecast',
+    query: gridManager.getCurrentQuery()
   };
 
   //open modal
@@ -820,8 +800,17 @@ function bulkDelete() {
 }
 
 
-// TODO - MAJORLY CLEAN THIS LOGIC UP
+/*
+Create View
+*/
+function createView() {
+  modalManager.openModal('createView');
+}
 
+
+/*
+Checks whether filter is active
+*/
 function isFilterActive(filter) {
 
   //default to active
@@ -938,6 +927,7 @@ function updateGrid() {
   console.log('update grid');
      var matchType = $scope.data.filterMatches || 'all';
      var filters = getFilters();
+     console.log('filters', filters);
         //change query pased to grid
       gridManager.changeCurrentQuery(filters, matchType)
         .then(function(results){
@@ -962,7 +952,7 @@ Changes Grid Context
 */
 function changeContext(contextType, contextValue){
     gridManager.setContext(contextType, contextValue);
-    gridManager.refreshView();
+    updateGrid();
 }
 
 //-------------------------------------------

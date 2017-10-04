@@ -9,23 +9,33 @@ angular.module('interloop.newOpportunityCtrl', [])
   $scope,
   $timeout,
   $rootScope,
-  Company,
+  Opportunity,
+  $http,
   $uibModalInstance,
   Opportunity,
   Logger,
   modalManager,
   RelationshipManager,
   searchService,
-  OpportunityFields) {
+  OpportunityFields,
+  socialTypes,
+  emailTypes,
+  phoneTypes) {
 
 // BINDABLES
 //===========================================
   //data
   //----------------------
   $scope.data = {};
+  $scope.data.thisRecord = {};
   $scope.data.fieldToggle = 'false';
   $scope.data.loadingOwners = false;
   $scope.data.loadingRelated = false;
+  $scope.data.currentEntity = 'Opportunity';
+  $scope.data.socialTypes = socialTypes;
+  $scope.data.emailTypes = emailTypes;
+  $scope.data.phoneTypes = phoneTypes;
+
 
   //set up fields
   $scope.data.fields = OpportunityFields;
@@ -52,6 +62,14 @@ angular.module('interloop.newOpportunityCtrl', [])
   $scope.removeRelated = removeRelated;
   $scope.clearResults = clearResults;
   $scope.noResultsNew = noResultsNew;
+  $scope.addAddress = addAddress;
+  $scope.editAddress = editAddress;
+  $scope.addEmail = addEmail;
+  $scope.removeEmail = removeEmail;
+  $scope.addPhone = addPhone;
+  $scope.removePhone = removePhone;
+  $scope.addSocial = addSocial;
+  $scope.removeSocial = removeSocial;
 
 //-------------------------------------------
 
@@ -65,6 +83,20 @@ function activate() {
       });
     //push current user into owners array
     $scope.data.selectedOwners.push($rootScope.activeUser);
+
+    //ensure minimum values
+   _.forEach($scope.data.fields, function(value){
+      if(value.type == 'social' || value.type == 'phone' || value.type == 'email'){
+        $scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key] || [{}];
+      }
+    })
+
+    //ensure minimum values
+    _.forEach($scope.data.customFields, function(value){
+      if(value.type == 'social' || value.type == 'phone' || value.type == 'email'){
+        $scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key] || [{}];
+      }
+    })
 
 }
 
@@ -94,19 +126,20 @@ activate();
       .then(function(results){
           Logger.info('Created Opportunity', $scope.data.thisRecord.name)
 
-          if($scope.data.thisRecord.primaryCompany) {
-            return linkCompany(results, $scope.data.thisRecord.primaryCompany, true)
+          if($scope.data.thisRecord.primaryOpportunity) {
+            return linkOpportunity(results, $scope.data.thisRecord.primaryOpportunity, true)
                       .then(function(results){
                         $uibModalInstance.close(results);
                       })
                       .catch(function(err){
-                        Logger.error("Error Linking Primary Company", err)
+                        Logger.error("Error Linking Primary Opportunity", err)
                       })
           } else {
             $uibModalInstance.close(results);
           }
       })
       .catch(function(err){
+        console.log(err);
         Logger.error('Error Creating Opportunity', 'Please Try Again in a moment');
       })
   }
@@ -116,8 +149,8 @@ activate();
   };
 
   //TB - TODO - Look at moving the broadcast messages into a shared factory 
-function linkCompany(opp, company, updateGrid){
-  return RelationshipManager.linkEntity(opp, company, "Opportunity", "Company",  
+function linkOpportunity(opp, company, updateGrid){
+  return RelationshipManager.linkEntity(opp, company, "Opportunity", "Opportunity",  
   {
     "from": { "name": opp.name, "description": "Primary Org", "isPrimary": true}, 
     "to" : { "name": company.name, "description": "Primary Org", "isPrimary": true}
@@ -130,7 +163,7 @@ function linkCompany(opp, company, updateGrid){
   //returns list of companies filtered by typeahead
   function getCompanies (val) {
     val = val != null ? val : ""; 
-    return Company.find(
+    return Opportunity.find(
        { "filter": { "where" :{ "name": {"like": val ,"options":"i"}}, limit: 10}}
     ).$promise
     .then(function(response){
@@ -218,6 +251,76 @@ function noResultsNew(entityType, modelValue) {
   })
 }
 
+
+  function addEmail(field){
+    console.log('add email');
+    $scope.data.thisRecord[field.key] = $scope.data.thisRecord[field.key] || [];
+    $scope.data.thisRecord[field.key].push({
+      label: 'work',
+      value: null
+    });
+  }
+
+  function removeEmail(social, field){
+    $scope.data.thisRecord[field.key].splice($scope.data.thisRecord[field.key].indexOf(social), 1);
+  }
+
+  function addPhone(field){
+    console.log('add phone');
+    $scope.data.thisRecord[field.key] = $scope.data.thisRecord[field.key] || [];
+    $scope.data.thisRecord[field.key].push({
+      label: 'work',
+      value: null
+    });
+  }
+
+  function removePhone(social, field){
+    $scope.data.thisRecord[field.key].splice($scope.data.thisRecord[field.key].indexOf(social), 1);
+  }
+
+  function addSocial(field){
+    console.log('add social');
+    $scope.data.thisRecord[field.key] = $scope.data.thisRecord[field.key] || [];
+    $scope.data.thisRecord[field.key].push({
+      label: 'other',
+      value: null
+    });
+  }
+
+
+  function removeSocial(social, field){
+    $scope.data.thisRecord[field.key].splice($scope.data.thisRecord[field.key].indexOf(social), 1);
+  }
+
+  function addAddress(field){
+    var addAddressModal = modalManager.openModal('addAddress');
+
+    addAddressModal.result.then(function(results){
+      $scope.data.thisRecord[field.key] = $scope.data.thisRecord[field.key] || [];
+      $scope.data.thisRecord[field.key].push(results);
+    }, function(){
+      //ignore
+    })
+  }
+
+  function removeAddress(address, field){
+    $scope.data.thisRecord[field.key].splice($scope.data.thisRecord[field.key].indexOf(social), 1);
+  }
+
+
+  function editAddress(fieldValue, address){
+    var resolvedData = {
+      address: address
+    }
+    var editAddressModal = modalManager.openModal('editAddress');
+
+    editAddressModal.result.then(function(results){
+      address = results;
+    }, function(){
+      //ignore
+    })
+  }
+
 //-------------------------------------------
 
 
@@ -228,7 +331,24 @@ function noResultsNew(entityType, modelValue) {
 
 // WATCHES
 //===========================================
-// Watches go here
+
+$scope.$watch('data.thisRecord.name', function (oldVal, newVal) {
+
+   $http({
+          method: 'GET',
+          url: 'https://autocomplete.clearbit.com/v1/companies/suggest?query=:' + newVal,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         }).then(function successCallback(response) {
+          
+            $scope.data.websiteSuggestions = response.data;
+            // error
+          }, function errorCallback(response) {
+
+           $scope.data.websiteSuggestions = [];
+    });
+
+});
+
 //-------------------------------------------
 
 });

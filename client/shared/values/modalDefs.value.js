@@ -65,6 +65,23 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Add Tag'
     },
 
+    addProduct: {
+        templateUrl: 'shared/modals/addProduct/addProduct.tpl.html',
+        controller: 'addProductCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Add Product',
+        ariaDescribedBy: 'Add Product'
+    },
+
+
+    addProcess: {
+        templateUrl: 'shared/modals/addProcess/addProcess.tpl.html',
+        controller: 'addProcessCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Add Process',
+        ariaDescribedBy: 'Add Process'
+    },
+
     addGoal: {
         templateUrl: 'shared/modals/addGoal/addGoal.tpl.html',
         controller: 'addGoalCtrl',
@@ -87,6 +104,15 @@ angular.module('interloop.value.modalDefs', [])
         size: 'md',
         ariaLabelledBy: 'Add Role',
         ariaDescribedBy: 'Add Role'
+    },
+
+
+    addStatus: {
+        templateUrl: 'shared/modals/addStatus/addStatus.tpl.html',
+        controller: 'addStatusCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Add Status',
+        ariaDescribedBy: 'Add Status'
     },
 
     addActivityType: {
@@ -440,7 +466,7 @@ angular.module('interloop.value.modalDefs', [])
     logDetails: {
         templateUrl: 'shared/modals/logDetails/logDetails.tpl.html',
         controller: 'logDetailsCtrl',
-        size: 'md',
+        size: 'lg',
         ariaLabelledBy: 'Audit Log Details',
         ariaDescribedBy: 'Audit Log Details'
     },

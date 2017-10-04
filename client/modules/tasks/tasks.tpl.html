@@ -110,6 +110,14 @@
 
               </div>
               <div class="subheader-right pull-right">
+              
+             <div class="view-types pull-left">
+                  <div class="btn-group">
+                    <a href ui-sref-active="active" ui-sref="app.tasks" class="btn btn-default"><ion class="wb-list"></ion></a>
+                    <a href ui-sref-active="active" ui-sref="app.task-calendar" class="btn btn-default"><ion class="wb-calendar"></ion></a>
+                  </div>
+              </div>
+
                <div class="localSearch">
                 <icon class="wb-search search-icon"></icon>
                   <input type="text" class="form-control" id="LocalSearch" placeholder="Search..." ng-model="data.localSearch" ng-change="changeLocalSearch()" ng-model-options="{debounce: 250}">

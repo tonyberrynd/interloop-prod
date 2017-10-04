@@ -22,7 +22,7 @@ angular.module('interloop.settingsForecastingCtrl', [])
 	//data
 	//----------------------
 	$scope.data = {};
-	$scope.data.currentType = 'cadence';
+	$scope.data.currentType = 'categories';
 	$scope.data.forecastCadence = 'Monthly';
 	$scope.data.fiscalYearStart = '1';
 	$scope.data.forecastSubmissionDay = 'Fri';

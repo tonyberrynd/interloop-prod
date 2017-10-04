@@ -1,0 +1,68 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<!-- import your data -->
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Opportunity Statuses</h4>
+					<p>Manage the various statuses used in Interloop</p>
+					<button class="btn btn-primary button-top new-users" ng-click="addStatus()">+ New Status</button>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-body">
+								
+							<table class="table settings-table">
+							    <thead>
+							      <tr>
+							        <th class="col-xs-3">Label</th>
+							        <th class="col-xs-3">Key</th>
+							        <th class="col-xs-3">Type</th>
+				              	    <th class="col-xs-3">Description</th>
+				                    <th class="col-xs-1"></th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							      <tr ng-repeat="status in data.statuses">
+							        <td>
+							       	<p style="display:inline-block;" ng-bind="status.label || '--'"></p>      	
+							        </td>
+							        <td>
+										<p ng-bind="status.key || '--'"></p>
+							        </td>
+							        <td>
+										<p ng-bind="status.type || '--'"></p>
+							        </td>
+							        <td>
+										<p ng-bind="status.description || '--'"></p>
+							        </td>
+							        <td>
+										<!-- if locked -->
+							        	<span ng-if="status.locked" class="locked-item" uib-tooltip="This Field Is Required">
+							        		<icon class="wb-lock"></icon>
+							        	</span>
+							        	<!-- //if can be activated -->
+							        	<span class="toggle toggle-success" ng-if="!status.locked">
+									        <input class="toggle-range" id="{{status.field}}" type="checkbox" ng-model="status.active">
+									        <label class="toggle-btn" for="{{status.field}}" style="margin-left: 20px; margin-bottom:-5px;"></label>
+								        </span>
+
+							        </td>
+							        <td>
+							      	<button class="btn btn-default edit-label" ng-click="editField(field)">
+							      		<icon class="fa fa-pencil"></icon>
+							      	</button>
+							      </td>
+							      </tr>
+							      
+							    </tbody>
+							  </table>
+
+
+						</div>
+					</div>
+				</div>
+		</div>

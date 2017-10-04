@@ -90,7 +90,7 @@ $scope.$watch('data.ac',function(newVal,oldVal) {
         }
 
         //set to street address
-        $scope.data.ac = $scope.data.address.route || '';
+        $scope.data.ac = $scope.data.address.street_number + ' ' + $scope.data.address.route || '';
 
     }
 });

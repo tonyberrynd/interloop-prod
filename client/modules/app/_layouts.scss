@@ -78,7 +78,26 @@
 }
 
 .view-types {
-    padding:10px 15px;
+    padding:0px 5px;
+
+    .btn {
+        min-width:50px;
+        color:$dragonstone;
+
+        icon {
+            font-size:11px;
+            margin-right:5px;
+        }
+    }
+
+    .btn-group {
+        margin-top:1px;
+    }
+
+    .btn.btn-default.active {
+        background-color:$limestone;
+        color:$topaz;
+    }
 
     ul {
         margin:0px;

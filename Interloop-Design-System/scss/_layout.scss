@@ -867,16 +867,16 @@ li.menu-toggle > a::before {
 
 #sidebar-wrapper ul.sidebar-header .header-emblem {
     display: block;
-    width:24px;
-    height:24px;
-    line-height: 24px;
-    border-radius: 50%;
+    width:28px;
+    height:28px;
+    line-height: 28px;
+    border-radius: 3px;
     color:#0c0f18;
     text-align: center;
     background-color: #fff;
     position: absolute;
     // content: '';
-    left: 13px;
+    left: 10px;
     top: 50%;
     bottom: auto;
     -webkit-transform: translateY(-50%);
@@ -896,11 +896,11 @@ li.menu-toggle > a::before {
 }
 
 #sidebar-wrapper ul.sidebar-menu.with-footer {
-    bottom:44px;
+    bottom:24px;
 }
 
 #sidebar-wrapper ul.sidebar-menu.with-footer.footer-1 {
-    bottom:36px;
+    bottom:48px;
 }
 
 #sidebar-wrapper ul.sidebar-menu.with-footer.footer-2 {
@@ -908,14 +908,14 @@ li.menu-toggle > a::before {
 }
 
 #sidebar-wrapper ul.sidebar-menu.with-footer.footer-3 {
-    bottom:108px;
+    bottom:106px;
 }
 
 #sidebar-wrapper ul.sidebar-footer {
     position:absolute;
     bottom:0px;
     width: 240px;
-    margin-bottom:0px;
+    margin-bottom:8px;
 }
 
 #sidebar-wrapper ul > li > a {

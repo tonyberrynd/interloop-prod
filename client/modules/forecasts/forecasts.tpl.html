@@ -1,6 +1,6 @@
    <!-- //main content area for application -->
   <span id="drawer-content">
-    <ng-include src="'modules/opportunities/drawer.tpl.html'"></ng-include>
+    <ng-include src="'shared/templates/drawer.tpl.html'"></ng-include>
   </span> 
 
  <div class="subheader">
@@ -9,13 +9,23 @@
                   <img src="../assets/img/icons/dark/show-sidebar.svg" alt="Open Sidebar">
                 </button>
                   <!-- view dropdown -->
-                <div class="btn-group view-toggler fadeInOut" uib-dropdown keyboard-nav ng-if="data.activated">
+                <div class="btn-group view-toggler fadeInOut" uib-dropdown keyboard-nav ng-if="data.activated" auto-close="outsideClick">
                     <button id="viewDropdown" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle>
                         <span ng-bind="data.thisView.name || 'Select View'"></span> <span class="caret pull-right" style="margin-top:8px;"></span>
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="Views">
-                        <li class="dropdown-header">System Views</li>
-                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'system'} | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
+
+                      <!-- search views -->
+                      <div class="search-input">
+                        <icon class="search-icon"></icon>
+                          <input type="text" class="form-control" id="LocalSearch" placeholder="Search..." ng-model="data.searchViews" autofocus>
+                          <button class="btn btn-link clear-search" ng-if="data.localSearch" ng-click="data.searchViews = ''">
+                              <icon class="wb-plus-circle"></icon>
+                          </button>
+                      </div>
+
+                        <li class="dropdown-header" ng-if="(data.views | filter:{'type':'system'} | filter:data.searchViews ).length">System Views</li>
+                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'system'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
                             <a href ng-click="changeView(view)">
                                 <span ng-bind="view.name"></span> 
                                 <span class="badge badge-primary pull-right">
@@ -24,10 +34,10 @@
                                     <span ng-bind="view.sum | thousandSuffix"></span> 
                                 </span>
                             </a>
-                        </li> 
+                        </li>
 
-                        <li class="dropdown-header" ng-if="(data.views | filter:{'type':'personal'}).length">Personal Views</li>
-                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'personal'} | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
+                        <li class="dropdown-header" ng-if="(data.views | filter:{'type':'personal'} | filter:data.searchViews ).length">Personal Views</li>
+                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'personal'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
                             <a href ng-click="changeView(view)">
                                 <span ng-bind="view.name"></span> 
                                 <span class="badge badge-primary pull-right">
@@ -38,8 +48,8 @@
                             </a>
                         </li>    
 
-                        <li class="dropdown-header" ng-if="(data.views | filter:{'type':'shared'}).length">Shared Views</li>
-                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'shared'} | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
+                        <li class="dropdown-header" ng-if="(data.views | filter:{'type':'shared'} | filter:data.searchViews ).length">Shared Views</li>
+                        <li role="menuitem" ng-repeat="view in data.views | filter:{'type':'shared'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}">
                             <a href ng-click="changeView(view)">
                                 <span ng-bind="view.name"></span> 
                                 <span class="badge badge-primary pull-right">
@@ -48,9 +58,56 @@
                                     <span ng-bind="view.sum | thousandSuffix"></span> 
                                 </span>
                             </a>
-                        </li>            
+                        </li> 
+
                     </ul>
                 </div>
+
+
+            <span class="view-edit fadeInOut" ng-if="data.activated && !data.filterChanged && data.thisView.createdBy.id == $root.activeUser.id">
+                <!-- edit view -->
+                <button class="btn btn-link view-tool" uib-tooltip="Edit View" tooltip-placement="bottom" ng-click="editView()">
+                    <icon class="wb-edit"></icon>
+                </button>
+
+
+                <span class="light-divider">|</span>
+
+                <!-- edit view -->
+                <button class="btn btn-link view-tool" uib-tooltip="Delete View" tooltip-placement="bottom" ng-click="deleteView()">
+                    <icon class="wb-trash"></icon>
+                </button>
+
+            </span>
+
+            <!-- make changes -->
+            <span class="view-tools fadeInOut" ng-if="data.activated && data.filterChanged">
+                <!-- edit view -->
+                <button class="btn btn-link view-tool" uib-tooltip="Discard Changes" tooltip-placement="bottom" ng-click="discardChanges()">
+                    <icon class="wb-close"></icon>
+                </button>
+
+                <!-- //only allow save view is owner -->
+                <!-- /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/ -->
+                <span ng-if="data.thisView.createdBy.id == $root.activeUser.id">
+
+                    <span class="light-divider">|</span>
+
+                    <!-- edit view -->
+                    <button class="btn btn-link view-tool" uib-tooltip="Save View" tooltip-placement="bottom" ng-click="saveView()">
+                        <icon class="wb-check"></icon>
+                    </button>
+
+                </span>
+
+                <span class="light-divider">|</span>
+
+                <!-- edit view -->
+                <button class="btn btn-link view-tool" uib-tooltip="Save As ..." tooltip-placement="bottom" ng-click="saveViewAs()">
+                    <icon class="wb-check"></icon>...
+                </button>
+            </span>
+
               </div>
               <div class="subheader-right pull-right">
                <div class="localSearch">
@@ -162,11 +219,15 @@
                 <div class="filterLabel" >
                       <span><icon class="wb-help-circle" uib-tooltip="See Your Current Applied Filters to the right" tooltip-placement="right" tooltip-popup-delay="500"></icon> Matches:</span>
 
-                      <span class="matches">
-                        <a href ng-click="data.filterMatches = 'all'; updateGrid();" ng-class="{'active': data.filterMatches == 'all' }">All</a>
-                        <span>|</span>
-                        <a href ng-click="data.filterMatches = 'any'; updateGrid();" ng-class="{'active': data.filterMatches == 'any' }">Any</a>
-                      </span>
+                      <div class="btn-group rounded inverse two">
+                        <button type="button" class="btn btn-default btn-sm btn-outline" ng-class="{'active': data.filterMatches == 'all' }" ng-click="data.filterMatches = 'all'; updateGrid();">
+                          All
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm btn-outline" ng-class="{'active': data.filterMatches == 'any' }" ng-click="data.filterMatches = 'any'; updateGrid();">
+                          Any
+                        </button>
+                      </div>
+
                   </div>
                   <div class="filterTags">
                      <!-- filter tags -->
@@ -266,7 +327,8 @@
 
                   </div>
                   <div class="filterDefault pull-right">
-                      <span>Default:</span>
+
+                      <span><icon class="wb-help-circle" uib-tooltip="Make this view your default for this entity" tooltip-placement="left" tooltip-popup-delay="500"></icon> Default:</span>
                       <span class="toggle toggle-success">
                           <input class="toggle-range" id="defaultToggle" type="checkbox" ng-model="data.default" ng-change="setUnsetDefault(data.default)">
                           <label class="toggle-btn" for="defaultToggle"></label>
@@ -284,16 +346,18 @@
                     <span class="gridFooter-wrapper fadeInOut"  ng-class="{'hidden': data.localSearch}">
                         <div class="pull-left">
                             <span>
-                                <span style="font-weight:600" ng-count-to="{{data.count}}" value="0" duration=".25" filter="number"></span> Opportunities
+                                <span style="font-weight:600" ng-count-to="{{data.count}}" value="0" duration=".25" filter="number"></span> Forecasts
                             </span>
+                            <span ng-if="data.currentEntity == 'Opportunity'">
                             <span class="footer-seperator">|</span>
                             <span>
                                 <span style="font-weight:600" ng-count-to="{{data.sum}}" value="0" duration=".25" filter="currency" params="$"></span> 
                                 Total
                             </span>
+                            </span>
                         </div>
 
-                        <div class="pull-right">
+                        <div class="pull-right" ng-if="data.currentEntity == 'Opportunity'">
                             <span><b>Min</b> - <span ng-count-to="{{data.min}}" value="0" duration=".25" filter="currency" params="$"></span></span>
                             <span><b>Max</b> - <span ng-count-to="{{data.max}}" value="0" duration=".25" filter="currency" params="$"></span></span>
                             <span><b>Avg</b> - <span ng-count-to="{{data.avg}}" value="0" duration=".25" filter="currency" params="$"></span></span>

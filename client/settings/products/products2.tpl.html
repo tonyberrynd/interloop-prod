@@ -4,63 +4,34 @@
 
 		<div class="settings-container" ng-if="data.activated">
 
+				<!-- import your data -->
 				<div class="settings-section">
 					<div class="settings-header">
 					<h4>Manage Products</h4>
 					<p>Products can be added to opportunities to allow teams to segment what type of solution is being sold</p>
-
-					<button class="btn btn-primary pull-right" ng-click="inviteUsers()"><icon class="wb-plus"></icon> New Product</button>
-
+					<button class="btn btn-primary pull-right" ng-click="addProduct()"><icon class="wb-plus"></icon> New Product</button>
 					</div>
+
+
 					<div class="panel panel-default">
 						<div class="panel-body">
-
-
-							<div class="row search-row">
-								<div class="col-xs-6">
-
-								<p class="sort-by">Sort By:</p>
-								<ol class="nya-bs-select" ng-model="data.sortBy">
-									<li nya-bs-option="option in data.sortOptions">
-										<a>
-											{{option.label}}
-										</a>
-									</li>
-								</ol>
-
-
-								</div>
-								<div class="col-xs-6 text-right">
-
-								 <!-- search group -->
-								 <div class="form-group search-group">
-								    <icon class="wb-search search"></icon>
-								    <input type="text" class="form-control" id="searchInput" placeholder="Search..." ng-model="data.search">
-								    <icon class="wb-plus-circle clear" ng-show="data.search" ng-click="data.search = ''"></icon>
-								  </div>
-								</div>
-
-							</div>
 							
-							<div class="row">
-								<div class="col-xs-12">
 									
 									  <table class="table table-condensed settings-table">
 									    <thead>
 									      <tr>
-									        <th class="col-xs-4">Name</th>
-						              	    <th class="col-xs-3">Type</th>
-						                    <th class="col-xs-2"></th>
+									        <th>Name</th>
+									        <th>Description</th>
+						                    <th></th>
 									      </tr>
 									    </thead>
 									    <tbody>
 									      <tr ng-repeat="product in data.products | filter: data.search | orderBy: data.sortBy.value" >
 									        <td class="plain">
 									        	<h5 ng-bind="product.name"> </h5>	
-									        	<p ng-bind="product.description || 'No Description'"></p>
 									        </td>
 									        <td class="plain">
-									        	<span class="null-cell">--</span>  	
+									        	<span ng-bind="product.description">--</span>  	
 									        </td>
 									        <td class="text-right plain">
 											    <div class="btn-group" uib-dropdown is-open="status.isopen" ng-if="!user.deactivated">
@@ -85,14 +56,11 @@
 									    </tbody>
 									  </table>
 
-							  </div>
-							</div>
-
 
 
 						</div>
 					</div>
-					</div>
+
 				</div>
 		</div>
 

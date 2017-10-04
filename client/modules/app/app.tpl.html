@@ -32,7 +32,7 @@
                 </li>
             </ul>
             
-            <ul class="sidebar-menu with-footer footer-2">
+            <ul class="sidebar-menu with-footer" ng-class="{'footer-2': $root.activeUser.superAdmin }">
                 <li class="pulse" ui-sref-active="active">
                     <a ui-sref="app.pulse"><span class="nav-row">Pulse</span></a>
                 </li>
@@ -85,7 +85,7 @@
 
             <ul class="sidebar-footer">
                 <!-- <li class="sidebar-label">Secondary</li> -->
-                <li class="setup" ui-sref-active="active">
+                <li class="setup" ui-sref-active="active" ng-if="$root.activeUser.superAdmin">
                     <a href ui-sref="app.configure.features"><span class="nav-row">Configure</span></a>
                 </li>
                 <li class="settings" ui-sref-active="active">

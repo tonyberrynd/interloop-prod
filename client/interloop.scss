@@ -28,6 +28,7 @@
 @import "modules/pace/pace";
 
 //data
+@import "modules/tasks/tasks";
 @import "modules/opportunities/opportunities";
 
 //more
@@ -48,6 +49,8 @@
 @import "shared/modals/newCustomField/customFields";
 @import "shared/modals/importData/import";
 @import "shared/modals/inviteUsers/inviteUsers";
+@import "shared/modals/paymentMethod/stripe-form";
+
 
 //settings
 @import "settings/settings";
@@ -60,6 +63,7 @@
 @import "settings/invoices/invoices";
 @import "settings/import/import";
 @import "settings/export/export";
+@import "settings/pipelines/pipelines";
 
 // @import "settings/settings";
 // @import "settings/import/import";
@@ -68,7 +72,7 @@
 
 
 // @import "settings/invoices/invoices";
-// @import "settings/pipelines/pipelines";
+
 
 
 // @import "settings/subscription/subscription";

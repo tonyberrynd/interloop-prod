@@ -812,7 +812,7 @@ angular.module('interloop.factory.gridManager', [])
     	var columnDefs = unPackColumnDefs(baseDefs.concat(entityDefs));
 
         var getParamValue = function(params){
-              if(params.value){
+              if(params.data){
                 //if value
                 switch(params.colDef.field) {
                   case 'name':
@@ -832,9 +832,12 @@ angular.module('interloop.factory.gridManager', [])
                       }
                       return html;
                       break;
+                  case 'primaryCompany':
+                     return  _.get(getPrimaryCompany(params), 'name' , null);
+                    break;
                   default:
-                      return params.value
-                } 
+                      return _.get(params.data, params.colDef.field , null) || nullCell;
+                }
               }
               else {
                 return '--';

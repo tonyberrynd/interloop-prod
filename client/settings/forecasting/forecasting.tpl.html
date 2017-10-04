@@ -1,33 +1,35 @@
-<div class="settings-section">
-	<div class="panel panel-default panel-light">
-		<div class="panel-heading">
-			<h3>Forecasting</h3>
-			<p>Set up configuration for forecasting process</p>
-
-			<button class="btn btn-primary button-top new-users" ng-click="addCategory()">+ Add Category</button>
-		</div>
-		<div class="panel-body" style="padding:0px;">
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
 
 
-		<ul class="nav nav-tabs" role="tablist">
-		    <li ng-class="{'active': data.currentType == 'cadence'}">
-		      <a href ng-click="changeType('cadence')">
-		      	Cadence
-		      </a>
-		    </li>
-		   	<li ng-class="{'active': data.currentType == 'categories'}">
-		      <a href ng-click="changeType('categories')">
-		      	Categories ({{data.categories.length}})
-		      </a>
-		    </li>
-		</ul>
 
-		<!-- categories -->
-		<div ng-if="data.currentType == 'categories'" style="padding:20px;">
-			
-			<div class="row">
-				<div class="col-xs-12">
+		<div class="settings-container" ng-if="data.activated">
+
+				<!-- import your data -->
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Forecasting</h4>
+					<p>Manage your forecasting process with forecast categories & cadences</p>
+					</div>
+
+					<div class="panel panel-default with-tabs">
+						<div class="panel-heading">
+						 	<ul class="nav nav-tabs" role="tablist">
+						 		<li ng-class="{'active': data.currentType == 'categories'}">
+							      <a href ng-click="changeType('categories')">
+							      	Categories ({{data.categories.length}})
+							      </a>
+							    </li>
+							    <li ng-class="{'active': data.currentType == 'cadence'}">
+							      <a href ng-click="changeType('cadence')">
+							      	Cadence
+							      </a>
+							    </li>
+							</ul>
+						</div>
+						<div class="panel-body">
 						
+						<!-- categories -->
+						<span ng-if="data.currentType == 'categories'">
 						  <table class="table settings-table">
 						    <thead>
 						      <tr>
@@ -63,251 +65,165 @@
 						      </tr>
 						    </tbody>
 						  </table>
+						</span>
+
+
+						<!-- cadence -->
+						<div ng-if="data.currentType == 'cadence'" style="padding:20px;">
+							
+							<div class="forecast-section">
+							<h4>Enable Forecasting</h4>
+							<p>Enabling Forecasting allows interloop to update and remind reps about forecasting their pipeline</p>
+
+							<span class="toggle toggle-success" style="margin:0px;">
+						        <input class="toggle-range" id="defaultToggle" type="checkbox" ng-model="data.forecastingEnabled" ng-change="enableDisableForecasting()">
+						        <label class="toggle-btn" for="defaultToggle"></label>
+					        </span>
+
+					        <p><small>To Learn more about forecasting, view our <a href="">help article here</a>.</small></p>
+
+							</div>
+
+
+							<div class="forecast-section">
+							<h4>Fiscal Year</h4>
+							<p>When Does Your Fiscal Year Begin?</p>
+
+							<div class="btn-group">
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'1'">Jan</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'2'">Feb</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'3'">Mar</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'4'">Apr</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'5'">May</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'6'">Jun</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'7'">Jul</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'8'">Aug</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'9'">Sept</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'10'">Oct</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'11'">Nov</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'12'">Dec</label>
+						    </div>
+
+							</div>
+
+
+
+							<div class="forecast-section">
+							<h4>Forecast Cadence</h4>
+							<p>What cadence would you like Interloop to request forecast submissions from users?</p>
+
+							<div class="btn-group">
+						        <label class="btn btn-primary btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Weekly'">Weekly</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Monthly'">Monthly</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Quarterly'">Quarterly</label>
+						    </div>
+
+							</div>
+
+							<div class="forecast-section">
+							<h4>Forecast Submission Day</h4>
+							<p>Select day of the week that forecasts should be submitted within the forecasting period</p>
+
+							<div class="btn-group">
+						        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Mon'">Mon</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Tues'">Tues</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Web'">Wed</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Thur'">Thur</label>
+						        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Fri'">Fri</label>
+						    </div>
+
+							</div>
+
+							<div class="forecast-section">
+							<h4>Forecast Submission</h4>
+							<p>Please Select a time when forecasts are due. At this point, forecasts will be auto-submitted if not reviewed and submitted by the reps</p>
+
+							<ol id="singleSelection" class="nya-bs-select dropup" ng-model="model" data-size="5">
+							  <li class="nya-bs-option" data-value="12AM">
+							    <a>12:00 AM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="1AM">
+							    <a>1:00 AM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="2AM">
+							    <a>2:00 AM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="3AM">
+							    <a>3:00 AM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="4AM">
+							    <a>4:00 AM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="5AM">
+							    <a>5:00 AM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="6AM">
+							    <a>6:00 AM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="7AM">
+							    <a>7:00 AM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="8AM">
+							    <a>8:00 AM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="9AM">
+							    <a>9:00 AM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="10AM">
+							    <a>10:00 AM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="11AM">
+							    <a>11:00 AM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="12PM">
+							    <a>12:00 PM</a>
+							  </li>
+							    <li class="nya-bs-option" data-value="1PM">
+							    <a>1:00 PM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="2PM">
+							    <a>2:00 PM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="3PM">
+							    <a>3:00 PM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="4PM">
+							    <a>4:00 PM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="5PM">
+							    <a>5:00 PM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="6PM">
+							    <a>6:00 PM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="7PM">
+							    <a>7:00 PM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="8PM">
+							    <a>8:00 PM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="9PM">
+							    <a>9:00 PM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="10PM">
+							    <a>10:00 PM</a>
+							  </li>
+							  <li class="nya-bs-option" data-value="11PM">
+							    <a>11:00 PM</a>
+							  </li> 
+							</ol>
+
+							</div>
+						</div>
+
 
 				</div>
 			</div>
 
 		</div>
 	
-		<!-- cadence -->
-		<div ng-if="data.currentType == 'cadence'" style="padding:20px;">
-			
-			<div class="forecast-section">
-			<h4>Enable Forecasting</h4>
-			<p>Enabling Forecasting allows interloop to update and remind reps about forecasting their pipeline</p>
-
-			<span class="toggle toggle-success" style="margin:0px;">
-		        <input class="toggle-range" id="defaultToggle" type="checkbox" ng-model="data.forecastingEnabled" ng-change="enableDisableForecasting()">
-		        <label class="toggle-btn" for="defaultToggle"></label>
-	        </span>
-
-	        <p><small>To Learn more about forecasting, view our <a href="">help article here</a>.</small></p>
-
-			</div>
-
-
-			<div class="forecast-section">
-			<h4>Fiscal Year</h4>
-			<p>When Does Your Fiscal Year Begin?</p>
-
-			<div class="btn-group">
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'1'">Jan</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'2'">Feb</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'3'">Mar</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'4'">Apr</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'5'">May</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'6'">Jun</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'7'">Jul</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'8'">Aug</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'9'">Sept</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'10'">Oct</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'11'">Nov</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'12'">Dec</label>
-		    </div>
-
-			</div>
-
-
-
-			<div class="forecast-section">
-			<h4>Forecast Cadence</h4>
-			<p>What cadence would you like Interloop to request forecast submissions from users?</p>
-
-			<div class="btn-group">
-		        <label class="btn btn-primary btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Weekly'">Weekly</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Monthly'">Monthly</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Quarterly'">Quarterly</label>
-		    </div>
-
-			</div>
-
-			<div class="forecast-section">
-			<h4>Forecast Submission Day</h4>
-			<p>Select day of the week that forecasts should be submitted within the forecasting period</p>
-
-			<div class="btn-group">
-		        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Mon'">Mon</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Tues'">Tues</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Web'">Wed</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Thur'">Thur</label>
-		        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Fri'">Fri</label>
-		    </div>
-
-			</div>
-
-			<div class="forecast-section">
-			<h4>Forecast Submission</h4>
-			<p>Please Select a time when forecasts are due. At this point, forecasts will be auto-submitted if not reviewed and submitted by the reps</p>
-
-			<ol id="singleSelection" class="nya-bs-select dropup" ng-model="model" data-size="5">
-			  <li class="nya-bs-option" data-value="12AM">
-			    <a>12:00 AM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="1AM">
-			    <a>1:00 AM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="2AM">
-			    <a>2:00 AM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="3AM">
-			    <a>3:00 AM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="4AM">
-			    <a>4:00 AM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="5AM">
-			    <a>5:00 AM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="6AM">
-			    <a>6:00 AM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="7AM">
-			    <a>7:00 AM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="8AM">
-			    <a>8:00 AM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="9AM">
-			    <a>9:00 AM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="10AM">
-			    <a>10:00 AM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="11AM">
-			    <a>11:00 AM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="12PM">
-			    <a>12:00 PM</a>
-			  </li>
-			    <li class="nya-bs-option" data-value="1PM">
-			    <a>1:00 PM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="2PM">
-			    <a>2:00 PM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="3PM">
-			    <a>3:00 PM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="4PM">
-			    <a>4:00 PM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="5PM">
-			    <a>5:00 PM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="6PM">
-			    <a>6:00 PM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="7PM">
-			    <a>7:00 PM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="8PM">
-			    <a>8:00 PM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="9PM">
-			    <a>9:00 PM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="10PM">
-			    <a>10:00 PM</a>
-			  </li>
-			  <li class="nya-bs-option" data-value="11PM">
-			    <a>11:00 PM</a>
-			  </li> 
-			</ol>
-
-			</div>
-
-
-
-		</div>
-				
-			
-		<br>
-		<br>
-
 
 
 		</div>
 	</div>
 </div>
-
-<!-- 
-<div class="settings-section">
-	<div class="panel panel-default panel-light">
-		<div class="panel-heading">
-			<h3>Forecasting</h3>
-			<p>Set up configuration for forecasting process</p>
-		</div>
-		<div class="panel-body">
-	
-	
-		<div class="row">
-			<div class="col-xs-12">
-				<h4>Cadence</h4>	
-				<p>How often do sales reps need to make sure their opportunities are updated with forecast categories?</p>
-			</div>		
-		</div>
-
-		<br>
-
-		<div class="row">
-			<label class="radio-inline"><input type="radio" name="optradio">Weekly</label>
-			<label class="radio-inline"><input type="radio" name="optradio">Monthly</label>
-			<label class="radio-inline"><input type="radio" name="optradio">Quarterly</label>
-		</div>
-
-		<br>
-
-		<hr>
-
-
-		<div class="row">
-			<div class="col-xs-12">
-				<h4>Deadline</h4>	
-				<p></p>
-			</div>		
-		</div>
-
-		<div class="row">
-			<p>Date Time Selection Goes Here</p>
-		</div>
-
-		<br>
-		<hr>
-					
-
-		<div class="row">
-			<div class="col-xs-12">
-				<h4>Categories</h4>	
-				<p>What confidence levels do you have opportunities are going to be closed-won.</p>
-			</div>		
-		</div>
-
-		<div class="row">
-			<div class="list-group" ui-sortable="{ 'ui-floating': true }" ng-model="data.groups">
-			  <a href="#" class="list-group-item" ng-repeat="category in data.categories">{{ category.label }}</a>
-			</div>
-		</div>
-
-		<br>
-		<hr>
-
-
-		<div class="row">
-			<div class="col-xs-12">
-				<h4>Splits</h4>	
-				<p>How to split forecasting values for opportunities with multiple owners</p>
-			</div>		
-		</div>
-
-		<div class="row">
-			<div class="list-group" ui-sortable="{ 'ui-floating': true }" ng-model="data.groups">
-			  <a href="#" class="list-group-item" ng-repeat="category in data.categories">{{ category.label }}</a>
-			</div>
-		</div>
-
-		<br>
-
-
-		</div>
-	</div>
-</div> -->

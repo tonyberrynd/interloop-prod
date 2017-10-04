@@ -69,6 +69,13 @@ function addType(){
 }
 
 
+function editType(type){
+	var resolvedData = type;
+
+	//open modal
+}
+
+
 
 //-------------------------------------------
 

@@ -81,6 +81,7 @@ angular.module('interloop', [
   'validation.match',                     //https://github.com/TheSharpieOne/angular-validation-match
   'videosharing-embed',                   //https://github.com/erost/ng-videosharing-embed
   'gavruk.card',                          //https://github.com/gavruk/angular-card
+  'ui.calendar',                          //https://github.com/angular-ui/ui-calendar
 
 
   //Support Services
@@ -147,6 +148,7 @@ angular.module('interloop', [
   'interloop.contentEditCtrl',
   //tasks
   'interloop.tasksCtrl',
+  'interloop.taskCalendarCtrl',
   'interloop.taskDetailsCtrl',
 
   //more
@@ -165,6 +167,9 @@ angular.module('interloop', [
   // modals
   'interloop.mediaPickerCtrl',
   'interloop.addAddressCtrl',
+  'interloop.addStatusCtrl',
+  'interloop.addProductCtrl',
+  'interloop.addProcessCtrl',
   'interloop.editAddressCtrl',
   'interloop.bulkAssignCtrl',
   'interloop.bulkDeleteCtrl',
@@ -253,6 +258,8 @@ angular.module('interloop', [
   'interloop.settingsTeamDetailsCtrl',
   'interloop.settingsTeamsCtrl',
   'interloop.settingsTypesCtrl',
+  'interloop.settingsStatusesCtrl',
+  'interloop.settingsProductsCtrl',
   'interloop.settingsUsersCtrl',
   'interloop.settingsViewsCtrl',
   'interloop.settingsWonLossCtrl',

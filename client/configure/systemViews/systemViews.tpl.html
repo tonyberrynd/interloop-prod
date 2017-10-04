@@ -1,49 +1,46 @@
 <div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
 
-<div class="settings-section fadeInOut" ng-if="data.activated">
-	<div class="panel panel-default panel-light">
-		<div class="panel-heading">
-			<h3>System Views</h3>
+
+
+<div class="settings-container" ng-if="data.activated">
+
+        <!-- import your data -->
+        <div class="settings-section">
+            <div class="settings-header">
+			<h4>System Views</h4>
 			<p>Control and add system views</p>
+            </div>
 
-			<button class="btn btn-primary button-top new-users" ng-click="newView()">+ New System View</button>
-		</div>
-		<div class="panel-body" style="padding:0px;">
+            <div class="panel panel-default with-tabs">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li ng-class="{'active': data.currentEntity == 'Opportunity'}">
+                          <a href ng-click="changeEntity('Opportunity')">
+                            Opportunity
+                          </a>
+                        </li>
+                        <li ng-class="{'active': data.currentEntity == 'Contact'}">
+                          <a href ng-click="changeEntity('Contact')">
+                            Contact
+                          </a>
+                        </li>
+                        <li ng-class="{'active': data.currentEntity == 'Company'}">
+                          <a href ng-click="changeEntity('Company')">
+                            Company
+                          </a>
+                        </li>
+                        <li ng-class="{'active': data.currentEntity == 'Activity'}">
+                          <a href ng-click="changeEntity('Activity')">
+                            Task
+                          </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': !data.loading}" style="z-index:999">Loading...</div>
+						
 
-
-		<ul class="nav nav-tabs" role="tablist">
-		    <li ng-class="{'active': data.currentEntity == 'Opportunity'}">
-		      <a href ng-click="changeEntity('Opportunity')">
-		      	Opportunity
-		      </a>
-		    </li>
-		    <li ng-class="{'active': data.currentEntity == 'Contact'}">
-		      <a href ng-click="changeEntity('Contact')">
-		      	Contact
-		      </a>
-		    </li>
-		    <li ng-class="{'active': data.currentEntity == 'Company'}">
-		      <a href ng-click="changeEntity('Company')">
-		      	Company
-		      </a>
-		    </li>
-		    <li ng-class="{'active': data.currentEntity == 'Activity'}">
-		      <a href ng-click="changeEntity('Activity')">
-		      	Activity
-		      </a>
-		    </li>
-		    <li ng-class="{'active': data.currentEntity == 'Prospect'}">
-		      <a href ng-click="changeEntity('Prospect')">
-		      	Prospect
-		      </a>
-		    </li>
-		</ul>
-
-		<div class="tab-wrap" style="padding:20px;">
-			<div class="row">
-				<div class="col-xs-12">
-					
-					  <table class="table settings-table">
+						  <table class="table settings-table">
 					    <thead>
 					      <tr>
 					        <th class="col-xs-4">Name</th>
@@ -89,9 +86,10 @@
 					    </tbody>
 					  </table>
 
-			  </div>
+					 </div>
+				</div>
+
 			</div>
-		  </div>
-		</div>
 	</div>
-</div>
+
+

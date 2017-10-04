@@ -1,0 +1,235 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+<div class="settings-container" ng-if="data.activated">
+
+        <!-- import your data -->
+        <div class="settings-section">
+            <div class="settings-header">
+            <h4>Fields</h4>
+            <p>Configure out of box fields based on needs</p>
+            </div>
+
+            <div class="panel panel-default with-tabs">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li ng-class="{'active': data.currentEntity == 'Opportunity'}">
+                          <a href ng-click="changeEntity('Opportunity')">
+                            Opportunity
+                          </a>
+                        </li>
+                        <li ng-class="{'active': data.currentEntity == 'Contact'}">
+                          <a href ng-click="changeEntity('Contact')">
+                            Contact
+                          </a>
+                        </li>
+                        <li ng-class="{'active': data.currentEntity == 'Company'}">
+                          <a href ng-click="changeEntity('Company')">
+                            Company
+                          </a>
+                        </li>
+                        <li ng-class="{'active': data.currentEntity == 'Activity'}">
+                          <a href ng-click="changeEntity('Activity')">
+                            Task
+                          </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': !data.loading}" style="z-index:999">Loading...</div>
+
+                          <table class="table table-bordered table-striped" style="width: 100%;">
+                            <tr>
+                                 <th rowspan="2"></th> 
+                                 <th rowspan="2">Label</th>
+                                 <th rowspan="2">Key</th>
+                                 <th colspan="4">Basic Details</th>
+                                 <th colspan="6">List Views</th>
+                                 <th colspan="3">New Forms</th>
+                                 <th colspan="2">Edit Forms</th>
+                                 <th colspan="1">Bulk Edit</th>
+                                 <th colspan="2">Filters</th>
+                                 <th colspan="2">Import</th>
+                                 <th colspan="3">Export</th>
+
+                                
+                                <!-- subheader -->
+                                <tr>
+                                    <!-- basic details -->
+                                    <th>Type <icon class="wb-info-circle support-icon" uib-tooltip="Field Type"></icon></th>
+                                    <th>Lookup Entity <icon class="wb-info-circle support-icon" uib-tooltip="If type lookup - what entity to use"></icon></th>
+                                    <th>Locked <icon class="wb-info-circle support-icon" uib-tooltip="User cannot make edits to this field, needed within Interloop"></icon></th>
+                                    <th>ColID <icon class="wb-info-circle support-icon" uib-tooltip="used to delineate form other fields with same label (optional)"></icon></th>
+                                   
+                                   
+
+                                    <!-- list views -->
+                                    <th>Exclude <icon class="wb-info-circle support-icon" uib-tooltip="Should field be excluded from grid (cannot be shown by users)"></icon></th>
+                                    <th>Hide <icon class="wb-info-circle support-icon" uib-tooltip="Hide field by default (can be reshown by user)"></icon></th>
+                                    <th>Pinned <icon class="wb-info-circle support-icon" uib-tooltip="Defaults column as pinned"></icon></th>
+                                    <th>Width <icon class="wb-info-circle support-icon" uib-tooltip="Default Width for column"></icon></th>
+                                    <th>Value Getter <icon class="wb-info-circle support-icon" uib-tooltip="Value Getter Function for grid"></icon></th>
+                                    <th>Cell Renderer <icon class="wb-info-circle support-icon" uib-tooltip="Cell Renderer Function for grid"></icon></th>
+
+                                    <!-- new forms -->
+                                    <th>Exlude <icon class="wb-info-circle support-icon" uib-tooltip="Exclude from new form"></icon></th>
+                                    <th>Class <icon class="wb-info-circle support-icon" uib-tooltip="Class that controls width on forms"></icon></th>
+                                    <th>Required <icon class="wb-info-circle support-icon" uib-tooltip="Required Field?"></icon></th>
+
+                                    <!-- edit forms -->
+                                    <th>Exlude <icon class="wb-info-circle support-icon" uib-tooltip="Exclude from new form"></icon></th>
+                                    <th>Class <icon class="wb-info-circle support-icon" uib-tooltip="Class that controls width on forms"></icon></th>
+
+                                    <!-- bulk edit -->
+                                    <th>Exlude <icon class="wb-info-circle support-icon" uib-tooltip="Exclude from new form"></icon></th>
+
+                                    <!-- filters -->
+                                    <th>Filter Applied <icon class="wb-info-circle support-icon" uib-tooltip="Default if filter applied"></icon></th>
+                                    <th>Filter Value <icon class="wb-info-circle support-icon" uib-tooltip="Default filter value"></icon></th>
+
+                                    <!-- import -->
+                                    <th>Exclude <icon class="wb-info-circle support-icon" uib-tooltip="Exclude from import templates"></icon></th>
+                                    <th>Value Key <icon class="wb-info-circle support-icon" uib-tooltip="Value Key if object"></icon></th>
+
+                                    <!-- export -->
+                                    <th>Exclude<icon class="wb-info-circle support-icon" uib-tooltip="Exlude from export values"></icon></th>
+                                    <th>Value Key <icon class="wb-info-circle support-icon" uib-tooltip="Value Key if object"></icon></th>
+                                    <th>Default Value <icon class="wb-info-circle support-icon" uib-tooltip="Default Value if is null / undefined / can also be a function"></icon></th>
+                                </tr>
+
+                            </tr>
+                            <tr ng-repeat="field in data.fields">
+                                 <td>
+                                    <button class="btn btn-default" ng-click="editField(field)">
+                                        <icon class="fa fa-pencil"></icon>
+                                    </button>
+                                </td>
+
+                                <td>
+                                    <b>{{field.label}}</b>
+                                </td>
+                                <td>
+                                    <b>{{field.key}}</b>
+                                </td>
+                                <!-- basic details -->
+                                <td>
+                                    {{field.type}}
+                                </td>
+                                <td>
+                                    {{field.lookupEntity}}
+                                </td>
+                                <td>
+                                    {{field.locked}}
+                                </td>
+                                <td>
+                                    {{field.colId}}
+                                </td>
+                                <!-- list views -->
+                                <td>
+                                    {{field.excludeGrid}}
+                                </td>
+                                <td>
+                                    {{field.hide}}
+                                </td>
+                                <td>
+                                    {{field.pinned}}
+                                </td>
+                                <td>
+                                    {{field.width}}
+                                </td>
+                                <td>
+                                    {{field.valueGetter}}
+                                </td>
+                                <td>
+                                    {{field.cellRenderer}}
+                                </td>
+                                <!-- new forms -->
+                                <td>
+                                    {{field.excludeNew}}
+                                </td>
+                                <td>
+                                    {{field.newClass}}
+                                </td>
+                                <td>
+                                    {{field.newRequired}}
+                                </td>
+                                <!-- edit forms -->
+                                <td>
+                                    {{field.excludeEdit}}
+                                </td>
+                                <td>
+                                    {{field.editClass}}
+                                </td>
+                                <!-- bulk -->
+                                <td>
+                                    {{field.excludeBulk}}
+                                </td>
+                                <!-- filters -->
+                                <td>
+                                    {{field.filterApplied}}
+                                </td>
+                                <td>
+                                    {{field.filterValue}}
+                                </td>
+                                <!-- import -->
+                                <td>
+                                    {{field.excludeImport}}
+                                </td>
+                                <!-- export -->
+                                <td>
+                                    {{field.excludeExport}}
+                                </td>
+                                <td>
+                                    {{field.exportConfig.label}}
+                                </td>
+                                <td>
+                                    {{field.exportConfig.value}}
+                                </td>
+                                <td>
+                                    {{field.exportConfig.default}}
+                                </td>
+
+                            </tr>
+                           </table>
+
+                    </div>
+
+            </div>
+        
+
+        </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
