@@ -33,46 +33,42 @@
 
 
 
-							<table class="table settings-table">
+							<table class="table settings-table" ng-if="!data.loading">
 								    <thead>
 								      <tr>
 								        <th class="col-xs-3">Reason Name</th>
-					              	    <th class="col-xs-3">Description</th>
+					              	    <th class="col-xs-8">Description</th>
 					                    <th class="col-xs-1"></th>
 								      </tr>
 								    </thead>
 								    <tbody>
-								      <tr ng-repeat="reason in data.reasons">
+								      <tr ng-repeat="reason in data.reasons | orderBy: 'label'">
 								        <td>
-								       	<p style="display:inline-block;" ng-bind="reason.label || '--'"></p>      	
+								       	<span style="display:inline-block;" ng-bind="reason.label || '--'"></span>      	
+								        </td>
+								        <td style="overflow:hidden; text-overflow:ellipsis;">
+											<span uib-tooltip="{{reason.description}}" ng-bind="reason.description || '--'"></span>
 								        </td>
 								        <td>
-											<p ng-bind="reason.field || '--'"></p>
-								        </td>
-								        <td>
-											<p ng-bind="reason.description || '--'"></p>
-								        </td>
-								        <td>
-											<!-- if locked -->
-								        	<span ng-if="reason.locked" class="locked-item" uib-tooltip="This Field Is Required">
-								        		<icon class="wb-lock"></icon>
-								        	</span>
-								        	<!-- //if can be activated -->
-								        	<span class="toggle toggle-success" ng-if="!reason.locked">
-										        <input class="toggle-range" id="{{reason.id}}" type="checkbox" ng-model="reason.active">
-										        <label class="toggle-btn" for="{{reason.id}}" style="margin-left: 20px; margin-bottom:-5px;"></label>
-									        </span>
-
-								        </td>
-								        <td>
-								      	<button class="btn btn-default edit-label" ng-click="editReason(reason)">
+								      	<button class="btn btn-default edit-label" ng-click="editReason(reason)" uib-tooltip="Edit Reason">
 								      		<icon class="fa fa-pencil"></icon>
+								      	</button>
+								      	<button class="btn btn-default edit-label" ng-click="deleteReason(reason)" uib-tooltip="Delete Reason">
+								      		<icon class="fa fa-trash"></icon>
 								      	</button>
 								      </td>
 								      </tr>
 								      
 								    </tbody>
 								  </table>
+
+
+
+								  	<div class="empty-state text-center" ng-if="!data.reasons.length">
+								     	<h5>No Reasons</h5>
+								     	<p>Tracking what helped lead to a win or a loss will allow for historical analysis</p>
+								     	<button class="btn btn-primary" ng-click="addReason()">Create New Reason</button>
+								     </div>
 
 						</div>
 					</div>

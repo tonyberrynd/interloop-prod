@@ -12,7 +12,12 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 
-							<b><span class="pull-left" ng-bind="'Showing ' + (data.perPage * (data.currentPage - 1)) + ' - ' + (data.perPage * data.currentPage) + ' of ' + (data.totalItems | number:0)"></span></b>
+							<b>
+								<!-- more than per page amount -->
+								<span ng-if="data.totalItems > data.perPage" class="pull-left" ng-bind="'Showing ' + (data.perPage * (data.currentPage - 1)) + ' - ' + (data.perPage * data.currentPage) + ' of ' + (data.totalItems | number:0)"></span>
+								<!-- //less then per page amount -->
+								<span ng-if="data.totalItems <= data.perPage" class="pull-left" ng-bind="'Showing ' + (data.perPage * (data.currentPage - 1)) + ' - ' + (data.totalItems) + ' of ' + (data.totalItems | number:0)"></span>
+							</b>
 
 							<ul uib-pagination total-items="data.totalItems" items-per-page="data.perPage" ng-model="data.currentPage" max-size="3" class="pagination-sm pull-right" style="margin-top:0px;" boundary-link-numbers="true" ng-change="pageChanged()"></ul>
 

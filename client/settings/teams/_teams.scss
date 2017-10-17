@@ -15,6 +15,12 @@
 	}
 }
 
+.team-description {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
+}
+
 .member-list {
 	display: block;
 	padding:0 10px;
@@ -26,6 +32,10 @@
 	}
 }
 
+
+.team-description {
+	color:$dragonstone;
+}
 
 
 // .empty-state {

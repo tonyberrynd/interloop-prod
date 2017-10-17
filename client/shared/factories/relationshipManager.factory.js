@@ -134,7 +134,7 @@ angular.module('interloop.factory.relationshipManager', [])
             {
                 "activityId": activityId, 
                 "name": _.get(relationship.activity, "name", null),
-                "type": _.get(relationship.activity, "type.value", null),
+                "type": _.get(relationship.activity, "type", null),
                 "completed": _.get(relationship.activity, "completed", false),
                 "createdBy": {
                     "id":$rootScope.activeUser.id,

@@ -1,0 +1,107 @@
+
+.right-buttons .button-icon:nth-child {
+    padding:0 5px;
+}
+
+.details-header {
+	height:108px;
+	width:100%;
+	background-color:$diamond;
+	padding:15px 10px;
+	display: block;
+	position: relative;
+    position: relative;
+    border-bottom:solid 2px $gravel;
+
+    .avatar-container {
+        position: absolute;
+        left:10px;
+        top:0px;
+        padding:5px 15px;
+    }
+
+    .main-details {
+        position: absolute;
+        left:15px;
+        top:0px;
+        right:0px;
+
+        h4 {
+            margin-top:6px;
+            margin-bottom:2px;
+            font-weight:600;
+        }
+
+        h5 {
+            margin-top:3px;
+            margin-bottom:3px;
+            color:$granite;
+            font-weight:500;
+        }
+
+        p {
+            font-weight:500;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+
+    &.company,
+    &.contact {
+
+        .main-details {
+            left:100px;
+        }
+
+    }
+}
+
+.details-tabs {
+	min-height: calc(100vh - 164px);
+	background-color:$topaz;
+}
+
+.details-page {
+	display: block;
+	background-color:$diamond;
+	height:100%;
+}
+
+.avatar {
+	position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    white-space: nowrap;
+    border-radius: 1000px;
+    vertical-align: bottom;
+    background-color: #cfd7e0;
+    overflow: hidden;
+    line-height: 48px;
+    color:$diamond;
+    text-align: center;
+    font-size:28px;
+    font-weight:600;
+
+    &.square {
+        border-radius: 5px;
+    }
+}
+
+.avatar span {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+    text-align: center;
+    color: #FFFFFF;
+    line-height: 40px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+
+//

@@ -8,25 +8,46 @@
 
         </div>
         <div class="modal-body w-padding" id="modal-body">
+
+            <div class="row">
+              <div class="col-xs-9">
+                
+         
                 
                <form name="newNoteForm" novalidate autocomplete="off">
                 <div class="row">
                       <div class="col-xs-12">
                           <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" ng-model="data.note.title" autofocus>
+                            <input type="text" class="form-control" ng-model="data.note.title" autofocus ng-keydown="focusTextEdit($event)">
                           </div>
                       </div>
                       <div class="col-xs-12">
+                        <label for="body">Note</label>
                          <div class="rich-textarea" ng-class="{'focused': $root.richTextFocus }">
-                            <trix-editor angular-trix ng-model="data.note.body" trix-focus="trixFocus(e, editor)" trix-blur="trixBlur(e, editor)"></trix-editor>
+                            <trix-editor angular-trix ng-model="data.note.body" ng-if="true" trix-focus="trixFocus(e, editor)" trix-blur="trixBlur(e, editor)" id="Trix-Editor"></trix-editor>
                           </div>
                       </div>
                   </div>
                 </form>
 
+                </div>
+                <div class="col-xs-3">
+                    
+      
+                    <div class="form-group">
+                      <label for="">Related To:</label>
+                      <button class="btn btn-default">
+                        Add Related
+                      </button>
+                    </div>
+
+                
+                </div>
+            </div>
+
         </div>
         <div class="modal-footer">
-            <button class="btn btn-default btn-link" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
             <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="newNoteForm.$invalid">Create</button>
         </div>

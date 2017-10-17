@@ -10,6 +10,7 @@ angular.module('interloop.routes.settings', [])
   $stateProvider.state('app.settings', {
       url: "/settings",
       abstract: true,
+      sticky: true,
       views: {
          //main settings-content area
           'page-content@app': {
@@ -18,7 +19,8 @@ angular.module('interloop.routes.settings', [])
       },
       data: {
           pageTitle: 'Settings',
-          navTitle: 'Settings'
+          navTitle: 'Settings',
+          mainState: true
       }
   });
 
@@ -218,6 +220,24 @@ angular.module('interloop.routes.settings', [])
       }
   });
 
+
+  $stateProvider.state('app.settings.pipeline-details', {
+      url: "/pipelines/:pipelineId",
+      views: {
+          'settings-content@app.settings': {
+              templateUrl: "settings/pipelines/pipeline-details.tpl.html",
+              controller: 'settingsPipelineDetailsCtrl'
+          }
+        },
+      data: {
+          pageTitle: 'Sales Process',
+          navTitle: 'Settings'
+      },
+      params: {
+        pipelineId: null
+      }
+  });
+
   $stateProvider.state('app.settings.goals', {
       url: "/goals",
       views: {
@@ -392,6 +412,21 @@ angular.module('interloop.routes.settings', [])
           'settings-content@app.settings': {
               templateUrl: "settings/export/export2.tpl.html",
               controller: 'settingsExportCtrl'
+          }
+        },
+      data: {
+          pageTitle: 'Export Data',
+          navTitle: 'Settings'
+      }
+  });
+
+
+  $stateProvider.state('app.settings.duplicates', {
+      url: "/duplicates",
+      views: {
+          'settings-content@app.settings': {
+              templateUrl: "settings/duplicates/duplicates.tpl.html",
+              controller: 'settingsDuplicatesCtrl'
           }
         },
       data: {

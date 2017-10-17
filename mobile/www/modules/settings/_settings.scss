@@ -1,0 +1,42 @@
+.settings {
+
+	.user-avatar {
+		position: absolute;
+	    width: 40px;
+	    height: 40px;
+	    left: 15px;
+	    white-space: nowrap;
+	    display: block;
+	    border-radius: 1000px;
+	    vertical-align: bottom;
+	    background-color: $gravel;
+	    text-align:center;
+	    color:$diamond;
+
+	    img {
+	    	width: 100%;
+		    max-width: 100%;
+		    height: auto;
+		    border: 0;
+		    border-radius: 1000px;
+	    }
+	}
+
+	.more {
+		font-size:13px;
+		color:darken($gravel, 9%);
+		right: 3px;
+		position: absolute;
+	}
+
+}
+
+.logout {
+	font-weight:500 !important;
+	color:$topaz !important;
+}
+
+.version p {
+	margin:0px;
+	margin-bottom:3px;
+}

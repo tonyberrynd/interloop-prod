@@ -1,0 +1,42 @@
+<ion-view view-title="Login">
+  <ion-header-bar>
+  	<a href="#/intro" class="button button-clear button-positive"><icon class="wb-chevron-left-mini"></icon></a>
+    <h1 class="title title-heavy">Interloop</h1>
+   	<button class="button button-clear button-positive heavy" ng-disabled="!data.email || !data.password || !data.domain" ng-click="login()">Sign In</button>
+  </ion-header-bar>
+  <ion-content>
+
+    <form name="loginForm" ng-submit="login()">
+      <div class="list login-form">
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input name="email" type="text" ng-model="data.email" placeholder="Email Address" autocapitalize="false" required />
+
+<!--           <div class="clear-input">
+          	<button class="button button-clear" ng-if="data.email">
+          		<icon class="wb-plus-circle"></icon>
+          	</button>
+          </div> -->
+
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input name="password" type="password" ng-model="data.password" placeholder="Password" required />
+        </label>
+        <label class="item item-input domain-input">
+          <span class="input-label">Domain</span>
+          <input name="domain" type="text" ng-model="data.domain" placeholder="Domain" autocapitalize="false" required />
+             <span class="item-note">
+		      .interloop.ai
+		    </span>
+        </label>
+      </div>
+
+    </form>
+
+	<div class="forgot-link text-center">
+    <a href="#/forgot">Forgot password?</a>
+    </div>
+  </ion-content>
+
+</ion-view>

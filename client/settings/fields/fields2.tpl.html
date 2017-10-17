@@ -31,7 +31,7 @@
 							    </li>
 							    <li ng-class="{'active': data.currentEntity == 'Activity'}">
 							      <a href ng-click="changeEntity('Activity')">
-							      	Task
+							      	Activity
 							      </a>
 							    </li>
 							</ul>
@@ -67,14 +67,14 @@
 					        		<icon class="wb-lock"></icon>
 					        	</span>
 					        	<!-- //if can be activated -->
-					        	<span class="toggle toggle-success" ng-if="!field.locked">
-							        <input class="toggle-range" id="{{field.field}}" type="checkbox" ng-model="field.active">
-							        <label class="toggle-btn" for="{{field.field}}" style="margin-left: 20px; margin-bottom:-5px;"></label>
+					        	<span class="toggle toggle-success" ng-if="!field.locked" uib-tooltip="Enable / Disable Field">
+							        <input class="toggle-range" id="{{field.key}}" type="checkbox" ng-model="field.active" ng-change="save()">
+							        <label class="toggle-btn" for="{{field.key}}" style="margin-left: 20px; margin-bottom:-5px;"></label>
 						        </span>
 
 					        </td>
 					        <td>
-					      	<button class="btn btn-default edit-label" ng-click="editField(field)">
+					      	<button class="btn btn-default edit-label" ng-click="editField(field)" uib-tooltip="Edit Field">
 					      		<icon class="fa fa-pencil"></icon>
 					      	</button>
 					      </td>

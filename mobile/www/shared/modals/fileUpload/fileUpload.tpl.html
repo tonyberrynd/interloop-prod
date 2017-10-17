@@ -1,0 +1,33 @@
+    <div class="modal-header header-dark">
+        <h3 class="modal-title" id="modal-title">Upload a file?</h3>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding" id="modal-body">
+
+        <span class="thumbnail-wrapper">
+            <img ngf-thumbnail="data.file" style="max-height:120px; display:block; margin:auto;">
+        </span>
+
+        <form>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" ng-model="data.file.name">
+            <p class="help-block">Titles are the easiest ways to search for files: it pays to be descriptive.</p>
+          </div>
+          <div class="form-group">
+            <label for="comment">Comment <span class="text-muted">(Optional)</span></label>
+            <textarea class="form-control" rows="3" id="comment" ng-model="data.comment"></textarea>
+          </div>
+        </form>
+
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default btn-outline" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" type="button" ng-click="ok()">Upload</button>
+    </div>

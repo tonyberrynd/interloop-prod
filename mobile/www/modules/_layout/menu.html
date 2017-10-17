@@ -1,0 +1,122 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content drag-content="false">
+    <ion-nav-bar class="bar-calm">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear wb-menu" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+
+      <ion-nav-buttons side="right">
+        <a href="#/search" class="button button-icon button-clear wb-search" >
+        </a>
+        <button class="button button-icon button-clear wb-more-vertical" menu-toggle="right">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left" class="left-sidemenu">
+    <ion-header-bar class="bar-calm">
+      <h5 ng-bind="$root.activeOrg.name || '--'"></h5>
+      <p ng-bind="$root.activeOrg.url || '--'"></p>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-item menu-close href ui-sref="app.pulse" ng-class="{'active': $state.includes('app.pulse')}">
+        <icon class="icon-budicon-classic-28 topaz"></icon> 
+          Pulse
+        </ion-item>
+
+        <ion-item menu-close href ui-sref="app.forecast" ng-class="{'active': $state.includes('app.forecast')}">
+        <icon class="icon-budicon-classic emerald"></icon>
+          Forecast
+        </ion-item>
+
+        <ion-item menu-close href ui-sref="app.opportunities" ng-class="{'active': $state.includes('app.opportunities')}">
+        <icon class="icon-budicon-classic-17 jade"></icon>
+          Opportunities
+        </ion-item>
+        
+        <ion-item menu-close href ui-sref="app.activities" ng-class="{'active': $state.includes('app.activities')}">
+        <icon class="icon-budicon-classic-5 topaz"></icon>
+          Activities
+        </ion-item>
+
+        <ion-item menu-close href ui-sref="app.contacts" ng-class="{'active': $state.includes('app.contacts')}">
+        <icon class="icon-budicon-classic-1 amethyst"></icon>
+          Contacts
+        </ion-item>
+
+        <ion-item menu-close href ui-sref="app.companies" ng-class="{'active': $state.includes('app.companies')}">
+        <icon class="icon-budicon-classic-21 opal"></icon>
+          Companies
+        </ion-item>
+
+        <ion-item menu-close href ui-sref="app.settings" ng-class="{'active': $state.includes('app.settings')}">
+        <icon class="icon-budicon-classic-30 gray"></icon> 
+          Settings
+        </ion-item>
+
+      </ion-list>
+
+
+    </ion-content>
+
+
+    <ion-footer-bar class="bar-calm">
+      <button class="button button-block button-clear">
+        <icon class="wb-help-circle"></icon>
+        Help
+      </button>
+    </ion-footer-bar>
+
+  </ion-side-menu>
+
+  <!-- right sidebar -->
+    <ion-side-menu side="right" class="right-sidemenu">
+      <ion-header-bar class="bar-light">
+        <div class="avatar">
+          <span ng-bind="$root.activeUser.initials"></span>
+        </div>
+        <h5 ng-bind="$root.activeUser.fullName || '--'"></h5>
+        <p ng-bind="$root.activeUser.email || '--'"></p>
+      </ion-header-bar>
+
+    <ion-content class="has-header">
+      <ion-list>
+        
+        <br>
+
+        <ion-item menu-close href ui-sref="app.pulse">
+        <icon class="icon-budicon-classic-28 topaz"></icon> 
+          Mentions
+        </ion-item>
+
+        <ion-item menu-close href ui-sref="app.forecast" >
+        <icon class="icon-budicon-classic emerald"></icon>
+          Starred Items
+        </ion-item>
+
+        <ion-item menu-close href ui-sref="app.opportunities">
+        <icon class="icon-budicon-classic-17 jade"></icon>
+          My Files
+        </ion-item>
+
+        <ion-item menu-close href ui-sref="app.opportunities">
+        <icon class="icon-budicon-classic-17 jade"></icon>
+          Directory
+        </ion-item>
+
+      </ion-list>
+
+
+    </ion-content>
+
+    </ion-side-menu>
+
+
+</ion-side-menus>

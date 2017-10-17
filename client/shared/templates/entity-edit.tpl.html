@@ -1,4 +1,11 @@
+  <!-- sidebar overlay -->
     <div class="sidepanel">
+
+        <!-- sidebar overlay -->
+        <div class="sidebar-overlay" ng-class="{'hidden': data.activated }">
+            <div class="loop-loader loop-loader-xs fadeInOut centered">Loading...</div>
+        </div>
+
         <div class="sidepanel-header edit-header text-center">
             <a class="btn btn-link btn-left" ng-click="returnToDetails()">
                 Cancel

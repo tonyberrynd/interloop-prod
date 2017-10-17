@@ -20,8 +20,11 @@ angular.module('interloop.factory.authService', [])
     Org, 
     authEvents, 
     $rootScope,
-    $location, 
+    $location,
+    $injector, 
     $http, 
+    $state,
+    $window,
     LoopBackAuth,
     Permissions
     // RoleStore, 
@@ -49,18 +52,22 @@ angular.module('interloop.factory.authService', [])
       .login({email: email, password: password, rememberMe: rememberMe})
       .$promise
       .then(function(response) {
+        $rootScope.$broadcast(authEvents.LOGIN_SUCCESS)
 
         //if access token expired redirect them
-        var next = $location.nextAfterLogin || '/opportunities/view/default';
+        var next = $location.nextAfterLogin;
         $location.nextAfterLogin = null;
 
-        //triage if next is login
-        if(next == '/login') { next = '/opportunities/view/default'}
-        //go to next loation
-        $location.path(next);
-        
+        if(next){
+          //triage if next is login
+          if(next == '/login') { next = '/pulse/outlook'}
+          //go to next loation
+          $location.path(next);
+        } else {
+          $state.go('app.pulse.outlook');
+        }
 
-        $rootScope.$broadcast(authEvents.LOGIN_SUCCESS);
+      ;
       }, function() {
         $rootScope.$broadcast(authEvents.LOGIN_FAILED);
       });
@@ -76,6 +83,7 @@ angular.module('interloop.factory.authService', [])
         //clear permissions for user
         // clearPermissions();
         $rootScope.$broadcast(authEvents.LOGOUT_SUCCESS);
+
       }, function() {
         $rootScope.$broadcast(authEvents.LOGOUT_FAILED);
       });

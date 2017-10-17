@@ -53,6 +53,7 @@ Save
 function ok() {
 
   $scope.data.status.active = true;
+  $scope.data.status.key = _.camelCase($scope.data.status.label);
 
   return Status.create($scope.data.status).$promise
     .then(function(results){

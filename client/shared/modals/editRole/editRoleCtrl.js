@@ -43,9 +43,6 @@ angular.module('interloop.editRoleCtrl', [])
   function ok() {
 
     // TODO - Move Fields to Database
-
-    $uibModalInstance.close(); 
-
     AppRole.prototype$patchAttributes({id: $scope.data.thisRole.id}, $scope.data.thisRole).$promise
       .then(function(results){
         Logger.info('Updated Role Details')

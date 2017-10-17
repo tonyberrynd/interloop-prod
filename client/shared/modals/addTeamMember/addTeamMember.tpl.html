@@ -11,26 +11,35 @@
         <div class="modal-body w-padding" id="modal-body">
 
               <div class="form-group">
-            
-                <label for="comment">Select Members to Add</label>
-                   <ui-select ng-model="data.selectedPeople" multiple theme="bootstrap" class="form-control" title="Choose a person">
-                    <!-- match -->
-
-                    <ui-select-match placeholder="Select person...">
-                        {{$item.fullName}}
-                    </ui-select-match>
-                    <!-- choices -->
-                    <ui-select-choices repeat="item in data.people | filter: $select.search">
-                      <div ng-bind-html="item.fullName | highlight: $select.search"></div>
-                      <small ng-bind-html="item.email | highlight: $select.search"></small>
-                    </ui-select-choices>
-
-                    <ui-select-no-choice>
-                     No Results Found
-                    </ui-select-no-choice>
-
-                  </ui-select>
-              </div>
+              <label for="">Select Users to add to team:</label>
+              <div class="multiple-select">
+                <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Select Users">
+                      <ui-select multiple ng-model="data.selectedPeople" theme="bootstrap" ng-click="$select.activate()" minimum-input-length="2">
+                        <ui-select-match placeholder="Select Users">
+                          <div class="avatar avatar-16" ng-class="$item.color">
+                            <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span>
+                          </div>
+                          <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in data.people | filter: $select.search | orderBy:'firstName'">
+                          <div class="avatar avatar-24" ng-class="item.color">
+                            <span ng-bind="item.firstName | limitTo:1"></span><span ng-bind="item.lastName | limitTo:1"></span>
+                          </div>
+                          <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
+                          <small ng-bind-html="item.email | highlight: $select.search"></small>
+                        </ui-select-choices>
+                      </ui-select>
+                      <ui-select-no-choice>
+                          <span class="no-results" ng-if="!(data.people | filter: $select.search).length && !data.serverError">
+                         No Results Found Matching <b>"{{$select.search}}"</b>
+                    </span>
+                    <span class="server-error" ng-if="!(data.people | filter: $select.search).length && data.serverError">
+                      The servier did not respond
+                      <br>
+                      <button class="btn btn-default">Retry</button>
+                    </span>
+                  </ui-select-no-choice>
+                </div>
 
 
             </form>

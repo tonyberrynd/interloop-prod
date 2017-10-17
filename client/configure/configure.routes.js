@@ -9,6 +9,7 @@ angular.module('interloop.routes.configure', [])
    $stateProvider.state('app.configure', {
       url: "/configure",
       abstract: true,
+      sticky: true,
       views: {
          //main content area
           'page-content@app': {
@@ -17,7 +18,8 @@ angular.module('interloop.routes.configure', [])
       },
       data: {
           pageTitle: 'Configure',
-        navTitle:  'Configure'
+          navTitle:  'Configure',
+          mainState: true
       },
       authenticate: true
   });

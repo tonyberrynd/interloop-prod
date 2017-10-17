@@ -17,6 +17,7 @@ angular.module('interloop.opportunityDetailsCtrl', [])
 	Opportunity,
 	CustomField,
 	gridManager,
+  Lightbox,
 	RelationshipManager,
 	OpportunityFields,
 	SidebarActions,
@@ -30,153 +31,65 @@ angular.module('interloop.opportunityDetailsCtrl', [])
 
 	//vars 
 	//----------------------
-	var shareLink = ShareLinkFactory.getShareLink('Opportunity', $stateParams.id);
+  var initializing = true;
+  var initFilters = true;
+  var viewFilters = null;
+  var query = $location.search().query || null;
+  var count = $location.search().count || 0;
+  var backUrl = $location.search().backUrl || null;
+  var oppId = $location.search().id || null;
+  var shareLink = ShareLinkFactory.getShareLink('Opportunity', $stateParams.id);
 
 	//data
 	//----------------------
-	$scope.data = {};
+  $scope.data = {};
+  $scope.data.activated = false;
+  $scope.data.copyUrl = shareLink;
   $scope.data.currentEntity = 'Opportunity';
   $scope.data.currentTab = 1;
-  $scope.data.historyFilter = 'all';
-	$scope.data.activated = false;
+  $scope.data.endOfToday = moment().endOf('day').format();
   $scope.data.entityTypes = entityTypes;
-  $scope.data.copyUrl = shareLink;
-
+  $scope.data.historyFilter = 'all';
   $scope.data.sidebarHistory = SidebarRouter.getHistory();
 
-  //activity heatmap chart
-  $scope.data.activityChartConfig = {
-
-    chart: {
-        type: 'heatmap',
-        marginTop: 10,
-        marginBottom: 20,
-        plotBorderWidth: 0,
-        plotBorderColor: '#FFFFFF',
-        style: {
-            fontFamily: 'proxima-nova',
-            textTransform: 'uppercase',
-            color: '#292F33'
-        },
-    },
-
-    credits: {
-      enabled: false
-    },
-
-    legend: {
-      enabled: false
-    },
-
-
-    title: {
-        text: null
-    },
-
-    xAxis: {
-    lineWidth: 0,
-    gridLineColor: "#FFFFFF",
-     minorGridLineWidth: 0,
-     lineColor: '#FFFFFF',   
-     labels: {
-         enabled: true
-     },
-     minorTickLength: 0,
-     tickLength: 0,
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']
-    },
-
-    yAxis: {
-      lineWidth: 0,
-      gridLineColor: "#FFFFFF",
-       minorGridLineWidth: 0,
-       lineColor: '#FFFFFF',   
-       labels: {
-           enabled: true
-       },
-       minorTickLength: 0,
-       tickLength: 0,
-        categories: ['Call', 'Email', 'Meeting', 'Task', 'Custom'],
-        title: null
-    },
-
-    colorAxis: {
-        min: 0,
-        minColor: '#fafafa',
-        maxColor: Highcharts.getOptions().colors[0]
-    },
-
-    tooltip: {
-        formatter: function () {
-            return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> sold <br><b>' +
-                this.point.value + '</b> items on <br><b>' + this.series.yAxis.categories[this.point.y] + '</b>';
-        }
-    },
-
-    series: [{
-        name: 'Sales per employee',
-        borderWidth: 10,
-        borderRadius: 8,
-        borderColor: '#FFFFFF',
-        data: [[0, 0, 10], [0, 1, 19], [0, 2, 8], [0, 3, 24], [0, 4, 67], [1, 0, 92], [1, 1, 58], [1, 2, 78], [1, 3, 117], [1, 4, 48], [2, 0, 35], [2, 1, 15], [2, 2, 123], [2, 3, 64], [2, 4, 52], [3, 0, 72], [3, 1, 132], [3, 2, 114], [3, 3, 19], [3, 4, 16], [4, 0, 38], [4, 1, 5], [4, 2, 8], [4, 3, 117], [4, 4, 115], [5, 0, 88], [5, 1, 32], [5, 2, 12], [5, 3, 6], [5, 4, 120], [6, 0, 13], [6, 1, 44], [6, 2, 88], [6, 3, 98], [6, 4, 96], [7, 0, 31], [7, 1, 1], [7, 2, 82], [7, 3, 32], [7, 4, 30], [8, 0, 85], [8, 1, 97], [8, 2, 123], [8, 3, 64], [8, 4, 84], [9, 0, 47], [9, 1, 114], [9, 2, 31], [9, 3, 48], [9, 4, 91]],
-        dataLabels: {
-            enabled: false,
-            color: '#000000'
-        }
-    }]
-
-}
-
-
-
-  // $location.url($location.path() + "#id=" + $stateParams.id);
 
 	//functions
 	//----------------------
-	$scope.isStarred = isStarred;
-
-	//top right
-    $scope.cloneItem = cloneItem;
-    $scope.copyShareLink = copyShareLink;
-    $scope.deleteItem = deleteItem;
-    $scope.unArchiveItem = unArchiveItem;
-    $scope.starUnstarItem = starUnstarItem;
-
-    $scope.data.endOfToday = moment().endOf('day').format();
-
-  	// action panel
-    $scope.addOwner = addOwner;
-    $scope.shareWith = shareWith;
-  	$scope.addActivity = addActivity;
-  	$scope.addNote = addNote;
-  	$scope.manageTags = manageTags; 
-    $scope.removeTag = removeTag;
-    $scope.viewTagList = viewTagList;
-  	$scope.manageRelationships = manageRelationships;
-  	$scope.uploadFiles = uploadFiles;
-
-    $scope.goTo = goTo;
-    $scope.goBack = goBack;
-
-    $scope.primaryCompanyName = primaryCompanyName;
-
-    //files
-	$scope.triggerUpload = triggerUpload;
-	$scope.uploadFiles = uploadFiles;
-
-	//details
-	$scope.saveData = saveData;
-
-  $scope.updatePrimaryCompany = updatePrimaryCompany;
-
-      //scrolling
+  $scope.addActivity = addActivity;
+  $scope.addNote = addNote;
+  $scope.isStarred = isStarred;
+  $scope.manageRelationships = manageRelationships;
+  $scope.manageTags = manageTags; 
+  $scope.saveData = saveData;
+  $scope.triggerUpload = triggerUpload;
+  $scope.uploadFiles = uploadFiles;
+  $scope.uploadFiles = uploadFiles;
+  $scope.addMeeting = addMeeting;
+  $scope.addOwner = addOwner;
+  $scope.addTask = addTask;
+  $scope.checkIfEmpty = checkIfEmpty;
+  $scope.cloneItem = cloneItem;
+  $scope.copyShareLink = copyShareLink;
+  $scope.deleteItem = deleteItem;
+  $scope.fileDetails = fileDetails;
+  $scope.getLookupValue = getLookupValue;
+  $scope.goBack = goBack;
+  $scope.goTo = goTo;
+  $scope.isOwner = isOwner;
+  $scope.logCall = logCall;
+  $scope.percentComplete = percentComplete;
+  $scope.previewImage = previewImage;
+  $scope.primaryCompanyName = primaryCompanyName;
+  $scope.refresh = refresh;
+  $scope.removeTag = removeTag;
   $scope.scrollLeft = scrollLeft;
   $scope.scrollRight = scrollRight;
-
-  $scope.getLookupValue = getLookupValue;
-  $scope.checkIfEmpty = checkIfEmpty;
-
-
+  $scope.shareWith = shareWith;
+  $scope.starUnstarItem = starUnstarItem;
+  $scope.unArchiveItem = unArchiveItem;
+  $scope.updatePrimaryCompany = updatePrimaryCompany;
+  $scope.viewRelationship = viewRelationship;
+  $scope.viewTagList = viewTagList;
 
 //-------------------------------------------
 
@@ -184,18 +97,14 @@ angular.module('interloop.opportunityDetailsCtrl', [])
 // ACTIVATE
 //===========================================
 function activate() {
-	console.log($stateParams.id);
+	// console.log($stateParams.id);
 
 
-	return $q.all([Opportunity.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"]}}).$promise,
-				   Opportunity.insights({'id': $stateParams.id}).$promise]
-				  )
+	return Opportunity.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"], "deleted": true}}).$promise
 			.then(function(results){
-        console.log('thisOpp', results[0])
+        // console.log('thisOpp', results[0])
 				//basic off details
-				$scope.data.thisRecord = results[0];
-				//insights
-				$scope.data.thisRecord.insights = results[1];
+				$scope.data.thisRecord = results;
 
 				//get primary company
 				$scope.data.thisRecord.primaryCompany = RelationshipManager.getPrimary($scope.data.thisRecord.entityLinks, "Company") || null;
@@ -219,6 +128,8 @@ function activate() {
 				$scope.data.thisRecord.openActivities = SidebarActions.getOpenActivities($scope.data.thisRecord.activities);
 				$scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
 
+        console.log($scope.data.thisRecord.history);
+
         //ensure entities are valid
         var validEntities = [];
         _.forEach($scope.data.thisRecord.entities, function(entity, key){
@@ -235,14 +146,45 @@ function activate() {
           return moment(result['completedDate']).startOf('month').format('MMMM')
         });
 
-        console.log(groupedResults);
+        //set score knob options
+        $scope.data.options = {
+            width: 50,
+            height:50,
+            fgColor: getScoreColor($scope.data.thisRecord.smartScore),
+            skin: "tron",
+            thickness: .15,
+            // angleArc: 250,
+            // angleOffset: -125,
+            font: "proxima-nova",
+            fontWeight: 400,
+            displayPrevious: true,
+            readOnly: true
+        }
 
+        //expand collapse related and activity collpases based on whether there are values
+        //--------------------------
+        _.forEach($scope.data.entityTypes, function(value){
+          var relatedRecords = _.filter($scope.data.thisRecord.entities, function(o){
+            return o.entityType == value.singular;
+          })
+          //only expand if there is length
+          if(relatedRecords.length == 0){
+            value.collapsed = true;
+          }
+        })
+
+        //expand collapse files
+        //--------------------------
+        if(!$scope.data.thisRecord.files.length) {
+          $scope.data.filesCollapsed = true;
+        }
 				
-				//activated
-				$scope.data.activated = true;
+  			//activated
+        //--------------------------
+  			$scope.data.activated = true;
 
-        //monitor scroll once activated
-        // monitorScroll();
+          //monitor scroll once activated
+          // monitorScroll();
 
 			})
 			.catch(function(err){
@@ -263,6 +205,62 @@ $timeout(function(){
 // FUNCTIONS
 //===========================================
 
+
+function getScoreColor(score){
+  if(score > 66) {
+    return '#02B892';
+  } else if(score >= 33 && score <= 66){
+    return '#FFD11A';
+  } else{
+    return '#E02F2F';
+  }
+
+}
+/*
+Preview An Image
+*/
+function previewImage(file){
+  var filesArray = [ file ];
+  Lightbox.openModal(filesArray, 0);
+}
+
+/*
+Test
+*/
+function fileDetails(id){
+  $state.go('app.file-details', {'id': id})
+}
+
+/*
+Checks if current user is an owner
+*/
+function isOwner(ownerLinks){
+  console.log(ownerLinks);
+  var owners = _.filter(ownerLinks, function(o){
+    return o.id == $rootScope.activeUser.id;
+  })
+
+  return owners.length > 0 ? true : false;
+}
+
+/*
+Calculated percentage of array of fields / basic, custom - has information
+*/
+function percentComplete(fields){
+  var length = _.filter(fields, function(o) {return o.type !== 'divider' && !o.disabled}).length || '0';
+  var complete = 0;
+  _.forEach(fields, function(value){
+    if(!_.isNil($scope.data.thisRecord[value.key])){
+      complete++
+    }
+  })
+
+  return _.toString(_.round((complete / length) * 100)) + '%';
+}
+
+function refresh(){
+  activate();
+}
 
 function getLookupValue(filter, entityType, searchVal){
   return searchService.getLookupValue(filter, entityType, searchVal);
@@ -359,10 +357,17 @@ function checkIfEmpty(field, value) {
   }
 }
 
+
+function viewRelationship(entityType, id){
+  $state.go('app.relationship-details', {'entityType': entityType, 'id': id});
+}
+
 /*
 Go to next sidebar state
 */
 function goTo(entity, id){
+  console.log('entity', entity);
+  console.log('id', id);
   //pass current state into sidebar history stack
   var currentState = {'entity': 'Opportunity', 'id': $stateParams.id }
   //sidebar router manages sidebar history
@@ -395,7 +400,7 @@ function saveData(field, value) {
 
        gridManager.setData($scope.data.thisRecord.id, field, newValue)
 
-       console.log('trying to update data');
+       // console.log('trying to update data');
 
        // gridManager.updateRow($scope.data.thisRecord.id, results);
 
@@ -533,12 +538,12 @@ function addOwner() {
     thisRecord: $scope.data.thisRecord
   }
 
-  var addOwnerModal = modalManager.openModal('addOwner', resolvedData)
+  var addOwnerModal = modalManager.openModal('addOwners', resolvedData)
 
   //after result - add / remove from UI
 
   addOwnerModal.result.then(function(results){
-    console.log(results);
+    // console.log(results);
     //update this opp
     //comes back as array so need to loop through to push in properly
     _.forEach(results, function(value){
@@ -562,15 +567,36 @@ function shareWith() {
   shareWithModal.result.then(function(results){
     //update this opp
    _.forEach(results, function(value){
-      $scope.data.thisRecord.shareWithLinks.push(value);
+      $scope.data.thisRecord.sharedWithLinks.push(value);
     })
   })
 
 }
 
+/*
+Log call
+*/
+function logCall() {  
+    SidebarActions.logCall('Opportunity', $scope.data.thisRecord)
+};
+
 
 /*
-Click Hidden file input to trigger file upload process
+New Task
+*/
+function addTask() {  
+    SidebarActions.createTask('Opportunity', $scope.data.thisRecord)
+};
+
+/*
+Add Meetings
+*/
+function addMeeting() {  
+    SidebarActions.createMeeting('Opportunity', $scope.data.thisRecord)
+};
+
+/*
+Add Activity
 */
 function addActivity() {  
     SidebarActions.createActivity('Opportunity', $scope.data.thisRecord)
@@ -580,7 +606,7 @@ function addActivity() {
 Click Hidden file input to trigger file upload process
 */
 function addNote() {  
-    SidebarActions.createNote('Opportunity', $scope.data.thisRecord);  
+    SidebarActions.createNote('Opportunity', $scope.data.thisRecord)
 };
 
 /*

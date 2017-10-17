@@ -3,30 +3,7 @@
 
 <div class="settings-right" ng-class="{'hidden': !data.activated }">
 	<h4>Feature Flags <small>- Feature Flags Exposed for this org - May also be limited by User Edition Type</small></h4>
-	<div class="panel panel-default panel-light">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-xs-6">
-					<h5>Initial Landing Page</h5>
-					<p>This determines where a user goes when they log into the app</p>	
-				</div>
-				<div class="col-xs-6 text-right">
-			     	<ol id="singleSelection" class="nya-bs-select" ng-model="data.thisOrg.defaultRoute" ng-change="saveOrg()" style="margin-top:10px;">
-						  <li class="nya-bs-option" data-value="app.main.pulse.today">
-						    <a>Pulse - Today</a>
-						  </li>
-						  <li class="nya-bs-option" data-value="app.main.dashboards">
-						    <a>Dashboards</a>
-						  </li>
-						  <li class="nya-bs-option" data-value="app.main.opportunities">
-						    <a>Opportunities</a>
-						  </li>
-						</ol>
-				</div>
-			</div>
-			
-		</div>
-	</div>
+	
 	<div class="panel panel-default panel-light">
 		<div class="panel-body">
 			

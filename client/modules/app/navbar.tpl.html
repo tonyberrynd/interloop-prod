@@ -37,12 +37,12 @@
                             </a>
                           </li>
                           <li role="menuitem">
-                            <a href ng-click="newTask()">
+                            <a href ng-click="newMeeting()">
                               + Meeting
                             </a>
                           </li>
                           <li role="menuitem">
-                            <a href ng-click="newTask()">
+                            <a href ng-click="logCall()">
                               + Log Call
                             </a>
                           </li>
@@ -176,9 +176,12 @@
                   <ul class="nav navbar-nav">
 
                     <!-- notifications -->
-                      <li class="dropdown" uib-dropdown>
-                        <a href class="dropdown-toggle" uib-dropdown-toggle is-open="notificationsDropdownOpen"><img src="../../assets/img/icons/light/notification.svg" alt="Notifications"></a>
-                        <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                      <li class="dropdown notifications" uib-dropdown>
+                        <a href class="dropdown-toggle" uib-dropdown-toggle is-open="notificationsDropdownOpen" ng-click="checkNotifications()">
+                         <img src="../../assets/img/icons/light/notification.svg" alt="Notifications">
+                         <span class="badge badge-danger" ng-bind="$root.unreadNotifications || 0" ng-if="$root.unreadNotifications !== 0"></span>
+                       </a>
+                        <ul class="dropdown-menu dropdown-menu-right notifications-dropdown" uib-dropdown-menu>
                              <div class="notification-heading">
                                       <h4 class="menu-title"><icon class="icon-budicon-classic-47"></icon> Notifications</h4>
                                     </div>
@@ -220,28 +223,28 @@
                         <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
                             <li role="menuitem">
                               <a href ng-click="keyboardShortcuts()">
-                                <img src="../../assets/img/icons/dark/keyboard.svg" alt="Keyboard Shortcuts"> Keyboard Shortcuts
+                                <img src="../../assets/img/icons/nav/shortcuts.svg" alt="Keyboard Shortcuts"> Keyboard Shortcuts
                               </a>
                             </li>
                             <li role="menuitem">
                               <a href="http://help.interloop.ai" target="_blank">
-                                <img src="../../assets/img/icons/dark/book-reference.svg" alt="Help Center"> Help Center
+                                <img src="../../assets/img/icons/nav/help-center.svg" alt="Help Center"> Help Center
                               </a>
                             </li>
                             <li role="menuitem">
                               <a href="https://headwayapp.co/interloop-changelog" target="_blank">
-                                <img src="../../assets/img/icons/dark/announcement.svg" alt="Help Center"> Recent Updates
+                                <img src="../../assets/img/icons/nav/announcements.svg" alt="Help Center"> Recent Updates
                               </a>
                             </li>
                             <li role="menuitem">
                               <a href="https://wantoo.io/interloop/" target="_blank">
-                                <img src="../../assets/img/icons/dark/light-bulb.svg" alt="Suggest An Idea"> Suggest An Idea
+                                <img src="../../assets/img/icons/nav/idea.svg" alt="Suggest An Idea"> Suggest An Idea
                               </a>
                             </li>
                             <li class="divider"></li>
                             <li role="menuitem">
                               <a href ng-click="contactSupport()">
-                                <img src="../../assets/img/icons/dark/conversation.svg" alt="Contact Support"> Contact Support
+                                <img src="../../assets/img/icons/nav/chat.svg" alt="Contact Support"> Contact Support
                               </a>
                             </li>
                         </ul>
@@ -263,7 +266,7 @@
                               <li class="divider"></li>
                               <li role="menuitem">
                                 <a href ng-click="openTo('app.mentions')">
-                                  <img src="../../assets/img/icons/dark/at-symbol.svg" alt="Mentions"> 
+                                  <img src="../../assets/img/icons/nav/mentions.svg" alt="Mentions"> 
                                   Mentions
                                 </a>
                               </li>
@@ -278,7 +281,7 @@
                                   My Files
                                 </a>
                               </li>
-                              <li role="menuitem">
+                              <li role="menuitem" feature-flag="--DIRECTORY--">
                                 <a href ng-click="openTo('app.directory')">
                                   <img src="../../assets/img/icons/nav/user-group.svg" alt="Directory"> Directory
                                 </a>

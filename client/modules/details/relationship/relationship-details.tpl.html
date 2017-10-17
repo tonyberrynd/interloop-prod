@@ -1,0 +1,165 @@
+
+            <div class="sidepanel more-sidepanel">
+                <div class="sidepanel-header text-left">
+                    <a class="btn btn-link btn-left" href ng-click="goBack()">
+                        <icon class="fa fa-chevron-left"></icon>
+                        Files
+                    </a>
+
+
+                    <div class="pull-right">
+                        <button class="btn btn-link btn-right">
+                            <icon class="fa fa-link"></icon>
+                        </button>
+                        <a class="btn btn-link edit-button" ui-sref="app.opportunity-edit">
+                            <icon class="fa fa-pencil"></icon> Edit
+                        </a>
+                    </div>
+                     
+                </div>
+
+                <div class="sidepanel-content">
+
+                    <!-- loader -->
+                    <div class="loop-loader loop-loader-light loop-loader-xs fadeInOut centered" ng-class="{'hidden': data.activated }">Loading...</div>
+                   
+                   <span class="wrapper" ng-class="{'hidden': !data.activated }">
+                   <div class="details-item">
+                       <div class="details-item-header">
+                            <div class="pull-left">
+                                <div class="item-details">
+                                <div class="avatar avatar-32 lime">
+                                    JB
+                                </div>
+                                <div class="user-and-name">
+                                    <p><small>Jordan Berry uploaded a file</small></p>
+                                    <h4>{{data.thisFile.name}}</h4>
+                                </div>
+                                </div>
+                            </div>
+                           <div class="pull-right">
+                                <button class="btn btn-default">
+                                   <icon class="wb-star"></icon>
+                               </button>
+                               <button class="btn btn-default">
+                                   <icon class="wb-more-horizontal"></icon>
+                               </button>
+                           </div>
+                       </div>
+                       <div class="details-item-content">
+                           
+                        <!-- //file info -->
+                        <div class="panel panel-default card file-card" ng-class="{'img-card': data.thisFile.type == 'image/jpeg' || data.thisFile.type == 'image/png'}">
+                            <div class="panel-body" ng-click="downloadFile(file)">
+                                <div class="name-wrapper">
+                                <!-- img icon -->
+                                <div class="file-icon" ng-if="data.thisFile.type !== 'image/jpeg' && data.thisFile.type !== 'image/png'">
+                                    <img ng-src="{{data.thisFile.type | fileIcons}}" alt="{{data.thisFile.type}}">
+                                </div>
+                                <!-- img preview -->
+                                <div class="image-preview" ng-click="previewImage(data.thisFile); $event.stopPropagation();">
+                                <img ng-if="data.thisFile.type == 'image/jpeg' || data.thisFile.type == 'image/png'" ngf-thumbnail="data.thisFile.url">
+                                </div>
+
+                                <!-- details -->
+                                <h4 ng-bind="data.thisFile.name || '--'">Important Document</h4>
+                                <p>
+                                    <span ng-if="data.thisFile.size" ng-bind="data.thisFile.size | bytes"></span> 
+                                    <span ng-if="!data.thisFile.size">-- MB</span>
+                                    <span class="spacer">·</span> 
+                                    <span ng-bind="data.thisFile.type | fileTypes"></span>
+                                </p>
+                                <p class="uploaded" ng-bind="data.thisFile.createdOn | date:'MMM d, y h:mm a'"></p>
+                                </div>
+                            </div>
+
+                             <div class="download-overlay">
+                                <icon class="wb-download"></icon>
+                                Click to Download
+                            </div>
+                        
+
+                        </div>
+                        <!-- end file card -->
+
+                       </div>
+                   </div> 
+
+
+
+                   <!-- comments stream -->
+                    <div class="comment-stream">
+                       <div class="media comment" ng-repeat="comment in data.comments">
+                        <span ng-if="!comment.inEditMode">
+                          <div class="media-left">
+                            <div class="avatar avatar-topaz avatar-32 lime">
+                                <span ng-bind="comment.createdBy.initials"></span>
+                            </div>
+                          </div>
+                          <div class="media-body">
+                            <h5 class="media-heading">
+                                <span class="author">
+                                    <span ng-bind="comment.createdBy.firstName"></span>
+                                    <span ng-bind="comment.createdBy.lastName"></span>
+                                </span> 
+                                <!-- <span class="label label-primary">OWNER</span>  -->
+                                <span class="dateTime" ng-bind="comment.createdOn | formatDate"></span> 
+                                <span class="edited" ng-if="comment.edited"><i>Edited</i></span>
+                            </h5>
+                            <p ng-bind="comment.body || 'No Content'"></p>
+                            <div class="comment-actions">
+                                <div class="text-inline likes" uib-popover-template="'shared/templates/likes.tpl.html'" popover-trigger="'mouseenter'" popover-placement="top" ng-if="comment.likes.length">
+                                    <icon class="fa fa-thumbs-up"></icon> <span ng-bind="comment.likes.length"></span>
+                                </div>
+                                <span class="spacer spacer-small" ng-if="comment.likes.length">•</span> 
+                                <a href="" ng-class="{'liked': isLiked(comment) }" ng-click="toggleLike(comment)">
+                                    <span ng-if="!isLiked(comment)">Like</span>
+                                    <span ng-if="isLiked(comment)">Unlike</span>
+                                </a>
+                                <span class="spacer spacer-small" ng-if="comment.createdBy.userId == $root.activeUser.id">•</span> 
+                                <a href ng-click="comment.inEditMode = true" ng-if="comment.createdBy.userId == $root.activeUser.id">Edit</a>                  
+                            </div>
+                          </div>
+                          </span>
+
+                           <!-- //edit comments -->
+                            <div class="edit-comment" ng-if="comment.inEditMode">
+                                <div class="avatar avatar-32 lime">
+                                    <span ng-bind="$root.activeUser.initials"></span>
+                                </div>
+
+                                <textarea rows="1" type="text" class="form-control" msd-elastic ng-model="comment.body" msd-elastic="\n" placeholder="Edit comment..."></textarea>
+
+                                <div class="pull-left edit-comment-buttons">
+                                    <button class="btn btn-danger" ng-click="deleteComment(comment)">Delete</button>
+                                    <button class="btn btn-default" ng-click="comment.inEditMode = false">Cancel</button>
+                                </div>
+
+                                <div class="pull-right">
+                                <button class="btn btn-primary" ng-click="saveComment(comment)">Save Changes</button>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="new-comment">
+                        <div class="avatar avatar-32 lime">
+                            <span ng-bind="$root.activeUser.initials"></span>
+                        </div>
+
+                        <textarea rows="1" type="text" class="form-control" msd-elastic ng-model="data.newComment" msd-elastic="\n" placeholder="Add a comment..."></textarea>
+
+                        <button class="btn btn-primary" ng-click="addComment()">Add Comment</button>
+
+                    </div>
+
+
+
+                </div>
+
+                </span>
+
+            </div>

@@ -52,43 +52,14 @@ angular.module('interloop.value.config', [])
 	// }
 })
 
-//
-// .value("companyTypes", [
-// 	{
-// 		key: 'linkedIn',
-// 		label: 'LinkedIn',
-// 		icon: 'fa fa-linkedin-square'
-// 	},
-// 	{
-// 	    key: 'twitter',
-// 		label: 'Twitter',
-// 		icon: 'fa fa-twitter-square'
-// 	},
-// 	{
-// 		key: 'facebook',
-// 		label: 'Facebook',
-// 		icon: 'fa fa-facebook-square'
-// 	}
-// ])
+//Excludes for for Grid Query - helps with performance
 
-//used for social types dropdown
-// .value("contacTypes", [
-// 	{
-// 		key: 'linkedIn',
-// 		label: 'LinkedIn',
-// 		icon: 'fa fa-linkedin-square'
-// 	},
-// 	{
-// 	    key: 'twitter',
-// 		label: 'Twitter',
-// 		icon: 'fa fa-twitter-square'
-// 	},
-// 	{
-// 		key: 'facebook',
-// 		label: 'Facebook',
-// 		icon: 'fa fa-facebook-square'
-// 	}
-// ])
+.value("EXCLUDE-Opportunity", {
+        "process": false,
+        "activityLinks": false,
+        "itemLinks": false 
+ })
+
 
 //used for social types dropdown
 .value("socialTypes", [

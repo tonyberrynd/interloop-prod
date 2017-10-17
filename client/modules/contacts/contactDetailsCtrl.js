@@ -187,7 +187,7 @@ function activate() {
   console.log($stateParams.id);
 
 
-  return $q.all([Contact.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"]}}).$promise,
+  return $q.all([Contact.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"], deleted: true}}).$promise,
            // Contact.insights({'id': $stateParams.id}).$promise
            ]
           )

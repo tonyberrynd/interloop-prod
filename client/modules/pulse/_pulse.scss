@@ -1,0 +1,24 @@
+.pul-container {
+	min-width:960px;
+}
+
+.outlook-panel {
+	height:600px;
+}
+
+.outlook-title {
+	margin:0px;
+	margin-bottom:10px;
+	color:$dragonstone;
+	font-weight:600;
+	text-transform: uppercase;
+}
+
+ol.breadcrumb.user-selection {
+	margin:0px !important;
+}
+
+.view-types.pulse-types .btn {
+	min-width:100px;
+	text-align:center;
+}

@@ -124,6 +124,7 @@ angular.module('interloop.value.fields', [])
 		"key": "closed",
 		"type": "string",
 		"locked": true,
+		"columnType": "forecastValue",
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -137,6 +138,7 @@ angular.module('interloop.value.fields', [])
 		"key": "forecast",
 		"type": "string",
 		"locked": true,
+		"columnType": "forecastValue",
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -150,6 +152,7 @@ angular.module('interloop.value.fields', [])
 		"key": "pipeline",
 		"type": "string",
 		"locked": true,
+		"columnType": "forecastValue",
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -163,6 +166,7 @@ angular.module('interloop.value.fields', [])
 		"key": "omitted",
 		"type": "string",
 		"locked": true,
+		"columnType": "number",
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -230,6 +234,7 @@ angular.module('interloop.value.fields', [])
 		"label": "Due Date",
 		"key": "dueDate",
 		"type": "date",
+		"columnType": "date",
 		//new form
 		"excludeNew": false,
 		"newClass": "col-xs-6",
@@ -250,6 +255,7 @@ angular.module('interloop.value.fields', [])
 		"key": "owner",
 		"type": "category",
 		"typeKey": "fullName",
+		"columnType": "user",
 		//new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
@@ -293,7 +299,12 @@ angular.module('interloop.value.fields', [])
 		"key": "name",
 		"type": "string",
 		"locked": true,
+		//use sort key
+		// "useSortKey": true,
+	 //    "sortKeyASC": "normalizedName ASC",
+	 //    "sortKeyDESC": "normalizedName DESC",
 		//grid
+		"columnType": "string",
 		"excludeGrid": false,
 		"hide": false,
 		"width": 300,
@@ -301,7 +312,7 @@ angular.module('interloop.value.fields', [])
 		"cellRenderer": null,
 		"pinned": true,
 		//import
-		"exludeImport": false,
+		"excludeImport": false,
 		//forms
 		"class": "col-xs-12",
 		"excludeForm": false,
@@ -323,6 +334,9 @@ angular.module('interloop.value.fields', [])
 	    "key": "smartScore",
 	    "type": "number",
 	    "locked": true,
+	   	"columnType": "score",
+	    //exlude import
+	    "excludeImport": true,
 	    //grid
 	    "excludeGrid": false,
     	"hide": false,
@@ -395,8 +409,13 @@ angular.module('interloop.value.fields', [])
 	   	"label": "Primary Company",
 	    "key": "primaryCompany",
 	    "type": "lookup",
+	    "columnType": "primaryCompany",
 	    "lookupEntity": "Company",
 	    "locked": true,
+	    //sorting
+		"useSortKey": true,
+	    "sortKeyASC": "primaryCompanyName ASC",
+	    "sortKeyDESC": "primaryCompanyName DESC",
 	    //loopup fields
 	    "queryKey": "primaryCompany",
 	    //grid
@@ -532,10 +551,12 @@ angular.module('interloop.value.fields', [])
 	    "type": "lookup",
 	    "lookupEntity": "Appuser",
 	    "locked": true,
+
+	    "excludeImport": true,
 	    //custom query logic fields
 	    "useSortKey": true,
-	    "sortKeyASC": "{'ownerLinks':-1}",
-	    "sortKeyDESC": "{'ownerLinks':1}",
+	    "sortKeyASC": "ownerLinksCount ASC",
+	    "sortKeyDESC": "ownerLinksCount DESC",
 	   	//grouping
 	   	"unwindBy": "ownerLinks",
 	    "groupByKey": "ownerLinks.ownerId",
@@ -565,6 +586,7 @@ angular.module('interloop.value.fields', [])
 		"label": "Value",
 		"key": "value",
 		"type": "currency",
+		"columnType": "currency",
 		"locked": true,
 		//grid
 		"excludeGrid": false,
@@ -578,11 +600,10 @@ angular.module('interloop.value.fields', [])
 		// forms
 		"class": "col-xs-12",
 		"excludeForm": false,
-		"newClass": "col-xs-6",
 		//should it be on new form
 		"excludeNew": false,
 		"newRequired": false,
-		"newClass": "col-xs-12",
+		"newClass": "col-xs-6",
 		//filters
 		"filterApplied": false,
 		"filterValue": null
@@ -590,6 +611,7 @@ angular.module('interloop.value.fields', [])
 	{
 		"label": "Estimated Close",
 		"key": "estimatedClose",
+		"columnType": "richDate",
 		"type": "date",
 		"locked": true,
 		//grid
@@ -614,6 +636,7 @@ angular.module('interloop.value.fields', [])
 		"label": "Actual Close",
 		"key": "actualClose",
 		"type": "date",
+		"columnType": "richDate",
 		"locked": true,
 		"disabled": true,
 		//grid
@@ -632,12 +655,15 @@ angular.module('interloop.value.fields', [])
 		"newClass": "col-xs-6",
 		//filters
 		"filterApplied": false,
-		"filterValue": null
+		"filterValue": null,
+		//exlude import
+	    "excludeImport": true
 	},
 	{
 		"label": "Forecast",
 		"key": "forecast",
 		"colId": "forecast",
+		"columnType": "category",
 		"type": "category",
 		"locked": true,
 		//loopup fields
@@ -667,7 +693,7 @@ angular.module('interloop.value.fields', [])
 		"excludeForm": false,
 		//should it be on new form
 		"excludeNew": false,
-		"newClass": "col-xs-6",
+		"newClass": "col-xs-12",
 		//filters
 		"filterApplied": 'includes',
 		"filterValue": null
@@ -719,8 +745,15 @@ angular.module('interloop.value.fields', [])
 		{
 	   	"label": "Days In Pipeline",
 	    "key": "daysInPipeline",
-	    "type": "number",
+	    "type": "dynamicDays",
+	    "dynamicKey": "createdOn",
 	    "locked": true,
+
+	   	//custom query logic fields
+	    "useSortKey": true,
+	    "sortKeyASC": "createdOn ASC",
+	    "sortKeyDESC": "createdOn DESC",
+
 	    //grid
 	    "excludeGrid": false,
     	"hide": false,
@@ -728,6 +761,8 @@ angular.module('interloop.value.fields', [])
 		"valueGetter": null,
 		"cellRenderer": null,
 		"pinned": false,
+
+		"excludeImport": true,
 		//forms
 		"class": "col-xs-6",
 		"excludeForm": true,
@@ -738,32 +773,35 @@ angular.module('interloop.value.fields', [])
 		"filterApplied": false,
 		"filterValue": null
 	},
-	{
-	   	"label": "Days In Stage",
-	    "key": "daysInStage",
-	    "type": "number",
-	    "locked": true,
-	    //grid
-	    "excludeGrid": false,
-    	"hide": false,
-    	"width": 80,
-		"valueGetter": null,
-		"cellRenderer": null,
-		"pinned": false,
-		//forms
-		"class": "col-xs-6",
-		"excludeForm": true,
-		//should it be on new form
-		"newClass": "col-xs-6",
-		"excludeNew": true,
-		//filters
-		"filterApplied": false,
-		"filterValue": null
-	},
+	// {
+	//    	"label": "Days In Stage",
+	//     "key": "daysInStage",
+	//     "type": "dynamicDays",
+	//     "dynamicKey": "lastStageChange",
+	//     "locked": true,
+	//     //grid
+	//     "excludeGrid": false,
+ //    	"hide": false,
+ //    	"width": 80,
+	// 	"valueGetter": null,
+	// 	"cellRenderer": null,
+	// 	"pinned": false,
+
+	// 	"excludeImport": true,
+	// 	//forms
+	// 	"class": "col-xs-6",
+	// 	"excludeForm": true,
+	// 	//should it be on new form
+	// 	"newClass": "col-xs-6",
+	// 	"excludeNew": true,
+	// 	//filters
+	// 	"filterApplied": false,
+	// 	"filterValue": null
+	// },
 
 	{
 	   	"label": "Open Tasks",
-	    "key": "openTasks",
+	    "key": "openActivitiesCount",
 	    "type": "number",
 	    "locked": true,
 	    //grid
@@ -773,6 +811,8 @@ angular.module('interloop.value.fields', [])
 		"valueGetter": null,
 		"cellRenderer": null,
 		"pinned": false,
+
+		"excludeImport": true,
 		//forms
 		"class": "col-xs-6",
 		"excludeForm": true,
@@ -786,7 +826,7 @@ angular.module('interloop.value.fields', [])
 
 	{
 	   	"label": "Overdue Tasks",
-	    "key": "overdueTasks",
+	    "key": "overdueActivitiesCount",
 	    "type": "number",
 	    "locked": true,
 	    //grid
@@ -796,6 +836,8 @@ angular.module('interloop.value.fields', [])
 		"valueGetter": null,
 		"cellRenderer": null,
 		"pinned": false,
+
+		"excludeImport": true,
 		//forms
 		"class": "col-xs-6",
 		"excludeForm": true,
@@ -810,7 +852,7 @@ angular.module('interloop.value.fields', [])
 	{
 	   	"label": "Next Activity",
 	    "key": "nextActivity",
-	    "type": "string",
+	    "type": "date",
 	    "locked": true,
 	    //grid
 	    "excludeGrid": false,
@@ -819,6 +861,8 @@ angular.module('interloop.value.fields', [])
 		"valueGetter": null,
 		"cellRenderer": null,
 		"pinned": false,
+
+		"excludeImport": true,
 		//forms
 		"class": "col-xs-6",
 		"excludeForm": true,
@@ -840,6 +884,9 @@ angular.module('interloop.value.fields', [])
 		"valueGetter": null,
 		"cellRenderer": null,
 		"pinned": false,
+
+
+		"excludeImport": true,
 		//forms
 		"class": "col-xs-6",
 		"excludeForm": true,
@@ -906,7 +953,9 @@ angular.module('interloop.value.fields', [])
 		"width": 250,
 		"valueGetter": null,
 		"cellRenderer": "contactNameRender",
-		"pinned": 'left'
+		"pinned": 'left',
+		//exlude import
+	    "excludeImport": true
 	},
 
 	{
@@ -1068,6 +1117,49 @@ angular.module('interloop.value.fields', [])
 		"valueGetter": null,
 		"cellRenderer": null,
 		"pinned": null
+	},
+
+	//address parts used for filtering
+
+	{
+	   	"label": "City",
+	    "key": "address.city",
+	    "type": "addressPart",
+		"excludeNew": true,
+	    "excludeGrid": true,
+	    		//exlude import
+	    "excludeImport": true
+	},
+
+	{
+	   	"label": "State",
+	    "key": "address.state",
+	    "type": "string",
+		"excludeNew": true,
+	    "excludeGrid": true,
+	    		//exlude import
+	    "excludeImport": true
+	},
+
+	{
+	   	"label": "Country",
+	    "key": "address.country",
+	    "type": "lookup",
+	    "lookupEntity": "countryList",
+		"excludeNew": true,
+	    "excludeGrid": true,
+	    		//exlude import
+	    "excludeImport": true
+	},
+
+	{
+	   	"label": "Zip",
+	    "key": "address.zip",
+	    "type": "string",
+		"excludeNew": true,
+	    "excludeGrid": true,
+	    		//exlude import
+	    "excludeImport": true
 	}
 ])
 
@@ -1091,28 +1183,10 @@ angular.module('interloop.value.fields', [])
 		"cellRenderer": 'companyNameRender',
 		"pinned": 'left'
 	},
-
-	// {
-	//    	"label": "Engagement",
-	//     "key": "engagement",
-	//     "type": "string",
-	//     "locked": true,
-	//     //new form
-	//     "excludeNew": false,
-	// 	"newClass": "col-xs-12",
-	//    	//grid
-	//     "excludeGrid": false,
- //    	"hide": false,
- //    	"width": 200,
-	// 	"valueGetter": null,
-	// 	"cellRenderer": null,
-	// 	"pinned": null
-	// },
-
 	{
-	   	"label": "Website",
-	    "key": "website",
-	    "type": "website",
+	   	"label": "Domain",
+	    "key": "domain",
+	    "type": "string",
 	    "locked": true,
 	    //new form
 	    "excludeNew": false,
@@ -1166,11 +1240,16 @@ angular.module('interloop.value.fields', [])
 		"label": "Tags",
 		"key": "tags",
 		"type": "lookup",
+		"columnType": "tags",
 		"lookupEntity": "Tag",
+		
+		"groupByKey": "firstName",
+	    "groupByLabel": "id",
+
 		//sorting
 		"useSortKey": true,
-	    "sortKeyASC": "{'tagCount': 'ASC'}",
-	    "sortKeyDESC": "{'tagCount': 'DESC'}",
+	    "sortKeyASC": "tagLinksCount ASC",
+	    "sortKeyDESC": "tagLinksCount DESC",
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -1179,13 +1258,16 @@ angular.module('interloop.value.fields', [])
 		"cellRenderer": 'tagsRender',
 		"pinned": false,
 		//bulk
-		"excludeBulk": true
+		"excludeBulk": true,
+		//exlude import
+	    "excludeImport": true
 	},
 
 	{
 		"label": "Last Interaction",
 		"key": "lastInteraction",
 		"type": "date",
+		"columnType": "date",
 		"disabled": true,
 		//grid
 		"excludeGrid": false,
@@ -1197,14 +1279,22 @@ angular.module('interloop.value.fields', [])
 		//forms
 		"class": "col-xs-6",
 		//bulk
-		"excludeBulk": true
+		"excludeBulk": true,
+		//exlude import
+	    "excludeImport": true
 	},
 
 	{
 		"label": "Last Interaction By",
 		"key": "interactionBy",
 		"type": "string",
+		"columnType": "user",
 		"disabled": true,
+
+		//grouping
+		"groupByKey": "firstName",
+	    "groupByLabel": "id",
+
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -1215,13 +1305,16 @@ angular.module('interloop.value.fields', [])
 		//forms
 		"class": "col-xs-6",
 		//bulk
-		"excludeBulk": true
+		"excludeBulk": true,
+		//exlude import
+	    "excludeImport": true
 	},
 
 	{
-		"label": "Last Updated",
+		"label": "Updated On",
 		"key": "updatedOn",
 		"type": "date",
+		"columnType": "date",
 		"disabled": true,
 		//grid
 		"excludeGrid": false,
@@ -1233,14 +1326,23 @@ angular.module('interloop.value.fields', [])
 		//forms
 		"class": "col-xs-6",
 		//bulk
-		"excludeBulk": true
+		"excludeBulk": true,
+		//exlude import
+	    "excludeImport": true
 	},
 
 	{
 		"label": "Updated By",
 		"key": "updatedBy",
-		"type": "string",
+		"colId": "updatedBy",
+	    "type": "lookup",
+	    "lookupEntity": "Appuser",
+		"columnType": "user",
 		"disabled": true,
+		//group
+	    "groupByKey": "updatedBy.id",
+	    "groupByLabel": "firstName",
+
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -1251,7 +1353,9 @@ angular.module('interloop.value.fields', [])
 		//forms
 		"class": "col-xs-6",
 		//bulk
-		"excludeBulk": true
+		"excludeBulk": true,
+		//exlude import
+	    "excludeImport": true
 	},
 
 	{
@@ -1259,6 +1363,7 @@ angular.module('interloop.value.fields', [])
 		"key": "createdOn",
 		"type": "date",
 		"disabled": true,
+		"columnType": "date",
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -1269,14 +1374,26 @@ angular.module('interloop.value.fields', [])
 		//forms
 		"class": "col-xs-6",
 		//bulk
-		"excludeBulk": true
+		"excludeBulk": true,
+		//exlude import
+	    "excludeImport": true
 	},
 
 	{
 		"label": "Created By",
 		"key": "createdBy",
+		"colId": "createdBy",
+		"columnType": "user",
 	    "type": "lookup",
 	    "lookupEntity": "Appuser",
+
+	    "groupByKey": "createdBy.id",
+	    "groupByLabel": "firstName",
+
+	    "useSortKey": true,
+	    "sortKeyASC": "createdBy.firstName ASC",
+	    "sortKeyDESC": "createdBy.firstName DESC",
+
 		"disabled": true,
 		//grid
 		"excludeGrid": false,
@@ -1288,7 +1405,9 @@ angular.module('interloop.value.fields', [])
 		//forms
 		"class": "col-xs-6",
 		//bulk edit
-		"excludeBulk": true
+		"excludeBulk": true,
+		//exlude import
+	    "excludeImport": true
 	}
 
 ])

@@ -1,0 +1,32 @@
+
+.update-payment.modal {
+	border-radius:2px !important;
+}
+
+.modal-backdrop.update-payment-method.in {
+	opacity: .85 !important;
+}
+
+
+.payment-method-form {
+	max-width:450px;
+	margin:auto;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+
+	.form-control {
+		margin:5px 0;
+	}
+}
+
+.secure-loader {
+	display: block;
+	padding:164px 80px;
+}
+
+.secured-by {
+	color:$granite;
+	padding:15px 0px;
+	padding-bottom:0px;
+	text-align:right;
+	font-size:13px;
+}

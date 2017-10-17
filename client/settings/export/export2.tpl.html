@@ -4,7 +4,7 @@
 
 		<div class="settings-container" ng-if="data.activated">
 
-				<!-- import your data -->
+				<!-- export your data -->
 				<div class="settings-section">
 					<div class="settings-header">
 					<h4>Export Your Data</h4>
@@ -54,7 +54,7 @@
 							<div class="panel panel-default export-card">
 								<div class="panel-body">
 									<img src="../assets/img/icons/dark/inbox-check.svg" alt="Tasks">
-									<h5>Export Tasks</h5>
+									<h5>Export Activities</h5>
 									<br>
 									<button class="btn btn-primary"  ng-click="exportData('Activity')">
 										Export Data
@@ -67,17 +67,22 @@
 					
 				</div>
 
-				<!-- //previous imports -->
+				<!-- //previous exports -->
 				<div class="settings-section">
 					<div class="settings-header">
-					<h4>Previous Exports</h4>
+					<h4>Previous Exports (<span ng-bind="data.exports.length"></span>)</h4>
 					<p>View Historical Data Exports</p>
+					<button class="btn btn-default" ng-click="refresh()">
+						<icon class="wb-loop"></icon> Refresh
+					</button>
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-body">
 
+							<div class="loop-loader loop-loader-xs loop-loader-light" ng-class="{'hidden': !data.refreshing}" style="z-index:999">Loading...</div>
 
-							<table class="table table-condensed">
+
+							<table class="table table-condensed" ng-if="!data.refreshing">
 							    <thead>
 							      <tr>
 							      	<th>Exported By</th>
@@ -88,31 +93,38 @@
 							      </tr>
 							    </thead>
 							    <tbody>
-							      <tr ng-repeat="import in data.imports">
+							      <tr ng-repeat="export in data.exports">
 							      	<td>
 							      		<h5>
-							      			<span ng-bind="import.createdBy.firstName"></span> <span ng-bind="import.createdBy.lastName"></span>
+							      			<span ng-bind="export.createdBy.firstName"></span> <span ng-bind="export.createdBy.lastName"></span>
 							      		</h5>
 							      		<p>
-							      			<span ng-bind="import.createdBy.email"></span>
+							      			<span ng-bind="export.createdBy.email"></span>
 							      		</p>
 							      	</td>
 							      	<td>
-							      		<span ng-bind="import.createdOn | formatDate"></span>
+							      		<span ng-bind="export.createdOn | formatDate"></span>
 							      	</td>
 							      	<td>
-							      		<span ng-bind="import.entity || '--'"></span>
+							      		<span ng-bind="export.entity || '--'"></span>
 							      	</td>
 							      	<td>
-							      		<span ng-bind="import.records || '--'"></span>
+							      		<span ng-bind="(export.records | number:0) || '--'"></span>
 							      	</td>
 							      	<td>
-							      		<span ng-bind="import.status || '--'"></span>
+							      		<span ng-bind="export.status || '--'"></span>
 							      	</td>
 							      </tr>
 							      
 							    </tbody>
 							  </table>
+
+
+
+						  	<div class="empty-state text-center" ng-if="!data.exports.length && !data.refreshing">
+						     	<h5>No Exports</h5>
+						     	<p>As exports occur - a record of the export and records will be added here</p>
+						     </div>
 	
 
 						</div>

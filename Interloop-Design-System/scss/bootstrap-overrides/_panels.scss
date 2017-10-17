@@ -1,3 +1,14 @@
 .panel {
 	box-shadow: none;
 }
+
+.panel .panel-heading.with-tabs {
+	padding:0px 5px !important;
+	padding-top:10px !important;
+	white-space: nowrap !important;
+	overflow:hidden;
+
+	.nav.nav-tabs > li.active > a::after {
+	    bottom: -5px;
+	}
+}

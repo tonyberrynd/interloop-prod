@@ -159,6 +159,10 @@ function activate() {
                     $scope.data.grid = results;
                     // wrap in timeout to allow digest cycle for data.grid to get bound
                     $timeout(function(){
+
+                      //set pinned row
+                      $scope.data.grid.api.setPinnedTopRowData([{}]);
+
                       //Filters
                       //-----------------------
                       //base field definitions for filters

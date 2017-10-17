@@ -16,6 +16,10 @@ table .toggle {
 	vertical-align: middle
 }
 
+.required {
+	color:$danger;
+}
+
 
 .local-nav-menu {
 	background-color:#fff;
@@ -24,6 +28,31 @@ table .toggle {
 	.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
 		background-color:$topaz;
 		color:#fff;
+	}
+}
+
+td .toggle {
+	margin:0 2.6em;
+}
+
+.empty-state {
+	padding:40px;
+	text-align:center;
+
+	h5 {
+		color:$seamonster;
+		font-size:18px;
+		font-weight:600;
+	}
+
+	p {
+		color:$dragonstone;
+		max-width:300px;
+		margin:auto;
+	}
+
+	.btn {
+		margin-top:15px;
 	}
 }
 
@@ -57,11 +86,12 @@ table .toggle {
 
 .settings-header {
 	padding-left:5px;
+	position:relative;
 
 	.btn {
 		position:absolute;
-		top:15px;
-		right:40px;
+		top:5px;
+		right:0px;
 	}
 
 	&:first-child {
@@ -168,36 +198,6 @@ table .toggle {
 
 }
 
-.change-order {
-	display: inline-block;
-	position: relative;
-	padding:5px 0;
-	margin-top:12px;
-	margin-left:20px;
-	text-align: center;
-
-	icon {
-		color:$granite;
-		font-size:24px;
-		padding:0 10px;
-
-		&:hover {
-			color:$topaz;
-			cursor:pointer;
-		}
-
-	}
-
-	icon:first-child {
-		position: absolute;
-		top:0;
-	}
-
-	icon:last-child {
-		position: absolute;
-		bottom:0px;
-	}
-}
 
 .settings-content {
 	position: absolute;

@@ -44,19 +44,27 @@
 									    <thead>
 									      <tr>
 									        <th class="col-xs-4">Role</th>
-						              	    <th class="col-xs-3">Users</th>
+									        <th class="col-xs-3">Visibility</th>
+						              	    <th class="col-xs-1">Users</th>
+						              	    <th class="col-xs-2">Created</th>
 						                    <th class="col-xs-2"></th>
 									      </tr>
 									    </thead>
 									    <tbody>
-									      <tr ng-repeat="role in data.roles | filter: data.search">
+									      <tr ng-repeat="role in data.roles | filter: data.search | orderBy: data.sortBy.value">
 									        <td class="role">
 												<h5><span  ng-bind="role.label"></span> <span class="badge badge-primary" ng-if="role.default">Default</span></h5>
 												<p ng-bind="role.description || 'No Description'"></p>
 									        </td>
 									        <td class="role">
+												<span ng-bind="(role.visibility | ucfirst) || '--'"></span>
+									        </td>
+									        <td class="role">
 												<span ng-bind="role.users.length"></span>
 												<span class="null-cell" ng-if="!role.users.length"></span>
+									        </td>
+									         <td class="role">
+												<span class="null-cell" ng-bind="(role.createdOn | formatDate) || '--'"></span>
 									        </td>
 									        <td class="text-right">
 									        	<div class="btn-group" uib-dropdown>
@@ -73,7 +81,15 @@
 									        </td>
 									      </tr>
 									     </tbody>
+
 									 </table>
+
+
+									  <div class="empty-state text-center" ng-if="!data.roles.length">
+									     	<h5>No Roles</h5>
+									     	<p>Roles Determine what users can access & do within the application</p>
+									     	<button class="btn btn-primary" ng-click="addRole()">Create New Role</button>
+									     </div>
 
 							</div>
 						</div>

@@ -184,10 +184,10 @@ angular.module('interloop.companyDetailsCtrl', [])
 // ACTIVATE
 //===========================================
 function activate() {
-  console.log($stateParams.id);
+  console.log('company id', $stateParams.id);
 
 
-  return $q.all([Company.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"]}}).$promise,
+  return $q.all([Company.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"], deleted: true}}).$promise,
            // Company.insights({'id': $stateParams.id}).$promise
            ]
           )
@@ -300,8 +300,8 @@ function primaryCompanyChanged (companyValue){
 }; 
 
 //TB - TODO - Look at moving the broadcast messages into a shared factory 
-function linkCompany(company, company, updateGrid){
-  return RelationshipManager.linkEntity(company, company, "Company", "Company",  
+function linkCompany(company1, company2, updateGrid){
+  return RelationshipManager.linkEntity(company1, company2, "Company", "Company",  
   {
     "from": { "name": company.name, "description": "Primary Org", "isPrimary": true}, 
     "to" : { "name": company.name, "description": "Primary Org", "isPrimary": true}
@@ -323,9 +323,9 @@ function linkCompany(company, company, updateGrid){
   }); 
 }; 
 
-function unlinkCompany(company, company, updateGrid) {
+function unlinkCompany(company1, company2, updateGrid) {
     //do this from company side to get back in format that matches relatedEntities 
-    return RelationshipManager.unlinkEntity(company, company, "Company", "Company")
+    return RelationshipManager.unlinkEntity(company1, company2, "Company", "Company")
     .then(function(results){
       // console.log(results);
       //remove from the loaded related items - keep as chained promise 

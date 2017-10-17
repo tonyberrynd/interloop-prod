@@ -32,7 +32,7 @@ angular.module('interloop.settingsForecastingCtrl', [])
 	//functions
 	//----------------------
 	$scope.changeType = changeType;
-	$scope.editField = editField;
+	$scope.editCategory = editCategory;
 	$scope.addCategory = addCategory;
 	$scope.deleteCategory = deleteCategory;
 
@@ -77,11 +77,16 @@ function addCategory(){
 }
 
 
-function editField(field){
-	var resolvedData = field;
+function editCategory(category){
+	var resolvedData = category;
 
 	//open modal
-	modalManager.openModal('editField', resolvedData);
+	var editCategoryModal = modalManager.openModal('editForecastCategory', resolvedData);
+		editCategoryModal.result.then(function(results){
+			activate();
+		}, function(){
+			//ignore
+		})
 }
 
 function deleteCategory(category){

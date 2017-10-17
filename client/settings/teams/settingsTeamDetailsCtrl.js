@@ -52,6 +52,8 @@ function activate() {
               Logger.error('Error Fetching Teams');
 
               $scope.data.activated = true;
+              //ensure there is a team to view the detail
+              $state.go('app.settings.teams');
            })
 
 }
@@ -97,7 +99,7 @@ function deleteTeam() {
       .then(function(results){
         Logger.info('Team Succesfully Removed');
 
-        $state.go('app.main.settings.teams')
+        $state.go('app.settings.teams')
       })
       .catch(function(err){
         Logger.error('Error Deleting Team', 'Please Try again in a moment')

@@ -1,0 +1,94 @@
+<div class="row">
+	<div class="col-xs-2 text-left">
+	<a href ng-click="prevSlide()">
+		<icon class="wb-chevron-left-mini"></icon>Previous 
+	</a>
+</div>
+<div class="col-xs-8 text-center">
+	<p class="outlook-title">
+		<!-- <span ng-bind="data.metricBundles[data.swiper.activeIndex]['name']"></span>{{data.swiper.activeIndex}} -->
+	</p>
+</div>
+<div class="col-xs-2 text-right">
+	<a href ng-click="nextSlide()">
+		Next<icon class="wb-chevron-right-mini"></icon>
+	</a>
+</div>
+</div>
+
+<ks-swiper-container swiper="data.swiper" on-ready="onReadySwiper(swiper)" loop="true" space-between="10">
+    <ks-swiper-slide class="swiper-slide" ng-repeat="metricBundle in data.metricBundles">
+       <div class="row">
+       	 <div ng-repeat="metric in metricBundle.metrics" ng-class="metricBundle.class">
+       	 	<div class="panel panel-default">
+       	 		<div class="panel-body">
+						<h4>$3.2M</h4>
+						<p>Quota (3.2M Gap)</p>
+						<a href="">View All <icon class="wb-chevron-right-mini"></icon></a>
+					</div>
+       	 	</div>
+       	 </div>
+       	</div>
+    </ks-swiper-slide>
+</ks-swiper-container>
+
+
+
+<div class="row">
+	<div class="col-xs-4">
+		<p class="outlook-title">
+			Opportunities
+		</p>
+		<div class="panel panel-default outlook-panel">
+			<div class="panel-heading with-tabs">
+				<div class="tabs-wrapper ng-scope">
+					<ul class="nav nav-tabs">
+					  <li ng-class="{ 'active': data.currentTab == 1 }" class="active"><a href="" ng-click="data.currentTab = 1">Needs Updates</a></li>
+					  <li ng-class="{ 'active': data.currentTab == 2 }"><a href="" ng-click="data.currentTab = 2">
+					  	Recently Changed
+					  </a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p>Data Goes Here</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-4">
+		<p class="outlook-title">
+			Activities
+		</p>
+		<div class="panel panel-default outlook-panel">
+			<div class="panel-heading with-tabs">
+				<div class="tabs-wrapper ng-scope">
+					<ul class="nav nav-tabs">
+					  <li ng-class="{ 'active': data.currentTab == 1 }" class="active"><a href="" ng-click="data.currentTab = 1">Upcoming Meetings</a></li>
+					  <li ng-class="{ 'active': data.currentTab == 2 }"><a href="" ng-click="data.currentTab = 2">Open Tasks</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p>Data Goes Here</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-4">
+		<p class="outlook-title">
+			Network
+		</p>
+		<div class="panel panel-default outlook-panel">
+			<div class="panel-heading with-tabs">
+				<div class="tabs-wrapper ng-scope">
+					<ul class="nav nav-tabs">
+					  <li ng-class="{ 'active': data.currentTab == 1 }" class="active"><a href="" ng-click="data.currentTab = 1">Recent News</a></li>
+					  <li ng-class="{ 'active': data.currentTab == 2 }"><a href="" ng-click="data.currentTab = 2">Social Updates</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p>Data Goes Here</p>
+			</div>
+		</div>
+	</div>
+</div>

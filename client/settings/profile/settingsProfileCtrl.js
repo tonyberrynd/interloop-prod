@@ -23,6 +23,9 @@ angular.module('interloop.settingsProfileCtrl', [])
   $scope.data.activated = false;
   $scope.data.updatingPassword = false;
 
+  //timezones
+  $scope.data.timezones = moment.tz.names();
+
 	//functions
 	//----------------------
 	$scope.save = save;
@@ -126,6 +129,7 @@ function clearPasswords() {
 
 
 function clearCache() {
+  console.log('clear cache');
   // entityConfig.clearAll(true);
   $window.location.reload();
 }

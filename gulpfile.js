@@ -205,10 +205,11 @@ gulp.task('usemin', function(cb) {
    return gulp.src('./client/index.html')
     // add templates path
     .pipe($.htmlReplace({
+      'fullstory': '<script type="text/javascript" src="assets/js/fullstory.js"></script>',
       'strictdi': '<html lang="en" ng-app="interloop" ng-strict-di>',
       // 'fontastic': '<link rel="stylesheet" href="assets/css/interloop-font.css" />',
       'apptemplates': '<script type="text/javascript" src="../build/assets/js/templates.js"></script>',
-       'basehref': '<base href="/">'
+      'basehref': '<base href="/">'
     }))
     .pipe(
         $.usemin({
@@ -232,6 +233,7 @@ gulp.task('usemin:electron', function(cb) {
   return gulp.src('./client/index.html')
     // add templates path
     .pipe($.htmlReplace({
+      'fullstory': '<script type="text/javascript" src="assets/js/fullstory.js"></script>',
       'strictdi': '<html lang="en" ng-app="interloop" ng-strict-di>',
       // 'fontastic': '<link rel="stylesheet" href="assets/css/interloop-font.css" />',
       'apptemplates':   '<script type="text/javascript" src="../build/assets/js/templates.js"></script>',

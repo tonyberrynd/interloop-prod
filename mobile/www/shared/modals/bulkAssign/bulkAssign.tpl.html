@@ -1,0 +1,33 @@
+    <div class="modal-header header-dark">
+        <h3 class="modal-title" id="modal-title">Bulk Assign</h3>
+        <p>Assign owner to {{data.selectedItems.length}} records</p>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding" id="modal-body">
+
+
+        <form name="bulkAssignForm" class="form-horizontal" novalidate style="min-height:50px;">
+            
+            <div class="col-sm-12">
+                <label for="bulkUpdateField">Select Owner</label>
+                <label for="selectTag" class="select">
+                  <select class="form-control" name="selectTag" ng-model="data.selectedOwner">
+                    <option ng-repeat="owner in data.owners | orderBy:'fullName' " value="{{owner}}">{{owner.fullName}}</option>
+                  </select>
+                </label>
+            </div>
+
+        </form>
+
+        <br>
+        <br>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!data.selectedOwner">Assign Owner</button>
+    </div>

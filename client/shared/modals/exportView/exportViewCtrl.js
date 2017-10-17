@@ -23,6 +23,8 @@ angular.module('interloop.exportViewCtrl', [])
   $scope.data.thisView = resolvedData.view;
   $scope.data.columns = resolvedData.columns;
 
+  $scope.data.includeColumns = 'shown';
+
   $scope.data.fileName = $scope.data.thisView.name || 'View Export';
 
   //functions

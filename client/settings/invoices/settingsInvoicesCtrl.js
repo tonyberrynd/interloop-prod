@@ -7,7 +7,10 @@ angular.module('interloop.settingsInvoicesCtrl', [])
 .controller('settingsInvoicesCtrl', function(
 	$scope, 
 	$timeout,
+	$rootScope,
+	$state,
 	modalManager,
+	Appinvoice,
 	Logger) {
 
 // BINDABLES
@@ -18,10 +21,13 @@ angular.module('interloop.settingsInvoicesCtrl', [])
 	$scope.data.activated = false;
 
 	$scope.data.invoices = [{id: 1}, {id: 2}, {id: 3}];
+	//ensure we dont get a typeerror
+	$rootScope.activeOrg.invoicePreferences = _.get($rootScope.activeOrg, 'invoicePreferences', {});
 
 	//functions
 	//----------------------
 	$scope.updatePayment = updatePayment;
+	$scope.save = save;
 
 
 //-------------------------------------------
@@ -32,10 +38,16 @@ angular.module('interloop.settingsInvoicesCtrl', [])
 function activate() {
 
 
-	$timeout(function(){
-		$scope.data.activated = true;
-		$scope.data.invoicePreferences = {};
-	}, 250)
+	return Appinvoice.find().$promise
+				.then(function(results){
+					$scope.data.invoices = results;
+					$scope.data.activated = true;
+				})
+				.catch(function(err){
+					Logger.error('Error Fetching Invoices', 'Please try again in a moment');
+					$scope.data.activated = true;
+					$state.go('app.settings.invoices')
+				})
 
 }
 //-------------------------------------------
@@ -58,6 +70,17 @@ function updatePayment(){
 	}, function(err){
 
 	})
+}
+
+//this saves organization billing information to org record
+function save(){
+	$rootScope.activeOrg.$save()
+		.then(function(results){
+			Logger.info('Saved Billing Information');
+		})
+		.catch(function(err){
+			Logger.error('Error Saving Billing Information');
+		})
 }
 
 

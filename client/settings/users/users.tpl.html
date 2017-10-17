@@ -7,7 +7,7 @@
 				<div class="settings-section">
 					<div class="settings-header">
 					<h4>Manage Users</h4>
-					<p>You have <b class="bright" ng-bind="(data.users | filter:!deactivated).length"></b> <b class="bright">active users</b>  in your account</p>
+					<p>You have <b class="bright" ng-bind="(data.users | filter:{deactivated: '!true' }).length"></b> <b class="bright">active users</b>  in your account</p>
 
 					<button class="btn btn-primary pull-right" ng-click="inviteUsers()"><icon class="wb-user-add"></icon> Invite New Users</button>
 
@@ -49,8 +49,9 @@
 									    <thead>
 									      <tr>
 									        <th class="col-xs-4">Name</th>
-						              	    <th class="col-xs-3">Role</th>
-						                    <th class="col-xs-3">Teams</th>
+						              	    <th class="col-xs-2">Role</th>
+						                    <th class="col-xs-2">Teams</th>
+						                    <th class="col-xs-2">Created</th>
 						                    <th class="col-xs-2"></th>
 									      </tr>
 									    </thead>
@@ -58,7 +59,7 @@
 									      <tr ng-repeat="user in data.users | filter: data.search | orderBy: data.sortBy.value" ng-class="{'inactive': user.deactivated}">
 									        <td class="user">
 									        	<div class="avatar avatar-32" ng-class="user.color">
-									        		<span ng-bind="user.initials"></span>
+									        		 <span ng-bind="user.firstName | limitTo:1"></span><span ng-bind="user.lastName | limitTo:1"></span>
 									        	</div>
 									        	<div class="avatar-details">
 									        	<h5 ng-bind="user.firstName + ' ' + user.lastName"> 
@@ -85,6 +86,9 @@
 
 									        	<span class="null-cell" ng-if="!user.teams.length">--</span>
 									        </td>
+									        <td class="plain">
+									        	<span ng-bind="(user.createdOn | formatDate) || '--'"></span>
+									        </td>
 									        <td class="text-right plain">
 											    <div class="btn-group" uib-dropdown is-open="status.isopen" ng-if="!user.deactivated">
 											      <button id="single-button" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle ng-disabled="disabled">
@@ -93,8 +97,8 @@
 											      <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
 											        <li role="menuitem"><a href ng-click="editUser(user)">Edit Profile</a></li>
 											        <li role="menuitem"><a href ng-click="assignRole(user)">Assign Role</a></li>
-											        <li class="divider"></li>
-											        <li role="menuitem"><a href ng-click="deactivate(user)" ><span class="text-danger">Deactivate User</span></a></li>
+											        <li class="divider" ng-if="user.id !== $root.activeUser.id"></li>
+											        <li role="menuitem" ng-if="user.id !== $root.activeUser.id"><a href ng-click="deactivate(user)" ><span class="text-danger">Deactivate User</span></a></li>
 											      </ul>
 											    </div>
 

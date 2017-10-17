@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title"><img src="../assets/img/icons/states/warning.svg" alt="Warning">
+		<span ng-bind="data.helperTitle || 'Warning'"></span>
+    </h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <h5 ng-bind="data.helperText || 'Are you sure you want to proceed?'"></h5>
+    <p ng-if="data.helperDescription" ng-bind="data.helperDescription"></p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="ok()">
+    	Confirm
+    </button>
+    <button class="btn btn-subtle" type="button" ng-click="$dismiss()">Cancel</button>
+</div>

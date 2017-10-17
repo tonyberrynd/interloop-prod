@@ -10,6 +10,7 @@ angular.module('interloop.importDataCtrl', [])
   $rootScope,
   $injector,
   Logger,
+  excelGenerator,
   $uibModalInstance,
   resolvedData) {
 
@@ -17,7 +18,7 @@ angular.module('interloop.importDataCtrl', [])
 //===========================================
   //vars
   //----------------------
-  var entityType = resolvedData.entityType || null;
+  var entityType = resolvedData.currentEntity || null;
 
   //data
   //----------------------
@@ -34,8 +35,10 @@ angular.module('interloop.importDataCtrl', [])
 
   $scope.data.currentStep = angular.copy($scope.data.steps[0]);
 
-  //columns for opportunity
-  $scope.data.columns = $injector.get(entityType + 'Fields');
+  //columns for entity / exclude any that should be exluded from the import
+  $scope.data.columns = _.filter($injector.get(entityType + 'Fields'), function(o){
+    return !o.excludeImport;
+  });
   // $scope.data.columns = []
 
   $scope.data.selected = [];
@@ -47,6 +50,7 @@ angular.module('interloop.importDataCtrl', [])
   $scope.nextStep = nextStep;
   $scope.previousStep = previousStep;
   $scope.ok = ok;
+  $scope.checkFields = checkFields;
 
 
   //functions
@@ -55,6 +59,7 @@ angular.module('interloop.importDataCtrl', [])
   $scope.previousStep = previousStep;
   $scope.cancel = cancel;
   $scope.fieldSelected = fieldSelected;
+  $scope.createTemplate = createTemplate;
 
 //-------------------------------------------
 
@@ -99,13 +104,26 @@ function cancel() {
 Tries to match columns based on labels
 */
 function matchColumns() {
+  $scope.data.fileContents.columnDefs.unshift({"field": ""});
   console.log('trying to match columns');
   _.forEach($scope.data.fileContents.columnDefs, function(value){
 
     if(_.map($scope.data.columns, 'label').indexOf(value.field) > -1) {
-      $scope.data.selected[_.indexOf(_.map($scope.data.columns, 'label'), value.field)] = value.field;
+      $scope.data.selected[_.indexOf(_.map($scope.data.columns, 'label'), value.field)] = value;
+      value.disabled = true;
     } 
 
+  })
+}
+
+function checkFields(){
+  console.log('check fields');
+  _.forEach($scope.data.fileContents.columnDefs, function(value){
+    if(_.find($scope.data.selected, ['field', value.field])) {
+      value.disabled = true;
+    } else {
+      value.disabled = false;
+    }
   })
 }
 
@@ -116,11 +134,20 @@ function ok(){
   var selectedValues = _.compact($scope.data.selected);
   
   _.forEach(selectedValues, function(value){
-    mapping.push({
-      key: _.find($scope.data.columns, ['label', value]).key,
-      mappedKey: value
-    })
+    var key = _.get(_.find($scope.data.columns, ['label', value.field]), 'key', null);
+    var type = _.get(_.find($scope.data.columns, ['label', value.field]), 'type', null);
+    if(type == 'lookup'){ var lookupEntity = _.get(_.find($scope.data.columns, ['label', value.field]), 'lookup', null); }
+    if(key && type){
+      mapping.push({
+        key: key,
+        type: type,
+        lookupEntity: lookupEntity || null,
+        mappedKey: value.field
+      })
+    }
   })
+
+  console.log(mapping);
 
   return $injector.get(entityType).import({mapping: mapping, values: $scope.data.fileContents.data, userId: $rootScope.activeUser.id}).$promise
     .then(function(results){
@@ -140,6 +167,12 @@ function fieldSelected(item){
   }
 
 }
+
+function createTemplate(){
+  console.log('create template');
+  return excelGenerator.createImportTemplate(entityType);
+}
+
 
 //-------------------------------------------
 

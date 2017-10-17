@@ -23,12 +23,20 @@ angular.module('interloop.addRoleCtrl', [])
 
 // BINDABLES
 //===========================================
+
+  //vars
+  //----------------------
+  //need to delete id to keep from cuasing server side error
+  if(resolvedData){
+    delete resolvedData.id;
+  }
+
   //data
   //----------------------
   $scope.data = {};
-  $scope.data.currentTab = 'details';
-  $scope.data.thisRole = resolvedData || {};
-  $scope.data.thisRole.visibility = 'limited';
+  $scope.data.currentTab = 1;
+  $scope.data.role = resolvedData || {};
+  $scope.data.role.visibility = 'everything';
 
   // permissions
   // $scope.data.permissions = Permissions;

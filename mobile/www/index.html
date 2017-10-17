@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Interloop</title>
+
+
+    <!-- progressive web app -->
+    <!-- ============== -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <!-- typekit -->
+    <!-- ============== -->
+    <script src="https://use.typekit.net/grl7dox.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+
+    <!-- compiled css output -->
+    <!-- ============== -->
+    <link type="text/css" rel="stylesheet" href="lib/ion-floating-menu/dist/ion-floating-menu.css" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="lib/ion-drawer-vertical/src/ionic.contrib.drawer.vertical.css"/>
+    <link rel="stylesheet" href="https://file.myfontastic.com/rC29FChZSxwfNGqaLLUSkd/icons.css">
+    <link href="assets/css/interloop-mobile.css" rel="stylesheet">
+
+
+    <!-- JS files -->
+    <!-- ============== -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.1/moment-timezone.min.js"></script>
+
+    <!-- ionic/angularjs js -->
+    <!-- ============== -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- Angular libs -->
+    <!-- ============== -->
+    <script type="text/javascript" src="lib/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="lib/ion-floating-menu/dist/ion-floating-menu.js" type="text/javascript"></script>
+    <script src="lib/ion-drawer-vertical/src/ionic.contrib.drawer.vertical.js"></script>
+    <script src="assets/js/slidingTabsDirective.js"></script>
+
+    <!-- //loopback -->
+    <script type="text/javascript" src="assets/js/lb-services.js"></script>
+
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <!-- ============== -->
+    <script src="cordova.js"></script>
+
+
+    <!-- your app's js -->
+    <!-- ============== -->
+    <!-- values -->
+    <script type="text/javascript" src="shared/values/config.value.js"></script>
+    <script type="text/javascript" src="shared/values/fields.value.js"></script>
+    <script type="text/javascript" src="shared/values/permissions.value.js"></script>
+<!--     <script type="text/javascript" src="shared/values/modalDefs.value.js"></script> -->
+    <!-- config -->
+    <script src="app.js"></script>
+    <script src="app.config.js"></script>
+    <script src="app.routes.js"></script>
+
+    <!-- config - shared with client -->
+    <script src="shared/config/http-interceptor.config.js"></script>
+
+    <!-- factories - shared with desktop client -->
+    <script type="text/javascript" src="shared/factories/logger.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/configService.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/authService.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/newEntity.factory.js"></script>
+<!--     <script type="text/javascript" src="shared/factories/modalManager.factory.js"></script> -->
+<!--     <script type="text/javascript" src="shared/factories/gridManager2.factory.js"></script> -->
+<!--     <script type="text/javascript" src="shared/factories/queryBuilder.factory.js"></script> -->
+    <script type="text/javascript" src="shared/factories/viewManager.factory.js"></script>
+<!--     <script type="text/javascript" src="shared/factories/sidebarRouter.factory.js"></script> -->
+    <script type="text/javascript" src="shared/factories/sidebarActions.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/relationshipManager.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/searchService.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/pageManager.factory.js"></script>
+
+
+    
+    <!-- modules -->
+    <script src="modules/_layout/floatingButtonCtrl.js"></script>
+    <script src="modules/login/loginCtrl.js"></script>
+    <script src="modules/forgot/forgotCtrl.js"></script>
+
+    <script src="modules/opportunities/opportunitiesCtrl.js"></script>
+    <script src="modules/opportunities/opportunityDetailCtrl.js"></script>
+
+    <script src="modules/contacts/contactsCtrl.js"></script>
+
+    <script src="modules/companies/companiesCtrl.js"></script>
+
+    <script src="modules/activities/activitiesCtrl.js"></script>
+
+    <script src="modules/search/searchCtrl.js"></script>
+    <!-- settings -->
+    <script src="modules/settings/settingsCtrl.js"></script>
+
+
+  </head>
+  <body ng-app="interloop">
+    <ion-nav-view></ion-nav-view>
+    
+    <!-- option buttons -->
+    <div ng-controller="floatingButtonCtrl" ng-if="$state.current.data && $state.current.data.showOptionButton" ng-hide="$root.hideFloatingButton">
+      <ion-floating-menu menu-icon="wb-plus" menu-color="#199ED9" menu-open-color="#1196D1" menu-open-icon="wb-close">
+          <ion-floating-item icon="icon icon-ui-users" icon-color="#199ED9" text="Contact" click="newContactOptions()"></ion-floating-item>
+          <ion-floating-item icon="icon icon-calendar-calendar-confirm" icon-color="#199ED9" text="Activity" click="newTaskModal()"></ion-floating-item>
+          <ion-floating-item icon="icon icon-building-office-building-block" icon-color="#199ED9" text="Company" click="newCompanyModal()"></ion-floating-item>
+          <ion-floating-item icon="icon icon-gaming-game-strategy" icon-color="#199ED9" text="Opportunity" click="newOpportunityModal()"></ion-floating-item>
+      </ion-floating-menu>
+    </div>
+
+  </body>
+</html>
+

@@ -1,0 +1,103 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">Add Related Records</h3>
+            <p>Add relationships for <b><span ng-bind="data.thisRecord.name || 'this record'"></span></b></p>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+          <div class="multiple-wrapper">
+            <label for="">Search For Records</label>
+            <div class="multiple-select">
+                    <ui-select multiple allow-clear="true" ng-model="data.selectedRecords" minimum-input-length="2" theme="bootstrap" ng-click="$select.activate()">
+                       <ui-select-match placeholder="Search...">
+                                <span ng-switch="$item.thisEntityType">
+                                    <!-- contact / user -->
+                                    <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                                      <div class="avatar avatar-16">
+                                      <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span>
+                                      </div>
+                                      <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
+                                    </span>
+                                    <!-- company -->
+                                    <span ng-switch-when="Company" ng-switch-when-separator="|">
+                                      <div class="avatar avatar-16 square">
+                                      <span ng-bind="$item.name | limitTo:1"></span> 
+                                      </div>
+                                      <span ng-bind="$item.name"></span>
+                                    </span>
+                                    <!-- opportunity -->
+                                    <span ng-switch-when="Opportunity" ng-switch-when-separator="|">
+                                        <span ng-bind="$item.name"></span>
+                                    </span>
+                                    <!-- tag -->
+                                    <span ng-switch-when="Tag" ng-switch-when-separator="|">
+                                        <span ng-bind="$item.name"></span>
+                                    </span>
+                                    <!-- default -->
+                                    <span ng-switch-default>
+                                        <span ng-bind="$item.name"></span>
+                                    </span>
+                                </span>
+                              </ui-select-match>
+                              <ui-select-choices repeat="item in data.results | orderBy:['name', 'firstName'] track by $index" refresh="getRecords($select.search)" refresh-delay="0" group-by="'thisEntityType'">
+                                        <span ng-switch="item.thisEntityType">
+                                        <!-- Contact/User -->
+                                        <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                                            <div class="avatar avatar-24">
+                                              <span ng-bind="item.firstName | limitTo: 1"></span><span ng-bind="item.lastName | limitTo: 1"></span>
+                                            </div>
+                                            <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
+                                            <span class="text-light"><small ng-bind-html="item.email"></small></span>
+                                        </span>
+                                        <!-- COMPANY -->
+                                        <span ng-switch-when="Company" ng-switch-when-separator="|">
+                                          <div class="avatar avatar-24 square">
+                                            <span ng-bind="item.name | limitTo:1"></span>
+                                          </div>
+                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                          <span ng-bind-html="item.domain | highlight: $select.search"></span>
+                                        </span>
+                                        <!-- Opportunity -->
+                                        <span ng-switch-when="Opportunity" ng-switch-when-separator="|">
+                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                          <span ng-bind-html="getPrimaryCompany(item) || 'No Primary Company' | highlight: $select.search"></span>
+                                        </span>
+                                        <!-- tag -->
+                                        <span ng-switch-when="Tag" ng-switch-when-separator="|">
+                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                        </span>
+                                        <!-- default -->
+                                        <span ng-switch-default>
+                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                        </span>
+                                      
+                                      </span>
+                                      </ui-select-choices>
+                                            <ui-select-no-choice>
+                                              <span class="loading" ng-if="data.loadingResults">
+                                                <div class="loop-loader loop-loader-xs">Loading...</div>
+                                              </span>
+                                              <span class="no-results" ng-if="!(data.results | filter: $select.search).length && !data.serverError && !data.loadingResults">
+                                        No Results Found Matching <b>"{{$select.search}}"</b>
+                                        </span>
+                                        <span class="server-error" ng-if="!(data.results | filter: $select.search).length && data.serverError && !data.loadingResults">
+                                          The servier did not respond
+                                          <br>
+                                          <button class="btn btn-default">Retry</button>
+                                        </span>
+                                      </ui-select-no-choice>
+                    </ui-select>
+                  </div>
+                </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="data.splitError" ng-disabled="data.selectedRecords.length > 0">Add <span ng-bind="data.selectedRecords.length"></span> Records</button>
+        </div>

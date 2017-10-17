@@ -1,0 +1,81 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">New Opportunity</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+                
+                <div class="row">
+                    <div class="col-xs-12">
+                        <form name="opportunityForm" novalidate>
+                                  <div class="row">
+                                      <div class="col-xs-12">
+                                           <div class="form-group">
+                                            <label for="name" ng-bind="$root.opportunityFields['name'].label || 'Name'"></label>
+                                            <input type="text" class="form-control" id="name" placeholder="" ng-model="data.opportunity.firstName" autofocus>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                     <div class="row">
+                                        <div class="col-xs-12">
+                                           <div class="form-group">
+                                            <label for="title">Primary Company</label>
+
+                                          <ui-select ng-model="data.primaryCompany" theme="bootstrap" class="form-control" title="" spinner-enabled="true" ng-keyup="lookupKeydown($event, (data.companies | filter: $select.search))">
+                                            <!-- match -->
+                                            <ui-select-match placeholder="Select or search a company in the list..." allow-clear="true" minimum-input-length="2">{{$select.selected.name}}
+                                            </ui-select-match>
+                                            <!-- choices -->
+                                            <ui-select-choices repeat="company in data.companies | filter: $select.search | orderBy: 'score' track by $index " refresh="lookupCompanies($select.search)" refresh-delay="250">
+                                              <div ng-bind-html="company.name | highlight: $select.search"></div>
+                                              <small ng-bind-html="(company.website | highlight: $select.search) || 'No Website'"></small>
+                                            </ui-select-choices>
+
+                                            <ui-select-no-choice>
+                                             <div class="no-results">
+                                              <p>No Results Found </p> 
+                                             </div>
+
+                                             <div class="create-new">
+                                             <p class="text-info">Press <kbd>Enter</kbd>  to create a new company</p>
+                                             </div>
+
+                                            </ui-select-no-choice>
+
+                                          </ui-select>
+
+                                        </div>
+                                      </div>
+                                  </div>
+
+
+                                <div class="row">
+                                      <div class="col-xs-6">
+                                           <div class="form-group">
+                                            <label for="name" ng-bind="$root.opportunityFields['value'].label || 'Value'"></label>
+                                            <input type="text" class="form-control" id="name" placeholder="" ng-model="data.opportunity.firstName">
+                                          </div>
+                                      </div>
+
+                                        <div class="col-xs-6">
+                                           <div class="form-group">
+                                            <label for="name" ng-bind="$root.opportunityFields['estClose'].label || 'Estimated Close'"></label>
+                                            <input type="text" class="form-control" id="name" placeholder="" ng-model="data.opportunity.firstName">
+                                          </div>
+                                      </div>
+                                  </div>
+
+
+                                </form>
+                    </div>
+                </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
+        </div>

@@ -70,13 +70,12 @@
         .panel {
             border-radius: 5px;
             margin:0px;
-            border-bottom:0px;
             margin-bottom:5px;
         }
 
-        .panel-body {
-            min-height:50px;
-        }
+        // .panel-body {
+        //     min-height:50px;
+        // }
     }
 
     .sidepanel-title {
@@ -164,6 +163,7 @@
                 border:solid 1px $border;
                 border-radius: 5px;
                 color:$granite;
+                text-decoration: none;
             }
         }
 
@@ -202,14 +202,15 @@
                 top:20px;
             }
 
-            .avatar {
+            .avatar,
+            .predictive-score {
                 position:absolute;
                 left:15px;
                 top:10px;
             }
 
             .name-wrapper {
-                margin-left:60px;
+                margin-left:80px;
                 margin-bottom:12px;
 
                 h4 {
@@ -244,7 +245,7 @@
 
                     .row {
                         margin:0px;
-                        margin-left:45px;
+                        margin-left:65px;
                     }
 
                     h5 {
@@ -510,6 +511,7 @@ li.menu-toggle > a::before {
 }
 
 .subheader {
+    min-width:760px !important;
     // height:48px;
     // width:100%;
     // position:absolute;

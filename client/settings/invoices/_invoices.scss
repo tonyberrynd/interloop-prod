@@ -11,6 +11,17 @@
         font-weight:600;
     }
 
+    .payment-table {
+        max-width:480px;
+
+        th {
+            background-color:$limestone;
+        }
+    }
+
+    .no-payment-method {
+        color:$gravel;
+    }
 
     .invoice-box{
         max-width:800px;
@@ -23,6 +34,15 @@
         color:$charcoal;
         border-radius: 5px;
         background-color:#fff;
+
+        hr {
+           border-top: 1px solid $border !important;
+        }
+    }
+
+    .invoice-bottom {
+        max-width:800px;
+        margin:auto;
     }
     
     .invoice-box table{
@@ -56,7 +76,7 @@
     
     .invoice-box table tr.heading td{
         background:$limestone;
-        border-bottom:1px solid $gravel;
+        border-bottom:none;
         font-weight:bold;
     }
     
@@ -65,7 +85,7 @@
     }
     
     .invoice-box table tr.item td{
-        border-bottom:1px solid $gravel;
+        border-bottom:1px solid $border;
     }
     
     .invoice-box table tr.item.last td{
@@ -73,7 +93,7 @@
     }
     
     .invoice-box table tr.total td:nth-child(2){
-        border-top:2px solid $gravel;
+        border-top:2px solid $border;
         font-weight:bold;
     }
     

@@ -1,0 +1,70 @@
+<ion-view class="company-profile content-grey" hide-nav-bar="true">
+
+  <div class="bar bar-header bar-light detail-bar">
+      <button class="button button-icon button-clear wb-chevron-left-mini" ng-click="goBack()"></button>
+
+      <span class="toolbar-right">
+          <button class="button button-icon button-clear wb-star" ng-class="{'isStarred': data.thisOpp.starred}" ng-click="starUnstarItem()">
+          </button>
+          <button class="button button-icon button-clear wb-more-vertical" ng-click="showMore()">
+          </button>
+      </span>
+  </div>
+
+
+      <div class="centered-spinner" ng-if="!data.activated">
+        <ion-spinner icon="ios-small"></ion-spinner>
+      </div>
+
+<!-- content with slides -->
+  <ion-content class="has-header" delegate-handle="opportunityScroll" on-scroll="recordScrollOffset()" scroll="false" ng-if="data.activated">
+
+    <div class="details-header">
+
+      <div class="main-details">
+          <h4 ng-bind="data.thisOpp.name"></h4>
+          <p><a href="#/companies/{{data.thisOpp.primaryCompanyLink.entityId}}" ng-bind="data.thisOpp.primaryCompanyLink.name" ng-click="goForward('Company', data.thisOpp.primaryCompanyLink.entityId)"></a></p>
+      </div>
+
+    </div>
+    <span class="slidingTabs-wrapper">
+    <ion-slides slider="slider" ion-slides-tabs slide-tabs-scrollable="true">
+        <ion-slide-page ion-slide-tab-label="Details">
+          <ion-scroll style="height:calc(100vh - 150px);">
+            <br>
+            <!-- iterates through detail fields -->
+            <div class="detail-form">
+              <div class="list">
+                <label class="item item-input item-stacked-label" ng-repeat="field in data.fields">
+                  <span class="input-label" ng-bind="field.label">First Name</span>
+                  <input type="text" class="form-control" id="{{field.field}}" placeholder="" ng-model="data.thisOpp[field.field]" ng-model-options="{ updateOn: 'blur' }">
+                </label>
+              </div>
+            </div>
+
+            <br>
+
+          </ion-scroll>
+        </ion-slide-page>
+        <ion-slide-page ion-slide-tab-label="Milestones">
+            <!-- <div ng-include="'modules/tabs/milestones.tpl.html'"></div> -->
+        </ion-slide-page>
+        <ion-slide-page ion-slide-tab-label="Related">
+           <!--  <div ng-include="'modules/tabs/related.tpl.html'"></div> -->
+        </ion-slide-page>
+        <ion-slide-page ion-slide-tab-label="Activities">
+          <!-- <div ng-include="'modules/tabs/activities.tpl.html'"></div> -->
+        </ion-slide-page>
+        <ion-slide-page ion-slide-tab-label="Files">
+          <!-- <div ng-include="'modules/tabs/files.tpl.html'"></div> -->
+        </ion-slide-page>
+        <ion-slide-page ion-slide-tab-label="History">
+         <!--  <div ng-include="'modules/tabs/history.tpl.html'"></div> -->
+        </ion-slide-page>
+    </ion-slides>
+    </span>
+</ion-content>
+
+
+</ion-view>
+

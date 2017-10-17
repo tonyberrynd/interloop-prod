@@ -1,0 +1,47 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">Add Owners</h3>
+            <p>Add Owners for <b><span ng-bind="data.thisRecord.name || 'this record'"></span></b></p>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+        
+              <div class="multiple-select">
+                <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Select Users">
+                      <ui-select multiple ng-model="data.selectedOwners" theme="bootstrap" ng-click="$select.activate()" minimum-input-length="2">
+                        <ui-select-match placeholder="Select Users">
+                          <div class="avatar avatar-16" ng-class="$item.color">
+                            <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span>
+                          </div>
+                          <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in data.owners | filter: $select.search | orderBy:'firstName'">
+                          <div class="avatar avatar-24" ng-class="item.color">
+                            <span ng-bind="item.firstName | limitTo:1"></span><span ng-bind="item.lastName | limitTo:1"></span>
+                          </div>
+                          <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
+                          <small ng-bind-html="item.email | highlight: $select.search"></small>
+                        </ui-select-choices>
+                      </ui-select>
+                      <ui-select-no-choice>
+                          <span class="no-results" ng-if="!(data.people | filter: $select.search).length && !data.serverError">
+                         No Results Found Matching <b>"{{$select.search}}"</b>
+                    </span>
+                    <span class="server-error" ng-if="!(data.people | filter: $select.search).length && data.serverError">
+                      The servier did not respond
+                      <br>
+                      <button class="btn btn-default">Retry</button>
+                    </span>
+                  </ui-select-no-choice>
+                </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="data.splitError">Add Owners</button>
+        </div>

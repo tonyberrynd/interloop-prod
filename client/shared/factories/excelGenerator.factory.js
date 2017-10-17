@@ -14,12 +14,17 @@ angular.module('interloop.factory.excelGenerator', [])
 
 
     	//creates headers
-    	var entityFields = $injector.get(entity + 'Fields')
+    	var entityFields = _.filter($injector.get(entity + 'Fields'),function(o){
+            return !o.excludeImport;
+        })
+
     	var customFields = _.filter($rootScope.customFields,function(o){
-            return _.includes(o.useWith, entity) && o.type !== 'divider';
+            return _.includes(o.useWith, entity) && o.type !== 'divider' && !o.excludeImport;
         })
         //end fields
-        var endFields = EndFields || [];
+        var endFields = _.filter(EndFields,function(o){
+            return !o.excludeImport;
+        })
         //set up fields for filters
         var fields = _.union(entityFields, customFields, endFields);
 
@@ -29,8 +34,6 @@ angular.module('interloop.factory.excelGenerator', [])
     	_.forEach(fields, function(value, key){
     		if(value.label) { dataHeader[0][value.label] = '' };
     	})
-
-    	console.log(dataHeader);
 
 		/* generate a worksheet */
 		var ws = XLSX.utils.json_to_sheet(dataHeader);

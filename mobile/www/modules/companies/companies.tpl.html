@@ -1,0 +1,90 @@
+<ion-view view-title="Companies">
+
+	<!-- subheader -->
+	<div class="bar bar-subheader bar-stable view-toggler" style="z-index:50;">
+	  <button class="button button-block button-clear" ng-click="toggleDrawer('opp-drawer')">
+	  	<p class="pull-left" ng-bind="data.thisView.name"></p>
+	  	<!-- icon -->
+	  	<icon class="wb-chevron-down-mini" ng-if="drawerIs('closed')"></icon>
+        <icon class="wb-chevron-up-mini" ng-if="drawerIs('opened')"></icon>
+	  </button>
+	</div>
+
+			<!-- //drawer -->
+		<ion-drawer-vertical-wrapper class="has-subheader" direction="down" state="closed" delegate-handle="opp-drawer">
+			<ion-drawer-vertical-content>
+			<ion-pane class="view-list">
+				<ion-scroll style="height:calc(100vh - 88px)">
+				<ion-list>
+			      <ion-item ng-repeat="view in data.views | orderBy : 'name'" ng-click="changeView(view)">
+			        <span ng-bind="::view.name"></span>
+			        <span class="label label-default view-count-label pull-right" ng-bind="(view.count | number:0) || '0'"></span>
+			      </ion-item>
+			    </ion-list>
+			   </ion-scroll>
+			</ion-pane>
+		</ion-drawer-vertical-content>
+	<!-- 	<ion-drawer-vertical-handle /> -->
+	</ion-drawer-vertical-wrapper>
+
+  <ion-content class="has-subheader has-footer-small content-light">
+		
+	  <ion-refresher
+	  	pulling-icon="ios-arrow"
+	    on-refresh="refresh()">
+	  </ion-refresher>
+
+
+	  <div class="centered-spinner" ng-if="!data.activated">
+        <ion-spinner icon="ios-small"></ion-spinner>
+      </div>
+
+		<ion-list>
+
+	        <ion-item class="company-item" item="company" ng-repeat="company in data.companies" ui-sref="app.companies-details({id: company.id})">
+				<!-- avatar -->
+				<div class="item-avatar"  ng-if="company.logo">
+					<img ng-src="{{company.logo}}" alt="{{company.name}}">
+				</div>
+				
+		        <!-- initials -->
+				<div ng-if="!company.logo" class="no-avatar">
+			     	<span ng-bind="(company.name | limitTo: 1) || '-'"></span>
+			     </div>
+	    	 	<h3>
+	    	 		<span ng-bind="company.name || '--'"></span>
+	    	 	</h3>
+		      	 <p ng-bind="company.website || 'No Website'"></p>
+	        </ion-item>
+
+	
+
+
+	      </ion-list>
+
+      	  <ion-infinite-scroll
+      	   	  ng-if="data.moreData"
+			  distance="5%"
+			  icon="ios-small"
+			  on-infinite="loadMoreData()">
+		  </ion-infinite-scroll>
+
+	
+			<!-- empty state -->
+		  <div class="empty-state" ng-if="data.activated && !data.companies.length">
+		  		<div class="empty-icon">
+		  			<icon class="icon-budicon-classic-21 opal"></icon>
+		  		</div>
+
+		  		<h5>No Records</h5>
+		  		<p>Try switching views to see records</p>
+		  </div>
+
+
+  </ion-content>
+
+  <div class="bar bar-footer bar-footer-small bar-light text-center">
+	 <span ng-if="data.thisView" style="display: inline-block; margin:auto; font-weight:600;"><span ng-bind="data.thisView.count | number:0"></span> Companies</span>
+  </div>
+
+</ion-view>

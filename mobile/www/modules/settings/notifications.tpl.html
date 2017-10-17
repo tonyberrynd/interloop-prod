@@ -1,0 +1,127 @@
+<ion-view view-title="Notifications" class="content-grey">
+
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+
+  <ion-content>
+     <div class="list">
+
+    <div class="item item-divider">
+      Opportunities
+    </div>
+
+    <li class="item item-toggle">
+     An Opportunity is Assigned to You
+     <label class="toggle toggle-positive">
+       <input type="checkbox" ng-model="data.thisUser.alertSettings.oppAssigned" ng-change="save()">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+
+    <div class="item item-divider">
+    	Tasks
+    </div>
+
+    <li class="item item-toggle">
+     A task you follow is marked complete
+     <label class="toggle toggle-positive">
+       <input type="checkbox" ng-model="data.thisUser.alertSettings.taskFollowComplete" ng-change="save()">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+
+  <li class="item item-toggle">
+     A task is assigned to you
+     <label class="toggle toggle-positive">
+       <input type="checkbox" ng-model="data.thisUser.alertSettings.taskAssigned" ng-change="save()">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+
+  <li class="item item-toggle">
+     A reminder triggers on a task that is assigned to you
+     <label class="toggle toggle-positive">
+       <input type="checkbox" ng-model="data.thisUser.alertSettings.taskReminder" ng-change="save()">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+
+
+	<!-- coments -->
+    <div class="item item-divider">
+    	Comments
+    </div>
+
+
+  <li class="item item-toggle">
+     A comment is posted on an item you follow
+     <label class="toggle toggle-positive">
+       <input type="checkbox" ng-model="data.thisUser.alertSettings.commentFollowPosted" ng-change="save()">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+
+  <li class="item item-toggle">
+     A comment is posted on an item you commented
+     <label class="toggle toggle-positive">
+       <input type="checkbox" ng-model="data.thisUser.alertSettings.commentPosted" ng-change="save()">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+
+   <li class="item item-toggle">
+     A new conversation is started on an item you created
+     <label class="toggle toggle-positive">
+       <input type="checkbox" ng-model="data.thisUser.alertSettings.commentCreatedItem" ng-change="save()">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+
+   <li class="item item-toggle">
+       A new conversation is started on an item where you are the owner
+     <label class="toggle toggle-positive">
+       <input type="checkbox" ng-model="data.thisUser.alertSettings.commentOwnerItem" ng-change="save()">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+
+    <div class="item item-divider">
+    	Daily Planner
+    </div>
+
+   <li class="item item-toggle">
+     Recieve a daily planner each email morning at 7:00 AM
+     <label class="toggle toggle-positive">
+       <input type="checkbox" ng-model="data.thisUser.alertSettings.dailyPlanner" ng-change="save()">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+
+  <br>
+  <br>
+
+
+  </div>
+  </ion-content>
+
+</ion-view>
+
+

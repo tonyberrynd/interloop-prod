@@ -1,293 +1,103 @@
 <div class="subheader">
-              <div class="subheader-left pull-left">
-               		<div class="tabs-wrapper">
-					<ul class="nav nav-tabs">
-					  <li ng-class="{ 'active': data.currentTab == 1 }" class="active"><a href="" ng-click="data.currentTab = 1">Outlook</a></li>
-					  <li ng-class="{ 'active': data.currentTab == 3 }" class="active"><a href="" ng-click="data.currentTab = 3">Goals</a></li>
-					  <li ng-class="{ 'active': data.currentTab == 2 }"><a href="" ng-click="data.currentTab = 2">Metrics</a></li>
-					</ul>
-				</div>
+			  <div class="subheader-left pull-left">
+<div class="btn-group view-toggler fadeInOut ng-scope dropdown" uib-dropdown="" keyboard-nav="" auto-close="outsideClick" style="">
+                    <button id="viewDropdown" type="button" class="btn btn-default btn-outline dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                        <span ng-bind="data.thisView.name || 'Select User'" class="ng-binding">All Opportunities</span> <span class="caret pull-right" style="margin-top:8px;"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu="" role="menu" aria-labelledby="Views">
+
+                      <!-- search views -->
+                      <div class="search-input">
+                        <icon class="search-icon"></icon>
+                          <input type="text" class="form-control ng-pristine ng-valid ng-empty ng-touched" id="LocalSearch" placeholder="Search..." ng-model="data.searchViews" autofocus="" style="">
+                          <!-- ngIf: data.localSearch -->
+                      </div>
+
+                        <!-- ngIf: (data.views | filter:{'type':'system'} | filter:data.searchViews ).length --><li class="dropdown-header ng-scope" ng-if="(data.views | filter:{'type':'system'} | filter:data.searchViews ).length">System Views</li><!-- end ngIf: (data.views | filter:{'type':'system'} | filter:data.searchViews ).length -->
+                        <!-- ngRepeat: view in data.views | filter:{'type':'system'} | filter:data.searchViews | orderBy: 'name' --><li role="menuitem" ng-repeat="view in data.views | filter:{'type':'system'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}" class="ng-scope active">
+                            <a href="" ng-click="changeView(view)">
+                                <span ng-bind="view.name" class="ng-binding">All Opportunities</span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0" class="ng-binding">2,886</span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix" class="ng-binding">357M</span> 
+                                </span>
+                            </a>
+                        </li><!-- end ngRepeat: view in data.views | filter:{'type':'system'} | filter:data.searchViews | orderBy: 'name' --><li role="menuitem" ng-repeat="view in data.views | filter:{'type':'system'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}" class="ng-scope">
+                            <a href="" ng-click="changeView(view)">
+                                <span ng-bind="view.name" class="ng-binding">My Lost Opportunities</span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0" class="ng-binding">0</span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix" class="ng-binding">0</span> 
+                                </span>
+                            </a>
+                        </li><!-- end ngRepeat: view in data.views | filter:{'type':'system'} | filter:data.searchViews | orderBy: 'name' --><li role="menuitem" ng-repeat="view in data.views | filter:{'type':'system'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}" class="ng-scope">
+                            <a href="" ng-click="changeView(view)">
+                                <span ng-bind="view.name" class="ng-binding">My Opportunities</span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0" class="ng-binding">0</span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix" class="ng-binding">0</span> 
+                                </span>
+                            </a>
+                        </li><!-- end ngRepeat: view in data.views | filter:{'type':'system'} | filter:data.searchViews | orderBy: 'name' -->
+
+                        <!-- ngIf: (data.views | filter:{'type':'personal'} | filter:data.searchViews ).length --><li class="dropdown-header ng-scope" ng-if="(data.views | filter:{'type':'personal'} | filter:data.searchViews ).length">Personal Views</li><!-- end ngIf: (data.views | filter:{'type':'personal'} | filter:data.searchViews ).length -->
+                        <!-- ngRepeat: view in data.views | filter:{'type':'personal'} | filter:data.searchViews | orderBy: 'name' --><li role="menuitem" ng-repeat="view in data.views | filter:{'type':'personal'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}" class="ng-scope">
+                            <a href="" ng-click="changeView(view)">
+                                <span ng-bind="view.name" class="ng-binding">Contains American</span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0" class="ng-binding">16</span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix" class="ng-binding">448k</span> 
+                                </span>
+                            </a>
+                        </li><!-- end ngRepeat: view in data.views | filter:{'type':'personal'} | filter:data.searchViews | orderBy: 'name' --><li role="menuitem" ng-repeat="view in data.views | filter:{'type':'personal'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}" class="ng-scope">
+                            <a href="" ng-click="changeView(view)">
+                                <span ng-bind="view.name" class="ng-binding">Owners:JB</span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0" class="ng-binding">0</span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix" class="ng-binding">0</span> 
+                                </span>
+                            </a>
+                        </li><!-- end ngRepeat: view in data.views | filter:{'type':'personal'} | filter:data.searchViews | orderBy: 'name' --><li role="menuitem" ng-repeat="view in data.views | filter:{'type':'personal'} | filter:data.searchViews | orderBy: 'name'" ng-class="{'active': view.id == data.thisView.id}" class="ng-scope">
+                            <a href="" ng-click="changeView(view)">
+                                <span ng-bind="view.name" class="ng-binding">Stars Align</span> 
+                                <span class="badge badge-primary pull-right">
+                                    <span ng-bind="view.count | number:0" class="ng-binding">2,886</span>
+                                    <span>|</span>
+                                    <span ng-bind="view.sum | thousandSuffix" class="ng-binding">357M</span> 
+                                </span>
+                            </a>
+                        </li><!-- end ngRepeat: view in data.views | filter:{'type':'personal'} | filter:data.searchViews | orderBy: 'name' -->    
+
+                        <!-- ngIf: (data.views | filter:{'type':'shared'} | filter:data.searchViews ).length -->
+                        <!-- ngRepeat: view in data.views | filter:{'type':'shared'} | filter:data.searchViews | orderBy: 'name' --> 
+
+                    </ul>
+                </div>
+			  </div>
+              <div class="subheader-right pull-right">
+
+              	 <div class="view-types pulse-types pull-left">
+                  <div class="btn-group">
+                    <a href ui-sref-active="active" ui-sref="app.pulse.outlook" class="btn btn-default">Outlook</a>
+                    <a href ui-sref-active="active" ui-sref="app.pulse.goals" class="btn btn-default">Goals</a>
+                    <a href ui-sref-active="active" ui-sref="app.pulse.agenda" class="btn btn-default">Agenda</a>
+                  </div>
+              </div>
               </div>
 </div>
 
 
 <div class="layout dashboard-layout">
 	
-	<div class="container" ng-switch="data.currentTab">
-		
-		<div class="outlook-wrapper" ng-switch-when="1">
-		<div class="row">
-			<div class="col-xs-6">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						Chart
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-6">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						Chart
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-6">
-				<h5>Sales Performance</h5>
-			</div>
-			<div class="col-xs-6">
-				<button class="btn btn-default">Select Date Range</button>
-			</div>
-			<br>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$3M | 15 Opps</h4>
-						<p>Current Pipeline (3.1x Quota)</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1M | 4 Opps</h4>
-						<p>Won (32% Win Rate)</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1M | 4 Opps</h4>
-						<p>Lost (32% Win Rate)</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1M | 4 Opps</h4>
-						<p>Parked (32% Win Rate)</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>60%</h4>
-						<p>Next Steps Planned</p>
-					</div>
-				</div>
-
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>40%</h4>
-						<p>No Course Of Action</p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-6">
-				<h5>Forecast Summary</h5>
-			</div>
-			<div class="col-xs-6">
-				<button class="btn btn-default">Select Date Range</button>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$3.2M</h4>
-						<p>Quota (3.2M Gap)</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1.4M | 8 Opps</h4>
-						<p>Predicted Wins</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1.2M | 6 Opps</h4>
-						<p>Best Case</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1.8M | 6 Opps</h4>
-						<p>Stars Align</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1.8M | 4 Opps</h4>
-						<p>Omitted</p>
-					</div>
-				</div>
-			</div>
+	<div class="container puls-container" ng-switch="data.currentTab">
 			
-		</div>
-
-
-		<div class="row">
-			<div class="col-xs-6">
-				<h5>What's Changed</h5>
-			</div>
-			<div class="col-xs-6">
-				<button class="btn btn-default">Select Date Range</button>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4><icon class="fa fa-arrow-up"></icon> $3.2M</h4>
-						<p>Pulled In / New Pipeline</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4><icon class="fa fa-arrow-down"></icon> $2.2M</h4>
-						<p>Pushed Out / Lost</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1.2M | 6 Opps</h4>
-						<p>Forecast Improved</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1.2M | 6 Opps</h4>
-						<p>Forecast Decreased</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1.2M | 6 Opps</h4>
-						<p>Score Improved</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h4>$1.2M | 6 Opps</h4>
-						<p>Score Decreased</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-6">
-				<h5>Top Opportunities</h5>
-				<span class="pull-right">
-					Size | Score
-				</span>
-			</div>
-			<div class="col-xs-6">
-				<h5>Activity Volume</h5>
-				<span class="pull-right">
-					Most Activity | Least Activity
-				</span>
-			</div>
-
-			<div class="col-xs-6">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<p>Opps</p>
-					</div>
-				</div>
-
-			</div>
-			<div class="col-xs-6">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<p>Opps</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-
-		<!-- //tasks -->
-		<div class="outlook-wrapper" ng-switch-when="2">
-		
-		<h5>Agenda</h5>
-
-		<div class="row">
-			<div class="col-xs-4">
-				<div class="panel panel-default card task-card">
-			<div class="panel-body">
-				<div class="name-wrapper">
-				<div class="task-checkbox">
-					<input class="magic-checkbox ng-scope" type="checkbox" name="layout" id="1" value="option">
-					<label class="text ng-scope" for="1"></label>
-				</div>
-				<h4>[Call] Follow Up With Susan Next Wekk Abpout this thing</h4>
-				<p>Jordan Berry, +2</p>
-				<p>Due May 5, 2017</p>
-				</div>
-			</div>
-		</div>
-			</div>
-			<div class="col-xs-4">
-				<div class="panel panel-default card task-card">
-			<div class="panel-body">
-				<div class="name-wrapper">
-				<div class="task-checkbox">
-					<input class="magic-checkbox ng-scope" type="checkbox" name="layout" id="1" value="option">
-					<label class="text ng-scope" for="1"></label>
-				</div>
-				<h4>[Call] Follow Up With Susan Next Wekk Abpout this thing</h4>
-				<p>Jordan Berry, +2</p>
-				<p>Due May 5, 2017</p>
-				</div>
-			</div>
-		</div>
-			</div>
-			<div class="col-xs-4">
-				<div class="panel panel-default card task-card">
-			<div class="panel-body">
-				<div class="name-wrapper">
-				<div class="task-checkbox">
-					<input class="magic-checkbox ng-scope" type="checkbox" name="layout" id="1" value="option">
-					<label class="text ng-scope" for="1"></label>
-				</div>
-				<h4>[Call] Follow Up With Susan Next Wekk Abpout this thing</h4>
-				<p>Jordan Berry, +2</p>
-				<p>Due May 5, 2017</p>
-				</div>
-			</div>
-		</div>
-			</div>
-		</div>
-
-		</div>
-
-
+		<span ui-view="pulse-content"></span>
+	
 	</div>
 
 </div>

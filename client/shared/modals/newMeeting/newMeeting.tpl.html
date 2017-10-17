@@ -10,62 +10,76 @@
         <div class="modal-body w-padding" id="modal-body">
 
 
-                    <form name="companyForm" novalidate>
+                    <form name="newMeetingForm" novalidate>
 
                         <div class="row">
                                 <div class="col-xs-12">
                                     <div class="form-group">
                                       <label for="title">Title</label>
-                                      <input type="text" class="form-control" ng-model="data.note.title" autofocus>
+                                      <input type="text" class="form-control" ng-model="data.meeting.title" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                      <div class="form-group">
+                                      <label for="from">
+                                        From
+                                      </label>
+                                      <input name="from" date-range-picker class="form-control date-picker" id="dueDate" placeholder="" ng-model="data.meeting.completedDate" options="$root.options4" >
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                      <label for="from-time">Time</label>
+                                      <input type="text" class="form-control" ng-model="data.meeting.fromTime">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                      <label for="to">
+                                        To
+                                      </label>
+                                      <input name="to" date-range-picker class="form-control date-picker" id="dueDate" placeholder="" ng-model="data.meeting.completedDate" options="$root.options4" >
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                      <label for="to-time">Time</label>
+                                      <input type="text" class="form-control" ng-model="data.task.toTime">
+                                    </div>
+                                </div>
+                                 <div class="col-xs-12">
+                                     <div class="form-group">
+                                        <div class="single-select">
+                                            <label for="">Time Zone</label>
+                                            <ui-select search-enabled="true" ng-model="data.meetings.timeZone" theme="bootstrap">
+                                              <ui-select-match placeholder="Choose a type">{{$select.selected.name}}
+                                              </ui-select-match>
+                                              <ui-select-choices repeat="item in data.timezones | filter: $select.search">
+                                                <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                              </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-xs-12">
+                                    <div class="form-group">
+                                      <label for="location">Location</label>
+                                      <input type="text" class="form-control" ng-model="data.meeting.location">
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
                                    <div class="form-group">
-                                    <label for="title">Body</label>
-                                    <textarea class="form-control" rows="3" ng-model="data.note.body" ng-change="parseNote()" 
-
-                                    mentio 
-                                    mentio-typed-term="typedTerm" 
-                                    mentio-items="people | filter:label:typedTerm" 
-
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" rows="3" ng-model="data.meeting.description"
                                     ></textarea>
                                 </div>
                               </div>
                           </div>
 
-                            <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label for="title">Related To</label>
-                                <ui-select ng-model="data.relatedTo" multiple theme="bootstrap" class="form-control" title="Choose a person" spinner-enabled="true">
-               
-                                    <ui-select-match placeholder="Search...">
-                                        {{$item.name}}
-                                    </ui-select-match>
-                                    <!-- choices -->
-                                    <ui-select-choices repeat="result in data.results | filter: $select.search track by $index " refresh="lookupEntities($select.search)" refresh-delay="0">
-                                      <div ng-bind-html="result.name | highlight: $select.search"></div>
-                                    </ui-select-choices>
-
-                                            <ui-select-no-choice>
-                                             <div class="no-results">
-                                              <p>No Results Found </p> 
-                                             </div>
-                                            </ui-select-no-choice>
-
-                                  </ui-select>
-                            </div>
-                          </div>
-                        </div>
-
-
-                                       <p>metioned: {{typedTerm}}</p>
-                                      <p>model: {{activity.description}}</p>
-
-
                     </form>
 
         </div>
         <div class="modal-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
             <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
         </div>

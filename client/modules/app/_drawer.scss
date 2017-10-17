@@ -9,6 +9,10 @@
             padding:6px 4px;
             z-index: -1;
 
+            .loop-loader.centered {
+                left: 45% !important;
+            }
+
             .panel-group {
                 margin-bottom: 10px !important;
             }
@@ -26,7 +30,15 @@
                     h5 {
                         margin-left:10px;
                     }
+
+                    .filterApplied{
+                        color:$topaz !important;
+                    }
                 }
+            }
+
+            .select-tags .tag {
+                margin:0px;
             }
 
             .column-row {
@@ -40,7 +52,7 @@
                 .clear-search {
                     position: absolute;
                     right:0px;
-                    top:0px;
+                    top:3px;
 
                     icon {
                         color:$granite;

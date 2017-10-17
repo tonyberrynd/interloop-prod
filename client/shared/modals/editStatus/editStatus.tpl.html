@@ -1,0 +1,45 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">Edit Opportunity Status</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+
+            <form name="newStatusForm" novalidate>
+
+              <div class="form-group">
+                <label for="title">Label <span class="required text-danger">*</span></label>
+                  <input type="text" class="form-control" id="title" ng-model="data.status.label" required>
+              </div>
+              <div class="form-group">
+                <label for="type">Type <span class="required text-danger">*</span></label>
+                <br>
+                  <!-- options from collection -->
+                  <ol id="type" class="nya-bs-select" ng-model="data.status.type" required style="width:100%;">
+                    <li class="nya-bs-option" value="active">
+                      <a>Active</a>
+                    </li>
+                    <li class="nya-bs-option" value="won">
+                      <a>Won</a>
+                    </li>
+                    <li class="nya-bs-option" value="lost">
+                      <a>Lost</a>
+                    </li>
+                  </ol>
+              </div>
+              <div class="form-group">
+                <label for="comment">Description <span class="text-muted">(Optional)</span></label>
+                <textarea class="form-control" rows="3" id="comment" ng-model="data.status.description"></textarea>
+              </div>
+
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="newStatusForm.$invalid">Save</button>
+        </div>

@@ -7,15 +7,70 @@
 			<div class="settings-section">
 					<div class="settings-header">
 					<h4>Payment</h4>
-					<p>Manager Your Payment Preferences</p>
+					<p>Manage Your Payment Preferences</p>
 				</div>
 
 				<div class="panel panel-default">
 						<div class="panel-body">
 							
-							<button class="btn btn-primary" ng-click="updatePayment()">
-								Add Payment
-							</button>
+						  <table class="table table-bordered payment-table">
+							    <thead>
+							      <tr>
+							        <th>Card</th>
+							        <th>Expires</th>
+							        <th></th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							      <tr ng-if="data.paymentMethod">
+							        <td><icon class="wb-payment"></icon> Visa Ending in 4576</td>
+							        <td>Nov 2019</td>
+							        <td><a ng-click="updatePayment()">Update Card</a></td>
+							      </tr>
+
+							      <tr ng-if="!data.paymentMethod">
+							      	<td class="no-payment-method">No Payment Method</td>
+							      	<td class="no-payment-method">--</td>
+							      	<td><a href ng-click="updatePayment()">
+							      		Add Card</a>
+							      	</td>
+							      </tr>
+							    </tbody>
+							</table>
+
+
+						</div>
+				</div>
+
+
+				<div class="settings-section">
+					<div class="settings-header">
+					<h4>Invoice Preferences</h4>
+					<p>Configure how your invoice will appear</p>
+				</div>
+
+				<div class="panel panel-default">
+						<div class="panel-body">
+							
+							<div class="row">
+
+									  <div class="form-group col-xs-6">
+									    <label for="firstName">Company Name</label>
+									    <br>
+									    <input type="text" class="form-control" id="companyName" placeholder="" ng-model="$root.activeOrg.invoicePreferences.companyName" ng-change="save()" ng-model-options="{updateOn: 'blur'}">
+									  </div>
+									  <div class="form-group col-xs-6">
+									    <label for="firstName">Company Email</label>
+									    <br>
+									    <input type="text" class="form-control" id="companyEmail" placeholder="" ng-model="$root.activeOrg.invoicePreferences.companyEmail" ng-change="save()" ng-model-options="{updateOn: 'blur'}">
+									  </div>
+									  <div class="form-group col-xs-12">
+									  	<label for="comment">Billing Details</label>
+  										<textarea class="form-control" rows="4" id="billingDetails" ng-model="$root.activeOrg.invoicePreferences.billingDetails" ng-change="save()" ng-model-options="{updateOn: 'blur'}"></textarea>
+  										<span><small>If you need to add a billing address or a tax ID to your invoice, you can do so here.</small></span>
+									  </div>
+
+							</div>
 
 						</div>
 				</div>
@@ -51,43 +106,15 @@
 								        	<span class="paid" ng-if="!invoice.failed">Paid</span>
 								        	<span class="failed" ng-if="invoice.failed">Failed</span>
 								        </td>
-								        <td class="text-right"><a class="btn btn-default" href ui-sref="app.main.settings.invoice-details({invoiceId: invoice.id})">View Invoice</a></td>
+								        <td class="text-right"><a class="btn btn-default" href ui-sref="app.settings.invoice-details({invoiceId: invoice.id})">View Invoice</a></td>
 								      </tr>
 							     </tbody>
 							  </table>
 
-						</div>
-				</div>
-
-
-				<div class="settings-section">
-					<div class="settings-header">
-					<h4>Invoice Preferences</h4>
-					<p>Configure how your invoice will appear</p>
-				</div>
-
-				<div class="panel panel-default">
-						<div class="panel-body">
-							
-							<div class="row">
-
-									  <div class="form-group col-xs-6">
-									    <label for="firstName">Company Name</label>
-									    <br>
-									    <input type="text" class="form-control" id="companyName" placeholder="" ng-model="data.invoicePreferences.companyName" ng-change="save()" ng-model-options="{updateOn: 'blur'}">
-									  </div>
-									  <div class="form-group col-xs-6">
-									    <label for="firstName">Company Email</label>
-									    <br>
-									    <input type="text" class="form-control" id="companyEmail" placeholder="" ng-model="data.invoicePreferences.companyEmail" ng-change="save()" ng-model-options="{updateOn: 'blur'}">
-									  </div>
-									  <div class="form-group col-xs-12">
-									  	<label for="comment">Billing Details</label>
-  										<textarea class="form-control" rows="4" id="billingDetails" ng-model="data.invoicePreferences.billingDetails"></textarea>
-  										<span><small>If you need to add a billing address or a tax ID to your invoice, you can do so here.</small></span>
-									  </div>
-
-							</div>
+							  <div class="empty-state text-center" ng-if="!data.invoices.length">
+						     	<h5>No Invoices</h5>
+						     	<p>Once you complete a billing cycle, invoices will be shown here</p>
+						     </div>
 
 						</div>
 				</div>

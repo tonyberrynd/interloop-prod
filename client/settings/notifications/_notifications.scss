@@ -1,0 +1,37 @@
+
+.notifications-explanation .col-xs-4 {
+	border-right:solid 1px $border;
+
+	&:last-child {
+		border-right:none;
+	}
+}
+
+.notifications-explanation icon {
+	font-size:24px;
+	margin-bottom:10px;
+	margin-top:10px;
+	color:$topaz;
+
+	&.mobile-icon {
+		font-size:32px;
+	}
+}
+
+.notifications-explanation p {
+	margin:0px !important;
+	margin-bottom:3px;
+	color:$dragonstone !important;
+
+	b {
+		color:$seamonster !important;
+	}
+}
+
+.notification-preferences label {
+	margin-top:3px;
+}
+
+.notification-title {
+	color:$dragonstone !important;
+}

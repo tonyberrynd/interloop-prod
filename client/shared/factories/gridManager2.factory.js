@@ -16,7 +16,7 @@ angular.module('interloop.factory.gridManager', [])
 	var localSearch = '';
 
 	//pagination size
-	var paginationSize = 250;
+	var paginationSize = 300;
 
 	//current entityType
 	var currentEntityType = null;
@@ -116,7 +116,7 @@ angular.module('interloop.factory.gridManager', [])
 
         getRows: function(params) {
 
-            console.log('EnterpriseDatasource.getRows: params = ', params);
+            // console.log('EnterpriseDatasource.getRows: params = ', params);
 
             //VARS
             //-----------------------------------------
@@ -131,6 +131,7 @@ angular.module('interloop.factory.gridManager', [])
             // the keys we are looking at. will be empty if looking at top level (either
             // no groups, or looking at top level groups). eg ['United States','2002']
             var groupKeys = request.groupKeys;
+                console.log(groupKeys);
 
             // if going aggregation, contains the value columns, eg ['gold','silver','bronze']
             var valueCols = request.valueCols;
@@ -154,7 +155,6 @@ angular.module('interloop.factory.gridManager', [])
             //---------------------------------------
             currentQuery.filter['limit'] = paginationSize;
             currentQuery.filter['skip'] = params.request.startRow;
-            currentQuery.filter['fields'] = _.map(_.filter(grid.columnApi.getAllColumns(), ['visible', true]), 'colId').push('id');
 
             //Sorting
             //---------------------------------------
@@ -163,15 +163,15 @@ angular.module('interloop.factory.gridManager', [])
                 //check for date based sorts and in fill width dividers
                 //right now only for activities - should this be extended?
                 //=========================================
-                if(currentEntityType == 'Activity'){
-                    _.forEach(sortModel, function(value){
-                        var field = _.find(allFields, ['key', value.colId]);
-                        if(field && field.type == 'date') {
-                            showDateDividers = true;
-                            dateDividerField = value.colId;
-                        }
-                    })
-                }
+                // if(currentEntityType == 'Activity'){
+                //     _.forEach(sortModel, function(value){
+                //         var field = _.find(allFields, ['key', value.colId]);
+                //         if(field && field.type == 'date') {
+                //             showDateDividers = true;
+                //             dateDividerField = value.colId;
+                //         }
+                //     })
+                // }
 
         
                 if(sortModel !== prevSortModel) {
@@ -192,16 +192,16 @@ angular.module('interloop.factory.gridManager', [])
                     //Need to intercept and inject new sort query for certain columns
                     //some doesn't directly sort and need to make it work the way the user expects
                     //==========================================
-                    if(value.colId == 'primaryCompany'){
-                      var sortString = 'primaryCompanyString' + ' ' + value.sort.toUpperCase();
-                    } 
-                    else if(currentEntityType == 'Contact' && value.colId == "fullName"){
+                    if(currentEntityType == 'Contact' && value.colId == "fullName"){
                         if(context.nameFormat == 'firstLast') {
                              var sortString = 'firstName' + ' ' + value.sort.toUpperCase();
                         }
                         else {
                             var sortString = 'lastName' + ' ' + value.sort.toUpperCase();
                         }
+                    }
+                    else if(_.find(allFields, ['key', value.colId])['useSortKey']) {
+                        var sortString = value.sort.toUpperCase() == 'ASC' ? _.find(allFields, ['key', value.colId])['sortKeyASC'] : _.find(allFields, ['key', value.colId])['sortKeyDESC'];
                     }
                     else {
                        var sortString = value.colId + ' ' + value.sort.toUpperCase(); 
@@ -247,7 +247,7 @@ angular.module('interloop.factory.gridManager', [])
             //searching trumps the other types of filters / gropuing etc
             //---------------------------------------------
             if(localSearch.length > 0) {
-                console.log('local search')
+                // console.log('local search')
 
                 //clear any sort of selection when doing searching
                 clearSelected();
@@ -263,7 +263,7 @@ angular.module('interloop.factory.gridManager', [])
                 //set back to 0
                 localSearchResultsLength.value = 0;
 
-                console.log('regular data')
+                // console.log('regular data')
         
                 return getRegularData(params, showDateDividers, dateDividerField);
             } 
@@ -284,6 +284,8 @@ angular.module('interloop.factory.gridManager', [])
 
 
     function getGroups(params, rowGroupCols, groupKeys, valueCols){
+
+            console.log('get groups', groupKeys);
 
             var entityModel = $injector.get(currentEntityType);
 
@@ -362,7 +364,7 @@ angular.module('interloop.factory.gridManager', [])
                     })
                     .catch(function(err){
                         params.failCallback(err);
-                        console.log(err);
+                        // console.log(err);
                     })
     }
 
@@ -374,6 +376,14 @@ angular.module('interloop.factory.gridManager', [])
 
         var entityModel = $injector.get(currentEntityType);
 
+        //add in excludes for performance
+        if($injector.has('EXCLUDE-' + currentEntityType)){
+            // console.log('excluding some fields');
+            // console.log($injector.get('EXCLUDE-' + currentEntityType));
+            currentQuery.filter['fields'] = $injector.get('EXCLUDE-' + currentEntityType);
+        }
+
+        //execute query
         return entityModel.find(currentQuery)
             .$promise
             .then(function(results){
@@ -422,7 +432,7 @@ angular.module('interloop.factory.gridManager', [])
                 }
             })
             .catch(function(err){
-                console.log(err);
+                // console.log(err);
                 params.failCallback(err);
 
                 // //not initializing
@@ -459,7 +469,7 @@ angular.module('interloop.factory.gridManager', [])
                     }
                 })
                 .catch(function(err){
-                    console.log(err);
+                    // console.log(err);
                     params.failCallback(err);
 
                     // //not initializing
@@ -482,13 +492,12 @@ angular.module('interloop.factory.gridManager', [])
         getRows: function (params) {
         	//shows request values
         	//---------------------------------------
-        	console.log('asking for ' + params.startRow + ' to ' + params.endRow);
+        	// console.log('asking for ' + params.startRow + ' to ' + params.endRow);
 
         	//Filter Modal
 			//---------------------------------------
-
             if(params.filterModel) {
-                console.log('filter model', params.filterModel);
+                // console.log('filter model', params.filterModel);
             }
 
         	//Loading overlay on first time through
@@ -704,7 +713,8 @@ angular.module('interloop.factory.gridManager', [])
         setFilterModel: setFilterModel,
         updateRow: updateRow,
         selectAll: selectAll,
-        doLayout: doLayout
+        doLayout: doLayout,
+        getRowNode: getRowNode
     };
 
     return gridManager;
@@ -731,7 +741,7 @@ angular.module('interloop.factory.gridManager', [])
 
     	//set current entity & view
     	currentEntityType = entityType;
-        console.log(currentEntityType);
+        // console.log(currentEntityType);
 
     	//set current view
     	currentView = thisView;
@@ -751,6 +761,10 @@ angular.module('interloop.factory.gridManager', [])
 
         //get custom fields
         var customFields = _.filter($rootScope.customFields, function(o) { return _.includes(o.useWith, currentEntityType) });
+        //TODO - MATCH FIELD TYPE TO COLUMN TYPE
+        _.forEach(customFields, function(value){
+            value.columnType = value.type;
+        })
 
     	//shared end fields
     	var endFields = EndFields;
@@ -774,7 +788,9 @@ angular.module('interloop.factory.gridManager', [])
             //map key to field
             if(value.key) {columnObject['field'] = value.key }
             //col id    
-            if(value.colId) {columnObject['colId'] = value.colId }
+            if(value.colId) {columnObject['colId'] = value.colId || value.key }
+            //column type
+            if(value.columnType) {columnObject['type'] = value.columnType }
     		//width
     		if(value.width) {columnObject['width'] = value.width }
     		//pinned
@@ -791,19 +807,14 @@ angular.module('interloop.factory.gridManager', [])
     		if(value.headerClass) {columnObject['headerClass'] = value.headerClass }
     		//cell class
     		if(value.cellClass) {columnObject['cellClass'] = value.cellClass }
-    		//cell renderer
-    		// if(value.cellRenderer) {columnObject['cellRenderer'] = value.cellRenderer }
+            //number cell class - this makes the cell monospaced for easier scanning
+            if(value.type == 'number' || value.type == 'currency') { columnObject['cellClass'] = 'number'}
             //header renderer
             if(value.headerCellRenderer) {columnObject['headerCellRenderer'] = value.headerCellRenderer }
-
+            //key creator
             if(value.keyCreator) {columnObject['keyCreator'] = value.keyCreator  }
-
             //if type category - group
             if(value.type == 'category' || value.type == 'lookup' || value.allowGroup) { columnObject['enableRowGroup'] = true }
-
-            //syntax change past version 11 - need to add row group: true
-            // if(value.type == 'category' || value.type == 'lookup' || value.allowGroup) { columnObject['rowGroup'] = false }
-
     		// name and field required - others optional in field definition
     		entityDefs.push(columnObject);
     	})
@@ -812,35 +823,12 @@ angular.module('interloop.factory.gridManager', [])
     	var columnDefs = unPackColumnDefs(baseDefs.concat(entityDefs));
 
         var getParamValue = function(params){
-              if(params.data){
-                //if value
-                switch(params.colDef.field) {
-                  case 'name':
-                      if(currentEntityType == 'Opportunity') {
-                        var html = params.data._isDeleted ? '<span class="deleted-record">[DELETED]</span> ' + params.value : params.value;
-                      }
-                      else if(currentEntityType == 'Contact') {
-                        var firstLetter = params.data.firstName ? params.data.firstName.charAt(0) : '';
-                        var lastLetter = params.data.lastName ? params.data.lastName.charAt(0) : '';
-                        var html = '<div class="avatar avatar-32">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
-                      }
-                      else if(currentEntityType == 'Company') {
-                        var firstLetter = params.data.name ? params.data.name.charAt(0) : '';
-                        var html = '<div class="avatar avatar-32 square">' + firstLetter + '</div>' + params.value
-                      } else {
-                        var html = params.value;
-                      }
-                      return html;
-                      break;
-                  case 'primaryCompany':
-                     return  _.get(getPrimaryCompany(params), 'name' , null);
-                    break;
-                  default:
-                      return _.get(params.data, params.colDef.field , null) || nullCell;
-                }
+              if(params.data !== undefined){
+                //first look based on type
+                return params.colDef.type ? getValueByType(params.colDef.type, params) : getValueByField(params.colDef.field, params);
               }
               else {
-                return '--';
+                return nullCell;
               }
             }
     	// console.log(columnDefs);
@@ -888,7 +876,7 @@ angular.module('interloop.factory.gridManager', [])
 		        // height
 		        //==================================
                 headerHeight:36,
-                rowHeight: 42,
+                rowHeight: currentEntityType == 'forecast' ? 60 : 40,
 
 		        // adjust
 		        //==================================
@@ -920,6 +908,7 @@ angular.module('interloop.factory.gridManager', [])
                 //==================================
                 groupUseEntireRow: true,
                 groupRowRenderer:  'group',
+                groupRowInnerRenderer: groupRowInnerRendererFunc,
                 groupRowRendererParams: {
                     checkbox: false,
                     // innerRenderer is optional, we could leave this out and use the default
@@ -991,8 +980,8 @@ angular.module('interloop.factory.gridManager', [])
                     sortUnSort: '<img src="./assets/img/grid/sortUnsort.svg" style="width: 14px;"/>',
 		    		sortAscending: '<img src="./assets/img/grid/sortAscending.svg" style="width: 14px;"/>',
 					sortDescending: '<img src="./assets/img/grid/sortDescending.svg" style="width: 14px;"/>',
-			    	groupExpanded: '<img class="no-row-click" src="./assets/img/grid/groupExpanded.svg" style="width: 40px; padding:10px; margin-top:-2px;"/>',
-					groupContracted: '<img class="no-row-click" src="./assets/img/grid/groupContracted.svg" style="width: 40px; padding:10px; margin-top:-2px;"/>',
+			    	groupExpanded: '<img class="no-row-click" src="./assets/img/grid/groupExpanded.svg" style="width: 40px; height:40px; padding:10px; margin-top:0px;"/>',
+					groupContracted: '<img class="no-row-click" src="./assets/img/grid/groupContracted.svg" style="width: 40px; height:40px;  padding:10px; margin-top:0px;"/>',
 					checkboxChecked: '<img class="no-row-click" src="./assets/img/grid/checkboxChecked.svg" style="width: 40px; padding:10px; margin-top:-2px;"/>',
 					checkboxUnchecked: '<img class="no-row-click" src="./assets/img/grid/checkboxUnchecked.svg" style="width: 40px; padding:10px; margin-top:-2px;"/>',
 					checkboxIndeterminate: '<img class="no-row-click" src="./assets/img/grid/checkboxIndeterminate.svg" style="width: 40px; padding:10px; margin-top:-2px;"/>'
@@ -1017,8 +1006,30 @@ angular.module('interloop.factory.gridManager', [])
 		        // suppressMenuFilterPanel: true,
 		        // suppressMenuColumnPanel: true,
 
+                //row class
+                getRowClass: function(params) {
+                    if(params.data !== undefined) {
+                        if (params.data._isDeleted) {
+                            return 'ag-row-deleted';
+                        }
+                    } 
+                },
+
 		        // default column
 		        //==================================
+                columnTypes: {
+                    "string": {},
+                    "user": {},
+                    "number": {},
+                    "currency": {},
+                    "date": {},
+                    "richDate": {},
+                    "primaryCompany": {},
+                    "category": {},
+                    "divider": {},
+                    "tags": {},
+                    "score": {}
+                },
                 defaultColDef: {
                     // make every column editable
                     editable: false,
@@ -1035,10 +1046,9 @@ angular.module('interloop.factory.gridManager', [])
                             //change histories
                             var changeHistories = _.filter(params.data.changeHistories, ['attribute', params.colDef.field]);
                             if(params.context.changeHistory !== 'none' && changeHistories.length){
-                                var html = '<span href class="cell-wrapper ui-popover">' + getParamValue(params) + '</span>'
+                                var html = '<span class="cell-wrapper ui-popover" data-title="Recent Changes">' + getParamValue(params) + '</span>'
                                     html += '<div class="webui-popover-content">'
-                                    html += '<p class="text-center">Recent Changes</p>'
-                                    html += '<br>'
+                                    html += '<p>' + _.upperFirst(params.colDef.field) + '</p>'
                                     //rip through each change
                                     _.forEach(changeHistories, function(change){
                                         html += '<p style="whitespace:nowrap;">"' + change.previousValue['value'] + '" <icon class="wb-arrow-right"></icon> "' + change.newValue['value'] + '"</p>'
@@ -1089,7 +1099,7 @@ angular.module('interloop.factory.gridManager', [])
 
     function groupRowInnerRendererFunc(params) {
 
-        console.log('group params', params);
+        // console.log('group params', params);
 
      var html = '';
      var key = params.data.key || '--';
@@ -1098,14 +1108,20 @@ angular.module('interloop.factory.gridManager', [])
     if(params.data){
 
          if(currentEntityType == 'Opportunity') {
-            html += '<span class="groupTitle">KEY</span>'.replace('KEY', key);
+            html += '<span class="groupTitle">KEY</span>'.replace('KEY', params.data.name);
             html += '<span style="padding:0px 10px !important" class="pull-right">';
             html += '<span class="count text-right">ITEM_COUNT - </span>'.replace('ITEM_COUNT', params.data.count);
             html += '<span class="count text-right">$ITEM_SUM</span>'.replace('ITEM_SUM', (params.data.sum || 0).toLocaleString())
             html += '</span>';
          } 
+         if(currentEntityType == 'Contact') {
+            html += '<span class="groupTitle">KEY</span>'.replace('KEY', params.data.firstName + ' ' + params.data.lastName);
+            html += '<span style="padding:0px 10px !important" class="pull-right">';
+            html += '<span class="count text-right">ITEM_COUNT - </span>'.replace('ITEM_COUNT', params.data.count);
+            html += '</span>';
+         }
          else {
-            html += '<span class="groupTitle"> KEY</span>'.replace('KEY', key);
+            html += '<span class="groupTitle"> KEY</span>'.replace('KEY', params.data.name);
             html += '<span style="padding:0px 10px !important" class="pull-right">';
             html += '<h4><span class="label label-default text-right">ITEM_COUNT</span></h4>'.replace('ITEM_COUNT', params.data.name);
             html += '</span>';
@@ -1122,7 +1138,7 @@ angular.module('interloop.factory.gridManager', [])
   function GroupInnerRenderer() {}
 
     GroupInnerRenderer.prototype.init = function(params) {
-        console.log('group row inner params', params);
+        // console.log('group row inner params', params);
         var cssClass = params.node.level === 0 ? 'group-inner-renderer-country' : 'group-inner-renderer-year';
         var template = '<span class="'+cssClass+'">'+'Test This Renderer'+'</span>';
         this.eGui  = loadTemplate(template);
@@ -1144,7 +1160,7 @@ angular.module('interloop.factory.gridManager', [])
     //========================================
     function gridReady(params) {
 
-        console.log('gridReady!');
+        // console.log('gridReady!');
     	//bind grid instance for factory
     	//-----------------------------
     	grid = params;
@@ -1216,7 +1232,7 @@ angular.module('interloop.factory.gridManager', [])
     */
     function changeCurrentQuery(filters, matchType) {
 
-        console.log('change current query');
+        // console.log('change current query');
 
         // grid.api.showLoadingOverlay()
 
@@ -1227,13 +1243,13 @@ angular.module('interloop.factory.gridManager', [])
         // var entityModel = $injector.get(currentEntityType);
 
         var includeDeleted = _.get(context, 'showDeleted', null) == "true" ? true : false;
-        console.log('includeDeleted?', includeDeleted)
+        // console.log('includeDeleted?', includeDeleted)
 
 
         return Opportunity.metadata({"filter": currentQuery.filter.where, "includeDeleted": includeDeleted}).$promise
                 .then(function(results){
 
-                    console.log('got metadata', results);
+                    // console.log('got metadata', results);
 
                     //set last row
                     lastRow = results.count || 0;
@@ -1245,11 +1261,11 @@ angular.module('interloop.factory.gridManager', [])
                 .catch(function(err){
                     //SWITCH BACK TO CURRENT VIEW OR SOMETING??
 
-                    console.log(err);
+                    // console.log(err);
                     return err;
                 })
                 .finally(function(final){
-                    console.log(final);
+                    // console.log(final);
                 })
     }
 
@@ -1257,7 +1273,7 @@ angular.module('interloop.factory.gridManager', [])
     //if refresh is not in progress then actually sets the datasource as expected
 
     function safeRefresh() {
-        console.log('refresh in progress?', grid.api.rowRenderer.refreshInProgress);
+        // console.log('refresh in progress?', grid.api.rowRenderer.refreshInProgress);
          if(grid.api.rowRenderer.refreshInProgress) {
             $timeout(function(){
                 safeRefresh()
@@ -1288,8 +1304,8 @@ angular.module('interloop.factory.gridManager', [])
     Row Clicked
     */
     function rowClicked(params) {
-        console.log('event', params.event.target);
-        console.log(params)
+        // console.log('event', params.event.target);
+        // console.log(params)
         if(params.data == undefined || params.event.target.className.indexOf('no-row-click') > -1 || params.event.target.className.indexOf('ag-full-width-row') > -1 ) {
             return;
         }
@@ -1307,11 +1323,11 @@ angular.module('interloop.factory.gridManager', [])
     function modelUpdated(params) {
 
         $timeout(function(){
-            console.log('focus');
+            // console.log('focus');
             $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'});
           }, 0)
 
-        console.log('model updated')
+        // console.log('model updated')
         if(selectedData.selectAll){
             selectAll(selectedData.items);
         }
@@ -1361,7 +1377,7 @@ angular.module('interloop.factory.gridManager', [])
     }
 
     function rowDataChanged(){
-        console.log('row data changed');
+        // console.log('row data changed');
     }
 
 
@@ -1441,8 +1457,8 @@ angular.module('interloop.factory.gridManager', [])
     Refresh View
     */
     function refreshView() {
-    	console.log('refresh in factory');
-        console.log('last selected', lastSelectedId)
+    	// console.log('refresh in factory');
+        // console.log('last selected', lastSelectedId)
     	grid.api.showLoadingOverlay()
 		//refresh
 		// grid.api.refreshView();
@@ -1600,6 +1616,13 @@ angular.module('interloop.factory.gridManager', [])
     }
 
     /*
+    Gets Row Node By Id
+    */
+    function getRowNode(id){
+        return grid.api.getRowNode(id);
+    }
+
+    /*
     Set Filter Model
     */
     function setFilterModel(model){
@@ -1652,8 +1675,8 @@ angular.module('interloop.factory.gridManager', [])
     Set Context
     */
     function setContext(contextItem, value) {
-        console.log('contextItem', contextItem);
-        console.log('contextValue', value);
+        // console.log('contextItem', contextItem);
+        // console.log('contextValue', value);
         //clear cache
         grid.api.gridOptionsWrapper.gridOptions.context[contextItem] = value;
     }
@@ -1958,7 +1981,7 @@ angular.module('interloop.factory.gridManager', [])
 
             // add event listener
             cb.addEventListener('change', function (e) {
-                console.log(e);
+                // console.log(e);
                 //handle event in particular controller
                 if ($document[0].getElementById('selectAllCheckbox').checked == false) {
                       clearSelected();
@@ -2056,7 +2079,7 @@ angular.module('interloop.factory.gridManager', [])
 
 	function dateRender(params) {
 		 if (params.data !== undefined) {
-                return wrapThis(params, params.value ? '<span class="date-formatted">' + moment(params.value).format("MMM D YYYY") + '</span>' : nullCell);
+                return wrapThis(params, params.value ? '<span class="date-formatted">' + moment(params.value).format("MMM D, YYYY") + '</span>' : nullCell);
             } else {
                 return '<div class="loading-data"></div>';
          }
@@ -2070,12 +2093,12 @@ angular.module('interloop.factory.gridManager', [])
                  var momentDate = params.value ? moment(params.value) : null;
 
                  if(momentDate < startOfDay) {
-                      return wrapThis(params, '<span class="date-formatted overdue">' + moment(params.value).format("MMM D YYYY") + '</span>');
+                      return wrapThis(params, '<span class="date-formatted overdue">' + moment(params.value).format("MMM D, YYYY") + '</span>');
                 } else if (_.isNil(params.value)) {
                       return nullCell;
                 }
                 else {
-                    return wrapThis(params, '<span class="date-formatted">' + moment(params.value).format("MMM D YYYY") + '</span>');
+                    return wrapThis(params, '<span class="date-formatted">' + moment(params.value).format("MMM D, YYYY") + '</span>');
                 }
             } else {
                 return '<div class="loading-data"></div>';
@@ -2084,17 +2107,17 @@ angular.module('interloop.factory.gridManager', [])
 
 
     if(momentDate < startOfDay) {
-      return wrapThis(params, '<span class="overdue">' + moment(params.data.dueDate).format("MMM D YYYY") + '</span>');
+      return wrapThis(params, '<span class="overdue">' + moment(params.data.dueDate).format("MMM D, YYYY") + '</span>');
     } else if (_.isNil(params.data.dueDate)) {
       return '<span class="null-cell">--</span>';
     }
     else {
-      return wrapThis(params, moment(params.data.dueDate).format("MMM D YYYY"));
+      return wrapThis(params, moment(params.data.dueDate).format("MMM D, YYYY"));
     }
 
 	function dateWithQuarterRender(params) {
 		if (params.data !== undefined) {
-                return wrapThis(params, params.value ? '<span class="date-formatted">' + moment(params.value).format("MMM D YYYY") + '</span>' + '<span class="date-quarter">' + 'Q' + moment(params.value).quarter() + '</span>' : nullCell);
+                return wrapThis(params, params.value ? '<span class="date-formatted">' + moment(params.value).format("MMM D, YYYY") + '</span>' + '<span class="date-quarter">' + 'Q' + moment(params.value).quarter() + '-' + moment(params.value).format("YY") + '</span>' : nullCell);
             } else {
                 return '<div class="loading-data"></div>';
         }
@@ -2385,6 +2408,86 @@ angular.module('interloop.factory.gridManager', [])
         	return  '<div class="loading-data"></div>';
 		}
 	 }
+
+
+
+
+
+
+     //
+
+     function getValueByType(type, params){
+        switch(type) {
+          case 'string':
+            return params.value ?  params.value : nullCell;
+          break
+          case 'currency':
+            return params.value ?  numeral(params.value).format('$ 0,0.00') : nullCell;
+          break
+          case 'date':
+            return params.value ? '<span class="date-formatted">' + moment(params.value).format("MMM D, YYYY") + '</span>' : nullCell;
+          break
+          case 'richDate':
+            return params.value ? '<span class="date-formatted">' + moment(params.value).format("MMM D, YYYY") + '</span>' + '<span class="date-quarter">' + 'Q' + moment(params.value).quarter() + '-' + moment(params.value).format("YY") + '</span>' : nullCell;
+          case 'array':
+            return params.value.length && params.value.length > 1 ? params.value[0]['value'] + ', +' + params.value.length - 1 : nullCell;
+          break
+          case 'category':
+            return _.get(params.data, params.colDef.field + ".label" , null) || nullCell;
+          break
+          case 'user':
+                var firstLetter = params.data.firstName ? params.data.firstName.charAt(0) : '';
+                var lastLetter = params.data.lastName ? params.data.lastName.charAt(0) : '';
+                var html = '<div class="avatar avatar-32">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
+            return (firstLetter || lastLetter) ? html : nullCell;
+          case 'tags':
+            var tags = params.data.tagLinks || [];
+            var html = '';
+            _.forEach(tags, function(value){
+                html += '<div class="tag">' + tag.value + '</div>';
+            })
+            return params.data.tagLinks && params.data.tagLinks.length ? html : nullCell;
+          break
+          case 'primaryCompany':
+            return _.get(getPrimaryCompany(params), 'name' , null) || nullCell;
+          break
+          case 'score':
+            return _.get(params.data, 'score' , null) || nullCell;
+          break
+
+        default:
+              return _.get(params.data, params.colDef.field , null) || nullCell;
+        }
+    }
+
+
+
+     function getValueByField(field, params){
+        switch(field) {
+          case 'name':
+              if(currentEntityType == 'Opportunity') {
+                var html = params.data._isDeleted ? '<span class="deleted-record">[DELETED]</span> ' + params.value : params.value;
+              }
+              else if(currentEntityType == 'Contact') {
+                var firstLetter = params.data.firstName ? params.data.firstName.charAt(0) : '';
+                var lastLetter = params.data.lastName ? params.data.lastName.charAt(0) : '';
+                var html = '<div class="avatar avatar-32">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
+              }
+              else if(currentEntityType == 'Company') {
+                var firstLetter = params.data.name ? params.data.name.charAt(0) : '';
+                var html = '<div class="avatar avatar-32 square">' + firstLetter + '</div>' + params.value
+              } else {
+                var html = params.value;
+              }
+              return html;
+              break;
+          case 'primaryCompany':
+             return  _.get(getPrimaryCompany(params), 'name' , null) || nullCell;
+            break;
+          default:
+              return _.get(params.data, params.colDef.field , null) || nullCell;
+        }
+    }
 
 
 

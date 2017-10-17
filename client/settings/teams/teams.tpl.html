@@ -51,8 +51,8 @@
 							<br>
 
 							<div class="members">
-								<div class="avatar" ng-repeat="member in team.members | limitTo:5" uib-tooltip="{{member.fullName}}">
-									{{member.initials}}
+								<div class="avatar" ng-repeat="member in team.members | limitTo:5" uib-tooltip="{{member.firstName}} {{member.lastName}}">
+									<span ng-bind="member.firstName | limitTo:1"></span><span ng-bind="member.lastName | limitTo:1"></span>
 								</div>	
 								
 								<span ng-if="team.members.length > 8">+ {{team.members.length - 5}} more</span>

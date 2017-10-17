@@ -1,0 +1,54 @@
+.confidence-arrow {
+	color:$success;
+}
+
+.change-order {
+	display: inline-block;
+	position: relative;
+	padding:5px 0;
+	margin-top:12px;
+	margin-left:20px;
+	text-align: center;
+
+	icon {
+		color:$granite;
+		font-size:30px;
+		padding:0 10px;
+		display: block;
+
+		&:hover {
+			color:$topaz;
+			cursor:pointer;
+		}
+
+		&.disabled {
+			opacity: .3;
+
+			&:hover {
+				color:$granite;
+			}
+
+		}
+
+	}
+
+	icon:first-child {
+		position: absolute;
+		top:0;
+	}
+
+	icon:last-child {
+		position: absolute;
+		bottom:0;
+	}
+}
+
+.forecasting-cadence {
+	.btn-group > .btn {
+		border:solid 1px $border;
+	}
+	.btn-group > .btn.active {
+		color:#fff !important;
+		background-color:$topaz !important;
+	}
+}

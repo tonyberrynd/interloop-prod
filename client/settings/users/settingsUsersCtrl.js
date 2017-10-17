@@ -110,8 +110,13 @@ function assignRole(user){
 Deactivate User
 */
 function deactivate(user) {
+	var resolvedData = {
+		helperText: 'Are you sure you want to deactivate this user?',
+		helperTitle: 'Deactivate User',
+		helperDescription: 'Deactivating user will restrict the user from being able to log in, add records, or any other functionality within the app. The User can still be selected as and owner, and any previous record will remain intact.'
+	}
 	//bind to var
-	var deactiveUser = modalManager.openModal('confirm');
+	var deactiveUser = modalManager.openModal('warning', resolvedData);
 	//allows us to fulfill promise
 	deactiveUser.result.then(function () {
 

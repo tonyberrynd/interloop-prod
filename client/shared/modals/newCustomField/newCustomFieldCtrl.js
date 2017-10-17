@@ -97,7 +97,7 @@ Save
 function ok() {
   //custom field attributes
   var customField = {
-    key: $scope.data.field.name.replace(/\s/g, "-"),
+    key: _.camelCase($scope.data.field.name),
     label: $scope.data.field.name,
     type: $scope.data.fieldType,
     description: $scope.data.field.description,
@@ -115,7 +115,7 @@ function ok() {
       if(value.value == '' || value.value == null){
         $scope.data.options.splice($scope.data.options.indexOf(value), 1);
       } else {
-        transformedOptions[index] = {'label': value.value, 'value': value.value.replace(/\s/g, "-")}
+        transformedOptions[index] = {'label': value.value, 'value': _.camelCase(value.value)}
       }
       //increment
       index++

@@ -33,7 +33,7 @@
 							    </li>
 							    <li ng-class="{'active': data.currentEntity == 'Activity'}">
 							      <a href ng-click="changeEntity('Activity')">
-							      	Task
+							      	Activity
 							      </a>
 							    </li>
 							</ul>
@@ -41,7 +41,7 @@
 						<div class="panel-body">
 							<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': !data.loading}" style="z-index:999">Loading...</div>
 
-							  <table class="table settings-table" ng-if="data.customFields.length">
+							  <table class="table settings-table" ng-if="data.customFields.length && !data.loading">
 								    <thead>
 								      <tr>
 								        <th class="col-xs-3">Label</th>
@@ -68,17 +68,17 @@
 								        		<icon class="wb-lock"></icon>
 								        	</span>
 								        	<!-- //if can be activated -->
-								        	<span class="toggle toggle-success" ng-if="!field.locked">
-										        <input class="toggle-range" id="{{field.key}}" type="checkbox" ng-model="field.active">
+								        	<span class="toggle toggle-success" ng-if="!field.locked" uib-tooltip="Enable / Disable Field">
+										        <input class="toggle-range" id="{{field.key}}" type="checkbox" ng-model="field.active" ng-change="save(field)">
 										        <label class="toggle-btn" for="{{field.key}}" style="margin-left: 20px; margin-bottom:-5px;"></label>
 									        </span>
 
 								        </td>
 								        <td>
-								      	<button class="btn btn-default edit-label" ng-click="editField(field)">
+								      	<button class="btn btn-default edit-label" ng-click="editField(field)" uib-tooltip="Edit Field">
 								      		<icon class="fa fa-pencil"></icon>
 								      	</button>
-								      	<button class="btn btn-default edit-label" ng-click="deleteField(field)">
+								      	<button class="btn btn-default edit-label" ng-click="deleteField(field)" uib-tooltip="Delete Field">
 								      		<icon class="fa fa-trash"></icon>
 								      	</button>
 								      </td>
@@ -86,6 +86,14 @@
 								      
 								    </tbody>
 								  </table>
+
+
+
+									  <div class="empty-state text-center" ng-if="!data.customFields.length && !data.loading">
+									     	<h5>No Custom Fields</h5>
+									     	<p>Custom fields allow you to track information relevant to your company</p>
+									     	<button class="btn btn-primary" ng-click="newCustomField()">Create Custom Field</button>
+									     </div>
 
 
 						</div>

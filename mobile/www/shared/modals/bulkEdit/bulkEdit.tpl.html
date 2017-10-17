@@ -1,0 +1,65 @@
+    <div class="modal-header header-dark">
+        <h3 class="modal-title" id="modal-title">Bulk Edit Value</h3>
+        <p>Edit <b ng-bind="data.selectedItems.length"></b> Records</p>
+        
+        <!-- close button -->
+        <button type="button" class="close" ng-click="$dismiss()">
+            <icon class="wb-close-mini"></icon>
+        </button>
+
+    </div>
+    <div class="modal-body w-padding" id="modal-body">
+
+
+      <!-- FIRST SELECTION -->
+          <div class="form-group">
+            <label for="bulkUpdateField">Field</label>
+            <label for="select1" class="select">
+              <select class="form-control" name="fieldSelect" id="fieldSelect"
+                ng-options="option.label for option in data.fields track by option.field"
+                ng-model="data.selectedOption">
+                </select>
+            </label>
+          </div>
+
+          <!-- BASED ON FIRST SELECTION - SHOW APPROPRIATE SECOND FIELD -->
+          <!-- ======================================================== -->
+          <!-- SELECTION -->
+          <div class="form-group" ng-if="data.selectedOption.type == 'category'">
+            <label for="bulkUpdateField">Value</label>
+            <label for="select1" class="select">
+              <select class="form-control" name="valueSelect" ng-model="data.value">
+                <option ng-repeat="option in data.selectedOption.values" value="{{option}}">{{option.label}}</option>
+              </select>
+
+
+            </label>
+          </div>
+
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          
+          <!-- TEXT INPUT -->
+          <div class="form-group" ng-if="data.selectedOption.type == 'string'">
+            <label for="valueInputText">Value</label>
+            <input type="text" class="form-control" id="valueInputText" placeholder="Enter Text" ng-model="data.value">
+          </div>
+
+          <!-- Currency -->
+          <div class="form-group" ng-if="data.selectedOption.type == 'number' || data.selectedOption.type == 'currency'">
+            <label for="valueInputCurrency">Value <span ng-if="data.selectedOption.type == 'currency'">($)</span> </label>
+            <input type="text" class="form-control" id="valueInputCurrency" placeholder="Enter Value" ng-model="data.value" ui-money-mask="2">
+         </div>
+
+          <!-- Date -->
+          <div class="form-group" ng-if="data.selectedOption.type == 'date' || data.selectedOption.type == 'dateRange'">
+            <label for="valueInputDate">Date</label>
+            <input type="text" class="form-control" id="valueInputDate" placeholder="Enter Date" ng-model="data.value">
+         </div>
+
+
+          <!-- ======================================================== -->
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+    </div>

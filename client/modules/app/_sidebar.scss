@@ -14,6 +14,69 @@
 	// }
 }
 
+
+.related-card {
+
+	.panel-body {
+		padding-bottom:8px;
+	}
+
+
+	.panel-footer {
+		border-top:dashed 1px $border;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		background-color:lighten($limestone, 2%) !important;
+		position:relative;
+		padding:6px 12px;
+
+		&:hover {
+			background-color:$limestone !important;
+			cursor:pointer;
+
+			.view-relationship {
+				visibility: visible;
+				opacity: 1;
+				
+
+				a {
+					text-decoration:none;
+				}
+
+				icon {
+					color:$topaz;
+				}
+			}
+		}
+
+		img {
+			margin-left:0px;
+			margin-right:10px;
+			margin-top:-3px;
+		}
+
+		.relationship {
+			display: block;
+		}
+
+		.view-relationship {
+			visibility: hidden;
+			opacity: 0;
+			position:absolute;
+			right:0px;
+			top:10px;
+			background-color: lighten($limestone, 2%);
+			text-align:right;
+			transition: opacity .125s ease-in-out;
+			-webkit-transition: opacity .125s ease-in-out;
+		}
+	}
+}
+
+.sidepanel .nav-tabs > li > a {
+	padding-bottom:8px;
+}
+
 .sidepanel .floating-action {
 	position:absolute;
 	right:15px;
@@ -140,6 +203,14 @@
 	}
 }
 
+.sidepanel .predictive-score {
+	position:absolute;
+	left:5px;
+	top:10px;
+	border:solid 1px $border;
+	border-radius: 5px;
+}
+
 .sidepanel-edit .row {
 	margin-left:-5px;
 	margin-right:-5px;
@@ -186,6 +257,30 @@
 	min-width: 240px;
     height: auto !important;
     max-height: unset;
+
+    icon {
+    	color:$dragonstone;
+    	margin-right:5px;
+    }
+
+    img {
+    	margin-right:8px;
+    	margin-top:-2px;
+    }
+
+    li:hover a {
+    	color:$topaz;
+
+    	icon {
+    		color:$topaz;
+    	}
+    }
+
+    a.text-danger:hover {
+    	icon {
+    		color:$danger !important;
+    	}
+    }
 }
 
 .detail-wrapper .social,

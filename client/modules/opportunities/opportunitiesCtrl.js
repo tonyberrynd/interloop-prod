@@ -43,10 +43,13 @@ angular.module('interloop.opportunitiesCtrl', [])
   //----------------------
   $scope.data = {};
   $scope.data.currentEntity = "Opportunity";
+  $scope.data.lookupUsers = false;
   $scope.data.activated = false;
   $scope.data.drawerOpen = false;
   $scope.data.filterChanged = false;
   $scope.data.toggleColumns = true;
+  $scope.data.loadingResults = false;
+  $scope.data.serverError = false;
   $scope.data.filterMatches = 'all';
   $scope.data.filterView = 'filters';
   $scope.data.searchVal = '';
@@ -113,6 +116,12 @@ angular.module('interloop.opportunitiesCtrl', [])
   $scope.toggleDrawer = toggleDrawer;
   $scope.toggleOpen = toggleOpen;
   $scope.updateGrid = updateGrid;
+  $scope.selectUsers = selectUsers;
+  $scope.applyUsers = applyUsers;
+  $scope.selectTags = selectTags;
+  $scope.applyTags = applyTags;
+  $scope.focusSelect = focusSelect;
+  $scope.isObjectShouldBeString = isObjectShouldBeString;
 
 //-------------------------------------------
 
@@ -437,6 +446,7 @@ function getFilters() {
       var filterObject = {}
       filterObject.key = value.key;
       filterObject.type = value.filterApplied;
+      filterObject.dynamicKey = value.dynamicKey || null;
 
       //convert string to number if necessary
       if(value.type == 'number' || value.type == 'currency'){
@@ -487,14 +497,64 @@ function clearLookupValues(filter){
   $scope.data.searchVal = '';
 }
 
+  $scope.getPeople = function(searchVal){
+    var deferred = $q.defer();
+    $scope.data.results = [];
+    $scope.data.loadingResults = true;
+
+    var people = _.filter($scope.data.people, ['name', searchVal])
+
+    $scope.data.results = people;
+
+    $timeout(function(){
+      deferred.resolve($scope.data.results);
+      $scope.data.loadingResults = false;
+      return deferred.promise;
+    }, 2500)
+  }
+
+
+  $scope.data.people = [
+    { name: 'Adam',      email: 'adam@email.com',      age: 12, country: 'United States' },
+    { name: 'Amalie',    email: 'amalie@email.com',    age: 12, country: 'Argentina' },
+    { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina' },
+    { name: 'Adrian',    email: 'adrian@email.com',    age: 21, country: 'Ecuador' },
+    { name: 'Wladimir',  email: 'wladimir@email.com',  age: 30, country: 'Ecuador' },
+    { name: 'Samantha',  email: 'samantha@email.com',  age: 30, country: 'United States' },
+    { name: 'Nicole',    email: 'nicole@email.com',    age: 43, country: 'Colombia' },
+    { name: 'Natasha',   email: 'natasha@email.com',   age: 54, country: 'Ecuador' },
+    { name: 'Michael',   email: 'michael@email.com',   age: 15, country: 'Colombia' },
+    { name: 'Nicolás',   email: 'nicolas@email.com',    age: 43, country: 'Colombia' }
+  ];
+
+  $scope.getPeople = function(searchVal){
+    var deferred = $q.defer();
+    $scope.data.results = [];
+    $scope.data.loadingResults = true;
+
+    var people = _.filter($scope.data.people, ['name', searchVal])
+
+    $scope.data.results = people;
+
+    $timeout(function(){
+      deferred.resolve($scope.data.results);
+      $scope.data.loadingResults = false;
+      return deferred.promise;
+    }, 2500)
+  }
+
+
 /*
 Get Look Up Values
 */
 function getLookupValue(filter, entityType, searchVal){
-  console.log('get lookup value');
+  var deferred = $q.defer();
+
   $scope.data.searchVal = searchVal;
   $scope.data.searching = true;
-  filter.lookupResults = [];
+  $scope.data.serverError = false;
+  $scope.data.loadingResults = true;
+  $scope.data.lookupResults = [{},{}];
 
   //Switch based on entity type
   switch(entityType) {
@@ -517,13 +577,17 @@ function getLookupValue(filter, entityType, searchVal){
   //then return appropriate values
   return $injector.get(entityType).find(query).$promise
       .then(function(results){
-        console.log(results);
+        $scope.data.serverError = false;
         $scope.data.searching = false;
-        filter.lookupResults = results;
+        $scope.data.loadingResults = false;
+        $scope.data.lookupResults = results;
       })
       .catch(function(err){
+        $scope.data.serverError = true;
         $scope.data.searching = false;
+        $scope.data.loadingResults = false;
         console.log(err);
+        return err;
       })
   } else {
     $scope.data.searching = false;
@@ -808,11 +872,19 @@ function createView() {
 }
 
 
+function isObjectShouldBeString(filter){
+  if(filter.filterValue !== null && _.get(filter.filterValue, 'startDate', false)){
+    filter.filterValue = _.get(filter.filterValue, 'startDate', '');
+  }
+}
+
 /*
 Checks whether filter is active
 */
 function isFilterActive(filter) {
 
+
+if(!filter.filterActive) {
   //default to active
   filter.filterActive = true;
   
@@ -820,47 +892,49 @@ function isFilterActive(filter) {
   //default is true - only use this to set as false
   //-------------------------
   switch(filter.type) {
-    case 'number':
-      //reset on change
-        if(filter.filterApplied == 'range'){
-           filter.filterValue = _.isNumber(filter.filterValue) ? {} : filter.filterValue;
-           //should it be active
-           filter.filterActive = (_.isNil(filter.filterValue.lower) || _.isNil(filter.filterValue.upper)) ? false : true;
-        } else {
-          filter.filterValue = _.isObject(filter.filterValue) ? 0 : filter.filterValue;
-        }
-        break;
-    case 'currency':
+      case 'number':
         //reset on change
-        if(filter.filterApplied == 'range'){
-           filter.filterValue = _.isNumber(filter.filterValue) ? {} : filter.filterValue;
-           //should it be active
-           filter.filterActive = (_.isNil(filter.filterValue.lower) || _.isNil(filter.filterValue.upper)) ? false : true;
+          if(filter.filterApplied == 'range'){
+             filter.filterValue = _.isNumber(filter.filterValue) ? {} : filter.filterValue;
+             //should it be active
+             filter.filterActive = (_.isNil(filter.filterValue) || _.isNil(filter.filterValue.lower) || _.isNil(filter.filterValue.upper)) ? false : true;
+          } else {
+            filter.filterValue = _.isObject(filter.filterValue) ? 0 : filter.filterValue;
+          }
+          break;
+      case 'currency':
+          //reset on change
+          if(filter.filterApplied == 'range'){
+             filter.filterValue = _.isNumber(filter.filterValue) ? {} : filter.filterValue;
+             //should it be active
+             filter.filterActive = (_.isNil(filter.filterValue) || _.isNil(filter.filterValue.lower) || _.isNil(filter.filterValue.upper)) ? false : true;
+          } else {
+            filter.filterValue = _.isObject(filter.filterValue) ? 0 : filter.filterValue;
+          }
+          break;
+      case 'date':
+          //reset on change
+          if(filter.filterApplied == 'date-range'){
+             filter.filterValue = _.isString(filter.filterValue) ? {} : filter.filterValue;
+             //should it be active
+             filter.filterActive = (_.isNil(filter.filterValue) || _.isNil(filter.filterValue.startDate) || _.isNil(filter.filterValue.endDate)) ? false : true;
+          } 
+          else if (filter.filterApplied == 'date-more-than' || filter.filterApplied == 'date-less-than' || filter.filterApplied == 'date-exactly'){
+            filter.filterValue = (!_.isObject(filter.filterValue) || !_.isNil(filter.filterValue.startDate) || !_.isNil(filter.filterValue.endDate)) ? { days: null, timeframe: 'from-now' } : filter.filterValue;
+            //else inactive if no days selected
+            if(_.isNil(filter.filterValue.days)) {
+              filter.filterActive = false;
+            }
         } else {
-          filter.filterValue = _.isObject(filter.filterValue) ? 0 : filter.filterValue;
-        }
-        break;
-    case 'date':
-        //reset on change
-        if(filter.filterApplied == 'date-range'){
-           filter.filterValue = _.isString(filter.filterValue) ? {} : filter.filterValue;
-           //should it be active
-           filter.filterActive = (_.isNil(filter.filterValue.startDate) || _.isNil(filter.filterValue.endDate)) ? false : true;
-        } 
-        else if (filter.filterApplied == 'date-more-than' || filter.filterApplied == 'date-less-than' || filter.filterApplied == 'date-exactly'){
-          filter.filterValue = (!_.isNil(filter.filterValue.startDate) || !_.isNil(filter.filterValue.endDate)) ? { days: null, timeframe: 'from-now' } : filter.filterValue;
-          //else inactive if no days selected
-          if(_.isNil(filter.filterValue.days)) {
-            filter.filterActive = false;
+            filter.filterValue = _.get(filter.filterValue, 'endDate', null) ? null : filter.filterValue;
+            // set inactive if null value - usually right after switching
+            if(_.isNil(filter.filterValue)) {
+              filter.filterActive = false;
+            }
           }
-      } else {
-          filter.filterValue = !_.isNil(filter.filterValue.startDate) || !_.isNil(filter.filterValue.endDate) ? null : filter.filterValue;
-          // set inactive if null value - usually right after switching
-          if(_.isNil(filter.filterValue)) {
-            filter.filterActive = false;
-          }
-        }
-        break;
+          break;
+    }
+
   }
 
 
@@ -954,6 +1028,44 @@ function changeContext(contextType, contextValue){
     gridManager.setContext(contextType, contextValue);
     updateGrid();
 }
+
+
+
+function selectUsers(filter){
+  $scope.data.lookupUsers = true;
+  $scope.data.selectedUsers = filter.filterValue;
+  $scope.data.selectingForFilter = filter;
+}
+
+function applyUsers(){
+  $scope.data.selectingForFilter.filterValue = $scope.data.selectedUsers;
+  $scope.data.selectingForFilter.filterActive = true; // fires filter
+  $scope.data.lookupUsers = false;
+  //check if should fire grid update
+  isFilterActive($scope.data.selectingForFilter.filterValue);
+}
+
+
+function selectTags(filter){
+  $scope.data.lookupTags = true;
+  $scope.data.selectedTags = filter.filterValue;
+  $scope.data.selectingForFilter = filter;
+}
+
+function applyTags(){
+  $scope.data.selectingForFilter.filterValue = $scope.data.selectedTags;
+  $scope.data.selectingForFilter.filterActive = true; // fires filter
+  $scope.data.lookupTags = false;
+  //check if should fire grid update
+  isFilterActive($scope.data.selectingForFilter.filterValue);
+}
+
+
+function focusSelect(string){
+  console.log('focus select');
+  $scope.$broadcast(string);
+}
+
 
 //-------------------------------------------
 

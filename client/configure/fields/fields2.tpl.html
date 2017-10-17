@@ -38,14 +38,14 @@
                 </div>
                 <div class="panel-body">
                     <div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': !data.loading}" style="z-index:999">Loading...</div>
-
-                          <table class="table table-bordered table-striped" style="width: 100%;">
+                        <div class="table-responsive">
+                          <table class="table scroll-table table-bordered table-striped" style="width: 100%;">
                             <tr>
                                  <th rowspan="2"></th> 
                                  <th rowspan="2">Label</th>
                                  <th rowspan="2">Key</th>
                                  <th colspan="4">Basic Details</th>
-                                 <th colspan="6">List Views</th>
+                                 <th colspan="7">List Views</th>
                                  <th colspan="3">New Forms</th>
                                  <th colspan="2">Edit Forms</th>
                                  <th colspan="1">Bulk Edit</th>
@@ -65,6 +65,7 @@
                                    
 
                                     <!-- list views -->
+                                    <th>Column Type <icon class="wb-info-circle support-icon" uib-tooltip="Column Type Used in Cell Renders"></icon></th>
                                     <th>Exclude <icon class="wb-info-circle support-icon" uib-tooltip="Should field be excluded from grid (cannot be shown by users)"></icon></th>
                                     <th>Hide <icon class="wb-info-circle support-icon" uib-tooltip="Hide field by default (can be reshown by user)"></icon></th>
                                     <th>Pinned <icon class="wb-info-circle support-icon" uib-tooltip="Defaults column as pinned"></icon></th>
@@ -192,6 +193,8 @@
 
                             </tr>
                            </table>
+
+                       </div>
 
                     </div>
 

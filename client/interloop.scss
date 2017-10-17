@@ -16,9 +16,13 @@
 
 //modules
 @import "modules/app/app";
+@import "modules/app/notifications";
 @import "modules/app/drawer";
 @import "modules/app/sidebar";
 @import "modules/app/layouts";
+
+//pulse
+@import "modules/pulse/pulse";
 
 //analytics
 @import "modules/explorer/explorer";
@@ -55,8 +59,10 @@
 //settings
 @import "settings/settings";
 @import "settings/profile/profile";
+@import "settings/notifications/notifications";
 @import "settings/connected/connected";
 @import "settings/users/users";
+@import "settings/statuses/statuses";
 @import "settings/permissions/permissions";
 @import "settings/teams/teams";
 @import "settings/subscription/subscription";
@@ -64,6 +70,7 @@
 @import "settings/import/import";
 @import "settings/export/export";
 @import "settings/pipelines/pipelines";
+@import "settings/forecasting/forecasting";
 
 // @import "settings/settings";
 // @import "settings/import/import";

@@ -29,6 +29,8 @@ angular.module('interloop.settingsProductsCtrl', [])
 	//functions
 	//----------------------
 	$scope.addProduct = addProduct;
+	$scope.deleteProduct = deleteProduct;
+	$scope.editProduct = editProduct;
 
 //-------------------------------------------
 
@@ -67,6 +69,37 @@ function addProduct(){
 	})
 }
 
+
+function editProduct(product){
+	var resolvedData = product;
+
+	var editProductModal = modalManager.openModal('editProduct', resolvedData);
+		editProductModal.result.then(function(results){
+			activate();
+		}, function(err){
+
+		})
+}
+
+
+function deleteProduct(product) {
+
+	var resolvedData = {
+		helperTitle: 'Delete Product',
+		helperText: 'Are you sure you want to delete this product?',
+		helperDescription: 'This will remove the product from the catalog, anything associated with this product will not be changed'
+	};
+
+	//open modal
+	var deleteFieldModal = modalManager.openModal('warning', resolvedData);
+
+	deleteFieldModal.result.then(function(results){
+		Product.deleteById({"id": product.id}).$promise
+			.then(function(results){
+				$scope.data.products.splice($scope.data.products.indexOf(product), 1);
+			})
+	})
+}
 
 
 //-------------------------------------------

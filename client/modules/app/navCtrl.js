@@ -20,6 +20,7 @@ angular.module('interloop.navCtrl', [])
 	authService,
 	Notification,
 	Appuser,
+	ENV,
 	Logger) {
 
 // BINDABLES
@@ -297,10 +298,14 @@ function keyboardShortcuts() {
 Toggle Sidebar
 */
 function contactSupport() {
-	 //login event
-  	$mixpanel.track('INTERCOM_SUPPORT');
-  	//show intercom
-	$intercom.show('showNewMessage');
+	if(ENV === 'PRODUCTION'){
+		 //login event
+  		$mixpanel.track('INTERCOM_SUPPORT');
+  		//show intercom
+		$intercom.show('showNewMessage');
+	} else {
+		alert('Intercom only active in production');
+	}
 }
 
 /*

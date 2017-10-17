@@ -1,39 +1,56 @@
 
 <div class="sidebar-section">
 
-<p class="sidepanel-title first-title">Owners</p>
+<h5 class="sidepanel-title collapse-header first-title" ng-click="data.ownersCollapsed = !data.ownersCollapsed">Owners [<span ng-bind="data.thisRecord.ownerLinks.length"></span>]
+<span class="pull-right collapse-arrow">
+<icon class="wb-triangle-right" ng-if="data.ownersCollapsed"></icon>
+<icon class="wb-triangle-down" ng-if="!data.ownersCollapsed"></icon>
+</span>
 
-    <!-- //may need to get out of owner links --> 
-    <div class="card with-padding" ng-repeat="owner in data.thisRecord.ownerLinks">
-      <h5><span ng-bind="owner.firstName"></span> <span ng-bind="owner.lastName"></span></h5>
-      <p ng-bind="owner.email"></p>
-      <span class="pull-right" ng-bind="data.owner.split"></span>
-    </div>
+</h5>
 
-    <span class="empty-add" ng-if="!data.thisRecord.ownerLinks.length">
-      <p class="empty-section">No Owners Assigned</p>
-    </span>
+<div uib-collapse="data.ownersCollapsed">
+
+    <div class="panel panel-default card contact-card" ng-repeat="owner in data.thisRecord.ownerLinks">
+			<div class="panel-body">
+				<div class="name-wrapper">
+				<div class="avatar avatar-32" ng-class="owner.color">
+					<span ng-bind="owner.firstName | limitTo:1"></span><span ng-bind="owner.lastName | limitTo:1"></span>
+				</div>
+				<h4>
+					<span ng-bind="owner.firstName"></span>
+					<span ng-bind="owner.lastName"></span>
+				</h4>
+				<p>
+					<span ng-bind="owner.email"></span>
+				</p>
+				</div>
+			</div>
+		</div>
+
+	    <span class="empty-add" ng-if="!data.thisRecord.ownerLinks.length">
+	      <p class="empty-section">No Owners Assigned</p>
+	    </span>
 
 </div>
 
-<!-- Shared with -->
-<div class="sidebar-section" ng-if="!data.thisRecord.sharedWith.length">
-	<p class="sidepanel-title">Shared With</p> 
-      <span class="empty-add" >
-        <p class="empty-section">Shared Based On Default Visibility</p>
-      </span>
-
-      <div class="tag" ng-repeat="sharedWith in data.sharedWith"><icon class="wb-users"></icon> <span ng-bind="sharedWith.name"></span></div>
 </div>
 
 <div class="sidebar-section">
-<h5 class="sidepanel-title">Basic Information</h5>
+<h5 class="sidepanel-title collapse-header" ng-click="data.basicFieldsCollapsed = !data.basicFieldsCollapsed">Basic Information [{{percentComplete(data.fields)}}]
+
+<span class="pull-right collapse-arrow">
+<icon class="wb-triangle-right" ng-if="data.basicFieldsCollapsed"></icon>
+<icon class="wb-triangle-down" ng-if="!data.basicFieldsCollapsed"></icon>
+</span>
+
+</h5>
 
 <span class="empty-add" ng-if="!(data.fields | filter: {excludeForm: '!true'}).length">
   <p class="empty-section">No Details</p>
 </span>
 
-<div class="panel panel-default sidepanel-panel" ng-if="(data.fields | filter: {excludeForm: '!true'}).length">
+<div class="panel panel-default sidepanel-panel" ng-if="(data.fields | filter: {excludeForm: '!true'}).length" uib-collapse="data.basicFieldsCollapsed">
 	<div class="panel-body">
 		<form>
 		  <!-- //information -->
@@ -48,10 +65,28 @@
 		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
 			</span>
 
+			<!-- currency -->
+		    <span ng-switch-when="currency">
+		    <p id="{{field.key}}" class="form-control-static" ng-bind="'$' + (data.thisRecord[field.key] | number:0)" ng-if="data.thisRecord[field.key]"></p>
+		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+
+			<!-- number -->
+		    <span ng-switch-when="number">
+		    <p id="{{field.key}}" class="form-control-static" ng-bind="(data.thisRecord[field.key] | number:0)" ng-if="data.thisRecord[field.key]"></p>
+		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+
+			<!-- date -->
+		    <span ng-switch-when="date">
+		    <p id="{{field.key}}" class="form-control-static" ng-bind="(data.thisRecord[field.key] | formatDate)" ng-if="data.thisRecord[field.key]"></p>
+		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+
 			<!-- primaryCompany -->
 			<span ng-switch-when="lookup">
 		   	 <p id="{{field.key}}" class="form-control-static" ng-if="data.thisRecord[field.key][field.lookupKey || 'name']">
-		   	 	<a href ng-click="goTo(field.lookupEntity, data.thisRecord[field.key][field.lookupKey || 'name'].entityId)">
+		   	 	<a href ng-click="goTo(field.lookupEntity, data.thisRecord[field.key]['entityId'])">
 		   	 		<span ng-bind="data.thisRecord[field.key][field.lookupKey || 'name']"></span>
 		   	 		<span><icon class="fa fa-external-link"></icon></span>
 		   	 	</a>
@@ -70,10 +105,12 @@
 			  <div class="row" ng-if="data.thisRecord[field.key].length" style="margin-top:5px;">
               <div class="col-xs-6" ng-repeat="address in data.thisRecord[field.key]">
                   <address>
-                      <strong>Billing Address</strong><br>
-                      1355 Market Street, Suite 900<br>
-                      San Francisco, CA 94103<br>
-                      United States<br>
+                      <strong>
+                      	<span ng-bind="address.type || 'Address'"></span>
+                      </strong><br>
+                      <span ng-bind="address.street_1"></span><span ng-if="address.street_2">,</span> <span ng-bind="address.street_2"></span><br>
+                      <span ng-bind="address.city"></span>, <span ng-bind="address.state"></span> <span ng-bind="address.postal_code"></span><br>
+                      <span ng-bind="address.country"></span><br>
                   </address>
               </div>
               </div>
@@ -118,19 +155,116 @@
 </div>
 
 <div class="sidebar-section">
-<h5 class="sidepanel-title">Custom Fields</h5>
+<h5 class="sidepanel-title collapse-header" ng-click="data.customFieldsCollapsed = !data.customFieldsCollapsed">Custom Fields [{{percentComplete(data.customFields)}}]
+
+<span class="pull-right collapse-arrow">
+<icon class="wb-triangle-right" ng-if="data.customFieldsCollapsed"></icon>
+<icon class="wb-triangle-down" ng-if="!data.customFieldsCollapsed"></icon>
+</span>
+
+</h5>
 
 <span class="empty-add" ng-if="!(data.customFields | filter: {excludeForm: '!true'}).length">
   <p class="empty-section">No Custom Field Details</p>
 </span>
 
-<div class="panel panel-default sidepanel-panel" ng-if="(data.customFields | filter: {excludeForm: '!true'}).length">
+<div class="panel panel-default sidepanel-panel" ng-if="(data.customFields | filter: {excludeForm: '!true'}).length" uib-collapse="data.customFieldsCollapsed">
 	<div class="panel-body">
 		<form>
-		  <!-- //information -->
+		  		  <!-- //information -->
 		  <div class="form-group" ng-repeat="field in data.customFields | filter: {excludeForm: '!true'}">
 		    <label for="{{field.key}}">{{field.label}}</label>
-		    <p id="{{field.key}}" class="form-control-static" ng-bind="data.thisRecord[field.key]"></p>
+
+		    <span ng-switch="field.type">
+			
+			<!-- default -->
+		    <span ng-switch-default>
+		    <p id="{{field.key}}" class="form-control-static" ng-bind="data.thisRecord[field.key]" ng-if="data.thisRecord[field.key]"></p>
+		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+
+			<!-- currency -->
+		    <span ng-switch-when="currency">
+		    <p id="{{field.key}}" class="form-control-static" ng-bind="'$' + (data.thisRecord[field.key] | number:0)" ng-if="data.thisRecord[field.key]"></p>
+		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+
+			<!-- number -->
+		    <span ng-switch-when="number">
+		    <p id="{{field.key}}" class="form-control-static" ng-bind="(data.thisRecord[field.key] | number:0)" ng-if="data.thisRecord[field.key]"></p>
+		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+
+			<!-- date -->
+		    <span ng-switch-when="date">
+		    <p id="{{field.key}}" class="form-control-static" ng-bind="(data.thisRecord[field.key] | formatDate)" ng-if="data.thisRecord[field.key]"></p>
+		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+
+			<!-- primaryCompany -->
+			<span ng-switch-when="lookup">
+		   	 <p id="{{field.key}}" class="form-control-static" ng-if="data.thisRecord[field.key][field.lookupKey || 'name']">
+		   	 	<a href ng-click="goTo(field.lookupEntity, data.thisRecord[field.key]['entityId'])">
+		   	 		<span ng-bind="data.thisRecord[field.key][field.lookupKey || 'name']"></span>
+		   	 		<span><icon class="fa fa-external-link"></icon></span>
+		   	 	</a>
+		   	 </p>
+		   	 <p class="form-control-static no-value" ng-if="!data.thisRecord[field.key][field.lookupKey || 'name']"> No {{field.label}}</p>
+			</span>
+
+			<!-- category -->
+			<span ng-switch-when="category">
+		   	 <p id="{{field.key}}" class="form-control-static" ng-bind="data.thisRecord[field.key]['label']" ng-if="data.thisRecord[field.key]"></p>
+		   	 <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+			
+			<!-- address -->
+			<span ng-switch-when="address">
+			  <div class="row" ng-if="data.thisRecord[field.key].length" style="margin-top:5px;">
+              <div class="col-xs-6" ng-repeat="address in data.thisRecord[field.key]">
+                  <address>
+                      <strong>
+                      	<span ng-bind="address.type || 'Address'"></span>
+                      </strong><br>
+                      <span ng-bind="address.street_1"></span><span ng-if="address.street_2">,</span> <span ng-bind="address.street_2"></span><br>
+                      <span ng-bind="address.city"></span>, <span ng-bind="address.state"></span> <span ng-bind="address.postal_code"></span><br>
+                      <span ng-bind="address.country"></span><br>
+                  </address>
+              </div>
+              </div>
+              <p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Addresses</p>
+             </span>
+
+             <!-- phone -->
+			<span ng-switch-when="phone">
+				<p class="form-control-static" ng-repeat="phone in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
+					<a ng-href="'tel:' + {{phone}}" ng-bind="phone"></a>
+				</p>
+				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Phone Numbers</p>
+			</span>
+
+
+             <!-- email -->
+			<span ng-switch-when="email">
+				<p class="form-control-static" ng-repeat="email in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
+					<a ng-href="'mailto:' + {{email}}" ng-bind="email"></a>
+				</p>
+				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Email Addresses</p>
+			</span>
+
+
+             <!-- social -->
+             <span ng-switch-when="social">
+             	<p class="form-control-static" ng-repeat="social in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
+					<a ng-href="social" target="_blank" ng-bind="social"></a>
+				</p>
+				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Social Accounts</p>
+             </span>
+
+
+             </span>
+
+
 		  </div>
 		  
 		</form>
@@ -140,8 +274,15 @@
 
 
 <div class="sidebar-section">
-<h5 class="sidepanel-title">Tags</h5>
+<h5 class="sidepanel-title collapse-header" ng-click="data.tagsCollapsed = !data.tagsCollapsed">Tags [<span ng-bind="data.thisRecord.tags.length"></span>]
 
+<span class="pull-right collapse-arrow">
+<icon class="wb-triangle-right" ng-if="data.tagsCollapsed"></icon>
+<icon class="wb-triangle-down" ng-if="!data.tagsCollapsed"></icon>
+</span>
+
+</h5>
+<div uib-collapse="data.tagsCollapsed">
 	<div class="panel panel-default sidepanel-panel" ng-if="data.thisRecord.tags.length">
 		<div class="panel-body">
 		<div class="tag-bundle">
@@ -160,8 +301,41 @@
 	<span class="empty-add" ng-if="!data.thisRecord.tags.length">
       <p class="empty-section">No Tags</p>
     </span>
+</div>
+</div>
 
 
+<!-- Shared with -->
+<div class="sidebar-section">
+<h5 class="sidepanel-title collapse-header" ng-click="data.sharedWithCollapse = !data.sharedWithCollapse">Shared With [<span ng-bind="data.thisRecord.sharedWithLinks.length"></span>]
 
+<span class="pull-right collapse-arrow">
+<icon class="wb-triangle-right" ng-if="data.sharedWithCollapse"></icon>
+<icon class="wb-triangle-down" ng-if="!data.sharedWithCollapse"></icon>
+</span>
 
+</h5>
+<div uib-collapse="data.sharedWithCollapse">
+		<div class="panel panel-default sidepanel-panel" ng-if="data.thisRecord.tags.length">
+			<div class="panel-body">
+				<span ng-repeat="sharedWith in data.thisRecord.sharedWithLinks">
+				      <div class="tag avatar-tag" ng-if="sharedWith.type == 'user'">
+				      	<div class="avatar avatar-16" ng-class="sharedWith.color">
+				      		<span ng-bind="sharedWith.firstName | limitTo:1"></span><span ng-bind="sharedWith.lastName | limitTo:1"></span>
+				      	</div>
+				      	<span ng-bind="sharedWith.firstName"></span> <span ng-bind="sharedWith.lastName"></span>
+				      </div>
+				      <div class="tag" ng-if="sharedWith.type == 'team'">
+				      	<span ng-bind="sharedWith.name"></span>
+				      </div>
+			      </span>
+			</div>
+		</div>
+
+	 	<span class="empty-add" ng-if="!data.thisRecord.sharedWithLinks.length">
+	     <p class="empty-section">Shared Based On Default Visibility</p>
+	  	</span>
+		
+		 
+ </div>
 </div>

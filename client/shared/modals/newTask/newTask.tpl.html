@@ -15,20 +15,46 @@
                         <div class="row">
                                 <div class="col-xs-12">
                                     <div class="form-group">
-                                      <label for="title">Name</label>
-                                      <input type="text" class="form-control" ng-model="data.note.title" autofocus>
+                                      <label for="title">Title</label>
+                                      <input type="text" class="form-control" ng-model="data.task.title" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <div class="single-select">
+                                            <label for="">Type</label>
+                                            <ui-select search-enabled="false" ng-model="data.task.type" theme="bootstrap">
+                                              <ui-select-match placeholder="Choose a type">{{$select.selected.label}}
+                                              </ui-select-match>
+                                              <ui-select-choices repeat="item in data.taskTypes | filter: $select.search">
+                                                <span ng-bind-html="item.label | highlight: $select.search"></span>
+                                              </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                      <label for="dueDate">
+                                        Due Date
+                                      </label>
+                                      <input name="dueDate" date-range-picker class="form-control date-picker" id="dueDate" placeholder="" ng-model="data.task.dueDate" options="$root.options4" >
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
                                    <div class="form-group">
                                     <label for="title">Description</label>
-                                    <textarea class="form-control" rows="3" ng-model="data.note.body" ng-change="parseNote()" 
-
-                                    mentio 
-                                    mentio-typed-term="typedTerm" 
-                                    mentio-items="people | filter:label:typedTerm" 
-
+                                    <textarea class="form-control" rows="3" ng-model="data.task.description"
                                     ></textarea>
+                                </div>
+                                <br>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <input class="magic-checkbox" type="checkbox" name="layout" id="taskCompleted" value="true" ng-model="data.task.completed">
+                                        <label class="text" for="taskCompleted">
+                                          Mark As Completed
+                                        </label>
+                                    </div>
                                 </div>
                               </div>
                           </div>
@@ -37,6 +63,6 @@
 
         </div>
         <div class="modal-footer">
-            <button class="btn btn-default btn-link" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
             <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
         </div>

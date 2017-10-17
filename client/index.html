@@ -31,16 +31,9 @@
     <script src="https://use.typekit.net/grl7dox.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
 
-    <!-- fontastic icons font -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- build:fontastic -->
-    <link rel="stylesheet" href="https://file.myfontastic.com/rC29FChZSxwfNGqaLLUSkd/icons.css">
-    <!-- endbuild -->
-
     <!-- cdn css -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/2.1.15/jquery.webui-popover.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
 
     <!-- CSS -->
@@ -57,6 +50,8 @@
     <link rel="stylesheet" type="text/css" href="lib/angular-loading-bar/build/loading-bar.min.css"/>
     <link rel="stylesheet" type="text/css" href="lib/nya-bootstrap-select/dist/css/nya-bs-select.css">
     <link rel="stylesheet" type="text/css" href="lib/fullcalendar/dist/fullcalendar.css">
+    <link rel="stylesheet" type="text/css" href="lib/swiper/dist/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/fontastic.css">
     <link rel="stylesheet" type="text/css" href="assets/css/interloop.css"/>
     <!-- endbuild -->
 
@@ -102,8 +97,9 @@
     <!-- full calendar -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.5.1/fullcalendar.min.js"></script>
     <!-- microsoft adal -->
-    <script type="text/javascript" src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.12/js/adal.min.js" async defer></script>
-    <script type="text/javascript" src="https://npmcdn.com/powerbi-client@2.0.0" async defer></script>
+    <script type="text/javascript" src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.12/js/adal.min.js"></script>
+    <script type="text/javascript" src="https://npmcdn.com/powerbi-client@2.0.0"></script>
+    <script>window.powerbi.wpmp.suppressWarnings = true;</script>
     <!-- ace code editor -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js" async defer></script>
     <!-- stripe -->
@@ -123,9 +119,11 @@
     <script type="text/javascript" src="lib/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.js"></script>
     <script type="text/javascript" src="lib/mixpanel/mixpanel-jslib-snippet.min.js"></script>
     <script type="text/javascript" src="lib/slick-carousel/slick/slick.js"></script>
+    <script type="text/javascript" src="lib/swiper/dist/js/swiper.js"></script>
     <script type="text/javascript" src="assets/js/loading.js"></script>
     <script type="text/javascript" src="assets/js/highcharts-sankey.js"></script>
-    <script type="text/javascript" src="assets/js/fullstory.js"></script>
+    <!-- build:fullstory -->
+    <!-- endbuild -->
     <!-- endbuild -->
 
 
@@ -139,6 +137,7 @@
     <script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" src="lib/ui-router-extras/release/ct-ui-router-extras.js"></script>
     <!-- third party -->
+    <script type="text/javascript" src="lib/card/lib/js/card.js"></script>
     <script type="text/javascript" src="lib/ag-grid-enterprise/dist/ag-grid-enterprise.js"></script>
     <script type="text/javascript" src="lib/angular-bootstrap-duallistbox/dist/angular-bootstrap-duallistbox.js"></script>
     <script type="text/javascript" src="lib/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
@@ -187,6 +186,7 @@
     <script type="text/javascript" src="lib/angular-card/src/card.js"></script>
     <script type="text/javascript" src="lib/angular-powerbi/dist/angular-powerbi.js"></script>
     <script type="text/javascript" src="lib/angular-ui-calendar/src/calendar.js"></script>
+    <script type="text/javascript" src="lib/angular-swiper/dist/angular-swiper.js"></script>
     <!-- assets -->
     <script type="text/javascript" src="assets/js/angular-daterangepicker.js"></script>
     <script type="text/javascript" src="assets/js/ui-bootstrap.js"></script>
@@ -208,6 +208,8 @@
     <script type="text/javascript" src="shared/values/modalDefs.value.js"></script>
     <script type="text/javascript" src="shared/values/featureFlags.value.js"></script>
     <script type="text/javascript" src="shared/values/baseChartConfig.value.js"></script>
+    <script type="text/javascript" src="shared/values/addressValues.value.js"></script>
+    <script type="text/javascript" src="shared/values/timezoneValues.value.js"></script>
 
     <!-- config -->
     <script type="text/javascript" src="app.config.js"></script>
@@ -226,6 +228,8 @@
     <script type="text/javascript" src="modules/reset/resetCtrl.js"></script>
     <!-- //app -->
     <script type="text/javascript" src="modules/app/navCtrl.js"></script>
+    <!-- pulse -->
+    <script type="text/javascript" src="modules/pulse/pulseOutlookCtrl.js"></script>
     <!-- insights -->
     <script type="text/javascript" src="modules/insights/insightsCtrl.js"></script>
     <script type="text/javascript" src="modules/dashboards/dashboardsCtrl.js"></script>
@@ -254,12 +258,20 @@
     <script type="text/javascript" src="modules/tasks/tasksCtrl.js"></script>
     <script type="text/javascript" src="modules/tasks/taskCalendarCtrl.js"></script>
     <script type="text/javascript" src="modules/tasks/taskDetailsCtrl.js"></script>
+    <!-- meetings -->
+    <script type="text/javascript" src="modules/meetings/meetingsCtrl.js"></script>
+    <script type="text/javascript" src="modules/meetings/meetingDetailsCtrl.js"></script>
     <!-- more -->
     <script type="text/javascript" src="modules/more/files/filesCtrl.js"></script>
     <script type="text/javascript" src="modules/more/files/fileDetailsCtrl.js"></script>
     <script type="text/javascript" src="modules/more/starred/starredCtrl.js"></script>
     <script type="text/javascript" src="modules/more/directory/directoryCtrl.js"></script>
     <script type="text/javascript" src="modules/more/mentions/mentionsCtrl.js"></script>
+
+    <!-- details -->
+    <script type="text/javascript" src="modules/details/relationship/relationshipDetailsCtrl.js"></script>
+    <script type="text/javascript" src="modules/details/email/emailDetailsCtrl.js"></script>
+    <script type="text/javascript" src="modules/details/note/noteDetailsCtrl.js"></script>
 
     <!-- other -->
     <script type="text/javascript" src="modules/search/searchCtrl.js"></script>
@@ -278,8 +290,10 @@
     <script type="text/javascript" src="shared/modals/editTeam/editTeamCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/assignRole/assignRoleCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addOwner/addOwnerCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addOwners/addOwnersCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addTag/addTagCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addRole/addRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addRelated/addRelatedCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addStatus/addStatusCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addTeamMember/addTeamMemberCtrl.js"></script>
@@ -331,13 +345,14 @@
     <script type="text/javascript" src="settings/products/settingsProductsCtrl.js"></script>
     <script type="text/javascript" src="settings/won-loss/settingsWonLossCtrl.js"></script>
     <script type="text/javascript" src="settings/pipelines/settingsPipelinesCtrl.js"></script>
+    <script type="text/javascript" src="settings/pipelines/settingsPipelineDetailsCtrl.js"></script>
     <script type="text/javascript" src="settings/custom-fields/settingsCustomFieldsCtrl.js"></script>
     <script type="text/javascript" src="settings/views/settingsViewsCtrl.js"></script>
     <script type="text/javascript" src="settings/tags/settingsTagsCtrl.js"></script>
     <!-- ////data -->
     <script type="text/javascript" src="settings/export/settingsExportCtrl.js"></script>
     <script type="text/javascript" src="settings/import/settingsImportCtrl.js"></script>
-    <script type="text/javascript" src="settings/import/settingsImportWizardCtrl.js"></script>
+    <script type="text/javascript" src="settings/duplicates/settingsDuplicatesCtrl.js"></script>
     <script type="text/javascript" src="settings/audit-log/settingsAuditLogCtrl.js"></script>
     <!-- ////settings-modals -->
     <script type="text/javascript" src="shared/modals/addActivityType/addActivityTypeCtrl.js"></script>
@@ -358,13 +373,16 @@
     <script type="text/javascript" src="shared/modals/bulkEdit/bulkEditCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/bulkTag/bulkTagCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/confirm/confirmCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/warning/warningCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/connectIcloud/connectIcloudCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/createView/createViewCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/deleteView/deleteViewCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editCustomField/editCustomFieldCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editForecastCategory/editForecastCategoryCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editField/editFieldCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editReason/editReasonCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editProduct/editProductCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editStatus/editStatusCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editSystemView/editSystemViewCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editTeam/editTeamCtrl.js"></script>
@@ -381,6 +399,9 @@
     <script type="text/javascript" src="shared/modals/manageRelationships/manageRelationshipsCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/manageTags/manageTagsCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/newActivity/newActivityCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newTask/newTaskCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newMeeting/newMeetingCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/logCall/logCallCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/newCompany/newCompanyCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/newContact/newContactCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/newCustomField/newCustomFieldCtrl.js"></script>
@@ -409,7 +430,6 @@
     <script type="text/javascript" src="shared/directives/changeOnBlur.directive.js"></script>
     <script type="text/javascript" src="shared/directives/dynamicTitle.directive.js"></script>
     <script type="text/javascript" src="shared/directives/filereader.directive.js"></script>
-    <script type="text/javascript" src="shared/directives/myUiSelect.directive.js"></script>
     <script type="text/javascript" src="shared/directives/permission.directive.js"></script>
     <script type="text/javascript" src="shared/directives/scrollClass.directive.js"></script>
 
@@ -425,6 +445,7 @@
     <script type="text/javascript" src="shared/factories/queryDecoder.factory.js"></script>
     <script type="text/javascript" src="shared/factories/aggregateBuilder.factory.js"></script>
     <script type="text/javascript" src="shared/factories/viewManager.factory.js"></script>
+    <script type="text/javascript" src="shared/factories/activityCreator.factory.js"></script>
     <script type="text/javascript" src="shared/factories/insightsManager.factory.js"></script>
     <script type="text/javascript" src="shared/factories/tagManager.factory.js"></script>
     <script type="text/javascript" src="shared/factories/shareLink.factory.js"></script>

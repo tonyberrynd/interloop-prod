@@ -30,7 +30,7 @@
 							    </li>
 							    <li ng-class="{'active': data.currentEntity == 'Activity'}">
 							      <a href ng-click="changeEntity('Activity')">
-							      	Task
+							      	Activity
 							      </a>
 							    </li>
 							</ul>
@@ -61,7 +61,7 @@
 								        	<p ng-bind="view.name || '--'"></p>
 								        </td>
 								        <td>
-								        	<p ng-bind="view.type || '--'"></p>
+								        	<p ng-bind="(view.type | ucfirst) || '--'"></p>
 								        </td>
 								        <td>
 								        	<p>Everyone</p>
@@ -73,13 +73,9 @@
 								        	<p ng-bind="(view.createdOn | formatDate) || '--'"></p>
 								        </td>
 								        <td>
-								        	<!-- if locked -->
-								        	<span ng-if="view.locked" class="locked-item" uib-tooltip="This Field Is Required">
-								        		<icon class="wb-lock"></icon>
-								        	</span>
 								        	<!-- //if can be activated -->
-								        	<span class="toggle toggle-success" ng-if="!view.locked">
-										        <input class="toggle-range" id="{{view.id}}" type="checkbox" ng-model="view.active">
+								        	<span class="toggle toggle-success" ng-if="!view.locked" uib-tooltip="Enable / Disabled View">
+										        <input class="toggle-range" id="{{view.id}}" type="checkbox" ng-model="view.active" ng-change="save(view)">
 										        <label class="toggle-btn" for="{{view.id}}" style="margin-left: 20px; margin-bottom:-5px;"></label>
 									        </span>
 								        </td>

@@ -1,0 +1,80 @@
+
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+
+
+		<div class="settings-container" ng-if="data.activated">
+
+				<div class="settings-section">
+					<div class="settings-header ">
+					<h4>Manage Duplicates</h4>
+					<p>Interloop can automatically detect potential duplicates in the data</p>
+					</div>
+					<div class="panel panel-default with-tabs">
+						<div class="panel-heading">
+						 	<ul class="nav nav-tabs" role="tablist">
+							    <li ng-class="{'active': data.currentEntity == 'Opportunity'}">
+							      <a href ng-click="changeEntity('Opportunity')">
+							      	Opportunity
+							      </a>
+							    </li>
+							    <li ng-class="{'active': data.currentEntity == 'Contact'}">
+							      <a href ng-click="changeEntity('Contact')">
+							      	Contact
+							      </a>
+							    </li>
+							    <li ng-class="{'active': data.currentEntity == 'Company'}">
+							      <a href ng-click="changeEntity('Company')">
+							      	Company
+							      </a>
+							    </li>
+							</ul>
+						</div>
+						<div class="panel-body">
+							<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': !data.loading}" style="z-index:999">Loading...</div>
+
+							<div class="row" ng-if="!data.loading">
+								<div class="col-xs-12">
+
+									 <table class="table settings-table">
+								    <thead>
+								      <tr>
+								        <th>Possible Duplicate?</th>
+								        <th># of Records</th>
+					                    <th></th>
+								      </tr>
+								    </thead>
+								    <tbody>
+								      <tr ng-repeat="duplicate in data.duplicates | orderBy:'-count'">
+
+								        <td>
+								        	<span ng-if="data.currentEntity == 'Opportunity'">
+								        		<p ng-bind="duplicate.name || '--'"></p>
+								        	</span>
+								        	<span ng-if="data.currentEntity == 'Company'">
+								        		<p ng-bind="duplicate.name || '--'"></p>
+								        	</span>
+								        	<span ng-if="data.currentEntity == 'Contact'">
+								        		<p><span ng-bind="duplicate.firstName"></span> <span ng-bind="duplicate.lastName"></span></p>
+								        	</span>
+								        	
+								        </td>
+								        <td>
+								        	<p ng-bind="duplicate.count || '--'"></p>
+								        </td>
+								        <td class="text-right">
+											<button class="btn btn-default">Merge</button>
+											<button class="btn btn-default">View Records</button>
+								        </td>
+								      </tr>
+								      
+								    </tbody>
+								  </table>
+
+								 
+							  </div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>

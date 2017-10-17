@@ -32,3 +32,26 @@ div.jsoneditor {
 div.jsoneditor-tree {
 	padding:10px 0;
 }
+
+
+.table.scroll-table > thead:first-child > tr:first-child > th:first-child {
+    position: absolute;
+    display: inline-block;
+    background-color: red;
+    height: 100%;
+}
+
+.table.scroll-table > tbody > tr > td:first-child {
+    position: absolute;
+    display: inline-block;
+    background-color: red;
+    height: 100%;
+}
+
+.table.scroll-table > thead:first-child > tr:first-child > th:nth-child(2) {
+    padding-left: 40px;
+}
+
+.table.scroll-table > tbody > tr > td:nth-child(2) {
+    padding-left: 50px !important;
+}

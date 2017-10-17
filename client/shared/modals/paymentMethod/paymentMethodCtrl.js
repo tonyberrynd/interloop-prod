@@ -5,7 +5,8 @@
 angular.module('interloop.paymentMethodCtrl', [])
 //decalre dependencies
 .controller('paymentMethodCtrl', function(
-  $scope
+  $scope,
+  $timeout
 ) {
 
 // BINDABLES
@@ -13,13 +14,25 @@ angular.module('interloop.paymentMethodCtrl', [])
   //data
   //----------------------
   $scope.data = {};
+  $scope.data.card = {};
+  $scope.data.activated = false;
 
-    $scope.card = {
+  var card1 = {
     name: 'Mike Brown',
     number: '5555 4444 3333 1111',
     expiry: '11 / 2020',
     cvc: '123'
   };
+  var card2 = {
+    name: 'Bill Smith',
+    number: '4321 4321 4321 4321',
+    expiry: '02 / 2018',
+    cvc: '591'
+  };
+
+  var selectedCard = 1;
+  $scope.card = card1;
+
 
   $scope.cardPlaceholders = {
     name: 'Your Full Name',
@@ -35,10 +48,8 @@ angular.module('interloop.paymentMethodCtrl', [])
 
   $scope.cardOptions = {
     debug: false,
-    formatting: true,
-    width: 500 //optional
+    formatting: true
   };
-
 
   //functions
   //----------------------
@@ -48,7 +59,13 @@ angular.module('interloop.paymentMethodCtrl', [])
 
 // ACTIVATE
 //===========================================
-// activation logic goes here
+function activate(){
+  $timeout(function(){
+    $scope.data.activated = true;
+  }, 500)
+}
+
+activate();
 //-------------------------------------------
 
 

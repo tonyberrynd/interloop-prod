@@ -19,7 +19,7 @@
 									
 									  <table class="table table-condensed settings-table">
 									    <thead>
-									      <tr>
+									      <tr class="text-left">
 									        <th>Name</th>
 									        <th>Description</th>
 						                    <th></th>
@@ -28,25 +28,18 @@
 									    <tbody>
 									      <tr ng-repeat="product in data.products | filter: data.search | orderBy: data.sortBy.value" >
 									        <td class="plain">
-									        	<h5 ng-bind="product.name"> </h5>	
+									        	<h5 ng-bind="product.name || '--'"> </h5>	
 									        </td>
 									        <td class="plain">
-									        	<span ng-bind="product.description">--</span>  	
+									        	<span ng-bind="product.description || '--'"></span>  	
 									        </td>
 									        <td class="text-right plain">
-											    <div class="btn-group" uib-dropdown is-open="status.isopen" ng-if="!user.deactivated">
-											      <button id="single-button" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle ng-disabled="disabled">
-											        Actions <span class="wb-chevron-down-mini"></span>
-											      </button>
-											      <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-											        <li role="menuitem"><a href ng-click="editProduct()">Edit Product</a></li>
-											        <li class="divider"></li>
-											        <li role="menuitem">
-											        	<a href ng-click="deleteProduct" >
-											        		<span class="text-danger">Delete Product</span>
-											        	</a>
-											       </li>
-											      </ul>
+											   	<button class="btn btn-default edit-label" ng-click="editProduct(product)" uib-tooltip="Edit Product">
+										      		<icon class="fa fa-pencil"></icon>
+										      	</button>
+										      	<button class="btn btn-default edit-label" ng-click="deleteProduct(product)" uib-tooltip="Delete Product">
+										      		<icon class="fa fa-trash"></icon>
+										      	</button>
 											    </div>
 
 
@@ -55,6 +48,13 @@
 									      
 									    </tbody>
 									  </table>
+
+
+									  	<div class="empty-state text-center" ng-if="!data.products.length">
+									     	<h5>No Products</h5>
+									     	<p>Products can help you categorize opportunties and can help when forecasting</p>
+									     	<button class="btn btn-primary" ng-click="addProduct()">Create New Product</button>
+									     </div>
 
 
 

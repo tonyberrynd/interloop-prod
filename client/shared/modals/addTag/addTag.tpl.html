@@ -17,24 +17,38 @@
             <label for="existing-tag" class="col-sm-4 control-label">
                     <!-- label -->
                         <div class="radio-custom radio-primary pull-left" style="padding:0 25px;">
-                          <input type="radio" id="tagType-existing" name="tagType" ng-model="data.tagType" value="existing">
+                          <input class="magic-radio" type="radio" id="tagType-existing" name="tagType" ng-model="data.tagType" value="existing">
                           <label for="tagType-existing">Existing Tag</label>
                         </div>
 
             </label>
             <div class="col-sm-8">
-                <label for="selectTag" class="select">
-                  <select class="form-control" name="selectTag" ng-model="data.selectedTag" ng-disabled="data.tagType == 'new'">
-                    <option ng-repeat="tag in data.tags" value="{{tag}}">{{tag.name}}</option>
-                  </select>
-                </label>
+                <div class="single-select">
+                      <ui-select allow-clear="true" ng-model="data.selectedTag" minimum-input-length="1" theme="bootstrap" ng-disabled="data.tagType == 'new'">
+                        <ui-select-match placeholder="Choose a Tag">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in data.tags | filter: $select.search">
+                          <span ng-bind-html="item.name | highlight: $select.search"></span>
+                        </ui-select-choices>
+                        <ui-select-no-choice>
+                          <span class="no-results" ng-if="!(data.people | filter: $select.search).length && !data.serverError">
+                          No Results Found Matching <b>"{{$select.search}}"</b>
+                          </span>
+                              <span class="server-error" ng-if="!(data.people | filter: $select.search).length && data.serverError">
+                                The servier did not respond
+                                <br>
+                                <button class="btn btn-default">Retry</button>
+                              </span>
+                      </ui-select-no-choice>
+                  </ui-select>
+                </div>
+
             </div>
           </div>
           <div class="form-group">
             <label for="new-tag" class="col-sm-4 control-label">
                 <!-- label -->
                         <div class="radio-custom radio-primary pull-left" style="padding:0 25px;">
-                          <input type="radio" id="tagType-new" name="tagType" ng-model="data.tagType" value="new">
+                          <input class="magic-radio" type="radio" id="tagType-new" name="tagType" ng-model="data.tagType" value="new">
                           <label for="tagType-new">New Tag</label>
                         </div>
             </label>
@@ -48,5 +62,6 @@
 
     </div>
     <div class="modal-footer">
+        <button class="btn btn-subtle" type="button" ng-click="$dismiss()">Cancel</button>
         <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="shouldDisable()">Add Tags</button>
     </div>

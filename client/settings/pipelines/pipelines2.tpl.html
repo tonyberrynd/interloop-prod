@@ -22,9 +22,9 @@
 											<p ng-bind="process.description"></p>
 											<p><span ng-bind="process.stages.length || '0'"></span> Stages <span class="divider">|</span> <span ng-bind="process.milestones.length || '0'"></span> Milestones</p>
 											<br>
-											<button class="btn btn-deafult">
-													<icon class="wb-settings"></icon> Process Settings
-												</button>
+											<a class="btn btn-default" ui-sref="app.settings.pipeline-details({pipelineId: process.id})">
+										<icon class="fa fa-gear"></icon> Process Settings
+									</a>
 										</div>
 								</div>
 							</div>

@@ -1,0 +1,81 @@
+
+<ion-view view-title="Settings" class="settings has-header" hide-nav-bar="true">
+
+	<div class="bar bar-header bar-light">
+		<button class="button button-icon button-clear wb-menu" menu-toggle="left">
+        </button>
+	   <h1 class="title">Header</h1>
+	   <button class="button button-clear logout" ng-click="logout()">
+       Logout
+      </button>
+	</div>
+
+<!--     <ion-nav-buttons side="right">
+      <button class="button button-clear logout" ng-click="logout()">
+       Logout
+      </button>
+    </ion-nav-buttons> -->
+
+  <ion-content class="has-header">
+
+
+    <div class="list">
+
+
+      <div class="item item-divider"></div>
+
+      <!-- current user -->
+      <div class="item item-icon-right item-avatar">
+        <span class="user-avatar">
+          <img ng-if="$root.activeUser.avatar" ng-src="{{$root.activeUser.avatar}}">
+          <!-- //initials -->
+          <span ng-if="!$root.activeUser.avatar">
+            <span ng-bind="$root.activeUser.firstName | limitTo:1"></span>
+            <span ng-bind="$root.activeUser.lastName | limitTo:1"></span>
+          </span>
+        </span>
+
+        <h2 ng-bind="$root.activeUser.fullName || '--'"></h2>
+        <p ng-bind="$root.activeUser.email || '--'"></p>
+ <!--        <i class="icon wb-chevron-right more"></i> -->
+      </div>
+
+      <div class="item item-divider"></div>
+
+      <a class="item item-icon-right" ui-sref="app.settings-notifications">
+        Manage Notifications
+         <icon class="icon wb-chevron-right more"></icon>
+      </a>
+
+
+      <div class="item item-divider"></div>
+
+      <a class="item item-icon-right" ng-click="helpCenter()">
+        Help Center
+        <icon class="icon wb-chevron-right more"></icon>
+      </a>
+
+      <a class="item item-icon-right" ng-click="contactSupport()">
+        Contact Support
+        <icon class="icon wb-chevron-right more"></icon>
+      </a>
+
+      <div class="item item-divider"></div>
+
+      <a class="item item-icon-right" ng-click="clearCache()">
+        Clear Cache
+      </a>
+
+      <br>
+      <br>
+
+      <span class="version">
+      <p class="text-center">VERSION (<span ng-bind="data.version || '--'"></span>)</p>
+      </span>
+
+
+    </div>
+  </ion-content>
+
+</ion-view>
+

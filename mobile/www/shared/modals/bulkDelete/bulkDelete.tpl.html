@@ -1,0 +1,11 @@
+
+
+<div class="modal-body w-padding text-center confirm-modal" id="modal-body">
+           <icon class="wb-warning text-danger"></icon>
+           <h4>Are you sure you want to delete <b>{{data.selectedItems.length}}</b> Records?</h4>
+           <p>This will remove them from the list or any other views</p>
+  </div>
+  <div class="modal-footer confirm-footer text-center">
+      <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+      <button class="btn btn-danger" type="button" ng-click="ok()">Confirm</button>
+  </div>

@@ -23,6 +23,7 @@ angular.module('interloop.settingsExportCtrl', [])
 	//functions
 	//----------------------
 	$scope.exportData = exportData;
+	$scope.refresh = refresh;
 
 //-------------------------------------------
 
@@ -30,15 +31,17 @@ angular.module('interloop.settingsExportCtrl', [])
 // ACTIVATE
 //===========================================
 function activate() {
-
+		$scope.data.refreshing = true;
 	return Export.find().$promise
 		.then(function(results){
 			$scope.data.exports = results;
 			$scope.data.activated = true;
+			$scope.data.refreshing = false;
 		})
 		.catch(function(err){
 			Logger.error('Error Retrieving Previous Exports')
 			$scope.data.activated = true;
+			$scope.data.refreshing = false;
 		})
 }
 //-------------------------------------------
@@ -66,6 +69,11 @@ function exportData(entityType){
 	})
 
 }
+
+function refresh(){
+	activate();
+}
+
 
 
 //-------------------------------------------

@@ -1,0 +1,25 @@
+.no-avatar {
+	position: absolute;
+    top: 15px;
+    left: 16px;
+    max-width: 40px;
+    max-height: 40px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color:darken($gravel, 12%);
+    color:$diamond;
+    font-weight:500;
+    text-align: center;
+    line-height: 40px;
+    font-size:16px;
+}
+
+.contact-item .item-content {
+    padding-left:72px;
+}
+
+.contact-item .item-avatar {
+    padding-left: unset;
+    min-height: unset;
+}

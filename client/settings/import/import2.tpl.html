@@ -76,14 +76,18 @@
 				<!-- //previous imports -->
 				<div class="settings-section">
 					<div class="settings-header">
-					<h4>Previous Imports</h4>
+					<h4>Previous Imports (<span ng-bind="data.imports.length"></span>)</h4>
 					<p>View Historical Data Imports</p>
+					<button class="btn btn-default" ng-click="refresh()">
+						<icon class="wb-loop"></icon> Refresh
+					</button>
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-body">
+							
+							<div class="loop-loader loop-loader-xs loop-loader-light" ng-class="{'hidden': !data.refreshing}" style="z-index:999">Loading...</div>
 
-
-							<table class="table table-condensed">
+							<table class="table table-condensed" ng-if="!data.refreshing">
 							    <thead>
 							      <tr>
 							      	<th>Imported By</th>
@@ -93,11 +97,11 @@
 							        <th>
 							        	Status
 							        </th>
-							        <th></th>
+					<!-- 		        <th></th> -->
 							      </tr>
 							    </thead>
 							    <tbody>
-							      <tr ng-repeat="import in data.imports">
+							      <tr ng-repeat="import in data.imports | orderBy: '-createdOn'">
 							      	<td>
 							      		<h5>
 							      			<span ng-bind="import.createdBy.firstName"></span> <span ng-bind="import.createdBy.lastName"></span>
@@ -110,15 +114,15 @@
 							      		<span ng-bind="import.createdOn | formatDate"></span>
 							      	</td>
 							      	<td>
-							      		<span ng-bind="import.entity || '--'"></span>
+							      		<span ng-bind="import.type || '--'"></span>
 							      	</td>
 							      	<td>
-							      		<span ng-bind="import.records || '--'"></span>
+							      		<span ng-bind="(import.records | number:0) || '--'"></span>
 							      	</td>
 							      	<td>
 							      		<span ng-bind="import.status || '--'"></span>
 							      	</td>
-							      	<td class="text-right">
+							      	<!-- <td class="text-right">
 							      		<div class="btn-group" uib-dropdown is-open="status.isopen">
 											      <button id="single-button" type="button" class="btn btn-default btn-outline" uib-dropdown-toggle ng-disabled="disabled">
 											        Actions <span class="wb-chevron-down-mini"></span>
@@ -128,11 +132,17 @@
 											        <li role="menuitem"><a class="text-danger" href ng-click="undoImport(import)">Delete Records</a></li>
 											      </ul>
 										  </div>
-							      	</td>
+							      	</td> -->
 							      </tr>
 							      
 							    </tbody>
 							  </table>
+
+
+							   <div class="empty-state" ng-if="!data.imports.length && !data.refreshing">
+									<h5>No Imports</h5>
+									<p>Imported data, and the current status of the import will be shown here</p>
+								</div>
 	
 
 						</div>

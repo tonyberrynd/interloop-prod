@@ -16,22 +16,23 @@
 							<div class="panel panel-default team-card">
 								<div class="panel-body">
 									<h4 ng-bind="team.name"></h4>
-									<p ng-bind="team.description || 'No Description'"></p>
+									<p class="team-description" ng-bind="team.description || 'No Description'"></p>
 									<br>
 
 									<span class="member-list">
-									<p ng-if="!team.members.length">No Members</p>
+									<p ng-if="!team.members.length" style="margin-left:-10px;padding:15px 0;padding-bottom:14px;">No Members</p>
 									<div class="avatar-bundle" ng-if="team.members.length">
 									    <div class="avatar avatar-48" ng-class="member.color" ng-repeat="member in team.members | limitTo:4" uib-tooltip="{{member.firstName}} {{member.lastName}}">
-									    	<span ng-bind="member.initials"></span>
+									    	<span ng-bind="member.firstName | limitTo:1"></span><span ng-bind="member.lastName | limitTo:1"></span>
 									    </div>
 									    <div class="avatar-plus" ng-if="team.members.length > 4">
 									    	+<span ng-bind="team.members.length - 4"></span>
 									    </div>
 									</div>
 									</span>
-									<button class="btn btn-default">
-										<icon class="fa fa-gear"></icon> Team Settings</button>
+									<a class="btn btn-default" ui-sref="app.settings.team-details({teamId: team.id})">
+										<icon class="fa fa-gear"></icon> Team Settings
+									</a>
 								</div>
 							</div>
 						</div>

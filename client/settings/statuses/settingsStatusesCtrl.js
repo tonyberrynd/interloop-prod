@@ -29,6 +29,8 @@ angular.module('interloop.settingsStatusesCtrl', [])
 	//functions
 	//----------------------
 	$scope.addStatus = addStatus;
+	$scope.editStatus = editStatus;
+	$scope.deleteStatus = deleteStatus;
 
 //-------------------------------------------
 
@@ -67,6 +69,42 @@ function addStatus() {
 		//ignore
 	})
 }
+
+
+
+function editStatus(status){
+	var resolvedData = status;
+
+	//open modal
+	var editStatusModal = modalManager.openModal('editStatus', resolvedData);
+		//after modal closed
+		editStatusModal.result.then(function(result){
+			activate();
+		}, function(){
+			//ignore
+		})
+}
+
+
+function deleteStatus(status) {
+
+	var resolvedData = {
+		helperTitle: 'Delete Status',
+		helperText: 'Are you sure you want to delete this status?',
+		helperDescription: 'This will remove the status from the application, anything associated with this status will not be changed'
+	};
+
+	//open modal
+	var deleteStatusModal = modalManager.openModal('warning', resolvedData);
+
+	deleteStatusModal.result.then(function(results){
+		Status.deleteById({"id": status.id}).$promise
+			.then(function(results){
+				$scope.data.statuses.splice($scope.data.statuses.indexOf(status), 1);
+			})
+	})
+}
+
 
 
 

@@ -3,7 +3,55 @@
 <div class="panel panel-default sidepanel-panel clear">
 	<div class="panel-body">
 	
-	<h5 class="sidepanel-title first-title">Open Tasks (<span ng-bind="data.thisRecord.openActivities.length || '0'"></span>)</h5>
+	<h5 class="sidepanel-title first-title collapse-header" ng-click="data.meetingsCollapsed = !data.meetingsCollapsed">Upcoming Meetings (<span ng-bind="data.thisRecord.upcomingMeetings.length || '0'"></span>)
+
+	
+	<span class="pull-right collapse-arrow">
+	<icon class="wb-triangle-right" ng-if="data.meetingsCollapsed"></icon>
+	<icon class="wb-triangle-down" ng-if="!data.meetingsCollapsed"></icon>
+	</span>
+
+	</h5>
+
+	<div uib-collapse="data.meetingsCollapsed">
+
+	<div class="panel panel-default card meeting-card" ng-repeat="meeting in data.thisRecord.upcomingMeetings | orderBy: 'meeting.startDate'">
+			<div class="panel-body">
+				<div class="name-wrapper">
+					<div class="avatar avatar-24 meeting-avatar sunset"></div>
+					<h4 ng-bind="meeting.name || '--'">Let's Discuss Our Progress</h4>
+					<p><span ng-bind="meeting.owner"></span> <span ng-if="meeting.owner">< ></span> <span ng-bind="meeting.attendees[0].name"></span><span ng-if="meeting.attendees.length > 1"></span>, +<span ng-bind="meeting.attendees.length - 1"></span></p>
+					<p><span ng-bind="meeting.startDate | date: 'mediumDate'"></span> <span class="spacer">&middot;</span> <span ng-bind="meeting.startTime"></span> - <span ng-bind="meeting.endTime"></span></p>
+				</div>
+			</div>
+	</div>
+
+	<span class="empty-add" ng-if="!data.thisRecord.openActivities.length">
+      <p class="empty-section">No Upcoming Meetings</p>
+    </span>
+
+	</div>
+
+	</div>
+</div>
+
+<br>
+
+<div class="panel panel-default sidepanel-panel clear">
+	<div class="panel-body">
+	
+	<h5 class="sidepanel-title first-title collapse-header" ng-click="data.tasksCollapsed = !data.tasksCollapsed">Open Tasks (<span ng-bind="data.thisRecord.openActivities.length || '0'"></span>)
+
+
+	<span class="pull-right collapse-arrow">
+	<icon class="wb-triangle-right" ng-if="data.tasksCollapsed"></icon>
+	<icon class="wb-triangle-down" ng-if="!data.tasksCollapsed"></icon>
+	</span>
+
+	</h5>
+
+
+	<div uib-collapse="data.tasksCollapsed">
 
 	<div class="panel panel-default card task-card" ng-repeat="activity in data.thisRecord.openActivities | orderBy: 'activity.dueDate'">
 		<div class="panel-body">
@@ -29,30 +77,7 @@
 	<span class="empty-add" ng-if="!data.thisRecord.openActivities.length">
       <p class="empty-section">No Open Tasks</p>
     </span>
-
-	</div>
-</div>
-
-
-<div class="panel panel-default sidepanel-panel clear">
-	<div class="panel-body">
 	
-	<h5 class="sidepanel-title">Upcoming Meetings (<span ng-bind="data.thisRecord.upcomingMeetings.length || '0'"></span>)</h5>
-
-	<div class="panel panel-default card meeting-card" ng-repeat="meeting in data.thisRecord.upcomingMeetings | orderBy: 'meeting.startDate'">
-			<div class="panel-body">
-				<div class="name-wrapper">
-					<div class="avatar avatar-24 meeting-avatar sunset"></div>
-					<h4 ng-bind="meeting.name || '--'">Let's Discuss Our Progress</h4>
-					<p><span ng-bind="meeting.owner"></span> <span ng-if="meeting.owner">< ></span> <span ng-bind="meeting.attendees[0].name"></span><span ng-if="meeting.attendees.length > 1"></span>, +<span ng-bind="meeting.attendees.length - 1"></span></p>
-					<p><span ng-bind="meeting.startDate | date: 'mediumDate'"></span> <span class="spacer">&middot;</span> <span ng-bind="meeting.startTime"></span> - <span ng-bind="meeting.endTime"></span></p>
-				</div>
-			</div>
 	</div>
-
-	<span class="empty-add" ng-if="!data.thisRecord.openActivities.length">
-      <p class="empty-section">No Upcoming Meetings</p>
-    </span>
-
 	</div>
 </div>

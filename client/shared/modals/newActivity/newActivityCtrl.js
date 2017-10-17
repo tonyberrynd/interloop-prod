@@ -9,7 +9,6 @@ angular.module('interloop.newActivityCtrl', [])
   $scope,
   $timeout,
   $rootScope,
-  Activity,
   $http,
   $uibModalInstance,
   Activity,

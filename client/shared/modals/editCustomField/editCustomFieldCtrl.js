@@ -11,6 +11,7 @@ angular.module('interloop.editCustomFieldCtrl', [])
   resolvedData,
   newEntityFactory,
   View,
+  CustomField,
   Logger) {
 
 // BINDABLES
@@ -40,18 +41,14 @@ angular.module('interloop.editCustomFieldCtrl', [])
 
   function ok() {
 
-    // TODO - Move Fields to Database
-
-    $uibModalInstance.close(); 
-
-    // Field.prototype$patchAttributes({id: $scope.data.field.id}, $scope.data.field).$promise
-    //   .then(function(results){
-    //     Logger.info('Updated Field Details')
-    //     $uibModalInstance.close(); 
-    //   })
-    //   .catch(function(err){
-    //     Logger.error('Error Updating Field', 'Please try again in a few moments')
-    //   })
+    CustomField.prototype$patchAttributes({id: $scope.data.field.id}, $scope.data.field).$promise
+      .then(function(results){
+        Logger.info('Updated Field Details')
+        $uibModalInstance.close(); 
+      })
+      .catch(function(err){
+        Logger.error('Error Updating Field', 'Please try again in a few moments')
+      })
 
   }
 

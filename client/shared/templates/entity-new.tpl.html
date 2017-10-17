@@ -17,6 +17,26 @@
                               <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
                             </div>
 
+
+                            <!-- website -->
+                             <div class="form-group" ng-switch-when="domain" ng-class="{ 'has-error' : newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine }">
+                              <label for="{{field.key}}">
+                                <span ng-bind="field.label"></span>
+                                <span class="required-field" ng-if="field.newRequired">*</span>
+                              </label>
+                              <div class="input-group">
+                                <span class="input-group-addon">http(s)://</span>
+                                 <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
+                              </div>
+                              
+                              <div class="website-suggestion" ng-if="data.websiteSuggestions.length">
+                                <span class="tag tag-info rounded" ng-repeat="suggestion in data.websiteSuggestions" ng-click="data.thisRecord[field.key] = sugesstion">
+                                  <span ng-bind="suggestions"></span>
+                                </span>
+                              </div>
+                             
+                            </div>
+
                               <!-- number -->
                              <div class="form-group" ng-switch-when="number">
                               <label for="{{field.key}}">
@@ -242,7 +262,7 @@
 
 
                             <!-- website -->
-                             <div class="form-group" ng-switch-when="website" ng-class="{ 'has-error' : newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine }">
+                             <div class="form-group" ng-switch-when="domain" ng-class="{ 'has-error' : newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine }">
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label"></span>
                                 <span class="required-field" ng-if="field.newRequired">*</span>

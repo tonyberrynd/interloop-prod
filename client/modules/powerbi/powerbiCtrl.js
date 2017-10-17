@@ -6,7 +6,6 @@ angular.module('interloop.powerbiCtrl', [])
 //declare dependencies
 .controller('powerbiCtrl', function(
   $scope,
-  $scope, 
   $http,
   $q, 
   $state,

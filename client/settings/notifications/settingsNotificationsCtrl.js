@@ -21,6 +21,45 @@ angular.module('interloop.settingsNotificationsCtrl', [])
   $scope.data.activated = true;
   $scope.data.webNotifications = true;
 
+  //basic setup
+  $scope.data.alertSettings = {
+     "opportunity-assigned": {
+        desktop: true,
+        mobile: true, 
+        email: true
+      },
+      "opportunity-shared": {
+        desktop: true,
+        mobile: true, 
+        email: true
+      },
+      "activity-assigned": {
+        desktop: true,
+        mobile: true, 
+        email: true
+      },
+      "activity-completed": {
+        desktop: true,
+        mobile: true, 
+        email: true
+      },
+      "comment-owned-record": {
+        desktop: true,
+        mobile: true, 
+        email: true
+      },
+      "comment-started-record": {
+        desktop: true,
+        mobile: true, 
+        email: true
+      },
+      "comment-added": {
+        desktop: true,
+        mobile: true, 
+        email: true
+      }
+  }
+
 	//functions
 	//----------------------
 	$scope.save = save;
@@ -46,19 +85,7 @@ function activate() {
 
     //if not in elemnt set all notifications to true
     //TODO - MOVE TO CREATION OF USER
-    if(_.isNil($scope.data.thisUser.alertSettings)) {
-      $scope.data.thisUser.alertSettings = {
-        "oppAssigned": true,
-        "taskFollowComplete" : true, 
-        "taskAssigned" : true, 
-        "taskReminder" : true, 
-        "commentFollowPosted" : true, 
-        "commentPosted" : true, 
-        "commentCreatedItem" : true, 
-        "commentOwnerItem" : true, 
-        "dailyPlanner" : true
-      }
-    }
+    _.merge($scope.data.thisUser.alertSettings, $scope.data.alertSettings);
 
         //avoids flashing
     $timeout(function() {

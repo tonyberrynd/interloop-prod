@@ -35,6 +35,16 @@ angular.module('interloop.config', [])
   $locationProvider.html5Mode(true).hashPrefix('!');
 })
 
+
+//dont log unhandled rejection errors
+//---------------------
+.config(function($qProvider, ENV) {
+  if(ENV == 'PRODUCTION'){
+    $qProvider.errorOnUnhandledRejections(false);
+  }
+})
+
+
 //Ignores unhandled rejections with no cause
 //---------------------
 // .config(function ($provide) {
@@ -76,30 +86,33 @@ angular.module('interloop.config', [])
 
 //Microsoft Adal
 //---------------------
-// .config(function(adalAuthenticationServiceProvider, $httpProvider) {
+.config(function(adalAuthenticationServiceProvider, $httpProvider) {
 
-//     var anonymousEndpoints = [
-//       '/',
-//     ];
+    var anonymousEndpoints = [
+      '/',
+    ];
 
-//     //set window localstorage to be used in init
-//     window.localStorage.adalClientId = window.localStorage.adalClientId || 'no-client-id-for-this-organization';
+    //set window localstorage to be used in init
+    window.localStorage.adalClientId = window.localStorage.adalClientId || 'no-client-id-for-this-organization';
 
-//     adalAuthenticationServiceProvider.init(
-//       {
-//           // Config to specify endpoints and similar for your app
-//           clientId: window.localStorage.adalClientId,
-//           anonymousEndpoints: anonymousEndpoints,
-//           popUp: true, 
-//           cacheLocation: 'localStorage', // optional cache location default is sessionStorage
-//           endpoints: {
-//             'https://graph.microsoft.com': 'https://graph.microsoft.com', 
-//             "https://api.powerbi.com": "https://analysis.windows.net/powerbi/api",
-//           }
-//       },
-//       $httpProvider   // pass http provider to inject request interceptor to attach tokens
-//       );
-// }) 
+    adalAuthenticationServiceProvider.init(
+      {
+          // Config to specify endpoints and similar for your app
+          clientId: window.localStorage.adalClientId,
+          anonymousEndpoints: anonymousEndpoints,
+          popUp: true, 
+          cacheLocation: 'localStorage', // optional cache location default is sessionStorage
+          endpoints: {
+            'https://graph.microsoft.com': 'https://graph.microsoft.com', 
+            "https://api.powerbi.com": "https://analysis.windows.net/powerbi/api",
+          }
+      },
+      $httpProvider   // pass http provider to inject request interceptor to attach tokens
+      );
+
+      // // suppress warnings
+      // const windowPostMessageProxy = new WindowPostMessageProxy({ suppressMessageNotHandledWarning: true });
+}) 
 
 //Stripe
 //---------------------
@@ -166,13 +179,8 @@ angular.module('interloop.config', [])
   ) {
 
 
-  // Preload States if going directly to sidebar
-  //==========================================
-
-
   // BINDABLES
   //===========================================
-
     //vars
     //=====================
     var firstStateLoaded = false;
@@ -221,18 +229,7 @@ angular.module('interloop.config', [])
             cancelLabel: 'Cancel',
             customRangeLabel: 'Custom range'
           },
-          alwaysShowCalendars: true,
-          ranges: {
-            'Last Month':   [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-            'Last Quarter': [moment().subtract(1, 'quarter').startOf('quarter'), moment().subtract(1, 'quarter').endOf('quarter')],
-            'Last Year':    [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
-            'This Month':   [moment().startOf('month'), moment().endOf('month')],
-            'This Quarter': [moment().startOf('quarter'), moment().endOf('quarter')],
-            'This Year':    [moment().startOf('year'), moment().endOf('year')],
-            'Next Month':   [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')],
-            'Next Quarter': [moment().add(1, 'quarter').startOf('quarter'), moment().add(1, 'quarter').endOf('quarter')],
-            'Next Year':    [moment().add(1, 'year').startOf('year'), moment().add(1, 'year').endOf('year')]
-          }
+          alwaysShowCalendars: true
     };
 
     // date range
@@ -281,6 +278,22 @@ angular.module('interloop.config', [])
           alwaysShowCalendars: true,
     };
 
+    $rootScope.options4 = {
+          singleDatePicker: true,
+          parentEl: 'body',
+          applyClass: 'btn-primary',
+          drops: 'down',
+          locale: {
+            applyLabel: "Apply",
+            fromLabel: "Start",
+            toLabel: "End",
+            format: 'MMM D, YYYY',
+            cancelLabel: 'Cancel',
+            customRangeLabel: 'Custom range'
+          },
+          alwaysShowCalendars: true
+    };
+
 
   // FUNCTIONS
   //===========================================
@@ -288,15 +301,16 @@ angular.module('interloop.config', [])
     $rootScope.trixFocus = function(event, editor){
       $rootScope.$apply(function(){
         $rootScope.richTextFocus = true;
+        event.target.toolbarElement.style.display = "block";
       })
     }
 
     $rootScope.trixBlur = function(event, editor){
       $rootScope.$apply(function(){
         $rootScope.richTextFocus = false;
+        event.target.toolbarElement.style.display = "none";
       })
     }
-
 
     //lightbox copy action
     $rootScope.copySuccess = function(){
@@ -319,23 +333,27 @@ angular.module('interloop.config', [])
     //apply timezone
     $rootScope.applyTimezone = function(){
       $rootScope.activeUser.timezone = moment.tz.guess();
+      $rootScope.adjustTimezone = false;
       Appuser.prototype$patchAttributes({ id: $rootScope.activeUser.id }, $rootScope.activeUser)
         .$promise
         .then(function successCallback(response) {
             Logger.info('Successfully Updated Profile')
             //set back into scope
             $rootScope.activeUser = response;
-            $rootScope.adjustTimezone = false;
 
           }, function errorCallback(response) {
             Logger.error('Error Updating Profile')
-            $rootScope.adjustTimezone = false;
         });
 
     }
 
     $rootScope.ignoreTimezone = function(){
       $rootScope.adjustTimezone = false;
+      //set local storage so dont ask again until at least 
+      window.localStorage.ignoreTimezoneTime = moment().format();
+      window.localStorage.ignoreTimezoneName = moment.tx.guess();
+      //let user know they can change settings in 
+      Logger.info("Timezone can be adjusted in settings > profile")
     }
 
   //-------------------------------------------
@@ -376,34 +394,32 @@ angular.module('interloop.config', [])
             });
         }
 
+        //Close Sidebar if navigating to new state
+        //-----------------------
+        if(toState.data && toState.data.mainState) {
+          $rootScope.sidePanelOpen = false;
+        }
+
         //Check if offline
         //-----------------------
-      if(!$window.navigator.onLine && toState.name !== 'offline'){
-        event.preventDefault();
-        $state.go('offline');
-      }
+        if(!$window.navigator.onLine && toState.name !== 'offline'){
+          event.preventDefault();
+          $state.go('offline');
+        }
       
-      //sidebar state is loading
-      // //---------------------------------------------
-      // var isGoingToSidebarState = false;
-      // if(toState.data && toState.data.sidebarState) {
-      //   isGoingToSidebarState = true;
-        
-      // }
+        //handle user authentication
+        //---------------------------------------------
+        if (toState.authenticate && !Appuser.isAuthenticated()) {
+          event.preventDefault();
+          $state.go('login');
+        }
 
-      //handle user authentication
-      //---------------------------------------------
-      if (toState.authenticate && !Appuser.isAuthenticated()) {
-        event.preventDefault();
-        $state.go('login');
-      }
-
-      //permission based states
-      //---------------------------------------------
-      if (!authService.userHasPermissionForView(toState)){
-        event.preventDefault();
-        $state.go('login');
-      }
+        //permission based states
+        //---------------------------------------------
+        if (!authService.userHasPermissionForView(toState)){
+          event.preventDefault();
+          $state.go('login');
+        }
   });
 
   // success

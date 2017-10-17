@@ -10,71 +10,222 @@
 					<p>Recieve just the right amount of notifications to stay informed and up to date.</p>
 					</div>
 					<div class="panel panel-default">
-						<div class="panel-body">
+						<div class="panel-heading notifications-explanation">
+							<div class="row">
+								<div class="col-xs-4 text-center">
+									<icon class="fa fa-desktop"></icon>
+									<p><b>Desktop</b></p>
+									<p>A banner in the corner of your screen</p>
+								</div>
+								<div class="col-xs-4 text-center">
+									<icon class="fa fa-mobile mobile-icon"></icon>
+									<p><b>Mobile</b></p>
+									<p>A notification on your phone</p>
+								</div>
+								<div class="col-xs-4 text-center">
+									<icon class="fa fa-envelope"></icon>
+									<p><b>Email</b></p>
+									<p>Notification sent to your inbox</p>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body notification-preferences">
 							
 							<span class="opportunity-notifications">
-							<h4>Opportunities</h4>
+							<h5 class="notification-title">OPPORTUNITIES</h5>
 							<table class="table table-condensed">
 							    <tbody>
 							      <tr>
-							        <td>
-							        	An Opportunity is Assigned to Yo
+							        <td class="col-xs-6">
+							        	An Opportunity is <b>assigned to you</b>
 							        </td>
-							        <td class="text-right">
-							        	<span class="toggle toggle-primary">
-				                          <input class="toggle-range ng-pristine ng-untouched ng-valid ng-not-empty" id="defaultToggle" type="checkbox" ng-model="data.openOpportunity" style="">
-				                          <label class="toggle-btn" for="defaultToggle"></label>
-				                      </span>
+							        <td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="opportunity-assigned-desktop">
+										<label class="text" for="opportunity-assigned-desktop">
+										  Desktop
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="opportunity-assigned-mobile">
+										<label class="text" for="opportunity-assigned-mobile">
+										  Mobile
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="opportunity-assigned-email">
+										<label class="text" for="opportunity-assigned-email">
+										  Email
+										</label>
+				                  	</td>
+							      </tr>
+							       <tr>
+							        <td class="col-xs-6">
+							        	An Opportunity is <b>shared with you</b>
+							        </td>
+							        <td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="opportunity-shared-desktop">
+										<label class="text" for="opportunity-shared-desktop">
+										  Desktop
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="opportunity-shared-mobile">
+										<label class="text" for="opportunity-shared-mobile">
+										  Mobile
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="opportunity-shared-email">
+										<label class="text" for="opportunity-shared-email">
+										  Email
+										</label>
 				                  	</td>
 							      </tr>
 							    </tbody>
 							  </table>
 							  <br>
 							  </span>
+
+
+							<span class="activity-notifications">
+							<h5 class="notification-title">ACTIVITIES</h5>
+							<table class="table table-condensed">
+							    <tbody>
+							    <tr>
+							        <td class="col-xs-6">
+							        	A task is <b>assigned to you</b>
+							        </td>
+							         <td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="activity-assigned-desktop">
+										<label class="text" for="activity-assigned-desktop">
+										  Desktop
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="activity-assigned-mobile">
+										<label class="text" for="activity-assigned-mobile">
+										  Mobile
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="activity-assigned-email">
+										<label class="text" for="activity-assigned-email">
+										  Email
+										</label>
+				                  	</td>
+							      </tr>
+							      <tr>
+							        <td class="col-xs-6">
+							        	A task you follow is <b>marked complete</b>
+							        </td>
+							        <td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="activity-completed-desktop">
+										<label class="text" for="activity-completed-desktop">
+										  Desktop
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="activity-completed-mobile">
+										<label class="text" for="activity-completed-mobile">
+										  Mobile
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="activity-completed-email">
+										<label class="text" for="activity-completed-email">
+										  Email
+										</label>
+				                  	</td>
+							      </tr>
+							    </tbody>
+							  </table>
+							  <br>
+							  </span>
+
+
+
+							<span class="comment-notifications">
+							<h5 class="notification-title">COMMENTS</h5>
+							<table class="table table-condensed">
+							    <tbody>
+							      <tr>
+							        <td class="col-xs-6">
+							        	 A new conversation is started on a record <b>you own</b></b>
+							        </td>
+							        <td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="comment-owned-record-desktop">
+										<label class="text" for="comment-owned-record-desktop">
+										  Desktop
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="comment-owned-record-mobile">
+										<label class="text" for="comment-owned-record-mobile">
+										  Mobile
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="comment-owned-record-email">
+										<label class="text" for="comment-owned-record-email">
+										  Email
+										</label>
+				                  	</td>
+							      </tr>
+							      <tr>
+							        <td class="col-xs-6">
+							        	A new conversation is started on a record <b>you created</b>
+							        </td>
+							         <td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="comment-started-record-desktop">
+										<label class="text" for="comment-started-record-desktop">
+										  Desktop
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="comment-started-record-mobile">
+										<label class="text" for="comment-started-record-mobile">
+										  Mobile
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="comment-started-record-email">
+										<label class="text" for="comment-started-record-email">
+										  Email
+										</label>
+				                  	</td>
+							      </tr>
+							       <tr>
+							        <td class="col-xs-6">
+							        	A comment is posted on a record <b>you commented</b>
+							        </td>
+							         <td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="comment-added-desktop">
+										<label class="text" for="comment-added-desktop">
+										  Desktop
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="comment-added-mobile">
+										<label class="text" for="comment-added-mobile">
+										  Mobile
+										</label>
+				                  	</td>
+				                  	<td class="text-left">
+										<input class="magic-checkbox" type="checkbox" name="layout" id="comment-added-email">
+										<label class="text" for="comment-added-email">
+										  Email
+										</label>
+				                  	</td>
+							      </tr>
+							    </tbody>
+							  </table>
+							  <br>
+							  </span>
+
+
+
+
 							  
-
-
-							<span class="opportunity-notifications">
-							<h4>Tasks</h4>
-							<table class="table table-condensed">
-							    <tbody>
-							      <tr>
-							        <td>
-							        	A task you follow is marked complet
-							        </td>
-							        <td class="text-right">
-							        	<span class="toggle toggle-primary">
-				                          <input class="toggle-range ng-pristine ng-untouched ng-valid ng-not-empty" id="defaultToggle" type="checkbox" ng-model="data.openOpportunity" style="">
-				                          <label class="toggle-btn" for="defaultToggle"></label>
-				                      </span>
-				                  	</td>
-							      </tr>
-							      <tr>
-							        <td>
-							        	A task is assigned to yo
-							        </td>
-							        <td class="text-right">
-							        	<span class="toggle toggle-primary">
-				                          <input class="toggle-range ng-pristine ng-untouched ng-valid ng-not-empty" id="defaultToggle" type="checkbox" ng-model="data.openOpportunity" style="">
-				                          <label class="toggle-btn" for="defaultToggle"></label>
-				                      </span>
-				                  	</td>
-							      </tr>
-							      <tr>
-							        <td>
-							        	A reminder triggers on a task that is assigned to you
-							        </td>
-							        <td class="text-right">
-							        	<span class="toggle toggle-primary">
-				                          <input class="toggle-range ng-pristine ng-untouched ng-valid ng-not-empty" id="defaultToggle" type="checkbox" ng-model="data.openOpportunity" style="">
-				                          <label class="toggle-btn" for="defaultToggle"></label>
-				                      </span>
-				                  	</td>
-							      </tr>
-							    </tbody>
-							  </table>
-							  <br>
-							  </span>
 											
 
 

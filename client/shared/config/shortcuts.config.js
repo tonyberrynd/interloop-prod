@@ -103,15 +103,15 @@ hotkeys.add({
 
 //Sidebar Actions
 //==============================================//
-// hotkeys.add({
-//     combo: 'mod+shift+q',
-//     description: '[Sidebar] - Show Available Actions',
-//     callback: function(event) {
-//      event.preventDefault();
-//       $rootScope.$broadcast('SIDEBAR_SHOW_ACTIONS');
-//       $log.log('SIDEBAR_SHOW_ACTIONS');
-//     }
-// });
+hotkeys.add({
+    combo: 'mod+shift+a',
+    description: '[Sidebar] - Show Available Actions',
+    callback: function(event) {
+      event.preventDefault();
+      $rootScope.showActionMenu = true;
+      $log.log('SIDEBAR_SHOW_ACTIONS');
+    }
+});
 
 
 // hotkeys.add({

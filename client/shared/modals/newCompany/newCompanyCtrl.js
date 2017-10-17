@@ -12,7 +12,6 @@ angular.module('interloop.newCompanyCtrl', [])
   Company,
   $http,
   $uibModalInstance,
-  Company,
   Logger,
   modalManager,
   RelationshipManager,

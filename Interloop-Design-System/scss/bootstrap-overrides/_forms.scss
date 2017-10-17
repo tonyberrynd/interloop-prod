@@ -63,12 +63,19 @@
 }
 
 
-.form-control:focus {
-    outline: 0 !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none;
-    border-width:2px;
-    padding-left:11px;
+.form-control {
+
+  &:focus {
+        outline: 0 !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none;
+        border-width:2px;
+        padding-left:11px;
+    }
+
+  &.input-lg:focus {
+    padding-left:15px;
+  }
 }
 
 .has-success .form-control {

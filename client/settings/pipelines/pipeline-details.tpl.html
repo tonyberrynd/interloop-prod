@@ -1,0 +1,22 @@
+<div class="loop-loader loop-loader-xs loop-loader-light centered" ng-class="{'hidden': data.activated}" style="z-index:999">Loading...</div>
+
+<div class="settings-section fadeInOut" ng-if="data.activated">
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			<p style="margin-left:-5px;"><a ui-sref="app.settings.pipelines"><icon class="wb-arrow-left"></icon> Back To Pipelines</a></p>
+			<h3><span ng-bind="data.thisPipeline.label"></span>
+			<button class="btn btn-link" uib-tooltip="Edit Pipeline Name & Description" ng-click="editPipeline()"><icon class="wb-edit"></icon></button>
+			<button class="btn btn-link" uib-tooltip="Delete Pipeline" ng-click="deletePipeline()"><icon class="wb-trash"></icon></button>
+			</h3> 
+			<p class="team-description" ng-if="data.thisPipeline.description" ng-bind="data.thisPipeline.description"></p>
+		</div>
+		<div class="panel-body" style="padding-top:15px;">
+
+
+			<!-- //Build Out Sales Process Here -->
+
+		
+
+		</div>
+	</div>
+</div>

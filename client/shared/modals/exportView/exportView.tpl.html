@@ -15,6 +15,17 @@
             <label for="file-name">File Name:</label>
             <input type="text" class="form-control" id="file-name" ng-model="data.fileName">
           </div>
+          <div class="form-group">
+              <label for="">Columns To Include:</label>
+              <input class="magic-radio ng-scope" type="radio" name="radio" id="shown" value="shown" ng-model="data.includeColumns">
+                <label for="shown" class="ng-scope">
+                  Currently Shown Columns
+                </label>
+                <input class="magic-radio ng-scope" type="radio" name="radio" id="all" value="all" ng-model="data.includeColumns">
+                <label for="all" class="ng-scope">
+                  All Columns
+                </label>
+          </div>
         </form>
 
     </div>

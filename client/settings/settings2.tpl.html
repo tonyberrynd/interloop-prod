@@ -7,7 +7,7 @@
               <li ui-sref-active="active">
                 <a href ui-sref="app.settings.profile">Profile</a>
               </li>
-              <li ui-sref-active="active">
+              <li ui-sref-active="active" feature-flag="--CREATION_PREFERENCES--">
                 <a href ui-sref="app.settings.creation" >Creation Preferences</a>
               </li>
               <li ui-sref-active="active">
@@ -17,6 +17,10 @@
                 <a href ui-sref="app.settings.connected">Connected Apps</a>
               </li>
 
+            </ul>
+
+            <ul class="nav nav-pills nav-stacked" ng-if="$root.activeUser.admin || $root.activeUser.superAdmin">
+              
               <!-- team settings -->
               <li class="sidebar-label">Team Settings</li>
               <li ui-sref-active="active">
@@ -47,10 +51,10 @@
                   <a href ui-sref="app.settings.won-loss">Won / Loss Reasons</a>
                 </li>
                 <li ui-sref-active="active">
-                  <a href ui-sref="app.settings.pipelines">Sales Processes</a>
+                  <a href ui-sref="app.settings.products">Products</a>
                 </li>
                 <li ui-sref-active="active">
-                  <a href ui-sref="app.settings.products">Products</a>
+                  <a href ui-sref="app.settings.pipelines">Sales Processes</a>
                 </li>
                 <li ui-sref-active="active">
                   <a href ui-sref="app.settings.forecasting">Forecasting</a>
@@ -79,18 +83,24 @@
                   <li ui-sref-active="active">
                       <a href ui-sref="app.settings.export">Export Data</a>
                   </li>
+                  <li ui-sref-active="active" feature-flag="--DUPLICATE_MANAGER--">
+                      <a href ui-sref="app.settings.duplicates">Duplicate Manager</a>
+                  </li>
                   <li ui-sref-active="active">
                       <a href ui-sref="app.settings.audit-log">Audit Log</a>
                   </li>
 
                   <!-- billing -->
                   <li class="sidebar-label">Billing</li>
-                  <li ui-sref-active="active">
+<!--                   <li ui-sref-active="active">
                       <a href ui-sref="app.settings.subscription">Subscription</a>
-                  </li>
+                  </li> -->
                   <li ui-sref-active="active">
-                      <a href ui-sref="app.settings.invoices">Invoices</a>
+                      <a href ui-sref="app.settings.invoices">Payment & Invoices</a>
                   </li>
+
+                  <br>
+                  <br>
 
       
               </ul>

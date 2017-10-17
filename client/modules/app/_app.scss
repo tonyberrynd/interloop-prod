@@ -2,6 +2,95 @@
 	outline:none !important;
 }
 
+//opp score
+
+
+.collapse-arrow icon {
+    font-size:24px;
+    margin-top:-5px;
+}
+
+.collapse-header {
+    cursor:pointer;
+}
+
+a.text-danger {
+    &:hover {
+        color: $danger !important;
+    }
+}
+
+.single-select.no-padding .ui-select-container {
+    padding:0px !important;
+}
+
+.score-knob {
+    position:absolute;
+    left:15px;
+    top:10px;
+
+    input {
+        font-size:14px !important;
+    }
+}
+
+//trix editor
+trix-toolbar { display: none; }
+
+.predictive-score {
+    color:$dragonstone;
+    display: block;
+    font-weight:500;
+    width:48px;
+    height:48px;
+    border:solid 1px $border;
+    padding:10px 5px;
+    text-align:center;
+
+    &.positive {
+        color:$success;
+    }
+
+    &.medium {
+        color:$warning;
+    }
+
+    &.low {
+        color:$danger;
+    }
+
+    .score {
+        color:$seamonster;
+        font-size:110%;
+        margin-right:1px;
+    }
+
+    .out-of {
+        font-size:75%;
+        color:darken($limestone, 15%);
+    }
+
+    .score-indicator {
+        height:3px;
+        width:100%;
+        display: block;
+        border-radius: 3px;
+        background-color:$limestone;
+        position:relative;
+        margin-top:2px;
+    }
+
+    .score-bar {
+        position:absolute;
+        left:0px;
+        height:3px;
+        width:50%;
+        border-radius: 3px;
+        background-color:$success;
+    }
+
+}
+
 .modal-body .dropdown-menu {
     width:98% !important;
 }
@@ -12,6 +101,35 @@
 
 .modal[data-bootstrap-modal-aria-hidden-count] {
     display: none !important;
+}
+
+//lets user see full record on search - better for user experience
+.ui-select-bootstrap > .ui-select-choices, 
+.ui-select-bootstrap > .ui-select-no-choice {
+    width:auto !important;
+    min-width:100% !important;
+}  
+
+.ui-select-container.form-control {
+    height:auto !important;
+    min-height:39px;
+
+    transition:none !important;
+
+    &:focus {
+        border-width: solid 1px $border;
+        transition: none !important;
+        animation:none !important;
+    }
+} 
+
+.ui-select-container {
+    // padding:6px !important;
+
+    .btn .avatar {
+        margin-right: 0px;
+        margin-top: -3px;
+    }
 }
 
 .timezone-banner {
@@ -32,48 +150,48 @@
     font-size:6px;
 }
 
-.spinner {
-  margin: 100px auto 0;
-  width: 70px;
-  text-align: center;
-  margin-top:50vh;
-}
+// .spinner {
+//   margin: 100px auto 0;
+//   width: 70px;
+//   text-align: center;
+//   margin-top:50vh;
+// }
 
-.spinner > div {
-  width: 18px;
-  height: 18px;
-  background-color: $granite;
+// .spinner > div {
+//   width: 18px;
+//   height: 18px;
+//   background-color: $granite;
 
-  border-radius: 100%;
-  display: inline-block;
-  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-}
+//   border-radius: 100%;
+//   display: inline-block;
+//   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+//   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+// }
 
-.spinner .bounce1 {
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
+// .spinner .bounce1 {
+//   -webkit-animation-delay: -0.32s;
+//   animation-delay: -0.32s;
+// }
 
-.spinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
+// .spinner .bounce2 {
+//   -webkit-animation-delay: -0.16s;
+//   animation-delay: -0.16s;
+// }
 
-@-webkit-keyframes sk-bouncedelay {
-  0%, 80%, 100% { -webkit-transform: scale(0) }
-  40% { -webkit-transform: scale(1.0) }
-}
+// @-webkit-keyframes sk-bouncedelay {
+//   0%, 80%, 100% { -webkit-transform: scale(0) }
+//   40% { -webkit-transform: scale(1.0) }
+// }
 
-@keyframes sk-bouncedelay {
-  0%, 80%, 100% { 
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  } 40% { 
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
-  }
-}
+// @keyframes sk-bouncedelay {
+//   0%, 80%, 100% { 
+//     -webkit-transform: scale(0);
+//     transform: scale(0);
+//   } 40% { 
+//     -webkit-transform: scale(1.0);
+//     transform: scale(1.0);
+//   }
+// }
 
 
 .required-field {

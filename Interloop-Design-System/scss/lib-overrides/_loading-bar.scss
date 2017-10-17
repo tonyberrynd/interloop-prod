@@ -3,6 +3,10 @@
 }
 
 #loading-bar .bar {
-	height:3px;
+	height:2px;
 	z-index: 1070;
+}
+
+#loading-bar .peg {
+	box-shadow:none !important;
 }

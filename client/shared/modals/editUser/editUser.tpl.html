@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-xs-12 text-center">
                       <div class="avatar avatar-96" ng-class="data.thisUser.color">
-                        <span ng-bind="data.thisUser.initials"></span>
+                        <span ng-bind="data.thisUser.firstName | limitTo:1"></span><span ng-bind="data.thisUser.lastName | limitTo:1"></span>
                       </div>
 
                       <br>
@@ -75,14 +75,8 @@
                       </div>
                 </div>
                 <div class="row">
-                 <!-- last name -->
-                      <div class="form-group col-xs-6">
-                        <label for="initials">Initials</label>
-                        <br>
-                        <input type="text" class="form-control" id="initials" placeholder="" ng-model="data.thisUser.initial">
-                      </div>
                       <!-- email-->
-                      <div class="form-group col-xs-6">
+                      <div class="form-group col-xs-12">
                         <label for="email">
                         <icon class="wb-info-circle support-icon" uib-tooltip="Your email is tied to your Interloop login, to make a change - please contact support"></icon>
                         Email</label>
@@ -121,3 +115,6 @@
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="ok()">Save Profile</button>
     </div>
+
+
+    

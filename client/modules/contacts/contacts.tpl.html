@@ -30,8 +30,10 @@
                                 <span ng-bind="view.name"></span> 
                                 <span class="badge badge-primary pull-right">
                                     <span ng-bind="view.count | number:0"></span>
+                                    <span ng-if="data.currentEntity == 'Opportunity'">
                                     <span>|</span>
                                     <span ng-bind="view.sum | thousandSuffix"></span> 
+                                    </span>
                                 </span>
                             </a>
                         </li>
@@ -336,7 +338,7 @@
                   </div>
               </div>
               <!-- grid -->
-              <div class="grid-wrapper static with-footer data-grid">
+              <div class="grid-wrapper static with-footer data-grid" ng-class="{'panel-open': $root.sidePanelOpen}">
                 <div class="loop-loader loop-loader-xs pre-loader" ng-class="{'hidden': data.grid}" style="z-index:999">Loading...</div>
                 <div ag-grid="data.grid" class="ag-fresh" style="height: 100%; width:100%;" ng-if="data.grid"></div>
               </div>
@@ -379,3 +381,20 @@
             </div>
 
             </div>
+
+
+<!-- DEV NEED TO REMOVE -->
+<!-- ================================= -->
+
+<!-- <div style="position:fixed;
+overflow:scroll;
+padding:10px;
+bottom:0px;
+right:0px;
+width:500px;
+height:800px;
+background-color:#fff; z-index: 99999">
+
+<pre pretty-json="data.filters"  />
+    
+</div> -->

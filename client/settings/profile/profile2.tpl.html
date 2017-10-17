@@ -49,13 +49,14 @@
 
 									<br>
 									<br>
-
+									<span feature-flag="--AVATAR_UPLOAD--">
 									<button class="btn btn-default">
 										<icon class="wb-upload"></icon> Upload Photo
 									</button>
 									<br>
 									<br>
 									<p><small>Upload a square photo at least 250x250</small></p>
+									</span>
 									
 								</div>
 								<div class="col-xs-9">
@@ -82,7 +83,9 @@
 									  <!-- timezone -->
 									  <div class="form-group col-xs-6">
 									  	<label for="timezone">Time Zone</label>
-									    <span ng-include="'settings/profile/timezone-select.tpl.html'"></span>
+									        <select class="form-control" name="timezone" id="timezoneSelect" ng-model="data.thisUser.timezone" ng-change="save()">
+										      <option ng-repeat="timezone in data.timezones" value="{{timezone}}">{{timezone}}</option>
+										    </select>
 									  </div>
 
 									  <!-- email-->
@@ -184,7 +187,7 @@
 				</div>
 
 				
-				<div class="settings-section">
+				<div class="settings-section" feature-flag="--CLEAR-CACHE--">
 					<div class="settings-header">
 					<h4>Application Cache</h4>
 					<p>Clear cached data saved locally.</p>

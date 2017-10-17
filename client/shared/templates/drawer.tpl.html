@@ -26,14 +26,14 @@
        <div class="search-filters" style="margin-bottom:10px;">
           <icon class="search-icon wb-search"></icon>
           <input type="text" class="form-control" placeholder="Search Filters" ng-model="data.filterSearch">
-          <button class="btn btn-link clear-search" ng-if="data.filterSearch" ng-click="data.filterSearch = '';">
+          <button class="btn btn-link clear-search" ng-click="data.filterSearch = '';" ng-class="{'hidden': !data.filterSearch }">
             <icon class="wb-plus-circle"></icon>
         </button>
       </div>
 
 
       <!-- filters -->
-      <uib-accordion close-others="data.onlyOpenOneAtATime" >
+      <uib-accordion close-others="data.onlyOpenOneAtATime" ng-if="!data.lookupUsers && !data.lookupTags">
 
         <!-- accordion group -->
         <div uib-accordion-group class="panel-default panel-light" is-open="filter.accodionOpen" ng-repeat="filter in data.filters | orderBy: 'label' | filter: data.filterSearch" ng-hide="filter.key == '_isDeleted' && data.includeDeleted == 'false'">
@@ -92,21 +92,21 @@
 
                   <span class="is-value">
                       <div class="radio-custom radio-primary">
-                        <input type="radio" class="magic-radio" id="{{filter.key}}-is-unkown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="is-unknown" ng-change="isFilterActive(filter)">
+                        <input type="radio" class="magic-radio" id="{{filter.key}}-is-unkown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="is-unknown" ng-change="filter.filterActive = true; isFilterActive(filter); ">
                         <label for="{{filter.key}}-is-unkown">Is unknown</label>
                     </div>
                   </span>
 
                   <span class="is-value">
                       <div class="radio-custom radio-primary">
-                        <input type="radio" class="magic-radio" id="{{filter.key}}-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="has-any-value" ng-change="isFilterActive(filter)">
+                        <input type="radio" class="magic-radio" id="{{filter.key}}-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="has-any-value" ng-change="filter.filterActive = true; isFilterActive(filter); ">
                         <label for="{{filter.key}}-has-any-value">Has any value</label>
                     </div>
                   </span>
 
                   <!-- end of filter box -->
 
-            <span class="clear-filter" ng-if="filter.filterApplied">
+            <span class="clear-filter" ng-if="filter.filterApplied && filter.filterActive">
             <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
             </button>
           </span>        
@@ -115,12 +115,47 @@
         <!-- end string -->
 
 
+        <!-- dynamic days -->
+          <span ng-if="filter.type == 'dynamicDays'">
+
+            <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-dynamic-days-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="dynamic-days-range" ng-change="filter.filterValue = {'lower': null, upper: null}; isFilterActive(filter)">
+                      <label for="{{filter.key}}-dynamic-days-range">Range</label>
+                    </div>
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-range'" id="{{filter.key}}-dynamic-days-range-lower" autofocus placeholder="greater than" style="margin-bottom:3px;" ng-model="filter.filterValue['lower']" ng-change="isFilterActive(filter)" ui-number-mask="0">
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-range'" id="{{filter.key}}-dynamic-days-range-upper" placeholder="less than" ng-model="filter.filterValue['upper']" ng-change="isFilterActive(filter)" ui-number-mask="0">
+          </span>
+          
+          <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-dynamic-days-greater-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="dynamic-days-greater-than" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-dynamic-days-greater-than">Greater than</label>
+                    </div>
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-greater-than'"' id="{{filter.key}}-dynamic-days-greater-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="0">
+          </span>
+          
+          <span class="is-value">
+              <div class="radio-custom radio-primary">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-dynamic-days-less-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="dynamic-days-less-than" ng-change="isFilterActive(filter)">
+                      <label for="{{filter.key}}-dynamic-days-less-than">Less than</label>
+                    </div>
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-less-than'" id="{{filter.key}}-dynamic-days-less-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="0">
+          </span>
+          <span class="clear-filter" ng-if="filter.filterApplied && filter.filterActive">
+            <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
+            </button>
+          </span>
+        </span>
+        <!-- end number -->
+
+
         <!-- number -->
           <span ng-if="filter.type == 'number'">
 
             <span class="is-value">
               <div class="radio-custom radio-primary">
-                      <input type="radio" class="magic-radio" id="{{filter.key}}-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="range" ng-change="isFilterActive(filter)">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="range" ng-change="filter.filterValue = {'lower': null, upper: null}; isFilterActive(filter)">
                       <label for="{{filter.key}}-range">Range</label>
                     </div>
             <input class="field-input form-control" ng-if="filter.filterApplied == 'range'" id="{{filter.key}}-range-lower" autofocus placeholder="greater than" style="margin-bottom:3px;" ng-model="filter.filterValue['lower']" ng-change="isFilterActive(filter)" ui-number-mask="0">
@@ -144,17 +179,17 @@
           </span>
           <span class="is-value">
               <div class="radio-custom radio-primary">
-                      <input type="radio" class="magic-radio" id="{{filter.key}}-is-unknown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="is-unknown" ng-change="isFilterActive(filter)">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-is-unknown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="is-unknown" ng-change="filter.filterActive = true; isFilterActive(filter); ">
                       <label for="{{filter.key}}-is-unknown">Is unknown</label>
                     </div>
           </span>
           <span class="is-value">
               <div class="radio-custom radio-primary">
-                      <input type="radio" class="magic-radio" id="{{filter.key}}-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="has-any-value" ng-change="isFilterActive(filter)">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="has-any-value" ng-change="filter.filterActive = true; isFilterActive(filter); ">
                       <label for="{{filter.key}}-has-any-value">Has any value</label>
                     </div>
           </span>
-          <span class="clear-filter" ng-if="filter.filterApplied">
+          <span class="clear-filter" ng-if="filter.filterApplied && filter.filterActive">
             <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
             </button>
           </span>
@@ -166,7 +201,7 @@
 
             <span class="is-value">
               <div class="radio-custom radio-primary">
-                      <input type="radio" class="magic-radio" id="{{filter.key}}-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="range" ng-change="isFilterActive(filter)">
+                      <input type="radio" class="magic-radio" id="{{filter.key}}-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="range" ng-change="filter.filterValue = {'lower': null, upper: null}; isFilterActive(filter)">
                       <label for="{{filter.key}}-range">Range</label>
                     </div>
                      <div class="input-group" ng-if="filter.filterApplied == 'range'" style="margin-bottom:5px;">
@@ -214,7 +249,7 @@
                       <label for="{{filter.key}}-has-any-value">Has any value</label>
                     </div>
           </span>
-          <span class="clear-filter" ng-if="filter.filterApplied">
+          <span class="clear-filter" ng-if="filter.filterApplied && filter.filterActive">
             <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
             </button>
           </span>
@@ -227,65 +262,104 @@
     <!-- is -->
     <span class="is-value">
         <div class="radio-custom radio-primary">
-          <input type="radio" class="magic-radio" id="{{filter.key}}-value-contains" name="{{filter}}-radios" ng-model="filter.filterApplied" value="value-contains" ng-change="isFilterActive(filter)">
-          <label for="{{filter.key}}-value-contains">Equals</label>
+          <input type="radio" class="magic-radio" id="{{filter.key}}-value-contains" name="{{filter}}-radios" ng-model="filter.filterApplied" value="value-contains" ng-change="isFilterActive(filter);">
+          <label for="{{filter.key}}-value-contains">Equals 
+            <span class="pull-right" ng-if="filter.filterApplied == 'value-contains' && filter.lookupEntity == 'Appuser'"">
+              <a href ng-click="selectUsers(filter)">View All <icon class="wb-chevron-right-mini"></icon></a>
+            </span>
+            <span class="pull-right" ng-if="filter.filterApplied == 'value-contains' && filter.lookupEntity == 'Tag'"">
+              <a href ng-click="selectTags(filter)">View All <icon class="wb-chevron-right-mini"></icon></a>
+            </span>
+          </label>
       </div>
 
       <span ng-if="filter.filterApplied == 'value-contains'" class="lookup-input">
-          <ui-select ng-model="filter.filterValue" multiple theme="bootstrap" class="form-control" title="Search..." ng-change="isFilterActive(filter)" on-select="clearLookupValues(filter)" placeholder-always-visible>
-            <!-- match -->
 
-            <ui-select-match placeholder="Search ...">
-                <div ng-switch="filter.lookupEntity">
-                <!-- contact / appuser -->
-                <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
-                  <span class="mini-avatar"> <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span></span>
-                  <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
-                </span>
+                    <div class="multiple-wrapper">
+                    <div class="multiple-select">
+                      <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Search...">
+                            <ui-select multiple allow-clear="true" ng-model="filter.filterValue" theme="bootstrap" append-to-body="true" autofocus="true" on-select="isFilterActive(filter)">
+                              <ui-select-match placeholder="Search...">
+                                <span ng-switch="filter.lookupEntity">
+                                    <!-- contact / user -->
+                                    <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                                      <div class="avatar avatar-16">
+                                      <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span>
+                                      </div>
+                                      <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
+                                    </span>
+                                    <!-- company -->
+                                    <span ng-switch-when="Company" ng-switch-when-separator="|">
+                                      <div class="avatar avatar-16 square">
+                                      <span ng-bind="$item.name | limitTo:1"></span> 
+                                      </div>
+                                      <span ng-bind="$item.name"></span>
+                                    </span>
+                                    <!-- opportunity -->
+                                    <span ng-switch-when="Opportunity" ng-switch-when-separator="|">
+                                        <span ng-bind="$item.name"></span>
+                                    </span>
+                                    <!-- tag -->
+                                    <span ng-switch-when="Tag" ng-switch-when-separator="|">
+                                        <span ng-bind="$item.name"></span>
+                                    </span>
+                                    <!-- default -->
+                                    <span ng-switch-default>
+                                        <span ng-bind="$item.name"></span>
+                                    </span>
+                                </span>
+                              </ui-select-match>
+                              <ui-select-choices repeat="item in data.lookupResults | filter: $select.search track by $index" refresh="getLookupValue(filter, filter.lookupEntity, $select.search)" refresh-delay="0" minimum-input-length="2">
+                                <span ng-switch="filter.lookupEntity">
+                                <!-- Contact/User -->
+                                <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                                    <div class="avatar avatar-24">
+                                      <span ng-bind="item.firstName | limitTo: 1"></span><span ng-bind="item.lastName | limitTo: 1"></span>
+                                    </div>
+                                    <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
+                                    <span class="text-light"><small ng-bind-html="item.email"></small></span>
+                                </span>
+                                <!-- COMPANY -->
+                                <span ng-switch-when="Company" ng-switch-when-separator="|">
+                                  <div class="avatar avatar-24 square">
+                                    <span ng-bind="item.name | limitTo:1"></span>
+                                  </div>
+                                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                  <span ng-bind-html="item.domain | highlight: $select.search"></span>
+                                </span>
+                                <!-- Opportunity -->
+                                <span ng-switch-when="Opportunity" ng-switch-when-separator="|">
+                                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                  <span ng-bind-html="getPrimaryCompany(item) || 'No Primary Company' | highlight: $select.search"></span>
+                                </span>
+                                <!-- tag -->
+                                <span ng-switch-when="Tag" ng-switch-when-separator="|">
+                                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                </span>
+                                <!-- default -->
+                                <span ng-switch-default>
+                                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                </span>
+                              
+                              </span>
+                              </ui-select-choices>
+<!--                               <ui-select-no-choice>
+                                <span class="ui-select-loading loading" ng-if="data.loadingResults">
+                                  <div class="loop-loader loop-loader-xs">Loading...</div>
+                                </span>
+                                <span class="no-results" ng-if="!(data.results | filter: $select.search).length && !data.serverError && !data.loadingResults">
+                                  No Results Found Matching <b>"{{$select.search}}"</b>
+                                  </span>
+                                  <span class="server-error" ng-if="!(data.results | filter: $select.search).length && data.serverError && !data.loadingResults">
+                                    The servier did not respond
+                                    <br>
+                                    <button class="btn btn-default">Retry</button>
+                                  </span>
+                                </ui-select-no-choice> -->
+                                </ui-select>
+                              </div>
+                            </div>
 
-                <!-- contact / appuser -->
-                <span ng-switch-when="Company|Opportunity|Tag" ng-switch-when-separator="|">
-                  <span ng-bind="$item.name"></span>
-                </span>
-
-            </div>
-            </ui-select-match>
-            <!-- choices -->
-            <ui-select-choices repeat="item in filter.lookupResults | filter: $select.search | limitTo:10" refresh="getLookupValue(filter, filter.lookupEntity, $select.search)" refresh-delay="250" minimum-input-length="1">
-
-            <div ng-switch="filter.lookupEntity">
-                <!-- contact / appuser -->
-                <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
-                  <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
-                  <br>
-                  <span class="text-light"><small ng-bind-html="item.email"></small></span>
-                </span>
-
-                <!-- contact / appuser / tag-->
-                <span ng-switch-when="Company|Opportunity|Tag" ng-switch-when-separator="|">
-                  <span ng-bind-html="item.name | highlight: $select.search"></span>
-                </span>
-
-            </div>
-          </ui-select-choices>
-
-
-<!--           <ui-select-refresh>
-              Loading...
-          </ui-select-refresh> -->
-
-<!--           <ui-select-no-choice>
-             No Results Found Matching Search
-         </ui-select-no-choice> -->
-
-     </ui-select>
-     <p class="helper-text" ng-if="data.searchVal.length && !data.searching && !filter.lookupResults.length">
-     <small>
-     No Results Found
-     </small>
-     </p>
-      <!-- //loading indicator -->
-      <div class="loop-loader loop-loader-xs pre-loader" ng-class="{'hidden': !data.searching  }"></div>
  </span>
 </span>
 
@@ -293,58 +367,150 @@
 <span class="is-value">
     <div class="radio-custom radio-primary">
       <input type="radio" class="magic-radio" id="{{filter.key}}-value-does-not-contain" name="{{filter}}-radios" ng-model="filter.filterApplied" value="value-does-not-contain" ng-change="isFilterActive(filter)">
-      <label for="{{filter.key}}-value-does-not-contain">Does not equal</label>
+      <label for="{{filter.key}}-value-does-not-contain">Does not equal
+            <span class="pull-right" ng-if="filter.filterApplied == 'value-does-not-contain' && filter.lookupEntity == 'Appuser'">
+              <a href ng-click="selectUsers(filter)">View All <icon class="wb-chevron-right-mini"></icon></a>
+            </span>
+            <span class="pull-right" ng-if="filter.filterApplied == 'value-does-not-contain' && filter.lookupEntity == 'Tag'"">
+              <a href ng-click="selectTags(filter)">View All <icon class="wb-chevron-right-mini"></icon></a>
+            </span>
+      </label>
   </div>
+
+
       <span ng-if="filter.filterApplied == 'value-does-not-contain'" class="lookup-input">
-          <ui-select ng-model="filter.filterValue" multiple theme="bootstrap" class="form-control" title="Search..." ng-change="isFilterActive(filter)" on-select="clearLookupValues(filter)" placeholder-always-visible>
-            <!-- match -->
 
-            <ui-select-match placeholder="Search ...">
-                <div ng-switch="filter.lookupEntity">
-                <!-- contact / appuser -->
-                <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
-                  <span class="mini-avatar"> <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span></span>
-                  <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
-                </span>
+                <div class="multiple-select">
+                <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Select Users">
+                      <ui-select multiple allow-clear="true" ng-model="data.selectedPerson" minimum-input-length="2" theme="bootstrap">
+                        <ui-select-match placeholder="Choose a User">
+                          {{$item.name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in data.results track by $index" refresh="getPeople($select.search)" refresh-delay="0">
+                          <span ng-bind-html="item.name | highlight: $select.search"></span>
+                          <small ng-bind-html="item.email | highlight: $select.search"></small>
+                        </ui-select-choices>
+                        <ui-select-no-choice>
+                          <span class="loading" ng-if="data.loadingResults">
+                            <div class="loop-loader loop-loader-xs">Loading...</div>
+                          </span>
+                          <span class="no-results" ng-if="!(data.results | filter: $select.search).length && !data.serverError && !data.loadingResults">
+                    No Results Found Matching <b>"{{$select.search}}"</b>
+                    </span>
+                    <span class="server-error" ng-if="!(data.results | filter: $select.search).length && data.serverError && !data.loadingResults">
+                      The servier did not respond
+                      <br>
+                      <button class="btn btn-default">Retry</button>
+                    </span>
+                  </ui-select-no-choice>
+                      </ui-select>
+                    </div>
+            
+                <div class="multiple-wrapper">
+                    <div class="multiple-select">
+                      <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Search...">
+                            <ui-select allow-clear="true" ng-model="filter.filterValue" theme="bootstrap" append-to-body="true" on-select="isFilterActive(filter)">
+                              <ui-select-match placeholder="Search...">
+                                <span ng-switch="filter.lookupEntity">
+                                    <!-- contact / user -->
+                                    <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                                      <div class="avatar avatar-16">
+                                      <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span>
+                                      </div>
+                                      <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
+                                    </span>
+                                    <!-- company -->
+                                    <span ng-switch-when="Company" ng-switch-when-separator="|">
+                                      <div class="avatar avatar-16 square">
+                                      <span ng-bind="$item.name | limitTo:1"></span> 
+                                      </div>
+                                      <span ng-bind="$item.name"></span>
+                                    </span>
+                                    <!-- opportunity -->
+                                    <span ng-switch-when="Opportunity" ng-switch-when-separator="|">
+                                        <span ng-bind="$item.name"></span>
+                                    </span>
+                                    <!-- tag -->
+                                    <span ng-switch-when="Tag" ng-switch-when-separator="|">
+                                        <span ng-bind="$item.name"></span>
+                                    </span>
+                                    <!-- default -->
+                                    <span ng-switch-default>
+                                        <span ng-bind="$item.name"></span>
+                                    </span>
+                                </span>
+                              </ui-select-match>
+                              <ui-select-choices repeat="item in data.lookupResults | filter: $select.search track by $index" refresh="getLookupValue(filter, filter.lookupEntity, $select.search)" refresh-delay="0" minimum-input-length="2">
+                                <span ng-switch="filter.lookupEntity">
+                                <!-- Contact/User -->
+                                <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                                    <div class="avatar avatar-24">
+                                      <span ng-bind="item.firstName | limitTo: 1"></span><span ng-bind="item.lastName | limitTo: 1"></span>
+                                    </div>
+                                    <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
+                                    <span class="text-light"><small ng-bind-html="item.email"></small></span>
+                                </span>
+                                <!-- COMPANY -->
+                                <span ng-switch-when="Company" ng-switch-when-separator="|">
+                                  <div class="avatar avatar-24 square">
+                                    <span ng-bind="item.name | limitTo:1"></span>
+                                  </div>
+                                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                  <span ng-bind-html="item.domain | highlight: $select.search"></span>
+                                </span>
+                                <!-- Opportunity -->
+                                <span ng-switch-when="Opportunity" ng-switch-when-separator="|">
+                                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                  <span ng-bind-html="getPrimaryCompany(item) || 'No Primary Company' | highlight: $select.search"></span>
+                                </span>
+                                <!-- tag -->
+                                <span ng-switch-when="Tag" ng-switch-when-separator="|">
+                                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                </span>
+                                <!-- default -->
+                                <span ng-switch-default>
+                                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                </span>
+                              
+                              </span>
+                              </ui-select-choices>
+                              <ui-select-no-choice>
+                                <span class="loading" ng-if="data.loadingResults">
+                                  <div class="loop-loader loop-loader-xs">Loading...</div>
+                                </span>
+                                <span class="no-results" ng-if="!(data.results | filter: $select.search).length && !data.serverError && !data.loadingResults">
+                                  No Results Found Matching <b>"{{$select.search}}"</b>
+                                  </span>
+                                  <span class="server-error" ng-if="!(data.results | filter: $select.search).length && data.serverError && !data.loadingResults">
+                                    The servier did not respond
+                                    <br>
+                                    <button class="btn btn-default">Retry</button>
+                                  </span>
+                                </ui-select-no-choice>
+                                </ui-select>
+                              </div>
+                            </div>
 
-                <!-- contact / appuser -->
-                <span ng-switch-when="Company|Opportunity|Tag" ng-switch-when-separator="|">
-                  <span ng-bind="$item.name"></span>
-                </span>
-
-            </div>
-            </ui-select-match>
-            <!-- choices -->
-            <ui-select-choices repeat="item in filter.lookupResults | filter: $select.search | limitTo:10" refresh="getLookupValue(filter, filter.lookupEntity, $select.search)" refresh-delay="250" minimum-input-length="1">
-
-            <div ng-switch="filter.lookupEntity">
-                <!-- contact / appuser -->
-                <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
-                  <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
-                  <br>
-                  <span class="text-light"><small ng-bind-html="item.email"></small></span>
-                </span>
-
-                <!-- contact / appuser / tag-->
-                <span ng-switch-when="Company|Opportunity|Tag" ng-switch-when-separator="|">
-                  <span ng-bind-html="item.name | highlight: $select.search"></span>
-                </span>
-
-            </div>
-          </ui-select-choices>
-     </ui-select>
-     <p class="helper-text" ng-if="data.searchVal.length && !data.searching && !filter.lookupResults.length">
-     <small>
-     No Results Found
-     </small>
-     </p>
-      <!-- //loading indicator -->
-      <div class="loop-loader loop-loader-xs pre-loader" ng-class="{'hidden': !data.searching  }"></div>
 </span>
+</span>
+
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-is-unkown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="is-unknown" ng-change="filter.filterActive = true; isFilterActive(filter); ">
+      <label for="{{filter.key}}-is-unkown">Is unknown</label>
+  </div>
+</span>
+
+<span class="is-value">
+    <div class="radio-custom radio-primary">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="has-any-value" ng-change="filter.filterActive = true; isFilterActive(filter); ">
+      <label for="{{filter.key}}-has-any-value">Has any value</label>
+  </div>
 </span>
 
 <!-- clear filter -->
-<span class="clear-filter" ng-if="filter.filterApplied">
+<span class="clear-filter" ng-if="filter.filterApplied && filter.filterActive">
     <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
     </button>
 </span>
@@ -362,7 +528,7 @@
     </div>
 
     <!-- clear filter -->
-    <span class="clear-filter" ng-if="filter.filterApplied">
+    <span class="clear-filter" ng-if="filter.filterApplied && filter.filterActive">
         <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
         </button>
     </span>
@@ -386,7 +552,7 @@
     </div>
 
     <!-- clear filter -->
-    <span class="clear-filter" ng-if="filter.filterApplied">
+    <span class="clear-filter" ng-if="filter.filterApplied && filter.filterActive">
         <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
         </button>
     </span>
@@ -492,7 +658,7 @@
 
 <span class="is-value">
     <div class="radio-custom radio-primary">
-      <input type="radio" class="magic-radio" id="{{filter.key}}-date-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-range" ng-change="isFilterActive(filter)">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-range" ng-change="filter.filterValue = null; isFilterActive(filter)">
       <label for="{{filter.key}}-date-range">Range</label>
   </div>
   <input date-range-picker class="form-control date-picker" type="text" options="options2" ng-model="filter.filterValue" ng-if="filter.filterApplied == 'date-range'" ng-change="isFilterActive(filter)" placeholder="Select Date Range"/>
@@ -500,7 +666,7 @@
 
 <span class="is-value">
     <div class="radio-custom radio-primary">
-      <input type="radio" class="magic-radio" id="{{filter.key}}-date-after" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-after" ng-change="isFilterActive(filter)">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-after" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-after" ng-change="isObjectShouldBeString(filter); isFilterActive(filter)">
       <label for="{{filter.key}}-date-after">After</label>
   </div>
   <input date-range-picker class="form-control date-picker" type="text" options="options" ng-model="filter.filterValue" ng-if="filter.filterApplied == 'date-after'" ng-change="isFilterActive(filter)" placeholder="Select Date"/>
@@ -508,7 +674,7 @@
 
 <span class="is-value">
     <div class="radio-custom radio-primary">
-      <input type="radio" class="magic-radio" id="{{filter.key}}-date-on" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-on" ng-change="isFilterActive(filter)">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-on" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-on" ng-change="isObjectShouldBeString(filter); isFilterActive(filter)">
       <label for="{{filter.key}}-date-on">On</label>
   </div>
   <input date-range-picker class="form-control date-picker" type="text" options="options" ng-model="filter.filterValue" ng-if="filter.filterApplied == 'date-on'" ng-change="isFilterActive(filter)" placeholder="Select Date"/>
@@ -516,7 +682,7 @@
 
 <span class="is-value">
     <div class="radio-custom radio-primary">
-      <input type="radio" class="magic-radio" id="{{filter.key}}-date-before" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-before" ng-change="isFilterActive(filter)">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-before" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-before" ng-change="isObjectShouldBeString(filter); isFilterActive(filter)">
       <label for="{{filter.key}}-date-before">Before</label>
   </div>
   <input date-range-picker class="form-control date-picker" type="text" options="options" ng-model="filter.filterValue" ng-if="filter.filterApplied == 'date-before'" ng-change="isFilterActive(filter)" placeholder="Select Date"/>
@@ -525,20 +691,20 @@
 
 <span class="is-value">
     <div class="radio-custom radio-primary">
-      <input type="radio" class="magic-radio" id="{{filter.key}}-date-is-unknown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-is-unknown" ng-change="isFilterActive(filter)">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-is-unknown" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-is-unknown" ng-change="filter.filterActive = true; isFilterActive(filter);">
       <label for="{{filter.key}}-date-is-unknown">Is unknown</label>
   </div>
 </span>
 
 <span class="is-value">
     <div class="radio-custom radio-primary">
-      <input type="radio" class="magic-radio" id="{{filter.key}}-date-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-has-any-value" ng-change="isFilterActive(filter)">
+      <input type="radio" class="magic-radio" id="{{filter.key}}-date-has-any-value" name="{{filter}}-radios" ng-model="filter.filterApplied" value="date-has-any-value" ng-change="filter.filterActive = true; isFilterActive(filter);">
       <label for="{{filter.key}}-date-has-any-value">Has any value</label>
   </div>
 </span>
 
 <!-- clear filter -->
-<span class="clear-filter" ng-if="filter.filterApplied">
+<span class="clear-filter" ng-if="filter.filterApplied && filter.filterActive">
     <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
     </button>
 </span>
@@ -549,6 +715,57 @@
 </div>
 
 </uib-accordion>
+
+
+
+<div ng-if="data.lookupUsers">
+  <div class="panel panel-default">
+  <div class="panel-heading" style="padding:5px;">
+    <a class="btn btn-sm btn-subtle" ng-click="applyUsers()"><icon class="wb-chevron-left-mini"></icon> Apply</a>
+
+    <a class="btn btn-sm btn-subtle pull-right" ng-click="data.selectedUsers = [];">Clear All</a>
+  </div>
+  <div class="panel-body">
+
+    <span ng-repeat="user in $root.userList | orderBy: 'firstName' track by $index">
+    <input class="magic-checkbox" type="checkbox" name="layout" id="{{user.id}}" value="{{user}}" checklist-model="data.selectedUsers" checklist-value="user">
+    <label class="text ng-scope" for="{{user.id}}">
+      <div class="avatar avatar-24" ng-class="user.color">
+        <span ng-bind="user.initials"></span>
+      </div>
+      <span ng-bind="user.firstName"></span> <span ng-bind="user.lastName"></span>
+    </label>
+    </span>
+
+
+  </div>
+  </div>
+</div>
+
+
+<div ng-if="data.lookupTags">
+  <div class="panel panel-default">
+  <div class="panel-heading" style="padding:5px;">
+    <a class="btn btn-sm btn-subtle" ng-click="applyTags()"><icon class="wb-chevron-left-mini"></icon> Apply</a>
+
+    <a class="btn btn-sm btn-subtle pull-right" ng-click="data.selectedTags = [];">Clear All</a>
+  </div>
+  <div class="panel-body select-tags">
+
+    <span ng-repeat="tag in $root.tagList | orderBy: 'name' track by $index">
+    <input class="magic-checkbox" type="checkbox" name="layout" id="{{tag.id}}" value="{{tag}}" checklist-model="data.selectedTags" checklist-value="tag">
+    <label class="text" for="{{tag.id}}">
+      <span class="tag" ng-bind="tag.name"></span>
+    </label>
+    </span>
+
+
+  </div>
+  </div>
+</div>
+
+
+
 
 </div>
 
@@ -655,7 +872,7 @@
 <!-- settings / overlays -->
 <div class="groups" ng-class="{'hidden': data.filterView !== 'settings' }">
 
-    <div class="panel panel-default panel-light" style="margin-top:10px !important;">
+    <div class="panel panel-default panel-light" style="margin-top:10px !important;" ng-if="data.currentEntity == 'Opportunity'">
     <div class="panel-heading">
       <h5>Displayed Value</h5>
     </div>
@@ -676,7 +893,7 @@
   </div>
 
   
-  <div class="panel panel-default panel-light">
+  <div class="panel panel-default panel-light" ng-if="data.currentEntity == 'Opportunity'">
     <div class="panel-heading">
       <h5>Change History Overlay</h5>
     </div>

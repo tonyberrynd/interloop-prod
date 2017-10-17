@@ -1,5 +1,5 @@
   <div class="modal-header header-dark">
-            <h3 class="modal-title" id="modal-title">New Task</h3>
+            <h3 class="modal-title" id="modal-title">Log Call</h3>
             
             <!-- close button -->
             <button type="button" class="close" ng-click="$dismiss()">
@@ -13,59 +13,41 @@
                     <form name="companyForm" novalidate>
 
                         <div class="row">
-                                <div class="col-xs-12">
+                                <div class="col-xs-6">
                                     <div class="form-group">
-                                      <label for="title">Title</label>
-                                      <input type="text" class="form-control" ng-model="data.note.title" autofocus>
+                                        <div class="single-select">
+                                            <label for="">Call Type</label>
+                                            <ui-select search-enabled="false" ng-model="data.call.type" theme="bootstrap">
+                                              <ui-select-match placeholder="Choose a type">{{$select.selected.label}}
+                                              </ui-select-match>
+                                              <ui-select-choices repeat="item in data.callTypes | filter: $select.search">
+                                                <span ng-bind-html="item.label | highlight: $select.search"></span>
+                                              </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                      <label for="dueDate">
+                                        Completed Date
+                                      </label>
+                                      <input name="dueDate" date-range-picker class="form-control date-picker" id="dueDate" placeholder="" ng-model="data.call.completedDate" options="$root.options4" >
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
                                    <div class="form-group">
-                                    <label for="title">Body</label>
-                                    <textarea class="form-control" rows="3" ng-model="data.note.body" ng-change="parseNote()" 
-
-                                    mentio 
-                                    mentio-typed-term="typedTerm" 
-                                    mentio-items="people | filter:label:typedTerm" 
-
+                                    <label for="title">Description</label>
+                                    <textarea class="form-control" rows="3" ng-model="data.call.description"
                                     ></textarea>
                                 </div>
                               </div>
                           </div>
 
-                            <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label for="title">Related To</label>
-                                <ui-select ng-model="data.relatedTo" multiple theme="bootstrap" class="form-control" title="Choose a person" spinner-enabled="true">
-               
-                                    <ui-select-match placeholder="Search...">
-                                        {{$item.name}}
-                                    </ui-select-match>
-                                    <!-- choices -->
-                                    <ui-select-choices repeat="result in data.results | filter: $select.search track by $index " refresh="lookupEntities($select.search)" refresh-delay="0">
-                                      <div ng-bind-html="result.name | highlight: $select.search"></div>
-                                    </ui-select-choices>
-
-                                            <ui-select-no-choice>
-                                             <div class="no-results">
-                                              <p>No Results Found </p> 
-                                             </div>
-                                            </ui-select-no-choice>
-
-                                  </ui-select>
-                            </div>
-                          </div>
-                        </div>
-
-
-                                       <p>metioned: {{typedTerm}}</p>
-                                      <p>model: {{activity.description}}</p>
-
-
                     </form>
 
         </div>
         <div class="modal-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
             <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
         </div>

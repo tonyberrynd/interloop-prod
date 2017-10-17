@@ -1,0 +1,58 @@
+  <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Invite Users</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+                  <!-- invite users -->
+                    <form name="inviteUserForm" novalidate>
+
+                        <div class="row">
+                            <div class="col-xs-12" ng-repeat="invitee in data.invitees track by $index">
+                                    
+                                          <!-- //remove invitee -->
+                                      <button class="remove-invitee btn btn-link" ng-click="removeItem(invitee)" ng-if="$index !== 0">
+                                        <icon class="wb-close"></icon>
+                                      </button>
+                                      <!-- invitee email -->
+                                      <div class="col-xs-6">
+                                          <div class="form-group">
+                                            <label for="">Email address</label>
+                                          <input type="email" class="form-control" id="invitee.$index + 'email'" placeholder="email@domain.com" ng-model="invitee.email">
+                                        </div>
+                                      </div>
+                                      <!-- first name -->
+                                      <div class="col-xs-3">
+                                          <div class="form-group">
+                                            <label for="">First Name</label>
+                                          <input type="text" class="form-control" id="invitee.$index + 'first'" placeholder="(optional)" ng-model="invitee.first">
+                                        </div>
+                                      </div>
+                                      <!-- last name -->
+                                      <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label for="">Last Name</label>
+                                          <input type="text" class="form-control" id="invitee.$index + 'last'" placeholder="(optional)" ng-model="invitee.last">
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                     <button class="btn btn-primary btn-outline btn-block" ng-click="addNewChoice()">
+                                        <icon class="wb-plus-circle"></icon> Add Another
+                                      </button>
+
+
+                            </div>
+                        </div>
+
+                    </form>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Send Invites</button>
+        </div>

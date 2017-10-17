@@ -17,6 +17,7 @@ angular.module('interloop.factory.sidebarActions', [])
     modalManager,
     TagManager,
     gridManager,
+    activityCreator,
     RelationshipManager,
     SidebarRouter) {
 
@@ -26,7 +27,10 @@ angular.module('interloop.factory.sidebarActions', [])
         createActivity: createActivity,
         createChangeActivity: createChangeActivity,
         createNote: createNote,
+        createMeeting: createMeeting,
+        createTask: createTask,
         deleteItem: deleteItem,
+        logCall: logCall,
         // follow: follow,
         completeActivity: completeActivity,
         getAddresses: getAddresses,
@@ -69,9 +73,6 @@ angular.module('interloop.factory.sidebarActions', [])
         _.forEach(allTags, function(tag){
           tag.item = _.find(_.filter(entityItem.items, {"itemType": "Tag"}), ['itemId', tag.itemId])['item'];
         })
-
-        console.log('all tags', allTags);
-
         return allTags;
     }
 
@@ -122,7 +123,7 @@ angular.module('interloop.factory.sidebarActions', [])
 
     function getHistory(activities) {
         return _.filter(activities, function(o) {
-          return _.has(o, 'activity') && o.activity.completed == true && _.isString(o.type)
+          return o.completed == true
         });
     }
 
@@ -295,10 +296,19 @@ angular.module('interloop.factory.sidebarActions', [])
         entityItem._isDeleted = true;
         // // go back - or close sidebar (Close is handled by sidebar router)
         // SidebarRouter.goBack();
+
+        //creates activity deleted
+        var activityDetails = {
+          title: 'Deleted ' + entityType,
+          data: {
+            deleted: true
+          }
+        }
+        activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
       })
       .catch(function(err){
         Logger.error('Error Deleting ' + entityType)
-        Logger.log("failed to delete - " + err); 
+        Logger.log("failed to delete - ", err); 
       })
     };
 
@@ -319,6 +329,15 @@ angular.module('interloop.factory.sidebarActions', [])
              entityItem.deletedAt = null;
             //remove deleted row from the grid without refreshViewing
              gridManager.refreshView();
+
+              //creates activity deleted
+              var activityDetails = {
+                title: 'Un-Archived ' + entityType,
+                data: {
+                  deleted: false
+                }
+              }
+              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
           })
           .catch(function(err){
           Logger.error('Error Un-Archiving ' + entityType);
@@ -421,6 +440,15 @@ angular.module('interloop.factory.sidebarActions', [])
                   
             //let user know
             Logger.info('Tag Removed');
+
+            //creates activity deleted
+            var activityDetails = {
+                title: 'Removed Tag',
+                data: {
+                  tag: tagItem
+                }
+              }
+              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
           })
           .catch(function(err){
             Logger.error('Error Removing Tag', "Please Try Again In A Few Moments")
@@ -437,7 +465,7 @@ angular.module('interloop.factory.sidebarActions', [])
       }
       
       //prevents double modal - do nothing if already set to true 
-      var relateEntityModal = modalManager.openModal('manageRelationships', resolvedData);
+      var relateEntityModal = modalManager.openModal('addRelated', resolvedData);
 
       relateEntityModal.result.then(function(results){
         //do we need to do something here
@@ -445,6 +473,18 @@ angular.module('interloop.factory.sidebarActions', [])
 
         Logger.info('Adding Relationships...')
 
+
+        //creates activity deleted
+        var activityDetails = {
+            title: 'Added Relationship',
+            data: {
+              relationships: results
+            }
+          }
+          activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+
+      }, function(){
+        //ignore
       })
     }; 
 
@@ -464,18 +504,60 @@ angular.module('interloop.factory.sidebarActions', [])
 
           var thisModal = modalManager.openModal('fileUpload', resolvedData);
 
-          thisModal.result.then(function(file){
-
-            console.log('modal closed');
+          thisModal.result.then(function(results){
 
             // Logger.info('Adding Relationships...')
-           //moved relationship stuff to file upload controller
+            //moved relationship stuff to file upload controller
+
+              console.log('after modal results', results);
+ 
+              var fileActivity = {};
+              fileActivity.name = "uploaded files";
+              fileActivity.type = "file";
+              fileActivity.files = files;
+              fileActivity.completed = true;
+              fileActivity.completedDate = moment().format();
+              fileActivity.createdBy = {
+                firstName: $rootScope.activeUser.fullName,
+                initials: $rootScope.activeUser.initials
+              };
+
+
+              //creates activity deleted
+              var activityDetails = {
+                  title: 'Added Files',
+                  data: {
+                    files: files
+                  }
+                }
+              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+
           })
       })
  
 
     }
 
+        /*
+    Create Activity
+    */
+    function createMeeting(entityType, entityItem) {
+        modalManager.openModal('newMeeting');
+    }
+
+    /*
+    Create Activity
+    */
+    function createTask(entityType, entityItem) {
+        modalManager.openModal('newTask');
+    }
+
+    /*
+    Log Call
+    */
+    function logCall(entityType, entityItem) {
+        modalManager.openModal('logCall');
+    }
 
     /*
     Create Activity
@@ -495,7 +577,16 @@ angular.module('interloop.factory.sidebarActions', [])
           }]
          }
 
-        modalManager.openModal('newNote', resolvedData);
+        var newNoteModal = modalManager.openModal('newNote', resolvedData);
+
+        //
+        newNoteModal.result.then(function(results){
+
+            console.log('after modal results', results);
+   
+        }, function(){
+          //ignore
+        })
     }
 
 
@@ -667,8 +758,16 @@ angular.module('interloop.factory.sidebarActions', [])
             if(!noAlert) {
               Logger.info(entityType  + ' ' + (Object.keys(newValue)[0] || '') + ' updated');
             }
-            console.log(response);
-            return(response); 
+
+             var activityDetails = {
+                  title: "Updated " + entityType,
+                  data: newValue
+                }
+              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+                .then(function(results){
+                    return(response); 
+                })
+
         })
         .catch(function(err) {
             Logger.error('Error updating ' + entityType);

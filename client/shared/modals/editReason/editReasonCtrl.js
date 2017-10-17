@@ -11,14 +11,18 @@ angular.module('interloop.editReasonCtrl', [])
   resolvedData,
   newEntityFactory,
   View,
+  WonReason,
+  LostReason,
   Logger) {
 
 // BINDABLES
 //===========================================
+  var type = resolvedData.type;
+
   //data
   //----------------------
   $scope.data = {};
-  $scope.data.field = resolvedData;
+  $scope.data.reason = resolvedData.reason;
 
 
   //functions
@@ -40,18 +44,29 @@ angular.module('interloop.editReasonCtrl', [])
 
   function ok() {
 
-    // TODO - Move Fields to Database
+  if(type == 'won') {
+    //create won reason
+    WonReason.prototype$patchAttributes({id: $scope.data.reason.id}, $scope.data.reason).$promise
+      .then(function(results){
+          Logger.info("Created New Reason")
+          $uibModalInstance.close(results);
+      })
+      .catch(function(err){
+        Logger.error("Error Creating Reason", "Please try again in a moment");
+      })
+  } else {
 
-    $uibModalInstance.close(); 
+    //create won reason
+    LostReason.prototype$patchAttributes({id: $scope.data.reason.id}, $scope.data.reason).$promise
+      .then(function(results){
+          Logger.info("Created New Reason")
+          $uibModalInstance.close(results);
+      })
+      .catch(function(err){
+        Logger.error("Error Creating Reason", "Please try again in a moment");
+      })
 
-    // Field.prototype$patchAttributes({id: $scope.data.field.id}, $scope.data.field).$promise
-    //   .then(function(results){
-    //     Logger.info('Updated Field Details')
-    //     $uibModalInstance.close(); 
-    //   })
-    //   .catch(function(err){
-    //     Logger.error('Error Updating Field', 'Please try again in a few moments')
-    //   })
+  }
 
   }
 

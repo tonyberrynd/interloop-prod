@@ -24,10 +24,8 @@ angular.module('interloop.settingsPermissionsCtrl', [])
   	$scope.data.activated = false;
 
   	$scope.data.sortOptions = [
-		{label: 'Name',
-		 value: 'name'},
-		 {label: 'Users',
-		 value: 'users'},
+		{label: 'Label',
+		 value: 'label'},
 		 {label: 'Created Date',
 		 value: 'createdOn'}
 	];

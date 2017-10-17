@@ -19,6 +19,8 @@ angular.module('interloop.factory.configService', [])
     modalManager,
     ActivityType,
     $injector,
+    Tag,
+    ENV,
     Org) {
 
     //service object
@@ -51,11 +53,11 @@ angular.module('interloop.factory.configService', [])
             CustomField.find().$promise,
             Appuser.notifications.count({'id': Appuser.getCurrentId(), "where": {'read': false} }).$promise,
             ActivityType.find().$promise,
-            Appuser.find().$promise
+            Appuser.find({"filter": {"fields": {"starredLinks": false}}}).$promise,
+            Tag.find().$promise
         ])
          .then(function(results){
 
-          console.log(results);
           //set rootScope values
           //----------------------
           $rootScope.activeUser = results[0];
@@ -73,6 +75,10 @@ angular.module('interloop.factory.configService', [])
 
           //activity types
           $rootScope.activityTypes = results[4] || [];
+
+          $rootScope.userList = angular.copy(results[5]);
+
+          $rootScope.tagList = angular.copy(results[6]);
 
           //appusers
           var peopleLabels = [];
@@ -112,8 +118,9 @@ angular.module('interloop.factory.configService', [])
               });
           }
 
-          //check if timzone mismatch
-          if(_.has($rootScope.activeUser, 'timezone') && tz !== $rootScope.activeUser.timezone) {
+          //check if timzone mismatch 
+          //also checks if user has chosen to ignore the timezone warning - will only check with user every 48 hours
+          if(_.has($rootScope.activeUser, 'timezone') && tz !== $rootScope.activeUser.timezone && (!window.localStorage.ignoreTimezoneTime > moment().subtract(48, 'h') || (window.localStorage.ignoreTimezoneName !== moment.tz.guess()))) {
             $rootScope.adjustTimezone = true;
           }
 
@@ -138,61 +145,66 @@ angular.module('interloop.factory.configService', [])
             //bind notification channel
             //----------------------
             notificationsChannel.bind('new_notification', function(data) {
-                console.log('new notification');
+                console.log('new notification', data);
                 // showWebNotification(data.notification); 
+                // alert(data);
 
                 $rootScope.unreadNotifications++
             })
 
-            //boot up intercom
-            //----------------------
-            $injector.get('$intercom').boot({
-              app_id: "vp6k9wou",
-              id: Appuser.getCurrentId(),
-              name: $rootScope.activeUser.firstName + ' ' + $rootScope.activeUser.lastName,
-              email: $rootScope.activeUser.email,
-              created_at: $rootScope.activeUser.createdOn
-             });
+            if(ENV == 'PRODUCTION'){
 
-
-            //full story
-            //---------------------
-            FS.identify($rootScope.activeUser.id, {
-              displayName: $rootScope.activeUser.firstName + ' ' + $rootScope.activeUser.lastName,
-              email: $rootScope.activeUser.email
-            });
-
-            //mixpanel
-            //----------------------
-            $mixpanel.identify($rootScope.activeUser.id);
-            $mixpanel.people.set({
+              //boot up intercom
+              //----------------------
+              $injector.get('$intercom').boot({
+                app_id: "vp6k9wou",
+                id: Appuser.getCurrentId(),
                 name: $rootScope.activeUser.firstName + ' ' + $rootScope.activeUser.lastName,
+                email: $rootScope.activeUser.email,
+                created_at: $rootScope.activeUser.createdOn
+               });
+
+
+              //full story
+              //---------------------
+              FS.identify($rootScope.activeUser.id, {
+                displayName: $rootScope.activeUser.firstName + ' ' + $rootScope.activeUser.lastName,
                 email: $rootScope.activeUser.email
-            });
+              });
 
-            //headway app - changelog
-            //----------------------
-            // var config = {
-            //   selector: ".navtop-left",
-            //   account: "x9ejRx"
-            // };
-            // //just check to make sure exists
-            // if(Headway) {
-            //   console.log('init headway');
-            //   Headway.init(config);
-            // }
+              //mixpanel
+              //----------------------
+              $mixpanel.identify($rootScope.activeUser.id);
+              $mixpanel.people.set({
+                  name: $rootScope.activeUser.firstName + ' ' + $rootScope.activeUser.lastName,
+                  email: $rootScope.activeUser.email
+              });
 
-            //configure rollbar
-            //----------------------
-            // Rollbar.configure({
-            //   payload: {
-            //     person: {
-            //       id: Appuser.getCurrentId(),
-            //       name: $rootScope.activeUser.fullName,
-            //       email: $rootScope.activeUser.email
-            //     }
-            //   }
-            // });
+              //headway app - changelog
+              //----------------------
+              // var config = {
+              //   selector: ".navtop-left",
+              //   account: "x9ejRx"
+              // };
+              // //just check to make sure exists
+              // if(Headway) {
+              //   console.log('init headway');
+              //   Headway.init(config);
+              // }
+
+              //configure rollbar
+              //----------------------
+              // Rollbar.configure({
+              //   payload: {
+              //     person: {
+              //       id: Appuser.getCurrentId(),
+              //       name: $rootScope.activeUser.fullName,
+              //       email: $rootScope.activeUser.email
+              //     }
+              //   }
+              // });
+
+            }
 
           }
 
@@ -229,6 +241,9 @@ angular.module('interloop.factory.configService', [])
         // clear rootscope user and org
         $rootScope.activeOrg = null;
         $rootScope.activeUser = null;
+        $rootScope.customFields = null;
+        $rootScope.activityTypes = null;
+        $rootScope.userList = null;
 
         var pusher = $injector.get('$pusher')(client);
 
@@ -242,10 +257,12 @@ angular.module('interloop.factory.configService', [])
         pusher.unsubscribe(notificationsChannelName);
 
         //shutdown intercom
-        // $intercom.shutdown();
+        if(ENV === 'PRODUCTION'){
+          $intercom.shutdown();
+        }
 
-        // go to login state
-        $state.go('login');
+        //clear out config
+        $window.location.reload();
 
     }
 

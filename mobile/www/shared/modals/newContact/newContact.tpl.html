@@ -1,0 +1,187 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">New Contact</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+                
+                <div class="row">
+                    <div class="col-xs-12">
+                        <form name="contactForm" novalidate>
+                                  <div class="row">
+                                      <div class="col-xs-6">
+                                           <div class="form-group">
+                                            <label for="name" ng-bind="$root.contactFields['firstName'].label || 'First Name'"></label>
+                                            <input type="text" class="form-control" id="name" placeholder="" ng-model="data.contact.firstName" autofocus>
+                                          </div>
+                                      </div>
+                                      <div class="col-xs-6">
+                                           <div class="form-group">
+                                            <label for="last" ng-bind="$root.contactFields['lastName'].label || 'Last Name'"></label>
+                                            <span class="required-input">●</span>
+                                            <input type="text" class="form-control" id="last" placeholder="" ng-model="data.contact.lastName">
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                   <div class="row">
+                                        <div class="col-xs-12">
+                                           <div class="form-group">
+                                            <label for="title" ng-bind="$root.contactFields['title'].label || 'Title'"></label>
+                                            <input type="text" class="form-control" id="title" placeholder="" ng-model="data.contact.title">
+                                        </div>
+                                      </div>
+                                  </div>
+
+                                <div class="row">
+                                        <div class="col-xs-12">
+                                           <div class="form-group">
+                                            <label for="title">Primary Company</label>
+
+                                          <ui-select ng-model="data.primaryCompany" theme="bootstrap" class="form-control" title="" spinner-enabled="true" ng-keyup="lookupKeydown($event, (data.companies | filter: $select.search))">
+                                            <!-- match -->
+                                            <ui-select-match placeholder="Select or search a company in the list..." allow-clear="true" minimum-input-length="2">{{$select.selected.name}}
+                                            </ui-select-match>
+                                            <!-- choices -->
+                                            <ui-select-choices repeat="company in data.companies | filter: $select.search | orderBy: 'score' track by $index " refresh="lookupCompanies($select.search)" refresh-delay="250">
+                                              <div ng-bind-html="company.name | highlight: $select.search"></div>
+                                              <small ng-bind-html="(company.website | highlight: $select.search) || 'No Website'"></small>
+                                            </ui-select-choices>
+
+                                            <ui-select-no-choice>
+                                             <div class="no-results">
+                                              <p>No Results Found </p> 
+                                             </div>
+
+                                             <div class="create-new">
+                                             <p class="text-info">Press <kbd>Enter</kbd>  to create a new company</p>
+                                             </div>
+
+                                            </ui-select-no-choice>
+
+                                          </ui-select>
+
+                                        </div>
+                                      </div>
+                                  </div>
+
+
+                                <div class="row">
+                                      <div class="col-xs-12">
+                                          <label>Emails</label>
+                                      </div>
+                                  </div>
+
+                                  <div class="row" ng-repeat="email in data.contact.emails">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+
+                                            <div class="input-group email-input">
+                                                <input id="{{'email-' + $index}}"  type="email" class="form-control" ng-model="email.value" ng-focus="data.isFocused = true" ng-blur="data.isFocused = false"/>
+                                                 <span class="input-group-btn" uib-dropdown keyboard-nav is-open="data[$index + 'emailDropdownOpen']">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" id="simple-btn-keyboard-nav" uib-dropdown-toggle ng-keydown="keydown($event, $index + 'emailDropdownOpen')">
+                                                        <span class="type-text" ng-bind="(email.type | ucfirst)"></span> 
+                                                        <icon class="wb-triangle-down"></icon>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="simple-btn-keyboard-nav" uib-dropdown-menu>
+                                                        <li ng-repeat="type in data.emailTypes"><a class="changeType" href ng-click="email.type = type.key " ng-bind="type.label"></a></li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+
+
+                                        </div>
+                                      </div>
+
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-xs-12 add-more">
+                                        <button class="btn btn-link" ng-click="addEmail()">
+                                            <small><icon class="wb-plus"></icon> Add Email</small>
+                                        </button>
+                                      </div>
+                                  </div>
+
+                                  <div class="row">
+                                      <div class="col-xs-12">
+                                          <label>Phone Numbers</label>
+                                      </div>
+                                  </div>
+
+                                  <div class="row" ng-repeat="phone in data.contact.phones">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <div class="input-group phone-input">
+                                                <input id="{{'phone-' + $index}}"  type="text" class="form-control" ng-model="phone.value" ui-mask="(999) 999-9999 ext ?9?9?9"  ui-mask-placeholder ui-mask-placeholde ui-mask-placeholder-char=" " ng-focus="data.isFocused = true" ng-blur="data.isFocused = false" />
+                                                <span class="input-group-btn" uib-dropdown keyboard-nav is-open="data[$index + 'phoneDropdownOpen']">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" id="simple-btn-keyboard-nav" uib-dropdown-toggle ng-keydown="keydown($event, $index + 'phoneDropdownOpen')">
+                                                        <span class="type-text" ng-bind="(phone.type | ucfirst)">Work</span> 
+                                                        <icon class="wb-triangle-down"></icon>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="simple-btn-keyboard-nav" uib-dropdown-menu>
+                                                        <li ng-repeat="type in data.phoneTypes"><a class="changeType" href ng-click="phone.type = type.key " ng-bind="type.label"></a></li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+                                        </div>
+                                      </div>
+                                  </div>
+
+                                 <!-- add more -->
+                                  <div class="row">
+                                    <div class="col-xs-12 add-more">
+                                        <button class="btn btn-link" ng-click="addPhone()">
+                                            <small><icon class="wb-plus"></icon> Add Phone Number</small>
+                                        </button>
+                                      </div>
+                                  </div>
+
+
+                                <div class="row">
+                                      <div class="col-xs-12">
+                                          <label>Social Accounts</label>
+                                      </div>
+                                  </div>
+
+                                  <div class="row" ng-repeat="social in data.contact.social">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <div class="input-group social-input">
+                                                <input id="{{'social-' + $index}}"  type="text" class="form-control" ng-model="social.value" ng-focus="data.isFocused = true" ng-blur="data.isFocused = false" />
+                                                <span class="input-group-btn" uib-dropdown keyboard-nav is-open="data[$index + 'socialDropdownOpen']">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" id="simple-btn-keyboard-nav" uib-dropdown-toggle ng-keydown="keydown($event, $index + 'socialDropdownOpen')">
+                                                        <span class="type-text" ng-bind="(social.type | ucfirst)"></span> 
+                                                        <icon class="wb-triangle-down"></icon>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="simple-btn-keyboard-nav" uib-dropdown-menu>
+                                                        <li ng-repeat="type in data.socialTypes"><a class="changeType" href ng-click="social.type = type.key " ng-bind="type.label"></a></li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+                                        </div>
+                                      </div>
+
+                                  </div>
+
+                                 <div class="row">
+                                  <div class="col-xs-12 add-more">
+                                    <button class="btn btn-link" ng-click="addSocial()">
+                                        <small><icon class="wb-plus"></icon> Add Social Account</small>
+                                    </button>
+                                  </div>
+                                </div>
+
+
+                                </form>
+                    </div>
+                </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="create()">Create</button>
+        </div>

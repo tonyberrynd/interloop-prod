@@ -1,0 +1,16 @@
+.company-item .item-content {
+    padding-left:72px;
+}
+
+.company-item .item-avatar {
+    padding-left: unset;
+    min-height: unset;
+
+    img {
+        border-radius: 5px;
+    }
+}
+
+.company-item .no-avatar {
+    border-radius: 5px;
+}

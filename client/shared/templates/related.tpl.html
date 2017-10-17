@@ -1,20 +1,27 @@
 <div class="panel panel-default sidepanel-panel clear">	
 	<div class="panel-body">
 	
-	<span ng-repeat="entityType in data.entityTypes">
-	<h5 class="sidepanel-title" ng-class="{'first-title': $first}">
+	<span ng-repeat="entityType in data.entityTypes" ng-if="entityType.plural !== 'Activities' && entityType.plural !== 'Forecasts'">
+	<h5 class="sidepanel-title collapse-header" ng-class="{'first-title': $first}" ng-click="entityType.collapsed = !entityType.collapsed">
 		{{entityType.plural}} (<span ng-bind="(data.thisRecord.entities | filter: {entityType: entityType.singular}).length || '0'"></span>)
+
+		<span class="pull-right collapse-arrow">
+		<icon class="wb-triangle-right" ng-if="entityType.collapsed"></icon>
+		<icon class="wb-triangle-down" ng-if="!entityType.collapsed"></icon>
+		</span>
 	</h5>
 
+	<div uib-collapse="entityType.collapsed">
+
 	<span class="empty-add" ng-if="!(data.thisRecord.entities | filter: {entityType: entityType.singular}).length">
-      <p class="empty-section">No {{entityType.plural}}</p>
+      <p class="empty-section">No Related {{entityType.plural}}</p>
     </span>
 
 	<span ng-if="(data.thisRecord.entities | filter: {entityType: entityType.singular}).length" ng-repeat="relatedEntity in data.thisRecord.entities | filter: { entityType: entityType.singular }" ng-switch="entityType.singular">
 
 		<!-- contact -->
-		<div class="panel panel-default card contact-card" ng-switch-when="Contact" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
-			<div class="panel-body">
+		<div class="panel panel-default card contact-card related-card" ng-switch-when="Contact">
+			<div class="panel-body" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
 				<div class="name-wrapper">
 				<div class="avatar avatar-32 royal">
 					<span class="initials" ng-bind="(relatedEntity.entity.firstName | limitTo:1)"></span><span class="initials" ng-bind="(relatedEntity.entity.lastName | limitTo:1)"></span>
@@ -32,14 +39,19 @@
 				</p>
 				</div>
 			</div>
-			<div class="panel-footer" ng-if="relatedEntity.description">
-				<icon class="fa fa-user"></icon> <span ng-bind="relatedEntity.description"></span>
+			<div class="panel-footer" ng-if="relatedEntity.description" ng-click="viewRelationship(relatedEntity.entityType, relatedEntity.entityId)">
+				<span class="relationship">
+				<img src="../assets/img/icons/actions/add-relationship.svg" alt="Relationship" uib-tooltip="This Describes the relationship between '{{relatedEntity.name}}' and '{{data.thisRecord.name}}'" tooltip-append-to-body="true"><span ng-bind="relatedEntity.description"></span>
+
+				<span class="pull-right">3 Comments</span>
+				</span>
+				
 			</div>
 		</div>
 
 		<!-- company -->
-		<div class="panel panel-default card company-card" ng-switch-when="Company" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
-			<div class="panel-body">
+		<div class="panel panel-default card company-card related-card" ng-switch-when="Company">
+			<div class="panel-body" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
 				<div class="name-wrapper">
 				<div class="avatar avatar-32 sky square">
 					<span class="initials" ng-bind="(relatedEntity.entity.name | limitTo:1)"></span>
@@ -55,11 +67,19 @@
 				</p>
 				</div>
 			</div>
+			<div class="panel-footer" ng-if="relatedEntity.description" ng-click="viewRelationship(relatedEntity.entityType, relatedEntity.entityId)">
+				<span class="relationship">
+				<img src="../assets/img/icons/actions/add-relationship.svg" alt="Relationship" uib-tooltip="This Describes the relationship between '{{relatedEntity.name}}' and '{{data.thisRecord.name}}'" tooltip-append-to-body="true"><span ng-bind="relatedEntity.description"></span>
+
+				<span class="pull-right">3 Comments</span>
+				</span>
+				
+			</div>
 		</div>
 
 		<!-- opportunity -->
-		<div class="panel panel-default card opportunity-card" ng-switch-when="Opportunity" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
-			<div class="panel-body">
+		<div class="panel panel-default card opportunity-card related-card" ng-switch-when="Opportunity">
+			<div class="panel-body" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
 
 				<div class="name-wrapper">
 				<div class="avatar avatar-24 lime">
@@ -95,8 +115,17 @@
                         <p class="card-subtitle">Forecast</p>
                         <p class="card-data opportunity-value"><span ng-bind="relatedEntity.entity.forecast.value"></span>%<span> - </span><span ng-bind="relatedEntity.entity.forecast.value"></span></p>
                       </div>
+					</div>
 				</div>
 
+			</div>
+			<div class="panel-footer" ng-if="relatedEntity.description" ng-click="viewRelationship(relatedEntity.entityType, relatedEntity.entityId)">
+				<span class="relationship">
+				<img src="../assets/img/icons/actions/add-relationship.svg" alt="Relationship" uib-tooltip="This Describes the relationship between '{{relatedEntity.name}}' and '{{data.thisRecord.name}}'" tooltip-append-to-body="true"><span ng-bind="relatedEntity.description"></span>
+
+				<span class="pull-right">3 Comments</span>
+				</span>
+				
 			</div>
 		</div>
 
@@ -105,5 +134,80 @@
 	</span>
 	</span>
 
+	</div>
+
   </div>
 </div>
+
+
+<!-- Files -->
+<div class="panel panel-default sidepanel-panel clear" style="margin-top:-10px;">	
+	<div class="panel-body">
+	
+	<h5 class="sidepanel-title collapse-header" ng-click="data.filesCollapsed = !data.filesCollapsed">
+	Files (<span ng-bind="data.thisRecord.files.length || '0'"></span>)
+
+	<span class="pull-right collapse-arrow">
+		<icon class="wb-triangle-right" ng-if="data.filesCollapsed"></icon>
+		<icon class="wb-triangle-down" ng-if="!data.filesCollapsed"></icon>
+		</span>
+	</h5>
+
+	<div uib-collapse="data.filesCollapsed">
+
+	<span class="empty-add" ng-if="!data.thisRecord.files.length">
+      <p class="empty-section">No Files</p>
+    </span>
+
+	<!-- files cards -->
+                    <div class="panel panel-default card file-card" ng-repeat="file in data.thisRecord.files | orderBy: 'createdOn' " ng-class="{'img-card': file.type == 'image/jpeg' || file.type == 'image/png'}" ng-mouseleave="file.isopen = false; console.log('mouseleave');">
+                        <div class="panel-body" ng-click="fileDetails(file.id)">
+                            <div class="name-wrapper">
+                            <!-- img icon -->
+                            <div class="file-icon" ng-if="file.type !== 'image/jpeg' && file.type !== 'image/png'">
+                                <img ng-src="{{file.type | fileIcons}}" alt="{{file.type}}">
+                            </div>
+                            <!-- img preview -->
+                            <div class="image-preview" ng-click="previewImage(file); $event.stopPropagation();">
+                            <img ng-if="file.type == 'image/jpeg' || file.type == 'image/png'" ngf-thumbnail="file.url">
+                            </div>
+							
+							<div class="name-wrapper">
+                            <!-- details -->
+                            <h4 ng-bind="file.name || '--'">Important Document</h4>
+                            <p>
+                                <span ng-if="file.size" ng-bind="file.size | bytes"></span> 
+                                <span ng-if="!file.size">-- MB</span>
+                                <span class="spacer">·</span> 
+                                <span ng-bind="file.type | fileTypes"></span>
+                            </p>
+                            <p class="uploaded" ng-bind="file.createdOn | date:'MMM d, y h:mm a'"></p>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="card-actions">
+                            <div class="btn-group" uib-dropdown is-open="file.isopen" uib-tooltip="More Actions" tooltip-enable="!file.isopen" ng-class="{'dropup': $last}">
+                              <button id="single-button" type="button" class="btn btn-primary more-actions" uib-dropdown-toggle ng-disabled="disabled">
+                                <icon class="wb-more-horizontal"></icon>
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                <li role="menuitem"><a ng-href={{file.url}} target="_blank">Open In New Window</a></li>
+                                <li role="menuitem"><a href clipboard supported="supported" text="file.url" on-copied="copySuccess()" on-error="copyFail(err)">Copy Link</a></li>
+                                <li role="menuitem"><a ng-href={{file.url}} download>Download</a></li>
+                                <li class="divider" ng-if="file.createdBy.id == $root.activeUser.id"></li>
+                                <li role="menuitem" class="text-danger" ng-if="file.createdBy.id == $root.activeUser.id"><a href ng-click="deleteFile(file)">Delete Files</a></li>
+                              </ul>
+                            </div>
+                            <!-- star -->
+                            <button class="btn btn-default star-item" uib-tooltip="Star">
+                                <icon class="wb-star-outline"></icon>
+                            </button>
+                        </div>
+
+    			</div>
+
+		</div>
+ 	</div>
+</div>
+

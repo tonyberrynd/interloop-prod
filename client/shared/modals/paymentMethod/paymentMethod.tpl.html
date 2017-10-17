@@ -1,42 +1,54 @@
-        <div class="modal-header header-dark">
-            <h3 class="modal-title" id="modal-title">Payment Method</h3>
-            
-            <!-- close button -->
-            <button type="button" class="close" ng-click="$dismiss()">
-                <icon class="wb-close-mini"></icon>
-            </button>
 
-        </div>
         <div class="modal-body w-padding" id="modal-body">
 
+          <span class="secure-loader text-center" ng-class="{'hidden': data.activated }">
+                <div class="loop-loader loop-loader-light" style="z-index:999">Loading...</div>
+          </span>
 
-                 <form action="#"
+          <span ng-class="{'hidden': !data.activated }">
+          <br>
+          <br>
+                  <!-- //card visual -->
+                   <div id="card-container"></div>
+
+                   <br>
+                    <!-- //credit card from -->
+                    <form
+                      class="payment-method-form"
                       name="cardForm"
                       data-card
-                      data-width="500"
+                      data-width="300"
                       data-card-container="#card-container"
                       data-placeholders="cardPlaceholders"
                       data-options="cardOptions"
-                      data-messages="cardMessages">
+                      data-messages="cardMessages" novalidate>
 
-                      <div>
-                        <input placeholder="Card number" type="text" name="CardNumber" card-number data-ng-model="card.number" />
-
-                        <input placeholder="Full name" type="text" name="CardName" card-name data-ng-model="card.name" />
+                      <div class="row">
+                        <div class="col-xs-12">
+                           <input class="form-control input-lg" placeholder="Card number" type="text" name="CardNumber" card-number data-ng-model="data.card.number" required autofocus/>
+                        </div>
+                        <div class="col-xs-12">
+                          <input class="form-control input-lg" placeholder="Full name" type="text" name="CardName" card-name data-ng-model="data.card.name" required/>
+                        </div>
+                        <div class="col-xs-6">
+                          <input class="form-control input-lg" placeholder="MM / YYYY" type="text" name="CardExpiry" card-expiry data-ng-model="data.card.expiry" required/>
+                        </div>
+                        <div class="col-xs-6">
+                          <input class="form-control input-lg" placeholder="CVC" type="text" name="CardCvc" card-cvc data-ng-model="data.card.cvc" required/>
+                        </div>
                       </div>
-                      <div>
-                        <input placeholder="MM / YYYY" type="text" name="CardExpiry" card-expiry data-ng-model="card.expiry" />
 
-                        <input placeholder="CVC" type="text" name="CardCvc" card-cvc data-ng-model="card.cvc" />
-
-                        <input type="button" value="Change card" data-ng-click="changeCard()" />
-                        <input type="button" value="Clear" data-ng-click="clear()" />
+                      <div class="secured-by text-right">
+                        <icon class="wb-lock"></icon> Secured By Stripe
                       </div>
 
                     </form>
 
+            </span>  
+
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-default btn-link" ng-click="$dismiss()">Cancel</button>
-            <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
+        <div class="modal-footer secure-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-success" type="button" ng-click="ok()" ng-disable="cardForm.$invalid">Update Card</button>
         </div>
+

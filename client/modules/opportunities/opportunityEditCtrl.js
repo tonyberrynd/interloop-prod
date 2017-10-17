@@ -15,6 +15,7 @@ angular.module('interloop.opportunityEditCtrl', [])
 	modalManager,
 	OpportunityFields,
 	EndFields,
+	gridManager,
 	socialTypes,
 	emailTypes,
 	phoneTypes
@@ -109,6 +110,7 @@ activate()
             if(!noAlert) {
               Logger.info('Record updated');
             }
+            gridManager.refreshView();
             returnToDetails();
         })
         .catch(function(err) {

@@ -2,6 +2,7 @@
   padding: 15px 30px;
   padding-top:30px;
   padding-left:20px;
+  padding-right:20px;
   list-style: none;
   background:#fff;
   border:solid 1px $border;
@@ -26,6 +27,7 @@
   .nav.nav-pills {
      li > a {
       font-size:12px;
+      padding:6px 8px;
      color:$dragonstone;
    }
 
@@ -37,7 +39,7 @@
 
   .feed-item {
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
     padding-left: 15px;
     border-left: 2px solid $border;
     color:$dragonstone;
@@ -45,10 +47,6 @@
     &.start {
       padding-top:5px;
       padding-bottom:0px;
-    }
-
-    .card:last-child {
-      margin-bottom:15px;
     }
 
     b {
@@ -86,10 +84,10 @@
 
     .avatar {
       margin-right:7px;
-      line-height:26px;
+      line-height:24px;
     }
 
-    &:last-child {
+    &.no-border {
       border-color: transparent;
     }
 

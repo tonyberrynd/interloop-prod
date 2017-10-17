@@ -1,0 +1,31 @@
+<ion-view view-title="Login">
+  <ion-header-bar>
+  <a href="#/login" class="button button-clear button-positive"><icon class="wb-chevron-left-mini"></icon> Login</a>
+    <h1 class="title title-heavy">Forgot</h1>
+    <button class="button button-clear button-positive heavy">Send</button>
+  </ion-header-bar>
+  <ion-content>
+
+    <form ng-submit="doLogin()">
+      <div class="list login-form">
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="text" ng-model="data.email" placeholder="Email Address">
+        </label>
+        <label class="item item-input domain-input">
+          <span class="input-label">Domain</span>
+          <input name="domain" type="text" ng-model="data.domain" placeholder="Domain" required />
+             <span class="item-note">
+          .interloop.ai
+        </span>
+        </label>
+      </div>
+    </form>
+
+    <div class="forgot-text text-center">
+      <p>Please enter you email address, we will send you insctructions to update your password.</p>
+    </div>
+
+  </ion-content>
+
+</ion-view>

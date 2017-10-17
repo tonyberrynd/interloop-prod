@@ -49,6 +49,14 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Add Pipeline'
     },
 
+    addOwners: {
+        templateUrl: 'shared/modals/addOwners/addOwners.tpl.html',
+        controller: 'addOwnersCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Add Owners',
+        ariaDescribedBy: 'Add Owners'
+    },
+
     addOwner: {
         templateUrl: 'shared/modals/addOwner/addOwner.tpl.html',
         controller: 'addOwnerCtrl',
@@ -99,13 +107,20 @@ angular.module('interloop.value.modalDefs', [])
     },
 
     addRole: {
-        templateUrl: 'shared/modals/addRole/addRole.tpl.html',
+        templateUrl: 'shared/modals/addRole/addRole2.tpl.html',
         controller: 'addRoleCtrl',
         size: 'md',
         ariaLabelledBy: 'Add Role',
         ariaDescribedBy: 'Add Role'
     },
 
+    addRelated: {
+        templateUrl: 'shared/modals/addRelated/addRelated.tpl.html',
+        controller: 'addRelatedCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Add Related Record',
+        ariaDescribedBy: 'Add Related Record'
+    },
 
     addStatus: {
         templateUrl: 'shared/modals/addStatus/addStatus.tpl.html',
@@ -161,7 +176,7 @@ angular.module('interloop.value.modalDefs', [])
     //new meeting
     newMeeting: {
         templateUrl: 'shared/modals/newMeeting/newMeeting.tpl.html',
-        controller: null,
+        controller: 'newMeetingCtrl',
         size: 'md',
         ariaLabelledBy: 'New Meeting',
         ariaDescribedBy: 'Create a new Meeting'
@@ -170,7 +185,7 @@ angular.module('interloop.value.modalDefs', [])
     //log call
     logCall: {
         templateUrl: 'shared/modals/logCall/logCall.tpl.html',
-        controller: null,
+        controller: 'logCallCtrl',
         size: 'md',
         ariaLabelledBy: 'Log Call',
         ariaDescribedBy: 'Log Call'
@@ -212,7 +227,7 @@ angular.module('interloop.value.modalDefs', [])
     newNote: {
         templateUrl: 'shared/modals/newNote/newNote.tpl.html',
         controller: 'newNoteCtrl',
-        size: 'md',
+        size: 'lg',
         ariaLabelledBy: 'New Note',
         ariaDescribedBy: 'Create a new note'
     },
@@ -220,7 +235,7 @@ angular.module('interloop.value.modalDefs', [])
      //new task modal
     newTask: {
         templateUrl: 'shared/modals/newTask/newTask.tpl.html',
-        controller: null,
+        controller: 'newTaskCtrl',
         size: 'md',
         ariaLabelledBy: 'New Task',
         ariaDescribedBy: 'Create a new Task'
@@ -406,6 +421,13 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Invoice Preferences'
     },
 
+    warning: {
+        templateUrl: 'shared/modals/warning/warning.tpl.html',
+        controller: 'warningCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Confirm Action',
+        ariaDescribedBy: 'Confirm Action'
+    },
 
     confirm: {
         templateUrl: 'shared/modals/confirm/confirm.tpl.html',
@@ -423,6 +445,15 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Edit Field'
     },
 
+    editStatus: {
+        templateUrl: 'shared/modals/editStatus/editStatus.tpl.html',
+        controller: 'editStatusCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Edit Status',
+        ariaDescribedBy: 'Edit Status'
+    },
+
+
     newCustomField: {
         templateUrl: 'shared/modals/newCustomField/newCustomField.tpl.html',
         controller: 'newCustomFieldCtrl',
@@ -431,12 +462,28 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Create a new Custom Field'
     },
 
+    editForecastCategory: {
+        templateUrl: 'shared/modals/editForecastCategory/editForecastCategory.tpl.html',
+        controller: 'editForecastCategoryCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Edit Forecast Category',
+        ariaDescribedBy: 'Edit Forecast Category'
+    },
+
     editCustomField: {
         templateUrl: 'shared/modals/editCustomField/editCustomField.tpl.html',
         controller: 'editCustomFieldCtrl',
         size: 'md',
         ariaLabelledBy: 'Edit Custom Field',
         ariaDescribedBy: 'Edit Custom Field'
+    },
+
+    editProduct: {
+        templateUrl: 'shared/modals/editProduct/editProduct.tpl.html',
+        controller: 'editProductCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Edit Product',
+        ariaDescribedBy: 'Edit Product'
     },
 
     newTeam: {
@@ -458,7 +505,9 @@ angular.module('interloop.value.modalDefs', [])
     paymentMethod: {
         templateUrl: 'shared/modals/paymentMethod/paymentMethod.tpl.html',
         controller: 'paymentMethodCtrl',
-        size: 'md',
+        windowClass: 'update-payment',
+        backdropClass: 'update-payment-method',
+        size: 'lg',
         ariaLabelledBy: 'Update Payment Method',
         ariaDescribedBy: 'Update Payment Method'
     },

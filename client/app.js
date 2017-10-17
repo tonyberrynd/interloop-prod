@@ -5,15 +5,6 @@ agGrid.LicenseManager.setLicenseKey("Interloop_Interloop_1Devs6_June_2018__MTUyO
 agGrid.initialiseAgGridWithAngular1(angular);
 
 
-//microsoft adal logging - only log true errors
-//----------------------------------------------------------------------------
-Logging = {
-    level: 0,
-    log: function (message) {
-        console.log(message);
-    }
-};
-
 /* ==========================================================================
    Main App File 
    ========================================================================== */
@@ -82,6 +73,7 @@ angular.module('interloop', [
   'videosharing-embed',                   //https://github.com/erost/ng-videosharing-embed
   'gavruk.card',                          //https://github.com/gavruk/angular-card
   'ui.calendar',                          //https://github.com/angular-ui/ui-calendar
+  'ksSwiper',                             //https://github.com/ksachdeva/angular-swiper
 
 
   //Support Services
@@ -114,6 +106,8 @@ angular.module('interloop', [
   'interloop.value.permissions',
   'interloop.value.modalDefs',
   'interloop.value.baseChartConfig',
+  'interloop.value.addressValues',
+  'interloop.value.timezoneValues',
 
   //controllers
   'interloop.loginCtrl',
@@ -122,6 +116,8 @@ angular.module('interloop', [
 
   // app ctrls
   'interloop.navCtrl',
+  // pulse
+  'interloop.pulseOutlookCtrl',
   //analytics
   'interloop.insightsCtrl',
   'interloop.dashboardsCtrl',
@@ -151,6 +147,11 @@ angular.module('interloop', [
   'interloop.taskCalendarCtrl',
   'interloop.taskDetailsCtrl',
 
+  //details
+  'interloop.relationshipDetailsCtrl',
+  'interloop.noteDetailsCtrl',
+  'interloop.emailDetailsCtrl',
+
   //more
   'interloop.filesCtrl',
   'interloop.fileDetailsCtrl',
@@ -177,13 +178,17 @@ angular.module('interloop', [
   'interloop.bulkExportCtrl',
   'interloop.bulkTagCtrl',
   'interloop.confirmCtrl',
+  'interloop.warningCtrl',
   'interloop.connectIcloudCtrl',
   'interloop.createViewCtrl',
   'interloop.deleteViewCtrl',
   'interloop.editCustomFieldCtrl',
+  'interloop.editForecastCategoryCtrl',
   'interloop.editFieldCtrl',
   'interloop.editReasonCtrl',
+  'interloop.editStatusCtrl',
   'interloop.editRoleCtrl',
+  'interloop.editProductCtrl',
   'interloop.editSystemViewCtrl',
   'interloop.editTeamCtrl',
   'interloop.editUserProfileCtrl',
@@ -198,6 +203,9 @@ angular.module('interloop', [
   'interloop.manageRelationshipsCtrl',
   'interloop.manageTagsCtrl',
   'interloop.newActivityCtrl',
+  'interloop.newTaskCtrl',
+  'interloop.logCallCtrl',
+  'interloop.newMeetingCtrl',
   'interloop.newCompanyCtrl',
   'interloop.newContactCtrl',
   'interloop.newCustomFieldCtrl',
@@ -229,8 +237,10 @@ angular.module('interloop', [
   'interloop.addForecastCategoryCtrl',
   'interloop.addGoalCtrl',
   'interloop.addOwnerCtrl',
+  'interloop.addOwnersCtrl',
   'interloop.addPipelineCtrl',
   'interloop.addReasonCtrl',
+  'interloop.addRelatedCtrl',
   'interloop.addRoleCtrl',
   'interloop.addTagCtrl',
   'interloop.addTeamMemberCtrl',
@@ -242,16 +252,17 @@ angular.module('interloop', [
   'interloop.settingsCreationCtrl',
   'interloop.settingsCustomFieldsCtrl',
   'interloop.settingsExportCtrl',
+  'interloop.settingsDuplicatesCtrl',
   'interloop.settingsFieldsCtrl',
   'interloop.settingsForecastingCtrl',
   'interloop.settingsGoalsCtrl',
   'interloop.settingsImportCtrl',,
-  'interloop.settingsImportWizardCtrl',
   'interloop.settingsIntegrationsCtrl',
   'interloop.settingsInvoicesCtrl',
   'interloop.settingsNotificationsCtrl',
   'interloop.settingsPermissionsCtrl',
   'interloop.settingsPipelinesCtrl',
+  'interloop.settingsPipelineDetailsCtrl',
   'interloop.settingsProfileCtrl',
   'interloop.settingsSubscriptionCtrl',
   'interloop.settingsTagsCtrl',
@@ -275,10 +286,13 @@ angular.module('interloop', [
   'interloop.filter.fileIcons',
 
   //directives
+  'interloop.directive.permission',
+  'interloop.directive.dynamicTitle',
   'interloop.directive.scrollClass',
   'interloop.directive.changeOnBlur',
   'interloop.directive.autofocus',
   'interloop.directive.focusSelect',
+  'interloop.directive.filereader',
 
   //factories
   'interloop.factory.configService',
@@ -288,6 +302,7 @@ angular.module('interloop', [
   'interloop.factory.modalManager',
   'interloop.factory.viewManager',
   'interloop.factory.insightManager',
+  'interloop.factory.activityCreator',
   'interloop.factory.gridManager',
   'interloop.factory.queryBuilder',
   'interloop.factory.queryDecoder',

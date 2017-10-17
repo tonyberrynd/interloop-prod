@@ -16,9 +16,11 @@
 
 	trix-editor {
 		border:none;
-		border-top:solid 1px $border;
+		border-top:none;
 		border-top-left-radius: 0px;
 		border-top-right-radius: 0px;
 		min-height:120px;
+			transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
 	}
 }

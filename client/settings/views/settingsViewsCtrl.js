@@ -28,6 +28,7 @@ angular.module('interloop.settingsViewsCtrl', [])
 	//functions
 	//----------------------
 	$scope.changeEntity = changeEntity;
+	$scope.save = save;
 
 //-------------------------------------------
 
@@ -50,17 +51,24 @@ activate();
 
 function changeEntity(entity){
 	$scope.data.currentEntity = entity;
-
+		$scope.data.loading = true;
 	//find views
 	View.find({"filter": {"where": {"entity": $scope.data.currentEntity}}}).$promise
 		.then(function(results){
 			$scope.data.views = results;
 
 			$scope.data.activated = true;
+				$scope.data.loading = false;
 		})
 		.catch(function(err){
 			Logger.error('Error Fetching Views');
+				$scope.data.loading = false;
 		})
+}
+
+
+function save(view){
+
 }
 
 //-------------------------------------------

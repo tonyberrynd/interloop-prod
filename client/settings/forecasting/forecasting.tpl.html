@@ -9,6 +9,7 @@
 					<div class="settings-header">
 					<h4>Forecasting</h4>
 					<p>Manage your forecasting process with forecast categories & cadences</p>
+					<button class="btn btn-primary" ng-click="addCategory()"><icon class="wb-plus"></icon> Add Category</button>
 					</div>
 
 					<div class="panel panel-default with-tabs">
@@ -21,7 +22,7 @@
 							    </li>
 							    <li ng-class="{'active': data.currentType == 'cadence'}">
 							      <a href ng-click="changeType('cadence')">
-							      	Cadence
+							      	Cadence <span ng-if="data.forecastingEnabled">(On)</span><span ng-if="!data.forecastingEnabled">(Off)</span>
 							      </a>
 							    </li>
 							</ul>
@@ -33,10 +34,10 @@
 						  <table class="table settings-table">
 						    <thead>
 						      <tr>
-						      	<th class="col-xs-2"></th>
-						        <th class="col-xs-4">Name</th>
-			              	    <th class="col-xs-3">Description</th>
-			                    <th class="col-xs-3"></th>
+						      	<th class="col-xs-1"><span uib-tooltip="Order each forecast category in terms of confidence of winning the deal - with the highest having the most likelihood for the rep to win the deal"><icon class="fa fa-arrow-up confidence-arrow"></icon>  Confidence</span></th>
+						        <th class="col-xs-3">Name</th>
+			              	    <th class="col-xs-6">Description</th>
+			                    <th class="col-xs-2"></th>
 						      </tr>
 						    </thead>
 						    <tbody>
@@ -44,43 +45,51 @@
 						      <tr ng-repeat="category in data.categories">
 								<td>
 									<div class="change-order">
-										<icon class="wb-triangle-down"></icon>
-										<icon class="wb-triangle-up"></icon>
+										<icon class="wb-triangle-down" ng-class="{'disabled': $last}" uib-tooltip="Move Lower Confidence" tooltip-placment="top" tooltip-enable="!$last" tooltip-append-to-body="true"></icon>
+										<icon class="wb-triangle-up" ng-class="{'disabled': $first}" uib-tooltip="Move Higher Confidence" tooltip-placment="bottom" tooltip-enable="!$first" tooltip-append-to-body="true"></icon>
 									</div>
 								</td>
 								<td class="plain">
 									<span ng-bind="category.label"></span>
 								</td>
-								<td class="plain">
-									<span ng-bind="category.description"></span>
+								<td class="plain" style="overflow:hidden; text-overflow: ellipsis;">
+									<span uib-tooltip="{{category.description}}" ng-bind="category.description"></span>
 								</td>
 								<td class="text-right">
 									<button class="btn btn-default" ng-click="editCategory(category)">
-										<icon class="wb-edit"></icon>
+										<icon class="fa fa-pencil"></icon>
 									</button>
 									<button class="btn btn-default" ng-click="deleteCategory(category)">
-										<icon class="wb-trash"></icon>
+										<icon class="fa fa-trash"></icon>
 									</button>
 								</td>
 						      </tr>
 						    </tbody>
 						  </table>
+
+
+						  	<div class="empty-state text-center" ng-if="!data.categories.length">
+						     	<h5>No Forecast Categories</h5>
+						     	<p>Categories allow easy classification of Opportunities based on a rep's confidence of winning.</p>
+						     	<button class="btn btn-primary" ng-click="addCategory()">Create New Category</button>
+						     </div>
+
 						</span>
 
 
 						<!-- cadence -->
-						<div ng-if="data.currentType == 'cadence'" style="padding:20px;">
+						<div ng-if="data.currentType == 'cadence'" class="forecasting-cadence">
 							
 							<div class="forecast-section">
-							<h4>Enable Forecasting</h4>
-							<p>Enabling Forecasting allows interloop to update and remind reps about forecasting their pipeline</p>
+							<h4>Enable Forecasting Cadence</h4>
+							<p>Enabling Cadence allows interloop to update and remind reps about forecasting their pipeline</p>
 
 							<span class="toggle toggle-success" style="margin:0px;">
 						        <input class="toggle-range" id="defaultToggle" type="checkbox" ng-model="data.forecastingEnabled" ng-change="enableDisableForecasting()">
 						        <label class="toggle-btn" for="defaultToggle"></label>
 					        </span>
 
-					        <p><small>To Learn more about forecasting, view our <a href="">help article here</a>.</small></p>
+					        <!-- <p><small>To Learn more about forecasting, view our <a href="">help article here</a>.</small></p> -->
 
 							</div>
 
@@ -90,18 +99,18 @@
 							<p>When Does Your Fiscal Year Begin?</p>
 
 							<div class="btn-group">
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'1'">Jan</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'2'">Feb</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'3'">Mar</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'4'">Apr</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'5'">May</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'6'">Jun</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'7'">Jul</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'8'">Aug</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'9'">Sept</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'10'">Oct</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'11'">Nov</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'12'">Dec</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'1'">Jan</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'2'">Feb</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'3'">Mar</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'4'">Apr</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'5'">May</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'6'">Jun</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'7'">Jul</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'8'">Aug</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'9'">Sept</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'10'">Oct</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'11'">Nov</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.fiscalYearStart" uib-btn-radio="'12'">Dec</label>
 						    </div>
 
 							</div>
@@ -113,9 +122,9 @@
 							<p>What cadence would you like Interloop to request forecast submissions from users?</p>
 
 							<div class="btn-group">
-						        <label class="btn btn-primary btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Weekly'">Weekly</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Monthly'">Monthly</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Quarterly'">Quarterly</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Weekly'">Weekly</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Monthly'">Monthly</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.forecastCadence" uib-btn-radio="'Quarterly'">Quarterly</label>
 						    </div>
 
 							</div>
@@ -125,11 +134,11 @@
 							<p>Select day of the week that forecasts should be submitted within the forecasting period</p>
 
 							<div class="btn-group">
-						        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Mon'">Mon</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Tues'">Tues</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Web'">Wed</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Thur'">Thur</label>
-						        <label class="btn btn-primary btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Fri'">Fri</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Mon'">Mon</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Tues'">Tues</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Web'">Wed</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Thur'">Thur</label>
+						        <label class="btn btn-default btn-outline" ng-model="data.forecastSubmissionDay" uib-btn-radio="'Fri'">Fri</label>
 						    </div>
 
 							</div>

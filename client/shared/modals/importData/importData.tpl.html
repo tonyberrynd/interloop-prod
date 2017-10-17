@@ -23,7 +23,7 @@
                       <h4>Step 1</h4>
                       <p>Download our spreadsheet template and add your own entity information to it in Excel.</p>
                       <br>
-                      <button class="btn btn-default"><icon class="fa fa-download"></icon> Download Template</button>
+                      <button class="btn btn-default" ng-click="createTemplate()"><icon class="fa fa-download"></icon> Download Template</button>
                     </div>
 
                     <div class="col-sm-6">
@@ -72,14 +72,20 @@
                                 </td>
                                 <td>
                                   <label for="{{column.label}}" class="select pull-right" style="max-width:360px;margin:0px;">
-                                    <select
+   <!--                                  <select
                                       class="form-control" ng-model="data.selected[$index]" id="{{column.label}}" style="margin:0px;">
-                                                                            
-                                      <option ng-repeat="item in data.fileContents.columnDefs" value="{{item.field}}" ng-disabled="fieldSelected(item)">
+                                        
+                                      <option value="null">---Please select---</option>                                   
+                                      <option ng-repeat="item in data.fileContents.columnDefs" value="{{item.field}}">
                                       {{item.field}}
                                       </option>
                                       
-                                    </select>
+                                    </select> -->
+
+
+                                    <select class="form-control" name="{{column-label}}-select" id="{{column.label}}"
+                                        ng-options="item as item.field for item in data.fileContents.columnDefs "
+                                        ng-model="data.selected[$index]"></select>
 
                                    </label>
 
@@ -87,6 +93,7 @@
                               </tr>
                             </tbody>
                         </table>
+
                       </div>
                   </div>
 
@@ -95,8 +102,7 @@
                   <div ng-switch-when="3">
 
                  <span class="text-center">
-                  <p>Review the data below. If it's correct, import select start import to begin processing records.</p>
-                  <br>
+                  <p>Review the data preview below. If it's correct, import select start import to begin processing records.</p>
                 </span>
 
                    <br>

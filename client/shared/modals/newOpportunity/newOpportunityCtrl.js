@@ -12,7 +12,6 @@ angular.module('interloop.newOpportunityCtrl', [])
   Opportunity,
   $http,
   $uibModalInstance,
-  Opportunity,
   Logger,
   modalManager,
   RelationshipManager,

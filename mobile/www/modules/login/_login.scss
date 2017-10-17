@@ -1,0 +1,44 @@
+
+.login-form {
+	padding-top:15px;
+}
+
+.forgot-link,
+.forgot-text {
+	padding:25px;
+
+	p {
+		color:$granite;
+	}
+}
+
+.title-header {
+	font-weight:600;
+}
+
+.clear-input {
+	position: absolute;
+	top:2px;
+	right:0px;
+	height:10px;
+	display: block;
+	z-index: 50;
+
+	.button {
+		min-height:40px;
+	}
+
+	.button icon {
+			color:$granite;
+			-ms-transform: rotate(45deg); /* IE 9 */
+		    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+		    transform: rotate(45deg);
+	}
+}
+
+.domain-input .item-note {
+	color:$charcoal;
+	padding-right:10px;
+	margin-right:45px;
+	font-weight:500;
+}

@@ -43,23 +43,23 @@ angular.module('interloop.shareWithCtrl', [])
 function activate() {
   return $q.all([
       Appuser.find().$promise,
-      Team.find().$promise
+      Team.find({"filter": {"include": 'members'}}).$promise
     ])
     .then(function(results){
       $scope.data.users = results[0];
       $scope.data.teams = results[1];
 
-
-
-      //transform and push users into choices
-      _.forEach($scope.data.users, function(value){
-        value.type = 'user';
-        $scope.data.choices.push(value);
-      })
+      console.log($scope.data.teams);
 
       //transform and push users into choices
       _.forEach($scope.data.teams, function(value){
         value.type = 'team';
+        $scope.data.choices.push(value);
+      })
+
+      //transform and push users into choices
+      _.forEach($scope.data.users, function(value){
+        value.type = 'user';
         $scope.data.choices.push(value);
       })
 
@@ -78,23 +78,27 @@ activate()
     var entityModel = $injector.get(entityType);
     var shareWithPromises = [];
 
-    _.forEach($scope.data.sharedWith, function(value, key){
+    _.forEach($scope.data.selectedSharedWith, function(value, key){
 
-      var thisPromise = entityModel.shareWith.create(
+      shareWithPromises.push(function(){
+        return entityModel.sharedWith.create(
         {"id": $scope.data.thisRecord.id},
         {
             "name": value.name,
+            "firstName": value.firstName,
+            "lastName": value.lastName,
+            "color": value.color,
             "type": value.type,
-        })
+        }).$promise
 
-        // push promise into array
-        shareWithPromises.push(thisPromise)
+      })
     })
 
-    $q.all(shareWithPromises)
+    $q.serial(shareWithPromises)
       .then(function(results){
         Logger.info('Share With Updated')
-        $uibModalInstance.close(results);
+        console.log(results);
+        $uibModalInstance.close($scope.data.selectedSharedWith);
       })
       .catch(function(err){
         Logger.error('Error Updating Share With', 'Please Try Again in a moment')

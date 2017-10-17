@@ -1,0 +1,65 @@
+<ion-view view-title="" class="search" hide-navbar="true">
+
+  <ion-header-bar class="bar-light item-input-inset">
+  <label class="item-input-wrapper" focus-me>
+    <i class="icon wb-search placeholder-icon"></i>
+    <input type="search" placeholder="Search..." ng-model="data.globalSearch" ng-model-options="{ debounce: 500 }" ng-change="search(data.globalSearch)" autocorrect="off" autocapitalize="off">
+    <i class="clear-search wb-close-circle" ng-if="data.globalSearch.length" ng-click="clearSearch()"></i>
+  </label>
+  <button class="button button-clear" ng-click="goBack()">
+    Cancel
+  </button>
+  </ion-header-bar>
+
+  <ion-content class="content-grey">
+
+  <div class="centered-spinner" ng-if="data.searchLoading">
+      <ion-spinner icon="ios-small"></ion-spinner>
+  </div>
+ 
+	<ion-list ng-repeat="entity in data.searchResults">
+		
+		<!-- opportunities -->
+	    <ion-item ng-repeat="result in entity.results" ng-if="entity.entityType == 'Opportunity'"  href="#/opportunities/{{result._id}}">
+    	 <h2><span ng-bind="result.name || '--'"></span></h2>
+      	 <p ng-bind="result.primaryCompanyLink.name || '--'"></p>
+  		</ion-item>
+		
+		<!-- companies -->
+	    <ion-item ng-repeat="result in entity.results" ng-if="entity.entityType == 'Company'" class="item-avatar" href="#/companies/{{result._id}}">
+	     <img ng-if="result.logo" ng-src="{{result.logo}}" alt="">
+	     <div ng-if="!result.logo" class="no-avatar no-avatar-result">
+	     	<span ng-bind="(result.name | limitTo: 1) || '-'"></span>
+	     </div>
+    	 <h2><span ng-bind="result.name || '--'"></span></h2>
+      	 <p ng-bind="result.address || '--'"></p>
+  		</ion-item>
+
+  		<!-- contacts -->
+  		 <ion-item ng-repeat="result in entity.results" ng-if="entity.entityType == 'Contact'" class="item-avatar" href="#/contacts/{{result._id}}">
+	     <img ng-if="result.avatar" ng-src="{{result.avatar}}" alt="">
+	     <div ng-if="!result.avatar" class="no-avatar">
+	     	<span ng-bind="(result.firstName | limitTo: 1) || '-'"></span><span ng-bind="(result.lastName | limitTo: 1) || '-'"></span>
+	     </div>
+    	 <h2><span ng-bind="result.firstName || '--'"></span> <span ng-bind="result.lastName || '--'"></span></h2>
+      	 <p ng-bind="result.title || 'No Title'"></p>
+  		</ion-item>
+
+	</ion-list>
+
+
+  <!-- empty state -->
+  <div class="empty-state" ng-if="!data.searchresult.length && !data.searchLoading">
+      <div class="empty-icon">
+        <icon class="wb-search"></icon>
+      </div>
+
+      <h5>No Records</h5>
+      <p>Try checking your spelling or searching for another item</p>
+  </div>
+
+
+
+  </ion-content>
+
+</ion-view>

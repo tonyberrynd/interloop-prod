@@ -30,6 +30,7 @@ angular.module('interloop.settingsFieldsCtrl', [])
 	//----------------------
 	$scope.changeEntity = changeEntity;
 	$scope.editField = editField;
+	$scope.save = save;
 
 //-------------------------------------------
 
@@ -63,6 +64,12 @@ function editField(field){
 
 	//open modal
 	modalManager.openModal('editField', resolvedData);
+}
+
+
+function save(field){
+	//TODO - persist to server
+	Logger.info('Field Saved', 'Refresh Your Browser to see changes throughout the application')
 }
 
 //-------------------------------------------

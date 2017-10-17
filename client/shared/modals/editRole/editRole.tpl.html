@@ -1,131 +1,108 @@
-  <div class="modal-header header-dark">
-            <h3 class="modal-title" id="modal-title">Edit Role - {{data.thisRole.label}}</h3>
-            <p>Edit Role Details and Permissions Below</p>
-            
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Edit Role</h3>
+
             <!-- close button -->
             <button type="button" class="close" ng-click="$dismiss()">
                 <icon class="wb-close-mini"></icon>
             </button>
-
         </div>
-        <div class="modal-body no-padding" id="modal-body" style="padding:0px;">
+        <div class="modal-body" id="modal-body">
 
-        <ul class="nav nav-tabs" role="tablist">
-
-            <li ng-class="{'active': data.currentTab == 'details' }">
-              <a href ng-click="data.currentTab = 'details'">
-                Details
-              </a>
-            </li>
-
-            <li ng-class="{'active': data.currentTab == 'visibility' }">
-              <a href ng-click="data.currentTab = 'visibility'">
-                Visibility
-              </a>
-            </li>
-
-            <li ng-class="{'active': data.currentTab == 'permissions' }">
-              <a href ng-click="data.currentTab = 'permissions'">
-                Permissions ({{ (data.permissions | filter:{active:true}).length }})
-              </a>
-            </li>
-
-        </ul>
-
-        <div class="" ng-switch="data.currentTab">
-          <!-- details -->
-          <div ng-switch-when="details" style="padding:20px;">
-              <form name="newRole" novalidate>
-
-              <div class="form-group">
-                <label for="title">Role Name</label>
-                  <input type="text" class="form-control" id="title" ng-model="data.thisRole.label" required>
-              </div>
-              <div class="form-group">
-                <label for="comment">Description <span class="text-muted">(Optional)</span></label>
-                <textarea class="form-control" rows="3" id="comment" ng-model="data.thisRole.description"></textarea>
-              </div>
-            </form>
-
+          <div class="modal-left-nav">
+            <ul class="nav nav-pills nav-stacked">
+              <li ng-class="{'active': data.currentTab == 1}">
+                <a href ng-click="data.currentTab = 1">Details</a>
+              </li>
+              <li ng-class="{'active': data.currentTab == 2}">
+                <a href ng-click="data.currentTab = 2">Visibility</a>
+              </li>
+              <li ng-class="{'active': data.currentTab == 3}" ng-if="data.permissions.length">
+                <a href ng-click="data.currentTab = 3">Permissions</a>
+              </li>
+            </ul>
           </div>
-
-
-          <!-- visibility -->
-          <div ng-switch-when="visibility" style="padding:20px;">
-
-            <div class="visiblity-wrapper">
-
-            <div class="visibility-item">
-              <div class="radio-custom radio-primary">
-                <input type="radio" id="visibility-everything" name="visibility-everything" ng-model="data.visibility" value="everything">
-                <label for="visibility-everything">
-                <p><b>Everything</b></p>
-                <p>Can See All Records, Regardless of Owner or Shared With</p>
-                </label>
-              </div>
-            </div>
-
-            <div class="visibility-item">
-              <div class="radio-custom radio-primary" >
-                <input type="radio" id="visibility-team" name="visibility-team" ng-model="data.visibility" value="team">
-                <label for="visibility-team">
-                <p><b>Team Visibility</b></p>
-                <p>Can See Team Member Records as well as records they are owner or shared with</p>
-                </label>
-              </div>
-            </div>
-
-            <div class="visibility-item">
-              <div class="radio-custom radio-primary">
-                <input type="radio" id="visibility-limited" name="visibility-limited" ng-model="data.visibility" value="limited">
-                <label for="visibility-limited">
-                <p><b>Limited Visibility</b></p>
-                <p>Can Only see records they own or records shared with them</p>
-                </label>
-              </div>
-            </div>
-
-            </div>
-
+          <div class="modal-right-content" ng-switch="data.currentTab">
               
+              <!-- tab 1 -->
+              <div ng-switch-when="1">
+                <form name="newRole" novalidate>
 
-          </div>
-
-
-          <!-- permissions -->
-          <div ng-switch-when="permissions" style="padding:20px;">
-            <span class="text-center permission-info">
-             <h5>Additional Permissions:</h5>
-             <p>All Users will be able to navigate and do basic functions within Interloop. <br>
-             Enable this role to do more by activating the permissions below</p>
-             </span>
-             <br>
-
-            <div class="form-group permission-item" ng-repeat="permission in data.permissions">
-              <label for="inputPassword3" class="col-sm-8 control-label">
-              <p><b ng-bind="permission.name"></b></p>
-              <p ng-bind="permission.description"></p></label>
-              <div class="col-sm-4 text-right">
-                
-                <span class="toggle toggle-success" style="margin:0px; margin-top:5px;">
-                  <input class="toggle-range" id="{{permission.key}}" type="checkbox" ng-model="permission.active">
-                  <label class="toggle-btn" for="{{permission.key}}"></label>
-                </span>
-
+                  <div class="form-group">
+                    <label for="title">Role Name</label>
+                      <input type="text" class="form-control" id="title" ng-model="data.role.label" required autofocus>
+                  </div>
+                  <div class="form-group">
+                    <label for="comment">Description <span class="text-muted">(Optional)</span></label>
+                    <textarea class="form-control" rows="3" id="comment" ng-model="data.role.description"></textarea>
+                  </div>
+                </form>
               </div>
-            </div>
+              
+              <!-- tab 2 -->
+              <div ng-switch-when="2">
+                 <div class="visiblity-wrapper">
+
+                    <div class="visibility-item">
+                      <div class="radio-custom radio-primary">
+                        <input class="magic-radio" type="radio" id="visibility-everything" name="visibility-everything" ng-model="data.role.visibility" value="everything">
+                        <label for="visibility-everything">
+                        <p><b>Everything</b></p>
+                        <p>Can See All Records, Regardless of Owner or Shared With</p>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="visibility-item">
+                      <div class="radio-custom radio-primary" >
+                        <input class="magic-radio" type="radio" id="visibility-team" name="visibility-team" ng-model="data.role.visibility" value="team">
+                        <label for="visibility-team">
+                        <p><b>Team Visibility</b></p>
+                        <p>Can See Team Member Records as well as records they are owner or shared with</p>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="visibility-item">
+                      <div class="radio-custom radio-primary">
+                        <input class="magic-radio" type="radio" id="visibility-limited" name="visibility-limited" ng-model="data.role.visibility" value="limited">
+                        <label for="visibility-limited">
+                        <p><b>Limited Visibility</b></p>
+                        <p>Can Only see records they own or records shared with them</p>
+                        </label>
+                      </div>
+                    </div>
+
+                    </div>
+              </div>
+
+
+              <!-- tab 3 -->
+              <div ng-switch-when="3">
+               <span class="text-center permission-info">
+                 <h5>Additional Permissions:</h5>
+                 <p>All Users will be able to navigate and do basic functions within Interloop. <br>
+                 Enable this role to do more by activating the permissions below</p>
+                 </span>
+                 <br>
+
+                <div class="form-group permission-item" ng-repeat="permission in data.permissions">
+                  <label for="{{permission.name}}" class="col-sm-8 control-label">
+                  <p><b ng-bind="permission.name"></b></p>
+                  <p ng-bind="permission.description"></p></label>
+                  <div class="col-sm-4 text-right">      
+                    <span class="toggle toggle-success" style="margin:0px; margin-top:5px;">
+                      <input class="toggle-range" id="{{permission.key}}" type="checkbox" ng-model="permission.active">
+                      <label class="toggle-btn" for="{{permission.key}}"></label>
+                    </span>
+
+                  </div>
+                </div>
+              </div>
 
           </div>
-
-          <br>
-          <br>
-
-  
-        </div>
-
-            
 
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!data.thisRole.label">Create Role</button>
+            <button class="btn btn-subtle" type="button" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!data.role.label">Create Role</button>
         </div>

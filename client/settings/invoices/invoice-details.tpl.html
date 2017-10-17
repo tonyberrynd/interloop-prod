@@ -1,9 +1,9 @@
     <div class="row" style="padding:25px;">
         <div class="col-xs-6">
-            <a href ui-sref="app.main.settings.invoices"><icon class="wb-arrow-left"></icon> Go Back To Invoices</a>
+            <a href ui-sref="app.settings.invoices"><icon class="wb-arrow-left"></icon> Go Back To Invoices</a>
         </div>
         <div class="col-xs-6 text-right">
-            <h4>Invoice #1234</h4>
+            <h4>Invoice #<span ng-bind="data.thisInvoice.number || '--'"></span></h4>
         </div>
     </div>
 
@@ -21,8 +21,8 @@
                                 </td>
                                 
                                 <td>
-                                    Invoice #: 123<br>
-                                    Created: January 1, 2015<br>
+                                    Invoice #: <span ng-bind="data.thisInvoice.number || '--'"></span><br>
+                                    Created: <span ng-bind="data.thisInvoice.createdOn || '--'"></span><br>
                                 </td>
                             </tr>
                         </table>
@@ -40,9 +40,11 @@
                                 </td>
 
                                 <td>
-                                    Company Name<br>
-                                    company@company.com<br>
-                                    Billing Details Go here
+                                    <b><span ng-bind="$root.activeOrg.invoicePreferences.companyName || $root.activeOrg.name"></span></b>
+                                    <br>
+                                    <span ng-if="$root.activeOrg.invoicePreferences.companyEmail" ng-bind="$root.activeOrg.invoicePreferences.companyEmail"></span>
+                                    <br>
+                                    <span ng-if="$root.activeOrg.invoicePreferences.billingDetails" ng-bind-html="$root.activeOrg.invoicePreferences.billingDetails"></span>
                                 </td>
                             </tr>
                         </table>
@@ -110,5 +112,14 @@
         <br>
         <br>
 
+        <div class="invoice-bottom" feature-flag="--INVOICE_ACTIONS--">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="btn btn-subtle pull-right"><icon class="fa fa-print"></icon> Print</button>
+                    <button class="btn btn-subtle pull-right"><icon class="fa fa-share-alt"></icon> Open in New Tab</button>
+                </div>
+            </div>
+        </div>
+                
 
     </div>

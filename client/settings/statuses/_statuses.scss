@@ -1,0 +1,17 @@
+.status-active {
+	icon {
+		color:$topaz !important;
+	}
+}
+
+.status-won {
+	icon {
+		color:$success !important;
+	}
+}
+
+.status-lost {
+	icon {
+		color:$danger !important;
+	}
+}

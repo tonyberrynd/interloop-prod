@@ -18,10 +18,10 @@
 							<table class="table settings-table">
 							    <thead>
 							      <tr>
-							        <th class="col-xs-3">Label</th>
-							        <th class="col-xs-3">Key</th>
-							        <th class="col-xs-3">Type</th>
-				              	    <th class="col-xs-3">Description</th>
+							        <th class="col-xs-2">Label</th>
+							        <th class="col-xs-2">Key</th>
+							        <th class="col-xs-2">Type</th>
+				              	    <th class="col-xs-5">Description</th>
 				                    <th class="col-xs-1"></th>
 							      </tr>
 							    </thead>
@@ -31,29 +31,23 @@
 							       	<p style="display:inline-block;" ng-bind="status.label || '--'"></p>      	
 							        </td>
 							        <td>
-										<p ng-bind="status.key || '--'"></p>
+										<span ng-bind="status.key || '--'"></span>
 							        </td>
 							        <td>
-										<p ng-bind="status.type || '--'"></p>
+							        	<span ng-class="'status-{{status.type}}'">
+							        	<icon class="wb-medium-point"></icon>
+										<span ng-bind="(status.type | ucfirst) || '--'"></span>
+										</span>
+							        </td>
+							        <td style="overflow:hidden; text-overflow:ellipsis;">
+										<span uib-tooltip="{{status.description}}" ng-bind="status.description || '--'"></span>
 							        </td>
 							        <td>
-										<p ng-bind="status.description || '--'"></p>
-							        </td>
-							        <td>
-										<!-- if locked -->
-							        	<span ng-if="status.locked" class="locked-item" uib-tooltip="This Field Is Required">
-							        		<icon class="wb-lock"></icon>
-							        	</span>
-							        	<!-- //if can be activated -->
-							        	<span class="toggle toggle-success" ng-if="!status.locked">
-									        <input class="toggle-range" id="{{status.field}}" type="checkbox" ng-model="status.active">
-									        <label class="toggle-btn" for="{{status.field}}" style="margin-left: 20px; margin-bottom:-5px;"></label>
-								        </span>
-
-							        </td>
-							        <td>
-							      	<button class="btn btn-default edit-label" ng-click="editField(field)">
+							      	<button class="btn btn-default edit-label" ng-click="editStatus(status)" uib-tooltip="Edit Status">
 							      		<icon class="fa fa-pencil"></icon>
+							      	</button>
+							      	<button class="btn btn-default edit-label" ng-click="deleteStatus(status)" uib-tooltip="Delete Status">
+							      		<icon class="fa fa-trash"></icon>
 							      	</button>
 							      </td>
 							      </tr>

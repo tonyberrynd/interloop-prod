@@ -41,7 +41,7 @@ angular.module('interloop.factory.queryBuilder', [])
                     queryParts.push({"or": [{ [filter.key]: {"regexp": _.upperFirst(filter.value) }}, { [filter.key]: {"regexp": _.lowerCase(filter.value)}} ]});
                     break; 
                 case 'does-not-contain':
-                    queryParts.push({"or":[{ [filter.key]: {"regexp": "^((?!" + _.upperFirst(filter.value) + ").)*$"}}, { [filter.key]: {"regexp": "^((?!" + _.lowerCase(filter.value) + ").)*$"}} ]});
+                    queryParts.push({"and": [{ [filter.key]: { "regexp": '^((?!' + _.upperFirst(filter.value) + ').)*$'}}, { [filter.key]: {"regexp": '^((?!' + _.lowerCase(filter.value) + ').)*$'}} ]});
                     break;
                 case 'includes':
                     queryParts.push({ [filter.key + ".value"]: { "inq": filter.value}});
@@ -49,6 +49,7 @@ angular.module('interloop.factory.queryBuilder', [])
                 case 'does-not-include':
                     queryParts.push({ [filter.key]: { "nin": filter.value}});
                     break;
+                //unkown / no value
                 case 'is-unknown':
                     queryParts.push({ "or": [{ [filter.key]: { "exists": false }}, { [filter.key]: null}, { [filter.key]: '' }]});
                     break;
@@ -64,6 +65,18 @@ angular.module('interloop.factory.queryBuilder', [])
                     break;
                 case 'less-than':
                     queryParts.push({ [filter.key]: {"lt": filter.value }});
+                    break;
+
+                //dynamic days filter
+                // gt and lt are opposite becuase rear view mirror approach to volume (ie LT 5 Days would be gt (today - 5 days)) 
+                case 'dynamic-days-range':
+                    queryParts.push({ [filter.dynamicKey]: {"between": [moment().subtract(filter.value['upper'], 'day').format(), moment().subtract(filter.value['lower'], 'day').format()]  } });
+                    break;
+                case 'dynamic-days-greater-than':
+                    queryParts.push({ [filter.dynamicKey]: {"lt": moment().subtract(filter.value, 'day').format() }});
+                    break;
+                case 'dynamic-days-less-than':
+                    queryParts.push({ [filter.dynamicKey]: {"gt": moment().subtract(filter.value, 'day').format() }});
                     break;
 
                 //category
@@ -150,7 +163,7 @@ angular.module('interloop.factory.queryBuilder', [])
                         queryParts.push({[filter.key]: {"between": [moment().subtract(filter.value['days'], 'day').startOf('day').toISOString(), moment().endOf('day').toISOString()] } })
                         // queryParts.push({[filter.key]: {"gt": moment().subtract(filter.value['days'], 'day').startOf('day').toISOString() }}, {[filter.key]: {"lt": moment().endOf('day').toISOString() }}]})
                     } else {
-                        queryParts.push({[filter.key]: {"between": [moment().add(filter.value['days'], 'day').endOf('day').toISOString(), moment().startOf('day').toISOString()] } })
+                        queryParts.push({[filter.key]: {"between": [moment().startOf('day').toISOString(), moment().add(filter.value['days'], 'day').endOf('day').toISOString()] } })
                         // queryParts.push({ "and": [ {[filter.key]: {"lt": moment().add(filter.value['days'], 'day').endOf('day').toISOString() }}, {[filter.key]: {"gt": moment().startOf('day').toISOString() }}]})
                     }
                     break;

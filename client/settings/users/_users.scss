@@ -77,9 +77,9 @@ tr.inactive {
 		font-weight:400;
 
 	&:hover {
-		color:$success;
-		border:solid 1px $success;
-		font-weight:700;
+		color:#fff;
+		background-color:$success;
+		border-color:$success;
 	}
 }
 

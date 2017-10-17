@@ -23,6 +23,7 @@ angular.module('interloop.settingsImportCtrl', [])
 	//----------------------
 	$scope.importData = importData;
 	$scope.createTemplate = createTemplate;
+	$scope.refresh = refresh;
 
 //-------------------------------------------
 
@@ -30,14 +31,17 @@ angular.module('interloop.settingsImportCtrl', [])
 // ACTIVATE
 //===========================================
 function activate(){
+	$scope.data.refreshing = true;
 	return Import.find().$promise
 		.then(function(results){
 			$scope.data.imports = results;
 			$scope.data.activated = true;
+			$scope.data.refreshing = false;
 		})
 		.catch(function(err){
 			Logger.error('Error Fetching Import History', 'You can still import data');
 			$scope.data.activated = true;
+			$scope.data.refreshing = false;
 		})
 }
 //-------------------------------------------
@@ -54,7 +58,7 @@ function keydown
 
 function importData(entityType){
 	var resolvedData = {};
-		resolvedData.entityType = entityType;
+		resolvedData.currentEntity = entityType;
 
 	var importModal = modalManager.openModal('importData', resolvedData);
 
@@ -67,6 +71,10 @@ function importData(entityType){
 function createTemplate(entity){
 	console.log('create template');
 	return excelGenerator.createImportTemplate(entity);
+}
+
+function refresh(){
+	activate();
 }
 
 //-------------------------------------------
