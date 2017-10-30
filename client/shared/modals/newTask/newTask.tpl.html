@@ -1,5 +1,5 @@
   <div class="modal-header header-dark">
-            <h3 class="modal-title" id="modal-title">New Task</h3>
+            <h3 class="modal-title" id="modal-title">Create a New ToDo</h3>
             
             <!-- close button -->
             <button type="button" class="close" ng-click="$dismiss()">
@@ -10,59 +10,77 @@
         <div class="modal-body w-padding" id="modal-body">
 
 
-                    <form name="companyForm" novalidate>
+          <div class="row">
+              <div class="col-xs-9">
+
+
+                 <form name="newTodoForm" novalidate>
 
                         <div class="row">
                                 <div class="col-xs-12">
                                     <div class="form-group">
-                                      <label for="title">Title</label>
-                                      <input type="text" class="form-control" ng-model="data.task.title" autofocus>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <div class="single-select">
-                                            <label for="">Type</label>
-                                            <ui-select search-enabled="false" ng-model="data.task.type" theme="bootstrap">
-                                              <ui-select-match placeholder="Choose a type">{{$select.selected.label}}
-                                              </ui-select-match>
-                                              <ui-select-choices repeat="item in data.taskTypes | filter: $select.search">
-                                                <span ng-bind-html="item.label | highlight: $select.search"></span>
-                                              </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                      <label for="dueDate">
-                                        Due Date
-                                      </label>
-                                      <input name="dueDate" date-range-picker class="form-control date-picker" id="dueDate" placeholder="" ng-model="data.task.dueDate" options="$root.options4" >
+                                      <label for="title">Name <span class="required">*</span></label>
+                                      <input type="text" class="form-control" ng-model="data.todo.title" autofocus required>
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
                                    <div class="form-group">
                                     <label for="title">Description</label>
-                                    <textarea class="form-control" rows="3" ng-model="data.task.description"
+                                    <textarea class="form-control" rows="3" ng-model="data.todo.description" msd-elastic style="min-height:80px;"
                                     ></textarea>
-                                </div>
-                                <br>
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <input class="magic-checkbox" type="checkbox" name="layout" id="taskCompleted" value="true" ng-model="data.task.completed">
-                                        <label class="text" for="taskCompleted">
-                                          Mark As Completed
-                                        </label>
                                     </div>
                                 </div>
-                              </div>
-                          </div>
+                                <div class="col-xs-12">
+                                   <div class="form-group">
+                                      <label for="dueDate">
+                                        Deadline
+                                      </label>
+                                      <br>
+                                      <span class="button-group-select pull-left" style="margin-right:0px;">
+                                      <div class="btn-group">
+                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'today'" style="padding: 9px 10px;">
+                                                <img src="../../assets/img/icons/modals/fire.svg" alt="Fire" style="width:12px;"> Today</label>
+                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'tomorrow'" style="padding: 9px 10px;">Tomorrow</label>
+                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'next-week'" style="padding: 9px 10px;">
+                                                Next Week
+                                              </label>
+                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'next-month'" style="padding: 9px 10px; border-top-right-radius:0px; border-bottom-right-radius:0px;">
+                                                Next Month
+                                              </label>
+                                        </div>
+                                        </span>
+                                        <div class="date-picker-wrapper pull-left" style="width:135px; margin-left:-1px;">
+                                        <input name="dueDate" date-range-picker class="form-control date-picker" id="dueDate" placeholder="Custom Date" ng-model="data.customDate" options="$root.options4" style="width:135px; border-top-left-radius:0px; border-bottom-left-radius:0px;" ng-change="data.setDate = null;" ng-class="{'custom-date-selected': data.customDate }">
+                                        <img src="../assets/img/icons/states/date.svg" alt="Date Picker">
+                                        </div>  
+                                    </div>
+                                </div>   
 
+                                <div class="col-xs-12">
+                                  <br>
+                                  <div class="complete-task">
+                                     <div class="form-group">
+                                          <input class="magic-checkbox" type="checkbox" name="layout" id="taskCompleted" value="true" ng-model="data.todo.completed">
+                                          <label class="text" for="taskCompleted">
+                                            Mark As Completed
+                                          </label>
+                                      </div>
+                                    </div>
+                                    <br>
+                                </div>                             
+
+                          </div>
                     </form>
+
+
+              </div>
+              <div class="col-xs-3">
+                 <span ng-include="'shared/templates/owners-related.tpl.html'"></span>
+              </div>
+            </div>
 
         </div>
         <div class="modal-footer">
             <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
-            <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="newTodoForm.$invalid">Create</button>
         </div>

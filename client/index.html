@@ -14,15 +14,20 @@
 
 <head>
 
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="favicon.ico">
+
     <!-- build:basehref -->
     <base href="/">
     <!-- endbuild -->
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1"> -->
     <meta name="description" content="Interloop | Sales Forecasting & Insights Platform">
     <meta name="author" content="hi@interloop.ai">
+    <!-- <meta name="viewport" content="shrink-to-fit=yes, initial-scale=.5"> -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     
     <title ng-bind="pageTitle">Interloop</title>
 
@@ -39,6 +44,7 @@
     <!-- CSS -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- build:css assets/css/styles.css -->
+    <link rel="stylesheet" type="text/css" href="lib/ladda/dist/ladda-themeless.min.css">
     <link rel="stylesheet" type="text/css" href="lib/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css"/>
     <link rel="stylesheet" type="text/css" href="lib/angular-hotkeys/build/hotkeys.css"/>
     <link rel="stylesheet" type="text/css" href="lib/angular-google-places-autocomplete/src/autocomplete.css"/>
@@ -94,6 +100,10 @@
     <script type="text/javascript" src="https://code.highcharts.com/modules/heatmap.js"></script>
     <!-- pusher -->
     <script type="text/javascript" src="https://js.pusher.com/3.0/pusher.min.js"></script>
+    <!-- numeral formatter -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <!-- favicon badge updater -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/favico.js/0.3.10/favico.min.js"></script>
     <!-- full calendar -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.5.1/fullcalendar.min.js"></script>
     <!-- microsoft adal -->
@@ -188,6 +198,7 @@
     <script type="text/javascript" src="lib/angular-ui-calendar/src/calendar.js"></script>
     <script type="text/javascript" src="lib/angular-swiper/dist/angular-swiper.js"></script>
     <!-- assets -->
+    <script type="text/javascript" src="assets/js/q-all-limit.js"></script>
     <script type="text/javascript" src="assets/js/angular-daterangepicker.js"></script>
     <script type="text/javascript" src="assets/js/ui-bootstrap.js"></script>
     <script type="text/javascript" src="assets/js/lb-services.js"></script>
@@ -254,14 +265,12 @@
     <script type="text/javascript" src="modules/content/contentCtrl.js"></script>
     <script type="text/javascript" src="modules/content/contentDetailsCtrl.js"></script>
     <script type="text/javascript" src="modules/content/contentEditCtrl.js"></script>
-    <!-- tasks -->
-    <script type="text/javascript" src="modules/tasks/tasksCtrl.js"></script>
-    <script type="text/javascript" src="modules/tasks/taskCalendarCtrl.js"></script>
-    <script type="text/javascript" src="modules/tasks/taskDetailsCtrl.js"></script>
-    <!-- meetings -->
-    <script type="text/javascript" src="modules/meetings/meetingsCtrl.js"></script>
-    <script type="text/javascript" src="modules/meetings/meetingDetailsCtrl.js"></script>
+    <!-- activities -->
+    <script type="text/javascript" src="modules/activities/activitiesCtrl.js"></script>
+    <script type="text/javascript" src="modules/activities/activityDetailsCtrl.js"></script>
+    <script type="text/javascript" src="modules/activities/activityEditCtrl.js"></script>
     <!-- more -->
+    <script type="text/javascript" src="modules/more/agenda/agendaCtrl.js"></script>
     <script type="text/javascript" src="modules/more/files/filesCtrl.js"></script>
     <script type="text/javascript" src="modules/more/files/fileDetailsCtrl.js"></script>
     <script type="text/javascript" src="modules/more/starred/starredCtrl.js"></script>
@@ -285,6 +294,7 @@
     <script type="text/javascript" src="shared/modals/connectIcloud/connectIcloudCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editField/editFieldCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editCustomField/editCustomFieldCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editActivityType/editActivityTypeCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/newSystemView/newSystemViewCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/newTeam/newTeamCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editTeam/editTeamCtrl.js"></script>
@@ -296,6 +306,7 @@
     <script type="text/javascript" src="shared/modals/addRelated/addRelatedCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addStatus/addStatusCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editFormula/editFormulaCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addTeamMember/addTeamMemberCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addPipeline/addPipelineCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addGoal/addGoalCtrl.js"></script>
@@ -399,6 +410,7 @@
     <script type="text/javascript" src="shared/modals/manageRelationships/manageRelationshipsCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/manageTags/manageTagsCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/newActivity/newActivityCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/customActivity/customActivityCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/newTask/newTaskCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/newMeeting/newMeetingCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/logCall/logCallCtrl.js"></script>
@@ -418,6 +430,7 @@
     <!-- filters -->
     <script type="text/javascript" src="shared/filters/asDate.filter.js"></script>
     <script type="text/javascript" src="shared/filters/formatDate.filter.js"></script>
+    <script type="text/javascript" src="shared/filters/shortNumber.filter.js"></script>
     <script type="text/javascript" src="shared/filters/megaNumber.filter.js"></script>
     <script type="text/javascript" src="shared/filters/thousandSuffix.filter.js"></script>
     <script type="text/javascript" src="shared/filters/bytes.filter.js"></script>
@@ -425,6 +438,7 @@
     <script type="text/javascript" src="shared/filters/fileIcons.filter.js"></script>
 
     <!-- directives -->
+    <script type="text/javascript" src="shared/directives/contenteditable.directive.js"></script>
     <script type="text/javascript" src="shared/directives/autoFocus.directive.js"></script>
     <script type="text/javascript" src="shared/directives/focusSelect.directive.js"></script>
     <script type="text/javascript" src="shared/directives/changeOnBlur.directive.js"></script>

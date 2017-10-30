@@ -42,6 +42,7 @@ angular.module('interloop', [
   'angular.filter',                       //https://github.com/fragaria/angular-daterangepicker
   'angularBootstrapNavTree',              //https://github.com/nickperkinslondon/angular-bootstrap-nav-tree
   'angularMoment',                        //https://github.com/urish/angular-moment
+  'angular-q-limit',                      //https://github.com/hash-bang/angular-q-limit
   'angularTrix',                          //https://github.com/sachinchoolur/angular-trix
   'bootstrapLightbox',                    //https://github.com/compact/angular-bootstrap-lightbox
   'cfp.hotkeys',                          //https://github.com/chieffancypants/angular-hotkeys
@@ -142,10 +143,10 @@ angular.module('interloop', [
   'interloop.contentCtrl',
   'interloop.contentDetailsCtrl',
   'interloop.contentEditCtrl',
-  //tasks
-  'interloop.tasksCtrl',
-  'interloop.taskCalendarCtrl',
-  'interloop.taskDetailsCtrl',
+  //activities
+  'interloop.activitiesCtrl',
+  'interloop.activityDetailsCtrl',
+  'interloop.activityEditCtrl',
 
   //details
   'interloop.relationshipDetailsCtrl',
@@ -153,6 +154,7 @@ angular.module('interloop', [
   'interloop.emailDetailsCtrl',
 
   //more
+  'interloop.agendaCtrl',
   'interloop.filesCtrl',
   'interloop.fileDetailsCtrl',
   'interloop.starredCtrl',
@@ -182,6 +184,7 @@ angular.module('interloop', [
   'interloop.connectIcloudCtrl',
   'interloop.createViewCtrl',
   'interloop.deleteViewCtrl',
+  'interloop.editActivityTypeCtrl',
   'interloop.editCustomFieldCtrl',
   'interloop.editForecastCategoryCtrl',
   'interloop.editFieldCtrl',
@@ -203,6 +206,7 @@ angular.module('interloop', [
   'interloop.manageRelationshipsCtrl',
   'interloop.manageTagsCtrl',
   'interloop.newActivityCtrl',
+  'interloop.customActivityCtrl',
   'interloop.newTaskCtrl',
   'interloop.logCallCtrl',
   'interloop.newMeetingCtrl',
@@ -218,6 +222,7 @@ angular.module('interloop', [
   'interloop.wonReasonCtrl',
   'interloop.paymentMethodCtrl',
   'interloop.logDetailsCtrl',
+  'interloop.editFormulaCtrl',
 
   //configuration
   'interloop.configCreateUserCtrl',
@@ -279,6 +284,7 @@ angular.module('interloop', [
   //filters
   'interloop.filter.asDate',
   'interloop.filter.formatDate',
+  'interloop.filter.shortNumber',
   'interloop.filter.megaNumber',
   'interloop.filter.thousandSuffix',
   'interloop.filter.bytes',
@@ -286,6 +292,7 @@ angular.module('interloop', [
   'interloop.filter.fileIcons',
 
   //directives
+  'interloop.directive.contenteditable',
   'interloop.directive.permission',
   'interloop.directive.dynamicTitle',
   'interloop.directive.scrollClass',

@@ -175,7 +175,8 @@ angular.module('interloop.config', [])
   authService,
   SidebarRouter,
   ContactFields,
-  ConnectivityMonitor
+  ConnectivityMonitor,
+  VERSION
   ) {
 
 
@@ -211,6 +212,9 @@ angular.module('interloop.config', [])
 
     //rich text areas
     $rootScope.richTextFocus = false;
+
+    //set version
+    $rootScope.version = 'v' + VERSION;
 
 
     // Date Range Picker Options

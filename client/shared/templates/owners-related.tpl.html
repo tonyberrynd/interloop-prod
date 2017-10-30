@@ -1,0 +1,187 @@
+ <!-- add users -->
+                 <div class="btn-group modal-action" uib-dropdown auto-close="outsideClick" dropdown-append-to="'.modal-dialog'" is-open="data.searchUsersOpen">
+                    <h5>
+                    <button id="add-users" type="button" class="btn btn-link text-left" uib-dropdown-toggle ng-disabled="disabled" uib-tooltip="Add Owners">
+                      <icon class="wb-plus-circle"></icon>
+                    </button>
+                    Owners (<span ng-bind="data.owners.length"></span>)
+                    </h5>
+
+                    <ul class="dropdown-menu add-related-dropdown" uib-dropdown-menu role="menu" aria-labelledby="search-users">
+                        <div class="add-related-records">
+                          <div class="add-related-header tect-center">
+                              <p class="title">Users</p>
+                              <button class="btn btn-subttle close-related" ng-click="data.searchUsersOpen = false;">
+                                <icon class="wb-close"></icon>
+                              </button>
+                          </div>
+                          <div class="add-related-search">
+                            <span class="search-related-input" ng-if="data.searchUsersOpen">
+                            <input type="text" class="form-control" placeholder="Search Users" ng-model="data.searchUsers" autofocus>
+                            <button class="btn btn-link clear-related-search" ng-class="{'hidden': !data.searchUsers.length}" ng-click="data.searchUsers = ''">
+                              <icon class="wb-plus-circle"></icon>
+                            </button>
+                            </span>
+                          </div>
+                          <div class="add-related-body">
+                            <div class="list-group">
+                              <span ng-repeat="user in $root.userList | limitTo: 15 | orderBy: 'firstName' | filter: data.searchUsers">
+                                <a href class="list-group-item avatar-item" ng-click="addOwner(user)">
+                                  <div class="avatar avatar-32" ng-class="user.color">
+                                    <span ng-bind="user.firstName | limitTo:1"></span><span ng-bind="user.lastName | limitTo:1"></span>
+                                  </div>
+                                  <h4>
+                                    <span ng-bind="user.firstName"></span> <span ng-bind="user.lastName"></span>
+                                  </h4>
+                                  <p>
+                                    <span ng-bind="user.email"></span></p>
+                                </a>
+                                </span>
+                            </div>
+                            <div class="no-results" ng-if="!($root.userList | filter: data.searchUsers ).length">
+                              No Results
+                            </div>
+                          </div>
+                        </div>
+                    </ul>
+                  </div>
+
+
+                  <div class="related-owners">
+                      <!-- //repeat owners -->
+                       <div class="tag avatar-tag" ng-repeat="item in data.owners">
+                          <div class="avatar avatar-16" ng-class="item.color">
+                            <span ng-bind="item.firstName | limitTo:1"></span><span ng-bind="item.lastName | limitTo:1"></span>
+                          </div>
+                          <span class="value">
+                            <span ng-bind="item.firstName"></span> <span ng-bind="item.lastName"></span>
+                          </span>
+                          <span class="remove-tag" ng-click="removeOwner(item)" uib-tooltip="Remove Owner" tooltip-append-to-body="true">
+                            <button class="btn btn-link">
+                              <icon class="fa fa-close"></icon>
+                            </button>
+                          </span>
+                       </div>
+
+                      <!-- //no owners -->
+                      <div class="no-owners text-center" ng-if="!data.owners.length">
+                        No Owners
+                      </div>
+                  </div>
+
+                  <br>
+                  <br>
+
+                <!-- add contacts -->
+                 <div class="btn-group modal-action" uib-dropdown auto-close="outsideClick" dropdown-append-to="'.modal-dialog'" is-open="data.searchRelatedOpen">
+                   <h5>
+                    <button id="add-related" type="button" class="btn btn-link text-left" uib-dropdown-toggle ng-disabled="disabled" uib-tooltip="Add Related">
+                      <icon class="wb-plus-circle"></icon>
+                    </button>
+                    Related (<span ng-bind="data.related.length"></span>)
+                    </h5>
+                    <ul class="dropdown-menu add-related-dropdown" uib-dropdown-menu role="menu" aria-labelledby="search-users">
+                        <div class="add-related-records">
+                          <div class="add-related-header tect-center">
+                              <p class="title">Related</p>
+                              <button class="btn btn-subttle close-related" ng-click="data.searchRelatedOpen = false;">
+                                <icon class="wb-close"></icon>
+                              </button>
+                          </div>
+                          <div class="add-related-search">
+                            <span class="search-related-input" ng-if="data.searchRelatedOpen">
+                            <input type="text" class="form-control" placeholder="Search Related" ng-model="data.searchRelated" autofocus ng-change="getRecords(data.searchRelated)" ng-model-options="{'debounce': 250}">
+                            <button class="btn btn-link clear-related-search" ng-class="{'hidden': !data.searchRelated.length}" ng-click="data.searchRelated = ''">
+                              <icon class="wb-plus-circle"></icon>
+                            </button>
+                            </span>
+                          </div>
+                          <div class="add-related-body">
+                            <div class="list-group" ng-repeat="item in data.results | limitTo: 15 | orderBy: ['name', 'firstName'] | filter: data.searchRelated" ng-switch="item.thisEntityType">
+
+                                 <!-- contact -->
+                                  <a href class="list-group-item avatar-item" ng-switch-when="Contact" ng-click="addRelated(item)">
+                                    <div class="avatar avatar-32 royal">
+                                      <span ng-bind="item.firstName | limitTo:1 | uppercase"></span><span ng-bind="item.lastName | limitTo:1 | uppercase"></span>
+                                      <span ng-if="!item.firstName && !item.lastName">--</span>
+                                    </div>
+                                    <h4>
+                                      <span ng-bind="item.firstName || ''"></span> 
+                                      <span ng-bind="item.lastName || ''"></span>
+                                    </h4>
+                                    <p><small><span ng-bind="item.title || 'No Title'"></span></small></p>
+                                  </a>
+
+                                  <!-- company -->
+                                  <a href class="list-group-item avatar-item" ng-switch-when="Company" ng-click="addRelated(item)">
+                                    <div class="avatar avatar-32 royal square">
+                                      <span ng-bind="(item.name | limitTo:1 | uppercase) || '--'"></span>
+                                    </div>
+                                    <h4><span ng-bind="item.name || ''"></span></h4>
+                                    <p><small><span ng-bind="item.website || 'No Website'"></span></small></p>
+                                  </a>
+
+                                    <!-- opportunity -->
+                                   <a href class="list-group-item avatar-item" ng-switch-when="Opportunity" ng-click="addRelated(item)">
+                                      <h4><span ng-bind="item.name || ''"></span></h4>
+                                      <p>
+                                        <span ng-bind="item.primaryCompany.name || 'No Primary Company'"></span>
+                                      </p>
+                                      <p ng-if="item.owners.length">
+                                        <span ng-repeat="owner in item.owners | limitTo:2">
+                                          <span ng-bind="owner.firstName"></span> <span ng-bind="owner.lastName"></span>
+                                        </span>
+                                      </p>
+                                      <span class="forecast-indicator">
+                                        <p>
+                                        <span class="label label-subtle">
+                                        $<span ng-bind="item.value | number:0"></span>
+                                        <span class="spacer">&middot;</span>
+                                        <span ng-bind="item.forecast.value || '--'"></span>
+                                        </span>
+                                        </p>
+                                      </span>
+                                      <span class="owners">
+                                        <span ng-bind="(item.estimatedClose | formatDate) || '--'"></span>
+                                      </span>
+                                    </a>
+
+                            </div>
+                            <div class="no-results" ng-if="!(data.results | filter: data.searchRelated ).length && data.searchRelated">
+                              No Results
+                            </div>
+
+                          </div>
+                        </div>
+                    </ul>
+                  </div>
+
+                 <div class="related-records">
+                      <div class="tag avatar-tag" ng-repeat="item in data.related">
+                          <div class="avatar avatar-topaz avatar-16" ng-class="item.color" ng-if="item.thisEntityType == 'Contact'">
+                            <span ng-bind="item.firstName | limitTo:1"></span><span ng-bind="item.lastName | limitTo:1"></span>
+                          </div>
+                          <div class="avatar avatar-topaz avatar-16 square" ng-class="item.color" ng-if="item.thisEntityType == 'Company'">
+                            <span ng-bind="item.name | limitTo:1"></span>
+                          </div>
+                          <div class="avatar avatar-topaz avatar-16" ng-class="item.color" ng-if="item.thisEntityType == 'Opportunity'">
+                            <span ng-bind="item.smartScore || '$'"></span>
+                          </div>
+                          <span class="value" ng-if="item.thisEntityType == 'Contact'">
+                            <span ng-bind="item.firstName"></span> <span ng-bind="item.lastName"></span>
+                          </span>
+                          <span class="value" ng-if="item.thisEntityType == 'Company' || item.thisEntityType == 'Opportunity'">
+                              <span ng-bind="item.name"></span>
+                          </span>
+                          <span class="remove-tag" ng-click="removeRelated(item)" uib-tooltip="Remove Related Record" tooltip-append-to-body="true">
+                            <button class="btn btn-link">
+                              <icon class="fa fa-close"></icon>
+                            </button>
+                          </span>
+                        </div>
+
+                        <div class="no-related text-center" ng-if="!data.related.length">
+                          No Related
+                        </div>
+
+                      </div>

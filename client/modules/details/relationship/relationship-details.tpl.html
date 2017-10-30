@@ -2,19 +2,9 @@
             <div class="sidepanel more-sidepanel">
                 <div class="sidepanel-header text-left">
                     <a class="btn btn-link btn-left" href ng-click="goBack()">
-                        <icon class="fa fa-chevron-left"></icon>
-                        Files
+                        <img src="../assets/img/icons/states/cheveron-left.svg" alt="Go Back">
+                        <span ng-bind="data.entityType || 'Back'"></span>
                     </a>
-
-
-                    <div class="pull-right">
-                        <button class="btn btn-link btn-right">
-                            <icon class="fa fa-link"></icon>
-                        </button>
-                        <a class="btn btn-link edit-button" ui-sref="app.opportunity-edit">
-                            <icon class="fa fa-pencil"></icon> Edit
-                        </a>
-                    </div>
                      
                 </div>
 
@@ -32,8 +22,8 @@
                                     JB
                                 </div>
                                 <div class="user-and-name">
-                                    <p><small>Jordan Berry uploaded a file</small></p>
-                                    <h4>{{data.thisFile.name}}</h4>
+                                    <p><small>Jordan added a relationship</small></p>
+                                    <h4>{{data.entityLink.description}}</h4>
                                 </div>
                                 </div>
                             </div>
@@ -46,41 +36,93 @@
                                </button>
                            </div>
                        </div>
-                       <div class="details-item-content">
+                       <div class="details-item-content" ng-switch="data.currentEntityType">
                            
-                        <!-- //file info -->
-                        <div class="panel panel-default card file-card" ng-class="{'img-card': data.thisFile.type == 'image/jpeg' || data.thisFile.type == 'image/png'}">
-                            <div class="panel-body" ng-click="downloadFile(file)">
-                                <div class="name-wrapper">
-                                <!-- img icon -->
-                                <div class="file-icon" ng-if="data.thisFile.type !== 'image/jpeg' && data.thisFile.type !== 'image/png'">
-                                    <img ng-src="{{data.thisFile.type | fileIcons}}" alt="{{data.thisFile.type}}">
-                                </div>
-                                <!-- img preview -->
-                                <div class="image-preview" ng-click="previewImage(data.thisFile); $event.stopPropagation();">
-                                <img ng-if="data.thisFile.type == 'image/jpeg' || data.thisFile.type == 'image/png'" ngf-thumbnail="data.thisFile.url">
-                                </div>
-
-                                <!-- details -->
-                                <h4 ng-bind="data.thisFile.name || '--'">Important Document</h4>
-                                <p>
-                                    <span ng-if="data.thisFile.size" ng-bind="data.thisFile.size | bytes"></span> 
-                                    <span ng-if="!data.thisFile.size">-- MB</span>
-                                    <span class="spacer">·</span> 
-                                    <span ng-bind="data.thisFile.type | fileTypes"></span>
-                                </p>
-                                <p class="uploaded" ng-bind="data.thisFile.createdOn | date:'MMM d, y h:mm a'"></p>
+                        <!-- contact -->
+                            <div class="panel panel-default card contact-card related-card" ng-switch-when="Contact">
+                                <div class="panel-body" ng-click="goTo(data.entityLink.entityType, data.entityLink.entityId)">
+                                    <div class="name-wrapper">
+                                    <div class="avatar avatar-32 royal">
+                                        <span class="initials" ng-bind="(data.thisRecord.firstName | limitTo:1)"></span><span class="initials" ng-bind="(data.thisRecord.lastName | limitTo:1)"></span>
+                                    </div>
+                                    <h4>
+                                        <span ng-bind="data.thisRecord.firstName"></span>
+                                        <span ng-bind="data.thisRecord.lastName"></span>
+                                        <span ng-if="!data.thisRecord.firstName && !data.thisRecord.lastName">No Name</span>
+                                    </h4>
+                                    <p>
+                                    <span ng-bind="data.thisRecord.title || 'No Title'"></span>
+                                    </p>
+                                    <p>
+                                        <span ng-bind="primaryCompanyName(data.entityLink.entityLinks) || 'No Primary Company'"></span>
+                                    </p>
+                                    </div>
                                 </div>
                             </div>
 
-                             <div class="download-overlay">
-                                <icon class="wb-download"></icon>
-                                Click to Download
+                            <!-- company -->
+                            <div class="panel panel-default card company-card related-card" ng-switch-when="Company">
+                                <div class="panel-body" ng-click="goTo(data.entityLink.entityType, data.entityLink.entityId)">
+                                    <div class="name-wrapper">
+                                    <div class="avatar avatar-32 sky square">
+                                        <span class="initials" ng-bind="(data.thisRecord.name | limitTo:1)"></span>
+                                    </div>
+                                    <h4>
+                                        <span ng-bind="data.thisRecord.name || 'No Name'"></span>
+                                    </h4>
+                                    <p>
+                                        <span ng-bind="data.thisRecord.description || 'No Description'"></span>
+                                    </p>
+                                    <p>
+                                        <span ng-bind="data.thisRecord.domain || 'No Domain'"></span>
+                                    </p>
+                                    </div>
+                                </div>
                             </div>
-                        
 
-                        </div>
-                        <!-- end file card -->
+                            <!-- opportunity -->
+                            <div class="panel panel-default card opportunity-card related-card" ng-switch-when="Opportunity">
+                                <div class="panel-body" ng-click="goTo(data.entityLink.entityType, data.entityLink.entityId)">
+
+                                    <div class="name-wrapper">
+                                    <div class="avatar avatar-24 lime">
+                                        <span ng-bind="data.thisRecord.smartScore || '--'"></span>
+                                    </div>
+                                    <h4>
+                                        <span ng-bind="data.thisRecord.name || 'No Name'"></span>
+                                    </h4>
+                                    <p>
+                                        <span ng-bind="primaryCompanyName(data.entityLink.entityLinks) || 'No Primary Company'"></span>
+                                    </p>
+                                    </div>
+
+                                    <div class="detail-wrapper">
+                                          <div class="row" style="margin-top:12px;">
+                                          <div class="col-xs-3 rich-card_padding">
+                                            <p class="card-subtitle">Value</p>
+                                            <p class="card-data opportunity-value">$<span ng-bind="data.thisRecord.value | number:0"></span></p>
+                                          </div>
+                                          <div class="col-xs-3 rich-card_padding">
+                                            <p class="card-subtitle">Est Close</p>
+                                            <p class="card-data opportunity-value">
+                                               <!----><span ng-if="data.thisRecord.status.value !== 'Won' &amp;&amp; data.thisRecord.status.value !== 'Lost'" class="opp-value open"><span ng-bind="data.thisRecord.estimatedClose | date:'mediumDate'"></span></span><!---->
+                                                <!---->
+                                                <!---->
+                                            </p>
+                                          </div>
+                                          <div class="col-xs-3 rich-card_padding">
+                                            <p class="card-subtitle">Stage</p>
+                                            <p class="card-data opportunity-value"><span ng-bind="data.thisRecord.stage.score"></span>%<span> - </span><span ng-bind="data.thisRecord.stage.value"></span></p>
+                                          </div>
+                                          <div class="col-xs-3 rich-card_padding">
+                                            <p class="card-subtitle">Forecast</p>
+                                            <p class="card-data opportunity-value"><span ng-bind="data.thisRecord.forecast.value"></span>%<span> - </span><span ng-bind="data.thisRecord.forecast.value"></span></p>
+                                          </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
 
                        </div>
                    </div> 
@@ -117,7 +159,7 @@
                                     <span ng-if="isLiked(comment)">Unlike</span>
                                 </a>
                                 <span class="spacer spacer-small" ng-if="comment.createdBy.userId == $root.activeUser.id">•</span> 
-                                <a href ng-click="comment.inEditMode = true" ng-if="comment.createdBy.userId == $root.activeUser.id">Edit</a>                  
+                                <a href ng-click="comment.inEditMode = true; data.editComment = comment.body" ng-if="comment.createdBy.userId == $root.activeUser.id">Edit</a>                  
                             </div>
                           </div>
                           </span>
@@ -128,7 +170,7 @@
                                     <span ng-bind="$root.activeUser.initials"></span>
                                 </div>
 
-                                <textarea rows="1" type="text" class="form-control" msd-elastic ng-model="comment.body" msd-elastic="\n" placeholder="Edit comment..."></textarea>
+                                <textarea rows="1" type="text" class="form-control" msd-elastic ng-model="data.editComment" msd-elastic="\n" placeholder="Edit comment..."></textarea>
 
                                 <div class="pull-left edit-comment-buttons">
                                     <button class="btn btn-danger" ng-click="deleteComment(comment)">Delete</button>

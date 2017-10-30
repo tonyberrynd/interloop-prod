@@ -21,7 +21,7 @@ angular.module('interloop.starredCtrl', [])
 
     $scope.data.currentEntity = 'Opportunity';
 
-    $scope.data.entityTypes = entityTypes;
+    $scope.data.entityTypes = _.filter(entityTypes, ['allowStars', true]);
 
 	//functions
 	//----------------------

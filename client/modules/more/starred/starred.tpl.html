@@ -25,96 +25,105 @@
                       <span ng-repeat="item in data.starredItems | filter:{ itemType: data.currentEntity }" ng-switch="item.itemType">
 
 
-                       <div class="rich-card opportunity" ng-switch-when="Opportunity">
-                            <!-- body -->
-                            <div class="rich-card_body">
-                              <a href class="rich-card_body__details" ng-click="goToRecord('Opportunity', item.itemId)">
-                                <div class="row">
-                                  <div class="col-xs-12 rich-card_padding">
-                                    <h5 class="entity-name" ng-bind="::item.name || '--'"></h5>
-                                    <p class="entity-secondary" ng-bind="::item.primaryCompanyLink.name || 'No Primary Company'"></p>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-xs-3 rich-card_padding">
-                                    <p class="card-subtitle">Value</p>
-                                    <p class="card-data opportunity-value">$<span ng-bind="::item.value | number:0"></span></p>
-                                  </div>
-                                  <div class="col-xs-3 rich-card_padding">
-                                    <p class="card-subtitle">Est Close</p>
-                                    <p class="card-data opportunity-value">
-                                       <span ng-if="item.status.value !== 'Won' && item.status.value !== 'Lost'" class="opp-value open"><span ng-bind="::item.estimatedClose | date:'mediumDate'"></span></span>
-                                        <span ng-if="item.status.value == 'Won'" class="won-opp">WON</span>
-                                        <span ng-if="item.status.value == 'Lost'" class="lost-opp">LOST</span>
-                                    </p>
-                                  </div>
-                                  <div class="col-xs-3 rich-card_padding">
-                                    <p class="card-subtitle">Stage</p>
-                                    <p class="card-data opportunity-value"><span ng-bind="::item.stage.score"></span>%<span> - </span><span ng-bind="::item.stage.value"></span></p>
-                                  </div>
-                                  <div class="col-xs-3 rich-card_padding">
-                                    <p class="card-subtitle">Forecast</p>
-                                    <p class="card-data opportunity-value"><span ng-bind="::item.forecast.value"></span>%<span> - </span><span ng-bind="::item.forecast.value"></span></p>
-                                  </div>
-                                </div>
-                              </a>
+                          <!-- contact -->
+                          <div class="panel panel-default card contact-card related-card" ng-switch-when="Contact">
+                            <div class="panel-body" ng-click="goTo(item.entityType, item.entityId)">
+                              <div class="name-wrapper">
+                              <div class="avatar avatar-32 royal">
+                                <span class="initials" ng-bind="(item.firstName | limitTo:1)"></span><span class="initials" ng-bind="(item.lastName | limitTo:1)"></span>
+                              </div>
+                              <h4>
+                                <span ng-bind="item.firstName"></span>
+                                <span ng-bind="item.lastName"></span>
+                                <span ng-if="!item.firstName && !item.lastName">No Name</span>
+                              </h4>
+                              <p>
+                              <span ng-bind="item.title || 'No Title'"></span>
+                              </p>
+                              <p>
+                                <span ng-bind="primaryCompanyName(item.entityLinks) || 'No Primary Company'"></span>
+                              </p>
+                              </div>
                             </div>
-
                           </div>
 
+                          <!-- company -->
+                          <div class="panel panel-default card company-card related-card" ng-switch-when="Company">
+                            <div class="panel-body" ng-click="goTo(item.entityType, item.entityId)">
+                              <div class="name-wrapper">
+                              <div class="avatar avatar-32 sky square">
+                                <span class="initials" ng-bind="(item.name | limitTo:1)"></span>
+                              </div>
+                              <h4>
+                                <span ng-bind="item.name || 'No Name'"></span>
+                              </h4>
+                              <p>
+                                <span ng-bind="item.description || 'No Description'"></span>
+                              </p>
+                              <p>
+                                <span ng-bind="item.domain || 'No Domain'"></span>
+                              </p>
+                              </div>
+                            </div>
+                          </div>
 
-                      <!-- contact card -->
-                               <div class="panel panel-default panel-light card" ng-switch-when="Contact">
-                                    <div class="panel-heading">
-                                        <div class="card_avatar card_avatar--round">
-                                            <span>JB</span>
-                                            <span class="launch">
-                                                <icon class="wb-arrow-right"></icon>
-                                            </span>
-                                        </div>
+                          <!-- opportunity -->
+                          <div class="panel panel-default card opportunity-card related-card" ng-switch-when="Opportunity">
+                            <div class="panel-body" ng-click="goTo(item.entityType, item.entityId)">
 
-                                        <div class="card_headerDetails card_headerDetails--hasAvatar">
-                                            <p>Jordan Berry</p>
-                                            <p class="sub">CTO at Interloop.io</p>
-                                            <p class="sub-hover">Click to view company record</p>
-                                        </div>
-                                    </div>
-                                </div>  
+                              <div class="name-wrapper">
+                              <div class="avatar avatar-24 lime">
+                                <span ng-bind="item.smartScore || '--'"></span>
+                              </div>
+                              <h4>
+                                <span ng-bind="item.name || 'No Name'"></span>
+                              </h4>
+                              <p>
+                                <span ng-bind="primaryCompanyName(item.entityLinks) || 'No Primary Company'"></span>
+                              </p>
+                              </div>
 
-                      <!-- company card -->
-                               <div class="panel panel-default panel-light card" ng-switch-when="Company">
-                                    <div class="panel-heading">
-                                        <div class="card_avatar">
-                                            <span>JB</span>
-                                            <span class="launch">
-                                                <icon class="wb-arrow-right"></icon>
-                                            </span>
-                                        </div>
-
-                                        <div class="card_headerDetails card_headerDetails--hasAvatar">
-                                            <p>Company Name</p>
-                                            <p class="sub">companydomain.com</p>
-                                            <p class="sub-hover">Click to view company record</p>
-                                        </div>
-
-                                        <!-- actions -->
-                                        <div class="card_actionsWrapper">
-                                                <div class="card_action">
-                                                    <icon class="wb-chat"></icon>
-                                                </div>
-
-                                                <div class="card_action">
-                                                    <icon class="wb-more-vertical"></icon>
-                                                </div>
-                                        </div>
-                                    </div>
+                              <div class="detail-wrapper">
+                                  <div class="row" style="margin-top:12px;">
+                                            <div class="col-xs-3 rich-card_padding">
+                                              <p class="card-subtitle">Value</p>
+                                              <p class="card-data opportunity-value">$<span ng-bind="item.value | number:0"></span></p>
+                                            </div>
+                                            <div class="col-xs-3 rich-card_padding">
+                                              <p class="card-subtitle">Est Close</p>
+                                              <p class="card-data opportunity-value">
+                                                 <!----><span ng-if="item.status.value !== 'Won' &amp;&amp; item.status.value !== 'Lost'" class="opp-value open"><span ng-bind="item.estimatedClose | date:'mediumDate'"></span></span><!---->
+                                                  <!---->
+                                                  <!---->
+                                              </p>
+                                            </div>
+                                            <div class="col-xs-3 rich-card_padding">
+                                              <p class="card-subtitle">Stage</p>
+                                              <p class="card-data opportunity-value"><span ng-bind="item.stage.score"></span>%<span> - </span><span ng-bind="item.stage.value"></span></p>
+                                            </div>
+                                            <div class="col-xs-3 rich-card_padding">
+                                              <p class="card-subtitle">Forecast</p>
+                                              <p class="card-data opportunity-value"><span ng-bind="item.forecast.value"></span>%<span> - </span><span ng-bind="item.forecast.value"></span></p>
+                                            </div>
                                 </div>
+                              </div>
 
+                            </div>
+                          </div>
 
-
-
+                          <!-- other entities go here -->
 
                       </span>
+
+
+                      <!-- empty state -->
+
+                      <div class="no-starred" ng-if="!(data.starredItems | filter:{ itemType: data.currentEntity }).length">
+                        <icon class="wb-star"></icon>
+
+                        <h5>No Starred {{data.currentEntity}}</h5>
+                        <p>Starred records to easily navigate to them from this panel</p>
+                      </div>
 
                 </div>
 

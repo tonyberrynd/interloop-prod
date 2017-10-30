@@ -29,6 +29,8 @@ angular.module('interloop.settingsTypesCtrl', [])
 	//functions
 	//----------------------
 	$scope.addType = addType;
+	$scope.deleteType = deleteType;
+	$scope.editType = editType;
 
 //-------------------------------------------
 
@@ -73,8 +75,32 @@ function editType(type){
 	var resolvedData = type;
 
 	//open modal
+	var editActivityTypeModal = modalManager.openModal('editActivityType', resolvedData);
+
+	editActivityTypeModal.result.then(function(results){
+		Logger.info('Succesfully Updated Activity Type');
+
+		activate();
+	})
 }
 
+
+function deleteType(type){
+	var resolvedData = {
+		thisItem: 'Activity Type - ' + type.label,
+		helperText: 'This will remove this activity from forms and the grid'
+	};
+
+	//open modal
+	var deleteFieldModal = modalManager.openModal('confirm', resolvedData);
+
+	deleteFieldModal.result.then(function(results){
+		ActivityType.deleteById({"id": type.id}).$promise
+			.then(function(results){
+				$scope.data.activityTypes.splice($scope.data.activityTypes.indexOf(type), 1);
+			})
+	})
+}
 
 
 //-------------------------------------------

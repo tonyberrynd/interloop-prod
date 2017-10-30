@@ -13,16 +13,21 @@
   }
 
   .panel {
-    margin-left:10px;
+    margin-left:15px;
+    margin:8px 15px;
   }
 
   .card .name-wrapper h4 {
     font-size:14px;
   }
 
-  .card .name-wrapper p {
-    font-size:90%;
+
+  .card .avatar{
+    top:10px;
   }
+  // .card .name-wrapper p {
+  //   font-size:90%;
+  // }
 
   .nav.nav-pills {
      li > a {
@@ -200,13 +205,14 @@
     // }
 
     .date {
-      display: block;
+      display: inline-block;
       position: relative;
-      top: -8px;
-      color: $dragonstone;
-      // text-transform: uppercase;
-      margin-left:32px;
+      top: -4px;
+      right: 0px;
+      color: #6C798F;
+      margin-left: 4px;
       font-size: 13px;
+      float: right;
 
       &.no-avatar {
         margin:0px;

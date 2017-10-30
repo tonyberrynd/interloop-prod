@@ -206,6 +206,7 @@ angular.module('mentio', [])
 
                 $document.on(
                     'keydown keypress paste', function (event) {
+                        console.log('recieved keydown event', event)
                         var activeMenuScope = $scope.getActiveMenuScope();
                         if (activeMenuScope) {
                             if (event.which === 9 || event.which === 13) {
@@ -469,7 +470,7 @@ angular.module('mentio', [])
                 return tAttrs.mentioTemplateUrl !== undefined ? tAttrs.mentioTemplateUrl : 'mentio-menu.tpl.html';
             },
             controller: ["$scope", function ($scope) {
-                $scope.visible = false;
+                $scope.visible = true;
 
                 // callable both with controller (menuItem) and without controller (local)
                 this.activate = $scope.activate = function (item) {

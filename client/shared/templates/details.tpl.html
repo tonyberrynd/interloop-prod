@@ -11,7 +11,7 @@
 
 <div uib-collapse="data.ownersCollapsed">
 
-    <div class="panel panel-default card contact-card" ng-repeat="owner in data.thisRecord.ownerLinks">
+    <div class="panel panel-default card contact-card" ng-repeat="owner in data.thisRecord.ownerLinks | unique:'ownerId'">
 			<div class="panel-body">
 				<div class="name-wrapper">
 				<div class="avatar avatar-32" ng-class="owner.color">
@@ -99,6 +99,14 @@
 		   	 <p id="{{field.key}}" class="form-control-static" ng-bind="data.thisRecord[field.key]['label']" ng-if="data.thisRecord[field.key]"></p>
 		   	 <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
 			</span>
+
+			<!-- mixed select -->
+			<span ng-switch-when="mixed-select">
+		   	 <p id="{{field.key}}" class="form-control-static" ng-if="data.thisRecord[field.key]">
+		   	 	<span ng-bind="data.thisRecord[field.key]['label']"></span> <span ng-if="data.thisRecord[field.key]['value']">-</span> <span ng-bind="data.thisRecord[field.key]['value']"></span>
+		   	 </p>
+		   	 <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
 			
 			<!-- address -->
 			<span ng-switch-when="address">
@@ -138,7 +146,8 @@
              <!-- social -->
              <span ng-switch-when="social">
              	<p class="form-control-static" ng-repeat="social in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
-					<a ng-href="social" target="_blank" ng-bind="social"></a>
+					<a ng-if="social.value" ng-href="social" target="_blank" ng-bind="social.value"></a>
+					<span ng-if="!social.value">--</span>
 				</p>
 				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Social Accounts</p>
              </span>
@@ -154,7 +163,7 @@
 </div>
 </div>
 
-<div class="sidebar-section">
+<div class="sidebar-section" ng-if="(data.customFields | filter: {excludeForm: '!true'}).length">
 <h5 class="sidepanel-title collapse-header" ng-click="data.customFieldsCollapsed = !data.customFieldsCollapsed">Custom Fields [{{percentComplete(data.customFields)}}]
 
 <span class="pull-right collapse-arrow">
@@ -173,7 +182,9 @@
 		<form>
 		  		  <!-- //information -->
 		  <div class="form-group" ng-repeat="field in data.customFields | filter: {excludeForm: '!true'}">
-		    <label for="{{field.key}}">{{field.label}}</label>
+		    <label for="{{field.key}}">{{field.label}}
+		    <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+			</label>
 
 		    <span ng-switch="field.type">
 			
@@ -215,6 +226,14 @@
 			<!-- category -->
 			<span ng-switch-when="category">
 		   	 <p id="{{field.key}}" class="form-control-static" ng-bind="data.thisRecord[field.key]['label']" ng-if="data.thisRecord[field.key]"></p>
+		   	 <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
+			</span>
+		
+			<!-- mixed select -->
+			<span ng-switch-when="mixed-select">
+		   	 <p id="{{field.key}}" class="form-control-static" ng-if="data.thisRecord[field.key]">
+		   	 	<span ng-bind="data.thisRecord[field.key]['label']"></span> - <span ng-bind="data.thisRecord[field.key]['value']"></span>
+		   	 </p>
 		   	 <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
 			</span>
 			
@@ -316,7 +335,7 @@
 
 </h5>
 <div uib-collapse="data.sharedWithCollapse">
-		<div class="panel panel-default sidepanel-panel" ng-if="data.thisRecord.tags.length">
+		<div class="panel panel-default sidepanel-panel" ng-if="data.thisRecord.sharedWith.length">
 			<div class="panel-body">
 				<span ng-repeat="sharedWith in data.thisRecord.sharedWithLinks">
 				      <div class="tag avatar-tag" ng-if="sharedWith.type == 'user'">
@@ -332,6 +351,7 @@
 			</div>
 		</div>
 
+
 	 	<span class="empty-add" ng-if="!data.thisRecord.sharedWithLinks.length">
 	     <p class="empty-section">Shared Based On Default Visibility</p>
 	  	</span>
@@ -339,3 +359,6 @@
 		 
  </div>
 </div>
+
+<br>
+<br>

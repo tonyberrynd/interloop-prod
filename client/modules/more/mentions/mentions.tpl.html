@@ -10,7 +10,12 @@
 
                 <div class="sidepanel-content">
                    
-                <p>Mentinos</p>
+                    
+                    <div class="no-mentions" ng-if="!data.mentions.length">
+                        <img src="../../assets/img/icons/nav/mentions.svg" alt="Mentions">
+                        <h5>No Mentions</h5>
+                        <p>When users mention you, links to those comments will show up here.</p>
+                    </div>
 
                 </div>
 

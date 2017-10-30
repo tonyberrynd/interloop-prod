@@ -28,7 +28,9 @@
 									</div>
 									<div class="panel-footer">
 										<div class="integration-action">
-											<button class="btn btn-primary">
+											<p ng-if="!integration.enabled">Coming Soon...</p>
+
+											<button class="btn btn-primary" ng-if="integration.enabled">
 												Connect Now
 											</button>
 

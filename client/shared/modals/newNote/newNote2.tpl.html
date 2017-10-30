@@ -1,0 +1,82 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">New Note</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+              <div class="row">
+                <div class="col-xs-9">
+                                        <form name="newNoteForm" novalidate>
+
+                        <div class="row">
+                                <div class="col-xs-12">
+                                   <div class="form-group">
+                                    <label for="title">Note</label>
+
+                                    <button class="btn btn-primary" ng-click="test()">Dropdown</button>
+                                     <div
+                                        contenteditable 
+                                        mentio
+                                        mentio-typed-term="typedTerm"
+                                        mentio-require-leading-space="true"
+                                        mentio-select-not-found="true"
+                                        class="super-note editor form-control mention"
+                                        mentio-id="'superNote'"
+                                        id="superNote"
+                                        strip-br="false"
+                                        ng-model="data.note.body"
+                                        >
+                                    </div>
+
+                                        <!-- other users within the system -->
+                                        <mentio-menu
+                                                      mentio-for="'superNote'"
+                                                      mentio-trigger-char="'#'"
+                                                      mentio-items="products | filter:label:typedTerm"
+                                                      ></mentio-menu>
+
+                                        <!-- related entities -->
+                                        <mentio-menu
+                                                      mentio-for="'superNote'"
+                                                      mentio-trigger-char="'@'"
+                                                      mentio-items="people"
+                                                      mentio-template-url="/people-mentions.tpl"
+                                                      mentio-search="searchPeople(term)"
+                                                      mentio-select="getPeopleText(item)"
+                                                      ></mentio-menu>
+
+                                            <script type="text/ng-template" id="/people-mentions.tpl">
+                                              <ul class="list-group user-search">
+                                                  <li mentio-menu-item="person" ng-repeat="person in items" class="list-group-item">
+                                                      <img ng-src="{{person.imageUrl}}" class="user-photo">
+                                                      <span class="text-primary" ng-bind-html="person.name | mentioHighlight:typedTerm:'menu-highlighted' | unsafe"></span>
+                                                      <em class="text-muted" ng-bind="person.bio | words:5"></em>
+                                                  </li>
+                                              </ul>
+                                          </script>
+
+
+                                        <br>
+                                        <textarea id="mirror"ng-model="data.note.body" aria-label="Dynamic textarea"></textarea>
+
+
+                                </div>
+                              </div>
+                          </div>
+                    </form>
+                </div>
+                <div class="col-xs-3">
+                   <span ng-include="'shared/templates/owners-related.tpl.html'"></span>
+                </div>
+              </div>
+                        
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="newNoteForm.$invalid">Create</button>
+        </div>

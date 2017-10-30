@@ -12,9 +12,9 @@
                         <a href class="btn btn-primary dropdown-toggle" uib-dropdown-toggle is-open="newDropdownOpen">
                           <img src="../../assets/img/icons/light/add.svg" alt="+"></a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                          <li><a href="#">
+                          <li><a href="#" feature-flag="--FORECASTING--">
                             + Submit Forecast</a></li>
-                          <li class="divider"></li>
+                          <li class="divider" feature-flag="--FORECASTING--"></li>
                           <li role="menuitem">
                             <a href ng-click="newOpportunity()">
                             + Opportunity
@@ -32,13 +32,13 @@
                           </li>
                           <li class="divider"></li>
                           <li role="menuitem">
-                            <a href ng-click="newTask()">
-                              + Task
+                            <a href ng-click="newNote()">
+                              + Note
                             </a>
                           </li>
                           <li role="menuitem">
-                            <a href ng-click="newMeeting()">
-                              + Meeting
+                            <a href ng-click="newTask()">
+                              + To-Do
                             </a>
                           </li>
                           <li role="menuitem">
@@ -46,6 +46,11 @@
                               + Log Call
                             </a>
                           </li>
+                        
+                          <!-- //repeat through custom activity types -->
+                          <li role="menuitem"><a href ng-click="addActivity(activityType)" ng-repeat="activityType in $root.activityTypes | filter: {'custom': true}">
+                          + {{activityType.label}}</a></li>
+
                         </ul>
                     </div>
                       <div class="globalSearch pull-left">
@@ -53,7 +58,7 @@
                         <icon class="wb-search search-icon"></icon>
                         <input type="text" class="form-control" id="GlobalSearch" placeholder="Search..." ng-model="data.globalSearch" ng-keydown="focusResult($event)" ng-class="{'focus': data.globalSearch }" ng-change="search()" ng-model-options="{ debounce: 250 }">
 
-                        <button class="btn btn-link clear-search" ng-if="data.globalSearch" ng-click="data.globalSearch = ''">
+                        <button class="btn btn-link clear-search" ng-class="{'hidden': !data.globalSearch}" ng-click="data.globalSearch = ''">
                           <icon class="wb-plus-circle"></icon>
                         </button>
                         
@@ -94,7 +99,8 @@
                                       <span ng-bind="item.firstName || ''"></span> 
                                       <span ng-bind="item.lastName || ''"></span>
                                     </h4>
-                                    <p><small><span ng-bind="item.title || 'No Title'"></span></small></p>
+                                    <p><span ng-bind="item.title || 'No Title'"></span></p>
+                                    <p><span ng-bind="item.primaryCompany || 'No Primary Company'"></span></p>
                                   </a>
 
                                   <!-- company -->
@@ -103,18 +109,12 @@
                                       <span ng-bind="(item.name | limitTo:1 | uppercase) || '--'"></span>
                                     </div>
                                     <h4><span ng-bind="item.name || ''"></span></h4>
-                                    <p><small><span ng-bind="item.website || 'No Website'"></span></small></p>
+                                    <p><span ng-bind="item.domain || 'No Domain'"></span></p>
                                   </a>
 
                                   <!-- opportunity -->
-<!--                                   <a href ng-switch-when="Opportunity" ng-click="openTo('app.sidebar.opportunity.insights', item.id, $event)">
-                                    <p><span ng-bind="item.name || ''"></span></p>
-                                    <p><small><span ng-bind="item.status.value || 'No Status'"></span> - $<span ng-bind="item.value | number:0"></span></small></p>
-                                  </a> -->
-
-
                                    <a href class="list-group-item avatar-item" ng-switch-when="Opportunity" ng-click="openTo('app.opportunity-details', item.id, $event)">
-                                      <div class="avatar avatar-32 lime">
+                                      <div class="smartScore">
                                         <span ng-bind="item.smartScore || '--'"></span>
                                       </div>
                                       <h4><span ng-bind="item.name || ''"></span></h4>
@@ -126,12 +126,15 @@
                                           <span ng-bind="owner.firstName"></span> <span ng-bind="owner.lastName"></span>
                                         </span>
                                       </p>
+                                      <p ng-if="!item.owner.length">No Owners</p>
                                       <span class="forecast-indicator">
                                         <p>
                                         <span class="label label-subtle">
-                                        $<span ng-bind="item.value | number:0"></span>
+                                        $<span ng-bind="item.value | shortNumber"></span>
+                                        <span feature-flag="FF_Forecasting">
                                         <span class="spacer">&middot;</span>
                                         <span ng-bind="item.forecast.value || '--'"></span>
+                                        </span>
                                         </span>
                                         </p>
                                       </span>
@@ -140,20 +143,13 @@
                                       </span>
                                     </a>
 
-
-        
-                                    <!-- attachment -->
-<!--                                     <a href ng-switch-when="Attachment" ng-click="openTo('app.sidebar.attachment-details', item.id, $event)">
-                                      <p><span ng-bind="item.name || ''"></span></p>
-                                      <p><small ng-bind="item.score"></small></p>
-                                    </a> -->
-
-                                    <a href="#" class="list-group-item file-item" ng-switch-when="Attachment" ng-click="openTo('app.attachment-details', item.id, $event)">
+                                    <!-- //attachment -->
+<!--                                     <a href="#" class="list-group-item file-item" ng-switch-when="Attachment" ng-click="openTo('app.attachment-details', item.id, $event)">
                                       <img src="../assets/img/icons/files/avi.svg" alt="Avi">
                                       <h4>Awesome-Movie</h4>
                                       <p>awesome_movei.avi</p>
                                       <p>54MB <span class="spacer">&middot;</span> Avi Movie</p>
-                                    </a>
+                                    </a> -->
 
                                 </div>
 
@@ -217,6 +213,15 @@
                         </ul>
                       </li>
 
+                      <!-- agenda view -->
+                      <li>
+                        <a href ui-sref="app.agenda">
+                          <img src="../../assets/img/icons/light/calendar.svg" alt="Agenda">
+                        </a>
+                      </li>
+
+
+
                     <!-- help -->
                      <li class="dropdown" uib-dropdown>
                         <a href class="dropdown-toggle" uib-dropdown-toggle is-open="helpDropdownOpen"><img src="../../assets/img/icons/light/question.svg" alt="Help"></a>
@@ -265,12 +270,6 @@
                               </li>
                               <li class="divider"></li>
                               <li role="menuitem">
-                                <a href ng-click="openTo('app.mentions')">
-                                  <img src="../../assets/img/icons/nav/mentions.svg" alt="Mentions"> 
-                                  Mentions
-                                </a>
-                              </li>
-                              <li role="menuitem">
                                 <a href ng-click="openTo('app.starred')">
                                   <img src="../../assets/img/icons/nav/star-full.svg" alt="Starred Items"> Starred Items
                                 </a>
@@ -281,7 +280,13 @@
                                   My Files
                                 </a>
                               </li>
-                              <li role="menuitem" feature-flag="--DIRECTORY--">
+                              <li role="menuitem" feature-flag="--FF_MORE_MENTIONS">
+                                <a href ng-click="openTo('app.mentions')">
+                                  <img src="../../assets/img/icons/nav/mentions.svg" alt="Mentions"> 
+                                  Mentions
+                                </a>
+                              </li>
+                              <li role="menuitem" feature-flag="--FF_MORE_DIRECTORY">
                                 <a href ng-click="openTo('app.directory')">
                                   <img src="../../assets/img/icons/nav/user-group.svg" alt="Directory"> Directory
                                 </a>

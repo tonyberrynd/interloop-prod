@@ -23,6 +23,7 @@ angular.module('interloop.addRelatedCtrl', [])
   //vars
   //----------------------
   var entity = resolvedData.entity || null;
+  var thisRecord = resolvedData.thisRecord;
   var initializing = true;
 
   //data
@@ -31,6 +32,9 @@ angular.module('interloop.addRelatedCtrl', [])
   $scope.data.results = [];
   $scope.data.serverError = false;
   $scope.data.loadingResults = false;
+
+  $scope.data.currentRecordName = entity == 'Contact' ? thisRecord.firstName + ' ' + thisRecord.lastName : thisRecord.name;
+
 
   //functions
   //----------------------
@@ -78,7 +82,11 @@ angular.module('interloop.addRelatedCtrl', [])
 
 
   function ok() {
-    $uibModalInstance.close();
+    $scope.data.processing = true;
+
+    $timeout(function(){
+        $uibModalInstance.close($scope.data.selectedRecords);
+    }, 250);
   }
 
 //-------------------------------------------

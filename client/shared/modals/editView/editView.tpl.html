@@ -22,7 +22,7 @@
             <div class="col-sm-8">
               <div ng-if="data.type == 'system'" class="radio radio-inline" >
                 <div class="radio-custom radio-primary"> 
-                  <input type="radio" name="viewAccess" id="system" value="system" ng-model="data.view.type" ng-disabled="data.isSystem">
+                  <input class="magic-radio" type="radio" name="viewAccess" id="system" value="system" ng-model="data.view.type" ng-disabled="data.isSystem">
                   <label for="system">
                       System
                   </label>
@@ -31,7 +31,7 @@
 
               <div ng-if="data.type !== 'system'"  class="radio radio-inline" ng-disabled="data.type == 'system'">
                   <div class="radio-custom radio-primary">    
-                    <input type="radio" name="viewAccess" id="personal" value="personal" ng-model="data.view.type">
+                    <input class="magic-radio" type="radio" name="viewAccess" id="personal" value="personal" ng-model="data.view.type">
                     <label for="personal">
                         Personal
                     </label>

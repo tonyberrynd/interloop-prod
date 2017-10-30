@@ -182,8 +182,8 @@ angular.module('interloop.value.fields', [])
 
 	//first name - string
 	{
-		"label": "Name",
-		"key": "name",
+		"label": "Title",
+		"key": "title",
 		"type": "string",
 		"locked": true,
 		//new form
@@ -195,7 +195,7 @@ angular.module('interloop.value.fields', [])
 		"hide": false,
 		"width": 300,
 		"valueGetter": null,
-		"cellRenderer": 'activityNameRender',
+		"cellRenderer": null,
 		"pinned": true
 	},
 	{
@@ -248,26 +248,7 @@ angular.module('interloop.value.fields', [])
 		"pinned": false,
 
 		"allowGroup": true
-	},
-
-	{
-		"label": "Owner",
-		"key": "owner",
-		"type": "category",
-		"typeKey": "fullName",
-		"columnType": "user",
-		//new form
-		"excludeNew": false,
-		"newClass": "col-xs-12",
-		//grid
-		"excludeGrid": false,
-		"hide": false,
-		"width": 300,
-		"valueGetter": 'getNestedOwner',
-		"cellRenderer": null,
-		"pinned": false
 	}
-
 ])
 
 
@@ -431,7 +412,7 @@ angular.module('interloop.value.fields', [])
 		"newClass": "col-xs-12",
 		//should it be on new form
 		"excludeNew": false,
-		"newRequired": true,
+		"newRequired": false,
 		//filters
 		"filterApplied": false,
 		"filterValue": null,
@@ -1107,6 +1088,10 @@ angular.module('interloop.value.fields', [])
 	   	"label": "Addresses",
 	    "key": "addresses",
 	    "type": "address",
+	    // sorting
+	    "useSortKey": true,
+	    "sortKeyASC": "addressCount ASC",
+	    "sortKeyDESC": "addressCount DESC",
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
@@ -1124,7 +1109,7 @@ angular.module('interloop.value.fields', [])
 	{
 	   	"label": "City",
 	    "key": "address.city",
-	    "type": "addressPart",
+	    "type": "string",
 		"excludeNew": true,
 	    "excludeGrid": true,
 	    		//exlude import

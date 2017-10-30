@@ -85,7 +85,7 @@ function activate() {
 
     //if not in elemnt set all notifications to true
     //TODO - MOVE TO CREATION OF USER
-    _.merge($scope.data.thisUser.alertSettings, $scope.data.alertSettings);
+    $scope.data.thisUser.alertSettings = _.merge({}, $scope.data.alertSettings, $scope.data.thisUser.alertSettings);
 
         //avoids flashing
     $timeout(function() {

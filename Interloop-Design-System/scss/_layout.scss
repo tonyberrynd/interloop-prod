@@ -211,7 +211,7 @@
 
             .name-wrapper {
                 margin-left:80px;
-                margin-bottom:12px;
+                margin-bottom:6px;
 
                 h4 {
                     margin:0px;
@@ -436,7 +436,8 @@
     left:0px;
 }
 
-.navbar-default .navbar-nav>li>a.dropdown-toggle {
+.navbar-default .navbar-nav>li>a.dropdown-toggle,
+.navbar-default .navbar-nav>li>a {
     color: #fff;
     opacity: .85;
     padding:13px 12px;
@@ -692,6 +693,10 @@ li.menu-toggle > a::before {
 }
 
 #sidebar-wrapper > ul > li.meetings > a::before {
+    background: url(../img/icons/light/calendar.svg) no-repeat 0 0 !important;
+}
+
+#sidebar-wrapper > ul > li.tasks > a::before {
     background: url(../img/icons/light/calendar.svg) no-repeat 0 0 !important;
 }
 

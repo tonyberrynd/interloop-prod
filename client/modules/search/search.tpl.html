@@ -70,49 +70,65 @@
 				</div>
 
 			<div class="results">
-				
-				<li class="search-item" ng-repeat="item in data.scopedResults.results" ng-switch="data.scopedResults.entityType">
-
+					<div class="list-group">
+					  <span ng-repeat="item in data.scopedResults.results" ng-switch="data.scopedResults.entityType">
 					  <!-- contact -->
-			          <a href ng-switch-when="Contact" ng-click="openTo('Contact', item.id)">
-			          	<div class="avatar">JB</div>
-			          	<span class="avatar-details">
-				          	<p><span ng-bind="item.firstName || ''"></span> <span ng-bind="item.lastName || ''"></span></p>
-			          		<p><small><span ng-bind="item.title || 'No Title'"></span></small></p>
-			          	</span>
-			          </a>
+                      <a href class="list-group-item avatar-item" ng-switch-when="Contact" ng-click="openTo('contact', item.id, $event)">
+                        <div class="avatar avatar-32 royal">
+                          <span ng-bind="item.firstName | limitTo:1 | uppercase"></span><span ng-bind="item.lastName | limitTo:1 | uppercase"></span>
+                          <span ng-if="!item.firstName && !item.lastName">--</span>
+                        </div>
+                        <h4>
+                          <span ng-bind="item.firstName || ''"></span> 
+                          <span ng-bind="item.lastName || ''"></span>
+                        </h4>
+                        <p><span ng-bind="item.title || 'No Title'"></span></p>
+                        <p><span ng-bind="item.primaryCompany || 'No Primary Company'"></span></p>
+                      </a>
 
-			          <!-- company -->
-			          <a href ng-switch-when="Company" ng-click="openTo('Company', item.id)">
-			          	<div class="avatar square">JB</div>
-			          	<span class="avatar-details">
-				          	<p><span ng-bind="item.name || ''"></span></p>
-				          	<p><small><span ng-bind="item.website || 'No Website'"></span></small></p>
-			          	</span>
-			          </a>
+                      <!-- company -->
+                      <a href class="list-group-item avatar-item" ng-switch-when="Company" ng-click="openTo('company', item.id, $event)">
+                        <div class="avatar avatar-32 royal square">
+                          <span ng-bind="(item.name | limitTo:1 | uppercase) || '--'"></span>
+                        </div>
+                        <h4><span ng-bind="item.name || ''"></span></h4>
+                        <p><span ng-bind="item.domain || 'No Domain'"></span></p>
+                      </a>
 
-			          <!-- opportunity -->
-			          <a href ng-switch-when="Opportunity" ng-click="openTo('Opportunity', item.id)">
-			          	<p><span ng-bind="item.name || ''"></span></p>
-			          	<p><small><span ng-bind="item.status.value || 'No Status'"></span> - $<span ng-bind="item.value | number:0"></span></small></p>
-			          </a>
+                      <!-- opportunity -->
+                       <a href class="list-group-item avatar-item" ng-switch-when="Opportunity" ng-click="openTo('opportunity', item.id, $event)">
+                          <div class="smartScore">
+                            <span ng-bind="item.smartScore || '--'"></span>
+                          </div>
+                          <h4><span ng-bind="item.name || ''"></span></h4>
+                          <p>
+                            <span ng-bind="item.primaryCompany.name || 'No Primary Company'"></span>
+                          </p>
+                          <p ng-if="item.owners.length">
+                            <span ng-repeat="owner in item.owners | limitTo:2">
+                              <span ng-bind="owner.firstName"></span> <span ng-bind="owner.lastName"></span>
+                            </span>
+                          </p>
+                          <p ng-if="!item.owner.length">No Owners</p>
+                          <span class="forecast-indicator">
+                            <p>
+                            <span class="label label-subtle">
+                            $<span ng-bind="item.value | shortNumber"></span>
+                            <span feature-flag="FF_Forecasting">
+                            <span class="spacer">&middot;</span>
+                            <span ng-bind="item.forecast.value || '--'"></span>
+                            </span>
+                            </span>
+                            </p>
+                          </span>
+                          <span class="owners">
+                            <span ng-bind="(item.estimatedClose | formatDate) || '--'"></span>
+                          </span>
+                        </a>
 
-			          <!-- attachment -->
-<!-- 			          <a href ng-switch-when="Attachment" ng-click="openTo('app.sidebar.attachment-details', item.id, $event)">
-			          	<p><span ng-bind="item.name || ''"></span></p>
-			          	<p><small>{{item.score}}</small></p>
-			          </a> -->
-
-			        </li>
-
+                    </span>
+				</div>
 			</div>
-
-<!-- 			<div class="panel-footer" ng-if="data.scopedResults.results.length">
-				<span class="view-results-grid">
-					<a href ng-click="viewInGrid()">Views results in grid <icon class="wb-chevron-right-mini"></icon></a>
-				</span>
-			</div>
-			 -->
 			
 			<div class="empty" ng-if="!data.scopedResults.results.length">
 				<icon class="wb-search"></icon>

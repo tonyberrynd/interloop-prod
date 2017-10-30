@@ -1,0 +1,95 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">Edit Formula</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+
+                <form action="" feature-flag="--FORMULA_BUILDER--" feature-flag-hide>
+                  <div class="col-xs-12">
+                    <p>Reference the current record by using "CurrentRecord"</p>
+                  <div class="form-group">
+                        <label for="">Formula</label>
+                        <textarea name="" id="" cols="30" rows="10" class="form-control formula-textarea" ng-model="data.formula"></textarea>
+                      </div>
+                      <p><small>Build Formula Using Lodash - <a href="https://lodash.com/docs/4.17.4" target="_blank">See Docs Here</a></small></p>
+                  </div>
+                </form>
+
+
+                <form action="" feature-flag="--FORMULA_BUILDER--">
+                  <div class="row">
+                    <div class="col-xs-3">
+                       <div class="field-selector">
+                        <div class="form-group">
+                          <label for="">Fields</label>
+                           <select multiple class="form-control">
+                              <option>FIELD1</option>
+                              <option>FIELD2</option>
+                              <option>FIELD3</option>
+
+                            </select>
+                         </div>
+                       </div>
+
+                       <div class="formula-selector">
+                          <div class="form-group">
+                          <label for="">Formulas</label>
+                          <select multiple class="form-control">
+                            <option>SUM()</option>
+                            <option>EXISTS()</option>
+                            <option>UNIQUE()</option>
+                            <option>FORMULA4()</option>
+                            <option>FORMULA5()</option>
+                          </select>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="col-xs-9">
+                      <div class="form-group">
+                        <label for="">Formula</label>
+                        <textarea name="" id="" cols="30" rows="10" class="form-control" ng-model="data.formula"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <p>Select Operators</p>
+                        <button class="btn btn-default btn-sm text-inline">
+                          +
+                        </button>
+                        <button class="btn btn-default btn-sm text-inline">
+                          -
+                        </button>
+                        <button class="btn btn-default btn-sm text-inline">
+                          *
+                        </button>
+                        <button class="btn btn-default btn-sm text-inline">
+                          /
+                        </button>
+                        <button class="btn btn-default btn-sm text-inline">
+                          > 
+                        </button>
+                        <button class="btn btn-default btn-sm text-inline">
+                          < 
+                        </button>
+
+                        <button class="btn btn-default btn-sm text-inline">
+                          = 
+                        </button>
+
+                        <button class="btn btn-default btn-sm text-inline">
+                          ! 
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
+        </div>

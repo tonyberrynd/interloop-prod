@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M20 18.35V19a1 1 0 0 1-1 1h-2A17 17 0 0 1 0 3V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4c0 .56-.31 1.31-.7 1.7L3.16 8.84c1.52 3.6 4.4 6.48 8 8l2.12-2.12c.4-.4 1.15-.71 1.7-.71H19a1 1 0 0 1 .99 1v3.35z"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>phone</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="phone" fill-rule="nonzero" fill="#FFFFFF">
+            <path d="M20,18.35 L20,19 C20,19.5522847 19.5522847,20 19,20 L17,20 C7.61115925,20 1.14980138e-15,12.3888407 0,3 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 L5,0 C5.55228475,3.38176876e-17 6,0.44771525 6,1 L6,5 C6,5.56 5.69,6.31 5.3,6.7 L3.16,8.84 C4.68,12.44 7.56,15.32 11.16,16.84 L13.28,14.72 C13.68,14.32 14.43,14.01 14.98,14.01 L19,14.01 C19.5483755,14.015484 19.9900274,14.461597 19.99,15.01 L19.99,18.36 L20,18.35 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

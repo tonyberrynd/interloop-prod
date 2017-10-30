@@ -1,0 +1,23 @@
+
+
+.no-starred {
+	display: block;
+	padding:40px;
+	text-align:center;
+
+	icon {
+		color:$granite;
+		font-size:28px;
+	}
+
+	h5 {
+		color:$seamonster;
+		font-size:110%;
+	}
+
+	p {
+		color:$dragonstone;
+		max-width:300px;
+		margin:auto;
+	}
+}

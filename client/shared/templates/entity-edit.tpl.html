@@ -29,7 +29,8 @@
                           <div ng-class="field.class || 'col-xs-12'" ng-repeat="field in data.fields | filter: {excludeForm: '!true'}" ng-switch="field.type">
                                               <!-- divider -->
                               <div class="form-group" ng-switch-when="divider">
-                                <h5 class="pane-title">{{field.label}}</h5>
+                                <h5 class="pane-title">{{field.label}} <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                                </h5>
                               </div>
 
                                <!-- string -->
@@ -71,6 +72,32 @@
                               </ui-select>
                               </div>
 
+
+                              <!-- mixed select -->
+                              <div class="form-group" ng-switch-when="mixed-select">
+                              <label for="{{field.key}}">
+                                <span ng-bind="field.label"></span>
+                                <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                              </label>
+
+                              <ui-select name="{{field.key}}" class="form-control" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"  ng-if="field.values.length > 5">
+                                <ui-select-match placeholder="Select options...">
+                                  <span>
+                                    <span class="name">{{$select.selected.label}}</span>
+                                  </span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="value in field.values | filter: $select.search">
+                                    <span ng-bind-html="value.label | highlight: $select.selected.value"></span> <span ng-bind-html="'(' + value.value + ')' | hightlight: $select.selected.value"></span>
+                                </ui-select-choices>
+                              </ui-select>
+
+                              <div ng-if="field.values.length <= 4" class="button-group-select">
+                              <div class="btn-group" ng-required="field.newRequired" >
+                                  <label class="btn btn-default btn-light" ng-model="data.thisRecord[field.key]" uib-btn-radio="{{value}}" uncheckable ng-repeat="value in field.values">{{value.label}} ({{value.value}})</label>
+                              </div>
+                              </div>
+                            </div>
 
                               <div class="form-group" ng-switch-when="lookup">         
                               <label for="{{field.key}}" ng-bind="field.label"></label>
@@ -218,7 +245,9 @@
 
                               <!-- divider -->
                               <div class="form-group" ng-switch-when="divider">
-                                <h5 class="pane-title">{{field.label}}</h5>
+                                <h5 class="pane-title">{{field.label}} 
+                                  <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                                </h5>
                               </div>
 
                                <!-- string -->
@@ -274,6 +303,34 @@
                                 </ui-select-choices>
                               </ui-select>
                               </div>
+
+
+                            <!-- mixed select -->
+                            <div class="form-group" ng-switch-when="mixed-select">
+                            <label for="{{field.key}}">
+                              <span ng-bind="field.label"></span>
+                              <span class="required-field" ng-if="field.newRequired">*</span>
+                              <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                            </label>
+
+                            <ui-select name="{{field.key}}" class="form-control" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"  ng-if="field.values.length > 5">
+                              <ui-select-match placeholder="Select options...">
+                                <span>
+                                  <span class="name">{{$select.selected.label}}</span>
+                                </span>
+                              </ui-select-match>
+                              <ui-select-choices repeat="value in field.values | filter: $select.search">
+                                  <span ng-bind-html="value.label | highlight: $select.selected.value"></span> <span ng-bind-html="'(' + value.value + ')' | hightlight: $select.selected.value"></span>
+                              </ui-select-choices>
+                            </ui-select>
+
+                            <div ng-if="field.values.length <= 4" class="button-group-select">
+                            <div class="btn-group" ng-required="field.newRequired" >
+                                <label class="btn btn-default btn-light" ng-model="data.thisRecord[field.key]" uib-btn-radio="{{value}}" uncheckable ng-repeat="value in field.values">{{value.label}}</label>
+                            </div>
+                            </div>
+                          </div>
+
                       </div>
                     </div>
                     </form>

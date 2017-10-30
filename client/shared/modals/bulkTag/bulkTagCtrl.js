@@ -21,12 +21,15 @@ angular.module('interloop.bulkTagCtrl', [])
   //vars
   //----------------------
   var entity = resolvedData.entity;
+  var currentTags = _.map(resolvedData.selectedItems, 'tags');
+  console.log('current tags', currentTags);
 
   //data
   //----------------------
   $scope.data = {}
 
   $scope.data.selectedItems = resolvedData.selectedItems;
+  console.log('selected items', resolvedData.selectedItems);
 
   $scope.data.selectedTag = null;
   $scope.data.newTag = null;
@@ -90,8 +93,13 @@ activate();
         })
     //existing tag
     } else {
-      console.log($scope.data.selectedTag);
-      return applyTags(angular.fromJson($scope.data.selectedTag));
+      //checks to ensure tag is unique
+      if(!_.find(currentTags, ['itemId', $scope.data.selectedTag.id])){
+        return applyTags(angular.fromJson($scope.data.selectedTag));
+      } else {
+        Logger.info('Added Tags');
+        $uibModalInstance.dismiss();
+      }
     }    
   }
 

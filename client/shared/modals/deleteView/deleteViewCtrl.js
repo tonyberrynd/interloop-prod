@@ -49,27 +49,30 @@ function ok() {
 
   if($scope.data.view.id == $rootScope.activeUser.defaultViews.opportunity) {
    Logger.error("Cannot Delete Default View", "Change Default to Delete");
-   return;
-  }
 
-  View.deleteById({"id" :$scope.data.view.id}).$promise
-  .then(function(results) {
-      //log info
-      Logger.info("Succesfully Deleted View");
+  } else {
 
-      //remove from list of views
-      $state.go('app.main.opportunities', {viewId: 'default'});
+    View.deleteById({"id" :$scope.data.view.id}).$promise
+    .then(function(results) {
+        //log info
+        Logger.info("Succesfully Deleted View");
 
-      //close modal
+        //remove from list of views
+        $state.go('app.opportunities', {viewId: 'default'});
+
+        //close modal
+        $uibModalInstance.close();
+
+    })
+    .catch(function(err) {
+      console.log(err);
+      //error
+      Logger.error("Error Deleting View");
+      // close
       $uibModalInstance.close();
+    })
 
-  })
-  .catch(function(err) {
-    //error
-    Logger.error("Error Deleting View");
-    // close
-    $uibModalInstance.close();
-  })
+  }
 
 }
 

@@ -12,6 +12,8 @@ angular.module('interloop.importDataCtrl', [])
   Logger,
   excelGenerator,
   $uibModalInstance,
+  socialTypes,
+  CustomField,
   resolvedData) {
 
 // BINDABLES
@@ -19,6 +21,12 @@ angular.module('interloop.importDataCtrl', [])
   //vars
   //----------------------
   var entityType = resolvedData.currentEntity || null;
+
+    //columns for entity / exclude any that should be exluded from the import
+  var fields = _.filter($injector.get(entityType + 'Fields'), function(o){
+    return !o.excludeImport;
+  });
+
 
   //data
   //----------------------
@@ -35,10 +43,7 @@ angular.module('interloop.importDataCtrl', [])
 
   $scope.data.currentStep = angular.copy($scope.data.steps[0]);
 
-  //columns for entity / exclude any that should be exluded from the import
-  $scope.data.columns = _.filter($injector.get(entityType + 'Fields'), function(o){
-    return !o.excludeImport;
-  });
+
   // $scope.data.columns = []
 
   $scope.data.selected = [];
@@ -66,12 +71,82 @@ angular.module('interloop.importDataCtrl', [])
 
 // ACTIVATE
 //===========================================
-// activation logic goes here
+function activate(){
+  $scope.data.loading = true;
+  return CustomField.find({"filter": {'where': {"useWith": {"inq": [$scope.data.currentEntity]}}}}).$promise
+      .then(function(results){
+        var customFields = results;
+        //include both regular fields & custom fields
+        $scope.data.columns = buildColumns(_.union(fields, customFields));
+        console.log($scope.data.columns);
+        $scope.data.activated = true;
+        $scope.data.loading = false;
+      })
+      .catch(function(err){
+        Logger.error('Error fetching custom fields', 'Please try again in a moment');
+        console.log(err);
+        $scope.data.loading = false;
+      })
+}
+activate()
 //-------------------------------------------
 
 
 // FUNCTIONS
 //===========================================
+
+
+function buildColumns(columns){
+
+     var alteredColumns = [];
+
+      _.forEach(columns, function(value, key){
+            switch(value.type) {
+                case 'email':
+                    var emailIndexes = [1,2];
+                    _.forEach(emailIndexes, function(value){
+                        alteredColumns.push({'label': 'email' + value + '_type'});
+                        alteredColumns.push({'label': 'email' + value + '_value'});
+                    })
+                    break;
+                case 'phone':
+                     var phoneIndexes = [1,2];
+                    _.forEach(phoneIndexes, function(value){
+                      alteredColumns.push({'label': 'phone' + value + '_type'});
+                      alteredColumns.push({'label': 'phone' + value + '_value'});
+                      alteredColumns.push({'label': 'phone' + value + '_extension'});
+                    })
+                    break;
+                case 'address':
+                    var addressIndexes = [1,2];
+                    //add two address stubs
+                    _.forEach(addressIndexes, function(value){
+                      alteredColumns.push({'label': 'address' + value + '_type'});
+                      alteredColumns.push({'label': 'address' + value + '_street1'});
+                      alteredColumns.push({'label': 'address' + value + '_street2'});
+                      alteredColumns.push({'label': 'address' + value + '_city'});
+                      alteredColumns.push({'label': 'address' + value + '_region'});
+                      alteredColumns.push({'label': 'address' + value + '_postal_code'});
+                      alteredColumns.push({'label': 'address' + value + '_country'});
+                    })
+                    break;
+                case 'social':
+                    _.forEach(socialTypes, function(value){
+                        alteredColumns.push({'label': value.key});
+                    })
+                    break;
+                // case 'category':
+                //     //TODO - add data validation to only allow category values
+                //     break;
+                default:
+                    //just add key so can be recognized
+                    if(value.key) { alteredColumns.push({'label': value.key}) };
+            }
+      })
+
+      //return back columns
+      return alteredColumns;
+}
 
 /*
 Go to next Step

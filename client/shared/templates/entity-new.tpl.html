@@ -5,7 +5,9 @@
 
                                   <!-- divider -->
                             <div class="form-group" ng-switch-when="divider">
-                              <h5 class="pane-title">{{field.label}}</h5>
+                              <h5 class="pane-title">{{field.label}}
+                              <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                              </h5>
                             </div>
 
                              <!-- string -->
@@ -13,6 +15,7 @@
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label"></span>
                                 <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                               <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
                             </div>
@@ -23,6 +26,7 @@
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label"></span>
                                 <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                               <div class="input-group">
                                 <span class="input-group-addon">http(s)://</span>
@@ -42,6 +46,7 @@
                               <label for="{{field.key}}">
                               <span ng-bind="field.label + ' (123)'"></span>
                               <span class="required-field" ng-if="field.newRequired">*</span>
+                              <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                               <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-number-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
                             </div>
@@ -51,6 +56,7 @@
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label + ' ($)'"></span>
                                 <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                               <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-money-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
                             </div>
@@ -69,9 +75,10 @@
                             <label for="{{field.key}}">
                               <span ng-bind="field.label"></span>
                               <span class="required-field" ng-if="field.newRequired">*</span>
+                              <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                             </label>
 
-                            <ui-select name="{{field.key}}" class="form-control" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"  ng-if="field.values.length > 5">
+                            <ui-select name="{{field.key}}" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"  ng-if="field.values.length > 4">
                               <ui-select-match placeholder="Select options...">
                                 <span>
                                   <span class="name">{{$select.selected.label}}</span>
@@ -82,7 +89,7 @@
                               </ui-select-choices>
                             </ui-select>
 
-                            <div ng-if="field.values.length <= 5" class="button-group-select">
+                            <div ng-if="field.values.length <= 4" class="button-group-select">
                             <div class="btn-group" ng-required="field.newRequired" >
                                 <label class="btn btn-default btn-light" ng-model="data.thisRecord[field.key]" uib-btn-radio="{{value}}" uncheckable ng-repeat="value in field.values">{{value.label}}</label>
                             </div>
@@ -91,11 +98,39 @@
 
                             </div>
 
+
+                            <!-- mixed select -->
+                            <div class="form-group" ng-switch-when="mixed-select">
+                            <label for="{{field.key}}">
+                              <span ng-bind="field.label"></span>
+                              <span class="required-field" ng-if="field.newRequired">*</span>
+                              <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                            </label>
+
+                            <ui-select name="{{field.key}}" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"  ng-if="field.values.length > 4">
+                              <ui-select-match placeholder="Select options...">
+                                <span>
+                                  <span class="name">{{$select.selected.label}}</span>
+                                </span>
+                              </ui-select-match>
+                              <ui-select-choices repeat="value in field.values | filter: $select.search">
+                                  <span ng-bind-html="value.label | highlight: $select.selected.value"></span> <span ng-bind-html="'(' + value.value + ')' | hightlight: $select.selected.value"></span>
+                              </ui-select-choices>
+                            </ui-select>
+
+                            <div ng-if="field.values.length <= 4" class="button-group-select">
+                            <div class="btn-group" ng-required="field.newRequired" >
+                                <label class="btn btn-default btn-light" ng-model="data.thisRecord[field.key]" uib-btn-radio="{{value}}" uncheckable ng-repeat="value in field.values">{{value.label}} ({{value.value}})</label>
+                            </div>
+                            </div>
+                          </div>
+
                             <!-- lookup -->
                             <div class="form-group" ng-switch-when="lookup"  ng-class="{ 'has-error' : (newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine) || (field.noResults && field.newRequired) }">       
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label"></span>
                                 <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                                 <input id="{{field.key}}" type="text" class="form-control no-border" 
                                       ng-model="data.thisRecord[field.key]" 
@@ -248,7 +283,9 @@
 
                                   <!-- divider -->
                             <div class="form-group" ng-switch-when="divider">
-                              <h5 class="pane-title">{{field.label}}</h5>
+                              <h5 class="pane-title">{{field.label}}
+                              <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                            </h5>
                             </div>
 
                              <!-- string -->
@@ -256,6 +293,7 @@
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label"></span>
                                 <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                               <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
                             </div>
@@ -266,6 +304,7 @@
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label"></span>
                                 <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                               <div class="input-group">
                                 <span class="input-group-addon">http(s)://</span>
@@ -285,6 +324,7 @@
                               <label for="{{field.key}}">
                               <span ng-bind="field.label + ' (123)'"></span>
                               <span class="required-field" ng-if="field.newRequired">*</span>
+                              <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                               <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-number-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
                             </div>
@@ -294,6 +334,7 @@
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label + ' ($)'"></span>
                                 <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                               <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-money-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
                             </div>
@@ -303,6 +344,7 @@
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label + ' (MMM DD, YYYY)'"></span>
                                 <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                               <input name="{{field.key}}" date-range-picker class="form-control date-picker" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" options="$root.options" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
                             </div>
@@ -312,9 +354,10 @@
                             <label for="{{field.key}}">
                               <span ng-bind="field.label"></span>
                               <span class="required-field" ng-if="field.newRequired">*</span>
+                              <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                             </label>
 
-                            <ui-select name="{{field.key}}" class="form-control" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"  ng-if="field.values.length > 5">
+                            <ui-select name="{{field.key}}" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"  ng-if="field.values.length > 4">
                               <ui-select-match placeholder="Select options...">
                                 <span>
                                   <span class="name">{{$select.selected.label}}</span>
@@ -325,7 +368,7 @@
                               </ui-select-choices>
                             </ui-select>
 
-                            <div ng-if="field.values.length <= 5" class="button-group-select">
+                            <div ng-if="field.values.length <= 4" class="button-group-select">
                             <div class="btn-group" ng-required="field.newRequired" >
                                 <label class="btn btn-default btn-light" ng-model="data.thisRecord[field.key]" uib-btn-radio="{{value}}" uncheckable ng-repeat="value in field.values">{{value.label}}</label>
                             </div>
@@ -334,11 +377,38 @@
 
                             </div>
 
+
+                            <div class="form-group" ng-switch-when="mixed-select">
+                            <label for="{{field.key}}">
+                              <span ng-bind="field.label"></span>
+                              <span class="required-field" ng-if="field.newRequired">*</span>
+                              <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                            </label>
+
+                            <ui-select name="{{field.key}}" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"  ng-if="field.values.length > 4">
+                              <ui-select-match placeholder="Select options...">
+                                <span>
+                                  <span class="name">{{$select.selected.label}}</span>
+                                </span>
+                              </ui-select-match>
+                              <ui-select-choices repeat="value in field.values | filter: $select.search">
+                                  <span ng-bind-html="value.label | highlight: $select.selected.value"></span> <span ng-bind-html="'(' + value.value + ')' | hightlight: $select.selected.value"></span>
+                              </ui-select-choices>
+                            </ui-select>
+
+                            <div ng-if="field.values.length <= 4" class="button-group-select">
+                            <div class="btn-group" ng-required="field.newRequired" >
+                                <label class="btn btn-default btn-light" ng-model="data.thisRecord[field.key]" uib-btn-radio="{{value}}" uncheckable ng-repeat="value in field.values">{{value.label}}</label>
+                            </div>
+                            </div>
+                          </div>
+
                             <!-- lookup -->
                             <div class="form-group" ng-switch-when="lookup"  ng-class="{ 'has-error' : (newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine) || (field.noResults && field.newRequired) }">       
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label"></span>
                                 <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
                                 <input id="{{field.key}}" type="text" class="form-control no-border" 
                                       ng-model="data.thisRecord[field.key]" 

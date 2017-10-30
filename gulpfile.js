@@ -348,7 +348,7 @@ gulp.task('clean:config', function(cb) {
 
 // create client-config angular .config module (dev);
 gulp.task('client-config:dev', ['clean:config'], function() {
-  var json = JSON.parse(fs.readFileSync('./package.json'));
+  var json = JSON.parse(fs.readFileSync('./client/package.json'));
 
  return gulp.src('./client/client.env.json')
     .pipe(gulpNgConfig('client.env', {

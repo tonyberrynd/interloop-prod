@@ -33,30 +33,36 @@
                       <ul class="dropdown-menu dropdown-menu-right action-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" keyboard-nav="true">
                       
                         <li class="text-divider">
-                            <span class="text">Update record ...</span>
+                            <span class="text">Manage ...</span>
                             <span class="line"></span>
                         </li>
                         <li role="menuitem"><a href ng-click="addOwner()">
-                          <img src="../assets/img/icons/actions/add-owner.svg" alt="Add Owner"> Add Owners</a></li>
+                          <img src="../assets/img/icons/actions/add-owner.svg" alt="Add Owner"> Owners</a></li>
                         <li role="menuitem"><a href ng-click="shareWith()">
-                          <img src="../assets/img/icons/actions/share-with.svg" alt="Share With"> Share With</a></li>
+                          <img src="../assets/img/icons/actions/share-with.svg" alt="Share With"> Shared With</a></li>
                         <li role="menuitem"><a href ng-click="manageRelationships()">
-                          <img src="../assets/img/icons/actions/add-relationship.svg" alt="Add Relationship"> Add Relationship</a></li>
+                          <img src="../assets/img/icons/actions/add-relationship.svg" alt="Add Relationship"> Related Records</a></li>
                         <li role="menuitem"><a href ng-click="manageTags()">
-                          <img src="../assets/img/icons/actions/add-tag.svg" alt="Add Tag"> Add Tag</a></li>
+                          <img src="../assets/img/icons/actions/add-tag.svg" alt="Add Tag"> Tags</a></li>
                         <li class="text-divider">
-                            <span class="text">Actions...</span>
+                            <span class="text">Activities...</span>
                             <span class="line"></span>
                         </li>
                         <li role="menuitem"><a href ng-click="addNote()">
                           <img src="../assets/img/icons/actions/new-note.svg" alt="Add Note"> Add Note</a></li>
-                        <li role="menuitem"><a href ng-click="addTask()">
-                          <img src="../assets/img/icons/actions/new-task.svg" alt="Add Task"> Add Task</a></li>
-                        <li role="menuitem"><a href ng-click="addMeeting()">
-                          <img src="../assets/img/icons/actions/new-meeting.svg" alt="Add Meeting"> Add Meeting</a></li>
                         <li role="menuitem"><a href ng-click="logCall()">
-                          <img src="../assets/img/icons/actions/log-call.svg" alt="Log Call"> Log Call</a></li>
-                        <li role="menuitem"><a href ng-click="uploadFiles()">
+                          <img src="../assets/img/icons/actions/log-call.svg" alt="Log Call"> Add Call</a></li>
+                        <li role="menuitem"><a href ng-click="addTask()">
+                          <img src="../assets/img/icons/actions/new-task.svg" alt="Add Task"> Add ToDo</a></li>
+                      
+                        <!-- //custom activity types -->
+
+                        <li role="menuitem"><a href ng-click="addActivity(activityType)" ng-repeat="activityType in $root.activityTypes | filter: {'custom': true}">
+                          <img src="../assets/img/icons/actions/new-task.svg" alt="Add Task"> Add {{activityType.label}}</a></li>
+
+                        
+
+                        <li role="menuitem"><a href ng-click="triggerUpload()">
                           <img src="../assets/img/icons/actions/add-file.svg" alt="Upload File"> Upload File</a></li>
                          <li class="text-divider">
                             <span class="text">Owner Actions...</span>
@@ -149,7 +155,7 @@
                           </a></li>
                           <li ng-class="{ 'active': data.currentTab == 3 }">
                             <a href ng-click="data.currentTab = 3">Activities
-                            <span ng-bind="'[' + data.overdueActivities.length + ']'" ng-if="data.overdueActivities.length">2</span>
+                            <span ng-bind="'[' + data.thisRecord.openActivities.length + ']'" ng-if="data.thisRecord.openActivities.length"></span>
                             </a>
                           </li>
                           <li ng-class="{ 'active': data.currentTab == 5 }"><a href ng-click="data.currentTab = 5">History</a></li>
@@ -185,7 +191,7 @@
 
 
               <!-- //hidden file upload button -->
-              <button id="OpportunityFileUpload" type="file" ngf-select="uploadFiles($files)" ngf-multiple="true" accept="image/*, .pdf, .doc, .docx" class="btn upload-btn hidden" ng-model="data.files" ngf-max-size="100MB">
+              <button id="OpportunityFileUpload" type="file" ngf-select="uploadFiles($files)" ngf-multiple="true" accept="image/*, .pdf, .doc, .docx, .xlsx" class="btn upload-btn hidden" ng-model="data.files" ngf-max-size="100MB">
                 Browse Files
               </button>
 

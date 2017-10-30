@@ -7,23 +7,28 @@ angular.module('interloop.value.config', [])
 .value("entityTypes", {
 	'forecast': {
 		singular: 'Forecast',
-		plural: 'Forecasts'
+		plural: 'Forecasts',
+		allowStars: false
 	},
 	'opportunity': {
 		singular: 'Opportunity',
-		plural: 'Opportunities'
+		plural: 'Opportunities',
+		allowStars: true
 	},
 	'contact': {
 		singular: 'Contact',
-		plural: 'Contacts'
+		plural: 'Contacts',
+		allowStars: true
 	},
 	'company': {
 		singular: 'Company',
-		plural: 'Companies'
+		plural: 'Companies',
+		allowStars: true
 	},
 	'activity': {
 		singular: 'Activity',
-		plural: 'Activities'
+		plural: 'Activities',
+		allowStars: false
 	}
 	
 })

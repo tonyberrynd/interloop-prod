@@ -1,6 +1,6 @@
     <div class="modal-header header-dark">
         <h3 class="modal-title" id="modal-title">Add Tag</h3>
-        <p>Add a tag to {{data.selectedItems.length}} records</p>
+        <p>Add a tag to <b>{{data.currentRecordName}}</b></p>
         
         <!-- close button -->
         <button type="button" class="close" ng-click="$dismiss()">
@@ -63,5 +63,5 @@
     </div>
     <div class="modal-footer">
         <button class="btn btn-subtle" type="button" ng-click="$dismiss()">Cancel</button>
-        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="shouldDisable()">Add Tags</button>
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="shouldDisable()" ladda="data.processing" data-style="slide-up">Add Tag</button>
     </div>

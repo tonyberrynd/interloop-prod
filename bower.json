@@ -75,7 +75,9 @@
     "adal-angular": "^1.0.15",
     "angular-powerbi": "^1.0.0",
     "angular-ui-calendar": "^1.0.2",
-    "angular-swiper": "^0.4.0"
+    "angular-swiper": "^0.4.0",
+    "favico.js": "^0.3.10",
+    "angular-q-limit": "*"
   },
   "resolutions": {
     "angular": "^1.6.6"

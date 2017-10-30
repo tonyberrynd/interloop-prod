@@ -22,6 +22,8 @@ angular.module('interloop.addOwnersCtrl', [])
   //vars
   //----------------------
   var entity = resolvedData.entity || null;
+  var currentOwners = _.get(resolvedData.thisRecord, 'owners', []);
+  console.log('currentOwners', currentOwners);
   var initializing = true;
 
   //data
@@ -131,35 +133,51 @@ activate();
 
 
   function ok() {
+    $scope.data.processing = true;
 
+    var newOwners = [];
     var ownerPromises = [];
 
     _.forEach($scope.data.selectedOwners, function(value, key){
 
-    ownerPromises.push(
-      function() {
-        return $injector.get(entity).owners.create(
-          {"id": $scope.data.thisRecord.id},
-          {
-              "firstName": value.firstName,
-              "lastName": value.lastName,
-              "email": value.email,
-              "active": true,
-              "ownerId": value.id
-          }).$promise
+      if(!_.find(currentOwners, ['id', value.id])){
 
-      })
+        //collect new owners to be returned to side panel
+        newOwners.push(value);
+
+        ownerPromises.push(
+          function() {
+            return $injector.get(entity).owners.create(
+              {"id": $scope.data.thisRecord.id},
+              {
+                  "firstName": value.firstName,
+                  "lastName": value.lastName,
+                  "email": value.email,
+                  "active": true,
+                  "ownerId": value.id
+              }).$promise
+
+          })
+        }
   });
 
   $q.serial(ownerPromises)
       .then(function(results){
         Logger.info('Owners Updated')
-        $uibModalInstance.close($scope.data.selectedOwners);
+
+        $scope.data.processing = false;
+
+        $uibModalInstance.close(newOwners);
+
       })
       .catch(function(err){
         Logger.error('Error Updating Owners', 'Please Try Again in a moment')
         console.log(err);
+
+        $scope.data.processing = false;
       })
+
+
 
 
     

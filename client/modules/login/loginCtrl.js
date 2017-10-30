@@ -13,6 +13,7 @@ angular.module('interloop.loginCtrl', [])
   BASE,
   Logger,
   Org, 
+  VERSION,
   authService,
   Appuser) {
 
@@ -31,6 +32,8 @@ angular.module('interloop.loginCtrl', [])
   $scope.data.loginLoading = false;
   $scope.data.rememberMe = true;
   $scope.data.inputType = 'password';
+  //make the version visible
+  $scope.data.version = 'v' + VERSION;
 
 
   //functions

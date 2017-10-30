@@ -367,24 +367,6 @@ angular.module('interloop.routes', [])
    });
 
 
-  $stateProvider.state('app.engagement', {
-      sticky: true,
-      url: "/engagement/:userId",
-      views: {
-          'page-content@app': {
-            templateUrl: 'modules/engagement/engagement.tpl.html',
-            // controller: 'opportunitiesCtrl',
-          }
-      },
-      params: {
-        userId: '12345'
-      },
-      data: {
-          pageTitle: 'Engagement',
-          navTitle: 'Engagement'
-      }
-   });
-
   /* Data
    ========================================================================== */
 
@@ -698,8 +680,8 @@ angular.module('interloop.routes', [])
   /* Activities
    ========================================================================== */
 
-  $stateProvider.state('app.tasks', {
-      url: "/tasks/view/:viewId",
+  $stateProvider.state('app.activities', {
+      url: "/activities/view/:viewId",
       sticky: true,
       views: {
          'nav-content@app': {
@@ -707,33 +689,8 @@ angular.module('interloop.routes', [])
             controller: 'navCtrl'
           },
           'page-content@app': {
-            templateUrl: 'modules/tasks/tasks.tpl.html',
-            controller: 'tasksCtrl'
-          }
-      },
-      params: {
-        mainState: true,
-        viewId: 'default',
-        query: null
-      },
-      data: {
-          pageTitle: 'Tasks',
-          navTitle: 'Tasks'
-      }
-   });
-
-
-    $stateProvider.state('app.task-calendar', {
-      url: "/tasks/view/:viewId/calendar",
-      sticky: true,
-      views: {
-         'nav-content@app': {
-            templateUrl: 'modules/app/navbar.tpl.html',
-            controller: 'navCtrl'
-          },
-          'page-content@app': {
-            templateUrl: 'modules/tasks/task-calendar.tpl.html',
-            controller: 'taskCalendarCtrl'
+            templateUrl: 'modules/activities/activities.tpl.html',
+            controller: 'activitiesCtrl'
           }
       },
       params: {
@@ -741,19 +698,20 @@ angular.module('interloop.routes', [])
         query: null
       },
       data: {
-          pageTitle: 'Tasks',
-          navTitle: 'Tasks'
+          pageTitle: 'Activities',
+          navTitle: 'Activities',
+          mainState: true,
       }
    });
 
   
-  $stateProvider.state('app.task-details', {
-      url: "/tasks/:id",
+  $stateProvider.state('app.activity-details', {
+      url: "/activity/:id",
       sticky: true,
       views: {
           'sidepanel-content@app': {
-            templateUrl: 'modules/tasks/task-details.tpl.html',
-            controller: 'taskDetailsCtrl'
+            templateUrl: 'modules/activities/activity-details.tpl.html',
+            controller: 'activityDetailsCtrl'
           }
       },
       onEnter: function($rootScope, $state, $stateParams){
@@ -764,17 +722,17 @@ angular.module('interloop.routes', [])
       },
       data: {
         sidebarState: true,
-        routeThroughState: 'app.tasks'
+        routeThroughState: 'app.activities'
       }
    });
 
-    $stateProvider.state('app.task-edit', {
-      url: "/task/:id/edit",
+    $stateProvider.state('app.activity-edit', {
+      url: "/activity/:id/edit",
       sticky: true,
       views: {
           'sidepanel-content@app': {
             templateUrl: 'shared/templates/entity-edit.tpl.html',
-            // controller: 'editOpportunityCtrl'
+            controller: 'activityEditCtrl'
           }
       },
       params: {
@@ -782,67 +740,6 @@ angular.module('interloop.routes', [])
       }
    });
 
-
-  $stateProvider.state('app.meetings', {
-      url: "/meetings/view/:viewId",
-      sticky: true,
-      views: {
-         'nav-content@app': {
-            templateUrl: 'modules/app/navbar.tpl.html',
-            controller: 'navCtrl'
-          },
-          'page-content@app': {
-            templateUrl: 'modules/meetings/meetings.tpl.html',
-            controller: 'meetingsCtrl'
-          }
-      },
-      params: {
-        mainState: true,
-        viewId: 'default',
-        query: null
-      },
-      data: {
-          pageTitle: 'Tasks',
-          navTitle: 'Tasks'
-      }
-   });
-
-   //meetings
-   $stateProvider.state('app.meeting-details', {
-      url: "/meetings/:id",
-      sticky: true,
-      views: {
-          'sidepanel-content@app': {
-            templateUrl: 'modules/meetings/meetings-details.tpl.html',
-            controller: 'meetingDetailsCtrl'
-          }
-      },
-      onEnter: function($rootScope, $state, $stateParams){
-        $rootScope.sidePanelOpen = true;
-      },
-      params: {
-        id: null,
-      },
-      data: {
-        sidebarState: true,
-        routeThroughState: 'app.tasks'
-      }
-   });
-
-  
-   $stateProvider.state('app.meeting-edit', {
-      url: "/meeting/:id/edit",
-      sticky: true,
-      views: {
-          'sidepanel-content@app': {
-            templateUrl: 'shared/templates/entity-edit.tpl.html',
-            // controller: 'editOpportunityCtrl'
-          }
-      },
-      params: {
-        id: null,
-      }
-   });
 
 
 /* Detail Pages
@@ -850,7 +747,7 @@ angular.module('interloop.routes', [])
    //relationship details
   $stateProvider.state('app.relationship-details', {
       sticky: true,
-      url: "/relationship/:id",
+      url: "/:parentEntityType/:parentEntityId/relationship/:entityLinkId",
       views: {
           'sidepanel-content@app': {
             templateUrl: 'modules/details/relationship/relationship-details.tpl.html',
@@ -858,7 +755,10 @@ angular.module('interloop.routes', [])
           }
       },
       params: {
-        id: null
+        parentEntityType: null,
+        parentEntityId: null,
+        entityLinkId: null,
+        entityLink: null
       },
       onEnter: function($rootScope){
         $rootScope.sidePanelOpen = true;
@@ -900,6 +800,23 @@ angular.module('interloop.routes', [])
         $rootScope.sidePanelOpen = true;
       }
    });
+
+
+/* Activities
+   ========================================================================== */
+    $stateProvider.state('app.agenda', {
+      sticky: true,
+      views: {
+          'sidepanel-content@app': {
+            templateUrl: 'modules/more/agenda/agenda.tpl.html',
+            controller: 'agendaCtrl'
+          }
+      },
+      onEnter: function($rootScope){
+        $rootScope.sidePanelOpen = true;
+      }
+   });
+
 
 /* More Sidepanel States
    ========================================================================== */
@@ -995,6 +912,7 @@ angular.module('interloop.routes', [])
 
     $stateProvider.state('app.search', {
       url: "/search?q",
+      sticky: true,
       views: {
          //main content area
           'page-content@app': {
@@ -1004,7 +922,8 @@ angular.module('interloop.routes', [])
       },
       data: {
           pageTitle: 'Search Results',
-          navTitle: 'Search Results'
+          navTitle: 'Search Results',
+           mainState: true,
       }
     });
 
@@ -1014,6 +933,7 @@ angular.module('interloop.routes', [])
 
     $stateProvider.state('app.notifications', {
       url: "/notifications",
+      sticky: true,
       views: {
          //main content area
           'page-content@app': {
@@ -1023,7 +943,8 @@ angular.module('interloop.routes', [])
       },
       data: {
           pageTitle: 'My Notifications',
-          navTitle: 'My Notifications'
+          navTitle: 'My Notifications',
+          mainState: true,
       }
     });
 

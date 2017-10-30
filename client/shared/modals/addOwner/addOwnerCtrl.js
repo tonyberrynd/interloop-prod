@@ -137,6 +137,7 @@ activate();
 
     _.forEach($scope.data.owners, function(value, key){
 
+      if(!_.find($scope.data.owners, ['id', value.id])){
       var thisPromise = Opportunity.owners.create(
         {"id": $scope.data.thisRecord.id},
         {
@@ -151,7 +152,9 @@ activate();
 
         // push promise into array
         ownerPromises.push(thisPromise)
+      }
     })
+      
 
     $q.all(ownerPromises)
       .then(function(results){

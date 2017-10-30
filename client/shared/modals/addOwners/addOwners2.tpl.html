@@ -1,0 +1,133 @@
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">Manage Owners</h3>
+            <p>Add Owners for <b><span ng-bind="data.thisRecord.name || 'this record'"></span></b></p>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding manage-modal" id="modal-body">
+
+            <div class="row">
+              <div class="col-xs-9" style="padding:20px; padding-left:0px;">
+                  
+                  <div class="card panel panel-default">
+                    <div class="panel-body">
+                      <h5>Contact 1</h5>
+
+                      <!-- <span class="pull-right">
+                        <button class="btn btn-default">
+                          <icon class="wb-trash"></icon>
+                        </button>
+                      </span> -->
+                    </div>
+                    <div class="panel-footer">
+                      Key Pieces of Meta data Goes here
+                    </div>
+                  </div>
+
+
+              </div>
+              <div class="col-xs-3 modal-actions">
+                
+                <h4 class="action-title">Add</h4>
+
+                <!-- add contacts -->
+                 <div class="btn-group modal-action" uib-dropdown auto-close="outsideClick" dropdown-append-to="'.modal-dialog'" is-open="data.searchContactsOpen">
+                    <button id="add-contacts" type="button" class="btn btn-default text-left" uib-dropdown-toggle ng-disabled="disabled">
+                      <icon class="wb-user"></icon> Contacts
+                    </button>
+                    <ul class="dropdown-menu add-related-dropdown" uib-dropdown-menu role="menu" aria-labelledby="search-users">
+                        <div class="add-related-records">
+                          <div class="add-related-header tect-center">
+                              <p class="title">Contacts</p>
+                              <button class="btn btn-subttle close-related" ng-click="data.searchContactsOpen = false;">
+                                <icon class="wb-close"></icon>
+                              </button>
+                          </div>
+                          <div class="add-related-search">
+                            <span class="search-related-input">
+                            <input type="text" class="form-control" placeholder="Search Contacts" autofocus ng-model="data.searchContacts">
+                            <button class="btn btn-link clear-related-search" ng-class="{'hidden': !data.searchContacts.length}" ng-click="data.searchContacts = ''">
+                              <icon class="wb-plus-circle"></icon>
+                            </button>
+                            </span>
+                          </div>
+                          <div class="add-related-body">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item avatar-item" ng-repeat="contact in data.foundContacts | limitTo: 15 | orderBy: 'firstName' | filter: data.searchContacts">
+                                  <div class="avatar avatar-32" ng-class="contact.color">
+                                    <span ng-bind="contact.firstName | limitTo:1"></span><span ng-bind="contact.lastName | limitTo:1"></span>
+                                  </div>
+                                  <h4>
+                                    <span ng-bind="contact.firstName"></span> <span ng-bind="contact.lastName"></span>
+                                  </h4>
+                                  <p>
+                                    <span ng-bind="contact.title"></span></p>
+                                  <p>
+                                    <span ng-bind="contact.primaryCompany"></span></p>
+                                </a>
+                            </div>
+                            <div class="no-results" ng-if="!($root.userList | filter: data.searchContacts ).length">
+                              No Results
+                            </div>
+                          </div>
+                        </div>
+                    </ul>
+                  </div>
+
+                <!-- add users -->
+                 <div class="btn-group modal-action" uib-dropdown auto-close="outsideClick" dropdown-append-to="'.modal-dialog'" is-open="data.searchUsersOpen">
+                    <button id="add-users" type="button" class="btn btn-default text-left" uib-dropdown-toggle ng-disabled="disabled">
+                      <icon class="wb-user"></icon> Users
+                    </button>
+                    <ul class="dropdown-menu add-related-dropdown" uib-dropdown-menu role="menu" aria-labelledby="search-users">
+                        <div class="add-related-records">
+                          <div class="add-related-header tect-center">
+                              <p class="title">Users</p>
+                              <button class="btn btn-subttle close-related" ng-click="data.searchUsersOpen = false;">
+                                <icon class="wb-close"></icon>
+                              </button>
+                          </div>
+                          <div class="add-related-search">
+                            <span class="search-related-input">
+                            <input type="text" class="form-control" placeholder="Search Users" autofocus ng-model="data.searchUsers">
+                            <button class="btn btn-link clear-related-search" ng-class="{'hidden': !data.searchUsers.length}" ng-click="data.searchUsers = ''">
+                              <icon class="wb-plus-circle"></icon>
+                            </button>
+                            </span>
+                          </div>
+                          <div class="add-related-body">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item avatar-item" ng-repeat="user in $root.userList | limitTo: 15 | orderBy: 'firstName' | filter: data.searchUsers">
+                                  <div class="avatar avatar-32" ng-class="user.color">
+                                    <span ng-bind="user.firstName | limitTo:1"></span><span ng-bind="user.lastName | limitTo:1"></span>
+                                  </div>
+                                  <h4>
+                                    <span ng-bind="user.firstName"></span> <span ng-bind="user.lastName"></span>
+                                  </h4>
+                                  <p>
+                                    <span ng-bind="user.email"></span></p>
+                                </a>
+                            </div>
+                            <div class="no-results" ng-if="!($root.userList | filter: data.searchUsers ).length">
+                              No Results
+                            </div>
+                          </div>
+                        </div>
+                    </ul>
+                  </div>
+
+          
+
+              </div>
+            </div>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ladda="data.processing" data-style="slide-up">Save Owners</button>
+        </div>

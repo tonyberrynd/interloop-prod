@@ -46,7 +46,16 @@
                                 <span class="field-icon">123</span>
                                 <h5>Number</h5>
                             </div>
-                            <!-- date -->
+
+                             </div>
+                          </div>
+
+                          <br>
+
+                          <div class="row">
+                            <div class="col-xs-12">
+
+                                                        <!-- date -->
                             <div class="field-type" ng-class="{'active': data.fieldType == 'date'}" ng-click="data.fieldType = 'date'">
                                 <span class="field-icon">
                                     <icon class="wb-calendar"></icon>
@@ -54,30 +63,12 @@
                                 <h5>Date</h5>
                             </div>
 
-                             </div>
-                          </div>
-
-                          <br>
-                          <br>
-
-                          <div class="row">
-                            <div class="col-xs-12">
-                              
-                            
                             <!-- picklists -->
-                            <div class="field-type" ng-class="{'active': data.fieldType == 'category'}" ng-click="data.fieldType = 'category'">
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'boolean'}" ng-click="data.fieldType = 'boolean'">
                                 <span class="field-icon">
-                                    <icon class="wb-menu"></icon>
+                                    <icon class="wb-check"></icon>
                                 </span>
-                                <h5>Select</h5>
-                            </div>
-
-                            <!-- mutli select -->
-                            <div class="field-type" ng-class="{'active': data.fieldType == 'multi'}" ng-click="data.fieldType = 'multi'">
-                                <span class="field-icon">
-                                    <icon class="wb-list"></icon>
-                                </span>
-                                <h5>MultiSelect</h5>
+                                <h5>Boolean</h5>
                             </div>
 
                             <!-- divider -->
@@ -87,6 +78,56 @@
                                 </span>
                                 <h5>Divider</h5>
                             </div>
+                              
+
+                            </div>
+                          </div>
+
+                          <br>
+
+                          <div class="row">
+                            <div class="col-xs-12">
+
+                                                          <!-- picklists -->
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'category'}" ng-click="data.fieldType = 'category'">
+                                <span class="field-icon">
+                                    <icon class="wb-menu"></icon>
+                                </span>
+                                <h5>Select</h5>
+                            </div>
+
+                            <!-- //mixed select -->
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'mixed-select'}" ng-click="data.fieldType = 'mixed-select'">
+                                <span class="field-icon">
+                                    <icon class="fa fa-list-ol"></icon>
+                                </span>
+                                <h5>Mixed Select</h5>
+                            </div>
+
+
+                            <!-- mutli select -->
+                            <div class="field-type" ng-class="{'active': data.fieldType == 'multi'}" ng-click="data.fieldType = 'multi'">
+                                <span class="field-icon">
+                                    <icon class="wb-list"></icon>
+                                </span>
+                                <h5>MultiSelect</h5>
+                            </div>
+                            
+
+                            </div>
+                          </div>
+
+                          <br>
+
+                          <div class="row">
+                            <div class="col-xs-12">
+                                                            <!-- //calculated -->
+                              <div class="field-type" ng-class="{'active': data.fieldType == 'formula'}" ng-click="data.fieldType = 'formula'">
+                                  <span class="field-icon">
+                                      <icon class="fa fa-percent"></icon>
+                                  </span>
+                                  <h5>Formula Field</h5>
+                              </div>
 
                             </div>
                           </div>
@@ -111,7 +152,7 @@
                             <p>Add in the various dropdown options</p>
 
                              <div class="form-group field-option" ng-repeat="option in data.options">
-                              <input type="text" class="form-control" id="title" ng-model="option.value" placeholder="Enter Value">
+                              <input type="text" class="form-control" id="title" ng-model="option.label" placeholder="Enter Label">
                               <button class="btn btn-link removeOption" ng-if="$index !== 0" ng-click="removeOption(option)">
                                    <icon  class="wb-close"></icon>
                               </button>
@@ -122,6 +163,42 @@
                                  + Add Option
                              </button>
 
+                         </div>
+
+
+                         <div class="field-options" ng-if="data.fieldType == 'mixed-select'">
+                            <p>Add in the various dropdown options</p>
+
+                             <div class="form-group field-option" ng-repeat="option in data.options">
+                              <span class="mixed-label">
+                              <label for="">Label (String)</label>
+                              <input type="text" class="form-control" id="title" ng-model="option.label" placeholder="Enter Label">
+                              </span>
+
+                              <span class="mixed-value" style="margin-top:10px;
+                              margin-bottom:15px; display:block;">
+                              <label for="">Value (123)</label>
+                              <input type="text" class="form-control" id="title" ng-model="option.value" placeholder="Enter Value" ui-number-mask="2">
+                              </span>
+
+                              <button class="btn btn-link removeOption" ng-if="$index !== 0" ng-click="removeOption(option)" uib-tooltip="Remove Option">
+                                   <icon  class="wb-close"></icon>
+                              </button>
+                             
+                             </div>
+
+                             <button class="btn btn-block btn-outline btn-primary" ng-click="addOption()">
+                                 + Add Option
+                             </button>
+
+                         </div>
+
+
+                         <div class="form-group" ng-if="data.fieldType == 'formula'" ng-if="$root.activeUser.superAdmin">
+                          <label for="formula">Formula</label>
+                          <button class="btn btn-sm btn-default pull-right" ng-click="editFormula()" style="margin:3px;">
+                            <icon class="fa fa-pencil"></icon> Edit Formula</button>
+                           <textarea name="formula" id="" cols="30" rows="5" class="form-control" ng-model="data.formula" readonly></textarea>
                          </div>
 
                     </div>
@@ -137,7 +214,7 @@
                             
                         <h5>Which Entities Should this field be used with?</h5>
 
-                        <div class="checkbox-custom checkbox-primary" ng-repeat="entity in data.entities">
+                        <div class="checkbox-custom checkbox-primary" ng-repeat="entity in data.entities" ng-if="entity.singular !== 'Forecast'">
                             <input class="magic-checkbox" type="checkbox" id="{{entity.singular}}" checklist-model="data.useWith" checklist-value="entity.singular">
                             <label for="{{entity.singular}}">{{entity.singular}}</label>
                         </div>

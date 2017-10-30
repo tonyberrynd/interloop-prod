@@ -1019,16 +1019,23 @@ angular.module('interloop.factory.gridManager', [])
 		        //==================================
                 columnTypes: {
                     "string": {},
+                    "email": {},
+                    "phone": {},
+                    "social": {},
+                    "address": {},
                     "user": {},
                     "number": {},
+                    "boolean": {},
                     "currency": {},
                     "date": {},
                     "richDate": {},
                     "primaryCompany": {},
                     "category": {},
+                    "mixed-select": {},
                     "divider": {},
                     "tags": {},
-                    "score": {}
+                    "score": {},
+                    "formula": {}
                 },
                 defaultColDef: {
                     // make every column editable
@@ -2420,6 +2427,38 @@ angular.module('interloop.factory.gridManager', [])
         switch(type) {
           case 'string':
             return params.value ?  params.value : nullCell;
+          break
+          case 'email':
+            var emailArray = '';
+            //build out visual array
+            _.forEach(params.value, function(){
+
+            })
+            return emailArray;
+          break
+          case 'phone':
+            var phoneArray = '';
+            //build out visual array
+            _.forEach(params.value, function(){
+
+            })
+            return phoneArray;
+          break
+          case 'social':
+            var socialArray = '';
+            //build out visual array
+            _.forEach(params.value, function(){
+
+            })
+            return socialArray;
+          break
+          case 'address':
+            var addressArray = '';
+            //build out visual array
+            _.forEach(params.value, function(){
+
+            })
+            return addressArray;
           break
           case 'currency':
             return params.value ?  numeral(params.value).format('$ 0,0.00') : nullCell;

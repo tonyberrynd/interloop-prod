@@ -18,11 +18,15 @@ angular.module('interloop.newCompanyCtrl', [])
   searchService,
   CompanyFields,
   socialTypes,
+  resolvedData,
   emailTypes,
   phoneTypes) {
 
 // BINDABLES
 //===========================================
+  var entityType = _.get(resolvedData, 'entityType', null);
+  var thisRecord = _.get(resolvedData, 'thisRecord', null);
+
   //data
   //----------------------
   $scope.data = {};
@@ -46,6 +50,25 @@ angular.module('interloop.newCompanyCtrl', [])
   $scope.data.selectedOwners = [];
   $scope.data.selectedRelated = [];
   $scope.data.scopeRelated = 'all';
+
+
+      //owners
+  $scope.data.owners = [];
+  //should push current user as owner
+  $scope.data.owners.push($rootScope.activeUser);
+
+  //erlated to
+  $scope.data.related = [];
+  if(thisRecord && entityType){
+    console.log(thisRecord);
+    //need to set entity type so ng repeat know what is going on
+    thisRecord.thisEntityType = entityType;
+    //push into related array
+    $scope.data.related.push(thisRecord);
+
+    //go ahead and prepoulate search results with already related entities
+    $scope.data.results = setUpPreSearch(thisRecord.entities);
+  }
 
   //functions
   //----------------------
@@ -115,7 +138,7 @@ activate();
   }
 
   function ok() {
-    //if required fields selected - only created opp with these field
+    //if required fields selected - only created contact with these field
     //so any other fields filled out wont inadvertenly be added to new record
     if($scope.data.fieldToggle == 'true') {
       //TODO
@@ -148,10 +171,10 @@ activate();
   };
 
   //TB - TODO - Look at moving the broadcast messages into a shared factory 
-function linkCompany(opp, company, updateGrid){
-  return RelationshipManager.linkEntity(opp, company, "Company", "Company",  
+function linkCompany(contact, company, updateGrid){
+  return RelationshipManager.linkEntity(contact, company, "Company", "Company",  
   {
-    "from": { "name": opp.name, "description": "Primary Org", "isPrimary": true}, 
+    "from": { "name": contact.name, "description": "Primary Org", "isPrimary": true}, 
     "to" : { "name": company.name, "description": "Primary Org", "isPrimary": true}
   })
   .then(function(results){
@@ -318,6 +341,59 @@ function noResultsNew(entityType, modelValue) {
     }, function(){
       //ignore
     })
+  }
+
+  
+function setUpPreSearch(records){
+  _.forEach(records, function(record){
+    record.thisEntityType = record.entityType;
+    //need to reassign id to match true entitiy id, not the entity link id
+    //otherwise will cause issues in the promise all after selecting multiple users
+    record.id = record.entityId;
+  })
+
+  return records;
+}
+
+
+ function getRecords(searchVal){
+      $scope.data.results = [];
+      $scope.data.serverError = false;
+      $scope.data.loadingResults = true;
+
+      return searchService.globalSearch(searchVal, false)
+              .then(function(results){
+                $scope.data.results = results;
+                console.log(results);
+              })
+              .catch(function(err){
+                $scope.data.serverError = true;
+              })
+       
+
+  }
+
+
+  function addOwner(owner){
+    if(!_.find($scope.data.owners, ['id', owner.id])){
+           $scope.data.owners.push(owner);
+      }
+  }
+
+  function removeOwner(owner){
+    $scope.data.owners.splice($scope.data.owners.indexOf(owner), 1);
+  }
+
+
+  function addRelated(item){
+      //ensures unique
+      if(!_.find($scope.data.related, ['id', item.id])){
+          $scope.data.related.push(item)
+      }
+  }
+
+  function removeRelated(item){
+    $scope.data.related.splice($scope.data.related.indexOf(item), 1);
   }
 
 //-------------------------------------------

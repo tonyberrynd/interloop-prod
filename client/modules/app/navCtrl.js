@@ -150,6 +150,8 @@ function getNotifications() {
 						.then(function(results){
 							console.log('Marked Notification as Read')
 							$rootScope.unreadNotifications = 0;
+							//set notifications
+							window.favicon.reset();
 						})
 						.catch(function(err){
 							console.log(err);

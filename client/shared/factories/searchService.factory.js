@@ -71,8 +71,6 @@ angular.module('interloop.factory.searchService', [])
                  index++
                 })
 
-           console.log(results);
-
            //flatten results
             var flattendResults = _.union.apply(_, results); 
             //return flattened array of results

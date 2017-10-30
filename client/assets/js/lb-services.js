@@ -16527,1118 +16527,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
 /**
  * @ngdoc object
- * @name lbServices.EntityLink
- * @header lbServices.EntityLink
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `EntityLink` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-  module.factory(
-    "EntityLink",
-    [
-      'LoopBackResource', 'LoopBackAuth', '$injector', '$q',
-      function(LoopBackResource, LoopBackAuth, $injector, $q) {
-        var R = LoopBackResource(
-        urlBase + "/EntityLinks/:id",
-          { 'id': '@id' },
-          {
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#prototype$__get__entity
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Fetches belongsTo relation entity.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - EntityLink id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `refresh` – `{boolean=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "prototype$__get__entity": {
-              url: urlBase + "/EntityLinks/:id/entity",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#create
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Create a new instance of the model and persist it into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *   This method does not accept any parameters.
-             *   Supply an empty object or omit this argument altogether.
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "create": {
-              url: urlBase + "/EntityLinks",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#createMany
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Create a new instance of the model and persist it into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *   This method does not accept any parameters.
-             *   Supply an empty object or omit this argument altogether.
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "createMany": {
-              isArray: true,
-              url: urlBase + "/EntityLinks",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#patchOrCreate
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Patch an existing model instance or insert a new one into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "patchOrCreate": {
-              url: urlBase + "/EntityLinks",
-              method: "PATCH",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#replaceOrCreate
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Replace an existing model instance or insert a new one into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *   This method does not accept any parameters.
-             *   Supply an empty object or omit this argument altogether.
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "replaceOrCreate": {
-              url: urlBase + "/EntityLinks/replaceOrCreate",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#upsertWithWhere
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Update an existing model instance or insert a new one into the data source based on the where criteria.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "upsertWithWhere": {
-              url: urlBase + "/EntityLinks/upsertWithWhere",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#exists
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Check whether a model instance exists in the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `exists` – `{boolean=}` -
-             */
-            "exists": {
-              url: urlBase + "/EntityLinks/:id/exists",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#findById
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Find a model instance by {{id}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             *  - `filter` – `{object=}` - Filter defining fields and include - must be a JSON-encoded string ({"something":"value"})
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "findById": {
-              url: urlBase + "/EntityLinks/:id",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#replaceById
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Replace attributes for a model instance and persist it into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "replaceById": {
-              url: urlBase + "/EntityLinks/:id/replace",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#find
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Find all instances of the model matched by filter from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "find": {
-              isArray: true,
-              url: urlBase + "/EntityLinks",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#findOne
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Find first instance of the model matched by filter from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "findOne": {
-              url: urlBase + "/EntityLinks/findOne",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#updateAll
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Update instances of the model matched by {{where}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Information related to the outcome of the operation
-             */
-            "updateAll": {
-              url: urlBase + "/EntityLinks/update",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#deleteById
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Delete a model instance by {{id}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "deleteById": {
-              url: urlBase + "/EntityLinks/:id",
-              method: "DELETE",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#count
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Count instances of the model matched by where from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-            "count": {
-              url: urlBase + "/EntityLinks/count",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#prototype$patchAttributes
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Patch attributes for a model instance and persist it into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - EntityLink id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-            "prototype$patchAttributes": {
-              url: urlBase + "/EntityLinks/:id",
-              method: "PATCH",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#createChangeStream
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Create a change stream.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *   This method does not accept any parameters.
-             *   Supply an empty object or omit this argument altogether.
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `changes` – `{ReadableStream=}` -
-             */
-            "createChangeStream": {
-              url: urlBase + "/EntityLinks/change-stream",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Opportunity.entities.findById() instead.
-            "::findById::Opportunity::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/entities/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Opportunity.entities.destroyById() instead.
-            "::destroyById::Opportunity::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/entities/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Opportunity.entities.updateById() instead.
-            "::updateById::Opportunity::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/entities/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Opportunity.entities() instead.
-            "::get::Opportunity::entities": {
-              isArray: true,
-              url: urlBase + "/Opportunities/:id/entities",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Opportunity.entities.create() instead.
-            "::create::Opportunity::entities": {
-              url: urlBase + "/Opportunities/:id/entities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Opportunity.entities.createMany() instead.
-            "::createMany::Opportunity::entities": {
-              isArray: true,
-              url: urlBase + "/Opportunities/:id/entities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Opportunity.entities.destroyAll() instead.
-            "::delete::Opportunity::entities": {
-              url: urlBase + "/Opportunities/:id/entities",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Opportunity.entities.count() instead.
-            "::count::Opportunity::entities": {
-              url: urlBase + "/Opportunities/:id/entities/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.entities.findById() instead.
-            "::findById::Contact::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/entities/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.entities.destroyById() instead.
-            "::destroyById::Contact::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/entities/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Contact.entities.updateById() instead.
-            "::updateById::Contact::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/entities/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Contact.entities() instead.
-            "::get::Contact::entities": {
-              isArray: true,
-              url: urlBase + "/Contacts/:id/entities",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.entities.create() instead.
-            "::create::Contact::entities": {
-              url: urlBase + "/Contacts/:id/entities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Contact.entities.createMany() instead.
-            "::createMany::Contact::entities": {
-              isArray: true,
-              url: urlBase + "/Contacts/:id/entities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Contact.entities.destroyAll() instead.
-            "::delete::Contact::entities": {
-              url: urlBase + "/Contacts/:id/entities",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Contact.entities.count() instead.
-            "::count::Contact::entities": {
-              url: urlBase + "/Contacts/:id/entities/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.entities.findById() instead.
-            "::findById::Company::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/entities/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.entities.destroyById() instead.
-            "::destroyById::Company::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/entities/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Company.entities.updateById() instead.
-            "::updateById::Company::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/entities/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Company.entities() instead.
-            "::get::Company::entities": {
-              isArray: true,
-              url: urlBase + "/Companies/:id/entities",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.entities.create() instead.
-            "::create::Company::entities": {
-              url: urlBase + "/Companies/:id/entities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Company.entities.createMany() instead.
-            "::createMany::Company::entities": {
-              isArray: true,
-              url: urlBase + "/Companies/:id/entities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Company.entities.destroyAll() instead.
-            "::delete::Company::entities": {
-              url: urlBase + "/Companies/:id/entities",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Company.entities.count() instead.
-            "::count::Company::entities": {
-              url: urlBase + "/Companies/:id/entities/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Activity.entities.findById() instead.
-            "::findById::Activity::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Activities/:id/entities/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Activity.entities.destroyById() instead.
-            "::destroyById::Activity::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Activities/:id/entities/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Activity.entities.updateById() instead.
-            "::updateById::Activity::entities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Activities/:id/entities/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Activity.entities() instead.
-            "::get::Activity::entities": {
-              isArray: true,
-              url: urlBase + "/Activities/:id/entities",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Activity.entities.create() instead.
-            "::create::Activity::entities": {
-              url: urlBase + "/Activities/:id/entities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Activity.entities.createMany() instead.
-            "::createMany::Activity::entities": {
-              isArray: true,
-              url: urlBase + "/Activities/:id/entities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Activity.entities.destroyAll() instead.
-            "::delete::Activity::entities": {
-              url: urlBase + "/Activities/:id/entities",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Activity.entities.count() instead.
-            "::count::Activity::entities": {
-              url: urlBase + "/Activities/:id/entities/count",
-              method: "GET",
-            },
-          }
-        );
-
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#upsert
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Patch an existing model instance or insert a new one into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R["upsert"] = R["patchOrCreate"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#updateOrCreate
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Patch an existing model instance or insert a new one into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R["updateOrCreate"] = R["patchOrCreate"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#patchOrCreateWithWhere
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Update an existing model instance or insert a new one into the data source based on the where criteria.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R["patchOrCreateWithWhere"] = R["upsertWithWhere"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#update
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Update instances of the model matched by {{where}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Information related to the outcome of the operation
-             */
-        R["update"] = R["updateAll"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#destroyById
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Delete a model instance by {{id}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R["destroyById"] = R["deleteById"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#removeById
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Delete a model instance by {{id}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R["removeById"] = R["deleteById"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.EntityLink#updateAttributes
-             * @methodOf lbServices.EntityLink
-             *
-             * @description
-             *
-             * Patch attributes for a model instance and persist it into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - EntityLink id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R["updateAttributes"] = R["prototype$patchAttributes"];
-
-
-        /**
-        * @ngdoc property
-        * @name lbServices.EntityLink#modelName
-        * @propertyOf lbServices.EntityLink
-        * @description
-        * The name of the model represented by this $resource,
-        * i.e. `EntityLink`.
-        */
-        R.modelName = "EntityLink";
-
-
-
-        return R;
-      }]);
-
-/**
- * @ngdoc object
  * @name lbServices.OwnerLink
  * @header lbServices.OwnerLink
  * @object
@@ -18404,6 +17292,65 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
+            // INTERNAL. Use Activity.owners.findById() instead.
+            "::findById::Activity::owners": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Activities/:id/owners/:fk",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Activity.owners.destroyById() instead.
+            "::destroyById::Activity::owners": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Activities/:id/owners/:fk",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Activity.owners.updateById() instead.
+            "::updateById::Activity::owners": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Activities/:id/owners/:fk",
+              method: "PUT",
+            },
+
+            // INTERNAL. Use Activity.owners() instead.
+            "::get::Activity::owners": {
+              isArray: true,
+              url: urlBase + "/Activities/:id/owners",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Activity.owners.create() instead.
+            "::create::Activity::owners": {
+              url: urlBase + "/Activities/:id/owners",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Activity.owners.createMany() instead.
+            "::createMany::Activity::owners": {
+              isArray: true,
+              url: urlBase + "/Activities/:id/owners",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Activity.owners.destroyAll() instead.
+            "::delete::Activity::owners": {
+              url: urlBase + "/Activities/:id/owners",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Activity.owners.count() instead.
+            "::count::Activity::owners": {
+              url: urlBase + "/Activities/:id/owners/count",
+              method: "GET",
+            },
+
             // INTERNAL. Use View.owners.findById() instead.
             "::findById::View::owners": {
               params: {
@@ -18758,328 +17705,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
 /**
  * @ngdoc object
- * @name lbServices.SharedWithLink
- * @header lbServices.SharedWithLink
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `SharedWithLink` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-  module.factory(
-    "SharedWithLink",
-    [
-      'LoopBackResource', 'LoopBackAuth', '$injector', '$q',
-      function(LoopBackResource, LoopBackAuth, $injector, $q) {
-        var R = LoopBackResource(
-        urlBase + "/SharedWithLinks/:id",
-          { 'id': '@id' },
-          {
-
-            /**
-             * @ngdoc method
-             * @name lbServices.SharedWithLink#prototype$__get__sharedWith
-             * @methodOf lbServices.SharedWithLink
-             *
-             * @description
-             *
-             * Fetches belongsTo relation sharedWith.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - SharedWithLink id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `refresh` – `{boolean=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
-             * </em>
-             */
-            "prototype$__get__sharedWith": {
-              url: urlBase + "/SharedWithLinks/:id/sharedWith",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Opportunity.sharedWith.findById() instead.
-            "::findById::Opportunity::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/sharedWith/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Opportunity.sharedWith.destroyById() instead.
-            "::destroyById::Opportunity::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/sharedWith/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Opportunity.sharedWith.updateById() instead.
-            "::updateById::Opportunity::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/sharedWith/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Opportunity.sharedWith() instead.
-            "::get::Opportunity::sharedWith": {
-              isArray: true,
-              url: urlBase + "/Opportunities/:id/sharedWith",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Opportunity.sharedWith.create() instead.
-            "::create::Opportunity::sharedWith": {
-              url: urlBase + "/Opportunities/:id/sharedWith",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Opportunity.sharedWith.createMany() instead.
-            "::createMany::Opportunity::sharedWith": {
-              isArray: true,
-              url: urlBase + "/Opportunities/:id/sharedWith",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Opportunity.sharedWith.destroyAll() instead.
-            "::delete::Opportunity::sharedWith": {
-              url: urlBase + "/Opportunities/:id/sharedWith",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Opportunity.sharedWith.count() instead.
-            "::count::Opportunity::sharedWith": {
-              url: urlBase + "/Opportunities/:id/sharedWith/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.sharedWith.findById() instead.
-            "::findById::Contact::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/sharedWith/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.sharedWith.destroyById() instead.
-            "::destroyById::Contact::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/sharedWith/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Contact.sharedWith.updateById() instead.
-            "::updateById::Contact::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/sharedWith/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Contact.sharedWith() instead.
-            "::get::Contact::sharedWith": {
-              isArray: true,
-              url: urlBase + "/Contacts/:id/sharedWith",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.sharedWith.create() instead.
-            "::create::Contact::sharedWith": {
-              url: urlBase + "/Contacts/:id/sharedWith",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Contact.sharedWith.createMany() instead.
-            "::createMany::Contact::sharedWith": {
-              isArray: true,
-              url: urlBase + "/Contacts/:id/sharedWith",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Contact.sharedWith.destroyAll() instead.
-            "::delete::Contact::sharedWith": {
-              url: urlBase + "/Contacts/:id/sharedWith",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Contact.sharedWith.count() instead.
-            "::count::Contact::sharedWith": {
-              url: urlBase + "/Contacts/:id/sharedWith/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.sharedWith.findById() instead.
-            "::findById::Company::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/sharedWith/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.sharedWith.destroyById() instead.
-            "::destroyById::Company::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/sharedWith/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Company.sharedWith.updateById() instead.
-            "::updateById::Company::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/sharedWith/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Company.sharedWith() instead.
-            "::get::Company::sharedWith": {
-              isArray: true,
-              url: urlBase + "/Companies/:id/sharedWith",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.sharedWith.create() instead.
-            "::create::Company::sharedWith": {
-              url: urlBase + "/Companies/:id/sharedWith",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Company.sharedWith.createMany() instead.
-            "::createMany::Company::sharedWith": {
-              isArray: true,
-              url: urlBase + "/Companies/:id/sharedWith",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Company.sharedWith.destroyAll() instead.
-            "::delete::Company::sharedWith": {
-              url: urlBase + "/Companies/:id/sharedWith",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Company.sharedWith.count() instead.
-            "::count::Company::sharedWith": {
-              url: urlBase + "/Companies/:id/sharedWith/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use View.sharedWith.findById() instead.
-            "::findById::View::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Views/:id/sharedWith/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use View.sharedWith.destroyById() instead.
-            "::destroyById::View::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Views/:id/sharedWith/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use View.sharedWith.updateById() instead.
-            "::updateById::View::sharedWith": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Views/:id/sharedWith/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use View.sharedWith() instead.
-            "::get::View::sharedWith": {
-              isArray: true,
-              url: urlBase + "/Views/:id/sharedWith",
-              method: "GET",
-            },
-
-            // INTERNAL. Use View.sharedWith.create() instead.
-            "::create::View::sharedWith": {
-              url: urlBase + "/Views/:id/sharedWith",
-              method: "POST",
-            },
-
-            // INTERNAL. Use View.sharedWith.createMany() instead.
-            "::createMany::View::sharedWith": {
-              isArray: true,
-              url: urlBase + "/Views/:id/sharedWith",
-              method: "POST",
-            },
-
-            // INTERNAL. Use View.sharedWith.destroyAll() instead.
-            "::delete::View::sharedWith": {
-              url: urlBase + "/Views/:id/sharedWith",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use View.sharedWith.count() instead.
-            "::count::View::sharedWith": {
-              url: urlBase + "/Views/:id/sharedWith/count",
-              method: "GET",
-            },
-          }
-        );
-
-
-
-
-        /**
-        * @ngdoc property
-        * @name lbServices.SharedWithLink#modelName
-        * @propertyOf lbServices.SharedWithLink
-        * @description
-        * The name of the model represented by this $resource,
-        * i.e. `SharedWithLink`.
-        */
-        R.modelName = "SharedWithLink";
-
-
-
-        return R;
-      }]);
-
-/**
- * @ngdoc object
  * @name lbServices.Opportunity
  * @header lbServices.Opportunity
  * @object
@@ -19132,7 +17757,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Opportunity.sharedWith.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__findById__sharedWith
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Find a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__findById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -19141,7 +17799,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.sharedWith.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__destroyById__sharedWith
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Delete a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -19150,7 +17838,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Opportunity.sharedWith.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__updateById__sharedWith
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Update a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__updateById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -19159,7 +17884,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Opportunity.entities.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__findById__entities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Find a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__findById__entities": {
               params: {
                 'fk': '@fk',
@@ -19168,7 +17926,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.entities.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__destroyById__entities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Delete a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__entities": {
               params: {
                 'fk': '@fk',
@@ -19177,7 +17965,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Opportunity.entities.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__updateById__entities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Update a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__updateById__entities": {
               params: {
                 'fk': '@fk',
@@ -19186,7 +18011,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Opportunity.activities.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__findById__activities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Find a related item by id for activities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for activities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__findById__activities": {
               params: {
                 'fk': '@fk',
@@ -19195,7 +18053,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.activities.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__destroyById__activities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Delete a related item by id for activities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for activities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__activities": {
               params: {
                 'fk': '@fk',
@@ -19204,7 +18092,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Opportunity.activities.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__updateById__activities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Update a related item by id for activities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `fk` – `{*}` - Foreign key for activities
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__updateById__activities": {
               params: {
                 'fk': '@fk',
@@ -19213,7 +18138,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Opportunity.items.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__findById__items
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Find a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__findById__items": {
               params: {
                 'fk': '@fk',
@@ -19222,7 +18180,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.items.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__destroyById__items
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Delete a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__items": {
               params: {
                 'fk': '@fk',
@@ -19231,12 +18219,76 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Opportunity.items.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__updateById__items
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Update a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__updateById__items": {
               params: {
                 'fk': '@fk',
               },
               url: urlBase + "/Opportunities/:id/items/:fk",
+              method: "PUT",
+            },
+
+            // INTERNAL. Use Opportunity.comments.findById() instead.
+            "prototype$__findById__comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Opportunities/:id/comments/:fk",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Opportunity.comments.destroyById() instead.
+            "prototype$__destroyById__comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Opportunities/:id/comments/:fk",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Opportunity.comments.updateById() instead.
+            "prototype$__updateById__comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Opportunities/:id/comments/:fk",
               method: "PUT",
             },
 
@@ -19292,103 +18344,648 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.sharedWith() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__get__sharedWith
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Queries sharedWith of Opportunity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__get__sharedWith": {
               isArray: true,
               url: urlBase + "/Opportunities/:id/sharedWith",
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.sharedWith.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__create__sharedWith
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Creates a new instance in sharedWith of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__create__sharedWith": {
               url: urlBase + "/Opportunities/:id/sharedWith",
               method: "POST",
             },
 
-            // INTERNAL. Use Opportunity.sharedWith.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__delete__sharedWith
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Deletes all sharedWith of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__sharedWith": {
               url: urlBase + "/Opportunities/:id/sharedWith",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Opportunity.sharedWith.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__count__sharedWith
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Counts sharedWith of Opportunity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__sharedWith": {
               url: urlBase + "/Opportunities/:id/sharedWith/count",
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.entities() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__get__entities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Queries entities of Opportunity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__get__entities": {
               isArray: true,
               url: urlBase + "/Opportunities/:id/entities",
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.entities.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__create__entities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Creates a new instance in entities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__create__entities": {
               url: urlBase + "/Opportunities/:id/entities",
               method: "POST",
             },
 
-            // INTERNAL. Use Opportunity.entities.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__delete__entities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Deletes all entities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__entities": {
               url: urlBase + "/Opportunities/:id/entities",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Opportunity.entities.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__count__entities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Counts entities of Opportunity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__entities": {
               url: urlBase + "/Opportunities/:id/entities/count",
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.activities() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__get__activities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Queries activities of Opportunity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__get__activities": {
               isArray: true,
               url: urlBase + "/Opportunities/:id/activities",
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.activities.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__create__activities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Creates a new instance in activities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__create__activities": {
               url: urlBase + "/Opportunities/:id/activities",
               method: "POST",
             },
 
-            // INTERNAL. Use Opportunity.activities.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__delete__activities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Deletes all activities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__activities": {
               url: urlBase + "/Opportunities/:id/activities",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Opportunity.activities.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__count__activities
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Counts activities of Opportunity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__activities": {
               url: urlBase + "/Opportunities/:id/activities/count",
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.items() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__get__items
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Queries items of Opportunity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__get__items": {
               isArray: true,
               url: urlBase + "/Opportunities/:id/items",
               method: "GET",
             },
 
-            // INTERNAL. Use Opportunity.items.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__create__items
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Creates a new instance in items of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
+             */
             "prototype$__create__items": {
               url: urlBase + "/Opportunities/:id/items",
               method: "POST",
             },
 
-            // INTERNAL. Use Opportunity.items.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__delete__items
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Deletes all items of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__items": {
               url: urlBase + "/Opportunities/:id/items",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Opportunity.items.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#prototype$__count__items
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * Counts items of Opportunity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Opportunity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__items": {
               url: urlBase + "/Opportunities/:id/items/count",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Opportunity.comments() instead.
+            "prototype$__get__comments": {
+              isArray: true,
+              url: urlBase + "/Opportunities/:id/comments",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Opportunity.comments.create() instead.
+            "prototype$__create__comments": {
+              url: urlBase + "/Opportunities/:id/comments",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Opportunity.comments.destroyAll() instead.
+            "prototype$__delete__comments": {
+              url: urlBase + "/Opportunities/:id/comments",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Opportunity.comments.count() instead.
+            "prototype$__count__comments": {
+              url: urlBase + "/Opportunities/:id/comments/count",
               method: "GET",
             },
 
@@ -20926,27 +20523,27 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
         };
     /**
      * @ngdoc object
-     * @name lbServices.Opportunity.sharedWith
-     * @header lbServices.Opportunity.sharedWith
+     * @name lbServices.Opportunity.comments
+     * @header lbServices.Opportunity.comments
      * @object
      * @description
      *
-     * The object `Opportunity.sharedWith` groups methods
-     * manipulating `SharedWithLink` instances related to `Opportunity`.
+     * The object `Opportunity.comments` groups methods
+     * manipulating `Comment` instances related to `Opportunity`.
      *
-     * Call {@link lbServices.Opportunity#sharedWith Opportunity.sharedWith()}
+     * Call {@link lbServices.Opportunity#comments Opportunity.comments()}
      * to query all related instances.
      */
 
 
             /**
              * @ngdoc method
-             * @name lbServices.Opportunity#sharedWith
+             * @name lbServices.Opportunity#comments
              * @methodOf lbServices.Opportunity
              *
              * @description
              *
-             * Queries sharedWith of Opportunity.
+             * Queries comments of Opportunity.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -20970,23 +20567,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::get::Opportunity::sharedWith"];
+        R.comments = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::get::Opportunity::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Opportunity.sharedWith#count
-             * @methodOf lbServices.Opportunity.sharedWith
+             * @name lbServices.Opportunity.comments#count
+             * @methodOf lbServices.Opportunity.comments
              *
              * @description
              *
-             * Counts sharedWith of Opportunity.
+             * Counts comments of Opportunity.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -21012,20 +20609,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `count` – `{number=}` -
              */
-        R.sharedWith.count = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::count::Opportunity::sharedWith"];
+        R.comments.count = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::count::Opportunity::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Opportunity.sharedWith#create
-             * @methodOf lbServices.Opportunity.sharedWith
+             * @name lbServices.Opportunity.comments#create
+             * @methodOf lbServices.Opportunity.comments
              *
              * @description
              *
-             * Creates a new instance in sharedWith of this model.
+             * Creates a new instance in comments of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -21051,23 +20648,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.create = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::create::Opportunity::sharedWith"];
+        R.comments.create = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::create::Opportunity::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Opportunity.sharedWith#createMany
-             * @methodOf lbServices.Opportunity.sharedWith
+             * @name lbServices.Opportunity.comments#createMany
+             * @methodOf lbServices.Opportunity.comments
              *
              * @description
              *
-             * Creates a new instance in sharedWith of this model.
+             * Creates a new instance in comments of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -21093,23 +20690,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.createMany = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::createMany::Opportunity::sharedWith"];
+        R.comments.createMany = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::createMany::Opportunity::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Opportunity.sharedWith#destroyAll
-             * @methodOf lbServices.Opportunity.sharedWith
+             * @name lbServices.Opportunity.comments#destroyAll
+             * @methodOf lbServices.Opportunity.comments
              *
              * @description
              *
-             * Deletes all sharedWith of this model.
+             * Deletes all comments of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -21133,20 +20730,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * This method returns no data.
              */
-        R.sharedWith.destroyAll = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::delete::Opportunity::sharedWith"];
+        R.comments.destroyAll = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::delete::Opportunity::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Opportunity.sharedWith#destroyById
-             * @methodOf lbServices.Opportunity.sharedWith
+             * @name lbServices.Opportunity.comments#destroyById
+             * @methodOf lbServices.Opportunity.comments
              *
              * @description
              *
-             * Delete a related item by id for sharedWith.
+             * Delete a related item by id for comments.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -21154,7 +20751,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `options` – `{object=}` -
              *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *  - `fk` – `{*}` - Foreign key for comments
              *
              *  - `options` – `{object=}` -
              *
@@ -21170,20 +20767,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * This method returns no data.
              */
-        R.sharedWith.destroyById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::destroyById::Opportunity::sharedWith"];
+        R.comments.destroyById = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::destroyById::Opportunity::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Opportunity.sharedWith#findById
-             * @methodOf lbServices.Opportunity.sharedWith
+             * @name lbServices.Opportunity.comments#findById
+             * @methodOf lbServices.Opportunity.comments
              *
              * @description
              *
-             * Find a related item by id for sharedWith.
+             * Find a related item by id for comments.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -21191,7 +20788,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `options` – `{object=}` -
              *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *  - `fk` – `{*}` - Foreign key for comments
              *
              *  - `options` – `{object=}` -
              *
@@ -21207,29 +20804,29 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.findById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::findById::Opportunity::sharedWith"];
+        R.comments.findById = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::findById::Opportunity::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Opportunity.sharedWith#updateById
-             * @methodOf lbServices.Opportunity.sharedWith
+             * @name lbServices.Opportunity.comments#updateById
+             * @methodOf lbServices.Opportunity.comments
              *
              * @description
              *
-             * Update a related item by id for sharedWith.
+             * Update a related item by id for comments.
              *
              * @param {Object=} parameters Request parameters.
              *
              *  - `id` – `{*}` - Opportunity id
              *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *  - `fk` – `{*}` - Foreign key for comments
              *
              * @param {Object} postData Request data.
              *
@@ -21251,1017 +20848,12 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.updateById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::updateById::Opportunity::sharedWith"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Opportunity.entities
-     * @header lbServices.Opportunity.entities
-     * @object
-     * @description
-     *
-     * The object `Opportunity.entities` groups methods
-     * manipulating `EntityLink` instances related to `Opportunity`.
-     *
-     * Call {@link lbServices.Opportunity#entities Opportunity.entities()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity#entities
-             * @methodOf lbServices.Opportunity
-             *
-             * @description
-             *
-             * Queries entities of Opportunity.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::get::Opportunity::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.entities#count
-             * @methodOf lbServices.Opportunity.entities
-             *
-             * @description
-             *
-             * Counts entities of Opportunity.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.entities.count = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::count::Opportunity::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.entities#create
-             * @methodOf lbServices.Opportunity.entities
-             *
-             * @description
-             *
-             * Creates a new instance in entities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.create = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::create::Opportunity::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.entities#createMany
-             * @methodOf lbServices.Opportunity.entities
-             *
-             * @description
-             *
-             * Creates a new instance in entities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.createMany = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::createMany::Opportunity::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.entities#destroyAll
-             * @methodOf lbServices.Opportunity.entities
-             *
-             * @description
-             *
-             * Deletes all entities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.entities.destroyAll = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::delete::Opportunity::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.entities#destroyById
-             * @methodOf lbServices.Opportunity.entities
-             *
-             * @description
-             *
-             * Delete a related item by id for entities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for entities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.entities.destroyById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::destroyById::Opportunity::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.entities#findById
-             * @methodOf lbServices.Opportunity.entities
-             *
-             * @description
-             *
-             * Find a related item by id for entities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for entities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.findById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::findById::Opportunity::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.entities#updateById
-             * @methodOf lbServices.Opportunity.entities
-             *
-             * @description
-             *
-             * Update a related item by id for entities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `fk` – `{*}` - Foreign key for entities
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.updateById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::updateById::Opportunity::entities"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Opportunity.activities
-     * @header lbServices.Opportunity.activities
-     * @object
-     * @description
-     *
-     * The object `Opportunity.activities` groups methods
-     * manipulating `ActivityLink` instances related to `Opportunity`.
-     *
-     * Call {@link lbServices.Opportunity#activities Opportunity.activities()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity#activities
-             * @methodOf lbServices.Opportunity
-             *
-             * @description
-             *
-             * Queries activities of Opportunity.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::get::Opportunity::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.activities#count
-             * @methodOf lbServices.Opportunity.activities
-             *
-             * @description
-             *
-             * Counts activities of Opportunity.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.activities.count = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::count::Opportunity::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.activities#create
-             * @methodOf lbServices.Opportunity.activities
-             *
-             * @description
-             *
-             * Creates a new instance in activities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.create = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::create::Opportunity::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.activities#createMany
-             * @methodOf lbServices.Opportunity.activities
-             *
-             * @description
-             *
-             * Creates a new instance in activities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.createMany = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::createMany::Opportunity::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.activities#destroyAll
-             * @methodOf lbServices.Opportunity.activities
-             *
-             * @description
-             *
-             * Deletes all activities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.activities.destroyAll = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::delete::Opportunity::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.activities#destroyById
-             * @methodOf lbServices.Opportunity.activities
-             *
-             * @description
-             *
-             * Delete a related item by id for activities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for activities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.activities.destroyById = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::destroyById::Opportunity::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.activities#findById
-             * @methodOf lbServices.Opportunity.activities
-             *
-             * @description
-             *
-             * Find a related item by id for activities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for activities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.findById = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::findById::Opportunity::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.activities#updateById
-             * @methodOf lbServices.Opportunity.activities
-             *
-             * @description
-             *
-             * Update a related item by id for activities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `fk` – `{*}` - Foreign key for activities
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.updateById = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::updateById::Opportunity::activities"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Opportunity.items
-     * @header lbServices.Opportunity.items
-     * @object
-     * @description
-     *
-     * The object `Opportunity.items` groups methods
-     * manipulating `ItemLink` instances related to `Opportunity`.
-     *
-     * Call {@link lbServices.Opportunity#items Opportunity.items()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity#items
-             * @methodOf lbServices.Opportunity
-             *
-             * @description
-             *
-             * Queries items of Opportunity.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::get::Opportunity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.items#count
-             * @methodOf lbServices.Opportunity.items
-             *
-             * @description
-             *
-             * Counts items of Opportunity.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.items.count = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::count::Opportunity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.items#create
-             * @methodOf lbServices.Opportunity.items
-             *
-             * @description
-             *
-             * Creates a new instance in items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.create = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::create::Opportunity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.items#createMany
-             * @methodOf lbServices.Opportunity.items
-             *
-             * @description
-             *
-             * Creates a new instance in items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.createMany = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::createMany::Opportunity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.items#destroyAll
-             * @methodOf lbServices.Opportunity.items
-             *
-             * @description
-             *
-             * Deletes all items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.items.destroyAll = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::delete::Opportunity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.items#destroyById
-             * @methodOf lbServices.Opportunity.items
-             *
-             * @description
-             *
-             * Delete a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.items.destroyById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::destroyById::Opportunity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.items#findById
-             * @methodOf lbServices.Opportunity.items
-             *
-             * @description
-             *
-             * Find a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.findById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::findById::Opportunity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Opportunity.items#updateById
-             * @methodOf lbServices.Opportunity.items
-             *
-             * @description
-             *
-             * Update a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Opportunity id
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.updateById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::updateById::Opportunity::items"];
+        R.comments.updateById = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::updateById::Opportunity::comments"];
           return action.apply(R, arguments);
         };
     /**
@@ -22658,7 +21250,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Contact.sharedWith.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__findById__sharedWith
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Find a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__findById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -22667,7 +21292,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.sharedWith.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__destroyById__sharedWith
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Delete a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -22676,7 +21331,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Contact.sharedWith.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__updateById__sharedWith
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Update a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__updateById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -22685,7 +21377,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Contact.entities.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__findById__entities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Find a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__findById__entities": {
               params: {
                 'fk': '@fk',
@@ -22694,7 +21419,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.entities.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__destroyById__entities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Delete a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__entities": {
               params: {
                 'fk': '@fk',
@@ -22703,7 +21458,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Contact.entities.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__updateById__entities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Update a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__updateById__entities": {
               params: {
                 'fk': '@fk',
@@ -22712,7 +21504,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Contact.activities.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__findById__activities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Find a related item by id for activities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for activities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__findById__activities": {
               params: {
                 'fk': '@fk',
@@ -22721,7 +21546,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.activities.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__destroyById__activities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Delete a related item by id for activities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for activities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__activities": {
               params: {
                 'fk': '@fk',
@@ -22730,7 +21585,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Contact.activities.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__updateById__activities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Update a related item by id for activities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `fk` – `{*}` - Foreign key for activities
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__updateById__activities": {
               params: {
                 'fk': '@fk',
@@ -22739,7 +21631,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Contact.items.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__findById__items
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Find a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__findById__items": {
               params: {
                 'fk': '@fk',
@@ -22748,7 +21673,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.items.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__destroyById__items
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Delete a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__items": {
               params: {
                 'fk': '@fk',
@@ -22757,12 +21712,76 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Contact.items.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__updateById__items
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Update a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__updateById__items": {
               params: {
                 'fk': '@fk',
               },
               url: urlBase + "/Contacts/:id/items/:fk",
+              method: "PUT",
+            },
+
+            // INTERNAL. Use Contact.comments.findById() instead.
+            "prototype$__findById__comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Contacts/:id/comments/:fk",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Contact.comments.destroyById() instead.
+            "prototype$__destroyById__comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Contacts/:id/comments/:fk",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Contact.comments.updateById() instead.
+            "prototype$__updateById__comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Contacts/:id/comments/:fk",
               method: "PUT",
             },
 
@@ -22791,103 +21810,648 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.sharedWith() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__get__sharedWith
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Queries sharedWith of Contact.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__get__sharedWith": {
               isArray: true,
               url: urlBase + "/Contacts/:id/sharedWith",
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.sharedWith.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__create__sharedWith
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Creates a new instance in sharedWith of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__create__sharedWith": {
               url: urlBase + "/Contacts/:id/sharedWith",
               method: "POST",
             },
 
-            // INTERNAL. Use Contact.sharedWith.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__delete__sharedWith
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Deletes all sharedWith of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__sharedWith": {
               url: urlBase + "/Contacts/:id/sharedWith",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Contact.sharedWith.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__count__sharedWith
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Counts sharedWith of Contact.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__sharedWith": {
               url: urlBase + "/Contacts/:id/sharedWith/count",
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.entities() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__get__entities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Queries entities of Contact.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__get__entities": {
               isArray: true,
               url: urlBase + "/Contacts/:id/entities",
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.entities.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__create__entities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Creates a new instance in entities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__create__entities": {
               url: urlBase + "/Contacts/:id/entities",
               method: "POST",
             },
 
-            // INTERNAL. Use Contact.entities.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__delete__entities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Deletes all entities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__entities": {
               url: urlBase + "/Contacts/:id/entities",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Contact.entities.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__count__entities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Counts entities of Contact.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__entities": {
               url: urlBase + "/Contacts/:id/entities/count",
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.activities() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__get__activities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Queries activities of Contact.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__get__activities": {
               isArray: true,
               url: urlBase + "/Contacts/:id/activities",
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.activities.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__create__activities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Creates a new instance in activities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__create__activities": {
               url: urlBase + "/Contacts/:id/activities",
               method: "POST",
             },
 
-            // INTERNAL. Use Contact.activities.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__delete__activities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Deletes all activities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__activities": {
               url: urlBase + "/Contacts/:id/activities",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Contact.activities.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__count__activities
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Counts activities of Contact.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__activities": {
               url: urlBase + "/Contacts/:id/activities/count",
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.items() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__get__items
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Queries items of Contact.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__get__items": {
               isArray: true,
               url: urlBase + "/Contacts/:id/items",
               method: "GET",
             },
 
-            // INTERNAL. Use Contact.items.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__create__items
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Creates a new instance in items of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
+             */
             "prototype$__create__items": {
               url: urlBase + "/Contacts/:id/items",
               method: "POST",
             },
 
-            // INTERNAL. Use Contact.items.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__delete__items
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Deletes all items of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__items": {
               url: urlBase + "/Contacts/:id/items",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Contact.items.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#prototype$__count__items
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * Counts items of Contact.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Contact id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__items": {
               url: urlBase + "/Contacts/:id/items/count",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Contact.comments() instead.
+            "prototype$__get__comments": {
+              isArray: true,
+              url: urlBase + "/Contacts/:id/comments",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Contact.comments.create() instead.
+            "prototype$__create__comments": {
+              url: urlBase + "/Contacts/:id/comments",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Contact.comments.destroyAll() instead.
+            "prototype$__delete__comments": {
+              url: urlBase + "/Contacts/:id/comments",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Contact.comments.count() instead.
+            "prototype$__count__comments": {
+              url: urlBase + "/Contacts/:id/comments/count",
               method: "GET",
             },
 
@@ -24362,27 +23926,27 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
         };
     /**
      * @ngdoc object
-     * @name lbServices.Contact.sharedWith
-     * @header lbServices.Contact.sharedWith
+     * @name lbServices.Contact.comments
+     * @header lbServices.Contact.comments
      * @object
      * @description
      *
-     * The object `Contact.sharedWith` groups methods
-     * manipulating `SharedWithLink` instances related to `Contact`.
+     * The object `Contact.comments` groups methods
+     * manipulating `Comment` instances related to `Contact`.
      *
-     * Call {@link lbServices.Contact#sharedWith Contact.sharedWith()}
+     * Call {@link lbServices.Contact#comments Contact.comments()}
      * to query all related instances.
      */
 
 
             /**
              * @ngdoc method
-             * @name lbServices.Contact#sharedWith
+             * @name lbServices.Contact#comments
              * @methodOf lbServices.Contact
              *
              * @description
              *
-             * Queries sharedWith of Contact.
+             * Queries comments of Contact.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -24406,23 +23970,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::get::Contact::sharedWith"];
+        R.comments = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::get::Contact::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Contact.sharedWith#count
-             * @methodOf lbServices.Contact.sharedWith
+             * @name lbServices.Contact.comments#count
+             * @methodOf lbServices.Contact.comments
              *
              * @description
              *
-             * Counts sharedWith of Contact.
+             * Counts comments of Contact.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -24448,20 +24012,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `count` – `{number=}` -
              */
-        R.sharedWith.count = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::count::Contact::sharedWith"];
+        R.comments.count = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::count::Contact::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Contact.sharedWith#create
-             * @methodOf lbServices.Contact.sharedWith
+             * @name lbServices.Contact.comments#create
+             * @methodOf lbServices.Contact.comments
              *
              * @description
              *
-             * Creates a new instance in sharedWith of this model.
+             * Creates a new instance in comments of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -24487,23 +24051,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.create = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::create::Contact::sharedWith"];
+        R.comments.create = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::create::Contact::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Contact.sharedWith#createMany
-             * @methodOf lbServices.Contact.sharedWith
+             * @name lbServices.Contact.comments#createMany
+             * @methodOf lbServices.Contact.comments
              *
              * @description
              *
-             * Creates a new instance in sharedWith of this model.
+             * Creates a new instance in comments of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -24529,23 +24093,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.createMany = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::createMany::Contact::sharedWith"];
+        R.comments.createMany = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::createMany::Contact::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Contact.sharedWith#destroyAll
-             * @methodOf lbServices.Contact.sharedWith
+             * @name lbServices.Contact.comments#destroyAll
+             * @methodOf lbServices.Contact.comments
              *
              * @description
              *
-             * Deletes all sharedWith of this model.
+             * Deletes all comments of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -24569,20 +24133,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * This method returns no data.
              */
-        R.sharedWith.destroyAll = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::delete::Contact::sharedWith"];
+        R.comments.destroyAll = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::delete::Contact::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Contact.sharedWith#destroyById
-             * @methodOf lbServices.Contact.sharedWith
+             * @name lbServices.Contact.comments#destroyById
+             * @methodOf lbServices.Contact.comments
              *
              * @description
              *
-             * Delete a related item by id for sharedWith.
+             * Delete a related item by id for comments.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -24590,7 +24154,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `options` – `{object=}` -
              *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *  - `fk` – `{*}` - Foreign key for comments
              *
              *  - `options` – `{object=}` -
              *
@@ -24606,20 +24170,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * This method returns no data.
              */
-        R.sharedWith.destroyById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::destroyById::Contact::sharedWith"];
+        R.comments.destroyById = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::destroyById::Contact::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Contact.sharedWith#findById
-             * @methodOf lbServices.Contact.sharedWith
+             * @name lbServices.Contact.comments#findById
+             * @methodOf lbServices.Contact.comments
              *
              * @description
              *
-             * Find a related item by id for sharedWith.
+             * Find a related item by id for comments.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -24627,7 +24191,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `options` – `{object=}` -
              *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *  - `fk` – `{*}` - Foreign key for comments
              *
              *  - `options` – `{object=}` -
              *
@@ -24643,29 +24207,29 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.findById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::findById::Contact::sharedWith"];
+        R.comments.findById = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::findById::Contact::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Contact.sharedWith#updateById
-             * @methodOf lbServices.Contact.sharedWith
+             * @name lbServices.Contact.comments#updateById
+             * @methodOf lbServices.Contact.comments
              *
              * @description
              *
-             * Update a related item by id for sharedWith.
+             * Update a related item by id for comments.
              *
              * @param {Object=} parameters Request parameters.
              *
              *  - `id` – `{*}` - Contact id
              *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *  - `fk` – `{*}` - Foreign key for comments
              *
              * @param {Object} postData Request data.
              *
@@ -24687,1017 +24251,12 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.updateById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::updateById::Contact::sharedWith"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Contact.entities
-     * @header lbServices.Contact.entities
-     * @object
-     * @description
-     *
-     * The object `Contact.entities` groups methods
-     * manipulating `EntityLink` instances related to `Contact`.
-     *
-     * Call {@link lbServices.Contact#entities Contact.entities()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact#entities
-             * @methodOf lbServices.Contact
-             *
-             * @description
-             *
-             * Queries entities of Contact.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::get::Contact::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.entities#count
-             * @methodOf lbServices.Contact.entities
-             *
-             * @description
-             *
-             * Counts entities of Contact.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.entities.count = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::count::Contact::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.entities#create
-             * @methodOf lbServices.Contact.entities
-             *
-             * @description
-             *
-             * Creates a new instance in entities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.create = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::create::Contact::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.entities#createMany
-             * @methodOf lbServices.Contact.entities
-             *
-             * @description
-             *
-             * Creates a new instance in entities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.createMany = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::createMany::Contact::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.entities#destroyAll
-             * @methodOf lbServices.Contact.entities
-             *
-             * @description
-             *
-             * Deletes all entities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.entities.destroyAll = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::delete::Contact::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.entities#destroyById
-             * @methodOf lbServices.Contact.entities
-             *
-             * @description
-             *
-             * Delete a related item by id for entities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for entities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.entities.destroyById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::destroyById::Contact::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.entities#findById
-             * @methodOf lbServices.Contact.entities
-             *
-             * @description
-             *
-             * Find a related item by id for entities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for entities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.findById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::findById::Contact::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.entities#updateById
-             * @methodOf lbServices.Contact.entities
-             *
-             * @description
-             *
-             * Update a related item by id for entities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `fk` – `{*}` - Foreign key for entities
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.updateById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::updateById::Contact::entities"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Contact.activities
-     * @header lbServices.Contact.activities
-     * @object
-     * @description
-     *
-     * The object `Contact.activities` groups methods
-     * manipulating `ActivityLink` instances related to `Contact`.
-     *
-     * Call {@link lbServices.Contact#activities Contact.activities()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact#activities
-             * @methodOf lbServices.Contact
-             *
-             * @description
-             *
-             * Queries activities of Contact.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::get::Contact::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.activities#count
-             * @methodOf lbServices.Contact.activities
-             *
-             * @description
-             *
-             * Counts activities of Contact.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.activities.count = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::count::Contact::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.activities#create
-             * @methodOf lbServices.Contact.activities
-             *
-             * @description
-             *
-             * Creates a new instance in activities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.create = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::create::Contact::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.activities#createMany
-             * @methodOf lbServices.Contact.activities
-             *
-             * @description
-             *
-             * Creates a new instance in activities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.createMany = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::createMany::Contact::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.activities#destroyAll
-             * @methodOf lbServices.Contact.activities
-             *
-             * @description
-             *
-             * Deletes all activities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.activities.destroyAll = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::delete::Contact::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.activities#destroyById
-             * @methodOf lbServices.Contact.activities
-             *
-             * @description
-             *
-             * Delete a related item by id for activities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for activities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.activities.destroyById = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::destroyById::Contact::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.activities#findById
-             * @methodOf lbServices.Contact.activities
-             *
-             * @description
-             *
-             * Find a related item by id for activities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for activities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.findById = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::findById::Contact::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.activities#updateById
-             * @methodOf lbServices.Contact.activities
-             *
-             * @description
-             *
-             * Update a related item by id for activities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `fk` – `{*}` - Foreign key for activities
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.updateById = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::updateById::Contact::activities"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Contact.items
-     * @header lbServices.Contact.items
-     * @object
-     * @description
-     *
-     * The object `Contact.items` groups methods
-     * manipulating `ItemLink` instances related to `Contact`.
-     *
-     * Call {@link lbServices.Contact#items Contact.items()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact#items
-             * @methodOf lbServices.Contact
-             *
-             * @description
-             *
-             * Queries items of Contact.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::get::Contact::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.items#count
-             * @methodOf lbServices.Contact.items
-             *
-             * @description
-             *
-             * Counts items of Contact.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.items.count = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::count::Contact::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.items#create
-             * @methodOf lbServices.Contact.items
-             *
-             * @description
-             *
-             * Creates a new instance in items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.create = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::create::Contact::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.items#createMany
-             * @methodOf lbServices.Contact.items
-             *
-             * @description
-             *
-             * Creates a new instance in items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.createMany = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::createMany::Contact::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.items#destroyAll
-             * @methodOf lbServices.Contact.items
-             *
-             * @description
-             *
-             * Deletes all items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.items.destroyAll = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::delete::Contact::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.items#destroyById
-             * @methodOf lbServices.Contact.items
-             *
-             * @description
-             *
-             * Delete a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.items.destroyById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::destroyById::Contact::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.items#findById
-             * @methodOf lbServices.Contact.items
-             *
-             * @description
-             *
-             * Find a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.findById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::findById::Contact::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Contact.items#updateById
-             * @methodOf lbServices.Contact.items
-             *
-             * @description
-             *
-             * Update a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Contact id
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.updateById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::updateById::Contact::items"];
+        R.comments.updateById = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::updateById::Contact::comments"];
           return action.apply(R, arguments);
         };
 
@@ -25759,7 +24318,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Company.sharedWith.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__findById__sharedWith
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Find a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__findById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -25768,7 +24360,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Company.sharedWith.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__destroyById__sharedWith
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Delete a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -25777,7 +24399,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Company.sharedWith.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__updateById__sharedWith
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Update a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__updateById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -25786,7 +24445,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Company.entities.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__findById__entities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Find a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__findById__entities": {
               params: {
                 'fk': '@fk',
@@ -25795,7 +24487,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Company.entities.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__destroyById__entities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Delete a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__entities": {
               params: {
                 'fk': '@fk',
@@ -25804,7 +24526,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Company.entities.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__updateById__entities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Update a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__updateById__entities": {
               params: {
                 'fk': '@fk',
@@ -25813,7 +24572,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Company.activities.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__findById__activities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Find a related item by id for activities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for activities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__findById__activities": {
               params: {
                 'fk': '@fk',
@@ -25822,7 +24614,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Company.activities.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__destroyById__activities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Delete a related item by id for activities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for activities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__activities": {
               params: {
                 'fk': '@fk',
@@ -25831,7 +24653,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Company.activities.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__updateById__activities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Update a related item by id for activities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `fk` – `{*}` - Foreign key for activities
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__updateById__activities": {
               params: {
                 'fk': '@fk',
@@ -25840,7 +24699,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Company.items.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__findById__items
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Find a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__findById__items": {
               params: {
                 'fk': '@fk',
@@ -25849,7 +24741,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Company.items.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__destroyById__items
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Delete a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__items": {
               params: {
                 'fk': '@fk',
@@ -25858,12 +24780,76 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Company.items.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__updateById__items
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Update a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__updateById__items": {
               params: {
                 'fk': '@fk',
               },
               url: urlBase + "/Companies/:id/items/:fk",
+              method: "PUT",
+            },
+
+            // INTERNAL. Use Company.comments.findById() instead.
+            "prototype$__findById__comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Companies/:id/comments/:fk",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Company.comments.destroyById() instead.
+            "prototype$__destroyById__comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Companies/:id/comments/:fk",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Company.comments.updateById() instead.
+            "prototype$__updateById__comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Companies/:id/comments/:fk",
               method: "PUT",
             },
 
@@ -25892,103 +24878,648 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Company.sharedWith() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__get__sharedWith
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Queries sharedWith of Company.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__get__sharedWith": {
               isArray: true,
               url: urlBase + "/Companies/:id/sharedWith",
               method: "GET",
             },
 
-            // INTERNAL. Use Company.sharedWith.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__create__sharedWith
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Creates a new instance in sharedWith of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__create__sharedWith": {
               url: urlBase + "/Companies/:id/sharedWith",
               method: "POST",
             },
 
-            // INTERNAL. Use Company.sharedWith.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__delete__sharedWith
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Deletes all sharedWith of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__sharedWith": {
               url: urlBase + "/Companies/:id/sharedWith",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Company.sharedWith.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__count__sharedWith
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Counts sharedWith of Company.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__sharedWith": {
               url: urlBase + "/Companies/:id/sharedWith/count",
               method: "GET",
             },
 
-            // INTERNAL. Use Company.entities() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__get__entities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Queries entities of Company.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__get__entities": {
               isArray: true,
               url: urlBase + "/Companies/:id/entities",
               method: "GET",
             },
 
-            // INTERNAL. Use Company.entities.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__create__entities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Creates a new instance in entities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__create__entities": {
               url: urlBase + "/Companies/:id/entities",
               method: "POST",
             },
 
-            // INTERNAL. Use Company.entities.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__delete__entities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Deletes all entities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__entities": {
               url: urlBase + "/Companies/:id/entities",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Company.entities.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__count__entities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Counts entities of Company.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__entities": {
               url: urlBase + "/Companies/:id/entities/count",
               method: "GET",
             },
 
-            // INTERNAL. Use Company.activities() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__get__activities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Queries activities of Company.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__get__activities": {
               isArray: true,
               url: urlBase + "/Companies/:id/activities",
               method: "GET",
             },
 
-            // INTERNAL. Use Company.activities.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__create__activities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Creates a new instance in activities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__create__activities": {
               url: urlBase + "/Companies/:id/activities",
               method: "POST",
             },
 
-            // INTERNAL. Use Company.activities.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__delete__activities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Deletes all activities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__activities": {
               url: urlBase + "/Companies/:id/activities",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Company.activities.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__count__activities
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Counts activities of Company.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__activities": {
               url: urlBase + "/Companies/:id/activities/count",
               method: "GET",
             },
 
-            // INTERNAL. Use Company.items() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__get__items
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Queries items of Company.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__get__items": {
               isArray: true,
               url: urlBase + "/Companies/:id/items",
               method: "GET",
             },
 
-            // INTERNAL. Use Company.items.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__create__items
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Creates a new instance in items of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
+             */
             "prototype$__create__items": {
               url: urlBase + "/Companies/:id/items",
               method: "POST",
             },
 
-            // INTERNAL. Use Company.items.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__delete__items
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Deletes all items of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__items": {
               url: urlBase + "/Companies/:id/items",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Company.items.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#prototype$__count__items
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * Counts items of Company.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Company id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__items": {
               url: urlBase + "/Companies/:id/items/count",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Company.comments() instead.
+            "prototype$__get__comments": {
+              isArray: true,
+              url: urlBase + "/Companies/:id/comments",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Company.comments.create() instead.
+            "prototype$__create__comments": {
+              url: urlBase + "/Companies/:id/comments",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Company.comments.destroyAll() instead.
+            "prototype$__delete__comments": {
+              url: urlBase + "/Companies/:id/comments",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Company.comments.count() instead.
+            "prototype$__count__comments": {
+              url: urlBase + "/Companies/:id/comments/count",
               method: "GET",
             },
 
@@ -27463,27 +26994,27 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
         };
     /**
      * @ngdoc object
-     * @name lbServices.Company.sharedWith
-     * @header lbServices.Company.sharedWith
+     * @name lbServices.Company.comments
+     * @header lbServices.Company.comments
      * @object
      * @description
      *
-     * The object `Company.sharedWith` groups methods
-     * manipulating `SharedWithLink` instances related to `Company`.
+     * The object `Company.comments` groups methods
+     * manipulating `Comment` instances related to `Company`.
      *
-     * Call {@link lbServices.Company#sharedWith Company.sharedWith()}
+     * Call {@link lbServices.Company#comments Company.comments()}
      * to query all related instances.
      */
 
 
             /**
              * @ngdoc method
-             * @name lbServices.Company#sharedWith
+             * @name lbServices.Company#comments
              * @methodOf lbServices.Company
              *
              * @description
              *
-             * Queries sharedWith of Company.
+             * Queries comments of Company.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -27507,23 +27038,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::get::Company::sharedWith"];
+        R.comments = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::get::Company::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Company.sharedWith#count
-             * @methodOf lbServices.Company.sharedWith
+             * @name lbServices.Company.comments#count
+             * @methodOf lbServices.Company.comments
              *
              * @description
              *
-             * Counts sharedWith of Company.
+             * Counts comments of Company.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -27549,20 +27080,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `count` – `{number=}` -
              */
-        R.sharedWith.count = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::count::Company::sharedWith"];
+        R.comments.count = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::count::Company::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Company.sharedWith#create
-             * @methodOf lbServices.Company.sharedWith
+             * @name lbServices.Company.comments#create
+             * @methodOf lbServices.Company.comments
              *
              * @description
              *
-             * Creates a new instance in sharedWith of this model.
+             * Creates a new instance in comments of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -27588,23 +27119,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.create = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::create::Company::sharedWith"];
+        R.comments.create = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::create::Company::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Company.sharedWith#createMany
-             * @methodOf lbServices.Company.sharedWith
+             * @name lbServices.Company.comments#createMany
+             * @methodOf lbServices.Company.comments
              *
              * @description
              *
-             * Creates a new instance in sharedWith of this model.
+             * Creates a new instance in comments of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -27630,23 +27161,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.createMany = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::createMany::Company::sharedWith"];
+        R.comments.createMany = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::createMany::Company::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Company.sharedWith#destroyAll
-             * @methodOf lbServices.Company.sharedWith
+             * @name lbServices.Company.comments#destroyAll
+             * @methodOf lbServices.Company.comments
              *
              * @description
              *
-             * Deletes all sharedWith of this model.
+             * Deletes all comments of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -27670,20 +27201,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * This method returns no data.
              */
-        R.sharedWith.destroyAll = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::delete::Company::sharedWith"];
+        R.comments.destroyAll = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::delete::Company::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Company.sharedWith#destroyById
-             * @methodOf lbServices.Company.sharedWith
+             * @name lbServices.Company.comments#destroyById
+             * @methodOf lbServices.Company.comments
              *
              * @description
              *
-             * Delete a related item by id for sharedWith.
+             * Delete a related item by id for comments.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -27691,7 +27222,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `options` – `{object=}` -
              *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *  - `fk` – `{*}` - Foreign key for comments
              *
              *  - `options` – `{object=}` -
              *
@@ -27707,20 +27238,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * This method returns no data.
              */
-        R.sharedWith.destroyById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::destroyById::Company::sharedWith"];
+        R.comments.destroyById = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::destroyById::Company::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Company.sharedWith#findById
-             * @methodOf lbServices.Company.sharedWith
+             * @name lbServices.Company.comments#findById
+             * @methodOf lbServices.Company.comments
              *
              * @description
              *
-             * Find a related item by id for sharedWith.
+             * Find a related item by id for comments.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -27728,7 +27259,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `options` – `{object=}` -
              *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *  - `fk` – `{*}` - Foreign key for comments
              *
              *  - `options` – `{object=}` -
              *
@@ -27744,29 +27275,29 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.findById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::findById::Company::sharedWith"];
+        R.comments.findById = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::findById::Company::comments"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Company.sharedWith#updateById
-             * @methodOf lbServices.Company.sharedWith
+             * @name lbServices.Company.comments#updateById
+             * @methodOf lbServices.Company.comments
              *
              * @description
              *
-             * Update a related item by id for sharedWith.
+             * Update a related item by id for comments.
              *
              * @param {Object=} parameters Request parameters.
              *
              *  - `id` – `{*}` - Company id
              *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *  - `fk` – `{*}` - Foreign key for comments
              *
              * @param {Object} postData Request data.
              *
@@ -27788,1017 +27319,12 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
+             * This usually means the response is a `Comment` object.)
              * </em>
              */
-        R.sharedWith.updateById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::updateById::Company::sharedWith"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Company.entities
-     * @header lbServices.Company.entities
-     * @object
-     * @description
-     *
-     * The object `Company.entities` groups methods
-     * manipulating `EntityLink` instances related to `Company`.
-     *
-     * Call {@link lbServices.Company#entities Company.entities()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company#entities
-             * @methodOf lbServices.Company
-             *
-             * @description
-             *
-             * Queries entities of Company.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::get::Company::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.entities#count
-             * @methodOf lbServices.Company.entities
-             *
-             * @description
-             *
-             * Counts entities of Company.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.entities.count = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::count::Company::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.entities#create
-             * @methodOf lbServices.Company.entities
-             *
-             * @description
-             *
-             * Creates a new instance in entities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.create = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::create::Company::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.entities#createMany
-             * @methodOf lbServices.Company.entities
-             *
-             * @description
-             *
-             * Creates a new instance in entities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.createMany = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::createMany::Company::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.entities#destroyAll
-             * @methodOf lbServices.Company.entities
-             *
-             * @description
-             *
-             * Deletes all entities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.entities.destroyAll = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::delete::Company::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.entities#destroyById
-             * @methodOf lbServices.Company.entities
-             *
-             * @description
-             *
-             * Delete a related item by id for entities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for entities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.entities.destroyById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::destroyById::Company::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.entities#findById
-             * @methodOf lbServices.Company.entities
-             *
-             * @description
-             *
-             * Find a related item by id for entities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for entities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.findById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::findById::Company::entities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.entities#updateById
-             * @methodOf lbServices.Company.entities
-             *
-             * @description
-             *
-             * Update a related item by id for entities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `fk` – `{*}` - Foreign key for entities
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
-             * </em>
-             */
-        R.entities.updateById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::updateById::Company::entities"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Company.activities
-     * @header lbServices.Company.activities
-     * @object
-     * @description
-     *
-     * The object `Company.activities` groups methods
-     * manipulating `ActivityLink` instances related to `Company`.
-     *
-     * Call {@link lbServices.Company#activities Company.activities()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company#activities
-             * @methodOf lbServices.Company
-             *
-             * @description
-             *
-             * Queries activities of Company.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::get::Company::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.activities#count
-             * @methodOf lbServices.Company.activities
-             *
-             * @description
-             *
-             * Counts activities of Company.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.activities.count = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::count::Company::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.activities#create
-             * @methodOf lbServices.Company.activities
-             *
-             * @description
-             *
-             * Creates a new instance in activities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.create = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::create::Company::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.activities#createMany
-             * @methodOf lbServices.Company.activities
-             *
-             * @description
-             *
-             * Creates a new instance in activities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.createMany = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::createMany::Company::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.activities#destroyAll
-             * @methodOf lbServices.Company.activities
-             *
-             * @description
-             *
-             * Deletes all activities of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.activities.destroyAll = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::delete::Company::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.activities#destroyById
-             * @methodOf lbServices.Company.activities
-             *
-             * @description
-             *
-             * Delete a related item by id for activities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for activities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.activities.destroyById = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::destroyById::Company::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.activities#findById
-             * @methodOf lbServices.Company.activities
-             *
-             * @description
-             *
-             * Find a related item by id for activities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for activities
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.findById = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::findById::Company::activities"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.activities#updateById
-             * @methodOf lbServices.Company.activities
-             *
-             * @description
-             *
-             * Update a related item by id for activities.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `fk` – `{*}` - Foreign key for activities
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R.activities.updateById = function() {
-          var TargetResource = $injector.get("ActivityLink");
-          var action = TargetResource["::updateById::Company::activities"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Company.items
-     * @header lbServices.Company.items
-     * @object
-     * @description
-     *
-     * The object `Company.items` groups methods
-     * manipulating `ItemLink` instances related to `Company`.
-     *
-     * Call {@link lbServices.Company#items Company.items()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company#items
-             * @methodOf lbServices.Company
-             *
-             * @description
-             *
-             * Queries items of Company.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::get::Company::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.items#count
-             * @methodOf lbServices.Company.items
-             *
-             * @description
-             *
-             * Counts items of Company.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.items.count = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::count::Company::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.items#create
-             * @methodOf lbServices.Company.items
-             *
-             * @description
-             *
-             * Creates a new instance in items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.create = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::create::Company::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.items#createMany
-             * @methodOf lbServices.Company.items
-             *
-             * @description
-             *
-             * Creates a new instance in items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.createMany = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::createMany::Company::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.items#destroyAll
-             * @methodOf lbServices.Company.items
-             *
-             * @description
-             *
-             * Deletes all items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.items.destroyAll = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::delete::Company::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.items#destroyById
-             * @methodOf lbServices.Company.items
-             *
-             * @description
-             *
-             * Delete a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.items.destroyById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::destroyById::Company::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.items#findById
-             * @methodOf lbServices.Company.items
-             *
-             * @description
-             *
-             * Find a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.findById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::findById::Company::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Company.items#updateById
-             * @methodOf lbServices.Company.items
-             *
-             * @description
-             *
-             * Update a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Company id
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.updateById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::updateById::Company::items"];
+        R.comments.updateById = function() {
+          var TargetResource = $injector.get("Comment");
+          var action = TargetResource["::updateById::Company::comments"];
           return action.apply(R, arguments);
         };
 
@@ -28833,7 +27359,194 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
           { 'id': '@id' },
           {
 
-            // INTERNAL. Use Activity.entities.findById() instead.
+            // INTERNAL. Use Activity.owners.findById() instead.
+            "prototype$__findById__owners": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Activities/:id/owners/:fk",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Activity.owners.destroyById() instead.
+            "prototype$__destroyById__owners": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Activities/:id/owners/:fk",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Activity.owners.updateById() instead.
+            "prototype$__updateById__owners": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Activities/:id/owners/:fk",
+              method: "PUT",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__findById__sharedWith
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Find a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
+            "prototype$__findById__sharedWith": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Activities/:id/sharedWith/:fk",
+              method: "GET",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__destroyById__sharedWith
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Delete a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
+            "prototype$__destroyById__sharedWith": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Activities/:id/sharedWith/:fk",
+              method: "DELETE",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__updateById__sharedWith
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Update a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
+            "prototype$__updateById__sharedWith": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Activities/:id/sharedWith/:fk",
+              method: "PUT",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__findById__entities
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Find a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
             "prototype$__findById__entities": {
               params: {
                 'fk': '@fk',
@@ -28842,7 +27555,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Activity.entities.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__destroyById__entities
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Delete a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__entities": {
               params: {
                 'fk': '@fk',
@@ -28851,7 +27594,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Activity.entities.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__updateById__entities
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Update a related item by id for entities.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `fk` – `{*}` - Foreign key for entities
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
             "prototype$__updateById__entities": {
               params: {
                 'fk': '@fk',
@@ -28860,7 +27640,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Activity.items.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__findById__items
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Find a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
             "prototype$__findById__items": {
               params: {
                 'fk': '@fk',
@@ -28869,7 +27682,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use Activity.items.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__destroyById__items
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Delete a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__items": {
               params: {
                 'fk': '@fk',
@@ -28878,7 +27721,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use Activity.items.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__updateById__items
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Update a related item by id for items.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `fk` – `{*}` - Foreign key for items
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
             "prototype$__updateById__items": {
               params: {
                 'fk': '@fk',
@@ -28887,51 +27767,491 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use Activity.entities() instead.
+            // INTERNAL. Use Activity.owners() instead.
+            "prototype$__get__owners": {
+              isArray: true,
+              url: urlBase + "/Activities/:id/owners",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Activity.owners.create() instead.
+            "prototype$__create__owners": {
+              url: urlBase + "/Activities/:id/owners",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Activity.owners.destroyAll() instead.
+            "prototype$__delete__owners": {
+              url: urlBase + "/Activities/:id/owners",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Activity.owners.count() instead.
+            "prototype$__count__owners": {
+              url: urlBase + "/Activities/:id/owners/count",
+              method: "GET",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__get__sharedWith
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Queries sharedWith of Activity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
+            "prototype$__get__sharedWith": {
+              isArray: true,
+              url: urlBase + "/Activities/:id/sharedWith",
+              method: "GET",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__create__sharedWith
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Creates a new instance in sharedWith of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
+            "prototype$__create__sharedWith": {
+              url: urlBase + "/Activities/:id/sharedWith",
+              method: "POST",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__delete__sharedWith
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Deletes all sharedWith of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
+            "prototype$__delete__sharedWith": {
+              url: urlBase + "/Activities/:id/sharedWith",
+              method: "DELETE",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__count__sharedWith
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Counts sharedWith of Activity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
+            "prototype$__count__sharedWith": {
+              url: urlBase + "/Activities/:id/sharedWith/count",
+              method: "GET",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__get__entities
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Queries entities of Activity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
             "prototype$__get__entities": {
               isArray: true,
               url: urlBase + "/Activities/:id/entities",
               method: "GET",
             },
 
-            // INTERNAL. Use Activity.entities.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__create__entities
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Creates a new instance in entities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
             "prototype$__create__entities": {
               url: urlBase + "/Activities/:id/entities",
               method: "POST",
             },
 
-            // INTERNAL. Use Activity.entities.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__delete__entities
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Deletes all entities of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__entities": {
               url: urlBase + "/Activities/:id/entities",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Activity.entities.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__count__entities
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Counts entities of Activity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__entities": {
               url: urlBase + "/Activities/:id/entities/count",
               method: "GET",
             },
 
-            // INTERNAL. Use Activity.items() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__get__items
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Queries items of Activity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
             "prototype$__get__items": {
               isArray: true,
               url: urlBase + "/Activities/:id/items",
               method: "GET",
             },
 
-            // INTERNAL. Use Activity.items.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__create__items
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Creates a new instance in items of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Activity` object.)
+             * </em>
+             */
             "prototype$__create__items": {
               url: urlBase + "/Activities/:id/items",
               method: "POST",
             },
 
-            // INTERNAL. Use Activity.items.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__delete__items
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Deletes all items of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__items": {
               url: urlBase + "/Activities/:id/items",
               method: "DELETE",
             },
 
-            // INTERNAL. Use Activity.items.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#prototype$__count__items
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * Counts items of Activity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Activity id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__items": {
               url: urlBase + "/Activities/:id/items/count",
               method: "GET",
@@ -29568,12 +28888,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               url: urlBase + "/Activities/metadata",
               method: "GET",
             },
-
-            // INTERNAL. Use ActivityLink.activity() instead.
-            "::get::ActivityLink::activity": {
-              url: urlBase + "/ActivityLinks/:id/activity",
-              method: "GET",
-            },
           }
         );
 
@@ -29825,27 +29139,27 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
     /**
      * @ngdoc object
-     * @name lbServices.Activity.entities
-     * @header lbServices.Activity.entities
+     * @name lbServices.Activity.owners
+     * @header lbServices.Activity.owners
      * @object
      * @description
      *
-     * The object `Activity.entities` groups methods
-     * manipulating `EntityLink` instances related to `Activity`.
+     * The object `Activity.owners` groups methods
+     * manipulating `OwnerLink` instances related to `Activity`.
      *
-     * Call {@link lbServices.Activity#entities Activity.entities()}
+     * Call {@link lbServices.Activity#owners Activity.owners()}
      * to query all related instances.
      */
 
 
             /**
              * @ngdoc method
-             * @name lbServices.Activity#entities
+             * @name lbServices.Activity#owners
              * @methodOf lbServices.Activity
              *
              * @description
              *
-             * Queries entities of Activity.
+             * Queries owners of Activity.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -29869,23 +29183,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
+             * This usually means the response is a `OwnerLink` object.)
              * </em>
              */
-        R.entities = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::get::Activity::entities"];
+        R.owners = function() {
+          var TargetResource = $injector.get("OwnerLink");
+          var action = TargetResource["::get::Activity::owners"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Activity.entities#count
-             * @methodOf lbServices.Activity.entities
+             * @name lbServices.Activity.owners#count
+             * @methodOf lbServices.Activity.owners
              *
              * @description
              *
-             * Counts entities of Activity.
+             * Counts owners of Activity.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -29911,20 +29225,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `count` – `{number=}` -
              */
-        R.entities.count = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::count::Activity::entities"];
+        R.owners.count = function() {
+          var TargetResource = $injector.get("OwnerLink");
+          var action = TargetResource["::count::Activity::owners"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Activity.entities#create
-             * @methodOf lbServices.Activity.entities
+             * @name lbServices.Activity.owners#create
+             * @methodOf lbServices.Activity.owners
              *
              * @description
              *
-             * Creates a new instance in entities of this model.
+             * Creates a new instance in owners of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -29950,23 +29264,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
+             * This usually means the response is a `OwnerLink` object.)
              * </em>
              */
-        R.entities.create = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::create::Activity::entities"];
+        R.owners.create = function() {
+          var TargetResource = $injector.get("OwnerLink");
+          var action = TargetResource["::create::Activity::owners"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Activity.entities#createMany
-             * @methodOf lbServices.Activity.entities
+             * @name lbServices.Activity.owners#createMany
+             * @methodOf lbServices.Activity.owners
              *
              * @description
              *
-             * Creates a new instance in entities of this model.
+             * Creates a new instance in owners of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -29992,23 +29306,23 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
+             * This usually means the response is a `OwnerLink` object.)
              * </em>
              */
-        R.entities.createMany = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::createMany::Activity::entities"];
+        R.owners.createMany = function() {
+          var TargetResource = $injector.get("OwnerLink");
+          var action = TargetResource["::createMany::Activity::owners"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Activity.entities#destroyAll
-             * @methodOf lbServices.Activity.entities
+             * @name lbServices.Activity.owners#destroyAll
+             * @methodOf lbServices.Activity.owners
              *
              * @description
              *
-             * Deletes all entities of this model.
+             * Deletes all owners of this model.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -30032,20 +29346,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * This method returns no data.
              */
-        R.entities.destroyAll = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::delete::Activity::entities"];
+        R.owners.destroyAll = function() {
+          var TargetResource = $injector.get("OwnerLink");
+          var action = TargetResource["::delete::Activity::owners"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Activity.entities#destroyById
-             * @methodOf lbServices.Activity.entities
+             * @name lbServices.Activity.owners#destroyById
+             * @methodOf lbServices.Activity.owners
              *
              * @description
              *
-             * Delete a related item by id for entities.
+             * Delete a related item by id for owners.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -30053,7 +29367,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `options` – `{object=}` -
              *
-             *  - `fk` – `{*}` - Foreign key for entities
+             *  - `fk` – `{*}` - Foreign key for owners
              *
              *  - `options` – `{object=}` -
              *
@@ -30069,20 +29383,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * This method returns no data.
              */
-        R.entities.destroyById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::destroyById::Activity::entities"];
+        R.owners.destroyById = function() {
+          var TargetResource = $injector.get("OwnerLink");
+          var action = TargetResource["::destroyById::Activity::owners"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Activity.entities#findById
-             * @methodOf lbServices.Activity.entities
+             * @name lbServices.Activity.owners#findById
+             * @methodOf lbServices.Activity.owners
              *
              * @description
              *
-             * Find a related item by id for entities.
+             * Find a related item by id for owners.
              *
              * @param {Object=} parameters Request parameters.
              *
@@ -30090,7 +29404,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `options` – `{object=}` -
              *
-             *  - `fk` – `{*}` - Foreign key for entities
+             *  - `fk` – `{*}` - Foreign key for owners
              *
              *  - `options` – `{object=}` -
              *
@@ -30106,29 +29420,29 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
+             * This usually means the response is a `OwnerLink` object.)
              * </em>
              */
-        R.entities.findById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::findById::Activity::entities"];
+        R.owners.findById = function() {
+          var TargetResource = $injector.get("OwnerLink");
+          var action = TargetResource["::findById::Activity::owners"];
           return action.apply(R, arguments);
         };
 
             /**
              * @ngdoc method
-             * @name lbServices.Activity.entities#updateById
-             * @methodOf lbServices.Activity.entities
+             * @name lbServices.Activity.owners#updateById
+             * @methodOf lbServices.Activity.owners
              *
              * @description
              *
-             * Update a related item by id for entities.
+             * Update a related item by id for owners.
              *
              * @param {Object=} parameters Request parameters.
              *
              *  - `id` – `{*}` - Activity id
              *
-             *  - `fk` – `{*}` - Foreign key for entities
+             *  - `fk` – `{*}` - Foreign key for owners
              *
              * @param {Object} postData Request data.
              *
@@ -30150,1731 +29464,14 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * <em>
              * (The remote method definition does not provide any description.
-             * This usually means the response is a `EntityLink` object.)
+             * This usually means the response is a `OwnerLink` object.)
              * </em>
              */
-        R.entities.updateById = function() {
-          var TargetResource = $injector.get("EntityLink");
-          var action = TargetResource["::updateById::Activity::entities"];
+        R.owners.updateById = function() {
+          var TargetResource = $injector.get("OwnerLink");
+          var action = TargetResource["::updateById::Activity::owners"];
           return action.apply(R, arguments);
         };
-    /**
-     * @ngdoc object
-     * @name lbServices.Activity.items
-     * @header lbServices.Activity.items
-     * @object
-     * @description
-     *
-     * The object `Activity.items` groups methods
-     * manipulating `ItemLink` instances related to `Activity`.
-     *
-     * Call {@link lbServices.Activity#items Activity.items()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Activity#items
-             * @methodOf lbServices.Activity
-             *
-             * @description
-             *
-             * Queries items of Activity.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Activity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::get::Activity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Activity.items#count
-             * @methodOf lbServices.Activity.items
-             *
-             * @description
-             *
-             * Counts items of Activity.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Activity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.items.count = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::count::Activity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Activity.items#create
-             * @methodOf lbServices.Activity.items
-             *
-             * @description
-             *
-             * Creates a new instance in items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Activity id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.create = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::create::Activity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Activity.items#createMany
-             * @methodOf lbServices.Activity.items
-             *
-             * @description
-             *
-             * Creates a new instance in items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Activity id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.createMany = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::createMany::Activity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Activity.items#destroyAll
-             * @methodOf lbServices.Activity.items
-             *
-             * @description
-             *
-             * Deletes all items of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Activity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.items.destroyAll = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::delete::Activity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Activity.items#destroyById
-             * @methodOf lbServices.Activity.items
-             *
-             * @description
-             *
-             * Delete a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Activity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.items.destroyById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::destroyById::Activity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Activity.items#findById
-             * @methodOf lbServices.Activity.items
-             *
-             * @description
-             *
-             * Find a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Activity id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.findById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::findById::Activity::items"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.Activity.items#updateById
-             * @methodOf lbServices.Activity.items
-             *
-             * @description
-             *
-             * Update a related item by id for items.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Activity id
-             *
-             *  - `fk` – `{*}` - Foreign key for items
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-        R.items.updateById = function() {
-          var TargetResource = $injector.get("ItemLink");
-          var action = TargetResource["::updateById::Activity::items"];
-          return action.apply(R, arguments);
-        };
-
-
-        return R;
-      }]);
-
-/**
- * @ngdoc object
- * @name lbServices.ActivityLink
- * @header lbServices.ActivityLink
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `ActivityLink` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-  module.factory(
-    "ActivityLink",
-    [
-      'LoopBackResource', 'LoopBackAuth', '$injector', '$q',
-      function(LoopBackResource, LoopBackAuth, $injector, $q) {
-        var R = LoopBackResource(
-        urlBase + "/ActivityLinks/:id",
-          { 'id': '@id' },
-          {
-
-            // INTERNAL. Use ActivityLink.activity() instead.
-            "prototype$__get__activity": {
-              url: urlBase + "/ActivityLinks/:id/activity",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#create
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Create a new instance of the model and persist it into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *   This method does not accept any parameters.
-             *   Supply an empty object or omit this argument altogether.
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "create": {
-              url: urlBase + "/ActivityLinks",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#createMany
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Create a new instance of the model and persist it into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *   This method does not accept any parameters.
-             *   Supply an empty object or omit this argument altogether.
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "createMany": {
-              isArray: true,
-              url: urlBase + "/ActivityLinks",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#patchOrCreate
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Patch an existing model instance or insert a new one into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "patchOrCreate": {
-              url: urlBase + "/ActivityLinks",
-              method: "PATCH",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#replaceOrCreate
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Replace an existing model instance or insert a new one into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *   This method does not accept any parameters.
-             *   Supply an empty object or omit this argument altogether.
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "replaceOrCreate": {
-              url: urlBase + "/ActivityLinks/replaceOrCreate",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#upsertWithWhere
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Update an existing model instance or insert a new one into the data source based on the where criteria.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "upsertWithWhere": {
-              url: urlBase + "/ActivityLinks/upsertWithWhere",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#exists
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Check whether a model instance exists in the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `exists` – `{boolean=}` -
-             */
-            "exists": {
-              url: urlBase + "/ActivityLinks/:id/exists",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#findById
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Find a model instance by {{id}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             *  - `filter` – `{object=}` - Filter defining fields and include - must be a JSON-encoded string ({"something":"value"})
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "findById": {
-              url: urlBase + "/ActivityLinks/:id",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#replaceById
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Replace attributes for a model instance and persist it into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "replaceById": {
-              url: urlBase + "/ActivityLinks/:id/replace",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#find
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Find all instances of the model matched by filter from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "find": {
-              isArray: true,
-              url: urlBase + "/ActivityLinks",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#findOne
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Find first instance of the model matched by filter from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "findOne": {
-              url: urlBase + "/ActivityLinks/findOne",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#updateAll
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Update instances of the model matched by {{where}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Information related to the outcome of the operation
-             */
-            "updateAll": {
-              url: urlBase + "/ActivityLinks/update",
-              method: "POST",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#deleteById
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Delete a model instance by {{id}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "deleteById": {
-              url: urlBase + "/ActivityLinks/:id",
-              method: "DELETE",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#count
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Count instances of the model matched by where from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-            "count": {
-              url: urlBase + "/ActivityLinks/count",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#prototype$patchAttributes
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Patch attributes for a model instance and persist it into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - ActivityLink id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-            "prototype$patchAttributes": {
-              url: urlBase + "/ActivityLinks/:id",
-              method: "PATCH",
-            },
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#createChangeStream
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Create a change stream.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *   This method does not accept any parameters.
-             *   Supply an empty object or omit this argument altogether.
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `changes` – `{ReadableStream=}` -
-             */
-            "createChangeStream": {
-              url: urlBase + "/ActivityLinks/change-stream",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Opportunity.activities.findById() instead.
-            "::findById::Opportunity::activities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/activities/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Opportunity.activities.destroyById() instead.
-            "::destroyById::Opportunity::activities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/activities/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Opportunity.activities.updateById() instead.
-            "::updateById::Opportunity::activities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/activities/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Opportunity.activities() instead.
-            "::get::Opportunity::activities": {
-              isArray: true,
-              url: urlBase + "/Opportunities/:id/activities",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Opportunity.activities.create() instead.
-            "::create::Opportunity::activities": {
-              url: urlBase + "/Opportunities/:id/activities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Opportunity.activities.createMany() instead.
-            "::createMany::Opportunity::activities": {
-              isArray: true,
-              url: urlBase + "/Opportunities/:id/activities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Opportunity.activities.destroyAll() instead.
-            "::delete::Opportunity::activities": {
-              url: urlBase + "/Opportunities/:id/activities",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Opportunity.activities.count() instead.
-            "::count::Opportunity::activities": {
-              url: urlBase + "/Opportunities/:id/activities/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.activities.findById() instead.
-            "::findById::Contact::activities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/activities/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.activities.destroyById() instead.
-            "::destroyById::Contact::activities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/activities/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Contact.activities.updateById() instead.
-            "::updateById::Contact::activities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/activities/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Contact.activities() instead.
-            "::get::Contact::activities": {
-              isArray: true,
-              url: urlBase + "/Contacts/:id/activities",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.activities.create() instead.
-            "::create::Contact::activities": {
-              url: urlBase + "/Contacts/:id/activities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Contact.activities.createMany() instead.
-            "::createMany::Contact::activities": {
-              isArray: true,
-              url: urlBase + "/Contacts/:id/activities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Contact.activities.destroyAll() instead.
-            "::delete::Contact::activities": {
-              url: urlBase + "/Contacts/:id/activities",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Contact.activities.count() instead.
-            "::count::Contact::activities": {
-              url: urlBase + "/Contacts/:id/activities/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.activities.findById() instead.
-            "::findById::Company::activities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/activities/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.activities.destroyById() instead.
-            "::destroyById::Company::activities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/activities/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Company.activities.updateById() instead.
-            "::updateById::Company::activities": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/activities/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Company.activities() instead.
-            "::get::Company::activities": {
-              isArray: true,
-              url: urlBase + "/Companies/:id/activities",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.activities.create() instead.
-            "::create::Company::activities": {
-              url: urlBase + "/Companies/:id/activities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Company.activities.createMany() instead.
-            "::createMany::Company::activities": {
-              isArray: true,
-              url: urlBase + "/Companies/:id/activities",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Company.activities.destroyAll() instead.
-            "::delete::Company::activities": {
-              url: urlBase + "/Companies/:id/activities",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Company.activities.count() instead.
-            "::count::Company::activities": {
-              url: urlBase + "/Companies/:id/activities/count",
-              method: "GET",
-            },
-          }
-        );
-
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#upsert
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Patch an existing model instance or insert a new one into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R["upsert"] = R["patchOrCreate"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#updateOrCreate
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Patch an existing model instance or insert a new one into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `data` – `{object=}` - Model instance data
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R["updateOrCreate"] = R["patchOrCreate"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#patchOrCreateWithWhere
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Update an existing model instance or insert a new one into the data source based on the where criteria.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R["patchOrCreateWithWhere"] = R["upsertWithWhere"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#update
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Update instances of the model matched by {{where}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Information related to the outcome of the operation
-             */
-        R["update"] = R["updateAll"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#destroyById
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Delete a model instance by {{id}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R["destroyById"] = R["deleteById"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#removeById
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Delete a model instance by {{id}} from the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - Model id
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R["removeById"] = R["deleteById"];
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#updateAttributes
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Patch attributes for a model instance and persist it into the data source.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - ActivityLink id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` - An object of model property name/value pairs
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ActivityLink` object.)
-             * </em>
-             */
-        R["updateAttributes"] = R["prototype$patchAttributes"];
-
-
-        /**
-        * @ngdoc property
-        * @name lbServices.ActivityLink#modelName
-        * @propertyOf lbServices.ActivityLink
-        * @description
-        * The name of the model represented by this $resource,
-        * i.e. `ActivityLink`.
-        */
-        R.modelName = "ActivityLink";
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ActivityLink#activity
-             * @methodOf lbServices.ActivityLink
-             *
-             * @description
-             *
-             * Fetches belongsTo relation activity.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - ActivityLink id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `refresh` – `{boolean=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `Activity` object.)
-             * </em>
-             */
-        R.activity = function() {
-          var TargetResource = $injector.get("Activity");
-          var action = TargetResource["::get::ActivityLink::activity"];
-          return action.apply(R, arguments);
-        };
-
-
-        return R;
-      }]);
-
-/**
- * @ngdoc object
- * @name lbServices.ItemLink
- * @header lbServices.ItemLink
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `ItemLink` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-  module.factory(
-    "ItemLink",
-    [
-      'LoopBackResource', 'LoopBackAuth', '$injector', '$q',
-      function(LoopBackResource, LoopBackAuth, $injector, $q) {
-        var R = LoopBackResource(
-        urlBase + "/ItemLinks/:id",
-          { 'id': '@id' },
-          {
-
-            /**
-             * @ngdoc method
-             * @name lbServices.ItemLink#prototype$__get__item
-             * @methodOf lbServices.ItemLink
-             *
-             * @description
-             *
-             * Fetches belongsTo relation item.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - ItemLink id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `refresh` – `{boolean=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `ItemLink` object.)
-             * </em>
-             */
-            "prototype$__get__item": {
-              url: urlBase + "/ItemLinks/:id/item",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Opportunity.items.findById() instead.
-            "::findById::Opportunity::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/items/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Opportunity.items.destroyById() instead.
-            "::destroyById::Opportunity::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/items/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Opportunity.items.updateById() instead.
-            "::updateById::Opportunity::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Opportunities/:id/items/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Opportunity.items() instead.
-            "::get::Opportunity::items": {
-              isArray: true,
-              url: urlBase + "/Opportunities/:id/items",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Opportunity.items.create() instead.
-            "::create::Opportunity::items": {
-              url: urlBase + "/Opportunities/:id/items",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Opportunity.items.createMany() instead.
-            "::createMany::Opportunity::items": {
-              isArray: true,
-              url: urlBase + "/Opportunities/:id/items",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Opportunity.items.destroyAll() instead.
-            "::delete::Opportunity::items": {
-              url: urlBase + "/Opportunities/:id/items",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Opportunity.items.count() instead.
-            "::count::Opportunity::items": {
-              url: urlBase + "/Opportunities/:id/items/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.items.findById() instead.
-            "::findById::Contact::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/items/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.items.destroyById() instead.
-            "::destroyById::Contact::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/items/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Contact.items.updateById() instead.
-            "::updateById::Contact::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Contacts/:id/items/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Contact.items() instead.
-            "::get::Contact::items": {
-              isArray: true,
-              url: urlBase + "/Contacts/:id/items",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Contact.items.create() instead.
-            "::create::Contact::items": {
-              url: urlBase + "/Contacts/:id/items",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Contact.items.createMany() instead.
-            "::createMany::Contact::items": {
-              isArray: true,
-              url: urlBase + "/Contacts/:id/items",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Contact.items.destroyAll() instead.
-            "::delete::Contact::items": {
-              url: urlBase + "/Contacts/:id/items",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Contact.items.count() instead.
-            "::count::Contact::items": {
-              url: urlBase + "/Contacts/:id/items/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.items.findById() instead.
-            "::findById::Company::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/items/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.items.destroyById() instead.
-            "::destroyById::Company::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/items/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Company.items.updateById() instead.
-            "::updateById::Company::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Companies/:id/items/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Company.items() instead.
-            "::get::Company::items": {
-              isArray: true,
-              url: urlBase + "/Companies/:id/items",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Company.items.create() instead.
-            "::create::Company::items": {
-              url: urlBase + "/Companies/:id/items",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Company.items.createMany() instead.
-            "::createMany::Company::items": {
-              isArray: true,
-              url: urlBase + "/Companies/:id/items",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Company.items.destroyAll() instead.
-            "::delete::Company::items": {
-              url: urlBase + "/Companies/:id/items",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Company.items.count() instead.
-            "::count::Company::items": {
-              url: urlBase + "/Companies/:id/items/count",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Activity.items.findById() instead.
-            "::findById::Activity::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Activities/:id/items/:fk",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Activity.items.destroyById() instead.
-            "::destroyById::Activity::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Activities/:id/items/:fk",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Activity.items.updateById() instead.
-            "::updateById::Activity::items": {
-              params: {
-                'fk': '@fk',
-              },
-              url: urlBase + "/Activities/:id/items/:fk",
-              method: "PUT",
-            },
-
-            // INTERNAL. Use Activity.items() instead.
-            "::get::Activity::items": {
-              isArray: true,
-              url: urlBase + "/Activities/:id/items",
-              method: "GET",
-            },
-
-            // INTERNAL. Use Activity.items.create() instead.
-            "::create::Activity::items": {
-              url: urlBase + "/Activities/:id/items",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Activity.items.createMany() instead.
-            "::createMany::Activity::items": {
-              isArray: true,
-              url: urlBase + "/Activities/:id/items",
-              method: "POST",
-            },
-
-            // INTERNAL. Use Activity.items.destroyAll() instead.
-            "::delete::Activity::items": {
-              url: urlBase + "/Activities/:id/items",
-              method: "DELETE",
-            },
-
-            // INTERNAL. Use Activity.items.count() instead.
-            "::count::Activity::items": {
-              url: urlBase + "/Activities/:id/items/count",
-              method: "GET",
-            },
-          }
-        );
-
-
-
-
-        /**
-        * @ngdoc property
-        * @name lbServices.ItemLink#modelName
-        * @propertyOf lbServices.ItemLink
-        * @description
-        * The name of the model represented by this $resource,
-        * i.e. `ItemLink`.
-        */
-        R.modelName = "ItemLink";
-
 
 
         return R;
@@ -35725,6 +33322,45 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
             /**
              * @ngdoc method
+             * @name lbServices.Comment#prototype$__get__entity
+             * @methodOf lbServices.Comment
+             *
+             * @description
+             *
+             * Fetches belongsTo relation entity.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - Comment id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `refresh` – `{boolean=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Comment` object.)
+             * </em>
+             */
+            "prototype$__get__entity": {
+              url: urlBase + "/Comments/:id/entity",
+              method: "GET",
+            },
+
+            /**
+             * @ngdoc method
              * @name lbServices.Comment#prototype$__get__item
              * @methodOf lbServices.Comment
              *
@@ -36375,6 +34011,183 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
             // INTERNAL. Use Attachment.comments.count() instead.
             "::count::Attachment::comments": {
               url: urlBase + "/Attachments/:id/comments/count",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Opportunity.comments.findById() instead.
+            "::findById::Opportunity::comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Opportunities/:id/comments/:fk",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Opportunity.comments.destroyById() instead.
+            "::destroyById::Opportunity::comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Opportunities/:id/comments/:fk",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Opportunity.comments.updateById() instead.
+            "::updateById::Opportunity::comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Opportunities/:id/comments/:fk",
+              method: "PUT",
+            },
+
+            // INTERNAL. Use Opportunity.comments() instead.
+            "::get::Opportunity::comments": {
+              isArray: true,
+              url: urlBase + "/Opportunities/:id/comments",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Opportunity.comments.create() instead.
+            "::create::Opportunity::comments": {
+              url: urlBase + "/Opportunities/:id/comments",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Opportunity.comments.createMany() instead.
+            "::createMany::Opportunity::comments": {
+              isArray: true,
+              url: urlBase + "/Opportunities/:id/comments",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Opportunity.comments.destroyAll() instead.
+            "::delete::Opportunity::comments": {
+              url: urlBase + "/Opportunities/:id/comments",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Opportunity.comments.count() instead.
+            "::count::Opportunity::comments": {
+              url: urlBase + "/Opportunities/:id/comments/count",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Contact.comments.findById() instead.
+            "::findById::Contact::comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Contacts/:id/comments/:fk",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Contact.comments.destroyById() instead.
+            "::destroyById::Contact::comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Contacts/:id/comments/:fk",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Contact.comments.updateById() instead.
+            "::updateById::Contact::comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Contacts/:id/comments/:fk",
+              method: "PUT",
+            },
+
+            // INTERNAL. Use Contact.comments() instead.
+            "::get::Contact::comments": {
+              isArray: true,
+              url: urlBase + "/Contacts/:id/comments",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Contact.comments.create() instead.
+            "::create::Contact::comments": {
+              url: urlBase + "/Contacts/:id/comments",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Contact.comments.createMany() instead.
+            "::createMany::Contact::comments": {
+              isArray: true,
+              url: urlBase + "/Contacts/:id/comments",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Contact.comments.destroyAll() instead.
+            "::delete::Contact::comments": {
+              url: urlBase + "/Contacts/:id/comments",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Contact.comments.count() instead.
+            "::count::Contact::comments": {
+              url: urlBase + "/Contacts/:id/comments/count",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Company.comments.findById() instead.
+            "::findById::Company::comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Companies/:id/comments/:fk",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Company.comments.destroyById() instead.
+            "::destroyById::Company::comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Companies/:id/comments/:fk",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Company.comments.updateById() instead.
+            "::updateById::Company::comments": {
+              params: {
+                'fk': '@fk',
+              },
+              url: urlBase + "/Companies/:id/comments/:fk",
+              method: "PUT",
+            },
+
+            // INTERNAL. Use Company.comments() instead.
+            "::get::Company::comments": {
+              isArray: true,
+              url: urlBase + "/Companies/:id/comments",
+              method: "GET",
+            },
+
+            // INTERNAL. Use Company.comments.create() instead.
+            "::create::Company::comments": {
+              url: urlBase + "/Companies/:id/comments",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Company.comments.createMany() instead.
+            "::createMany::Company::comments": {
+              isArray: true,
+              url: urlBase + "/Companies/:id/comments",
+              method: "POST",
+            },
+
+            // INTERNAL. Use Company.comments.destroyAll() instead.
+            "::delete::Company::comments": {
+              url: urlBase + "/Companies/:id/comments",
+              method: "DELETE",
+            },
+
+            // INTERNAL. Use Company.comments.count() instead.
+            "::count::Company::comments": {
+              url: urlBase + "/Companies/:id/comments/count",
               method: "GET",
             },
 
@@ -37863,7 +35676,40 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "PUT",
             },
 
-            // INTERNAL. Use View.sharedWith.findById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.View#prototype$__findById__sharedWith
+             * @methodOf lbServices.View
+             *
+             * @description
+             *
+             * Find a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - View id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `View` object.)
+             * </em>
+             */
             "prototype$__findById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -37872,7 +35718,37 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use View.sharedWith.destroyById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.View#prototype$__destroyById__sharedWith
+             * @methodOf lbServices.View
+             *
+             * @description
+             *
+             * Delete a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - View id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__destroyById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -37881,7 +35757,44 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "DELETE",
             },
 
-            // INTERNAL. Use View.sharedWith.updateById() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.View#prototype$__updateById__sharedWith
+             * @methodOf lbServices.View
+             *
+             * @description
+             *
+             * Update a related item by id for sharedWith.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - View id
+             *
+             *  - `fk` – `{*}` - Foreign key for sharedWith
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `View` object.)
+             * </em>
+             */
             "prototype$__updateById__sharedWith": {
               params: {
                 'fk': '@fk',
@@ -37915,26 +35828,156 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               method: "GET",
             },
 
-            // INTERNAL. Use View.sharedWith() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.View#prototype$__get__sharedWith
+             * @methodOf lbServices.View
+             *
+             * @description
+             *
+             * Queries sharedWith of View.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - View id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `filter` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `View` object.)
+             * </em>
+             */
             "prototype$__get__sharedWith": {
               isArray: true,
               url: urlBase + "/Views/:id/sharedWith",
               method: "GET",
             },
 
-            // INTERNAL. Use View.sharedWith.create() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.View#prototype$__create__sharedWith
+             * @methodOf lbServices.View
+             *
+             * @description
+             *
+             * Creates a new instance in sharedWith of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - View id
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `data` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `View` object.)
+             * </em>
+             */
             "prototype$__create__sharedWith": {
               url: urlBase + "/Views/:id/sharedWith",
               method: "POST",
             },
 
-            // INTERNAL. Use View.sharedWith.destroyAll() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.View#prototype$__delete__sharedWith
+             * @methodOf lbServices.View
+             *
+             * @description
+             *
+             * Deletes all sharedWith of this model.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - View id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` -
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * This method returns no data.
+             */
             "prototype$__delete__sharedWith": {
               url: urlBase + "/Views/:id/sharedWith",
               method: "DELETE",
             },
 
-            // INTERNAL. Use View.sharedWith.count() instead.
+            /**
+             * @ngdoc method
+             * @name lbServices.View#prototype$__count__sharedWith
+             * @methodOf lbServices.View
+             *
+             * @description
+             *
+             * Counts sharedWith of View.
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `id` – `{*}` - View id
+             *
+             *  - `options` – `{object=}` -
+             *
+             *  - `where` – `{object=}` - Criteria to match model instances
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `count` – `{number=}` -
+             */
             "prototype$__count__sharedWith": {
               url: urlBase + "/Views/:id/sharedWith/count",
               method: "GET",
@@ -39078,341 +37121,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
         R.owners.updateById = function() {
           var TargetResource = $injector.get("OwnerLink");
           var action = TargetResource["::updateById::View::owners"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.View.sharedWith
-     * @header lbServices.View.sharedWith
-     * @object
-     * @description
-     *
-     * The object `View.sharedWith` groups methods
-     * manipulating `SharedWithLink` instances related to `View`.
-     *
-     * Call {@link lbServices.View#sharedWith View.sharedWith()}
-     * to query all related instances.
-     */
-
-
-            /**
-             * @ngdoc method
-             * @name lbServices.View#sharedWith
-             * @methodOf lbServices.View
-             *
-             * @description
-             *
-             * Queries sharedWith of View.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - View id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `filter` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
-             * </em>
-             */
-        R.sharedWith = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::get::View::sharedWith"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.View.sharedWith#count
-             * @methodOf lbServices.View.sharedWith
-             *
-             * @description
-             *
-             * Counts sharedWith of View.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - View id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` - Criteria to match model instances
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * Data properties:
-             *
-             *  - `count` – `{number=}` -
-             */
-        R.sharedWith.count = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::count::View::sharedWith"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.View.sharedWith#create
-             * @methodOf lbServices.View.sharedWith
-             *
-             * @description
-             *
-             * Creates a new instance in sharedWith of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - View id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
-             * </em>
-             */
-        R.sharedWith.create = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::create::View::sharedWith"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.View.sharedWith#createMany
-             * @methodOf lbServices.View.sharedWith
-             *
-             * @description
-             *
-             * Creates a new instance in sharedWith of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - View id
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Array.<Object>,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Array.<Object>} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
-             * </em>
-             */
-        R.sharedWith.createMany = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::createMany::View::sharedWith"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.View.sharedWith#destroyAll
-             * @methodOf lbServices.View.sharedWith
-             *
-             * @description
-             *
-             * Deletes all sharedWith of this model.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - View id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `where` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.sharedWith.destroyAll = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::delete::View::sharedWith"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.View.sharedWith#destroyById
-             * @methodOf lbServices.View.sharedWith
-             *
-             * @description
-             *
-             * Delete a related item by id for sharedWith.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - View id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * This method returns no data.
-             */
-        R.sharedWith.destroyById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::destroyById::View::sharedWith"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.View.sharedWith#findById
-             * @methodOf lbServices.View.sharedWith
-             *
-             * @description
-             *
-             * Find a related item by id for sharedWith.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - View id
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
-             * </em>
-             */
-        R.sharedWith.findById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::findById::View::sharedWith"];
-          return action.apply(R, arguments);
-        };
-
-            /**
-             * @ngdoc method
-             * @name lbServices.View.sharedWith#updateById
-             * @methodOf lbServices.View.sharedWith
-             *
-             * @description
-             *
-             * Update a related item by id for sharedWith.
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{*}` - View id
-             *
-             *  - `fk` – `{*}` - Foreign key for sharedWith
-             *
-             * @param {Object} postData Request data.
-             *
-             *  - `options` – `{object=}` -
-             *
-             *  - `data` – `{object=}` -
-             *
-             *  - `options` – `{object=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `SharedWithLink` object.)
-             * </em>
-             */
-        R.sharedWith.updateById = function() {
-          var TargetResource = $injector.get("SharedWithLink");
-          var action = TargetResource["::updateById::View::sharedWith"];
           return action.apply(R, arguments);
         };
 

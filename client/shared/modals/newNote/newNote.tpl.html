@@ -1,5 +1,6 @@
   <div class="modal-header header-dark">
             <h3 class="modal-title" id="modal-title">New Note</h3>
+            <p>Submit a new note about <b>{{data.currentRecordName}}</b></p>
             
             <!-- close button -->
             <button type="button" class="close" ng-click="$dismiss()">
@@ -8,43 +9,33 @@
 
         </div>
         <div class="modal-body w-padding" id="modal-body">
+                        
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <form name="newNoteForm" novalidate>
 
-            <div class="row">
-              <div class="col-xs-9">
-                
-         
-                
-               <form name="newNoteForm" novalidate autocomplete="off">
-                <div class="row">
-                      <div class="col-xs-12">
-                          <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" ng-model="data.note.title" autofocus ng-keydown="focusTextEdit($event)">
-                          </div>
-                      </div>
-                      <div class="col-xs-12">
-                        <label for="body">Note</label>
-                         <div class="rich-textarea" ng-class="{'focused': $root.richTextFocus }">
-                            <trix-editor angular-trix ng-model="data.note.body" ng-if="true" trix-focus="trixFocus(e, editor)" trix-blur="trixBlur(e, editor)" id="Trix-Editor"></trix-editor>
-                          </div>
-                      </div>
-                  </div>
-                </form>
-
-                </div>
-                <div class="col-xs-3">
-                    
-      
-                    <div class="form-group">
-                      <label for="">Related To:</label>
-                      <button class="btn btn-default">
-                        Add Related
-                      </button>
+                                <div class="row">
+                                        <div class="col-xs-12">
+                                           <div class="form-group">
+                                            <label for="title">Title</label>
+                                            <input type="text" class="form-control" ng-model="data.note.title">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                           <div class="form-group">
+                                            <label for="title">Description</label>
+                                            <div contenteditable="" class="form-control" ng-model="data.note.body" autofocus  style="min-height:120px; height:auto;"
+                                            strip-br="true" placeholder="Leave a note..."
+                                            ></div>
+                                            </div>
+                                        </div>
+                                  </div>
+                            </form>
+                        </div>
+                        <div class="col-xs-3">
+                         <span ng-include="'shared/templates/owners-related.tpl.html'"></span>
+                        </div>
                     </div>
-
-                
-                </div>
-            </div>
 
         </div>
         <div class="modal-footer">

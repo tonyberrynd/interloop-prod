@@ -4,14 +4,15 @@
 
       <div class="filter-panel-header">
           <!-- filter panel header -->
-          <div class="btn-group rounded inverse four">
+          <!-- <div class="btn-group rounded inverse four" feature-flag="--GROUPING--"> -->
+          <div class="btn-group rounded inverse three">
               <button type="button" class="btn btn-default btn-outline" ng-class="{'active': data.filterView == 'filters'}" ng-click="data.filterView = 'filters'" uib-tooltip="Filters" tooltip-popup-delay="500" tooltip-append-to-body="true">
                 <icon class="icon-budicon-classic-12"></icon>
               </button>
               <button type="button" class="btn btn-default btn-outline" ng-class="{'active': data.filterView == 'columns'}" ng-click="data.filterView = 'columns'" uib-tooltip="Columns" tooltip-popup-delay="500" tooltip-append-to-body="true">
                 <icon class="icon-budicon-classic-26"></icon>
               </button>
-              <button type="button" class="btn btn-default btn-outline" ng-class="{'active': data.filterView == 'groups'}" ng-click="data.filterView = 'groups'" uib-tooltip="Groups" tooltip-popup-delay="500" tooltip-append-to-body="true">
+              <button type="button" class="btn btn-default btn-outline" ng-class="{'active': data.filterView == 'groups'}" ng-click="data.filterView = 'groups'" uib-tooltip="Groups" tooltip-popup-delay="500" tooltip-append-to-body="true" feature-flag="--GROUPING--">
                 <icon class="group-icon icon-budicon-classic-69"></icon>    
               </button>
               <button type="button" class="btn btn-default btn-outline" ng-class="{'active': data.filterView == 'settings'}" ng-click="data.filterView = 'settings'" uib-tooltip="Settings" tooltip-popup-delay="500" tooltip-append-to-body="true">

@@ -1,6 +1,6 @@
 angular.module('interloop.factory.excelGenerator', [])
 
-.factory('excelGenerator', function($rootScope, $log, $injector, EndFields) {
+.factory('excelGenerator', function($rootScope, $log, $injector, EndFields, socialTypes) {
 
     var excelGenerator = {
         createImportTemplate: createImportTemplate
@@ -32,7 +32,48 @@ angular.module('interloop.factory.excelGenerator', [])
     	var dataHeader = [{}];
     	//set each to null so no data in the first row - just want to generate headers
     	_.forEach(fields, function(value, key){
-    		if(value.label) { dataHeader[0][value.label] = '' };
+            switch(value.type) {
+                case 'email':
+                    var emailIndexes = [1,2];
+                    _.forEach(emailIndexes, function(value){
+                        dataHeader[0]['email' + value + '_type'] = ''; //TODO - ADD DATAVALIDATION
+                        dataHeader[0]['email' + value + '_value'] = '';
+                    })
+                    break;
+                case 'phone':
+                     var phoneIndexes = [1,2];
+                    _.forEach(phoneIndexes, function(value){
+                        dataHeader[0]['phone' + value + '_type'] = ''; //TODO - ADD DATAVALIDATION
+                        dataHeader[0]['phone' + value + '_value'] = '';
+                        dataHeader[0]['phone' + value + '_extension'] = '';
+                    })
+                    break;
+                case 'address':
+                    var addressIndexes = [1,2];
+                    //add two address stubs
+                    _.forEach(addressIndexes, function(value){
+                        dataHeader[0]['address' + value + '_type'] = '';
+                        dataHeader[0]['address' + value + '_street1'] = '';
+                        dataHeader[0]['address' + value + '_street2'] = '';
+                        dataHeader[0]['address' + value + '_city'] = '';
+                        dataHeader[0]['address' + value + '_region'] = '';
+                        dataHeader[0]['address' + value + '_postal_code'] = '';
+                        dataHeader[0]['address' + value + '_country'] = '';
+                    })
+                    break;
+                case 'social':
+                    _.forEach(socialTypes, function(value){
+                        dataHeader[0][value.key] = ''
+                    })
+                    break;
+                // case 'category':
+                //     //TODO - add data validation to only allow category values
+                //     break;
+                default:
+                    //just add key so can be recognized
+                    if(value.key) { dataHeader[0][value.key] = '' };
+            }
+    		
     	})
 
 		/* generate a worksheet */

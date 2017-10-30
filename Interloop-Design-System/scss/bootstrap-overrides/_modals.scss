@@ -45,6 +45,7 @@
   position: relative;
   width: auto;
   margin: 10px;
+  height:100vh;
 }
 
 // Actual modal
@@ -59,6 +60,7 @@
   background-clip: padding-box;
   // Remove focus outline from opened modal
   outline: 0;
+  margin-bottom:15px;
 }
 
 // Modal background
@@ -86,6 +88,11 @@
     margin-right:10px;
     transform:translateY(-1px);
   }
+}
+
+.modal-header p {
+  color:$dragonstone;
+  margin:0px;
 }
 // Close icon
 // .modal-header .close {
@@ -161,6 +168,9 @@
   .col-xs-6,
   .col-xs-7,
   .col-xs-8,
+  .col-xs-9,
+  .col-xs-10,
+  .col-xs-11,
   .col-xs-12 {
     padding-left:5px;
     padding-right:5px;
@@ -173,6 +183,8 @@
   text-align: right; // right align buttons
   border-top: 1px solid $modal-footer-border-color;
   @include clearfix; // clear it in case folks use .pull-* classes on buttons
+
+  border-top:solid 1px lighten($border, 3%);
 
   // Properly space out buttons
   .btn + .btn {
@@ -213,7 +225,8 @@
   // Automatically set modal's width for larger viewports
   .modal-dialog {
     width: $modal-md;
-    margin: 30px auto;
+    margin: 0px auto;
+    padding: 50px 0px;
   }
   .modal-content {
     box-shadow: 0 0 0 1px rgba(9, 30, 66, 0.08), 0 2px 1px rgba(9, 30, 66, 0.08), 0 0 20px -6px rgba(9, 30, 66, 0.31);

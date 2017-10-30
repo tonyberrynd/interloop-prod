@@ -1,13 +1,14 @@
 
-            <div class="sidepanel contact-details">
+            <div class="sidepanel">
 
+               
                 <!-- sidebar overlay -->
                 <div class="sidebar-overlay" ng-class="{'hidden': data.activated }">
                     <div class="loop-loader loop-loader-xs fadeInOut centered">Loading...</div>
                 </div>
 
 
-                 <div class="sidepanel-header">
+                <div class="sidepanel-header">
                     <a class="btn btn-link btn-left" href ng-if="!data.sidebarHistory.length" ng-click="$root.sidePanelOpen = !$root.sidePanelOpen">
                         <img src="../assets/img/icons/states/close.svg" alt="Close">
                     </a>
@@ -15,44 +16,62 @@
                         <img src="../assets/img/icons/states/cheveron-left.svg" alt="Go Back">
                         Back
                     </a>
-                    <!-- <span class="text-left">Contact</span> -->
-                    <a class="btn btn-link edit-button" ui-sref="app.contact-edit({id: data.thisRecord.id})">
+                    <!-- <span class="text-left">Opportunity</span> -->
+                    <a class="btn btn-link edit-button" ui-sref="app.contact-edit({id: data.thisRecord.id})" ng-if="!data.thisRecord._isDeleted">
                         <icon class="fa fa-pencil"></icon> Edit
                     </a>
 
+                    <a class="btn btn-primary btn-action" ng-click="unArchiveItem()" ng-if="data.thisRecord._isDeleted">
+                        Un-Archive
+                    </a>
 
-                     <div class="btn-group btn-action" uib-dropdown is-open="status.isopen" dropdown-append-to-body="true">
+
+                     <div class="btn-group btn-action" uib-dropdown is-open="$root.showActionMenu" dropdown-append-to-body="true" ng-if="!data.thisRecord._isDeleted">
                       <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
                         Action<icon class="wb-triangle-down"></icon>
                       </button>
-                      <ul class="dropdown-menu dropdown-menu-right action-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                      <ul class="dropdown-menu dropdown-menu-right action-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" keyboard-nav="true">
                       
                         <li class="text-divider">
-                            <span class="text">Visibility and ownership...</span>
+                            <span class="text">Update record ...</span>
                             <span class="line"></span>
                         </li>
-                        <li role="menuitem"><a href ng-click="addOwner()">Add Owner</a></li>
-                        <li role="menuitem"><a href ng-click="shareWith()">Share With</a></li>
+                        <li role="menuitem"><a href ng-click="addOwner()">
+                          <img src="../assets/img/icons/actions/add-owner.svg" alt="Add Owner"> Add Owners</a></li>
+                        <li role="menuitem"><a href ng-click="shareWith()">
+                          <img src="../assets/img/icons/actions/share-with.svg" alt="Share With"> Share With</a></li>
+                        <li role="menuitem"><a href ng-click="manageRelationships()">
+                          <img src="../assets/img/icons/actions/add-relationship.svg" alt="Add Relationship"> Add Relationship</a></li>
+                        <li role="menuitem"><a href ng-click="manageTags()">
+                          <img src="../assets/img/icons/actions/add-tag.svg" alt="Add Tag"> Add Tag</a></li>
                         <li class="text-divider">
-                            <span class="text">Add a new...</span>
+                            <span class="text">Actions...</span>
                             <span class="line"></span>
                         </li>
-    <!--                    <li role="menuitem"><a href ng-click="logCall()">Log Call</a></li>
-                        <li role="menuitem"><a href ng-click="logMeeting()">Log Meeting</a></li> -->
-                        <li role="menuitem"><a href ng-click="addActivity()">Activity</a></li>
-                        <li role="menuitem"><a href ng-click="addNote()">Note</a></li>
-                        <li role="menuitem"><a href ng-click="manageTags()">Tag</a></li>
-                        <li role="menuitem"><a href ng-click="manageRelationships()">Relationship</a></li>
-                        <li class="text-divider">
-                            <span class="text">Add File From...</span>
+                        <li role="menuitem"><a href ng-click="addNote()">
+                          <img src="../assets/img/icons/actions/new-note.svg" alt="Add Note"> Add Note</a></li>
+                        <li role="menuitem"><a href ng-click="addTask()">
+                          <img src="../assets/img/icons/actions/new-task.svg" alt="Add Task"> Add Task</a></li>
+                        <li role="menuitem"><a href ng-click="addMeeting()">
+                          <img src="../assets/img/icons/actions/new-meeting.svg" alt="Add Meeting"> Add Meeting</a></li>
+                        <li role="menuitem"><a href ng-click="logCall()">
+                          <img src="../assets/img/icons/actions/log-call.svg" alt="Log Call"> Log Call</a></li>
+                        <li role="menuitem"><a href ng-click="triggerUpload()">
+                          <img src="../assets/img/icons/actions/add-file.svg" alt="Upload File"> Upload File</a></li>
+                         <li class="text-divider">
+                            <span class="text">Owner Actions...</span>
                             <span class="line"></span>
                         </li>
-                        <li role="menuitem"><a href ng-click="triggerUpload()">Upload File</a></li>
+                        <li role="menuitem">
+                          <a class="text-danger" href ng-click="deleteItem()">
+                            <img src="../assets/img/icons/actions/delete-record.svg" alt="Delete Record"> Delete Record</a>
+                        </li>
+
                       </ul>
                     </div>
 
 
-                    <button class="btn btn-link btn-right" popover-title="Link To This Record" popover-placement="bottom"  uib-popover-template="'myPopoverTemplate.html'" popover-trigger="outsideClick">
+                    <button class="btn btn-link btn-right" popover-title="Link To This Record" popover-placement="bottom"  uib-popover-template="'myPopoverTemplate.html'" popover-trigger="outsideClick" ng-if="!data.thisRecord._isDeleted">
                         <icon class="fa fa-link"></icon>
                     </button>
 
@@ -83,47 +102,53 @@
                 <div class="sidepanel-tabs">
                     <div class="tabs-wrapper">
                         <ul class="nav nav-tabs nav-justified">
+<!--                           <li ng-class="{ 'active': data.currentTab == 1 }"><a href ng-click="data.currentTab = 1">Insights</a></li> -->
                           <li ng-class="{ 'active': data.currentTab == 2 }"><a href ng-click="data.currentTab = 2">Details</a></li>
-                           <li ng-class="{ 'active': data.currentTab == 3 }">
-                            <a href ng-click="data.currentTab = 3">Tasks
-                            <span ng-bind="'[' + data.overdueActivities.length + ']'" ng-if="data.overdueActivities.length">2</span>
-                            </a>
-                          </li>
+<!--                           <li ng-class="{ 'active': data.currentTab == 7 }"><a href ng-click="data.currentTab = 7">Milestones</a></li> -->
                           <li ng-class="{ 'active': data.currentTab == 4 }">
                             <a href ng-click="data.currentTab = 4">
                             Related
                           <span ng-bind="'[' + (data.thisRecord.entities.length + data.thisRecord.files.length) + ']'" ng-if="(data.thisRecord.entities.length + data.thisRecord.files.length) > 0"></span>
                           </a></li>
+                          <li ng-class="{ 'active': data.currentTab == 3 }">
+                            <a href ng-click="data.currentTab = 3">Activities
+                            <span ng-bind="'[' + data.overdueActivities.length + ']'" ng-if="data.overdueActivities.length">2</span>
+                            </a>
+                          </li>
                           <li ng-class="{ 'active': data.currentTab == 5 }"><a href ng-click="data.currentTab = 5">History</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="sidepanel-content" ng-switch="data.currentTab">
-                    <span ng-class="{'hidden': !data.activated }">
-                    <span ng-switch-when="1">
-                      <ng-include src="'shared/templates/insights.tpl.html'"></ng-include>
+                   <span ng-class="{'hidden': !data.activated }">
+                      <span ng-switch-when="1">
+                        <ng-include src="'shared/templates/contact-insights.tpl.html'"></ng-include>
+                      </span>
+                      <span ng-switch-when="2">
+                        <ng-include src="'shared/templates/details.tpl.html'"></ng-include>
+                      </span>
+                      <span ng-switch-when="7">
+                        <ng-include src="'modules/opportunities/milestones.tpl.html'"></ng-include>
+                      </span>
+                      <span ng-switch-when="3">
+                        <ng-include src="'shared/templates/tasks.tpl.html'"></ng-include>
+                      </span>
+                      <span ng-switch-when="4">
+                        <ng-include src="'shared/templates/related.tpl.html'"></ng-include>
+                      </span>
+                      <span ng-switch-when="5">
+                        <ng-include src="'shared/templates/activity-feed.tpl.html'"></ng-include>
+                      </span>
                     </span>
-                    <span ng-switch-when="2">
-                      <ng-include src="'shared/templates/details.tpl.html'"></ng-include>
-                    </span>
-                    <span ng-switch-when="3">
-                      <ng-include src="'shared/templates/tasks.tpl.html'"></ng-include>
-                    </span>
-                    <span ng-switch-when="4">
-                      <ng-include src="'shared/templates/related.tpl.html'"></ng-include>
-                    </span>
-                    <span ng-switch-when="5">
-                      <ng-include src="'shared/templates/activity-feed.tpl.html'"></ng-include>
-                    </span>
-                </span>
 
                 </div>
 
             </div>
 
 
-                          <!-- //hidden file upload button -->
-              <button id="ContactFileUpload" type="file" ngf-select="uploadFiles($files)" ngf-multiple="true" accept="image/*, .pdf, .doc, .docx" class="btn upload-btn hidden" ng-model="data.files" ngf-max-size="100MB">
+
+              <!-- //hidden file upload button -->
+              <button id="ContactFileUpload" type="file" ngf-select="uploadFiles($files)" ngf-multiple="true" accept="image/*, .pdf, .doc, .docx, .xlsx" class="btn upload-btn hidden" ng-model="data.files" ngf-max-size="100MB">
                 Browse Files
               </button>
 

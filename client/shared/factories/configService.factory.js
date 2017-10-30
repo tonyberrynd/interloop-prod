@@ -68,6 +68,14 @@ angular.module('interloop.factory.configService', [])
 
           //unread notification count
           $rootScope.unreadNotifications = results[3].count || 0;
+          //set favico equal to it
+          window.favicon=new Favico({
+               animation: 'slide',
+               
+          });
+
+          window.favicon.badge($rootScope.unreadNotifications);
+          
 
           //trial info
           $rootScope.trialEnabled = results[1].trialEnabled || false;
@@ -149,7 +157,11 @@ angular.module('interloop.factory.configService', [])
                 // showWebNotification(data.notification); 
                 // alert(data);
 
+                //increment unread notification count
                 $rootScope.unreadNotifications++
+
+                //set favicon badge number
+                window.favicon.badge($rootScope.unreadNotifications);
             })
 
             if(ENV == 'PRODUCTION'){

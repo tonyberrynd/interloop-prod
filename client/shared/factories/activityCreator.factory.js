@@ -45,7 +45,7 @@ angular.module('interloop.factory.activityCreator', [])
                             {
                               "activity": {
                                 "name": activity.name || activity.title,
-                                "type": "file", 
+                                "type": type, 
                                 "completed": activity.completed
                                 
                               }, 

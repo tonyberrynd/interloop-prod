@@ -23,6 +23,7 @@ angular.module('interloop.opportunityDetailsCtrl', [])
 	SidebarActions,
   SidebarRouter,
   modalManager,
+  Activity,
   entityTypes,
 	ShareLinkFactory) {
 
@@ -63,7 +64,6 @@ angular.module('interloop.opportunityDetailsCtrl', [])
   $scope.saveData = saveData;
   $scope.triggerUpload = triggerUpload;
   $scope.uploadFiles = uploadFiles;
-  $scope.uploadFiles = uploadFiles;
   $scope.addMeeting = addMeeting;
   $scope.addOwner = addOwner;
   $scope.addTask = addTask;
@@ -90,6 +90,7 @@ angular.module('interloop.opportunityDetailsCtrl', [])
   $scope.updatePrimaryCompany = updatePrimaryCompany;
   $scope.viewRelationship = viewRelationship;
   $scope.viewTagList = viewTagList;
+  $scope.toggleActivity = toggleActivity;
 
 //-------------------------------------------
 
@@ -100,9 +101,9 @@ function activate() {
 	// console.log($stateParams.id);
 
 
-	return Opportunity.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"], "deleted": true}}).$promise
+	return Opportunity.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities", {"entities": ["comments"]}], "deleted": true}}).$promise
 			.then(function(results){
-        // console.log('thisOpp', results[0])
+        console.log('thisOpp', results)
 				//basic off details
 				$scope.data.thisRecord = results;
 
@@ -125,10 +126,9 @@ function activate() {
         $scope.data.thisRecord.nextActivity = SidebarActions.getNextActivity($scope.data.thisRecord.activities);
         $scope.data.thisRecord.overdueActivities = SidebarActions.getOverdueActivities($scope.data.thisRecord.activities);
         $scope.data.thisRecord.upcomingActivities = SidebarActions.getUpcomingActivities($scope.data.thisRecord.activities);
+        console.log('upcoming activities', $scope.data.thisRecord.upcomingActivities);
 				$scope.data.thisRecord.openActivities = SidebarActions.getOpenActivities($scope.data.thisRecord.activities);
 				$scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
-
-        console.log($scope.data.thisRecord.history);
 
         //ensure entities are valid
         var validEntities = [];
@@ -358,8 +358,9 @@ function checkIfEmpty(field, value) {
 }
 
 
-function viewRelationship(entityType, id){
-  $state.go('app.relationship-details', {'entityType': entityType, 'id': id});
+function viewRelationship(entityLink){
+  console.log('entityLink', entityLink);
+  $state.go('app.relationship-details', {'parentEntityType': 'opportunity', 'parentEntityId': $stateParams.id, 'entityLinkId': entityLink.entityId, 'entityLink': entityLink});
 }
 
 /*
@@ -436,6 +437,56 @@ function isStarred(opportunity) {
 }
 
 
+
+//toggle activity status
+
+function toggleActivity(activity, activities){
+
+  console.log(activity);
+
+  if(activity.completed){
+
+    //ensure subactivty
+    activity.completed = true;
+    activity.completedDate = moment().format();
+
+    return Activity.prototype$patchAttributes({id: activity.id}, activity).$promise
+    .then(function(results){
+        Logger.info('Completed Task');
+
+         var doubleLayerActivity = {
+          activityId: results.activityId,
+          type: 'todo',
+          completed: results.completed,
+          completedDate: results.completedDate,
+          createdBy: results.createdBy,
+          id: results.id,
+          updatedOn: results.updatedOn,
+          activity: activity
+        }
+
+        //push into record real time
+        $scope.data.thisRecord.activities.push(doubleLayerActivity);
+        $scope.data.thisRecord.activityLinks.push(doubleLayerActivity);
+
+        //get the history so its updated
+        $timeout(function(){
+            //push into history
+            $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
+            //remove from open activities
+            activities.splice( activities.indexOf(activity), 1 );
+        }, 50)
+       
+    })
+    .catch(function(err){
+      Logger.error('Error Completing Task');
+    })
+
+
+  } 
+}
+
+
 ///////////////////////
 // MANAGE SCROLLING  //
 ///////////////////////
@@ -476,7 +527,7 @@ function copyShareLink() {
 Delete Opp - Soft Deletes activity
 */
 function deleteItem() {
-  SidebarActions.deleteItem('Opportunity', $scope.data.thisRecord);
+  SidebarActions.deleteItem('Opportunity', $scope.data.thisRecord)
 };
 
 
@@ -548,6 +599,7 @@ function addOwner() {
     //comes back as array so need to loop through to push in properly
     _.forEach(results, function(value){
       $scope.data.thisRecord.ownerLinks.push(value);
+      $scope.data.thisRecord.owners.push(value);
     })
 
   })
@@ -568,6 +620,7 @@ function shareWith() {
     //update this opp
    _.forEach(results, function(value){
       $scope.data.thisRecord.sharedWithLinks.push(value);
+      $scope.data.thisRecord.sharedWith.push(value);
     })
   })
 
@@ -587,6 +640,13 @@ New Task
 function addTask() {  
     SidebarActions.createTask('Opportunity', $scope.data.thisRecord)
 };
+
+/*
+Create New Custom Activity
+*/
+function addActivity(activityType){
+  SidebarActions.createActivity('Opportunity', $scope.data.thisRecord, activityType);
+}
 
 /*
 Add Meetings

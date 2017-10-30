@@ -9,19 +9,33 @@ angular.module('interloop.relationshipDetailsCtrl', [])
   $rootScope,
   $state,
   $stateParams,
+  $injector,
   Logger,
   Appuser,
   Lightbox,
   modalManager,
-  Comment,
-	Attachment) {
+  SidebarRouter,
+  Comment) {
 
 // BINDABLES
 //===========================================
+  //vars
+  //---------------------
+  var entityType = _.capitalize($stateParams.parentEntityType);
+  var parentId = $stateParams.parentEntityId;
+  var entityLink = $stateParams.entityLink;
+
+
+
 	//data
 	//----------------------
 	$scope.data = {};
   $scope.data.activated = false;
+  $scope.data.editcomment = '';
+
+  $scope.data.entityType = entityType;
+  $scope.data.entityLink = entityLink;
+  $scope.data.currentEntityType = entityLink.entityType;
 
 
 	//functions
@@ -33,16 +47,37 @@ angular.module('interloop.relationshipDetailsCtrl', [])
   $scope.saveComment = saveComment;
   $scope.deleteComment = deleteComment;
 
+  $scope.goBack = goBack;
+  $scope.goTo = goTo;
+
 //-------------------------------------------
 
 
+  
 // ACTIVATE
 //===========================================
 function activate() {
 
-  
+  return $injector.get(entityLink.entityType).findOne({"filter": {"where": {"id": entityLink.entityId}, "include": ['comments']}}).$promise
+          .then(function(results){
+            $scope.data.thisRecord = results;
+            console.log('related record', $scope.data.thisRecord);
+
+            console.log(parentId);
+
+            //get comments - filter only to comments relavent to this related entity
+            $scope.data.comments = _.filter($scope.data.thisRecord.comments, ['threadId', parentId]);
+
+            //make sure all comments are not in edit mode
+            _.forEach($scope.data.comments, function(comment){
+              comment.inEditMode = false;
+            })
 
             $scope.data.activated = true;
+          })
+          .catch(function(err){
+            Logger.error('Error Retrieving Record', 'Please try again in a moment')
+          })
 
 
 }
@@ -53,6 +88,22 @@ activate();
 
 // FUNCTIONS
 //===========================================
+
+/*
+Go to next sidebar state
+*/
+function goTo(entity, id){
+  console.log('entity', entity);
+  console.log('id', id);
+  //pass current state into sidebar history stack
+  var currentState = {'entity': 'Opportunity', 'id': $stateParams.id }
+  //sidebar router manages sidebar history
+  SidebarRouter.goTo(currentState, entity, id );
+}
+
+function goBack(){
+  $state.go('app.' + _.lowerCase(entityType) + '-details', {'id': parentId});
+}
 
 /*
 Preview An Image
@@ -73,6 +124,7 @@ function addComment(){
   
   var comment = {
     body: $scope.data.newComment,
+    threadId: parentId,
     createdBy: {
       userId: $rootScope.activeUser.id,
       firstName: $rootScope.activeUser.firstName,
@@ -81,7 +133,7 @@ function addComment(){
     }
   }
 
-  return Attachment.comments.create({'id': $scope.data.thisFile.id}, comment).$promise
+  return $injector.get(entityLink.entityType).comments.create({'id': entityLink.entityId}, comment).$promise
     .then(function(results){
       console.log(results);
       $scope.data.comments.push(results);
@@ -125,6 +177,9 @@ function toggleLike(comment){
 function saveComment(comment){
   //mark that is is edited
   comment.edited = true;
+  comment.body = $scope.data.editComment;
+  //clear out edit comment placeholder
+  $scope.data.editComment = '';
   //persist to server
   return Comment.prototype$patchAttributes({"id": comment.id}, comment).$promise
     .then(function(results){

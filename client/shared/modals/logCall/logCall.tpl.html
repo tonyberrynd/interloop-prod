@@ -8,16 +8,17 @@
 
         </div>
         <div class="modal-body w-padding" id="modal-body">
-
-
-                    <form name="companyForm" novalidate>
+                
+                <div class="row">
+                  <div class="col-xs-9">
+                      <form name="companyForm" novalidate>
 
                         <div class="row">
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <div class="single-select">
                                             <label for="">Call Type</label>
-                                            <ui-select search-enabled="false" ng-model="data.call.type" theme="bootstrap">
+                                            <ui-select search-enabled="false" ng-model="data.loggedCall.callType" theme="bootstrap">
                                               <ui-select-match placeholder="Choose a type">{{$select.selected.label}}
                                               </ui-select-match>
                                               <ui-select-choices repeat="item in data.callTypes | filter: $select.search">
@@ -32,19 +33,37 @@
                                       <label for="dueDate">
                                         Completed Date
                                       </label>
-                                      <input name="dueDate" date-range-picker class="form-control date-picker" id="dueDate" placeholder="" ng-model="data.call.completedDate" options="$root.options4" >
+                                      <input name="dueDate" date-range-picker class="form-control date-picker" id="dueDate" placeholder="" ng-model="data.loggedCall.completedDate" options="$root.options4" >
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
                                    <div class="form-group">
                                     <label for="title">Description</label>
-                                    <textarea class="form-control" rows="3" ng-model="data.call.description"
+                                    <textarea class="form-control" ng-model="data.loggedCall.description" autofocus  msd-elastic style="min-height:120px;"
                                     ></textarea>
+                                  </div>
                                 </div>
-                              </div>
+                                <div class="col-xs-12">
+                                   <div class="complete-task">
+                                    <br>
+                                     <div class="form-group">
+                                          <input class="magic-checkbox" type="checkbox" name="layout" id="taskCompleted" value="true" ng-model="data.loggedCall.completed">
+                                          <label class="text" for="taskCompleted">
+                                            Mark As Completed
+                                          </label>
+                                      </div>
+                                    </div>
+                                    <br>
+                                </div>
                           </div>
 
                     </form>
+
+                  </div>
+                  <div class="col-xs-3">
+                    <span ng-include="'shared/templates/owners-related.tpl.html'"></span>
+                  </div>
+                </div>
 
         </div>
         <div class="modal-footer">

@@ -32,11 +32,13 @@
 @import "modules/pace/pace";
 
 //data
-@import "modules/tasks/tasks";
+@import "modules/activities/activities";
 @import "modules/opportunities/opportunities";
 
 //more
 @import "modules/more/more";
+@import "modules/more/starred/starred";
+@import "modules/more/mentions/mentions";
 
 //search results
 @import "modules/search/search";

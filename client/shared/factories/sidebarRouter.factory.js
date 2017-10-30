@@ -62,12 +62,17 @@ angular.module('interloop.factory.sidebarRouter', [])
     }
 
     function goBack() {
-       var backState = getSidebarBackState()
+       var backState = getSidebarBackState() || null;
+
+       if(backState == null){
+        $rootScope.sidePanelOpen = !$rootScope.sidePanelOpen
+       } else {
 
         $state.go('app.' + backState.entity.toLowerCase() + '-details', {'id': backState.id}, {reload: 'app.' + backState.entity.toLowerCase() + '-details' });
 
-       //remove last state from stack
-       sidebarHistory.stack.pop();
+        //remove last state from stack
+         sidebarHistory.stack.pop();
+        }
     }
 
     function getSidebarBackState() {

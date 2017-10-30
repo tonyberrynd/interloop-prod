@@ -171,7 +171,7 @@ function activate() {
                       //Filters
                       //-----------------------
                       //base field definitions for filters
-                      viewFilters = $scope.data.thisView.filters || [];
+                      viewFilters = angular.copy($scope.data.thisView.filters) || [];
                       //custom fields
                       var customFields = _.filter($rootScope.customFields,function(o){
                         return _.includes(o.useWith, 'Opportunity') && o.type !== 'divider';
@@ -210,6 +210,8 @@ function activate() {
   })
   .catch(function(err){
     Logger.log(err);
+    //otherwise go to the default view for the user - would think most times this would work
+    $state.go('app.opportunities', {viewId: 'default'});
   })
 }
 //-------------------------------------------
@@ -302,7 +304,7 @@ function saveView() {
   var viewDetails = {
       name: $scope.data.thisView.name,
       entity: 'Opportunity',
-      query: gridManager.getCurrentQuery(),
+      query: angular.toJson(gridManager.getCurrentQuery()),
       filters: getFilters(),
       columnState: gridManager.getColumnState(),
       sortModel: gridManager.getSortModel(),
@@ -793,7 +795,23 @@ function bulkAssign() {
     query: gridManager.getCurrentQuery()
   };
   //open bulk assign modal
-  modalManager.openModal('bulkAssign', resolveData);
+  var bulkAssignModal = modalManager.openModal('bulkAssign', resolveData);
+
+      bulkAssignModal.result.then(function(results){
+
+        //need to create custom remote hook
+        return Opportunity.bulkAssign(query, owners).$promise
+                .then(function(results){
+                   //refresh view
+                   refreshView();
+                   //log
+                   Logger.info('Succesfully assigned owners');
+                })
+                .catch(function(err){
+                  Logger.error('Error assigning owners', 'Please try again in a moment');
+                })
+
+      })
 }
 
 /*
@@ -940,7 +958,7 @@ if(!filter.filterActive) {
 
   //figure out if diferences vs initial view filters
   //-------------------------
-  var differences = _.differenceWith(getFilters(), viewFilters, _.isEqual)
+  var differences = _.xorWith(getFilters(), viewFilters, _.isEqual)
   //set to scope
   $scope.data.filterChanged = differences.length ? true : false;
 
@@ -952,6 +970,16 @@ if(!filter.filterActive) {
   }
 }
 
+function compareDifferences(){
+    //figure out if diferences vs initial view filters
+  //-------------------------
+  var differences = _.xorWith(getFilters(), viewFilters, _.isEqual)
+  console.log('get filters', getFilters());
+  console.log('view filters', viewFilters);
+  console.log('differences', differences);
+  //set to scope
+  $scope.data.filterChanged = differences.length ? true : false;
+}
 
 /*
 Checks if Category Filters are active
@@ -992,6 +1020,9 @@ function clearFilter(field) {
   }
   //update grid to reflect changes
   updateGrid();
+
+  //compare if view has changed
+  compareDifferences();
 }
 
 /*

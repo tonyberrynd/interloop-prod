@@ -54,7 +54,15 @@ Save
 */
 function ok() {
 
-  ActivityType.create($scope.data.activityType).$promise
+    //custom field attributes
+  var activityType = {
+    key: _.camelCase($scope.data.activityType.name),
+    label: $scope.data.activityType.name,
+    description: $scope.data.activityType.description,
+    active: true
+  };
+
+  ActivityType.create(activityType).$promise
     .then(function(results){
         Logger.info('Created New Activity Type');
         $uibModalInstance.close(results);

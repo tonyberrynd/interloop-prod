@@ -33,55 +33,68 @@
             </ul>
             
             <ul class="sidebar-menu with-footer" ng-class="{'footer-2': $root.activeUser.superAdmin }">
-                <li class="pulse" ui-sref-active="active">
+                <li class="pulse" ui-sref-active="active" feature-flag="--FF_MODULE_PULSE--">
                     <a ui-sref="app.pulse.outlook"><span class="nav-row">Pulse</span></a>
                 </li>
-                <li class="sidebar-label" feature-flag="--MODULE_ANALYSIS--">Analysis</li>
-                <li class="dashboards" ui-sref-active="active" feature-flag="--MODULE_ANALYSIS--">
+                <!-- analysis -->
+                <li class="sidebar-label" feature-flag="--FF_DIVIDER_LEARN--">Learn</li>
+
+                <li class="dashboards" ui-sref-active="active" feature-flag="--FF_MODULE_DASHBOARDS--">
                     <a ui-sref="app.dashboards"><span class="nav-row">Dashboards</span></a>
                 </li>
-                <li class="analytics"  ui-sref-active="active" feature-flag="--MODULE_ANALYSIS--">
+                <li class="analytics"  ui-sref-active="active" feature-flag="--FF_MODULE_INSIGHTS--">
                     <a ui-sref="app.insights"><span class="nav-row">Insights</span></a>
                 </li>
-                <li class="explorer"  ui-sref-active="active" feature-flag="--MODULE_ANALYSIS--">
+                <li class="explorer"  ui-sref-active="active" feature-flag="--FF_MODULE_EXPLORER--">
                     <a ui-sref="app.explorer"><span class="nav-row">Explorer</span></a>
                 </li>
-                <li class="analytics"  ui-sref-active="active" feature-flag="--POWERBI--">
+                <li class="analytics"  ui-sref-active="active" feature-flag="--FF_MODULE_POWERBI--">
                     <a ui-sref="app.powerbi"><span class="nav-row">Analytics</span></a>
                 </li>
-                <li class="sidebar-label" feature-flag="--MODULE_COACHING--">Coaching</li>
-                <li class="goals" ui-sref-active="active" feature-flag="--MODULE_COACHING--">
+                <!-- coaching -->
+                <li class="sidebar-label" feature-flag="--FF_DIVIDER_COACHING--">Coach</li>
+                <li class="goals" ui-sref-active="active" feature-flag="--FF_MODULE_GOALS--">
                     <a ui-sref="app.goals"><span class="nav-row">Goals</span></a>
                 </li>
-                <li class="pace" ui-sref-active="active" feature-flag="--MODULE_COACHING--">
+                <li class="pace" ui-sref-active="active" feature-flag="--FF_MODULE_PACE--">
                     <a ui-sref="app.pace"><span class="nav-row">Pace</span></a>
                 </li>
-                <li class="one-on-ones"  ui-sref-active="active" feature-flag="--MODULE_COACHING--">
-                    <a ui-sref="app.1-1"><span class="nav-row" feature-flag="--MODULE_COACHING--">Catch Ups</span></a>
+                <li class="one-on-ones"  ui-sref-active="active" feature-flag="--FF_MODULE_1:1--">
+                    <a ui-sref="app.1-1"><span class="nav-row">Catch Ups</span></a>
                 </li>
-                <li class="performance"  ui-sref-active="active" feature-flag="--MODULE_COACHING--">
+                <li class="performance"  ui-sref-active="active" feature-flag="--FF_MODULE_PERFORMANCE--">
                     <a ui-sref="app.performance"><span class="nav-row">Performance</span></a>
                 </li>
-                <li class="sidebar-label" feature-flag="--MODULE_DATA--">Data</li>
-                <li class="forecasts"  ui-sref-active="active" feature-flag="--MODULE_DATA--">
+
+                <li class="sidebar-label" feature-flag="--FF_DIVIDER_FORECAST--">Forecast</li>
+                <li class="forecasts"  ui-sref-active="active" feature-flag="--FF_MODULE_FORECASTS--">
                     <a ui-sref="app.forecasts"><span class="nav-row">Forecasts</span></a>
                 </li>
-                <li class="opportunities"  ui-sref-active="active" feature-flag="--MODULE_DATA--">
+                <li class="forecasts"  ui-sref-active="active" feature-flag="--FF_MODULE_ROLLUP--">
+                    <a ui-sref="app.forecasts"><span class="nav-row">Rollup</span></a>
+                </li>
+                 <li class="forecasts"  ui-sref-active="active" feature-flag="--FF_MODULE_PRECISION--">
+                    <a ui-sref="app.forecasts"><span class="nav-row">Precision</span></a>
+                </li>
+                
+                <!-- data -->
+                <li class="sidebar-label" feature-flag="--FF_DIVIDER_MANAGE--">Manage</li>
+                <li class="opportunities"  ui-sref-active="active" feature-flag="--FF_MODULE_OPPORTUNITIES--">
                     <a ui-sref="app.opportunities"><span class="nav-row">Opportunities</span></a>
                 </li>
-                <li class="contacts"  ui-sref-active="active" feature-flag="--MODULE_DATA--">
+                <li class="contacts"  ui-sref-active="active" feature-flag="--FF_MODULE_CONTACTS--">
                     <a ui-sref="app.contacts"><span class="nav-row">Contacts</span></a>
                 </li>
-                <li class="companies"  ui-sref-active="active" feature-flag="--MODULE_DATA--">
+                <li class="companies"  ui-sref-active="active" feature-flag="--FF_MODULE_COMPANIES--">
                     <a ui-sref="app.companies"><span class="nav-row">Companies</span></a>
                 </li>
-                <li class="meetings"  ui-sref-active="active" feature-flag="--MODULE_DATA--">
-                    <a ui-sref="app.tasks"><span class="nav-row">Tasks</span></a>
+                <li class="meetings"  ui-sref-active="active" feature-flag="--FF_MODULE_ACTIVITIES--">
+                    <a ui-sref="app.activities"><span class="nav-row">Activities</span></a>
                 </li>
-                <li class="meetings"  ui-sref-active="active" feature-flag="--MODULE_DATA--">
-                    <a ui-sref="app.meetings"><span class="nav-row">Meetings</span></a>
+                <li class="meetings"  ui-sref-active="active" feature-flag="--FF_MODULE_APPOINTMENTS--">
+                    <a ui-sref="app.activities"><span class="nav-row">Appointments</span></a>
                 </li>
-                <li class="content"  ui-sref-active="active" feature-flag="--CONTENT--">
+                <li class="content"  ui-sref-active="active" feature-flag="--FF_MODULE_CONTENT--">
                     <a ui-sref="app.content"><span class="nav-row">Content</span></a>
                 </li>
             </ul>

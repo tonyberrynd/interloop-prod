@@ -304,7 +304,17 @@
 
 .field-description {
 	color:$granite;
+	cursor: help;
 }
+
+.tag {
+	cursor:pointer;
+}
+
+.removeTag:hover {
+	color:$danger;
+}
+
 
 .color-danger {
 	color:$danger !important;

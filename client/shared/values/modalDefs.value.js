@@ -50,7 +50,7 @@ angular.module('interloop.value.modalDefs', [])
     },
 
     addOwners: {
-        templateUrl: 'shared/modals/addOwners/addOwners.tpl.html',
+        templateUrl: 'shared/modals/addOwners/addOwners2.tpl.html',
         controller: 'addOwnersCtrl',
         size: 'md',
         ariaLabelledBy: 'Add Owners',
@@ -164,6 +164,14 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Submit Forecast'
     },
 
+    customActivity: {
+        templateUrl: 'shared/modals/customActivity/customActivity.tpl.html',
+        controller: 'customActivityCtrl',
+        size: 'md',
+        ariaLabelledBy: 'New Activity',
+        ariaDescribedBy: 'Create a new activity'
+    },
+
     //new activity modal
     newActivity: {
         templateUrl: 'shared/modals/newActivity/newActivity.tpl.html',
@@ -227,7 +235,7 @@ angular.module('interloop.value.modalDefs', [])
     newNote: {
         templateUrl: 'shared/modals/newNote/newNote.tpl.html',
         controller: 'newNoteCtrl',
-        size: 'lg',
+        size: 'md',
         ariaLabelledBy: 'New Note',
         ariaDescribedBy: 'Create a new note'
     },
@@ -470,12 +478,28 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Edit Forecast Category'
     },
 
+    editActivityType: {
+        templateUrl: 'shared/modals/editActivityType/editActivityType.tpl.html',
+        controller: 'editActivityTypeCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Edit Activity Type',
+        ariaDescribedBy: 'Edit Activity Type'
+    },
+
     editCustomField: {
         templateUrl: 'shared/modals/editCustomField/editCustomField.tpl.html',
         controller: 'editCustomFieldCtrl',
         size: 'md',
         ariaLabelledBy: 'Edit Custom Field',
         ariaDescribedBy: 'Edit Custom Field'
+    },
+
+    editFormula: {
+        templateUrl: 'shared/modals/editFormula/editFormula.tpl.html',
+        controller: 'editFormulaCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Edit Formula',
+        ariaDescribedBy: 'Edit Formula'
     },
 
     editProduct: {

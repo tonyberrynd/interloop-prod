@@ -13,6 +13,7 @@ angular.module('interloop.newCustomFieldCtrl', [])
   Logger,
   entityTypes,
   CustomField,
+  modalManager,
   Appuser,
   Team) {
 
@@ -43,6 +44,7 @@ angular.module('interloop.newCustomFieldCtrl', [])
   $scope.previousStep = previousStep;
   $scope.addOption = addOption;
   $scope.removeOption= removeOption;
+  $scope.editFormula = editFormula;
 
 //-------------------------------------------
 
@@ -106,16 +108,16 @@ function ok() {
   };
 
   //add optoins is category type
-  if($scope.data.fieldType == 'category') {
+  if($scope.data.fieldType == 'category' || $scope.data.fieldType == 'mixed-select') {
 
     //remove blank options
     var transformedOptions = [];
     var index = 0;
     _.forEach($scope.data.options, function(value,key){
-      if(value.value == '' || value.value == null){
+      if(value.label == '' || value.label == null){
         $scope.data.options.splice($scope.data.options.indexOf(value), 1);
       } else {
-        transformedOptions[index] = {'label': value.value, 'value': _.camelCase(value.value)}
+        transformedOptions[index] = {'label': value.label, 'key': _.camelCase(value.label), 'value': value.value || null}
       }
       //increment
       index++
@@ -125,6 +127,10 @@ function ok() {
     _.assignIn(customField, {
       values: transformedOptions
     });
+  }
+
+  if($scope.data.fieldType == 'formula'){
+    customField.formula = $scope.data.formula;
   }
 
   //create custom field
@@ -144,6 +150,20 @@ Dismiss Note Modal
 */
 function cancel() {
   $uibModalInstance.dismiss('cancel');
+}
+
+
+
+function editFormula(){
+  var resolvedData = $scope.data.formula;
+  //open modal
+  var editFormulaModal = modalManager.openModal('editFormula', resolvedData);
+
+      editFormulaModal.result.then(function(results){
+        $scope.data.formula = results;
+      }, function(err){
+
+      })
 }
 
 

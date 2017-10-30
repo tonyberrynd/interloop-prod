@@ -1,6 +1,6 @@
   <div class="modal-header header-dark">
             <h3 class="modal-title" id="modal-title">Add Related Records</h3>
-            <p>Add relationships for <b><span ng-bind="data.thisRecord.name || 'this record'"></span></b></p>
+            <p>Add relationships for <b><span ng-bind="data.currentRecordName || 'this record'"></span></b></p>
             
             <!-- close button -->
             <button type="button" class="close" ng-click="$dismiss()">
@@ -13,7 +13,7 @@
           <div class="multiple-wrapper">
             <label for="">Search For Records</label>
             <div class="multiple-select">
-                    <ui-select multiple allow-clear="true" ng-model="data.selectedRecords" minimum-input-length="2" theme="bootstrap" ng-click="$select.activate()">
+                    <ui-select multiple allow-clear="true" ng-model="data.selectedRecords" theme="bootstrap" ng-click="$select.activate()">
                        <ui-select-match placeholder="Search...">
                                 <span ng-switch="$item.thisEntityType">
                                     <!-- contact / user -->
@@ -44,7 +44,7 @@
                                     </span>
                                 </span>
                               </ui-select-match>
-                              <ui-select-choices repeat="item in data.results | orderBy:['name', 'firstName'] track by $index" refresh="getRecords($select.search)" refresh-delay="0" group-by="'thisEntityType'">
+                              <ui-select-choices repeat="item in data.results | orderBy:['name', 'firstName'] track by $index" refresh="getRecords($select.search)" refresh-delay="250" group-by="'thisEntityType'" minimum-input-length="2">
                                         <span ng-switch="item.thisEntityType">
                                         <!-- Contact/User -->
                                         <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
@@ -82,14 +82,14 @@
                                               <span class="loading" ng-if="data.loadingResults">
                                                 <div class="loop-loader loop-loader-xs">Loading...</div>
                                               </span>
-                                              <span class="no-results" ng-if="!(data.results | filter: $select.search).length && !data.serverError && !data.loadingResults">
-                                        No Results Found Matching <b>"{{$select.search}}"</b>
-                                        </span>
-                                        <span class="server-error" ng-if="!(data.results | filter: $select.search).length && data.serverError && !data.loadingResults">
-                                          The servier did not respond
-                                          <br>
-                                          <button class="btn btn-default">Retry</button>
-                                        </span>
+                                              <span class="no-results" ng-if="!data.results.length && !data.serverError && !data.loadingResults">
+                                                No Results Found Matching <b>"{{$select.search}}"</b>
+                                                </span>
+                                                <span class="server-error" ng-if="!data.results.length && data.serverError && !data.loadingResults">
+                                                  The servier did not respond
+                                                  <br>
+                                                  <button class="btn btn-default">Retry</button>
+                                                </span>
                                       </ui-select-no-choice>
                     </ui-select>
                   </div>
@@ -99,5 +99,5 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
-            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="data.splitError" ng-disabled="data.selectedRecords.length > 0">Add <span ng-bind="data.selectedRecords.length"></span> Records</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="data.splitError" ng-disabled="data.selectedRecords.length > 0" ladda="data.processing" data-style="slide-up">Add <span ng-bind="data.selectedRecords.length"></span> Records</button>
         </div>
