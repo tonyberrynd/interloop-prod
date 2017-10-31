@@ -181,6 +181,10 @@ $g-select-foreground: $seamonster !important;
 		color:#fff;
 	}
 
+	.ag-cell .tag {
+		line-height:20px;
+	}
+
 	//background styles
 	//provides striped background effect
 	.ag-body-viewport-wrapper, 

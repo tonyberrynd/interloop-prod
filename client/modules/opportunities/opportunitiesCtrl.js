@@ -121,6 +121,7 @@ angular.module('interloop.opportunitiesCtrl', [])
   $scope.selectTags = selectTags;
   $scope.applyTags = applyTags;
   $scope.focusSelect = focusSelect;
+  $scope.columnStateChanged = columnStateChanged;
   $scope.isObjectShouldBeString = isObjectShouldBeString;
 
 //-------------------------------------------
@@ -143,6 +144,7 @@ function activate() {
               .then(function(results){
                 //set this view
                 $scope.data.thisView = results;
+                console.log($scope.data.thisView);
 
                 //match type
                 $scope.data.filterMatches = $scope.data.thisView.matchType || 'all';
@@ -338,6 +340,8 @@ function discardChanges() {
 Save View As
 */
 function saveViewAs() {
+
+    console.log(gridManager.getColumnState());
     //get view details
     var resolvedData = {
         entity: 'Opportunity',
@@ -979,6 +983,11 @@ function compareDifferences(){
   console.log('differences', differences);
   //set to scope
   $scope.data.filterChanged = differences.length ? true : false;
+}
+
+function columnStateChanged(){
+    //check columns difference
+  $scope.data.filterChanged = $scope.data.thisView.columnState == gridManager.getColumnState() ? false : true;
 }
 
 /*
