@@ -103,6 +103,18 @@ activate()
 
 
 	function save(noAlert){
+		//need to clear out empty array
+		_.forOwn($scope.data.thisRecord, function(value, key){
+			if(_.isArray($scope.data.thisRecord[key])){
+				_.forEach($scope.data.thisRecord[key], function(subvalue){
+					if(_.keys(subvalue).length == 0){
+						value.splice(value.indexOf(subvalue), 1);
+					}
+				})
+			}
+		})
+
+		//save contact
 		 return Contact.prototype$patchAttributes({"id": $scope.data.thisRecord.id}, $scope.data.thisRecord).$promise
         .then(function(response) {
             if(!noAlert) {

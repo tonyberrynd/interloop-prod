@@ -547,7 +547,7 @@ angular.module('interloop.value.modalDefs', [])
     addAddress: {
         templateUrl: 'shared/modals/addAddress/addAddress.tpl.html',
         controller: 'addAddressCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Add Address',
         ariaDescribedBy: 'Add Address'
     },
