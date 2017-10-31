@@ -57,6 +57,14 @@
                                 <input date-range-picker class="form-control date-picker" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" options="$root.options" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled"/>
                               </div>
 
+                              <!-- boolean -->
+                              <div class="form-group" ng-switch-when="boolean">
+                                <input class="magic-checkbox" type="checkbox" name="layout" id="{{field.key}}" ng-model="data.thisRecord[field.key]">
+                                <label class="text" for="{{field.key}}">
+                                    {{field.label}}
+                                </label>
+                              </div>
+
                               <!-- picklists -->
                               <div class="form-group" ng-switch-when="category">
                               <label for="{{field.key}}" ng-bind="field.label"></label>
@@ -284,6 +292,14 @@
                                   <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                 </label>
                                 <input date-range-picker class="form-control date-picker" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" options="$root.options" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled"/>
+                              </div>
+
+                              <!-- boolean -->
+                              <div class="form-group" ng-switch-when="boolean">
+                                <input class="magic-checkbox" type="checkbox" name="layout" id="{{field.key}}" ng-model="data.thisRecord[field.key]">
+                                <label class="text" for="{{field.key}}">
+                                    {{field.label}}
+                                </label>
                               </div>
 
                               <!-- picklists -->

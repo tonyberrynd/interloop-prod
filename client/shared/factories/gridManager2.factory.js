@@ -388,6 +388,8 @@ angular.module('interloop.factory.gridManager', [])
             .$promise
             .then(function(results){
 
+                console.log(results);
+
 
 
                 //add in date divider full rows
@@ -606,6 +608,7 @@ angular.module('interloop.factory.gridManager', [])
                     return entityModel.find(currentQuery)
                             .$promise
                             .then(function(results){
+                                console.log(results);
                                 params.successCallback(results, lastRow);
 
                                 //not initializing
@@ -1253,7 +1256,7 @@ angular.module('interloop.factory.gridManager', [])
         // console.log('includeDeleted?', includeDeleted)
 
 
-        return Opportunity.metadata({"filter": currentQuery.filter.where, "includeDeleted": includeDeleted}).$promise
+        return $injector.get(currentEntityType).metadata({"filter": currentQuery.filter.where, "includeDeleted": includeDeleted}).$promise
                 .then(function(results){
 
                     // console.log('got metadata', results);
@@ -2429,36 +2432,67 @@ angular.module('interloop.factory.gridManager', [])
             return params.value ?  params.value : nullCell;
           break
           case 'email':
-            var emailArray = '';
+            if(params.value && params.value.length){
+            var emailHtml = '';
             //build out visual array
-            _.forEach(params.value, function(){
-
-            })
-            return emailArray;
+                _.forEach(params.value, function(emailAddress){
+                    emailHtml += '<div class="tag">' + emailAddress.value + '</div>';
+                })
+                return emailHtml;
+            } else {
+                return nullCell;
+            }
           break
           case 'phone':
-            var phoneArray = '';
-            //build out visual array
-            _.forEach(params.value, function(){
-
-            })
-            return phoneArray;
+            if(params.value && params.value.length){
+            var phoneHtml = '';
+                //build out visual array
+                _.forEach(params.value, function(phoneNumber){
+                    phoneHtml += '<div class="tag">' + phoneNumber.value + '</div>';
+                })
+                return phoneHtml;
+            } else {
+                return nullCell;
+            }
           break
           case 'social':
-            var socialArray = '';
-            //build out visual array
-            _.forEach(params.value, function(){
-
-            })
-            return socialArray;
+            console.log('social', params.value);
+            if(params.value && params.value.length){
+                var socialHtml = '';
+                //build out visual array
+                _.forEach(params.value, function(social){
+                    //push social icons into grid
+                    switch(social.type) {
+                        case 'twitter':
+                            socialHtml += '<span class="fa fa-twitter-square"></span>'
+                            break;
+                        case 'facebook':
+                            socialHtml += '<span class="fa fa-facebook-square"></span>'
+                            break;
+                        case 'linkedin':
+                            socialHtml += '<span class="fa fa-linkedin-square"></span>'
+                            break;
+                    }
+                })
+                return socialHtml;
+            } else {
+                return nullCell;
+            }
           break
           case 'address':
-            var addressArray = '';
-            //build out visual array
-            _.forEach(params.value, function(){
-
-            })
-            return addressArray;
+            if(params.value && params.value.length){
+                var addressHtml = '';
+                //build out visual array
+                _.forEach(params.value, function(address){
+                    addressHtml += '<div class="tag">' + address.city + ',' + address.region + '</div>';
+                })
+                return addressHtml;
+            } else {
+                return nullCell;
+            }
+          break
+          case 'mixed-select':
+            return params.value ?  params.value['label'] + ' (' + params.value['value'] + ')' : nullCell;
           break
           case 'currency':
             return params.value ?  numeral(params.value).format('$ 0,0.00') : nullCell;
@@ -2480,12 +2514,18 @@ angular.module('interloop.factory.gridManager', [])
                 var html = '<div class="avatar avatar-32">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
             return (firstLetter || lastLetter) ? html : nullCell;
           case 'tags':
-            var tags = params.data.tagLinks || [];
-            var html = '';
-            _.forEach(tags, function(value){
-                html += '<div class="tag">' + tag.value + '</div>';
-            })
-            return params.data.tagLinks && params.data.tagLinks.length ? html : nullCell;
+            var tags = _.filter(params.data.itemLinks, ['itemType', 'Tag'])
+            console.log('tags', tags);
+            if(tags.length){
+                var html = '';
+                _.forEach(tags, function(value){
+                    html += '<div class="tag">' + tag.value + '</div>';
+                })
+                return html;
+            }
+            else {
+                return nullCell;
+            }
           break
           case 'primaryCompany':
             return _.get(getPrimaryCompany(params), 'name' , null) || nullCell;

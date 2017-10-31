@@ -560,14 +560,14 @@ function getLookupValue(filter, entityType, searchVal){
 
   //Switch based on entity type
   switch(entityType) {
-    case 'Contact':
+    case 'Activity':
         var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
         break;
-    case 'Company':
+    case 'Activity':
         var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'domain']}
         break;
     case 'Activity':
-        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryCompany', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
+        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryActivity', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
         break;
     case 'Appuser':
         var query = {"filter": {"where": {"fullName": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "fullName ASC", limit: 15}, "fields": ['id', 'firstName', 'lastName', 'initials', 'email']}
@@ -795,7 +795,23 @@ function bulkAssign() {
     query: gridManager.getCurrentQuery()
   };
   //open bulk assign modal
-  modalManager.openModal('bulkAssign', resolveData);
+  var bulkAssignModal = modalManager.openModal('bulkAssign', resolveData);
+
+      bulkAssignModal.result.then(function(results){
+
+        //need to create custom remote hook
+        return Activity.bulkAssign(query, owners).$promise
+                .then(function(results){
+                   //refresh view
+                   refreshView();
+                   //log
+                   Logger.info('Succesfully assigned owners');
+                })
+                .catch(function(err){
+                  Logger.error('Error assigning owners', 'Please try again in a moment');
+                })
+
+      })
 }
 
 /*
