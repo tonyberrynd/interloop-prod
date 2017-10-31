@@ -180,8 +180,8 @@
 <div class="panel panel-default sidepanel-panel" ng-if="(data.customFields | filter: {excludeForm: '!true'}).length" uib-collapse="data.customFieldsCollapsed">
 	<div class="panel-body">
 		<form>
-		  		  <!-- //information -->
-		  <div class="form-group" ng-repeat="field in data.customFields | filter: {excludeForm: '!true'}">
+		<!-- //information -->
+		  <div class="form-group" ng-repeat="field in data.customFields | orderBy: 'fieldOrder' | filter: {excludeForm: '!true'} ">
 		    <label for="{{field.key}}">{{field.label}}
 		    <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
 			</label>
@@ -202,7 +202,7 @@
 
 			<!-- number -->
 		    <span ng-switch-when="number">
-		    <p id="{{field.key}}" class="form-control-static" ng-bind="(data.thisRecord[field.key] | number:0)" ng-if="data.thisRecord[field.key]"></p>
+		    <p id="{{field.key}}" class="form-control-static" ng-bind="(data.thisRecord[field.key] | number:1)" ng-if="data.thisRecord[field.key]"></p>
 		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
 			</span>
 
