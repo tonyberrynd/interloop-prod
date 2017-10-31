@@ -853,7 +853,7 @@
 
             <span class="column-row" ng-repeat="column in data.columns | filter: {colDef: {headerName: data.columnSearch }} track by $index">
                 <div class="checkbox-custom checkbox-primary">
-                    <input type="checkbox" class="magic-checkbox" id="{{column.colDef.headerName}} - $index" ng-model="column.visible" ng-change="showHideColumn(column.colId, column.visible)">
+                    <input type="checkbox" class="magic-checkbox" id="{{column.colDef.headerName}} - $index" ng-model="column.visible" ng-change="showHideColumn(column.colId, column.visible); columnStateChanged();">
                     <label for="{{column.colDef.headerName}} - $index">{{column.colDef.headerName}}</label>
                 </div>
 

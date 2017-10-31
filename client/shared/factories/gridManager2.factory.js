@@ -68,13 +68,15 @@ angular.module('interloop.factory.gridManager', [])
 	var baseDefs = [	
 		//select
 		{headerName: "--", 
+         colId: 'select',
 		 field: "select", 
 		 headerClass: 'text-center', 
          headerCellRenderer: selectAllRender,
          // headerCheckboxSelection: true,
 		 cellClass: 'no-padding no-row-click', 
 		 headerCheckboxSelectionFilteredOnly: true, 
-		 checkboxSelection: true, width: 45, 
+		 checkboxSelection: true, 
+         width: 45, 
 		 suppressSizeToFit: true, 
 		 suppressMovable: true,
 		 suppressResize: true,
@@ -83,6 +85,7 @@ angular.module('interloop.factory.gridManager', [])
 
 		//star
 	    {headerName: "--", 
+          colId: 'star',
 	      field: "star", 
 	      headerClass: 'text-center', 
 	      cellRenderer: starRenderer,  
@@ -96,6 +99,7 @@ angular.module('interloop.factory.gridManager', [])
 
 
         {headerName: "", 
+          colId: 'rightPinned',
           field: "testpin", 
           headerClass: 'text-center', 
           cellRenderer: null,  
@@ -1192,13 +1196,17 @@ angular.module('interloop.factory.gridManager', [])
 		//if has a columnState, set column state
 		//-----------------------------------
         if(currentView.columnState) {
-    		grid.api.setColumnState(currentView.columnState)
+            console.log('set column State', currentView.columnState);
+
+            var basePlusCurrentState = baseDefs.concat(currentView.columnState);
+    		grid.columnApi.setColumnState(basePlusCurrentState);
         }
 
 
 		//if has sort model, set sort model
 		//------------------------------------
         if(currentView.sortModel) {
+            console.log('set sort model');
             grid.api.setSortModel(currentView.sortModel)
         }
 
@@ -2522,7 +2530,7 @@ angular.module('interloop.factory.gridManager', [])
             if(tags.length){
                 var html = '';
                 _.forEach(tags, function(value){
-                    html += '<div class="tag">' + value.value + '</div>';
+                    html += '<div class="tag">' + value.name + '</div>';
                 })
                 return html;
             }
