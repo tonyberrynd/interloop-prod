@@ -156,6 +156,9 @@ angular.module('interloop.factory.gridManager', [])
             currentQuery.filter['limit'] = paginationSize;
             currentQuery.filter['skip'] = params.request.startRow;
 
+            //Columns
+            //---------------------------
+
             //Sorting
             //---------------------------------------
             if(sortModel.length) {
@@ -1188,16 +1191,16 @@ angular.module('interloop.factory.gridManager', [])
 
 		//if has a columnState, set column state
 		//-----------------------------------
-      //   if(currentView.columnState) {
-    		// grid.api.setColumnState(currentView.columnState)
-      //   }
+        if(currentView.columnState) {
+    		grid.api.setColumnState(currentView.columnState)
+        }
 
 
 		//if has sort model, set sort model
 		//------------------------------------
-        // if(currentView.sortModel) {
-        //     grid.api.setSortModel(currentView.sortModel)
-        // }
+        if(currentView.sortModel) {
+            grid.api.setSortModel(currentView.sortModel)
+        }
 
         //let controller know
         // $rootScope.$broadcast('GRID_READY', {});
@@ -2514,12 +2517,12 @@ angular.module('interloop.factory.gridManager', [])
                 var html = '<div class="avatar avatar-32">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
             return (firstLetter || lastLetter) ? html : nullCell;
           case 'tags':
-            var tags = _.filter(params.data.itemLinks, ['itemType', 'Tag'])
-            console.log('tags', tags);
+
+            var tags = _.filter(_.get(params, 'data.itemLinks', []), ['itemType', 'Tag']);
             if(tags.length){
                 var html = '';
                 _.forEach(tags, function(value){
-                    html += '<div class="tag">' + tag.value + '</div>';
+                    html += '<div class="tag">' + value.value + '</div>';
                 })
                 return html;
             }

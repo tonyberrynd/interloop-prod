@@ -1235,7 +1235,7 @@ angular.module('interloop.value.fields', [])
 
 	{
 		"label": "Tags",
-		"key": "tagLinks",
+		"key": "tags",
 		"type": "lookup",
 		"columnType": "tags",
 		"lookupEntity": "Tag",
