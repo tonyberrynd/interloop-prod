@@ -164,7 +164,7 @@
 </div>
 
 <div class="sidebar-section" ng-if="(data.customFields | filter: {excludeForm: '!true'}).length">
-<h5 class="sidepanel-title collapse-header" ng-click="data.customFieldsCollapsed = !data.customFieldsCollapsed">Custom Fields [{{percentComplete(data.customFields)}}]
+<h5 class="sidepanel-title collapse-header" ng-click="data.customFieldsCollapsed = !data.customFieldsCollapsed">Custom Fields <span uib-tooltip="{{percentComplete(data.customFields)}} of the custom fields are completed">[{{percentComplete(data.customFields)}}]</span>
 
 <span class="pull-right collapse-arrow">
 <icon class="wb-triangle-right" ng-if="data.customFieldsCollapsed"></icon>

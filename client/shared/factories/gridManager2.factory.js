@@ -1045,6 +1045,7 @@ angular.module('interloop.factory.gridManager', [])
                     "divider": {},
                     "tags": {},
                     "score": {},
+                    "multi": {},
                     "formula": {}
                 },
                 defaultColDef: {
@@ -1092,6 +1093,7 @@ angular.module('interloop.factory.gridManager', [])
 				// onCellFocused: cellFocused,
 				onSelectionChanged: selectionChanged,
                 onSortChanged: sortChanged,
+                onColumnMoved: columnMoved,
 
                 //body scroll event
                 onBodyScroll: bodyScrolled
@@ -1406,6 +1408,13 @@ angular.module('interloop.factory.gridManager', [])
     function sortChanged(){
         $timeout(function(){
             $rootScope.$broadcast('SORT_MODEL_CHANGED');
+        }, 0)
+    }
+
+
+    function columnMoved(){
+        $timeout(function(){
+            $rootScope.$broadcast('COLUMN_MOVED');
         }, 0)
     }
 
@@ -2503,7 +2512,9 @@ angular.module('interloop.factory.gridManager', [])
                 var addressHtml = '';
                 //build out visual array
                 _.forEach(params.value, function(address){
-                    addressHtml += '<div class="tag">' + address.city + ',' + address.region + '</div>';
+                    var city = address.city || '--'
+                    var locality = address.locality || '--'
+                    addressHtml += '<div class="tag">' + city + ',' + locality + '</div>';
                 })
                 return addressHtml;
             } else {
