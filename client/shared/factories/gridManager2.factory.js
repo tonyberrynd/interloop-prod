@@ -1091,6 +1091,7 @@ angular.module('interloop.factory.gridManager', [])
                 onModelUpdated: modelUpdated,
 				// onCellFocused: cellFocused,
 				onSelectionChanged: selectionChanged,
+                onSortChanged: sortChanged,
 
                 //body scroll event
                 onBodyScroll: bodyScrolled
@@ -1399,6 +1400,13 @@ angular.module('interloop.factory.gridManager', [])
 
     function rowDataChanged(){
         // console.log('row data changed');
+    }
+
+
+    function sortChanged(){
+        $timeout(function(){
+            $rootScope.$broadcast('SORT_MODEL_CHANGED');
+        }, 0)
     }
 
 

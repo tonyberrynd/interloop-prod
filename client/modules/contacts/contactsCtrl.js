@@ -39,6 +39,7 @@ angular.module('interloop.contactsCtrl', [])
   var oppId = $location.search().id || null;
   var viewFilters = null;
 
+  var initialSortModel = [];
   //data
   //----------------------
   $scope.data = {};
@@ -144,6 +145,9 @@ function activate() {
               .then(function(results){
                 //set this view
                 $scope.data.thisView = results;
+                
+                //sort model
+                initialSortModel = angular.copy($scope.data.thisView.sortModel) || [];
 
                 //match type
                 $scope.data.filterMatches = $scope.data.thisView.matchType || 'all';
@@ -339,6 +343,8 @@ function discardChanges() {
 Save View As
 */
 function saveViewAs() {
+
+    console.log(gridManager.getColumnState());
     //get view details
     var resolvedData = {
         entity: 'Contact',
@@ -987,7 +993,6 @@ function columnStateChanged(){
   $scope.data.filterChanged = $scope.data.thisView.columnState == gridManager.getColumnState() ? false : true;
 }
 
-
 /*
 Checks if Category Filters are active
 */
@@ -1110,7 +1115,18 @@ function focusSelect(string){
 
 // EVENTS
 //===========================================
-// Events go here
+$scope.$on('SORT_MODEL_CHANGED', function(event, args) {
+     console.log('sort model changed');
+
+    var currentSortModel = !_.isNil(gridManager.getSortModel()) ? gridManager.getSortModel() : [];
+
+    console.log(initialSortModel);
+    console.log(currentSortModel); 
+    //check if differenct
+     $scope.data.filterChanged = (initialSortModel.toString() !== currentSortModel.toString()) ? true : false;
+
+
+});
 //-------------------------------------------
 
 // WATCHES

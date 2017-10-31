@@ -280,7 +280,7 @@ angular.module('interloop.value.modalDefs', [])
     createView: {
         templateUrl: 'shared/modals/createView/createView.tpl.html',
         controller: 'createViewCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Create View',
         ariaDescribedBy: 'Create a new view'
     },
