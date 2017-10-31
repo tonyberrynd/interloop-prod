@@ -57,12 +57,14 @@ angular.module('interloop.navCtrl', [])
 
 	//new items
 	$scope.submitForecast = submitForecast;
+	$scope.addActivity = addActivity;
 	$scope.newActivity = newActivity;
 	$scope.newOpportunity = newOpportunity;
 	$scope.newContact = newContact;
 	$scope.newCompany = newCompany;
 
 	$scope.newTask = newTask;
+	$scope.newNote = newNote;
 	$scope.logCall = logCall;
 	$scope.newMeeting = newMeeting;
 
@@ -250,10 +252,29 @@ function newActivity() {
 	var newActivityModal = modalManager.openModal('newActivity')
 }
 
+/*
+Create New Custom Activity
+*/
+function addActivity(activityType){
+  $mixpanel.track('NEW_ACTIVITY_' + _.upperCase(activityType));
+
+  var resolvedData = {
+  	activityType: activityType
+  }
+
+  var customActivity = modalManager.openModal('customActivity', resolvedData)
+}
+
 function newTask() {
 	$mixpanel.track('NEW_MEETINGS_MODAL');
 	var newTaskModal = modalManager.openModal('newTask')
 }
+
+function newNote() {
+	$mixpanel.track('NEW_NOTE_MODAL');
+	var newNoteModal = modalManager.openModal('newNote')
+}
+
 
 function newMeeting() {
 	$mixpanel.track('NEW_MEETINGS_MODAL');

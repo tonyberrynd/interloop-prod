@@ -640,45 +640,45 @@ angular.module('interloop.value.fields', [])
 		//exlude import
 	    "excludeImport": true
 	},
-	{
-		"label": "Forecast",
-		"key": "forecast",
-		"colId": "forecast",
-		"columnType": "category",
-		"type": "category",
-		"locked": true,
-		//loopup fields
-	    "queryKey": "oppForecast",
-	   	//grouping
-	    "groupByKey": "forecast.key",
-	    "groupByLabel": "forecast.label",
-	    "values": [
-	    	{"label": "Pipeline",
-	    	 "value": "pipeline"},
-	    	 {"label": "Stars Align",
-	    	 "value": "starsAlign"},
-	    	 {"label": "Likely",
-	    	 "value": "likely"},
-	    	 {"label": "Hard Commit",
-	    	 "value": "hardCommit"}
-	    ],
-		//grid
-		"excludeGrid": false,
-		"hide": false,
-		"width": 200,
-		"valueGetter": "getNestedValue",
-		"cellRenderer": null,
-		"pinned": null,
-		// forms
-		"class": "col-xs-12",
-		"excludeForm": false,
-		//should it be on new form
-		"excludeNew": false,
-		"newClass": "col-xs-12",
-		//filters
-		"filterApplied": 'includes',
-		"filterValue": null
-	},
+	// {
+	// 	"label": "Forecast",
+	// 	"key": "forecast",
+	// 	"colId": "forecast",
+	// 	"columnType": "category",
+	// 	"type": "category",
+	// 	"locked": true,
+	// 	//loopup fields
+	//     "queryKey": "oppForecast",
+	//    	//grouping
+	//     "groupByKey": "forecast.key",
+	//     "groupByLabel": "forecast.label",
+	//     "values": [
+	//     	{"label": "Pipeline",
+	//     	 "value": "pipeline"},
+	//     	 {"label": "Stars Align",
+	//     	 "value": "starsAlign"},
+	//     	 {"label": "Likely",
+	//     	 "value": "likely"},
+	//     	 {"label": "Hard Commit",
+	//     	 "value": "hardCommit"}
+	//     ],
+	// 	//grid
+	// 	"excludeGrid": false,
+	// 	"hide": false,
+	// 	"width": 200,
+	// 	"valueGetter": "getNestedValue",
+	// 	"cellRenderer": null,
+	// 	"pinned": null,
+	// 	// forms
+	// 	"class": "col-xs-12",
+	// 	"excludeForm": false,
+	// 	//should it be on new form
+	// 	"excludeNew": false,
+	// 	"newClass": "col-xs-12",
+	// 	//filters
+	// 	"filterApplied": 'includes',
+	// 	"filterValue": null
+	// },
 	// {
 	// 	"label": "Stage",
 	// 	"colId":"stage",
@@ -1042,6 +1042,8 @@ angular.module('interloop.value.fields', [])
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
+
+		"columnType": "email",
 	    //grid
 	    "excludeGrid": false,
     	"hide": false,
@@ -1055,6 +1057,8 @@ angular.module('interloop.value.fields', [])
 	   	"label": "Phone Numbers",
 	    "key": "phoneNumbers",
 	    "type": "phone",
+
+	    "columnType": "phone",
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
@@ -1072,6 +1076,8 @@ angular.module('interloop.value.fields', [])
 	   	"label": "Social Accounts",
 	    "key": "socialAccounts",
 	    "type": "social",
+
+	    "columnType": "social",
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
@@ -1088,6 +1094,8 @@ angular.module('interloop.value.fields', [])
 	   	"label": "Addresses",
 	    "key": "addresses",
 	    "type": "address",
+
+	    "columnType": "address",
 	    // sorting
 	    "useSortKey": true,
 	    "sortKeyASC": "addressCount ASC",
@@ -1189,6 +1197,8 @@ angular.module('interloop.value.fields', [])
 	   	"label": "Social Accounts",
 	    "key": "socialAccounts",
 	    "type": "social",
+
+	    "columnType": "social",
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
@@ -1205,6 +1215,8 @@ angular.module('interloop.value.fields', [])
 	   	"label": "Addresses",
 	    "key": "addresses",
 	    "type": "address",
+
+	    "columnType": "address",
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
@@ -1223,7 +1235,7 @@ angular.module('interloop.value.fields', [])
 
 	{
 		"label": "Tags",
-		"key": "tags",
+		"key": "tagLinks",
 		"type": "lookup",
 		"columnType": "tags",
 		"lookupEntity": "Tag",
