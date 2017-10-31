@@ -16,6 +16,18 @@ h5.modal-title {
     border-width:2px;
 }
 
+.button-group-select {
+    .btn-default.btn-light {
+        background-color: #fff;
+        border: solid 1px #dee1e6;
+
+        &.active {
+            background-color:$topaz;
+            color:#fff;
+        }
+    }
+}
+
 .related-records .tag,
 .related-owners .tag {
     margin:0px;
