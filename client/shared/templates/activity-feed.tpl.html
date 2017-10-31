@@ -173,7 +173,7 @@
   <li class="feed-item note" ng-switch-when="note">
     <span class="text"><div class="avatar avatar-24 sky">
       <span ng-bind="activity.createdBy.firstName | limitTo:1"></span><span ng-bind="activity.createdBy.lastName | limitTo:1"></span>
-    </div><b><span ng-bind="activity.createdBy.firstName"></span> <span ng-bind="activity.createdBy.lastName"></span></b> added a note <b ng-if="activity.activity.title">"<span ng-bind="activity.activity.title | limitTo: 32"></span>..."</b></span>
+    </div><b><span ng-bind="activity.createdBy.firstName"></span> <span ng-bind="activity.createdBy.lastName"></span></b> added a note</span>
     <time class="date" datetime="{{activity.activity.completedDate | formatDate}}">
       <span ng-bind="activity.activity.completedDate | formatDate"></span>
     </time>

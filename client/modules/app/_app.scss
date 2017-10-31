@@ -16,6 +16,77 @@ h5.modal-title {
     border-width:2px;
 }
 
+.address-body {
+    display:block;
+    margin-left:10px;
+}
+
+.row.address-list {
+    margin-left:0px;
+    margin-right:0px;
+}
+
+address .btn.removeAddress {
+    position:absolute;
+    top:5px;
+    right:10px;
+
+    icon {
+        color:$granite;
+    }
+
+    &:hover {
+        icon {
+            color:$danger;
+        }
+    }
+}
+
+address .btn.editAddress {
+    position:absolute;
+    top:5px;
+    right:40px;
+
+    icon {
+        color:$granite;
+    }
+
+    &:hover {
+        icon {
+            color:$topaz;
+        }
+    }
+}
+
+.address-list address.clickable-address {
+    &:hover {
+        cursor:pointer;
+        border:solid 1px $topaz;
+    }
+}
+
+.copyValue {
+    margin-right: 10px;
+    color: #C1C7D0;
+    position:absolute;
+    right:0px;
+    top:15px;
+
+    &:hover {
+        cursor:pointer;
+    }
+}
+
+.record-details .form-group {
+    position:relative;
+
+    &:hover {
+        .copyValue {
+            opacity: 1;
+        }
+    }
+}
+
 .button-group-select {
     .btn-default.btn-light {
         background-color: #fff;

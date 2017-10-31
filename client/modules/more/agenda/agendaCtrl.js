@@ -21,9 +21,12 @@ angular.module('interloop.agendaCtrl', [])
 	$scope.data = {};
   $scope.data.activated = false;
 
+  $scope.data.activities = [];
+
 
 	//functions
 	//----------------------
+  $scope.toDay = toDay;
 
 //-------------------------------------------
 
@@ -33,9 +36,15 @@ angular.module('interloop.agendaCtrl', [])
 function activate() {
 
   //find where user is owner
-  return Activity.find({"filter": {"where": {"ownerLinks.ownerId": {"in": [$rootScope.activeUser.id]}}, "order": "dueDate: ASC"}}).$promise
+  return Activity.find({"filter": {"where": {"completed": false}}}).$promise
             .then(function(results){
+              
+              console.log('found activities', results);
+
               $scope.data.activities = results;
+
+              $scope.data.activated = true;
+
             })
             .catch(function(err){
               Logger.error("Error Fetching Activities", "please try again in amoment")
@@ -50,8 +59,10 @@ activate();
 
 // FUNCTIONS
 //===========================================
-
-
+function toDay( activity ) {
+    activity.day = moment( activity.dueDate ).format( "L" );
+    return activity;
+}
 //-------------------------------------------
 
 

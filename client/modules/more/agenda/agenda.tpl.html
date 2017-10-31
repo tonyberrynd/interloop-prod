@@ -1,37 +1,69 @@
 
             <div class="sidepanel more-sidepanel">
-                <div class="sidepanel-header">
+                <div class="sidepanel-header with-header-tabs">
                     <a class="btn btn-link btn-left" href ng-click="$root.sidePanelOpen = !$root.sidePanelOpen">
                         <img src="../assets/img/icons/states/close.svg" alt="Close">
                     </a>
-                    Agenda 
+                    Assistant 
                 </div>
 
-                <div class="sidepanel-content">
+               <div class="sidepanel-header-tabs">
+                    <div class="tabs-wrapper">
+                        <ul class="nav nav-tabs nav-justified">
+                          <li class="active">
+                            <a href>
+                              Agenda
+                            </a>
+                          </li>
+                           <li >
+                            <a href>
+                              Alerts
+                            </a>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
 
-                    
-                        <div class="panel panel-default card task-card" ng-repeat="activity in data.activities | orderBy: 'activity.dueDate'">
+
+                <div class="sidepanel-content with-header-tabs" ng-switch="data.currentTab">
+
+                          <!-- loader -->
+                    <div class="loop-loader loop-loader-light loop-loader-xs fadeInOut centered" ng-class="{'hidden': data.activated }">Loading...</div>
+                   
+
+                   <span class="content" ng-class="{'hidden': !data.activated }">
+
+
+                    <div ng-repeat="(key, value) in data.activities | map: toDay | groupBy:'day'">
+
+                    <h4>{{key}}</h4>
+
+                    <!-- activitiess -->
+                    <div class="panel panel-default card task-card" ng-repeat="activity in value | orderBy: 'activity.dueDate'">
                             <div class="panel-body">
                                 <div class="name-wrapper">
                                 <div class="task-checkbox">
-                                    <input class="magic-checkbox ng-scope" type="checkbox" name="layout" id="{{activity.id}}" ng-model="activity.activity.completed" ng-change="toggleActivity(activity.activity, data.thisRecord.openActivities)">
+                                    <input class="magic-checkbox ng-scope" type="checkbox" name="layout" id="{{activity.id}}" ng-model="activity.completed" ng-change="toggleActivity(activity, data.thisRecord.openActivities)">
                                     <label class="text ng-scope" for="{{activity.id}}"></label>
                                 </div>
                                 <h4>
                                     <span>[<span ng-bind="activity.type"></span>] 
-                                    <span ng-bind="activity.activity.title || '--'"></span>
+                                    <span ng-bind="activity.title || '--'"></span>
                                     </span>
                                 </h4> 
                                 <p>
-                                    <span ng-bind="activity.activity.owners[0].fullName || 'No Owner'"></span>
-                                    <span ng-if="activity.activity.owners.length > 1">+ <span ng-bind="activity.activity.owners.length - 1"></span></span>
+                                    <span ng-bind="activity.owners[0].fullName || 'No Owner'"></span>
+                                    <span ng-if="activity.owners.length > 1">+ <span ng-bind="activity.owners.length - 1"></span></span>
                                 </p>
-                                <p ng-class="{'text-danger': activity.activity.dueDate >= data.today }">Due: <span ng-bind="(activity.activity.dueDate | date: 'mediumDate') || 'No Due Date'"></span></p>
+                                <p ng-class="{'text-danger': activity.dueDate >= data.today }">Due: <span ng-bind="(activity.dueDate | date: 'mediumDate') || 'No Due Date'"></span></p>
                                 </div>
                             </div>
                         </div>
 
-                    <!-- //repeat task cards seperated by date -->
+
+                        </div>
+
+
                    
                     
                     <div class="no-mentions" ng-if="!data.activities.length">
@@ -39,6 +71,9 @@
                         <h5>No Tasks</h5>
                         <p>Any open or overdue dasks will show up here</p>
                     </div>
+
+
+                    </span>
 
                 </div>
 

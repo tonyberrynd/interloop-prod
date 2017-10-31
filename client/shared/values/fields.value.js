@@ -554,7 +554,7 @@ angular.module('interloop.value.fields', [])
 		"class": "col-xs-12",
 		"excludeForm": true,
 		//should it be on new form
-		"excludeNew": false,
+		"excludeNew": true,
 		"newRequired": false,
 		"newClass": "col-xs-12",
 		//filters
@@ -971,6 +971,7 @@ angular.module('interloop.value.fields', [])
 		"excludeNew": false,
 		"newClass": "col-xs-6",
 	    //grid specifics
+		"required": true,
 	    "excludeGrid": true,
 		"hide": false,
 		"width": 200,
@@ -1103,6 +1104,9 @@ angular.module('interloop.value.fields', [])
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
+
+		"excludeFilters": true,
+
 	    //grid
 	    "excludeGrid": false,
     	"hide": false,
@@ -1110,6 +1114,17 @@ angular.module('interloop.value.fields', [])
 		"valueGetter": null,
 		"cellRenderer": null,
 		"pinned": null
+	},
+
+	//address count
+	{
+	   	"label": "Addresses Count",
+	    "key": "addressesCount",
+	    "type": "number",
+
+	    "excludeForm": true,
+	    "excludeNew": true,
+	    "excludeGrid": true,
 	},
 
 	//address parts used for filtering
@@ -1179,7 +1194,8 @@ angular.module('interloop.value.fields', [])
 	{
 	   	"label": "Domain",
 	    "key": "domain",
-	    "type": "string",
+	    "type": "domain",
+	    "columnType": "domain",
 	    "locked": true,
 	    //new form
 	    "excludeNew": false,
@@ -1217,9 +1233,16 @@ angular.module('interloop.value.fields', [])
 	    "type": "address",
 
 	    "columnType": "address",
+	    // sorting
+	    "useSortKey": true,
+	    "sortKeyASC": "addressCount ASC",
+	    "sortKeyDESC": "addressCount DESC",
 	    //new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
+
+		"excludeFilters": true,
+
 	    //grid
 	    "excludeGrid": false,
     	"hide": false,
@@ -1227,7 +1250,18 @@ angular.module('interloop.value.fields', [])
 		"valueGetter": null,
 		"cellRenderer": null,
 		"pinned": null
-	}
+	},
+
+	//address count
+	{
+	   	"label": "Addresses Count",
+	    "key": "addressesCount",
+	    "type": "number",
+
+	    "excludeForm": true,
+	    "excludeNew": true,
+	    "excludeGrid": true,
+	},
 ])
 
 
@@ -1245,12 +1279,12 @@ angular.module('interloop.value.fields', [])
 
 		//sorting
 		"useSortKey": true,
-	    "sortKeyASC": "tagLinksCount ASC",
-	    "sortKeyDESC": "tagLinksCount DESC",
+	    "sortKeyASC": "tagsCount ASC",
+	    "sortKeyDESC": "tagsCount DESC",
 		//grid
 		"excludeGrid": false,
 		"hide": false,
-		"width": 150,
+		"width": 300,
 		"valueGetter": null,
 		"cellRenderer": 'tagsRender',
 		"pinned": false,

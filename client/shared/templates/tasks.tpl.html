@@ -60,16 +60,16 @@
 				<input class="magic-checkbox ng-scope" type="checkbox" name="layout" id="{{activity.id}}" ng-model="activity.activity.completed" ng-change="toggleActivity(activity.activity, data.thisRecord.openActivities)">
 				<label class="text ng-scope" for="{{activity.id}}"></label>
 			</div>
-			<h4>
+			<h4  ng-click="goTo('Activity', activity.activityId)">
 				<span>[<span ng-bind="activity.type"></span>] 
 				<span ng-bind="activity.activity.title || '--'"></span>
 				</span>
 			</h4> 
-			<p>
+			<p  ng-click="goTo('Activity', activity.activityId)">
 				<span ng-bind="activity.activity.owners[0].fullName || 'No Owner'"></span>
 				<span ng-if="activity.activity.owners.length > 1">+ <span ng-bind="activity.activity.owners.length - 1"></span></span>
 			</p>
-			<p ng-class="{'text-danger': activity.activity.dueDate >= data.today }">Due: <span ng-bind="(activity.activity.dueDate | date: 'mediumDate') || 'No Due Date'"></span></p>
+			<p ng-class="{'text-danger': activity.activity.dueDate >= data.today }"  ng-click="goTo('Activity', activity.activityId)">Due: <span ng-bind="(activity.activity.dueDate | date: 'mediumDate') || 'No Due Date'"></span></p>
 			</div>
 		</div>
 	</div>

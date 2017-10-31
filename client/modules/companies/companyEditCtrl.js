@@ -16,6 +16,7 @@ angular.module('interloop.companyEditCtrl', [])
 	CompanyFields,
 	EndFields,
 	socialTypes,
+	gridManager,
 	emailTypes,
 	phoneTypes
  ) {
@@ -55,6 +56,7 @@ angular.module('interloop.companyEditCtrl', [])
 	$scope.addSocial = addSocial;
 	$scope.removeSocial = removeSocial;
 	$scope.save = save;
+	$scope.removeAddress = removeAddress;
 
 //-------------------------------------------
 
@@ -69,13 +71,13 @@ function activate(){
 
 					_.forEach($scope.data.fields, function(value){
 						if(value.type == 'social' || value.type == 'phone' || value.type == 'email'){
-							$scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key] || [{}];
+							$scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key].length ? $scope.data.thisRecord[value.key] : [{}];
 						}
 					})
 
 					_.forEach($scope.data.customFields, function(value){
 						if(value.type == 'social' || value.type == 'phone' || value.type == 'email'){
-							$scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key] || [{}];
+							$scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key].length ? $scope.data.thisRecord[value.key] : [{}];
 						}
 					})
 
@@ -102,12 +104,32 @@ activate()
 
 
 
+
 	function save(noAlert){
+		//need to clear out empty array
+		_.forOwn($scope.data.thisRecord, function(value, key){
+			if(_.isArray($scope.data.thisRecord[key])){
+				_.forEach($scope.data.thisRecord[key], function(subvalue){
+					var keys = _.filter(_.keys(subvalue), function(o) {
+						return o !== "$$hashKey";
+					});
+					//check if empty and remove
+					if(keys.length == 0){
+						value.splice(value.indexOf(subvalue), 1);
+					}
+				})
+			}
+		})
+
+
+
+		//save company
 		 return Company.prototype$patchAttributes({"id": $scope.data.thisRecord.id}, $scope.data.thisRecord).$promise
         .then(function(response) {
             if(!noAlert) {
               Logger.info('Record updated');
             }
+            gridManager.refreshView();
             returnToDetails();
         })
         .catch(function(err) {
@@ -116,7 +138,6 @@ activate()
         });
 
 	}
-
 
 	function addEmail(field){
 		console.log('add email');
@@ -169,18 +190,18 @@ activate()
 		})
 	}
 
-	function removeAddress(address, field){
-		$scope.data.thisRecord[field.key].splice($scope.data.thisRecord[field.key].indexOf(social), 1);
+	function removeAddress(adddress, addresses){
+		addresses.splice(addresses.indexOf(address), 1);
 	}
 
-
-	function editAddress(fieldValue, address){
+	function editAddress(address, addresses){
 		var resolvedData = {
 			address: address
 		}
-		var editAddressModal = modalManager.openModal('editAddress');
+		var editAddressModal = modalManager.openModal('editAddress', resolvedData);
 
 		editAddressModal.result.then(function(results){
+			//change to results
 			address = results;
 		}, function(){
 			//ignore

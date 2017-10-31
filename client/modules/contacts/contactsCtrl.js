@@ -28,6 +28,7 @@ angular.module('interloop.contactsCtrl', [])
 
 // BINDABLES
 //===========================================
+
   
   //vars
   //----------------------
@@ -962,19 +963,29 @@ if(!filter.filterActive) {
 
   }
 
-
-  //figure out if diferences vs initial view filters
-  //-------------------------
-  var differences = _.xorWith(getFilters(), viewFilters, _.isEqual)
-  //set to scope
-  $scope.data.filterChanged = differences.length ? true : false;
-
+  //check if different
+  checkDifferences();
 
   //if is active - update grid
   //-------------------------
   if(filter.filterActive ){
     updateGrid();
   }
+}
+
+
+function checkDifferences(){
+
+    //filters
+    var differences = _.xorWith(getFilters(), viewFilters, _.isEqual)
+    $scope.data.filterChanged = differences.length ? true : false;
+
+    //sort model
+    var currentSortModel = !_.isNil(gridManager.getSortModel()) ? gridManager.getSortModel() : [];
+    $scope.data.filterChanged = (initialSortModel.toString() !== currentSortModel.toString()) ? true : false;
+
+    //column state
+    $scope.data.filterChanged = $scope.data.thisView.columnState == gridManager.getColumnState() ? false : true;
 }
 
 function compareDifferences(){
@@ -990,7 +1001,7 @@ function compareDifferences(){
 
 function columnStateChanged(){
     //check columns difference
-  $scope.data.filterChanged = $scope.data.thisView.columnState == gridManager.getColumnState() ? false : true;
+  checkDifferences();
 }
 
 /*
@@ -1116,17 +1127,25 @@ function focusSelect(string){
 // EVENTS
 //===========================================
 $scope.$on('SORT_MODEL_CHANGED', function(event, args) {
-     console.log('sort model changed');
-
-    var currentSortModel = !_.isNil(gridManager.getSortModel()) ? gridManager.getSortModel() : [];
-
-    console.log(initialSortModel);
-    console.log(currentSortModel); 
-    //check if differenct
-     $scope.data.filterChanged = (initialSortModel.toString() !== currentSortModel.toString()) ? true : false;
-
-
+    checkDifferences();
 });
+
+
+$scope.$on('COLUMN_MOVED', function(event, args){
+    checkDifferences()
+})
+
+$scope.$on('COLUMN_RESIZED', function(event, args){
+    checkDifferences()
+})
+
+$scope.$on('COLUMN_PINNED', function(event, args){
+    checkDifferences()
+})
+
+$scope.$on('COLUMN_VISIBLE', function(event, args){
+    checkDifferences()
+})
 //-------------------------------------------
 
 // WATCHES

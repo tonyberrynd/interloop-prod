@@ -217,6 +217,13 @@ angular.module('interloop.config', [])
     $rootScope.version = 'v' + VERSION;
 
 
+    //get current user avatar colors
+    //--------------------------
+    $rootScope.getCurrentAvatarColor = function(userId){
+      return _.find($rootScope.userList, ['id', userId])['color'] || null;
+    }
+
+
     // Date Range Picker Options
     //===========================================
 

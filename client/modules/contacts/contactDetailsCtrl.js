@@ -9,12 +9,14 @@ angular.module('interloop.contactDetailsCtrl', [])
   $rootScope,
   $stateParams,
   $q,
+  $window,
   $state,
   $timeout,
   $location,
   $injector,
   Logger, 
   Contact,
+  clipboard,
   CustomField,
   gridManager,
   Lightbox,
@@ -90,6 +92,8 @@ angular.module('interloop.contactDetailsCtrl', [])
   $scope.updatePrimaryCompany = updatePrimaryCompany;
   $scope.viewRelationship = viewRelationship;
   $scope.viewTagList = viewTagList;
+  $scope.openGoogleMaps = openGoogleMaps;
+  $scope.copyValue = copyValue;
 
 //-------------------------------------------
 
@@ -204,6 +208,26 @@ $timeout(function(){
 
 // FUNCTIONS
 //===========================================
+
+
+function openGoogleMaps(address){
+  var url = 'https://maps.google.com/?q=';
+      url += address.address_line1 + ' ' ;
+      if(address.address_line_2){
+      url += address.address_line2 + ' ';
+      }
+      url += address.locality + ', ';
+      url += address.region + ' ';
+      url += address.postal_code;
+      //open in new window
+      $window.open(url, "_blank")
+}
+
+
+function copyValue(value){
+    clipboard.copyText(value);
+    Logger.info('Copied to clipboard');
+}
 
 
 function getScoreColor(score){

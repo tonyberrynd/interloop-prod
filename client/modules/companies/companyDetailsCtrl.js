@@ -9,12 +9,14 @@ angular.module('interloop.companyDetailsCtrl', [])
   $rootScope,
   $stateParams,
   $q,
+  $window,
   $state,
   $timeout,
   $location,
   $injector,
   Logger, 
   Company,
+  clipboard,
   CustomField,
   gridManager,
   Lightbox,
@@ -90,6 +92,8 @@ angular.module('interloop.companyDetailsCtrl', [])
   $scope.updatePrimaryCompany = updatePrimaryCompany;
   $scope.viewRelationship = viewRelationship;
   $scope.viewTagList = viewTagList;
+  $scope.openGoogleMaps = openGoogleMaps;
+  $scope.copyValue = copyValue;
 
 //-------------------------------------------
 
@@ -206,6 +210,26 @@ $timeout(function(){
 //===========================================
 
 
+function openGoogleMaps(address){
+  var url = 'https://maps.google.com/?q=';
+      url += address.address_line1 + ' ' ;
+      if(address.address_line_2){
+      url += address.address_line2 + ' ';
+      }
+      url += address.locality + ', ';
+      url += address.region + ' ';
+      url += address.postal_code;
+      //open in new window
+      $window.open(url, "_blank")
+}
+
+
+function copyValue(value){
+    clipboard.copyText(value);
+    Logger.info('Copied to clipboard');
+}
+
+
 function getScoreColor(score){
   if(score > 66) {
     return '#02B892';
@@ -297,11 +321,11 @@ function primaryCompanyChanged (companyValue){
 }; 
 
 //TB - TODO - Look at moving the broadcast messages into a shared factory 
-function linkCompany(company, company2, updateGrid){
-  return RelationshipManager.linkEntity(company, company2, "Company", "Company",  
+function linkCompany(company, company, updateGrid){
+  return RelationshipManager.linkEntity(company, company, "Company", "Company",  
   {
     "from": { "name": company.name, "description": "Primary Org", "isPrimary": true}, 
-    "to" : { "name": company2.name, "description": "Primary Org", "isPrimary": true}
+    "to" : { "name": company.name, "description": "Primary Org", "isPrimary": true}
   })
   .then(function(results){
     // console.log(results);
@@ -320,9 +344,9 @@ function linkCompany(company, company2, updateGrid){
   }); 
 }; 
 
-function unlinkCompany(company, company2, updateGrid) {
+function unlinkCompany(company, company, updateGrid) {
     //do this from company side to get back in format that matches relatedEntities 
-    return RelationshipManager.unlinkEntity(company, company2, "Company", "Company")
+    return RelationshipManager.unlinkEntity(company, company, "Company", "Company")
     .then(function(results){
       // console.log(results);
       //remove from the loaded related items - keep as chained promise 
