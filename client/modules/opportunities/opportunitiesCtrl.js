@@ -39,6 +39,7 @@ angular.module('interloop.opportunitiesCtrl', [])
   var oppId = $location.search().id || null;
   var viewFilters = null;
 
+  var initialSortModel = [];
   //data
   //----------------------
   $scope.data = {};
@@ -144,7 +145,9 @@ function activate() {
               .then(function(results){
                 //set this view
                 $scope.data.thisView = results;
-                console.log($scope.data.thisView);
+                
+                //sort model
+                initialSortModel = angular.copy($scope.data.thisView.sortModel) || [];
 
                 //match type
                 $scope.data.filterMatches = $scope.data.thisView.matchType || 'all';
@@ -1112,7 +1115,18 @@ function focusSelect(string){
 
 // EVENTS
 //===========================================
-// Events go here
+$scope.$on('SORT_MODEL_CHANGED', function(event, args) {
+     console.log('sort model changed');
+
+    var currentSortModel = !_.isNil(gridManager.getSortModel()) ? gridManager.getSortModel() : [];
+
+    console.log(initialSortModel);
+    console.log(currentSortModel); 
+    //check if differenct
+     $scope.data.filterChanged = (initialSortModel.toString() !== currentSortModel.toString()) ? true : false;
+
+
+});
 //-------------------------------------------
 
 // WATCHES
