@@ -121,6 +121,7 @@ angular.module('interloop.contactsCtrl', [])
   $scope.selectTags = selectTags;
   $scope.applyTags = applyTags;
   $scope.focusSelect = focusSelect;
+  $scope.columnStateChanged = columnStateChanged;
   $scope.isObjectShouldBeString = isObjectShouldBeString;
 
 //-------------------------------------------
@@ -980,6 +981,12 @@ function compareDifferences(){
   //set to scope
   $scope.data.filterChanged = differences.length ? true : false;
 }
+
+function columnStateChanged(){
+    //check columns difference
+  $scope.data.filterChanged = $scope.data.thisView.columnState == gridManager.getColumnState() ? false : true;
+}
+
 
 /*
 Checks if Category Filters are active

@@ -121,6 +121,7 @@ angular.module('interloop.activitiesCtrl', [])
   $scope.selectTags = selectTags;
   $scope.applyTags = applyTags;
   $scope.focusSelect = focusSelect;
+  $scope.columnStateChanged = columnStateChanged;
   $scope.isObjectShouldBeString = isObjectShouldBeString;
 
 //-------------------------------------------
@@ -563,11 +564,11 @@ function getLookupValue(filter, entityType, searchVal){
     case 'Activity':
         var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
         break;
-    case 'Activity':
+    case 'Company':
         var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'domain']}
         break;
     case 'Activity':
-        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryActivity', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
+        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryCompany', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
         break;
     case 'Appuser':
         var query = {"filter": {"where": {"fullName": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "fullName ASC", limit: 15}, "fields": ['id', 'firstName', 'lastName', 'initials', 'email']}
@@ -980,6 +981,12 @@ function compareDifferences(){
   //set to scope
   $scope.data.filterChanged = differences.length ? true : false;
 }
+
+function columnStateChanged(){
+    //check columns difference
+  $scope.data.filterChanged = $scope.data.thisView.columnState == gridManager.getColumnState() ? false : true;
+}
+
 
 /*
 Checks if Category Filters are active
