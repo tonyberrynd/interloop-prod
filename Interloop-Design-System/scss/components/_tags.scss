@@ -77,6 +77,10 @@
 		margin-right:3px;
 	}
 
+	&.primary {
+		 @include tag-color-mixin($topaz, $diamond);
+	}
+
 
 	&.clover {
 		 @include tag-color-mixin($clover, $diamond);

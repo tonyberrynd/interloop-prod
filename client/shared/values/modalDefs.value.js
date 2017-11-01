@@ -50,9 +50,9 @@ angular.module('interloop.value.modalDefs', [])
     },
 
     addOwners: {
-        templateUrl: 'shared/modals/addOwners/addOwners2.tpl.html',
+        templateUrl: 'shared/modals/addOwners/addOwners.tpl.html',
         controller: 'addOwnersCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Add Owners',
         ariaDescribedBy: 'Add Owners'
     },
@@ -60,7 +60,7 @@ angular.module('interloop.value.modalDefs', [])
     addOwner: {
         templateUrl: 'shared/modals/addOwner/addOwner.tpl.html',
         controller: 'addOwnerCtrl',
-        size: 'lg',
+        size: 'sm',
         ariaLabelledBy: 'Add Owner',
         ariaDescribedBy: 'Add Owner'
     },
@@ -68,7 +68,7 @@ angular.module('interloop.value.modalDefs', [])
     addTag: {
         templateUrl: 'shared/modals/addTag/addTag.tpl.html',
         controller: 'addTagCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Add Tag',
         ariaDescribedBy: 'Add Tag'
     },
@@ -117,7 +117,7 @@ angular.module('interloop.value.modalDefs', [])
     addRelated: {
         templateUrl: 'shared/modals/addRelated/addRelated.tpl.html',
         controller: 'addRelatedCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Add Related Record',
         ariaDescribedBy: 'Add Related Record'
     },
@@ -150,7 +150,7 @@ angular.module('interloop.value.modalDefs', [])
     shareWith: {
         templateUrl: 'shared/modals/shareWith/shareWith.tpl.html',
         controller: 'shareWithCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Share Record With',
         ariaDescribedBy: 'Share Record With'
     },
@@ -280,7 +280,7 @@ angular.module('interloop.value.modalDefs', [])
     createView: {
         templateUrl: 'shared/modals/createView/createView.tpl.html',
         controller: 'createViewCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Create View',
         ariaDescribedBy: 'Create a new view'
     },
@@ -400,7 +400,7 @@ angular.module('interloop.value.modalDefs', [])
     fileUpload: {
         templateUrl: 'shared/modals/fileUpload/fileUpload.tpl.html',
         controller: 'fileUploadCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Upload File',
         ariaDescribedBy: 'Upload a File'
     },

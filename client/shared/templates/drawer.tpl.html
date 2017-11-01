@@ -37,7 +37,7 @@
       <uib-accordion close-others="data.onlyOpenOneAtATime" ng-if="!data.lookupUsers && !data.lookupTags">
 
         <!-- accordion group -->
-        <div uib-accordion-group class="panel-default panel-light" is-open="filter.accodionOpen" ng-repeat="filter in data.filters | orderBy: 'label' | filter: data.filterSearch" ng-hide="filter.key == '_isDeleted' && data.includeDeleted == 'false'">
+        <div uib-accordion-group class="panel-default panel-light" is-open="filter.accodionOpen" ng-repeat="filter in data.filters | orderBy: 'label' | filter: data.filterSearch" ng-if="filter.excludeFilters !== true" ng-hide="filter.key == '_isDeleted' && data.includeDeleted == 'false'">
           <!-- accordion heading -->
           <uib-accordion-heading ng-click="toggleOpen(filter)">
             
@@ -47,7 +47,7 @@
             </span>
           
 
-            <span ng-bind="filter.label || '--'" ng-class="{'filterApplied': (filter.filterApplied && filter.filterValue && filter.type !== 'category') || (filter.type == 'category' && filter.filterValue.length) }"></span>
+            <span ng-bind="filter.label || '--'" ng-class="{'filterApplied': (filter.filterApplied && filter.filterValue && filter.type !== 'category') || (filter.type == 'category' && filter.filterValue.length) || (filter.type == 'mixed' && filter.filterValue.length) }"></span>
 
 <!--             <span class="panel-icon">
                 <icon class="wb-chevron-down-mini" ng-if="!filter.open"></icon>
@@ -310,7 +310,7 @@
                                     </span>
                                 </span>
                               </ui-select-match>
-                              <ui-select-choices repeat="item in data.lookupResults | filter: $select.search track by $index" refresh="getLookupValue(filter, filter.lookupEntity, $select.search)" refresh-delay="0" minimum-input-length="2">
+                              <ui-select-choices repeat="item in data.lookupResults | filter: $select.search track by $index" refresh="getLookupValue(filter, filter.lookupEntity, $select.search)" refresh-delay="0" minimum-input-length="1">
                                 <span ng-switch="filter.lookupEntity">
                                 <!-- Contact/User -->
                                 <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
@@ -381,36 +381,10 @@
 
       <span ng-if="filter.filterApplied == 'value-does-not-contain'" class="lookup-input">
 
-                <div class="multiple-select">
-                <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Select Users">
-                      <ui-select multiple allow-clear="true" ng-model="data.selectedPerson" minimum-input-length="2" theme="bootstrap">
-                        <ui-select-match placeholder="Choose a User">
-                          {{$item.name}}
-                        </ui-select-match>
-                        <ui-select-choices repeat="item in data.results track by $index" refresh="getPeople($select.search)" refresh-delay="0">
-                          <span ng-bind-html="item.name | highlight: $select.search"></span>
-                          <small ng-bind-html="item.email | highlight: $select.search"></small>
-                        </ui-select-choices>
-                        <ui-select-no-choice>
-                          <span class="loading" ng-if="data.loadingResults">
-                            <div class="loop-loader loop-loader-xs">Loading...</div>
-                          </span>
-                          <span class="no-results" ng-if="!(data.results | filter: $select.search).length && !data.serverError && !data.loadingResults">
-                    No Results Found Matching <b>"{{$select.search}}"</b>
-                    </span>
-                    <span class="server-error" ng-if="!(data.results | filter: $select.search).length && data.serverError && !data.loadingResults">
-                      The servier did not respond
-                      <br>
-                      <button class="btn btn-default">Retry</button>
-                    </span>
-                  </ui-select-no-choice>
-                      </ui-select>
-                    </div>
-            
-                <div class="multiple-wrapper">
+                                 <div class="multiple-wrapper">
                     <div class="multiple-select">
                       <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Search...">
-                            <ui-select allow-clear="true" ng-model="filter.filterValue" theme="bootstrap" append-to-body="true" on-select="isFilterActive(filter)">
+                            <ui-select multiple allow-clear="true" ng-model="filter.filterValue" theme="bootstrap" append-to-body="true" autofocus="true" on-select="isFilterActive(filter)">
                               <ui-select-match placeholder="Search...">
                                 <span ng-switch="filter.lookupEntity">
                                     <!-- contact / user -->
@@ -441,7 +415,7 @@
                                     </span>
                                 </span>
                               </ui-select-match>
-                              <ui-select-choices repeat="item in data.lookupResults | filter: $select.search track by $index" refresh="getLookupValue(filter, filter.lookupEntity, $select.search)" refresh-delay="0" minimum-input-length="2">
+                              <ui-select-choices repeat="item in data.lookupResults | filter: $select.search track by $index" refresh="getLookupValue(filter, filter.lookupEntity, $select.search)" refresh-delay="0" minimum-input-length="1">
                                 <span ng-switch="filter.lookupEntity">
                                 <!-- Contact/User -->
                                 <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
@@ -475,8 +449,8 @@
                               
                               </span>
                               </ui-select-choices>
-                              <ui-select-no-choice>
-                                <span class="loading" ng-if="data.loadingResults">
+<!--                               <ui-select-no-choice>
+                                <span class="ui-select-loading loading" ng-if="data.loadingResults">
                                   <div class="loop-loader loop-loader-xs">Loading...</div>
                                 </span>
                                 <span class="no-results" ng-if="!(data.results | filter: $select.search).length && !data.serverError && !data.loadingResults">
@@ -487,12 +461,13 @@
                                     <br>
                                     <button class="btn btn-default">Retry</button>
                                   </span>
-                                </ui-select-no-choice>
+                                </ui-select-no-choice> -->
                                 </ui-select>
                               </div>
                             </div>
+                  
 
-</span>
+      </span>
 </span>
 
 
@@ -521,7 +496,7 @@
 
 
 <!-- category -->
-<span ng-if="filter.type == 'category'">
+<span ng-if="filter.type == 'category' || filter.type == 'mixed'">
 
     <div class="checkbox-custom checkbox-primary" ng-repeat="category in filter.values">
         <input type="checkbox" class="magic-checkbox" id="{{filter.key}}-{{category.value}}" checklist-model="filter.filterValue" checklist-value="category" ng-change="isCategoryActive(category, checked, filter)">
@@ -756,7 +731,7 @@
     <span ng-repeat="tag in $root.tagList | orderBy: 'name' track by $index">
     <input class="magic-checkbox" type="checkbox" name="layout" id="{{tag.id}}" value="{{tag}}" checklist-model="data.selectedTags" checklist-value="tag">
     <label class="text" for="{{tag.id}}">
-      <span class="tag" ng-bind="tag.name"></span>
+      <span ng-bind="tag.name"></span>
     </label>
     </span>
 
@@ -853,7 +828,7 @@
 
             <span class="column-row" ng-repeat="column in data.columns | filter: {colDef: {headerName: data.columnSearch }} track by $index">
                 <div class="checkbox-custom checkbox-primary">
-                    <input type="checkbox" class="magic-checkbox" id="{{column.colDef.headerName}} - $index" ng-model="column.visible" ng-change="showHideColumn(column.colId, column.visible)">
+                    <input type="checkbox" class="magic-checkbox" id="{{column.colDef.headerName}} - $index" ng-model="column.visible" ng-change="showHideColumn(column.colId, column.visible); columnStateChanged();">
                     <label for="{{column.colDef.headerName}} - $index">{{column.colDef.headerName}}</label>
                 </div>
 

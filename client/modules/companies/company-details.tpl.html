@@ -17,7 +17,7 @@
                         Back
                     </a>
                     <!-- <span class="text-left">Opportunity</span> -->
-                    <a class="btn btn-link edit-button" ui-sref="app.company-edit({id: data.thisRecord.id})" ng-if="!data.thisRecord._isDeleted">
+                    <a class="btn btn-default edit-button" ui-sref="app.company-edit({id: data.thisRecord.id})" ng-if="!data.thisRecord._isDeleted">
                         <icon class="fa fa-pencil"></icon> Edit
                     </a>
 
@@ -26,36 +26,42 @@
                     </a>
 
 
-                     <div class="btn-group btn-action" uib-dropdown is-open="$root.showActionMenu" dropdown-append-to-body="true" ng-if="!data.thisRecord._isDeleted">
+                      <div class="btn-group btn-action" uib-dropdown is-open="$root.showActionMenu" dropdown-append-to-body="true" ng-if="!data.thisRecord._isDeleted">
                       <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
                         Action<icon class="wb-triangle-down"></icon>
                       </button>
                       <ul class="dropdown-menu dropdown-menu-right action-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" keyboard-nav="true">
                       
                         <li class="text-divider">
-                            <span class="text">Update record ...</span>
+                            <span class="text">Manage ...</span>
                             <span class="line"></span>
                         </li>
                         <li role="menuitem"><a href ng-click="addOwner()">
-                          <img src="../assets/img/icons/actions/add-owner.svg" alt="Add Owner"> Add Owners</a></li>
+                          <img src="../assets/img/icons/actions/add-owner.svg" alt="Add Owner"> Owners</a></li>
                         <li role="menuitem"><a href ng-click="shareWith()">
-                          <img src="../assets/img/icons/actions/share-with.svg" alt="Share With"> Share With</a></li>
+                          <img src="../assets/img/icons/actions/share-with.svg" alt="Share With"> Shared With</a></li>
                         <li role="menuitem"><a href ng-click="manageRelationships()">
-                          <img src="../assets/img/icons/actions/add-relationship.svg" alt="Add Relationship"> Add Relationship</a></li>
+                          <img src="../assets/img/icons/actions/add-relationship.svg" alt="Add Relationship"> Related Records</a></li>
                         <li role="menuitem"><a href ng-click="manageTags()">
-                          <img src="../assets/img/icons/actions/add-tag.svg" alt="Add Tag"> Add Tag</a></li>
+                          <img src="../assets/img/icons/actions/add-tag.svg" alt="Add Tag"> Tags</a></li>
                         <li class="text-divider">
-                            <span class="text">Actions...</span>
+                            <span class="text">Activities...</span>
                             <span class="line"></span>
                         </li>
                         <li role="menuitem"><a href ng-click="addNote()">
                           <img src="../assets/img/icons/actions/new-note.svg" alt="Add Note"> Add Note</a></li>
-                        <li role="menuitem"><a href ng-click="addTask()">
-                          <img src="../assets/img/icons/actions/new-task.svg" alt="Add Task"> Add Task</a></li>
-                        <li role="menuitem"><a href ng-click="addMeeting()">
-                          <img src="../assets/img/icons/actions/new-meeting.svg" alt="Add Meeting"> Add Meeting</a></li>
                         <li role="menuitem"><a href ng-click="logCall()">
-                          <img src="../assets/img/icons/actions/log-call.svg" alt="Log Call"> Log Call</a></li>
+                          <img src="../assets/img/icons/actions/log-call.svg" alt="Log Call"> Add Call</a></li>
+                        <li role="menuitem"><a href ng-click="addTask()">
+                          <img src="../assets/img/icons/actions/new-task.svg" alt="Add Task"> Add ToDo</a></li>
+                      
+                        <!-- //custom activity types -->
+
+                        <li role="menuitem"><a href ng-click="addActivity(activityType)" ng-repeat="activityType in $root.activityTypes | filter: {'custom': true}">
+                          <img src="../assets/img/icons/actions/new-task.svg" alt="Add Task"> Add {{activityType.label}}</a></li>
+
+                        
+
                         <li role="menuitem"><a href ng-click="triggerUpload()">
                           <img src="../assets/img/icons/actions/add-file.svg" alt="Upload File"> Upload File</a></li>
                          <li class="text-divider">
@@ -71,13 +77,13 @@
                     </div>
 
 
-                    <button class="btn btn-link btn-right" popover-title="Link To This Record" popover-placement="bottom"  uib-popover-template="'myPopoverTemplate.html'" popover-trigger="outsideClick" ng-if="!data.thisRecord._isDeleted">
+                    <button class="btn btn-default btn-right" popover-title="Link To This Record" popover-placement="bottom"  uib-popover-template="'myPopoverTemplate.html'" popover-trigger="outsideClick" ng-if="!data.thisRecord._isDeleted">
                         <icon class="fa fa-link"></icon>
                     </button>
 
                 </div>
                <div class="sidepanel-cover" ng-class="{'hidden': !data.activated }">
-                   <div class="avatar avatar-48 square royal">
+                   <div class="avatar avatar-48 square" ng-class="data.thisRecord.color">
                         <span ng-bind="data.thisRecord.name | limitTo:1"></span>
                     </div>
                     <div class="name-wrapper">
@@ -85,18 +91,31 @@
                             <span ng-bind="data.thisRecord.name || '--'"></span>
                         </h4>
                         <p>
-                            312 Employees | Big Company | Software
+                           <span ng-bind="data.thisRecord.description || 'No Description'"></span>
                         </p>
                         <p>
                             <span ng-if="data.thisRecord.domain">
-                                <a ng-href="//{{data.thisRecord.domain}}"><icon class="fa fa-link"></icon> {{data.thisRecord.domain}}</a></span>
+                                <a ng-href="//{{data.thisRecord.domain}}" target="_blank"><icon class="fa fa-globe"></icon> {{data.thisRecord.domain}}</a></span>
                             <span ng-if="!data.thisRecord.domain">No Domain</span>
                         </p>
                     </div>
                     <div class="social-wrapper">
-                       <span><icon class="fa fa-linkedin-square linkedin"></icon></span>
-                       <span><icon class="fa fa-twitter-square twitter"></icon></span>
-                       <span><icon class="fa fa-facebook-square facebook"></icon></span>
+
+                       <span ng-repeat="social in data.thisRecord.social" ng-switch="social.type">
+                            <!-- linkedin -->
+                           <span>
+                              <a ng-href="{{social.value}}" target="_blank"><icon class="fa fa-linkedin-square linkedin"></icon></a>
+                            </span>
+                            <!-- twitter -->
+                            <span>
+                              <a ng-href="{{social.value}}" target="_blank"><icon class="fa fa-twitter-square twitter"></icon></a>
+                            </span>
+                            <!-- facebook -->
+                            <span>
+                              <a ng-href="{{social.value}}" target="_blank"><icon class="fa fa-facebook-square facebook"></icon></a>
+                            </span>
+                       </span>
+                      
                     </div>
                   
                 </div>

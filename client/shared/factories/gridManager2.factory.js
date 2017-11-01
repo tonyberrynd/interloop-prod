@@ -68,13 +68,15 @@ angular.module('interloop.factory.gridManager', [])
 	var baseDefs = [	
 		//select
 		{headerName: "--", 
+         colId: 'select',
 		 field: "select", 
 		 headerClass: 'text-center', 
          headerCellRenderer: selectAllRender,
          // headerCheckboxSelection: true,
 		 cellClass: 'no-padding no-row-click', 
 		 headerCheckboxSelectionFilteredOnly: true, 
-		 checkboxSelection: true, width: 45, 
+		 checkboxSelection: true, 
+         width: 45, 
 		 suppressSizeToFit: true, 
 		 suppressMovable: true,
 		 suppressResize: true,
@@ -83,6 +85,7 @@ angular.module('interloop.factory.gridManager', [])
 
 		//star
 	    {headerName: "--", 
+          colId: 'star',
 	      field: "star", 
 	      headerClass: 'text-center', 
 	      cellRenderer: starRenderer,  
@@ -96,6 +99,7 @@ angular.module('interloop.factory.gridManager', [])
 
 
         {headerName: "", 
+          colId: 'rightPinned',
           field: "testpin", 
           headerClass: 'text-center', 
           cellRenderer: null,  
@@ -131,7 +135,7 @@ angular.module('interloop.factory.gridManager', [])
             // the keys we are looking at. will be empty if looking at top level (either
             // no groups, or looking at top level groups). eg ['United States','2002']
             var groupKeys = request.groupKeys;
-                console.log(groupKeys);
+                // console.log(groupKeys);
 
             // if going aggregation, contains the value columns, eg ['gold','silver','bronze']
             var valueCols = request.valueCols;
@@ -288,7 +292,7 @@ angular.module('interloop.factory.gridManager', [])
 
     function getGroups(params, rowGroupCols, groupKeys, valueCols){
 
-            console.log('get groups', groupKeys);
+            // console.log('get groups', groupKeys);
 
             var entityModel = $injector.get(currentEntityType);
 
@@ -391,7 +395,7 @@ angular.module('interloop.factory.gridManager', [])
             .$promise
             .then(function(results){
 
-                console.log(results);
+                // console.log(results);
 
 
 
@@ -611,7 +615,7 @@ angular.module('interloop.factory.gridManager', [])
                     return entityModel.find(currentQuery)
                             .$promise
                             .then(function(results){
-                                console.log(results);
+                                // console.log(results);
                                 params.successCallback(results, lastRow);
 
                                 //not initializing
@@ -1032,6 +1036,7 @@ angular.module('interloop.factory.gridManager', [])
                     "user": {},
                     "number": {},
                     "boolean": {},
+                    "domain": {},
                     "currency": {},
                     "date": {},
                     "richDate": {},
@@ -1041,6 +1046,7 @@ angular.module('interloop.factory.gridManager', [])
                     "divider": {},
                     "tags": {},
                     "score": {},
+                    "multi": {},
                     "formula": {}
                 },
                 defaultColDef: {
@@ -1087,6 +1093,10 @@ angular.module('interloop.factory.gridManager', [])
                 onModelUpdated: modelUpdated,
 				// onCellFocused: cellFocused,
 				onSelectionChanged: selectionChanged,
+                onSortChanged: sortChanged,
+                onColumnMoved: columnMoved,
+                onColumnResized: columnResized,
+                onColumnPinned: columnPinned,
 
                 //body scroll event
                 onBodyScroll: bodyScrolled
@@ -1192,13 +1202,17 @@ angular.module('interloop.factory.gridManager', [])
 		//if has a columnState, set column state
 		//-----------------------------------
         if(currentView.columnState) {
-    		grid.api.setColumnState(currentView.columnState)
+            // console.log('set column State', currentView.columnState);
+
+            var basePlusCurrentState = baseDefs.concat(currentView.columnState);
+    		grid.columnApi.setColumnState(basePlusCurrentState);
         }
 
 
 		//if has sort model, set sort model
 		//------------------------------------
         if(currentView.sortModel) {
+            // console.log('set sort model');
             grid.api.setSortModel(currentView.sortModel)
         }
 
@@ -1391,6 +1405,32 @@ angular.module('interloop.factory.gridManager', [])
 
     function rowDataChanged(){
         // console.log('row data changed');
+    }
+
+
+    function sortChanged(){
+        $timeout(function(){
+            $rootScope.$broadcast('SORT_MODEL_CHANGED');
+        }, 0)
+    }
+
+
+    function columnMoved(){
+        $timeout(function(){
+            $rootScope.$broadcast('COLUMN_MOVED');
+        }, 0)
+    }
+
+    function columnResized(){
+        $timeout(function(){
+            $rootScope.$broadcast('COLUMN_RESIZED');
+        }, 0)
+    }
+
+    function columnPinned(){
+        $timeout(function(){
+            $rootScope.$broadcast('COLUMN_PINNED');
+        }, 0)
     }
 
 
@@ -2434,6 +2474,9 @@ angular.module('interloop.factory.gridManager', [])
           case 'string':
             return params.value ?  params.value : nullCell;
           break
+          case 'domain':
+            return params.value ? params.value : nullCell;
+          break
           case 'email':
             if(params.value && params.value.length){
             var emailHtml = '';
@@ -2459,7 +2502,7 @@ angular.module('interloop.factory.gridManager', [])
             }
           break
           case 'social':
-            console.log('social', params.value);
+            // console.log('social', params.value);
             if(params.value && params.value.length){
                 var socialHtml = '';
                 //build out visual array
@@ -2487,7 +2530,9 @@ angular.module('interloop.factory.gridManager', [])
                 var addressHtml = '';
                 //build out visual array
                 _.forEach(params.value, function(address){
-                    addressHtml += '<div class="tag">' + address.city + ',' + address.region + '</div>';
+                    var city = address.city || '--'
+                    var locality = address.locality || '--'
+                    addressHtml += '<div class="tag"><icon class="fa fa-map-marker"></icon> ' + city + ', ' + locality + '</div>';
                 })
                 return addressHtml;
             } else {
@@ -2512,17 +2557,16 @@ angular.module('interloop.factory.gridManager', [])
             return _.get(params.data, params.colDef.field + ".label" , null) || nullCell;
           break
           case 'user':
-                var firstLetter = params.data.firstName ? params.data.firstName.charAt(0) : '';
-                var lastLetter = params.data.lastName ? params.data.lastName.charAt(0) : '';
-                var html = '<div class="avatar avatar-32">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
+                var firstLetter = _.get(params.data, params.colDef.field + ".firstName" , null) ? _.get(params.data, params.colDef.field + ".firstName" , '').charAt(0) : '';
+                var lastLetter = _.get(params.data, params.colDef.field + ".lastName" , null) ? _.get(params.data, params.colDef.field + ".lastName" , '').charAt(0) : '';
+                var html = _.get(params.data, params.colDef.field + ".firstName" , '') + ' ' + _.get(params.data, params.colDef.field + ".lastName" , '')
             return (firstLetter || lastLetter) ? html : nullCell;
           case 'tags':
-
             var tags = _.filter(_.get(params, 'data.itemLinks', []), ['itemType', 'Tag']);
             if(tags.length){
                 var html = '';
                 _.forEach(tags, function(value){
-                    html += '<div class="tag">' + value.value + '</div>';
+                    html += '<div class="tag">' + value.name + '</div>';
                 })
                 return html;
             }
@@ -2553,11 +2597,11 @@ angular.module('interloop.factory.gridManager', [])
               else if(currentEntityType == 'Contact') {
                 var firstLetter = params.data.firstName ? params.data.firstName.charAt(0) : '';
                 var lastLetter = params.data.lastName ? params.data.lastName.charAt(0) : '';
-                var html = '<div class="avatar avatar-32">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
+                var html = '<div class="avatar avatar-32 ' + params.data.color + '">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
               }
               else if(currentEntityType == 'Company') {
                 var firstLetter = params.data.name ? params.data.name.charAt(0) : '';
-                var html = '<div class="avatar avatar-32 square">' + firstLetter + '</div>' + params.value
+                var html = '<div class="avatar avatar-32 square ' + params.data.color + '">' + firstLetter + '</div>' + params.value
               } else {
                 var html = params.value;
               }

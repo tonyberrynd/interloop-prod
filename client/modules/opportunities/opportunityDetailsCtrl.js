@@ -101,11 +101,15 @@ function activate() {
 	// console.log($stateParams.id);
 
 
-	return Opportunity.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities", {"entities": ["comments"]}], "deleted": true}}).$promise
+	return $q.all([Opportunity.findOne({"filter": {"where": {"id": $stateParams.id}, "include": ["owners", "sharedWith", "entities", "items", "activities"]}}).$promise,
+                 Opportunity.insights({'id': $stateParams.id}).$promise
+                ])
 			.then(function(results){
         console.log('thisOpp', results)
 				//basic off details
-				$scope.data.thisRecord = results;
+				$scope.data.thisRecord = results[0];
+
+        $scope.data.thisRecord.insights = results[1];
 
 				//get primary company
 				$scope.data.thisRecord.primaryCompany = RelationshipManager.getPrimary($scope.data.thisRecord.entityLinks, "Company") || null;

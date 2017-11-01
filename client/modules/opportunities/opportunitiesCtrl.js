@@ -39,6 +39,7 @@ angular.module('interloop.opportunitiesCtrl', [])
   var oppId = $location.search().id || null;
   var viewFilters = null;
 
+  var initialSortModel = [];
   //data
   //----------------------
   $scope.data = {};
@@ -121,6 +122,7 @@ angular.module('interloop.opportunitiesCtrl', [])
   $scope.selectTags = selectTags;
   $scope.applyTags = applyTags;
   $scope.focusSelect = focusSelect;
+  $scope.columnStateChanged = columnStateChanged;
   $scope.isObjectShouldBeString = isObjectShouldBeString;
 
 //-------------------------------------------
@@ -143,6 +145,9 @@ function activate() {
               .then(function(results){
                 //set this view
                 $scope.data.thisView = results;
+                
+                //sort model
+                initialSortModel = angular.copy($scope.data.thisView.sortModel) || [];
 
                 //match type
                 $scope.data.filterMatches = $scope.data.thisView.matchType || 'all';
@@ -338,6 +343,8 @@ function discardChanges() {
 Save View As
 */
 function saveViewAs() {
+
+    console.log(gridManager.getColumnState());
     //get view details
     var resolvedData = {
         entity: 'Opportunity',
@@ -955,19 +962,29 @@ if(!filter.filterActive) {
 
   }
 
-
-  //figure out if diferences vs initial view filters
-  //-------------------------
-  var differences = _.xorWith(getFilters(), viewFilters, _.isEqual)
-  //set to scope
-  $scope.data.filterChanged = differences.length ? true : false;
-
+  //check if different
+  checkDifferences();
 
   //if is active - update grid
   //-------------------------
   if(filter.filterActive ){
     updateGrid();
   }
+}
+
+
+function checkDifferences(){
+
+    //filters
+    var differences = _.xorWith(getFilters(), viewFilters, _.isEqual)
+    $scope.data.filterChanged = differences.length ? true : false;
+
+    //sort model
+    var currentSortModel = !_.isNil(gridManager.getSortModel()) ? gridManager.getSortModel() : [];
+    $scope.data.filterChanged = (initialSortModel.toString() !== currentSortModel.toString()) ? true : false;
+
+    //column state
+    $scope.data.filterChanged = $scope.data.thisView.columnState == gridManager.getColumnState() ? false : true;
 }
 
 function compareDifferences(){
@@ -979,6 +996,11 @@ function compareDifferences(){
   console.log('differences', differences);
   //set to scope
   $scope.data.filterChanged = differences.length ? true : false;
+}
+
+function columnStateChanged(){
+    //check columns difference
+  checkDifferences();
 }
 
 /*
@@ -1103,7 +1125,26 @@ function focusSelect(string){
 
 // EVENTS
 //===========================================
-// Events go here
+$scope.$on('SORT_MODEL_CHANGED', function(event, args) {
+    checkDifferences();
+});
+
+
+$scope.$on('COLUMN_MOVED', function(event, args){
+    checkDifferences()
+})
+
+$scope.$on('COLUMN_RESIZED', function(event, args){
+    checkDifferences()
+})
+
+$scope.$on('COLUMN_PINNED', function(event, args){
+    checkDifferences()
+})
+
+$scope.$on('COLUMN_VISIBLE', function(event, args){
+    checkDifferences()
+})
 //-------------------------------------------
 
 // WATCHES

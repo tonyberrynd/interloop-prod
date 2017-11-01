@@ -1,7 +1,7 @@
  <div class="row">
             
                       <!-- field repeat -->
-                         <div ng-class="field.newClass || 'col-xs-12'" ng-repeat="field in data.fields | filter: showFieldFilter" ng-switch="field.type">
+                         <div ng-class="field.newClass || 'col-xs-12'" ng-repeat="field in data.fields | filter: showFieldFilter" ng-switch="field.type" ng-if="field.excludeNew !== true">
 
                                   <!-- divider -->
                             <div class="form-group" ng-switch-when="divider">
@@ -21,7 +21,7 @@
                             </div>
 
 
-                            <!-- website -->
+                            <!-- domain -->
                              <div class="form-group" ng-switch-when="domain" ng-class="{ 'has-error' : newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine }">
                               <label for="{{field.key}}">
                                 <span ng-bind="field.label"></span>
@@ -33,9 +33,9 @@
                                  <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
                               </div>
                               
-                              <div class="website-suggestion" ng-if="data.websiteSuggestions.length">
-                                <span class="tag tag-info rounded" ng-repeat="suggestion in data.websiteSuggestions" ng-click="data.thisRecord[field.key] = sugesstion">
-                                  <span ng-bind="suggestions"></span>
+                              <div class="domain-suggestion" ng-if="data.domainSuggestions.length">
+                                <span class="tag tag-info rounded" ng-repeat="suggestion in data.domainSuggestions | limitTo: 5" ng-click="data.thisRecord[field.key] = suggestion.domain; data.domainSuggestions = [];">
+                                  <span ng-bind="suggestion.domain"></span>
                                 </span>
                               </div>
                              
@@ -119,17 +119,17 @@
                             <ui-select name="{{field.key}}" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"  ng-if="field.values.length > 4">
                               <ui-select-match placeholder="Select options...">
                                 <span>
-                                  <span class="name">{{$select.selected.label}}</span>
+                                  <span class="name">{{$select.selected.label}} - {{$select.selected.value}}</span>
                                 </span>
                               </ui-select-match>
                               <ui-select-choices repeat="value in field.values | filter: $select.search">
-                                  <span ng-bind-html="value.label | highlight: $select.selected.value"></span> <span ng-bind-html="'(' + value.value + ')' | hightlight: $select.selected.value"></span>
+                                  <span ng-bind-html="value.label | highlight: $select.selected.value"></span> <span ng-bind="'(' + value.value + ')'"></span>
                               </ui-select-choices>
                             </ui-select>
 
                             <div ng-if="field.values.length <= 4" class="button-group-select">
                             <div class="btn-group" ng-required="field.newRequired" >
-                                <label class="btn btn-default btn-light" ng-model="data.thisRecord[field.key]" uib-btn-radio="{{value}}" uncheckable ng-repeat="value in field.values">{{value.label}} ({{value.value}})</label>
+                                <label class="btn btn-default btn-light" ng-model="data.thisRecord[field.key]" uib-btn-radio="{{value}}" uncheckable ng-repeat="value in field.values">{{value.label}} - {{value.value}}</label>
                             </div>
                             </div>
                           </div>
@@ -288,7 +288,7 @@
 
                         <!-- custom field -->
                          <!-- field repeat -->
-                           <div class="col-xs-12" ng-repeat="field in data.customFields | filter: showFieldFilter" ng-switch="field.type">
+                           <div class="col-xs-12" ng-repeat="field in data.customFields | filter: showFieldFilter" ng-switch="field.type" ng-if="field.excludeNew !== true">
 
                                   <!-- divider -->
                             <div class="form-group" ng-switch-when="divider">
@@ -320,9 +320,9 @@
                                  <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
                               </div>
                               
-                              <div class="website-suggestion" ng-if="data.websiteSuggestions.length">
-                                <span class="tag tag-info rounded" ng-repeat="suggestion in data.websiteSuggestions" ng-click="data.thisRecord[field.key] = sugesstion">
-                                  <span ng-bind="suggestions"></span>
+                              <div class="domain-suggestion" ng-if="data.domainSuggestions.length">
+                                <span class="tag tag-info rounded" ng-repeat="suggestion in data.domainSuggestions | limitTo: 5" ng-click="data.thisRecord[field.key] = suggestion.domain; data.domainSuggestions = [];">
+                                  <span ng-bind="suggestion.domain"></span>
                                 </span>
                               </div>
                              
@@ -395,6 +395,7 @@
                             </div>
 
 
+                           <!-- mixed select -->
                             <div class="form-group" ng-switch-when="mixed-select">
                             <label for="{{field.key}}">
                               <span ng-bind="field.label"></span>
@@ -405,17 +406,17 @@
                             <ui-select name="{{field.key}}" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"  ng-if="field.values.length > 4">
                               <ui-select-match placeholder="Select options...">
                                 <span>
-                                  <span class="name">{{$select.selected.label}}</span>
+                                  <span class="name">{{$select.selected.label}} - {{$select.selected.value}}</span>
                                 </span>
                               </ui-select-match>
                               <ui-select-choices repeat="value in field.values | filter: $select.search">
-                                  <span ng-bind-html="value.label | highlight: $select.selected.value"></span> <span ng-bind-html="'(' + value.value + ')' | hightlight: $select.selected.value"></span>
+                                  <span ng-bind-html="value.label | highlight: $select.selected.value"></span> <span ng-bind="'(' + value.value + ')'"></span>
                               </ui-select-choices>
                             </ui-select>
 
                             <div ng-if="field.values.length <= 4" class="button-group-select">
                             <div class="btn-group" ng-required="field.newRequired" >
-                                <label class="btn btn-default btn-light" ng-model="data.thisRecord[field.key]" uib-btn-radio="{{value}}" uncheckable ng-repeat="value in field.values">{{value.label}}</label>
+                                <label class="btn btn-default btn-light" ng-model="data.thisRecord[field.key]" uib-btn-radio="{{value}}" uncheckable ng-repeat="value in field.values">{{value.label}} - {{value.value}}</label>
                             </div>
                             </div>
                           </div>

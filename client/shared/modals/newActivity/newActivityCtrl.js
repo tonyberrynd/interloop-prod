@@ -26,7 +26,7 @@ angular.module('interloop.newActivityCtrl', [])
   //data
   //----------------------
   $scope.data = {};
-  $scope.data.loggedCall = {};
+  $scope.data.newActivity = {};
 
     //owners
   $scope.data.owners = [];
@@ -46,11 +46,6 @@ angular.module('interloop.newActivityCtrl', [])
     $scope.data.results = setUpPreSearch(thisRecord.entities);
   }
 
-
-  //set default values
-  $scope.data.loggedCall.completedDate = moment().format();
-  $scope.data.loggedCall.callType = $scope.data.callTypes[1];
- 
 
   //functions
   //----------------------

@@ -14,7 +14,7 @@
     <div class="panel panel-default card contact-card" ng-repeat="owner in data.thisRecord.ownerLinks | unique:'ownerId'">
 			<div class="panel-body">
 				<div class="name-wrapper">
-				<div class="avatar avatar-32" ng-class="owner.color">
+				<div class="avatar avatar-32" ng-class="$root.getCurrentAvatarColor(owner.ownerId)">
 					<span ng-bind="owner.firstName | limitTo:1"></span><span ng-bind="owner.lastName | limitTo:1"></span>
 				</div>
 				<h4>
@@ -37,7 +37,7 @@
 </div>
 
 <div class="sidebar-section">
-<h5 class="sidepanel-title collapse-header" ng-click="data.basicFieldsCollapsed = !data.basicFieldsCollapsed">Basic Information [{{percentComplete(data.fields)}}]
+<h5 class="sidepanel-title collapse-header" ng-click="data.basicFieldsCollapsed = !data.basicFieldsCollapsed">Basic Information <span uib-tooltip="{{percentComplete(data.fields)}} of the fields have data">[{{percentComplete(data.fields)}}]</span>
 
 <span class="pull-right collapse-arrow">
 <icon class="wb-triangle-right" ng-if="data.basicFieldsCollapsed"></icon>
@@ -51,40 +51,57 @@
 </span>
 
 <div class="panel panel-default sidepanel-panel" ng-if="(data.fields | filter: {excludeForm: '!true'}).length" uib-collapse="data.basicFieldsCollapsed">
-	<div class="panel-body">
+	<div class="panel-body record-details">
 		<form>
-		  <!-- //information -->
-		  <div class="form-group" ng-repeat="field in data.fields | filter: {excludeForm: '!true'}">
-		    <label for="{{field.key}}">{{field.label}}</label>
-
-		    <span ng-switch="field.type">
+		    <span ng-switch="field.type" ng-repeat="field in data.fields | filter: {excludeForm: '!true'}">
 			
 			<!-- default -->
-		    <span ng-switch-default>
+		    <div class="form-group" ng-switch-default> 
+		    <label for="{{field.key}}">{{field.label}}</label>
 		    <p id="{{field.key}}" class="form-control-static" ng-bind="data.thisRecord[field.key]" ng-if="data.thisRecord[field.key]"></p>
 		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
-			</span>
+
+		    <div class="copyValue" ng-click="copyValue(data.thisRecord[field.key])" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key]">
+		    	<icon class="fa fa-clone"></icon>
+		    </div>
+			</div>
 
 			<!-- currency -->
-		    <span ng-switch-when="currency">
+		    <div class="form-group" ng-switch-when="currency">
+		    <label for="{{field.key}}">{{field.label}}</label>
 		    <p id="{{field.key}}" class="form-control-static" ng-bind="'$' + (data.thisRecord[field.key] | number:0)" ng-if="data.thisRecord[field.key]"></p>
 		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
-			</span>
+
+		    <div class="copyValue" ng-click="copyValue('$' + (data.thisRecord[field.key] | number:0))" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key]">
+		    	<icon class="fa fa-clone"></icon>
+		    </div>
+			</div>
 
 			<!-- number -->
-		    <span ng-switch-when="number">
+		    <div class="form-group" ng-switch-when="number">
+		    <label for="{{field.key}}">{{field.label}}</label>
 		    <p id="{{field.key}}" class="form-control-static" ng-bind="(data.thisRecord[field.key] | number:0)" ng-if="data.thisRecord[field.key]"></p>
 		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
-			</span>
+
+		    <div class="copyValue" ng-click="copyValue((data.thisRecord[field.key] | number:0))" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key]">
+		    	<icon class="fa fa-clone"></icon>
+		    </div>
+			</div>
 
 			<!-- date -->
-		    <span ng-switch-when="date">
+		    <div class="form-group" ng-switch-when="date">
+		    <label for="{{field.key}}">{{field.label}}</label>
 		    <p id="{{field.key}}" class="form-control-static" ng-bind="(data.thisRecord[field.key] | formatDate)" ng-if="data.thisRecord[field.key]"></p>
 		    <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
-			</span>
+
+		    <div class="copyValue" ng-click="copyValue((data.thisRecord[field.key] | formatDate))" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key]">
+		    	<icon class="fa fa-clone"></icon>
+		    </div>
+			</div>
 
 			<!-- primaryCompany -->
-			<span ng-switch-when="lookup">
+			<div class="form-group" ng-switch-when="lookup">
+			<label for="{{field.key}}">{{field.label}}</label>
 		   	 <p id="{{field.key}}" class="form-control-static" ng-if="data.thisRecord[field.key][field.lookupKey || 'name']">
 		   	 	<a href ng-click="goTo(field.lookupEntity, data.thisRecord[field.key]['entityId'])">
 		   	 		<span ng-bind="data.thisRecord[field.key][field.lookupKey || 'name']"></span>
@@ -92,71 +109,96 @@
 		   	 	</a>
 		   	 </p>
 		   	 <p class="form-control-static no-value" ng-if="!data.thisRecord[field.key][field.lookupKey || 'name']"> No {{field.label}}</p>
-			</span>
+			</div>
 
 			<!-- category -->
-			<span ng-switch-when="category">
+			<div class="form-group" ng-switch-when="category">
+			<label for="{{field.key}}">{{field.label}}</label>
 		   	 <p id="{{field.key}}" class="form-control-static" ng-bind="data.thisRecord[field.key]['label']" ng-if="data.thisRecord[field.key]"></p>
 		   	 <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
-			</span>
+
+		   	 <div class="copyValue" ng-click="copyValue(data.thisRecord[field.key])" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key]">
+		    	<icon class="fa fa-clone"></icon>
+		    </div>
+			</div>
 
 			<!-- mixed select -->
-			<span ng-switch-when="mixed-select">
+			<div class="form-group" ng-switch-when="mixed-select">
+			<label for="{{field.key}}">{{field.label}}</label>
 		   	 <p id="{{field.key}}" class="form-control-static" ng-if="data.thisRecord[field.key]">
 		   	 	<span ng-bind="data.thisRecord[field.key]['label']"></span> <span ng-if="data.thisRecord[field.key]['value']">-</span> <span ng-bind="data.thisRecord[field.key]['value']"></span>
 		   	 </p>
 		   	 <p class="no-value" ng-if="!data.thisRecord[field.key]">--</p>
-			</span>
+
+		   	 <div class="copyValue" ng-click="copyValue(data.thisRecord[field.key])" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key]">
+		    	<icon class="fa fa-clone"></icon>
+		    </div>
+			</div>
 			
 			<!-- address -->
-			<span ng-switch-when="address">
-			  <div class="row" ng-if="data.thisRecord[field.key].length" style="margin-top:5px;">
+			<div class="form-group" ng-switch-when="address">
+			<label for="{{field.key}}">{{field.label}}</label>
+			  <div class="row address-list" ng-if="data.thisRecord[field.key].length" style="margin-top:5px;">
               <div class="col-xs-6" ng-repeat="address in data.thisRecord[field.key]">
-                  <address>
-                      <strong>
-                      	<span ng-bind="address.type || 'Address'"></span>
+                  <address class="clickable-address" ng-click="openGoogleMaps(address)">
+                      <strong><icon class="fa fa-map-marker"></icon> 
+                      <span ng-bind="address.label || 'Address'"></span>
                       </strong><br>
-                      <span ng-bind="address.street_1"></span><span ng-if="address.street_2">,</span> <span ng-bind="address.street_2"></span><br>
-                      <span ng-bind="address.city"></span>, <span ng-bind="address.state"></span> <span ng-bind="address.postal_code"></span><br>
+                      <span class="address-body">
+                      <span ng-bind="address.address_line1"></span><span ng-if="address.address_line2">,</span> <span ng-bind="address.address_line2"></span><br>
+                      <span ng-bind="address.locality"></span>, <span ng-bind="address.region"></span> <span ng-bind="address.postal_code"></span><br>
                       <span ng-bind="address.country"></span><br>
+                     </span>
                   </address>
               </div>
               </div>
               <p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Addresses</p>
-             </span>
+             </div>
 
              <!-- phone -->
-			<span ng-switch-when="phone">
-				<p class="form-control-static" ng-repeat="phone in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
-					<a ng-href="'tel:' + {{phone}}" ng-bind="phone"></a>
+			<div class="form-group" ng-switch-when="phone" ng-repeat="phone in data.thisRecord[field.key]">
+				<label for="{{field.key}}">{{phone.type.label}} Phone</label>
+				<p class="form-control-static" ng-if="data.thisRecord[field.key].length">
+					<b ng-bind="phone.type.label"></b> - <a ng-href="tel:{{phone.value}}" ng-bind="phone.value"></a>
 				</p>
 				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Phone Numbers</p>
-			</span>
+
+				<div class="copyValue" ng-click="copyValue(data.thisRecord[field.key][$index]['value'])" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key].length">
+		    	<icon class="fa fa-clone"></icon>
+		    </div>
+			</div>
 
 
              <!-- email -->
-			<span ng-switch-when="email">
-				<p class="form-control-static" ng-repeat="email in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
-					<a ng-href="'mailto:' + {{email}}" ng-bind="email"></a>
+			<div class="form-group" ng-switch-when="email" ng-repeat="email in data.thisRecord[field.key]">
+				<label for="{{field.key}}">{{email.type.label}} Email</label>
+				<p class="form-control-static" ng-if="data.thisRecord[field.key].length">
+					<a ng-href="mailto:{{email.value}}" ng-bind="email.value"></a>
 				</p>
 				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Email Addresses</p>
-			</span>
+
+				<div class="copyValue" ng-click="copyValue(data.thisRecord[field.key][$index]['value'])" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key].length">
+		    	<icon class="fa fa-clone"></icon>
+		    </div>
+			</div>
 
 
              <!-- social -->
-             <span ng-switch-when="social">
+             <div class="form-group" ng-switch-when="social">
+             	<label for="{{field.key}}"><span ng-bind="field.type.label || 'Social'"></span></label>
              	<p class="form-control-static" ng-repeat="social in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
 					<a ng-if="social.value" ng-href="social" target="_blank" ng-bind="social.value"></a>
 					<span ng-if="!social.value">--</span>
 				</p>
 				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Social Accounts</p>
-             </span>
+
+				<div class="copyValue" ng-click="copyValue(data.thisRecord[field.key][$index]['value'])" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key].length">
+		    	<icon class="fa fa-clone"></icon>
+		    </div>
+             </div>
 
 
              </span>
-
-
-		  </div>
 		  
 		</form>
 	</div>
@@ -164,7 +206,7 @@
 </div>
 
 <div class="sidebar-section" ng-if="(data.customFields | filter: {excludeForm: '!true'}).length">
-<h5 class="sidepanel-title collapse-header" ng-click="data.customFieldsCollapsed = !data.customFieldsCollapsed">Custom Fields [{{percentComplete(data.customFields)}}]
+<h5 class="sidepanel-title collapse-header" ng-click="data.customFieldsCollapsed = !data.customFieldsCollapsed">Custom Fields <span uib-tooltip="{{percentComplete(data.customFields)}} of the custom fields have data">[{{percentComplete(data.customFields)}}]</span>
 
 <span class="pull-right collapse-arrow">
 <icon class="wb-triangle-right" ng-if="data.customFieldsCollapsed"></icon>
@@ -220,7 +262,7 @@
 		   	 		<span><icon class="fa fa-external-link"></icon></span>
 		   	 	</a>
 		   	 </p>
-		   	 <p class="form-control-static no-value" ng-if="!data.thisRecord[field.key][field.lookupKey || 'name']"> No {{field.label}}</p>
+		   	 <p class="form-control-static no-value" ng-if="!data.thisRecord[field.key][field.lookupKey || 'name']">--</p>
 			</span>
 
 			<!-- category -->
