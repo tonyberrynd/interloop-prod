@@ -16,16 +16,18 @@ angular.module('interloop.bulkExportCtrl', [])
   
   //vars
   //----------------------
-  var entityModel = resolvedData.entityModel;
+  var currentEntity = _.get(resolvedData, 'currentEntity', null);
 
 
   //data
   //----------------------
   $scope.data = {};
 
+  $scope.data.exportColumns = 'current';
+
   $scope.data.query = resolvedData.query;
   $scope.data.columns = resolvedData.columns;
-  $scope.data.fileName = 'Bulk Export';
+  $scope.data.fileName = currentEntity + '_Export_' + moment().format("MM-DD-YYYY");
 
   //functions
   //----------------------

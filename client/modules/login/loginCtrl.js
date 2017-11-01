@@ -62,22 +62,6 @@ function login() {
   $scope.data.loginLoading = true;
   $scope.data.loginFailed = false;
 
-  //SETUP BASE URL
-  //------------------------
-
-  //if electron - user sets it
-  if($rootScope.ELECTRON) {
-    BASE.URL = $scope.data.domain;
-  //else dynanmically get it form subdomain
-  }  else {
-    //get sbudomain or localstorage
-    if(subdomain_name == 'localhost' || subdomain_name == '0') {
-      BASE.URL = 'http://localhost:3000'
-    }
-    else {
-      BASE.URL = 'https://interloop3-api-' + subdomain_name + '.interloop.ai';
-    }
-  }
 
   //USE AUTH SERVICE TO LOGIN
   //------------------------

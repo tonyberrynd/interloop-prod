@@ -48,7 +48,7 @@
                               <span class="required-field" ng-if="field.newRequired">*</span>
                               <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
-                              <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-number-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
+                              <input type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                             </div>
 
                             <!-- currency -->
@@ -58,7 +58,7 @@
                                 <span class="required-field" ng-if="field.newRequired">*</span>
                                 <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
-                              <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-money-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
+                              <input type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                             </div>
 
                             <!-- date -->
@@ -335,7 +335,7 @@
                               <span class="required-field" ng-if="field.newRequired">*</span>
                               <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
-                              <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-number-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
+                              <input type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-required="field.newRequired" ng-disabled="field.disabled" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                             </div>
 
                             <!-- currency -->
@@ -345,7 +345,7 @@
                                 <span class="required-field" ng-if="field.newRequired">*</span>
                                 <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
-                              <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-money-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
+                              <input type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                             </div>
 
                             <!-- date -->

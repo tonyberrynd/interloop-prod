@@ -52,7 +52,6 @@
     <link rel="stylesheet" type="text/css" href="lib/highcharts-ng/dist/highcharts-ng.css"/>
     <link rel="stylesheet" type="text/css" href="lib/bootstrap-daterangepicker/daterangepicker.css"/>
     <link rel="stylesheet" type="text/css" href="lib/please-wait/build/please-wait.css"/>
-    <link rel="stylesheet" type="text/css" href="lib/ng-prettyjson/dist/ng-prettyjson.min.css">
     <link rel="stylesheet" type="text/css" href="lib/angular-loading-bar/build/loading-bar.min.css"/>
     <link rel="stylesheet" type="text/css" href="lib/nya-bootstrap-select/dist/css/nya-bs-select.css">
     <link rel="stylesheet" type="text/css" href="lib/fullcalendar/dist/fullcalendar.css">
@@ -111,7 +110,8 @@
     <script type="text/javascript" src="https://npmcdn.com/powerbi-client@2.0.0"></script>
     <script>window.powerbi.wpmp.suppressWarnings = true;</script>
     <!-- ace code editor -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js" async defer></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/theme-textmate.js"></script>
     <!-- stripe -->
     <script type="text/javascript" src="https://js.stripe.com/v2/" async defer></script>
     <!-- google maps -->
@@ -185,7 +185,6 @@
     <script type="text/javascript" src="lib/ng-file-upload-shim/ng-file-upload-shim.js"></script>
     <script type="text/javascript" src="lib/ng-file-upload/ng-file-upload.js"></script>
     <script type="text/javascript" src="lib/ng-password-strength/dist/scripts/ng-password-strength.js"></script>
-    <script type="text/javascript" src="lib/ng-prettyjson/dist/ng-prettyjson.min.js"></script>
     <script type="text/javascript" src="lib/ng-rollbar/ng-rollbar.js"></script>
     <script type="text/javascript" src="lib/ng-tags-input/ng-tags-input.js"></script>
     <script type="text/javascript" src="lib/ng-videosharing-embed/build/ng-videosharing-embed.min.js"></script>
@@ -197,7 +196,8 @@
     <script type="text/javascript" src="lib/angular-powerbi/dist/angular-powerbi.js"></script>
     <script type="text/javascript" src="lib/angular-ui-calendar/src/calendar.js"></script>
     <script type="text/javascript" src="lib/angular-swiper/dist/angular-swiper.js"></script>
-    <!-- assets -->
+    <!-- assets - probably had to overrite something from lib -->
+    <script type="text/javascript" src="assets/js/ng-pretty-json.js"></script>
     <script type="text/javascript" src="assets/js/q-all-limit.js"></script>
     <script type="text/javascript" src="assets/js/angular-daterangepicker.js"></script>
     <script type="text/javascript" src="assets/js/ui-bootstrap.js"></script>
@@ -331,6 +331,7 @@
     <script type="text/javascript" src="configure/systemViews/configSystemViewsCtrl.js"></script>
     <script type="text/javascript" src="configure/banners/configBannersCtrl.js"></script>
     <script type="text/javascript" src="configure/notifications/configNotificationsCtrl.js"></script>
+    <script type="text/javascript" src="configure/errorHandling/configErrorHandlingCtrl.js"></script>
     <script type="text/javascript" src="configure/onboarding/configOnboardingCtrl.js"></script>
 
     <!-- //settings -->
@@ -385,6 +386,7 @@
     <script type="text/javascript" src="shared/modals/bulkTag/bulkTagCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/confirm/confirmCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/warning/warningCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/showFullRecord/showFullRecordCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/connectIcloud/connectIcloudCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/createView/createViewCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/deleteView/deleteViewCtrl.js"></script>

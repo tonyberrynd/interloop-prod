@@ -1,5 +1,5 @@
   <div class="modal-header header-dark">
-            <h3 class="modal-title" id="modal-title">Create a New ToDo</h3>
+            <h3 class="modal-title" id="modal-title">Create a New Task</h3>
             
             <!-- close button -->
             <button type="button" class="close" ng-click="$dismiss()">
@@ -20,13 +20,13 @@
                                 <div class="col-xs-12">
                                     <div class="form-group">
                                       <label for="title">Name <span class="required">*</span></label>
-                                      <input type="text" class="form-control" ng-model="data.todo.title" autofocus required>
+                                      <input type="text" class="form-control" ng-model="data.todo.title" autofocus required tabindex="1">
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
                                    <div class="form-group">
                                     <label for="title">Description</label>
-                                    <textarea class="form-control" rows="3" ng-model="data.todo.description" msd-elastic style="min-height:80px;"
+                                    <textarea class="form-control" rows="3" ng-model="data.todo.description" msd-elastic style="min-height:80px;" tabindex="2"
                                     ></textarea>
                                     </div>
                                 </div>
@@ -38,19 +38,19 @@
                                       <br>
                                       <span class="button-group-select pull-left" style="margin-right:0px;">
                                       <div class="btn-group">
-                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'today'" style="padding: 9px 8px;">
+                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'today'" style="padding: 9px 8px;" tabindex="3">
                                                 <img src="../../assets/img/icons/modals/fire.svg" alt="Fire" style="width:12px;"> Today</label>
-                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'tomorrow'" style="padding: 9px 8px;">Tomorrow</label>
-                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'next-week'" style="padding: 9px 8px;">
+                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'tomorrow'" style="padding: 9px 8px;" tabindex="4">Tomorrow</label>
+                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'next-week'" style="padding: 9px 8px;" tabindex="5">
                                                 Next Week
                                               </label>
-                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'next-month'" style="padding: 9px 8px; border-top-right-radius:0px; border-bottom-right-radius:0px;">
+                                              <label class="btn btn-default btn-light" ng-model="data.setDate" ng-change="data.customDate = null;" uib-btn-radio="'next-month'" style="padding: 9px 8px; border-top-right-radius:0px; border-bottom-right-radius:0px;" tabindex="6">
                                                 Next Month
                                               </label>
                                         </div>
                                         </span>
                                         <div class="date-picker-wrapper pull-left" style="width:135px; margin-left:-1px;">
-                                        <input name="dueDate" date-range-picker class="form-control date-picker" id="dueDate" placeholder="Custom Date" ng-model="data.customDate" options="$root.options4" style="width:135px; border-top-left-radius:0px; border-bottom-left-radius:0px;" ng-change="data.setDate = null;" ng-class="{'custom-date-selected': data.customDate }">
+                                        <input name="dueDate" date-range-picker class="form-control date-picker" id="dueDate" placeholder="Custom Date" ng-model="data.customDate" options="$root.options4" style="width:135px; border-top-left-radius:0px; border-bottom-left-radius:0px;" ng-change="data.setDate = null;" ng-class="{'custom-date-selected': data.customDate }" tabindex="7">
                                         <img src="../assets/img/icons/states/date.svg" alt="Date Picker">
                                         </div>  
                                     </div>
@@ -61,7 +61,7 @@
                                   <div class="complete-task">
                                      <div class="form-group">
                                           <input class="magic-checkbox" type="checkbox" name="layout" id="taskCompleted" value="true" ng-model="data.todo.completed">
-                                          <label class="text" for="taskCompleted">
+                                          <label class="text" for="taskCompleted" tabindex="8">
                                             Mark As Completed
                                           </label>
                                       </div>

@@ -157,36 +157,51 @@
                                   <!-- Single button using append-to-body -->
                               <div class="btn-group" uib-dropdown dropdown-append-to-body>
                                 <button id="btn-append-to-body" type="button" class="btn btn-primary" uib-dropdown-toggle>
-                                  Actions <icon class="icon wb-chevron-down-mini"></icon>
+                                  Bulk Actions <icon class="icon wb-chevron-down-mini"></icon>
                               </button>
-                              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
-                                  <li role="menuitem">
-                                      <a href ng-click="bulkAssign()">Assign Owner</a>
+                              <ul class="dropdown-menu bulk-actions-dropdown" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+                                   <li role="menuitem">
+                                      <a href ng-click="bulkTag()">
+                                        <img src="../assets/img/icons/actions/add-tag.svg" alt="Add Tag">
+                                      Add Tag</a>
                                   </li>
                                   <li role="menuitem">
-                                      <a href ng-click="bulkEdit()">Edit Value</a>
+                                      <a href ng-click="bulkEdit()">
+                                        <img src="../assets/img/icons/actions/edit-value.svg" alt="Edit Value">
+                                      Edit Records</a>
                                   </li>
                                   <li role="menuitem">
-                                      <a href ng-click="bulkTag()">Add Tag</a>
+                                      <a href ng-click="bulkAssign()">
+                                      <img src="../assets/img/icons/actions/add-owner.svg" alt="Assign Owner">
+                                      Assign Owners</a>
                                   </li>
-                      <!--                     <li role="menuitem" ng-if="data.selectedData.items.length < 30">
-                                              <a href ng-click="bulkEmail()">Email</a>
-                                          </li> -->
-                                          <li role="menuitem">
-                                              <a href ng-click="bulkExport()">Export</a>
-                                          </li>
-                                          <li role="menuitem">
-                                              <a href ng-click="bulkCreateView()">Create View</a>
-                                          </li>
-                                          <li class="divider" permission="['BULK_DELETE']"></li>
-                                          <li role="menuitem" permission="['BULK_DELETE']">
-                                              <a href ng-click="bulkDelete()"><span class="text-danger">Delete</span></a>
-                                          </li>
+                                 
+                                  <li role="menuitem" ng-if="data.selectedData.items.length < 30 && data.currentEntity == 'Contact'">
+                                      <a href ng-click="bulkEmail()">
+                                      <img src="../assets/img/icons/actions/create-view.svg" alt="Create View">
+                                      Send Email</a>
+                                  </li>
+                                  <li role="menuitem">
+                                      <a href ng-click="bulkExport()">
+                                      <img src="../assets/img/icons/actions/export.svg" alt="Export">
+                                    Export</a>
+                                  </li>
+                                  <li role="menuitem">
+                                      <a href ng-click="bulkCreateView()">
+                                      <img src="../assets/img/icons/actions/create-view.svg" alt="Create View">
+                                      Create View</a>
+                                  </li>
+                                  <li class="divider" permission="['BULK_DELETE']"></li>
+                                  <li role="menuitem" permission="['BULK_DELETE']">
+                                      <a href ng-click="bulkDelete()"><span class="text-danger">
+                                      <img src="../assets/img/icons/actions/delete.svg" alt="Delete">
+                                    Delete</span></a>
+                                  </li>
                                       </ul>
                                   </div>
 
                               <p class="text-inline pull-right" ng-class="{'hidden': data.selectedData.selectAll }">
-                                  <span class="itemsLength" ng-bind="data.selectedData.items.length | number:0"></span> rows selected 
+                                  <span class="itemsLength" ng-bind="data.selectedData.items.length | number:0"></span> records selected 
                                   <a href ng-click="clearSelected()">Clear Selected</a>
                               </p>
 

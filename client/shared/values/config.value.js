@@ -108,8 +108,12 @@ angular.module('interloop.value.config', [])
 		label: 'Work'
 	},
 	{
-		key: 'personal',
-		label: 'Personal'
+		key: 'mobile',
+		label: 'Mobile'
+	},
+	{
+		key: 'home',
+		label: 'Home'
 	},
 	{
 		key: 'other',

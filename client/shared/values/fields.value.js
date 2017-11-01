@@ -929,6 +929,7 @@ angular.module('interloop.value.fields', [])
 		"newRequired": false,
 		"newClass": "col-xs-12",
 		//grid
+		"excludeBulk": true,
 		"excludeGrid": false,
 		"hide": false,
 		"width": 250,
@@ -1004,6 +1005,23 @@ angular.module('interloop.value.fields', [])
 	{
 	   	"label": "Title",
 	    "key": "title",
+	    "type": "string",
+	    "locked": true,
+	    //new form
+		"excludeNew": false,
+		"newClass": "col-xs-12",
+	    //grid
+	    "excludeGrid": false,
+    	"hide": false,
+    	"width": 200,
+		"valueGetter": null,
+		"cellRenderer": null,
+		"pinned": null
+	},
+
+	{
+	   	"label": "Website",
+	    "key": "website",
 	    "type": "string",
 	    "locked": true,
 	    //new form
@@ -1134,6 +1152,7 @@ angular.module('interloop.value.fields', [])
 	    "key": "address.city",
 	    "type": "string",
 		"excludeNew": true,
+		"excludeForm": true,
 	    "excludeGrid": true,
 	    		//exlude import
 	    "excludeImport": true
@@ -1144,6 +1163,7 @@ angular.module('interloop.value.fields', [])
 	    "key": "address.state",
 	    "type": "string",
 		"excludeNew": true,
+		"excludeForm": true,
 	    "excludeGrid": true,
 	    		//exlude import
 	    "excludeImport": true
@@ -1155,6 +1175,7 @@ angular.module('interloop.value.fields', [])
 	    "type": "lookup",
 	    "lookupEntity": "countryList",
 		"excludeNew": true,
+		"excludeForm": true,
 	    "excludeGrid": true,
 	    		//exlude import
 	    "excludeImport": true
@@ -1165,6 +1186,7 @@ angular.module('interloop.value.fields', [])
 	    "key": "address.zip",
 	    "type": "string",
 		"excludeNew": true,
+		"excludeForm": true,
 	    "excludeGrid": true,
 	    		//exlude import
 	    "excludeImport": true

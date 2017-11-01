@@ -29,12 +29,12 @@ angular.module('interloop.bulkEditCtrl', [])
   //data
   //----------------------
   $scope.data = {};
-  $scope.data.selectedOption = {};
+  $scope.data.selectedOption = null;
   $scope.data.value = null;
 
   //fields - filter certain fields
-  $scope.data.fields = _.pickBy($injector.get(entity + 'Fields'), function(value, key){
-    return !value.excludeBulk;
+  $scope.data.fields = _.filter($injector.get(entity + 'Fields'), function(o){
+    return o.excludeBulk !== true;
   });
 
 

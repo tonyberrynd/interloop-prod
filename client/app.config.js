@@ -4,14 +4,18 @@
 
 // BASE Config
 //===========================================
+//Gets URL & Subdomain
+var full = window.location.host
+var parts = full.split('.')
+var subdomain = parts[0]
 
+/////////////////////////////////////////
 angular.module('interloop.config', [])
-
 
 //BASE URL VALUE
 //---------------------
 .value('BASE', {
-  URL: window.localStorage.baseUrl || 'http://localhost:3000'
+  URL: subdomain.includes("localhost") ? 'http://localhost:3000' : 'https://interloop3-api-' + subdomain + '.interloop.ai'
  })
 
 
@@ -220,7 +224,7 @@ angular.module('interloop.config', [])
     //get current user avatar colors
     //--------------------------
     $rootScope.getCurrentAvatarColor = function(userId){
-      return _.find($rootScope.userList, ['id', userId])['color'] || null;
+      return _.find($rootScope.userList, ['id', userId]) ? _.find($rootScope.userList, ['id', userId])['color'] : null;
     }
 
 

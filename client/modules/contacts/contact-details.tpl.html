@@ -53,7 +53,7 @@
                         <li role="menuitem"><a href ng-click="logCall()">
                           <img src="../assets/img/icons/actions/log-call.svg" alt="Log Call"> Add Call</a></li>
                         <li role="menuitem"><a href ng-click="addTask()">
-                          <img src="../assets/img/icons/actions/new-task.svg" alt="Add Task"> Add ToDo</a></li>
+                          <img src="../assets/img/icons/actions/new-task.svg" alt="Add Task"> Add Task</a></li>
                       
                         <!-- //custom activity types -->
 
@@ -77,7 +77,7 @@
                     </div>
 
 
-                    <button class="btn btn-default btn-right" popover-title="Link To This Record" popover-placement="bottom"  uib-popover-template="'myPopoverTemplate.html'" popover-trigger="outsideClick" ng-if="!data.thisRecord._isDeleted">
+                    <button class="btn btn-default btn-right" popover-title="Link To This Record" popover-placement="bottom"  uib-popover-template="'myPopoverTemplate.html'" popover-trigger="outsideClick" popover-is-open="data.shareLinkOpen" ng-if="!data.thisRecord._isDeleted">
                         <icon class="fa fa-link"></icon>
                     </button>
 
@@ -171,6 +171,10 @@
 
 
               <script type="text/ng-template" id="myPopoverTemplate.html">
+                    <button class="btn btn-link close-sharelink" ng-click="data.shareLinkOpen = false;">
+                      <img src="../assets/img/icons/states/close.svg" alt="Close">
+                    </button>
+
                     <div class="form-group" style="width:250px;">
                       <label>Record Url:</label>
                       <input type="text" ng-model="data.copyUrl" class="form-control" readonly focus-select>
@@ -178,5 +182,9 @@
                       <label>Record ID:</label>
                       <input type="text" ng-model="data.thisRecord.id" class="form-control" readonly>
                     </div>
+                    </div>
+                    
+                    <div class="show-full-record" ng-if="$root.activeUser.superAdmin">
+                      <button class="btn btn-block btn-default" ng-click="showFullRecord()"><icon class="wb-eye"></icon> View Full Record</button>
                     </div>
                 </script>

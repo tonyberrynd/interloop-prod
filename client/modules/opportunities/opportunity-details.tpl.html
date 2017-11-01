@@ -84,7 +84,7 @@
                 </div>
                 <div class="sidepanel-cover" ng-class="{'hidden': !data.activated }">
 
-                    <div class="score-knob" ng-if="data.activated && data.thisRecord.smartScore">
+                    <div class="score-knob" ng-if="data.activated && data.thisRecord.smartScore" feature-flag="--FF_SMARTSCORE--">
                         <knob knob-data="data.thisRecord.smartScore" knob-options="data.options"></knob>
                     </div>
 

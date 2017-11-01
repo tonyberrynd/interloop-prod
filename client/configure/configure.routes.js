@@ -122,6 +122,16 @@ angular.module('interloop.routes.configure', [])
         }
   });
 
+  $stateProvider.state('app.configure.error-messages', {
+        url: "/error-messages",
+        views: {
+            'configure-content@app.configure': {
+              templateUrl: 'configure/errorHandling/errorHandling.tpl.html',
+              controller: 'configErrorHandlingCtrl'
+            }
+        }
+  });
+
 
   $stateProvider.state('app.configure.notifications', {
         url: "/notifications",

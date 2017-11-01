@@ -37,7 +37,7 @@ angular.module('interloop.factory.logger', [])
 
     function warning(title, message, data) {
         $injector.get('toastr').warning(message, title);
-        $log.warning('Warning: ' + message, data);
+        $log.info('Warning: ' + message, data);
     } 
 
 });

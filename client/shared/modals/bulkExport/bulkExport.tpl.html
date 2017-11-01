@@ -1,6 +1,5 @@
     <div class="modal-header header-dark">
-        <h3 class="modal-title" id="modal-title">Export Data</h3>
-        <p>Export <b>{{data.selectedItems.length}}</b> Records</p>
+        <h3 class="modal-title" id="modal-title">Export Selected Records</h3>
         
         <!-- close button -->
         <button type="button" class="close" ng-click="$dismiss()">
@@ -11,15 +10,40 @@
     <div class="modal-body w-padding" id="modal-body">
 
 
-        <form>
+        <form name="bulkExportForm">
           <div class="form-group">
-            <label for="file-name">File Name:</label>
-            <input type="text" class="form-control" id="file-name" ng-model="data.fileName">
+            <label for="file-name">Export File Name</label>
+            <input type="text" class="form-control" id="file-name" ng-model="data.fileName" required>
           </div>
+        
+
+        <br>
+
+          <div class="form-group" >
+            <label for="export-columns">Export columns</label>
+            <br>
+
+                <div class="radio-primary radio-inline" style="padding-left:3px; margin-top:10px;"> 
+                  <input class="magic-radio" type="radio" name="viewAccess" id="current" value="current" ng-model="data.exportColumns">
+                  <label for="current">
+                      Currently Visible Columns
+                  </label>
+                </div>
+
+                  <div class="radio-primary radio-inline" style="margin-top:10px;">    
+                    <input class="magic-radio" type="radio" name="exportColumns" id="all" value="all" ng-model="data.exportColumns">
+                    <label for="all">
+                        All Columns
+                    </label>
+                  </div>
+
+            </div>
+         
         </form>
 
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-csv="data.selectedItems" filename="{{ data.fileName }}.csv" field-separator="," decimal-separator="." ng-click="ok()">Export</button>
+        <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
+        <button class="btn btn-primary" ng-click="ok()" ladda="data.processing" data-style="slide-up" ng-disabled="bulkExportForm.$invalid">Start Export</button>
 
     </div>

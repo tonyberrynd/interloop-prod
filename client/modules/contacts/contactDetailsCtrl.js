@@ -94,6 +94,7 @@ angular.module('interloop.contactDetailsCtrl', [])
   $scope.viewTagList = viewTagList;
   $scope.openGoogleMaps = openGoogleMaps;
   $scope.copyValue = copyValue;
+  $scope.showFullRecord = showFullRecord;
 
 //-------------------------------------------
 
@@ -209,6 +210,13 @@ $timeout(function(){
 // FUNCTIONS
 //===========================================
 
+function showFullRecord(){
+  var resolvedData = {
+    thisRecord: $scope.data.thisRecord
+  }
+  //open modal
+  modalManager.openModal('showFullRecord', resolvedData);
+}
 
 function openGoogleMaps(address){
   var url = 'https://maps.google.com/?q=';

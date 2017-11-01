@@ -84,8 +84,20 @@
         pointer-events: none;
     }
 
+    .checkbox-inline {
+        padding-left:0px;
+    }
+
+    .checkbox-custom {
+        margin-top:0px;
+    }
+
+    .forgot-password {
+        margin-top:10px;
+    }
+
     .login-wrapper {
-        width: 500px;
+        width: 540px;
         height: auto;
         display: block;
         margin: 0 auto;

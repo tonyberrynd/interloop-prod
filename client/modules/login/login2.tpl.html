@@ -11,7 +11,7 @@
             <div class="panel-body">
 
                 <div class="callout callout-danger" ng-if="data.loginFailed" style="margin-top:0px;">
-                  <p class="title" style="margin:0px;"><icon class="wb-warning"></icon> The email address or password you entered is incorrect.</p>
+                  <p class="title" style="margin:0px;">The email address or password you entered is incorrect.</p>
                 </div>
 
                 <form name="loginForm" class="loginForm" ng-submit="login()">
@@ -27,7 +27,7 @@
 
                   <!-- sign me in -->
                   <div class="checkbox-custom checkbox-primary checkbox-inline pull-left">
-                    <input type="checkbox" id="remember" ng-model="data.rememberMe">
+                    <input class="magic-checkbox" type="checkbox" id="remember" ng-model="data.rememberMe">
                     <label for="remember">Stay logged in</label>
                   </div>
 
