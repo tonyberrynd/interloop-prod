@@ -20,8 +20,10 @@ angular.module('interloop.logCallCtrl', [])
 
 // BINDABLES
 //===========================================
-  var entityType = _.get(resolvedData, 'entityType', null)
-  var thisRecord = _.get(resolvedData, 'entityType', null)
+  // vars
+  //----------------------
+  var entityType = _.get(resolvedData, 'entityType', null);
+  var thisRecord = _.get(resolvedData, 'thisRecord', null);
 
   //data
   //----------------------

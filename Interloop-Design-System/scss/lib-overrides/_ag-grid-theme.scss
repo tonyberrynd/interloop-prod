@@ -142,6 +142,7 @@ $g-select-foreground: $seamonster !important;
 		font-weight:500;
 		overflow:hidden;
 		text-overflow:ellipsis;
+		white-space: nowrap !important;
 
 		.avatar {
 			margin-right:10px;
@@ -183,6 +184,8 @@ $g-select-foreground: $seamonster !important;
 
 	.ag-cell .tag {
 		line-height:20px;
+		background-color:darken($limestone, 3%);
+		display: inline-block;
 	}
 
 	//background styles

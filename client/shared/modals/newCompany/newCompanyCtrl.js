@@ -9,6 +9,7 @@ angular.module('interloop.newCompanyCtrl', [])
   $scope,
   $timeout,
   $rootScope,
+  $q,
   Company,
   $http,
   $uibModalInstance,
@@ -40,24 +41,28 @@ angular.module('interloop.newCompanyCtrl', [])
   $scope.data.phoneTypes = phoneTypes;
 
 
-  //set up fields
+  // Get fields
+  //-------------------------------
   $scope.data.fields = CompanyFields;
-    //custom fields
   $scope.data.customFields = _.filter($rootScope.customFields,function(o){
       return _.includes(o.useWith, 'Company');
   })
 
+  //Data Holders
+  //---------------------------------
   $scope.data.selectedOwners = [];
   $scope.data.selectedRelated = [];
   $scope.data.scopeRelated = 'all';
 
 
-      //owners
+  //Assign Owners
+  //---------------------------------
   $scope.data.owners = [];
   //should push current user as owner
   $scope.data.owners.push($rootScope.activeUser);
 
-  //erlated to
+  //Related Records
+  //---------------------------------
   $scope.data.related = [];
   if(thisRecord && entityType){
     console.log(thisRecord);
@@ -65,7 +70,6 @@ angular.module('interloop.newCompanyCtrl', [])
     thisRecord.thisEntityType = entityType;
     //push into related array
     $scope.data.related.push(thisRecord);
-
     //go ahead and prepoulate search results with already related entities
     $scope.data.results = setUpPreSearch(thisRecord.entities);
   }
@@ -74,16 +78,10 @@ angular.module('interloop.newCompanyCtrl', [])
   //----------------------
   $scope.ok = ok;
   $scope.cancel = cancel;
-  $scope.getLookupValue = getLookupValue;
-  $scope.searchRelated = searchRelated;
-  $scope.showFieldFilter = showFieldFilter;
-  $scope.searchOwners = searchOwners;
   $scope.addOwner = addOwner;
   $scope.removeOwner = removeOwner;
   $scope.addRelated = addRelated;
   $scope.removeRelated = removeRelated;
-  $scope.clearResults = clearResults;
-  $scope.noResultsNew = noResultsNew;
   $scope.addAddress = addAddress;
   $scope.editAddress = editAddress;
   $scope.addEmail = addEmail;
@@ -92,6 +90,7 @@ angular.module('interloop.newCompanyCtrl', [])
   $scope.removePhone = removePhone;
   $scope.addSocial = addSocial;
   $scope.removeSocial = removeSocial;
+  $scope.getRecords = getRecords;
 
 //-------------------------------------------
 
@@ -100,10 +99,12 @@ angular.module('interloop.newCompanyCtrl', [])
 //===========================================
 function activate() {
 
+    //focuses on first input
     $timeout(function () {
        angular.element(document.getElementsByClassName("form-control")[0]).focus();
-      });
-    //push current user into owners array
+      }, 250);
+
+    //push current user in as an owner
     $scope.data.selectedOwners.push($rootScope.activeUser);
 
     //ensure minimum values
@@ -119,9 +120,8 @@ function activate() {
         $scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key] || [{}];
       }
     })
-
 }
-
+//-------------------------------------------
 activate();
 //-------------------------------------------
 
@@ -129,36 +129,105 @@ activate();
 // FUNCTIONS
 //===========================================
 
-  function showFieldFilter(item){
-    if($scope.data.fieldToggle == 'false'){
-      return item.excludeNew !== true
-    } else {
-      return item.excludeNew !== true && item.newRequired == true
-    }
-  }
-
   function ok() {
-    //if required fields selected - only created contact with these field
-    //so any other fields filled out wont inadvertenly be added to new record
-    if($scope.data.fieldToggle == 'true') {
-      //TODO
-    }
+    
+    //set up created by
+    //----------------------------
+    $scope.data.thisRecord.createdBy = {
+      'firstName': $rootScope.activeUser.firstName,
+      'lastName': $rootScope.activeUser.lastName,
+      'color': $rootScope.activeUser.color,
+      'id': $rootScope.activeUser.id
+    };
 
+    //set up updated by
+    //----------------------------
+    $scope.data.thisRecord.updatedBy = {
+      'firstName': $rootScope.activeUser.firstName,
+      'lastName': $rootScope.activeUser.lastName,
+      'color': $rootScope.activeUser.color,
+      'id': $rootScope.activeUser.id
+    };
+
+     //need to clear out empty array
+     //----------------------------
+    _.forOwn($scope.data.thisRecord, function(value, key){
+      if(_.isArray($scope.data.thisRecord[key])){
+        _.forEach($scope.data.thisRecord[key], function(subvalue){
+          var keys = _.filter(_.keys(subvalue), function(o) {
+            return o !== "$$hashKey";
+          });
+          //check if empty and remove
+          if(keys.length == 0){
+            value.splice(value.indexOf(subvalue), 1);
+          }
+        })
+      }
+    })
+
+    //Create Entity
     Company.create($scope.data.thisRecord).$promise
       .then(function(results){
-          Logger.info('Created Company', $scope.data.thisRecord.name)
+                    var thisRecord = results;
 
-          if($scope.data.thisRecord.primaryCompany) {
-            return linkCompany(results, $scope.data.thisRecord.primaryCompany, true)
-                      .then(function(results){
-                        $uibModalInstance.close(results);
-                      })
-                      .catch(function(err){
-                        Logger.error("Error Linking Primary Company", err)
-                      })
-          } else {
-            $uibModalInstance.close(results);
-          }
+                    //link to owners etc
+                    //----------------------------
+                    var allPromises = [];
+
+                    //add in owner promises
+                    //----------------------------
+                    _.forEach($scope.data.selectedOwners, function(owner){
+                        allPromises.push(Company.owners.create(
+                            {"id": thisRecord.id},
+                            {
+                                "firstName": owner.firstName,
+                                "lastName": owner.lastName,
+                                "initials": owner.initials,
+                                "email": owner.email,
+                                "split": owner.splitPercent || null,
+                                "active": true,
+                                "ownerId": owner.id
+                            }).$promise
+                        )
+                    })
+
+                    //add in related promises
+                    //----------------------------
+                    _.forEach($scope.data.related, function(value){
+                       var name = value.thisEntityType == 'Contact' ? value.firstName + ' ' + value.lastName : value.name;
+                       //push in promise
+                       allPromises.push(
+                        RelationshipManager.linkEntity(thisRecord, value, "Company", value.thisEntityType, 
+                              {
+                                "from": {
+                                  "name": thisRecord.name,
+                                  "role": "linked Entity",
+                                  "description": "linked Entity",
+                                  "isPrimary": false
+                                }, 
+                                "to": {
+                                  "name": name,
+                                  "role": "linked entity",
+                                  "description": "linkedin entity",
+                                  "isPrimary": false
+                                }
+                              })
+                        )
+                     })
+
+                    //$q all limit limits the concurrency so we dont overwhelm the server
+                    //----------------------------
+                    return $q.allLimit(1, allPromises)
+                      .then(function(data) {
+                         Logger.info('Company Created Succesfully');
+                         $uibModalInstance.close(thisRecord);
+                      }, function(err) {
+                        // One promise died!
+                        console.log(err);
+                      }, function(progress) {
+                        // Progress updates! (progress will equal {completed: Number, count: Number, limit: Number})
+                          console.log(progress);
+                      });
       })
       .catch(function(err){
         console.log(err);
@@ -170,109 +239,8 @@ activate();
     $uibModalInstance.dismiss('cancel');
   };
 
-  //TB - TODO - Look at moving the broadcast messages into a shared factory 
-function linkCompany(contact, company, updateGrid){
-  return RelationshipManager.linkEntity(contact, company, "Company", "Company",  
-  {
-    "from": { "name": contact.name, "description": "Primary Org", "isPrimary": true}, 
-    "to" : { "name": company.name, "description": "Primary Org", "isPrimary": true}
-  })
-  .then(function(results){
-    return results; 
-  }); 
-}; 
-
-  //returns list of companies filtered by typeahead
-  function getCompanies (val) {
-    val = val != null ? val : ""; 
-    return Company.find(
-       { "filter": { "where" :{ "name": {"like": val ,"options":"i"}}, limit: 10}}
-    ).$promise
-    .then(function(response){
-      return response
-    })
-  };
-
-
-function getLookupValue(filter, entityType, searchVal){
-  return searchService.getLookupValue(filter, entityType, searchVal);
-  }
-
-function searchOwners(){
-  $scope.data.results = [];
-  $scope.data.loadingOwners = true;
-  return searchService.getLookupValue(null, 'Appuser', $scope.data.searchOwnersText)
-            .then(function(results){
-              $scope.data.results = results;
-              $scope.data.loadingOwners = false;
-            })
-            .catch(function(err){
-              console.log(err);
-              $scope.data.loadingOwners = false;
-            })
-}
-
-function searchRelated(){
-  $scope.data.results = [];
-  $scope.data.loadingRelated = true;
-  if($scope.data.scopeRelated !== 'all'){
-    return searchService.getLookupValue(null, $scope.data.scopeRelated, $scope.data.searchOwnersText)
-            .then(function(results){
-              $scope.data.results = results;
-                $scope.data.loadingRelated = false;
-            })
-            .catch(function(err){
-              console.log(err);
-                $scope.data.loadingRelated = false;
-            })
-  } else {
-    return searchService.globalSearch($scope.data.searchRelatedText, false, null)
-            .then(function(results){
-              $scope.data.results = results;
-              $scope.data.loadingRelated = false;
-              console.log(results);
-            })
-            .catch(function(err){
-              console.log(err);
-              $scope.data.loadingRelated = false;
-            })
-  }
-}
-
-function clearResults(){
-  $scope.data.results = [];
-}
-
-function addOwner(owner){
-  $scope.data.results.splice($scope.data.results.indexOf(owner), 1)
-  $scope.data.selectedOwners = _.unionBy($scope.data.selectedOwners, [owner], 'id');
-}
-
-function removeOwner(owner){
-  $scope.data.selectedOwners.splice($scope.data.selectedOwners.indexOf(owner), 1)
-}
-
-
-function addRelated(item){
-  $scope.data.results.splice($scope.data.results.indexOf(item), 1)
-  $scope.data.selectedRelated = _.unionBy($scope.data.selectedRelated, [item], 'id');
-}
-
-function removeRelated(item){
-  $scope.data.selectedRelated.splice($scope.data.selectedRelated.indexOf(item), 1)
-}
-
-function noResultsNew(entityType, modelValue) {
-  //opeen entity new
-  var newModal = modalManager.openModal('new' + entityType);
-
-  newModal.result.then(function(results){
-    console.log('returned new thing');
-  }, function(err){
-    console.log(err);
-  })
-}
-
+  //Utility functions for array type values
+  //------------------------------------------
 
   function addEmail(field){
     console.log('add email');
@@ -369,8 +337,6 @@ function setUpPreSearch(records){
               .catch(function(err){
                 $scope.data.serverError = true;
               })
-       
-
   }
 
 
@@ -408,19 +374,22 @@ function setUpPreSearch(records){
 //===========================================
 
 $scope.$watch('data.thisRecord.name', function (oldVal, newVal) {
-
+  if(newVal && newVal.length){
    $http({
           method: 'GET',
           url: 'https://autocomplete.clearbit.com/v1/companies/suggest?query=:' + newVal,
           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
          }).then(function successCallback(response) {
           
-            $scope.data.websiteSuggestions = response.data;
+            $scope.data.domainSuggestions = response.data;
+
+            console.log($scope.data.domainSuggestions);
             // error
           }, function errorCallback(response) {
 
-           $scope.data.websiteSuggestions = [];
+           $scope.data.domainSuggestions = [];
     });
+    }
 
 });
 

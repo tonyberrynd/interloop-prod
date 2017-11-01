@@ -1133,6 +1133,18 @@ $scope.$on('SORT_MODEL_CHANGED', function(event, args) {
 $scope.$on('COLUMN_MOVED', function(event, args){
     checkDifferences()
 })
+
+$scope.$on('COLUMN_RESIZED', function(event, args){
+    checkDifferences()
+})
+
+$scope.$on('COLUMN_PINNED', function(event, args){
+    checkDifferences()
+})
+
+$scope.$on('COLUMN_VISIBLE', function(event, args){
+    checkDifferences()
+})
 //-------------------------------------------
 
 // WATCHES

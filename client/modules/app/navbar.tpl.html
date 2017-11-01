@@ -34,6 +34,7 @@
                               + Company
                             </a>
                           </li>
+                          <li class="divider"></li>
                           <li role="menuitem">
                             <a href ng-click="newNote()">
                               + Note
@@ -94,7 +95,7 @@
 
                                 <!-- contact -->
                                   <a href class="list-group-item avatar-item" ng-switch-when="Contact" ng-click="openTo('app.contact-details', item.id, $event)">
-                                    <div class="avatar avatar-32 royal">
+                                    <div class="avatar avatar-32" ng-class="item.color">
                                       <span ng-bind="item.firstName | limitTo:1 | uppercase"></span><span ng-bind="item.lastName | limitTo:1 | uppercase"></span>
                                       <span ng-if="!item.firstName && !item.lastName">--</span>
                                     </div>
@@ -108,7 +109,7 @@
 
                                   <!-- company -->
                                   <a href class="list-group-item avatar-item" ng-switch-when="Company" ng-click="openTo('app.company-details', item.id, $event)">
-                                    <div class="avatar avatar-32 royal square">
+                                    <div class="avatar avatar-32 square" ng-class="item.color">
                                       <span ng-bind="(item.name | limitTo:1 | uppercase) || '--'"></span>
                                     </div>
                                     <h4><span ng-bind="item.name || ''"></span></h4>
@@ -174,8 +175,16 @@
                       </div>
                   <ul class="nav navbar-nav">
 
+
+                      <!-- agenda view -->
+                      <li uib-tooltip="Show Assistant" tooltip-placement="bottom">
+                        <a href ng-click="showAssistant()">
+                          <img src="../../assets/img/icons/light/bolt.svg" alt="Assistant">
+                        </a>
+                      </li>
+
                     <!-- notifications -->
-                      <li class="dropdown notifications" uib-dropdown>
+                      <li class="dropdown notifications" uib-dropdown uib-dropdown uib-tooltip="Show Notifications" tooltip-placement="bottom">
                         <a href class="dropdown-toggle" uib-dropdown-toggle is-open="notificationsDropdownOpen" ng-click="checkNotifications()">
                          <img src="../../assets/img/icons/light/notification.svg" alt="Notifications">
                          <span class="badge badge-danger" ng-bind="$root.unreadNotifications || 0" ng-if="$root.unreadNotifications !== 0"></span>
@@ -216,17 +225,8 @@
                         </ul>
                       </li>
 
-                      <!-- agenda view -->
-                      <li>
-                        <a href ui-sref="app.agenda">
-                          <img src="../../assets/img/icons/light/calendar.svg" alt="Agenda">
-                        </a>
-                      </li>
-
-
-
                     <!-- help -->
-                     <li class="dropdown" uib-dropdown>
+                     <li class="dropdown" uib-dropdown uib-tooltip="Support" tooltip-placement="bottom">
                         <a href class="dropdown-toggle" uib-dropdown-toggle is-open="helpDropdownOpen"><img src="../../assets/img/icons/light/question.svg" alt="Help"></a>
                         <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
                             <li role="menuitem">
@@ -259,12 +259,12 @@
                       </li>
 
                       <!-- more -->
-                       <li class="dropdown" uib-dropdown>
+                       <li class="dropdown" uib-dropdown uib-tooltip="More Options" tooltip-placement="bottom">
                         <a href class="dropdown-toggle" uib-dropdown-toggle is-open="moreDropdownOpen"><img src="../../assets/img/icons/light/more.svg" alt="More"></a>
                         <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
                              <li role="menuitem">
                              <a href ui-sref="app.settings.profile" class="avatar-item">
-                                <div class="avatar avatar-32 royal" style="margin-left:5px; margin-top:-3px;">
+                                <div class="avatar avatar-32" ng-class="$root.activeUser.color" style="margin-left:5px; margin-top:-3px;">
                                   <span ng-bind="$root.activeUser.initials"></span>
                                 </div>
                                 <h4 ng-bind="$root.activeUser.firstName + ' '  + $root.activeUser.lastName"></h4>

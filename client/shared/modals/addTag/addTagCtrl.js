@@ -86,6 +86,7 @@ activate();
 
       Tag.create(newTag).$promise
         .then(function(results){
+          $rootScope.tagList.push(results);
           return applyTags(results)
         })
         .catch(function(err){
