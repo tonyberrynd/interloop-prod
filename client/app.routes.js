@@ -410,7 +410,7 @@ angular.module('interloop.routes', [])
       url: "/opportunities/view/:viewId/:visualType",
       views: {
           'page-content@app': {
-            templateUrl: 'modules/opportunities/opportunities.tpl.html',
+            templateUrl: 'shared/templates/list-view.tpl.html',
             controller: 'opportunitiesCtrl',
           }
       },
@@ -479,7 +479,7 @@ angular.module('interloop.routes', [])
             controller: 'navCtrl'
           },
           'page-content@app': {
-            templateUrl: 'modules/contacts/contacts.tpl.html',
+              templateUrl: 'shared/templates/list-view.tpl.html',
             controller: 'contactsCtrl'
           }
       },
@@ -548,7 +548,7 @@ angular.module('interloop.routes', [])
             controller: 'navCtrl'
           },
           'page-content@app': {
-            templateUrl: 'modules/companies/companies.tpl.html',
+            templateUrl: 'shared/templates/list-view.tpl.html',
             controller: 'companiesCtrl'
           }
       },
@@ -689,7 +689,7 @@ angular.module('interloop.routes', [])
             controller: 'navCtrl'
           },
           'page-content@app': {
-            templateUrl: 'modules/activities/activities.tpl.html',
+            templateUrl: 'shared/templates/list-view.tpl.html',
             controller: 'activitiesCtrl'
           }
       },

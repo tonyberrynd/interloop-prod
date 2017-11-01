@@ -124,8 +124,10 @@
                       <input type="radio" class="magic-radio" id="{{filter.key}}-dynamic-days-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="dynamic-days-range" ng-change="filter.filterValue = {'lower': null, upper: null}; isFilterActive(filter)">
                       <label for="{{filter.key}}-dynamic-days-range">Range</label>
                     </div>
-            <input class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-range'" id="{{filter.key}}-dynamic-days-range-lower" autofocus placeholder="greater than" style="margin-bottom:3px;" ng-model="filter.filterValue['lower']" ng-change="isFilterActive(filter)" ui-number-mask="0">
-            <input class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-range'" id="{{filter.key}}-dynamic-days-range-upper" placeholder="less than" ng-model="filter.filterValue['upper']" ng-change="isFilterActive(filter)" ui-number-mask="0">
+
+                      <input class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-range'" id="{{filter.key}}-dynamic-days-range-lower" autofocus placeholder="greater than" style="margin-bottom:3px;" ng-model="filter.filterValue['lower']" ng-change="isFilterActive(filter)" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
+
+                      <input type="number" class="field-input form-control"  ng-if="filter.filterApplied == 'dynamic-days-range'" id="{{filter.key}}-dynamic-days-range-upper" placeholder="less than" ng-model="filter.filterValue['upper']" ng-change="isFilterActive(filter)" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
           </span>
           
           <span class="is-value">
@@ -133,7 +135,8 @@
                       <input type="radio" class="magic-radio" id="{{filter.key}}-dynamic-days-greater-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="dynamic-days-greater-than" ng-change="isFilterActive(filter)">
                       <label for="{{filter.key}}-dynamic-days-greater-than">Greater than</label>
                     </div>
-            <input class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-greater-than'"' id="{{filter.key}}-dynamic-days-greater-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="0">
+
+            <input type="number" class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-greater-than'"' id="{{filter.key}}-dynamic-days-greater-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
           </span>
           
           <span class="is-value">
@@ -141,7 +144,8 @@
                       <input type="radio" class="magic-radio" id="{{filter.key}}-dynamic-days-less-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="dynamic-days-less-than" ng-change="isFilterActive(filter)">
                       <label for="{{filter.key}}-dynamic-days-less-than">Less than</label>
                     </div>
-            <input class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-less-than'" id="{{filter.key}}-dynamic-days-less-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="0">
+
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'dynamic-days-less-than'" id="{{filter.key}}-dynamic-days-less-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
           </span>
           <span class="clear-filter" ng-if="filter.filterApplied && filter.filterActive">
             <button class="btn btn-block btn-default btn-outline" style="margin-top:10px;" ng-click="clearFilter(filter)">Clear Filter
@@ -159,8 +163,13 @@
                       <input type="radio" class="magic-radio" id="{{filter.key}}-range" name="{{filter}}-radios" ng-model="filter.filterApplied" value="range" ng-change="filter.filterValue = {'lower': null, upper: null}; isFilterActive(filter)">
                       <label for="{{filter.key}}-range">Range</label>
                     </div>
-            <input class="field-input form-control" ng-if="filter.filterApplied == 'range'" id="{{filter.key}}-range-lower" autofocus placeholder="greater than" style="margin-bottom:3px;" ng-model="filter.filterValue['lower']" ng-change="isFilterActive(filter)" ui-number-mask="0">
-            <input class="field-input form-control" ng-if="filter.filterApplied == 'range'" id="{{filter.key}}-range-upper" placeholder="less than" ng-model="filter.filterValue['upper']" ng-change="isFilterActive(filter)" ui-number-mask="0">
+
+                  <input class="field-input form-control" ng-if="filter.filterApplied == 'range'" id="{{filter.key}}-range-lower" autofocus placeholder="greater than" style="margin-bottom:3px;" ng-model="filter.filterValue['lower']" ng-change="isFilterActive(filter)" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
+
+
+                  <input class="field-input form-control" ng-if="filter.filterApplied == 'range'" id="{{filter.key}}-range-upper" placeholder="less than" ng-model="filter.filterValue['upper']" ng-change="isFilterActive(filter)" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
+
+
           </span>
           
           <span class="is-value">
@@ -168,7 +177,8 @@
                       <input type="radio" class="magic-radio" id="{{filter.key}}-greater-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="greater-than" ng-change="isFilterActive(filter)">
                       <label for="{{filter.key}}-greater-than">Greater than</label>
                     </div>
-            <input class="field-input form-control" ng-if="filter.filterApplied == 'greater-than'"' id="{{filter.key}}-greater-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="0">
+
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'greater-than'"' id="{{filter.key}}-greater-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
           </span>
           
           <span class="is-value">
@@ -176,7 +186,8 @@
                       <input type="radio" class="magic-radio" id="{{filter.key}}-less-than" name="{{filter}}-radios" ng-model="filter.filterApplied" value="less-than" ng-change="isFilterActive(filter)">
                       <label for="{{filter.key}}-less-than">Less than</label>
                     </div>
-            <input class="field-input form-control" ng-if="filter.filterApplied == 'less-than'" id="{{filter.key}}-less-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="0">
+
+            <input class="field-input form-control" ng-if="filter.filterApplied == 'less-than'" id="{{filter.key}}-less-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
           </span>
           <span class="is-value">
               <div class="radio-custom radio-primary">
@@ -207,11 +218,11 @@
                     </div>
                      <div class="input-group" ng-if="filter.filterApplied == 'range'" style="margin-bottom:5px;">
                         <span class="input-group-addon"><span class="fa fa-dollar"></span></span>
-                         <input class="field-input form-control" id="{{filter.key}}-range-lower" autofocus placeholder="greater than" ng-model="filter.filterValue['lower']" ng-change="isFilterActive(filter)" ui-number-mask="2">
+                         <input class="field-input form-control" id="{{filter.key}}-range-lower" autofocus placeholder="greater than" ng-model="filter.filterValue['lower']" ng-change="isFilterActive(filter)" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                     </div>
                     <div class="input-group" ng-if="filter.filterApplied == 'range'">
                         <span class="input-group-addon"><span class="fa fa-dollar"></span></span>
-                         <input class="field-input form-control" id="{{filter.key}}-range-upper" placeholder="less than" ng-model="filter.filterValue['upper']" ng-change="isFilterActive(filter)" ui-number-mask="2">
+                         <input class="field-input form-control" id="{{filter.key}}-range-upper" placeholder="less than" ng-model="filter.filterValue['upper']" ng-change="isFilterActive(filter)" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                     </div>
           </span>
           
@@ -222,7 +233,8 @@
                     </div>
                     <div class="input-group" ng-if="filter.filterApplied == 'greater-than'">
                         <span class="input-group-addon"><span class="fa fa-dollar"></span></span>
-                        <input class="field-input form-control" id="{{filter.key}}-greater-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="2">
+
+                         <input class="field-input form-control" id="{{filter.key}}-greater-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                     </div>
 
                      
@@ -235,7 +247,7 @@
                     </div>
                     <div class="input-group" ng-if="filter.filterApplied == 'less-than'">
                         <span class="input-group-addon"><span class="fa fa-dollar"></span></span>
-                        <input class="field-input form-control" id="{{filter.key}}-less-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ui-number-mask="2">
+                        <input class="field-input form-control" id="{{filter.key}}-less-than-input" ng-model="filter.filterValue" ng-change="isFilterActive(filter)" autofocus ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                     </div>
           </span>
           <span class="is-value">

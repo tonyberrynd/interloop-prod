@@ -1,33 +1,48 @@
-    <div class="modal-header header-dark">
-        <h3 class="modal-title" id="modal-title">Bulk Assign</h3>
-        <p>Assign owner to {{data.selectedItems.length}} records</p>
-        
-        <!-- close button -->
-        <button type="button" class="close" ng-click="$dismiss()">
-            <icon class="wb-close-mini"></icon>
-        </button>
-
-    </div>
-    <div class="modal-body w-padding" id="modal-body">
-
-
-        <form name="bulkAssignForm" class="form-horizontal" novalidate style="min-height:50px;">
+  <div class="modal-header header-dark">
+            <h3 class="modal-title" id="modal-title">Bulk Assign Owners</h3>
             
-            <div class="col-sm-12">
-                <label for="bulkUpdateField">Select Owner</label>
-                <label for="selectTag" class="select">
-                  <select class="form-control" name="selectTag" ng-model="data.selectedOwner">
-                    <option ng-repeat="owner in data.owners | orderBy:'fullName' " value="{{owner}}">{{owner.fullName}}</option>
-                  </select>
-                </label>
-            </div>
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
 
-        </form>
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
 
-        <br>
-        <br>
+            <div class="form-group">
+                <label for="bulkAssing">Select Owners</label>
+              <div class="multiple-select">
+                <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Select Users">
+                      <ui-select multiple ng-model="data.selectedOwners" theme="bootstrap" ng-click="$select.activate()" minimum-input-length="2">
+                        <ui-select-match placeholder="Select Users">
+                          <div class="avatar avatar-16" ng-class="$item.color">
+                            <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span>
+                          </div>
+                          <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in data.owners | filter: $select.search | orderBy:'firstName'">
+                          <div class="avatar avatar-24" ng-class="item.color">
+                            <span ng-bind="item.firstName | limitTo:1"></span><span ng-bind="item.lastName | limitTo:1"></span>
+                          </div>
+                          <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
+                          <small ng-bind-html="item.email | highlight: $select.search"></small>
+                        </ui-select-choices>
+                      </ui-select>
+                      <ui-select-no-choice>
+                          <span class="no-results" ng-if="!(data.people | filter: $select.search).length && !data.serverError">
+                         No Results Found Matching <b>"{{$select.search}}"</b>
+                    </span>
+                    <span class="server-error" ng-if="!(data.people | filter: $select.search).length && data.serverError">
+                      The servier did not respond
+                      <br>
+                      <button class="btn btn-default">Retry</button>
+                    </span>
+                  </ui-select-no-choice>
+                </div>
+              </div>
 
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!data.selectedOwner">Assign Owner</button>
-    </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ladda="data.processing" data-style="slide-up" ng-disabled="!data.selectedOwners.length">Add Owners</button>
+        </div>

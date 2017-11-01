@@ -1,6 +1,5 @@
     <div class="modal-header header-dark">
         <h3 class="modal-title" id="modal-title">Create New View</h3>
-        <p>Create a static view with {{data.selectedItems.length}} records</p>
         
         <!-- close button -->
         <button type="button" class="close" ng-click="$dismiss()">
@@ -30,7 +29,7 @@
                 </div>
               </div>
 
-              <div ng-if="data.view.type !== 'system'"  class="radio radio-inline" ng-disabled="data.type == 'system'">
+              <div ng-if="data.view.type !== 'system'"  class="radio radio-inline" ng-disabled="data.type == 'system'" style="padding-left:0px;">
                   <div class="radio-custom radio-primary">    
                     <input class="magic-radio" type="radio" name="viewAccess" id="personal" value="personal" ng-model="data.view.type">
                     <label for="personal">
@@ -50,43 +49,62 @@
             </div>
           </div>
 
-                      <!-- share with section -->
-            <div class="form-group" ng-if="data.view.type == 'shared'">
-                <br>
-                <label for="viewName" class="col-sm-3 control-label text-left">Share With:</label>
-                <div class="col-sm-8">
-                   <ui-select ng-model="data.sharedWith" multiple theme="bootstrap" class="form-control" title="Choose a team or person">
+          <br>
+          
 
-                    <ui-select-match placeholder="Select a team or user...">
-                        <span ng-if="$item.type == 'team'"><icon class="wb-users"></icon> {{$item.name}}</span>
-                        <span ng-if="$item.type == 'user'"><icon class="wb-user"></icon> {{$item.fullName}}</span>
-                    </ui-select-match>
-                    <!-- choices -->
-                    <ui-select-choices repeat="item in data.choices | filter: $select.search">
-                      
-                      <div ng-if="item.type == 'team'">
-                          <icon class="wb-users"></icon>
-                          <span ng-bind="item.name || '--'"></span>
+           <!-- share with section -->
+             <div class="form-group" ng-if="data.view.type == 'shared'">
+                <label class="col-xs-3" for="shareView">Share With:</label>
+              <div class="multiple-select" style="width: 62%;float: left;margin: 0 15px;">
+              <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Select Users">
+              <ui-select multiple ng-model="data.selectedSharedWith" theme="bootstrap" ng-click="$select.activate()" minimum-input-length="2">
+                <ui-select-match placeholder="Select Users or Teams...">
+                  <span ng-if="$item.type == 'user'">
+                    <div class="avatar avatar-16" ng-class="$item.color">
+                        <span ng-bind="$item.firstName | limitTo:1"></span><span ng-bind="$item.lastName | limitTo:1"></span>
                       </div>
+                      <span ng-bind="$item.firstName"></span> <span ng-bind="$item.lastName"></span>
+                  </span>
+                  <span ng-if="$item.type == 'team'">
+                    <span ng-bind="$item.name"></span>
+                  </span>
+                </ui-select-match>
+                <ui-select-choices repeat="item in data.choices | filter: $select.search | orderBy: 'firstName'" group-by="'type'">
 
-                      <div ng-if="item.type == 'user'">
-                          <icon class="wb-user"></icon>
-                          <span ng-bind="item.fullName"></span>
-                      </div>
+                  <span ng-if="item.type == 'team'">
+                    <span ng-bind="item.name"></span>
+                    <br>
+                    <small>
+                    <span ng-bind="item.members.length || '0'"></span> Members
+                    </small>
+                  </span>
 
-                    </ui-select-choices>
+                  <span ng-if="item.type == 'user'">
+                  <div class="avatar avatar-24" ng-class="item.color">
+                    <span ng-bind="item.firstName | limitTo:1"></span><span ng-bind="item.lastName | limitTo:1"></span>
+                    </div>
+                    <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
+                    <small ng-bind-html="item.email | highlight: $select.search"></small>
+                  </span>
 
-                    <ui-select-no-choice>
-                     No Results Found
-                    </ui-select-no-choice>
-
-                  </ui-select>
-                </div>
-              </div>
+                </ui-select-choices>
+              </ui-select>
+              <ui-select-no-choice>
+              <span class="no-results" ng-if="!(data.people | filter: $select.search).length && !data.serverError">
+                No Results Found Matching <b>"{{$select.search}}"</b>
+                </span>
+                <span class="server-error" ng-if="!(data.people | filter: $select.search).length && data.serverError">
+                  The servier did not respond
+                  <br>
+                  <button class="btn btn-default">Retry</button>
+                </span>
+              </ui-select-no-choice>
+            </div>
+        </div>
 
         </form>
 
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!data.view.name">Create</button>
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!data.view.name">Create View</button>
     </div>

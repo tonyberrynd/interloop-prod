@@ -20,7 +20,7 @@ $httpProvider.interceptors.push(function($rootScope, $q, $location, LoopBackAuth
         $location.nextAfterLogin = $location.path();
 
         //login required - triggers redirect to login
-        $rootScope.$emit('loginRequired');
+        $rootScope.$broadcast('loginRequired');
       }
       return $q.reject(rejection);
       }

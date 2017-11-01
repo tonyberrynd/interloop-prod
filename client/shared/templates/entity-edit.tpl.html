@@ -42,13 +42,13 @@
                                 <!-- number -->
                                <div class="form-group" ng-switch-when="number">
                                 <label for="{{field.key}}" ng-bind="field.label"></label>
-                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-number-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
+                                <input type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                               </div>
 
                               <!-- currency -->
                                <div class="form-group" ng-switch-when="currency">
                                 <label for="{{field.key}}" ng-bind="field.label"></label>
-                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-money-mask="2" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
+                                <input type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                               </div>
 
                               <!-- date -->
@@ -173,10 +173,10 @@
                                     <span ng-bind="address.country"></span><br>
                                   </span>
                                   
-                                   <button class="btn btn-sm btn-subtle editAddress" ng-click="editAddress(address, data.thisRecord[field.key])" uib-tooltip="Edit Address">
+                                   <button class="btn btn-sm btn-link editAddress" ng-click="editAddress(address, data.thisRecord[field.key])" uib-tooltip="Edit Address">
                                     <icon class="fa fa-pencil"></icon>
                                   </button>
-                                  <button class="btn btn-sm btn-subtle removeAddress" ng-click="removeAddress(address, data.thisRecord[field.key])" uib-tooltip="Remove Address">
+                                  <button class="btn btn-sm btn-link removeAddress" ng-click="removeAddress(address, data.thisRecord[field.key])" uib-tooltip="Remove Address">
                                     <icon class="fa fa-trash"></icon>
                                   </button>
                                 </address>
@@ -207,7 +207,7 @@
                                   </div>
                                   <input type="text" class="form-control pull-left" ng-model="email.value">   
                                   <div class="input-group-btn" ng-hide="$first">
-                                  <button class="btn btn-default remove-input" ng-click="removeSocial(email, field)">
+                                  <button class="btn btn-default remove-input" ng-click="removeEmail(email, field)">
                                     <icon class="fa fa-close"></icon>
                                   </button>   
                                   </div>         
@@ -219,7 +219,7 @@
 
 
                             <!-- phone inputs -->
-                            <div class="form-group" ng-switch-when="phone">
+                           <div class="form-group" ng-switch-when="phone">
                               <label for="{{field.key}}" ng-bind="field.label"></label>
 
                                 <div class="input-group array-input-wrapper" ng-repeat="phone in data.thisRecord[field.key]">
@@ -233,7 +233,7 @@
                                   </div>
                                   <input type="text" class="form-control pull-left" ng-model="phone.value">   
                                   <div class="input-group-btn" ng-hide="$first">
-                                  <button class="btn btn-default remove-input" ng-click="removeSocial(social, field)">
+                                  <button class="btn btn-default remove-input" ng-click="removePhone(phone, field)">
                                     <icon class="fa fa-close"></icon>
                                   </button>   
                                   </div>         
@@ -245,7 +245,7 @@
 
 
                             <!-- social inputs -->
-                            <div class="form-group" ng-switch-when="social">
+                           <div class="form-group" ng-switch-when="social">
                               <label for="{{field.key}}" ng-bind="field.label"></label>
 
                                 <div class="input-group array-input-wrapper" ng-repeat="social in data.thisRecord[field.key]">
@@ -257,14 +257,14 @@
                                       <li role="menuitem" ng-repeat="socialType in data.socialTypes"><a href ng-click="social.type = socialType">{{socialType.label}}</a></li>
                                     </ul>
                                   </div>
-                                  <input type="text" class="form-control pull-left" ng-model="social.value" placeholder="{{socialPlaceholder(social.type.key)}}">   
+                                  <input type="text" class="form-control pull-left" ng-model="social.value">   
                                   <div class="input-group-btn" ng-hide="$first">
                                   <button class="btn btn-default remove-input" ng-click="removeSocial(social, field)">
                                     <icon class="fa fa-close"></icon>
                                   </button>   
                                   </div>         
                                 </div>
-                                <button class="btn btn-default array-input-add" ng-click="addSocial(field)">
+                                 <button class="btn btn-default array-input-add" ng-click="addSocial(field)">
                                   <icon class="fa fa-plus-circle"></icon> Add Social
                                 </button>
                              </div>
@@ -307,7 +307,8 @@
                                   <span ng-bind="field.label"></span>
                                   <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                 </label>
-                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-number-mask="2" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
+
+                                <input type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                               </div>
 
                               <!-- currency -->
@@ -316,7 +317,9 @@
                                   <span ng-bind="field.label"></span>
                                   <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                 </label>
-                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ui-money-mask="2" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
+
+                                <input type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
+
                               </div>
 
                               <!-- date -->

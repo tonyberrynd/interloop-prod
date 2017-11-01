@@ -44,6 +44,7 @@ angular.module('interloop.opportunitiesCtrl', [])
   //----------------------
   $scope.data = {};
   $scope.data.currentEntity = "Opportunity";
+  $scope.data.currentEntityPlural = "Opportunities";
   $scope.data.lookupUsers = false;
   $scope.data.activated = false;
   $scope.data.drawerOpen = false;
@@ -848,14 +849,24 @@ function bulkTag() {
 }
 
 /*
-Edit
+Bulk Email - Only Can Be Done for less than 30 Emails Right Noe - Look to mailchipm etc for bulk emailing
 */
 function bulkEmail() {
-  var emailAddresses = _.map($scope.data.selectedData.items, function(value, key){
-    return value.emails[0] ? value.emails[0].email : null;
-  })
-  //open window
-   $window.open("mailto:"+ emailAddresses,"_self");
+
+    console.log(gridManager.getSelectedRows());
+
+    var emailAddresses = _.map(gridManager.getSelectedRows(), function(value, key){
+      return value.emailAddresses.length ? value.emailAddresses[0].value : null;
+    })
+
+    console.log(emailAddresses);
+
+    if(!emailAddresses.length){
+      Logger.error('No Emails for selected Records');
+    } else {
+      Logger.info('Opening email in your default email client');
+       $window.open("mailto:"+ emailAddresses,"_self");
+    }  
 }
 
 /*
@@ -863,7 +874,7 @@ Export
 */
 function bulkExport() {
   var resolveData = {
-    entityModel: 'Opportunity',
+    currentEntity: 'Opportunity',
     query: gridManager.getCurrentQuery(),
     columns: $scope.data.columns 
   };

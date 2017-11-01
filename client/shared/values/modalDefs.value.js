@@ -336,7 +336,7 @@ angular.module('interloop.value.modalDefs', [])
     bulkAssign: {
         templateUrl: 'shared/modals/bulkAssign/bulkAssign.tpl.html',
         controller: 'bulkAssignCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Bulk Assign',
         ariaDescribedBy: 'Bulk Assign Records'
     },
@@ -344,15 +344,23 @@ angular.module('interloop.value.modalDefs', [])
     bulkDelete: {
         templateUrl: 'shared/modals/bulkDelete/bulkDelete.tpl.html',
         controller: 'bulkDeleteCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Bulk Delete',
         ariaDescribedBy: 'Bulk Delete Records'
+    },
+
+    bulkExport: {
+        templateUrl: 'shared/modals/bulkExport/bulkExport.tpl.html',
+        controller: 'bulkExportCtrl',
+        size: 'sm',
+        ariaLabelledBy: 'Export Records',
+        ariaDescribedBy: 'Export Records'
     },
 
     bulkEdit: {
         templateUrl: 'shared/modals/bulkEdit/bulkEdit.tpl.html',
         controller: 'bulkEditCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Bulk Edit',
         ariaDescribedBy: 'Bulk Edit Records'
     },
@@ -360,7 +368,7 @@ angular.module('interloop.value.modalDefs', [])
     bulkTag: {
         templateUrl: 'shared/modals/bulkTag/bulkTag.tpl.html',
         controller: 'bulkTagCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Add Tags',
         ariaDescribedBy: 'Add Tags'
     },
@@ -555,7 +563,7 @@ angular.module('interloop.value.modalDefs', [])
     editAddress: {
         templateUrl: 'shared/modals/editAddress/editAddress.tpl.html',
         controller: 'editAddressCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Edit Address',
         ariaDescribedBy: 'Edit Address'
     },
@@ -582,6 +590,14 @@ angular.module('interloop.value.modalDefs', [])
         size: 'md',
         ariaLabelledBy: 'New System View',
         ariaDescribedBy: 'New System View'
+    },
+
+    showFullRecord: {
+        templateUrl: 'shared/modals/showFullRecord/showFullRecord.tpl.html',
+        controller: 'showFullRecordCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Show Full Record',
+        ariaDescribedBy: 'Show Full Record'
     }
 
 });    

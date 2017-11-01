@@ -6,36 +6,33 @@ angular.module('interloop.bulkTagCtrl', [])
 
 //declare dependencies
 .controller('bulkTagCtrl', function(
-  $scope,
-  $uibModalInstance,
+  $injector,
   $q, 
   $rootScope,
-  RelationshipManager,
-  Tag,
+  $timeout,
+  $scope,
+  $uibModalInstance,
   Logger,
-  resolvedData) {
+  RelationshipManager,
+  resolvedData,
+  Tag
+  ) {
 
 // BINDABLES
 //===========================================
 
   //vars
   //----------------------
-  var entity = resolvedData.entity;
-  var currentTags = _.map(resolvedData.selectedItems, 'tags');
-  console.log('current tags', currentTags);
+  var currentEntity = _.get(resolvedData, 'currentEntity', null);
+  var query = _.get(resolvedData, 'query', null);
 
   //data
   //----------------------
   $scope.data = {}
-
-  $scope.data.selectedItems = resolvedData.selectedItems;
-  console.log('selected items', resolvedData.selectedItems);
-
+  $scope.data.processing = false;
   $scope.data.selectedTag = null;
   $scope.data.newTag = null;
-
   $scope.data.tagType = 'existing';
-
   $scope.data.disableSubmit = false;
 
   //functions
@@ -51,12 +48,13 @@ angular.module('interloop.bulkTagCtrl', [])
 //===========================================
 function activate() {
   //get tags for this entity
-  return Tag.find({"filter": {"where": {"useWith": { "inq": [entity]}}}}).$promise
+  return Tag.find({"filter": {"where": {"useWith": { "inq": [currentEntity]}}}}).$promise
     .then(function(results){
       $scope.data.tags = results;
       console.log($scope.data.tags);
     })
     .catch(function(err){
+      console.log(err);
       Logger.error('Error Fetching Views');
     })
 
@@ -74,9 +72,10 @@ activate();
     //new tag - need to create first
     if($scope.data.tagType == 'new') {
 
+      //build new tag
       var newTag = {
         "name": $scope.data.newTag,
-        "useWith": [entity],
+        "useWith": [currentEntity],
         "createdBy": {
           "firstName": $rootScope.activeUser.firstName,
           "lastName": $rootScope.activeUser.lastName
@@ -84,7 +83,8 @@ activate();
         "createdOn": moment().format()
       };
 
-      Tag.create(newTag).$promise
+      //create before starting bulk tag
+      return Tag.create(newTag).$promise
         .then(function(results){
           return applyTags(results)
         })
@@ -93,13 +93,7 @@ activate();
         })
     //existing tag
     } else {
-      //checks to ensure tag is unique
-      if(!_.find(currentTags, ['itemId', $scope.data.selectedTag.id])){
         return applyTags(angular.fromJson($scope.data.selectedTag));
-      } else {
-        Logger.info('Added Tags');
-        $uibModalInstance.dismiss();
-      }
     }    
   }
 
@@ -108,7 +102,6 @@ activate();
   };
 
   function shouldDisable() {
-
     if($scope.data.disableSubmit) {
       return true;
     }
@@ -128,29 +121,31 @@ activate();
 
   //apply tags
   function applyTags(tag) {
-        var promises = [];
+    $scope.data.processing = true;
+ 
+    var data = {
+      thisQuery: query,
+      thisTag: tag,
+      user: $rootScope.activeuser
+    }
+    //creates job
+    $injector.get(currentEntity).bulkTag(data).$promise
+                .then(function(results){
+                  Logger.info('Bulk tagging started', 'You will be notified when this job is complete');
 
-         $scope.data.disableSubmit = true;
+                  $timeout(function(){
+                    $scope.data.processing = false;
+                    $uibModalInstance.close(results);
+                  }, 250);
+                })
+                .catch(function(err){
+                  console.log(err);
+                  $scope.data.processing = false;
+                  // Logger.error('Error bulk tagging', 'Please try again in a moment');
+                })
 
-      _.forEach($scope.data.selectedItems, function(value, key){
-        promises.push(linkTag(value, tag, entity))
-      })
-
-      $q.all(promises).then(function(results){
-        Logger.info('Added Tags');
-        $uibModalInstance.close(results);
-        $scope.data.disableSubmit = false;
-      }).catch(function(err){
-        Logger.error('Error Tagging Records', 'Please Try Again In A Moment');
-        $scope.data.disableSubmit = false;
-      })
   }
 
-
-  //link tag function
-  function linkTag(entityItem, tagItem, entityType){
-    return RelationshipManager.linkItem(entityItem.id ,tagItem.id, entityType, "Tag", {"name": tagItem.name})
-  };
 
 //-------------------------------------------
 

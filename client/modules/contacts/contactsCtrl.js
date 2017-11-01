@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Opportunities Ctrl
+   Contacts Ctrl
    ========================================================================== */
 
 angular.module('interloop.contactsCtrl', [])
@@ -28,7 +28,6 @@ angular.module('interloop.contactsCtrl', [])
 
 // BINDABLES
 //===========================================
-
   
   //vars
   //----------------------
@@ -45,6 +44,7 @@ angular.module('interloop.contactsCtrl', [])
   //----------------------
   $scope.data = {};
   $scope.data.currentEntity = "Contact";
+  $scope.data.currentEntityPlural = "Contacts";
   $scope.data.lookupUsers = false;
   $scope.data.activated = false;
   $scope.data.drawerOpen = false;
@@ -83,6 +83,7 @@ angular.module('interloop.contactsCtrl', [])
   $scope.bulkDelete = bulkDelete;
   $scope.bulkEdit = bulkEdit;
   $scope.bulkExport = bulkExport;
+  $scope.bulkEmail = bulkEmail;
   $scope.bulkTag = bulkTag;
   $scope.changeContext = changeContext;
   $scope.changeLocalSearch = changeLocalSearch;
@@ -386,26 +387,29 @@ function deleteView(){
 Build Bulk Query
 */
 function buildBulkQuery(){
+  var paginationSize = gridManager.getPaginationSize();
   var isSelectAllOn = angular.copy($scope.data.selectedData.selectAll);
   //if select all is selected - everything minus those unselected
-  if(isSelectAllOn){
-
+  if(isSelectAllOn && $scope.data.selectedData.length > paginationSize){
     var currentQuery = _.get($scope.data.thisView, 'query.where', null) || {};
-    var bulkQuery = {"filter": {"where": {"and": [{"id": {"nin": _.map($scope.data.selectedData.items, 'id')}}, currentQuery ]}}};
-    
-    console.log('bulkQuery', bulkQuery);
-
+    var bulkQuery = {"where": {"and": [{"id": {"nin": _.map($scope.data.selectedData.items, 'id')}}, currentQuery ]}};
     return bulkQuery;
   } 
+  else if(isSelectAllOn && $scope.data.selectedData <= paginationSize){
+     var bulkQuery = { "where" : {"id" : {"inq" : _.map(gridManager.getSelectedRows(), 'id')}}};
+    console.log('bulkQuery', bulkQuery);
+    return bulkQuery;
+
+  }
   else {
-    var bulkQuery = {"filter": { "where" : {"id" : {"inq" : _.map($scope.data.selectedData.items, 'id')}}}};
+    var bulkQuery = { "where" : {"id" : {"inq" : _.map(gridManager.getSelectedRows(), 'id')}}};
     console.log('bulkQuery', bulkQuery);
     return bulkQuery;
   }
 }
 
 /*
-Bulk Create View
+Bulk Create View - Same as regular save as view but using buildBuilQuery to get appropriate query
 */
 function bulkCreateView(){
     console.log('bulk create view;')
@@ -416,12 +420,13 @@ function bulkCreateView(){
       //get view details
     var resolvedData = {
         entity: 'Contact',
-        query: query,
-        filters: null,
+        query: buildBulkQuery(),
+        filters: getFilters(),
         columnState: gridManager.getColumnState(),
-        sortModel: null,
-        static: false
+        sortModel: gridManager.getSortModel(),
+        matchType: $scope.data.filterMatches
     };
+
 
     //open modal
     var saveViewModal = modalManager.openModal('createView', resolvedData);
@@ -677,6 +682,8 @@ function removeGroup(group) {
 Changes View
 */
 function changeView(view) {
+  //ensure slected records are cleared
+  gridManager.clearSelected();
   //close sideapnel
   $rootScope.filterPanelOpen = false;
   // change view
@@ -800,26 +807,12 @@ Assign
 function bulkAssign() {
   var resolveData = {
     entity: 'Contact',
-    query: gridManager.getCurrentQuery()
+    query: buildBulkQuery()
   };
+
   //open bulk assign modal
   var bulkAssignModal = modalManager.openModal('bulkAssign', resolveData);
 
-      bulkAssignModal.result.then(function(results){
-
-        //need to create custom remote hook
-        return Contact.bulkAssign(query, owners).$promise
-                .then(function(results){
-                   //refresh view
-                   refreshView();
-                   //log
-                   Logger.info('Succesfully assigned owners');
-                })
-                .catch(function(err){
-                  Logger.error('Error assigning owners', 'Please try again in a moment');
-                })
-
-      })
 }
 
 /*
@@ -829,7 +822,7 @@ function bulkEdit() {
   //resolved information
   var resolveData = {
     entity: 'Contact',
-    query: gridManager.getCurrentQuery()
+    query: buildBulkQuery()
   };
 
   modalManager.openModal('bulkEdit', resolveData);
@@ -839,24 +832,31 @@ function bulkEdit() {
 Bulk Tag
 */
 function bulkTag() {
+  console.log(buildBulkQuery())
   //resolved information
   var resolveData = {
-    entity: 'Contact',
-    query: gridManager.getCurrentQuery()
+    currentEntity: 'Contact',
+    query: buildBulkQuery()
   };
   //open bulk tag modal
   modalManager.openModal('bulkTag', resolveData);
 }
 
 /*
-Edit
+Bulk Email - Only Can Be Done for less than 30 Emails Right Noe - Look to mailchipm etc for bulk emailing
 */
 function bulkEmail() {
-  var emailAddresses = _.map($scope.data.selectedData.items, function(value, key){
-    return value.emails[0] ? value.emails[0].email : null;
-  })
-  //open window
-   $window.open("mailto:"+ emailAddresses,"_self");
+
+    var emailAddresses = _.map(gridManager.getSelectedRows(), function(value, key){
+      return value.emailAddresses.length ? value.emailAddresses[0].value : null;
+    })
+
+    if(!emailAddresses.length){
+      Logger.error('No Emails for selected Records');
+    } else {
+      Logger.info('Opening email in your default email client');
+       $window.open("mailto:"+ emailAddresses,"_self");
+    }  
 }
 
 /*
@@ -864,8 +864,8 @@ Export
 */
 function bulkExport() {
   var resolveData = {
-    entityModel: 'Contact',
-    query: gridManager.getCurrentQuery(),
+    currentEntity: 'Contact',
+    query: buildBulkQuery(),
     columns: $scope.data.columns 
   };
   //exoprt data
@@ -878,8 +878,8 @@ Edit
 function bulkDelete() {
   //resolved information
   var resolveData = {
-    entity: 'Contact',
-    query: gridManager.getCurrentQuery()
+    currentEntity: 'Contact',
+    query: buildBulkQuery()
   };
 
   //open modal
@@ -1041,6 +1041,10 @@ function clearFilter(field) {
     field.filterActive = false;
 
   }
+
+  //need to remove selected if changing query
+  gridManager.clearSelected();
+
   //update grid to reflect changes
   updateGrid();
 

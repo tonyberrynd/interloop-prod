@@ -23,7 +23,7 @@
 		<div class="panel panel-default card contact-card related-card" ng-switch-when="Contact">
 			<div class="panel-body" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
 				<div class="name-wrapper">
-				<div class="avatar avatar-32 royal">
+				<div class="avatar avatar-32" ng-class="relatedEntity.entity.color">
 					<span class="initials" ng-bind="(relatedEntity.entity.firstName | limitTo:1)"></span><span class="initials" ng-bind="(relatedEntity.entity.lastName | limitTo:1)"></span>
 				</div>
 				<h4>
@@ -53,7 +53,7 @@
 		<div class="panel panel-default card company-card related-card" ng-switch-when="Company">
 			<div class="panel-body" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
 				<div class="name-wrapper">
-				<div class="avatar avatar-32 sky square">
+				<div class="avatar avatar-32 square" ng-class="realtedEntity.entity.color">
 					<span class="initials" ng-bind="(relatedEntity.entity.name | limitTo:1)"></span>
 				</div>
 				<h4>
@@ -80,11 +80,12 @@
 		<!-- opportunity -->
 		<div class="panel panel-default card opportunity-card related-card" ng-switch-when="Opportunity">
 			<div class="panel-body" ng-click="goTo(relatedEntity.entityType, relatedEntity.entityId)">
+				
+				<div class="smartScore" feature-flag="--FF_SMARTSCORE--">
+	                <span ng-bind="item.smartScore || '--'"></span>
+	            </div>
 
 				<div class="name-wrapper">
-				<div class="avatar avatar-24 lime">
-					<span ng-bind="relatedEntity.entity.smartScore || '--'"></span>
-				</div>
 				<h4>
 					<span ng-bind="relatedEntity.entity.name || 'No Name'"></span>
 				</h4>

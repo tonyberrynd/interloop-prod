@@ -1,5 +1,5 @@
-*:focus {
-	outline: solid 2px $topaz;
+* {
+	outline:none !important;
 }
 
 //opp score
@@ -9,6 +9,13 @@ h5.modal-title {
     margin:0px;
     margin-bottom:8px;
     font-size:110%;
+}
+
+.bulk-actions-dropdown {
+    min-width:180px;
+    img {
+        margin-right:10px;
+    }
 }
 
 .form-control.custom-date-selected {
@@ -586,6 +593,16 @@ trix-toolbar { display: none; }
 
 .new-item .dropdown-menu {
 	min-width:200px;
+}
+
+.close-sharelink {
+    position:absolute;
+    top:0px;
+    right:5px;
+    
+    img {
+        width:12px;
+    }
 }
 
 .ag-fresh .checkbox-custom {

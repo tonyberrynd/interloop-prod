@@ -19823,6 +19823,90 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
             /**
              * @ngdoc method
+             * @name lbServices.Opportunity#unarchive
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * <em>
+             * (The remote method definition does not provide any description.)
+             * </em>
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *   This method does not accept any parameters.
+             *   Supply an empty object or omit this argument altogether.
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `owners` – `{*=}` -
+             *
+             *  - `query` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `result` – `{object=}` -
+             */
+            "unarchive": {
+              url: urlBase + "/Opportunities/bulkAssign",
+              method: "POST",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Opportunity#bulkTag
+             * @methodOf lbServices.Opportunity
+             *
+             * @description
+             *
+             * <em>
+             * (The remote method definition does not provide any description.)
+             * </em>
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *   This method does not accept any parameters.
+             *   Supply an empty object or omit this argument altogether.
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `thisQuery` – `{object=}` -
+             *
+             *  - `thisTag` – `{object=}` -
+             *
+             *  - `user` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `result` – `{object=}` -
+             */
+            "bulkTag": {
+              url: urlBase + "/Opportunities/bulkTag",
+              method: "POST",
+            },
+
+            /**
+             * @ngdoc method
              * @name lbServices.Opportunity#forecast
              * @methodOf lbServices.Opportunity
              *
@@ -23264,6 +23348,90 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
             /**
              * @ngdoc method
+             * @name lbServices.Contact#unarchive
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * <em>
+             * (The remote method definition does not provide any description.)
+             * </em>
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *   This method does not accept any parameters.
+             *   Supply an empty object or omit this argument altogether.
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `owners` – `{*=}` -
+             *
+             *  - `query` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `result` – `{object=}` -
+             */
+            "unarchive": {
+              url: urlBase + "/Contacts/bulkAssign",
+              method: "POST",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Contact#bulkTag
+             * @methodOf lbServices.Contact
+             *
+             * @description
+             *
+             * <em>
+             * (The remote method definition does not provide any description.)
+             * </em>
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *   This method does not accept any parameters.
+             *   Supply an empty object or omit this argument altogether.
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `thisQuery` – `{object=}` -
+             *
+             *  - `thisTag` – `{object=}` -
+             *
+             *  - `user` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `result` – `{object=}` -
+             */
+            "bulkTag": {
+              url: urlBase + "/Contacts/bulkTag",
+              method: "POST",
+            },
+
+            /**
+             * @ngdoc method
              * @name lbServices.Contact#enrich
              * @methodOf lbServices.Contact
              *
@@ -26332,6 +26500,90 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
             /**
              * @ngdoc method
+             * @name lbServices.Company#unarchive
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * <em>
+             * (The remote method definition does not provide any description.)
+             * </em>
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *   This method does not accept any parameters.
+             *   Supply an empty object or omit this argument altogether.
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `owners` – `{*=}` -
+             *
+             *  - `query` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `result` – `{object=}` -
+             */
+            "unarchive": {
+              url: urlBase + "/Companies/bulkAssign",
+              method: "POST",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Company#bulkTag
+             * @methodOf lbServices.Company
+             *
+             * @description
+             *
+             * <em>
+             * (The remote method definition does not provide any description.)
+             * </em>
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *   This method does not accept any parameters.
+             *   Supply an empty object or omit this argument altogether.
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `thisQuery` – `{object=}` -
+             *
+             *  - `thisTag` – `{object=}` -
+             *
+             *  - `user` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `result` – `{object=}` -
+             */
+            "bulkTag": {
+              url: urlBase + "/Companies/bulkTag",
+              method: "POST",
+            },
+
+            /**
+             * @ngdoc method
              * @name lbServices.Company#enrich
              * @methodOf lbServices.Company
              *
@@ -28850,6 +29102,49 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               isArray: true,
               url: urlBase + "/Activities/search",
               method: "GET",
+            },
+
+            /**
+             * @ngdoc method
+             * @name lbServices.Activity#bulkTag
+             * @methodOf lbServices.Activity
+             *
+             * @description
+             *
+             * <em>
+             * (The remote method definition does not provide any description.)
+             * </em>
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *   This method does not accept any parameters.
+             *   Supply an empty object or omit this argument altogether.
+             *
+             * @param {Object} postData Request data.
+             *
+             *  - `query` – `{object=}` -
+             *
+             *  - `tag` – `{object=}` -
+             *
+             *  - `user` – `{object=}` -
+             *
+             * @param {function(Object,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Object} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * Data properties:
+             *
+             *  - `result` – `{object=}` -
+             */
+            "bulkTag": {
+              url: urlBase + "/Activities/bulkTag",
+              method: "POST",
             },
 
             /**

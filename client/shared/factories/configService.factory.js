@@ -10,6 +10,7 @@ angular.module('interloop.factory.configService', [])
     $state, 
     $window,
     $mixpanel,
+    $intercom,
     featureFlags, 
     featureFlagManager, 
     LoopBackAuth, 
