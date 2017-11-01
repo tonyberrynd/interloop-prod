@@ -23,6 +23,7 @@
     "connect-history-api-fallback": "^1.1.0",
     "connect-livereload": "^0.5.0",
     "del": "^1.1.1",
+    "express": "^4.16.2",
     "glob": "^7.1.1",
     "gulp": "3.9.1",
     "gulp-angular-templatecache": "^1.6.0",
