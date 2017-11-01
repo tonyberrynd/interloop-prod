@@ -44,8 +44,10 @@
                                 <span ng-bind="view.name"></span> 
                                 <span class="badge badge-primary pull-right">
                                     <span ng-bind="view.count | number:0"></span>
+                                    <span ng-if="data.currentEntity == 'Opportunity'">
                                     <span>|</span>
                                     <span ng-bind="view.sum | thousandSuffix"></span> 
+                                    </span>
                                 </span>
                             </a>
                         </li>    
@@ -56,8 +58,10 @@
                                 <span ng-bind="view.name"></span> 
                                 <span class="badge badge-primary pull-right">
                                     <span ng-bind="view.count | number:0"></span>
+                                    <span ng-if="data.currentEntity == 'Opportunity'">
                                     <span>|</span>
                                     <span ng-bind="view.sum | thousandSuffix"></span> 
+                                    </span>
                                 </span>
                             </a>
                         </li> 
@@ -105,7 +109,7 @@
                 <span class="light-divider">|</span>
 
                 <!-- edit view -->
-                <button class="btn btn-link view-tool" uib-tooltip="Save As ..." tooltip-placement="bottom" ng-click="saveViewAs()">
+                <button class="btn btn-link view-tool" uib-tooltip="Save View As ..." tooltip-placement="bottom" ng-click="saveViewAs()">
                     <icon class="wb-check"></icon>...
                 </button>
             </span>
@@ -247,9 +251,11 @@
                   <span ng-bind="(filter.filterValue.upper | number:0 )"></span>
                 </span>
 
-                    <div class="clear-filter-tag" ng-click="clearFilter(filter)">
-                      <icon class="wb-close"></icon>
-                    </div>
+                  <span class="remove-tag">
+                    <button class="btn btn-link" ng-click="clearFilter(filter)">
+                      <icon class="fa fa-close"></icon>
+                    </button>
+                  </span>
                 </div>
                 <!-- currency -->
                 <div ng-switch-when="currency" class="tag primary rounded"  ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}} 
@@ -262,9 +268,11 @@
                   -
                   <span ng-bind="'$' + (filter.filterValue.upper | number:0 )"></span>
                 </span>
-                     <div class="clear-filter-tag" ng-click="clearFilter(filter)">
-                      <icon class="wb-close"></icon>
-                    </div>
+                     <span class="remove-tag">
+                    <button class="btn btn-link" ng-click="clearFilter(filter)">
+                      <icon class="fa fa-close"></icon>
+                    </button>
+                  </span>
                 </div>
                 <!-- date -->
                 <div ng-switch-when="date|dateRange" ng-switch-when-separator="|" class="tag primary rounded"  ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}}
@@ -280,16 +288,20 @@
 
                      <!-- relative date -->
                      <span ng-if="filter.filterApplied == 'date-more-than' || filter.filterApplied == 'date-exactly' || filter.filterApplied == 'date-less-than'" ng-bind="filter.filterValue.days + ' days ' + filter.filterValue.timeframe"></span>
-                     <div class="clear-filter-tag" ng-click="clearFilter(filter)">
-                      <icon class="wb-close"></icon>
-                    </div>
+                     <span class="remove-tag">
+                    <button class="btn btn-link" ng-click="clearFilter(filter)">
+                      <icon class="fa fa-close"></icon>
+                    </button>
+                  </span>
                 </div>
                 <!-- category -->
                 <div ng-switch-when="category" class="tag primary rounded"  ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}}
                     <span ng-repeat="value in filter.filterValue">{{value.label}}<span ng-if="filter.filterValue.length > 1">,</span></span>
-                    <div class="clear-filter-tag" ng-click="clearFilter(filter)">
-                      <icon class="wb-close"></icon>
-                    </div>
+                    <span class="remove-tag">
+                    <button class="btn btn-link" ng-click="clearFilter(filter)">
+                      <icon class="fa fa-close"></icon>
+                    </button>
+                  </span>
                 </div>
                 <!-- category -->
                 <div ng-switch-when="lookup" class="tag primary rounded"  ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}}
@@ -311,15 +323,17 @@
 
                     <span ng-if="filter.filterValue.length > 2">+ {{filter.filterValue.length - 2}}</span>
                                                             <!-- //clear filter -->
-                    <div class="clear-filter-tag" ng-click="clearFilter(filter)">
-                      <icon class="wb-close"></icon>
-                    </div>
+                    <span class="remove-tag">
+                    <button class="btn btn-link" ng-click="clearFilter(filter)">
+                      <icon class="fa fa-close"></icon>
+                    </button>
+                  </span>
                 </div>
                 <!-- default -->
                 <div ng-switch-default class="tag primary rounded" ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}} "{{filter.filterValue}}"
 
                                                           <!-- //clear filter -->
-                    <div class="clear-filter-tag" ng-click="clearFilter(filter)">
+                    <div class="clear-filter-tag remove-tag" ng-click="clearFilter(filter)">
                       <icon class="wb-close"></icon>
                     </div>
                 </div>

@@ -321,11 +321,11 @@ function primaryCompanyChanged (companyValue){
 }; 
 
 //TB - TODO - Look at moving the broadcast messages into a shared factory 
-function linkCompany(company, company, updateGrid){
-  return RelationshipManager.linkEntity(company, company, "Company", "Company",  
+function linkCompany(company, company2, updateGrid){
+  return RelationshipManager.linkEntity(company, company2, "Company", "Company",  
   {
     "from": { "name": company.name, "description": "Primary Org", "isPrimary": true}, 
-    "to" : { "name": company.name, "description": "Primary Org", "isPrimary": true}
+    "to" : { "name": company2.name, "description": "Primary Org", "isPrimary": true}
   })
   .then(function(results){
     // console.log(results);
@@ -344,9 +344,9 @@ function linkCompany(company, company, updateGrid){
   }); 
 }; 
 
-function unlinkCompany(company, company, updateGrid) {
+function unlinkCompany(company, company2, updateGrid) {
     //do this from company side to get back in format that matches relatedEntities 
-    return RelationshipManager.unlinkEntity(company, company, "Company", "Company")
+    return RelationshipManager.unlinkEntity(company, company2, "Company", "Company")
     .then(function(results){
       // console.log(results);
       //remove from the loaded related items - keep as chained promise 
