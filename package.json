@@ -1,8 +1,9 @@
 {
-  "name": "interloop-uikit",
-  "version": "1.0.0",
-  "description": "UIKit for Interloop",
-  "main": "gulpfile.js",
+  "name": "interloop3-client",
+  "version": "3.0.0Beta",
+  "description": "Interloop Client",
+  "author": "",
+  "license": "ISC",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,6 +14,7 @@
     "npm": "^3.10.10"
   },
   "dependencies": {
+    "compression": "^1.7.1",
     "glob": "^7.1.1",
     "gulp": "3.9.1"
   },
@@ -84,10 +86,5 @@
     "run-sequence": "^1.0.2",
     "shorthand": "^1.0.0",
     "watch": "^0.13.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }
