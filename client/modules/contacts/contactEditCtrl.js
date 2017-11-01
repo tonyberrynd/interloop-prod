@@ -55,6 +55,8 @@ angular.module('interloop.contactEditCtrl', [])
 	$scope.addSocial = addSocial;
 	$scope.removeSocial = removeSocial;
 	$scope.save = save;
+	$scope.removeAddress = removeAddress;
+	$scope.socialPlaceholder = socialPlaceholder;
 
 //-------------------------------------------
 
@@ -69,13 +71,17 @@ function activate(){
 
 					_.forEach($scope.data.fields, function(value){
 						if(value.type == 'social' || value.type == 'phone' || value.type == 'email'){
-							$scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key] || [{}];
+							$scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key].length ? $scope.data.thisRecord[value.key] : [{
+								type: $scope.data[value.type + 'Types'][0]
+							}];
 						}
 					})
 
 					_.forEach($scope.data.customFields, function(value){
 						if(value.type == 'social' || value.type == 'phone' || value.type == 'email'){
-							$scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key] || [{}];
+							$scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key].length ? $scope.data.thisRecord[value.key] : [{
+								type: $scope.data[value.type + 'Types'][0]
+							}];
 						}
 					})
 
@@ -101,18 +107,44 @@ activate()
 	}
 
 
+	function socialPlaceholder(social){
+		switch(social) {
+		    case 'linkedIn':
+		    if(entityType == 'Company'){
+   				   return 'https://www.linkedin.com/company/username'
+		    } else {
+		    	   return 'https://www.linkedin.com/username'
+		    }	
+		        break;
+		    case 'twitter':
+		        return 'https://twitter.com/username';
+		        break;
+		    case 'facebook':
+		        return 'https://www.facebook.com/username';
+		        break;
+		}
+
+	}
+
+
 
 	function save(noAlert){
 		//need to clear out empty array
 		_.forOwn($scope.data.thisRecord, function(value, key){
 			if(_.isArray($scope.data.thisRecord[key])){
 				_.forEach($scope.data.thisRecord[key], function(subvalue){
-					if(_.keys(subvalue).length == 0){
+					var keys = _.filter(_.keys(subvalue), function(o) {
+						return o !== "$$hashKey";
+					});
+					//check if empty and remove
+					if(keys.length == 0){
 						value.splice(value.indexOf(subvalue), 1);
 					}
 				})
 			}
 		})
+
+
 
 		//save contact
 		 return Contact.prototype$patchAttributes({"id": $scope.data.thisRecord.id}, $scope.data.thisRecord).$promise
@@ -128,7 +160,6 @@ activate()
         });
 
 	}
-
 
 	function addEmail(field){
 		console.log('add email');
@@ -181,18 +212,18 @@ activate()
 		})
 	}
 
-	function removeAddress(address, field){
-		$scope.data.thisRecord[field.key].splice($scope.data.thisRecord[field.key].indexOf(social), 1);
+	function removeAddress(address, addresses){
+		addresses.splice(addresses.indexOf(address), 1);
 	}
 
-
-	function editAddress(fieldValue, address){
+	function editAddress(address, addresses){
 		var resolvedData = {
 			address: address
 		}
-		var editAddressModal = modalManager.openModal('editAddress');
+		var editAddressModal = modalManager.openModal('editAddress', resolvedData);
 
 		editAddressModal.result.then(function(results){
+			//change to results
 			address = results;
 		}, function(){
 			//ignore

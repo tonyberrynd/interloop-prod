@@ -85,6 +85,7 @@ angular.module('interloop.factory.configService', [])
           $rootScope.activityTypes = results[4] || [];
 
           $rootScope.userList = angular.copy(results[5]);
+          console.log('user list', $rootScope.userList);
 
           $rootScope.tagList = angular.copy(results[6]);
 

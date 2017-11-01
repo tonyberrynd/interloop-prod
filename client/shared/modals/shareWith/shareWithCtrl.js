@@ -20,7 +20,7 @@ angular.module('interloop.shareWithCtrl', [])
 
   //vars
   //---------------------
-  var entityType = resolvedData.entity;
+  var entityType = _.get(resolvedData, 'entityType', null);
   var currentSharedWith = _.get(resolvedData.thisRecord, 'sharedWith', []);
 
   //data

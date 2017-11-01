@@ -176,7 +176,7 @@ angular.module('interloop.routes', [])
       views: {
           'pulse-content@app.pulse': {
             templateUrl: 'modules/pulse/agenda.tpl.html',
-            // controller: 'pulseOutlookCtrl',
+            controller: 'agendaCtrl',
           }
       },
       data: {

@@ -162,12 +162,23 @@
                               <div class="address-list">
                               <div class="col-xs-6" ng-repeat="address in data.thisRecord[field.key]">
                                 <address>
-                                  <strong><icon class="fa fa-map-marker"></icon> Address Label</strong><br>
-                                    <span ng-bind="address.street_number" ng-if="address.street_number"></span>
-                                    <span ng-bind="address.route" ng-if="address.route"></span>
+                                  <strong><icon class="fa fa-map-marker"></icon> 
+                                  <span ng-bind="address.label || 'Address'"></span>
+                                  </strong><br>
+                                  <span class="address-body">
+                                    <span ng-bind="address.address_line1" ng-if="address.address_line1"></span>
+                                    <span ng-bind="address.address_line2" ng-if="address.address_line2"></span>
                                     <br>
-                                    <span ng-bind="address.locality"></span>, <span ng-bind="address.administrative_area_level_1"></span> <span ng-bind="address.postal_code"></span><br>
+                                    <span ng-bind="address.locality"></span>, <span ng-bind="address.region"></span> <span ng-bind="address.postal_code"></span><br>
                                     <span ng-bind="address.country"></span><br>
+                                  </span>
+                                  
+                                   <button class="btn btn-sm btn-subtle editAddress" ng-click="editAddress(address, data.thisRecord[field.key])" uib-tooltip="Edit Address">
+                                    <icon class="fa fa-pencil"></icon>
+                                  </button>
+                                  <button class="btn btn-sm btn-subtle removeAddress" ng-click="removeAddress(address, data.thisRecord[field.key])" uib-tooltip="Remove Address">
+                                    <icon class="fa fa-trash"></icon>
+                                  </button>
                                 </address>
                               </div>
                               <!-- //add new -->
@@ -237,16 +248,16 @@
                             <div class="form-group" ng-switch-when="social">
                               <label for="{{field.key}}" ng-bind="field.label"></label>
 
-                                <div class="input-group array-input-wrapper" ng-repeat="phone in data.thisRecord[field.key]">
+                                <div class="input-group array-input-wrapper" ng-repeat="social in data.thisRecord[field.key]">
                                   <div class="btn-group input-group-btn" uib-dropdown is-open="status.isopen">
                                     <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
-                                      <span ng-bind="phone.type['label'] || data.socialTypes[$index]['label'] || data.socialTypes[0]['label']"></span> <span class="caret"></span>
+                                      <span ng-bind="social.type['label'] || data.socialTypes[$index]['label'] || data.socialTypes[0]['label']"></span> <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                      <li role="menuitem" ng-repeat="socialType in data.socialTypes"><a href ng-click="phone.type = socialType">{{socialType.label}}</a></li>
+                                      <li role="menuitem" ng-repeat="socialType in data.socialTypes"><a href ng-click="social.type = socialType">{{socialType.label}}</a></li>
                                     </ul>
                                   </div>
-                                  <input type="text" class="form-control pull-left" ng-model="phone.value">   
+                                  <input type="text" class="form-control pull-left" ng-model="social.value" placeholder="{{socialPlaceholder(social.type.key)}}">   
                                   <div class="input-group-btn" ng-hide="$first">
                                   <button class="btn btn-default remove-input" ng-click="removeSocial(social, field)">
                                     <icon class="fa fa-close"></icon>

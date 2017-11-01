@@ -17,7 +17,7 @@
                         Back
                     </a>
                     <!-- <span class="text-left">Opportunity</span> -->
-                    <a class="btn btn-link edit-button" ui-sref="app.opportunity-edit({id: data.thisRecord.id})" ng-if="!data.thisRecord._isDeleted">
+                    <a class="btn btn-default edit-button" ui-sref="app.opportunity-edit({id: data.thisRecord.id})" ng-if="!data.thisRecord._isDeleted">
                         <icon class="fa fa-pencil"></icon> Edit
                     </a>
 
@@ -77,7 +77,7 @@
                     </div>
 
 
-                    <button class="btn btn-link btn-right" popover-title="Link To This Record" popover-placement="bottom"  uib-popover-template="'myPopoverTemplate.html'" popover-trigger="outsideClick" ng-if="!data.thisRecord._isDeleted">
+                    <button class="btn btn-default btn-right" popover-title="Link To This Record" popover-placement="bottom"  uib-popover-template="'myPopoverTemplate.html'" popover-trigger="outsideClick" ng-if="!data.thisRecord._isDeleted">
                         <icon class="fa fa-link"></icon>
                     </button>
 

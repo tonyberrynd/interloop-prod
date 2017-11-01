@@ -7,16 +7,19 @@ angular.module('interloop.addAddressCtrl', [])
 .controller('addAddressCtrl', function(
 	$scope,
   $log, 
+  resolvedData,
   $uibModalInstance,
   toastr) {
 
 // BINDABLES
 //===========================================
+  
+
 	//data
 	//----------------------
 	$scope.data = {};
-  $scope.data.address = {};
-  $scope.data.ac = null;
+  $scope.data.address = _.get(resolvedData, 'address', null) || {};
+  $scope.data.ac = _.get(resolvedData, 'address', null) ? resolvedData.address.street_number + ' ' + resolvedData.address.route : null;
 
   //functions
   $scope.clearAll = clearAll;
@@ -63,12 +66,13 @@ function cancel() {
 // EVENTS
 //===========================================
 
+
 $scope.$watch('data.ac',function(newVal,oldVal) {
     if(_.has(newVal,'geometry')) {
         console.log('select new value', newVal);
 
         //clear address to start
-        $scope.data.address = {};
+        var address = {};
 
         //key mappers
          var componentForm = {
@@ -85,12 +89,25 @@ $scope.$watch('data.ac',function(newVal,oldVal) {
           var addressType = newVal.address_components[i].types[0];
           if (componentForm[addressType]) {
             var val = newVal.address_components[i][componentForm[addressType]];
-            $scope.data.address[addressType] = val;
+            address[addressType] = val;
           }
         }
 
-        //set to street address
-        $scope.data.ac = $scope.data.address.street_number + ' ' + $scope.data.address.route || '';
+        console.log(address);
+
+
+        //map into scope
+        //-----------------------------
+
+        //set model to mirror address line 1
+        $scope.data.ac = address.street_number + ' ' + address.route || '';
+
+        //address line 1
+        $scope.data.address.address_line1 = address.street_number + ' ' + address.route;
+        $scope.data.address.region = address.administrative_area_level_1 || null;
+        $scope.data.address.locality = address.locality || null;
+        $scope.data.address.country = address.country || null;
+        $scope.data.address.postal_code = address.postal_code || null;
 
     }
 });

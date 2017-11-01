@@ -78,6 +78,8 @@ angular.module('interloop.navCtrl', [])
 	//show agenda
 	$scope.showAgenda = showAgenda;
 
+	$scope.showAssistant = showAssistant;
+
 //-------------------------------------------
 
 
@@ -89,6 +91,11 @@ angular.module('interloop.navCtrl', [])
 
 // FUNCTIONS
 //===========================================
+
+
+function showAssistant(){
+	$state.go('app.agenda', {}, {'reload': 'app.agenda'});
+}
 
 //Global Search
 //----------------------
@@ -288,22 +295,46 @@ function logCall() {
 
 function submitForecast() {
 	$mixpanel.track('SUBMIT_FORECAST_MODAL');
-	modalManager.openModal('submitForecast');
+	var newForecastModal = modalManager.openModal('newForecast');
+
+	newForecastModal.result.then(function(results){
+		$state.go('app.forecast-details', {'id': results.id})
+	}, function(){
+		//ignore
+	})
 }
 
 function newOpportunity() {
 	$mixpanel.track('NEW_OPPORTUNITY_MODAL');
-	modalManager.openModal('newOpportunity');
+	var newOpportunityModal = modalManager.openModal('newOpportunity');
+
+	newOpportunityModal.result.then(function(results){
+		$state.go('app.opportunity-details', {'id': results.id})
+	}, function(){
+		//ignore
+	})
 }
 
 function newContact() {
 	$mixpanel.track('NEW_CONTACT_MODAL');
-	modalManager.openModal('newContact');
+	var newContactModal = modalManager.openModal('newContact');
+
+	newContactModal.result.then(function(results){
+		$state.go('app.contact-details', {'id': results.id})
+	}, function(){
+		//ignore
+	})
 }
 
 function newCompany() {
 	$mixpanel.track('NEW_COMPANY_MODAL');
-	modalManager.openModal('newCompany');
+	var newCompanyModal = modalManager.openModal('newCompany');
+
+	newCompanyModal.result.then(function(results){
+		$state.go('app.company-details', {'id': results.id})
+	}, function(){
+		//ignore
+	})
 }
 
 //Help Dropdown

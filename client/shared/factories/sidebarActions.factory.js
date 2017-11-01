@@ -691,8 +691,9 @@ angular.module('interloop.factory.sidebarActions', [])
 
                           //build double layer activity & push into sidebar
                             var doubleLayerActivity = {
-                              activityId: todo.id,
+                              activityId: todo.activityId,
                               type: 'todo',
+                              dueDate: todo.dueDate,
                               completed: todo.completed,
                               completedDate: todo.completedDate,
                               createdBy: todo.createdBy,
@@ -704,6 +705,13 @@ angular.module('interloop.factory.sidebarActions', [])
                             //push into record real time
                             entityItem.activities.push(doubleLayerActivity);
                             entityItem.activityLinks.push(doubleLayerActivity);
+
+                            //get the history so its updated
+                            $timeout(function(){
+                                entityItem.openActivities = getOpenActivities(entityItem.activities);
+                                entityItem.history = getHistory(entityItem.activities);
+                                console.log(entityItem.history);
+                            }, 10)
 
                       }, function(err) {
                         // One promise died!
@@ -888,7 +896,8 @@ angular.module('interloop.factory.sidebarActions', [])
                             entityItem.activityLinks.push(doubleLayerActivity);
 
                             //get the history so its updated
-                            $timeout(function(){
+                             $timeout(function(){
+                                entityItem.openActivities = getOpenActivities(entityItem.activities);
                                 entityItem.history = getHistory(entityItem.activities);
                                 console.log(entityItem.history);
                             }, 10)
