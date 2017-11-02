@@ -388,6 +388,8 @@ angular.module('interloop.routes', [])
           pageTitle: 'Forecasts',
           navTitle: 'Forecasts',
           mainState: true,
+          currentEntity: 'Forecast',
+          currentEntityPlural: 'Forecasts'
       }
    });
 
@@ -411,7 +413,7 @@ angular.module('interloop.routes', [])
       views: {
           'page-content@app': {
             templateUrl: 'shared/templates/list-view.tpl.html',
-            controller: 'opportunitiesCtrl',
+            controller: 'listViewCtrl',
           }
       },
       params: {
@@ -422,7 +424,9 @@ angular.module('interloop.routes', [])
       data: {
           mainState: true,
           pageTitle: 'Opportunities',
-          navTitle: 'Opportunities'
+          navTitle: 'Opportunities',
+          currentEntity: 'Opportunity',
+          currentEntityPlural: 'Opportunities'
       }
    });
 
@@ -432,7 +436,7 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'modules/opportunities/opportunity-details.tpl.html',
-            controller: 'opportunityDetailsCtrl'
+            controller: 'recordDetailsCtrl'
           }
       },
       onEnter: function($rootScope, $state, $stateParams){
@@ -443,7 +447,9 @@ angular.module('interloop.routes', [])
       },
       data: {
         sidebarState: true,
-        routeThroughState: 'app.opportunities'
+        routeThroughState: 'app.opportunities',
+        currentEntity: 'Opportunity',
+        currentEntityPlural: 'Opportunities'
       }
    });
 
@@ -454,7 +460,7 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'shared/templates/entity-edit.tpl.html',
-            controller: 'opportunityEditCtrl'
+            controller: 'recordEditCtrl'
           }
       },
       onEnter: function($rootScope, $state, $stateParams){
@@ -465,7 +471,9 @@ angular.module('interloop.routes', [])
       },
       data: {
         sidebarState: true,
-        routeThroughState: 'app.opportunities'
+        routeThroughState: 'app.opportunities',
+        currentEntity: 'Opportunity',
+        currentEntityPlural: 'Opportunities'
       }
    });
 
@@ -480,7 +488,7 @@ angular.module('interloop.routes', [])
           },
           'page-content@app': {
               templateUrl: 'shared/templates/list-view.tpl.html',
-            controller: 'contactsCtrl'
+            controller: 'listViewCtrl'
           }
       },
       params: {
@@ -490,7 +498,9 @@ angular.module('interloop.routes', [])
       data: {
           mainState: true,
           pageTitle: 'Contacts',
-          navTitle: 'Contacts'
+          navTitle: 'Contacts',
+          currentEntity: 'Contact',
+          currentEntityPlural: 'Contacts'
       }
    });
 
@@ -500,7 +510,7 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'modules/contacts/contact-details.tpl.html',
-            controller: 'contactDetailsCtrl'
+            controller: 'recordDetailsCtrl'
           }
       },
       onEnter: function($rootScope, $state, $stateParams){
@@ -511,7 +521,9 @@ angular.module('interloop.routes', [])
       },
       data: {
         sidebarState: true,
-        routeThroughState: 'app.contacts'
+        routeThroughState: 'app.contacts',
+        currentEntity: 'Contact',
+        currentEntityPlural: 'Contacts'
       }
    });
 
@@ -523,7 +535,7 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'shared/templates/entity-edit.tpl.html',
-            controller: 'contactEditCtrl'
+            controller: 'recordEditCtrl'
           }
       },
       onEnter: function($rootScope, $state, $stateParams){
@@ -534,7 +546,9 @@ angular.module('interloop.routes', [])
       },
       data: {
         sidebarState: true,
-        routeThroughState: 'app.opportunities'
+        routeThroughState: 'app.contacts',
+        currentEntity: 'Contact',
+        currentEntityPlural: 'Contacts'
       }
    });
 
@@ -549,7 +563,7 @@ angular.module('interloop.routes', [])
           },
           'page-content@app': {
             templateUrl: 'shared/templates/list-view.tpl.html',
-            controller: 'companiesCtrl'
+            controller: 'listViewCtrl'
           }
       },
       params: {
@@ -559,7 +573,9 @@ angular.module('interloop.routes', [])
       data: {
           mainState: true,
           pageTitle: 'Companies',
-          navTitle: 'Companies'
+          navTitle: 'Companies',
+          currentEntity: 'Company',
+          currentEntityPlural: 'Companies'
       }
    });
 
@@ -570,7 +586,7 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'modules/companies/company-details.tpl.html',
-            controller: 'companyDetailsCtrl'
+            controller: 'recordDetailsCtrl',
           }
       },
       onEnter: function($rootScope, $state, $stateParams){
@@ -581,7 +597,9 @@ angular.module('interloop.routes', [])
       },
       data: {
         sidebarState: true,
-        routeThroughState: 'app.companies'
+        routeThroughState: 'app.companies',
+        currentEntity: 'Company',
+        currentEntityPlural: 'Companies'
       }
    });
 
@@ -592,7 +610,7 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'shared/templates/entity-edit.tpl.html',
-            controller: 'companyEditCtrl'
+            controller: 'recordEditCtrl'
           }
       },
       onEnter: function($rootScope, $state, $stateParams){
@@ -603,78 +621,80 @@ angular.module('interloop.routes', [])
       },
       data: {
         sidebarState: true,
-        routeThroughState: 'app.opportunities'
+        routeThroughState: 'app.companies',
+        currentEntity: 'Company',
+        currentEntityPlural: 'Companies'
       }
    });
 
 
    // content
-    $stateProvider.state('app.content', {
-      url: "/content/view/:viewId",
-      views: {
-         'nav-content@app': {
-            templateUrl: 'modules/app/navbar.tpl.html',
-            controller: 'navCtrl'
-          },
-          'page-content@app': {
-            templateUrl: 'modules/content/content.tpl.html',
-            controller: 'contentCtrl'
-          }
-      },
-      params: {
-        mainState: true,
-        viewId: 'default',
-        query: null
-      },
-      data: {
-          pageTitle: 'Content',
-          navTitle: 'Content'
-      }
-   });
+  //   $stateProvider.state('app.content', {
+  //     url: "/content/view/:viewId",
+  //     views: {
+  //        'nav-content@app': {
+  //           templateUrl: 'modules/app/navbar.tpl.html',
+  //           controller: 'navCtrl'
+  //         },
+  //         'page-content@app': {
+  //           templateUrl: 'modules/content/content.tpl.html',
+  //           controller: 'contentCtrl'
+  //         }
+  //     },
+  //     params: {
+  //       mainState: true,
+  //       viewId: 'default',
+  //       query: null
+  //     },
+  //     data: {
+  //         pageTitle: 'Content',
+  //         navTitle: 'Content'
+  //     }
+  //  });
 
 
-  $stateProvider.state('app.content-details', {
-      url: "/content/:id",
-      sticky: true,
-      views: {
-          'sidepanel-content@app': {
-            templateUrl: 'modules/content/content-details.tpl.html',
-            controller: 'contentDetailsCtrl'
-          }
-      },
-      onEnter: function($rootScope, $state, $stateParams){
-        $rootScope.sidePanelOpen = true;
-      },
-      params: {
-        id: null,
-      },
-      data: {
-        sidebarState: true,
-        routeThroughState: 'app.content'
-      }
-   });
+  // $stateProvider.state('app.content-details', {
+  //     url: "/content/:id",
+  //     sticky: true,
+  //     views: {
+  //         'sidepanel-content@app': {
+  //           templateUrl: 'modules/content/content-details.tpl.html',
+  //           controller: 'contentDetailsCtrl'
+  //         }
+  //     },
+  //     onEnter: function($rootScope, $state, $stateParams){
+  //       $rootScope.sidePanelOpen = true;
+  //     },
+  //     params: {
+  //       id: null,
+  //     },
+  //     data: {
+  //       sidebarState: true,
+  //       routeThroughState: 'app.content'
+  //     }
+  //  });
 
 
-    $stateProvider.state('app.content-edit', {
-      url: "/content/:id/edit",
-      sticky: true,
-      views: {
-          'sidepanel-content@app': {
-            templateUrl: 'shared/templates/entity-edit.tpl.html',
-            controller: 'contentEditCtrl'
-          }
-      },
-      onEnter: function($rootScope, $state, $stateParams){
-        $rootScope.sidePanelOpen = true;
-      },
-      params: {
-        id: null,
-      },
-      data: {
-        sidebarState: true,
-        routeThroughState: 'app.opportunities'
-      }
-   });
+  //   $stateProvider.state('app.content-edit', {
+  //     url: "/content/:id/edit",
+  //     sticky: true,
+  //     views: {
+  //         'sidepanel-content@app': {
+  //           templateUrl: 'shared/templates/entity-edit.tpl.html',
+  //           controller: 'contentEditCtrl'
+  //         }
+  //     },
+  //     onEnter: function($rootScope, $state, $stateParams){
+  //       $rootScope.sidePanelOpen = true;
+  //     },
+  //     params: {
+  //       id: null,
+  //     },
+  //     data: {
+  //       sidebarState: true,
+  //       routeThroughState: 'app.opportunities'
+  //     }
+  //  });
 
 
   /* Activities
@@ -690,7 +710,7 @@ angular.module('interloop.routes', [])
           },
           'page-content@app': {
             templateUrl: 'shared/templates/list-view.tpl.html',
-            controller: 'activitiesCtrl'
+            controller: 'listViewCtrl'
           }
       },
       params: {
@@ -701,6 +721,8 @@ angular.module('interloop.routes', [])
           pageTitle: 'Activities',
           navTitle: 'Activities',
           mainState: true,
+          currentEntity: 'Activity',
+          currentEntityPlural: 'Activities'
       }
    });
 
@@ -711,7 +733,7 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'modules/activities/activity-details.tpl.html',
-            controller: 'activityDetailsCtrl'
+            controller: 'recordDetailsCtrl'
           }
       },
       onEnter: function($rootScope, $state, $stateParams){
@@ -722,7 +744,9 @@ angular.module('interloop.routes', [])
       },
       data: {
         sidebarState: true,
-        routeThroughState: 'app.activities'
+        routeThroughState: 'app.activities',
+        currentEntity: 'Activity',
+        currentEntityPlural: 'Activities'
       }
    });
 
@@ -732,11 +756,15 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'shared/templates/entity-edit.tpl.html',
-            controller: 'activityEditCtrl'
+            controller: 'recordEditCtrl'
           }
       },
       params: {
         id: null,
+      },
+      data: {
+        currentEntity: 'Activity',
+        currentEntityPlural: 'Activities'
       }
    });
 

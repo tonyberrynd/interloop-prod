@@ -4,6 +4,48 @@
 
 //opp score
 
+.btn.btn-link:active {
+    opacity: .65;
+}
+
+.isSelected {
+    position:absolute;
+    top:18px;
+    right:18px;
+
+    icon {
+        color:#fff;
+    }
+}
+
+.add-related-dropdown .add-related-body .avatar-item {
+    margin-bottom:2px;
+
+    &.active h4 {
+        color: #fff !important;
+    }
+
+}
+
+.add-related-dropdown .add-related-body .avatar-item.no-avatar {
+    h4{
+        margin-left:0px;
+    }
+
+    p {
+        margin-left:0px;
+    }
+}
+
+.avatar-item.active {
+    h4{
+        color:#fff !important;
+    }
+    p {
+        color:#fff;
+    }
+}
+
 h5.modal-title {
     color:$slate;
     margin:0px;
@@ -314,6 +356,21 @@ address .btn.editAddress {
             margin:10px 2px;
         }
     }
+
+
+    .add-related-footer {
+       
+       .btn-subtle {
+        color:$topaz !important;
+       }
+
+       .create-new {
+        padding:5px 0;
+        border-top:solid 1px $border;
+        margin-top:5px;
+       }
+
+    }
 }
 
 .collapse-arrow icon {
@@ -410,6 +467,62 @@ trix-toolbar { display: none; }
     margin-bottom:10px;
 }
 
+.modal-body {
+
+    .ui-select-bootstrap {
+        * {
+            transition:none !important;
+        }
+    }
+    .ui-select-bootstrap > .ui-select-no-choice li {
+        padding:0px;
+    }
+
+    .ui-select-no-choice .no-results {
+        padding:20px;
+        display: block;
+    }
+
+    .ui-select-bootstrap {
+        .dropdown-menu {
+            padding:0px !important;
+        }
+    }
+
+    .ui-select-container:focus {
+        input {
+            border:solid 2px $topaz;
+        }
+    }
+    }
+
+    .single-select.hasValue {
+        .ui-select-bootstrap .ui-select-toggle i.caret {
+            display: none !important;
+        }
+
+        .ui-select-toggle a.btn {
+            display: block !important;
+            margin-top:0px;
+            right:10px;
+            margin-right:0px !important;
+
+            i {
+                color:$slate;
+
+                &::after {
+                    content: 'Remove';
+                    display: inline-block;
+                    margin-left:5px;
+                    transform:translateY(-2px);
+                    font-family:$font-main;
+                    font-weight:700;
+                    font-size:13px;
+                }
+            }
+        }
+    }
+
 .modal[data-bootstrap-modal-aria-hidden-count] {
     display: none !important;
 }
@@ -439,7 +552,8 @@ trix-toolbar { display: none; }
 
     .btn .avatar {
         margin-right: 0px;
-        margin-top: -3px;
+        margin-top: -12px;
+        margin-right: 6px;
     }
 }
 

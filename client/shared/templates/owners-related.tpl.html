@@ -4,7 +4,7 @@
                     <button id="add-users" type="button" class="btn btn-link text-left" uib-dropdown-toggle ng-disabled="disabled" uib-tooltip="Add Owners">
                       <icon class="wb-plus-circle"></icon>
                     </button>
-                    Owners (<span ng-bind="data.owners.length"></span>)
+                    Owners (<span ng-bind="data.selectedOwners.length"></span>)
                     </h5>
 
                     <ul class="dropdown-menu add-related-dropdown" uib-dropdown-menu role="menu" aria-labelledby="search-users">
@@ -25,8 +25,8 @@
                           </div>
                           <div class="add-related-body">
                             <div class="list-group">
-                              <span ng-repeat="user in $root.userList | limitTo: 15 | orderBy: 'firstName' | filter: data.searchUsers">
-                                <a href class="list-group-item avatar-item" ng-click="addOwner(user)">
+                              <span ng-repeat="user in $root.userList | limitTo: 15 | isSelected:data.selectedOwners | orderBy:['-selected', 'firstName'] | filter: data.searchUsers">
+                                <a href class="list-group-item avatar-item" ng-click="addRemoveOwner(user)" ng-class="{'active': user.selected }">
                                   <div class="avatar avatar-32" ng-class="user.color">
                                     <span ng-bind="user.firstName | limitTo:1"></span><span ng-bind="user.lastName | limitTo:1"></span>
                                   </div>
@@ -35,8 +35,14 @@
                                   </h4>
                                   <p>
                                     <span ng-bind="user.email"></span></p>
+                                  <!-- //check mark -->
+                                  <span class="isSelected" ng-if="user.selected">
+                                    <icon class="wb-check"></icon>
+                                  </span>
                                 </a>
                                 </span>
+
+                                
                             </div>
                             <div class="no-results" ng-if="!($root.userList | filter: data.searchUsers ).length">
                               No Results
@@ -49,7 +55,7 @@
 
                   <div class="related-owners">
                       <!-- //repeat owners -->
-                       <div class="tag avatar-tag" ng-repeat="item in data.owners">
+                       <div class="tag avatar-tag" ng-repeat="item in data.selectedOwners">
                           <div class="avatar avatar-16" ng-class="item.color">
                             <span ng-bind="item.firstName | limitTo:1"></span><span ng-bind="item.lastName | limitTo:1"></span>
                           </div>
@@ -64,7 +70,7 @@
                        </div>
 
                       <!-- //no owners -->
-                      <div class="no-owners text-center" ng-if="!data.owners.length">
+                      <div class="no-owners text-center" ng-if="!data.selectedOwners.length">
                         No Owners
                       </div>
                   </div>
@@ -78,7 +84,7 @@
                     <button id="add-related" type="button" class="btn btn-link text-left" uib-dropdown-toggle ng-disabled="disabled" uib-tooltip="Add Related">
                       <icon class="wb-plus-circle"></icon>
                     </button>
-                    Related (<span ng-bind="data.related.length"></span>)
+                    Related (<span ng-bind="data.selectedRelated.length"></span>)
                     </h5>
                     <ul class="dropdown-menu add-related-dropdown" uib-dropdown-menu role="menu" aria-labelledby="search-users">
                         <div class="add-related-records">
@@ -91,17 +97,17 @@
                           <div class="add-related-search">
                             <span class="search-related-input" ng-if="data.searchRelatedOpen">
                             <input type="text" class="form-control" placeholder="Search Related" ng-model="data.searchRelated" autofocus ng-change="getRecords(data.searchRelated)" ng-model-options="{'debounce': 250}">
-                            <button class="btn btn-link clear-related-search" ng-class="{'hidden': !data.searchRelated.length}" ng-click="data.searchRelated = ''">
+                            <button class="btn btn-link clear-related-search" ng-class="{'hidden': !data.searchRelated.length}" ng-click="data.searchRelated = ''; data.results = [];">
                               <icon class="wb-plus-circle"></icon>
                             </button>
                             </span>
                           </div>
                           <div class="add-related-body">
-                            <div class="list-group" ng-repeat="item in data.results | limitTo: 15 | orderBy: ['name', 'firstName'] | filter: data.searchRelated" ng-switch="item.thisEntityType">
+                            <div class="list-group" ng-repeat="item in data.results | limitTo: 15 | isSelected:data.selectedRelated | orderBy:['-selected', 'name', 'firstName'] | filter: data.searchRelated" ng-switch="item.thisEntityType">
 
                                  <!-- contact -->
-                                  <a href class="list-group-item avatar-item" ng-switch-when="Contact" ng-click="addRelated(item)">
-                                    <div class="avatar avatar-32 royal">
+                                  <a href class="list-group-item avatar-item" ng-switch-when="Contact" ng-click="addRemoveRelated(item)" ng-class="{'active': item.selected }">
+                                    <div class="avatar avatar-32" ng-class="item.color">
                                       <span ng-bind="item.firstName | limitTo:1 | uppercase"></span><span ng-bind="item.lastName | limitTo:1 | uppercase"></span>
                                       <span ng-if="!item.firstName && !item.lastName">--</span>
                                     </div>
@@ -110,19 +116,29 @@
                                       <span ng-bind="item.lastName || ''"></span>
                                     </h4>
                                     <p><small><span ng-bind="item.title || 'No Title'"></span></small></p>
+
+                                    <!-- //check mark -->
+                                    <span class="isSelected" ng-if="item.selected">
+                                      <icon class="wb-check"></icon>
+                                    </span>
                                   </a>
 
                                   <!-- company -->
-                                  <a href class="list-group-item avatar-item" ng-switch-when="Company" ng-click="addRelated(item)">
-                                    <div class="avatar avatar-32 royal square">
+                                  <a href class="list-group-item avatar-item" ng-switch-when="Company" ng-click="addRemoveRelated(item)" ng-class="{'active': item.selected }">
+                                    <div class="avatar avatar-32 square" ng-class="item.color">
                                       <span ng-bind="(item.name | limitTo:1 | uppercase) || '--'"></span>
                                     </div>
                                     <h4><span ng-bind="item.name || ''"></span></h4>
                                     <p><small><span ng-bind="item.website || 'No Website'"></span></small></p>
+
+                                    <!-- //check mark -->
+                                    <span class="isSelected" ng-if="item.selected">
+                                      <icon class="wb-check"></icon>
+                                    </span>
                                   </a>
 
                                     <!-- opportunity -->
-                                   <a href class="list-group-item avatar-item" ng-switch-when="Opportunity" ng-click="addRelated(item)">
+                                   <a href class="list-group-item avatar-item no-avatar"" ng-switch-when="Opportunity" ng-click="addRemoveRelated(item)" ng-class="{'active': item.selected }">
                                       <h4><span ng-bind="item.name || ''"></span></h4>
                                       <p>
                                         <span ng-bind="item.primaryCompany.name || 'No Primary Company'"></span>
@@ -132,7 +148,7 @@
                                           <span ng-bind="owner.firstName"></span> <span ng-bind="owner.lastName"></span>
                                         </span>
                                       </p>
-                                      <span class="forecast-indicator">
+                                      <!-- <span class="forecast-indicator">
                                         <p>
                                         <span class="label label-subtle">
                                         $<span ng-bind="item.value | number:0"></span>
@@ -143,21 +159,54 @@
                                       </span>
                                       <span class="owners">
                                         <span ng-bind="(item.estimatedClose | formatDate) || '--'"></span>
+                                      </span> -->
+
+                                      <!-- //check mark -->
+                                      <span class="isSelected" ng-if="item.selected">
+                                        <icon class="wb-check"></icon>
                                       </span>
                                     </a>
 
                             </div>
-                            <div class="no-results" ng-if="!(data.results | filter: data.searchRelated ).length && data.searchRelated">
-                              No Results
+                            <div class="no-results" ng-if="!(data.results | filter: data.searchRelated ).length && !data.searchRelated">
+                              <icon class="wb-search"></icon>
+                              <br>
+                              Search for Contact, Companies, & more...
                             </div>
 
+                            <div class="no-results" ng-if="!(data.results | filter: data.searchRelated ).length && data.searchRelated">
+                              Don't See What You Are Looking For? 
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="add-related-footer" ng-if="!(data.results | filter: data.searchRelated ).length && data.searchRelated ">
+                         <button class="btn btn-block btn-primary text-center" ng-click="data.createNewCollapse = !data.createNewCollapse">
+                           <span class="text-topaz">Create New
+                            <icon class="wb-chevron-down-mini" ng-if="!data.createNewCollapse"></icon>
+                            <icon class="wb-chevron-up-mini" ng-if="data.createNewCollapse"></icon>
+                           </span>
+                         </button>
+
+
+
+                          <div id="createNew" class="create-new" uib-collapse="!data.createNewCollapse">
+                            <button class="btn btn-block btn-default" ng-click="newEntity('Opportunity')" feature-flag="--FF_MODULE_OPPORTUNITIES--">
+                              + New Opportunity
+                            </button>
+                             <button class="btn btn-block btn-default" ng-click="newEntity('Contact')" feature-flag="--FF_MODULE_CONTACTS--">
+                              + New Contact
+                            </button>
+                             <button class="btn btn-block btn-default" ng-click="newEntity('Company')" feature-flag="--FF_MODULE_COMPANIES--">
+                              + New Company
+                            </button>
                           </div>
                         </div>
                     </ul>
                   </div>
 
                  <div class="related-records">
-                      <div class="tag avatar-tag" ng-repeat="item in data.related">
+                      <div class="tag avatar-tag" ng-repeat="item in data.selectedRelated">
                           <div class="avatar avatar-topaz avatar-16" ng-class="item.color" ng-if="item.thisEntityType == 'Contact'">
                             <span ng-bind="item.firstName | limitTo:1"></span><span ng-bind="item.lastName | limitTo:1"></span>
                           </div>
@@ -180,7 +229,7 @@
                           </span>
                         </div>
 
-                        <div class="no-related text-center" ng-if="!data.related.length">
+                        <div class="no-related text-center" ng-if="!data.selectedRelated.length">
                           No Related
                         </div>
 

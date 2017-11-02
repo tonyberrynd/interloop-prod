@@ -124,29 +124,12 @@ angular.module('interloop', [
   'interloop.dashboardsCtrl',
   'interloop.explorerCtrl',
   'interloop.powerbiCtrl',
-  //forecasts
-  'interloop.forecastsCtrl',
-  'interloop.forecastDetailsCtrl',
-  // opps
-  'interloop.opportunitiesCtrl',
-  'interloop.opportunityDetailsCtrl',
-  'interloop.opportunityEditCtrl',
-  // contacts
-  'interloop.contactsCtrl',
-  'interloop.contactDetailsCtrl',
-  'interloop.contactEditCtrl',
-  //companies
-  'interloop.companiesCtrl',
-  'interloop.companyDetailsCtrl',
-  'interloop.companyEditCtrl',
-  //content
-  'interloop.contentCtrl',
-  'interloop.contentDetailsCtrl',
-  'interloop.contentEditCtrl',
-  //activities
-  'interloop.activitiesCtrl',
-  'interloop.activityDetailsCtrl',
-  'interloop.activityEditCtrl',
+
+
+  //shared list view
+  'interloop.listViewCtrl',
+  'interloop.recordDetailsCtrl',
+  'interloop.recordEditCtrl',
 
   //details
   'interloop.relationshipDetailsCtrl',
@@ -168,6 +151,23 @@ angular.module('interloop', [
   'interloop.notificationsCtrl',
 
   // modals
+  //-------------------------
+  // new entity
+  'interloop.newEntityCtrl',
+  'interloop.newOpportunityCtrl',
+  'interloop.newProspectCtrl',
+  'interloop.newCompanyCtrl',
+  'interloop.newContactCtrl',
+
+  //new activity
+  'interloop.newNoteCtrl',
+  'interloop.newActivityCtrl',
+  'interloop.customActivityCtrl',
+  'interloop.newTaskCtrl',
+  'interloop.logCallCtrl',
+  'interloop.newMeetingCtrl',
+
+  // other
   'interloop.mediaPickerCtrl',
   'interloop.addAddressCtrl',
   'interloop.addStatusCtrl',
@@ -206,17 +206,7 @@ angular.module('interloop', [
   'interloop.lostReasonCtrl',
   'interloop.manageRelationshipsCtrl',
   'interloop.manageTagsCtrl',
-  'interloop.newActivityCtrl',
-  'interloop.customActivityCtrl',
-  'interloop.newTaskCtrl',
-  'interloop.logCallCtrl',
-  'interloop.newMeetingCtrl',
-  'interloop.newCompanyCtrl',
-  'interloop.newContactCtrl',
   'interloop.newCustomFieldCtrl',
-  'interloop.newNoteCtrl',
-  'interloop.newOpportunityCtrl',
-  'interloop.newProspectCtrl',
   'interloop.newSystemViewCtrl',
   'interloop.newTeamCtrl',
   'interloop.submitForecastCtrl',
@@ -290,6 +280,7 @@ angular.module('interloop', [
   'interloop.filter.megaNumber',
   'interloop.filter.thousandSuffix',
   'interloop.filter.bytes',
+  'interloop.filter.isSelected',
   'interloop.filter.fileTypes',
   'interloop.filter.fileIcons',
 

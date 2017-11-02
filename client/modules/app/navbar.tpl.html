@@ -8,8 +8,8 @@
                 </div>
                 <div class="navbar-header pull-right">
 
-                   <div class="new-item dropdown" uib-dropdown uib-tooltip="Create New..." tooltip-placement="bottom" tooltip-enable="!newDropdownOpen">
-                        <a href class="btn btn-primary dropdown-toggle" uib-dropdown-toggle is-open="newDropdownOpen">
+                   <div class="new-item dropdown" uib-dropdown>
+                        <a href class="btn btn-primary dropdown-toggle" uib-dropdown-toggle is-open="newDropdownOpen" uib-tooltip="Create New..." tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-enable="!newDropdownOpen">
                           <img src="../../assets/img/icons/light/add.svg" alt="+"></a>
                         <ul class="dropdown-menu dropdown-menu-right">
                           <li class="text-divider">
@@ -84,40 +84,47 @@
                           </div>
 
                           <!-- results -->
-                          <div class="results" ng-repeat="result in data.searchResults" id="globalSearchResults" ng-if="!data.searchLoading">
+                          <div class="results" id="globalSearchResults" ng-if="!data.searchLoading">
 
-                            <div class="divider-line" ng-if="(result.results | filter:searchScore).length">
+                            <span ng-repeat="result in data.searchResults" ng-switch="result.entityType">
+
+                            <div class="divider-line" ng-if="result.results && result.results.length">
                               <p ng-bind="result.entityType"></p>
                               <span class="line"></span>
                             </div>
-                            
-                            <div class="list-group" ng-repeat="item in result.results | orderBy: '-score' | filter:searchScore | limitTo:15" ng-switch="result.entityType">
+                              
+                              <div class="list-group" ng-switch-when="Contact">
+                                  <!-- contact -->
+                                    <a href class="list-group-item avatar-item"  ng-click="openTo('app.contact-details', item.id, $event)" ng-repeat="item in result.results | orderBy: '-searchScore' | limitTo:15">
+                                      <div class="avatar avatar-32" ng-class="item.color">
+                                        <span ng-bind="item.firstName | limitTo:1 | uppercase"></span><span ng-bind="item.lastName | limitTo:1 | uppercase"></span>
+                                        <span ng-if="!item.firstName && !item.lastName">--</span>
+                                      </div>
+                                      <h4>
+                                        <span ng-bind="item.firstName || ''"></span> 
+                                        <span ng-bind="item.lastName || ''"></span>
+                                      </h4>
+                                      <p><span ng-bind="item.title || 'No Title'"></span></p>
+                                      <p><span ng-bind="item.primaryCompany || 'No Primary Company'"></span></p>
+                                    </a>
+                                </div>
 
-                                <!-- contact -->
-                                  <a href class="list-group-item avatar-item" ng-switch-when="Contact" ng-click="openTo('app.contact-details', item.id, $event)">
-                                    <div class="avatar avatar-32" ng-class="item.color">
-                                      <span ng-bind="item.firstName | limitTo:1 | uppercase"></span><span ng-bind="item.lastName | limitTo:1 | uppercase"></span>
-                                      <span ng-if="!item.firstName && !item.lastName">--</span>
-                                    </div>
-                                    <h4>
-                                      <span ng-bind="item.firstName || ''"></span> 
-                                      <span ng-bind="item.lastName || ''"></span>
-                                    </h4>
-                                    <p><span ng-bind="item.title || 'No Title'"></span></p>
-                                    <p><span ng-bind="item.primaryCompany || 'No Primary Company'"></span></p>
-                                  </a>
 
-                                  <!-- company -->
-                                  <a href class="list-group-item avatar-item" ng-switch-when="Company" ng-click="openTo('app.company-details', item.id, $event)">
+                                <div class="list-group" ng-switch-when="Company">
+                                   <!-- company -->
+                                  <a href class="list-group-item avatar-item"  ng-click="openTo('app.company-details', item.id, $event)" ng-repeat="item in result.results | orderBy: '-searchScore' | limitTo:15">
                                     <div class="avatar avatar-32 square" ng-class="item.color">
                                       <span ng-bind="(item.name | limitTo:1 | uppercase) || '--'"></span>
                                     </div>
                                     <h4><span ng-bind="item.name || ''"></span></h4>
                                     <p><span ng-bind="item.domain || 'No Domain'"></span></p>
                                   </a>
+                                </div>
 
+                                 
+                                <div class="list-group" ng-switch-when="Opportunity">
                                   <!-- opportunity -->
-                                   <a href class="list-group-item avatar-item" ng-switch-when="Opportunity" ng-click="openTo('app.opportunity-details', item.id, $event)">
+                                   <a href class="list-group-item avatar-item" ng-click="openTo('app.opportunity-details', item.id, $event)" ng-repeat="item in result.results | orderBy: '-searchScore' | limitTo:15">
                                       <div class="smartScore" feature-flag="--FF_SMARTSCORE--">
                                         <span ng-bind="item.smartScore || '--'"></span>
                                       </div>
@@ -125,7 +132,7 @@
                                       <p>
                                         <span ng-bind="item.primaryCompany.name || 'No Primary Company'"></span>
                                       </p>
-                                      <p ng-if="item.owners.length">
+                                      <!-- <p ng-if="item.owners.length">
                                         <span ng-repeat="owner in item.owners | limitTo:2">
                                           <span ng-bind="owner.firstName"></span> <span ng-bind="owner.lastName"></span>
                                         </span>
@@ -144,20 +151,15 @@
                                       </span>
                                       <span class="owners">
                                         <span ng-bind="(item.estimatedClose | formatDate) || '--'"></span>
-                                      </span>
+                                      </span> -->
                                     </a>
+                                  </div>  
 
-                                    <!-- //attachment -->
-<!--                                     <a href="#" class="list-group-item file-item" ng-switch-when="Attachment" ng-click="openTo('app.attachment-details', item.id, $event)">
-                                      <img src="../assets/img/icons/files/avi.svg" alt="Avi">
-                                      <h4>Awesome-Movie</h4>
-                                      <p>awesome_movei.avi</p>
-                                      <p>54MB <span class="spacer">&middot;</span> Avi Movie</p>
-                                    </a> -->
-
-                                </div>
+                              </span>
 
                               </div>
+
+
 
                               <!-- no results -->
                           <div class="no-results" ng-if="data.resultsCount == 0 && !data.searchLoading">
@@ -259,7 +261,7 @@
                       </li>
 
                       <!-- more -->
-                       <li class="dropdown" uib-dropdown uib-tooltip="More Options" tooltip-placement="bottom">
+                       <li class="dropdown" uib-dropdown uib-tooltip="More Options" tooltip-placement="bottom-right">
                         <a href class="dropdown-toggle" uib-dropdown-toggle is-open="moreDropdownOpen"><img src="../../assets/img/icons/light/more.svg" alt="More"></a>
                         <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
                              <li role="menuitem">
