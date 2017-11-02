@@ -8,8 +8,8 @@
                 </div>
                 <div class="navbar-header pull-right">
 
-                   <div class="new-item dropdown" uib-dropdown uib-tooltip="Create New..." tooltip-placement="bottom" tooltip-enable="!newDropdownOpen">
-                        <a href class="btn btn-primary dropdown-toggle" uib-dropdown-toggle is-open="newDropdownOpen">
+                   <div class="new-item dropdown" uib-dropdown>
+                        <a href class="btn btn-primary dropdown-toggle" uib-dropdown-toggle is-open="newDropdownOpen" uib-tooltip="Create New..." tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-enable="!newDropdownOpen">
                           <img src="../../assets/img/icons/light/add.svg" alt="+"></a>
                         <ul class="dropdown-menu dropdown-menu-right">
                           <li class="text-divider">
@@ -259,7 +259,7 @@
                       </li>
 
                       <!-- more -->
-                       <li class="dropdown" uib-dropdown uib-tooltip="More Options" tooltip-placement="bottom">
+                       <li class="dropdown" uib-dropdown uib-tooltip="More Options" tooltip-placement="bottom-right">
                         <a href class="dropdown-toggle" uib-dropdown-toggle is-open="moreDropdownOpen"><img src="../../assets/img/icons/light/more.svg" alt="More"></a>
                         <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
                              <li role="menuitem">
