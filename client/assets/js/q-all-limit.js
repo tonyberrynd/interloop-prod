@@ -35,11 +35,11 @@ angular.module('angular-q-limit', [])
 						queue.running++;
 						thisPromise
 							.then(function(data) {
-								queue.output[promiseIndex] = data;
-								queue.completed++;
-								queue.running--;
-								queue.defer.notify({completed: queue.completed, count: queue.promiseCount, limit: queue.limit});
-								promiseChecker(queue);
+									queue.output[promiseIndex] = data;
+									queue.completed++;
+									queue.running--;
+									queue.defer.notify({completed: queue.completed, count: queue.promiseCount, limit: queue.limit});
+									promiseChecker(queue);								
 							})
 							.catch(function(err) {
 								queue.defer.reject(err);

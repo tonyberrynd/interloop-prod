@@ -626,103 +626,45 @@ angular.module('interloop.factory.sidebarActions', [])
     }
 
     /*
-    Create Activity
+    Log Call
     */
     function createTask(entityType, entityItem) {
-        var resolvedData = {
-          entityType: entityType,
-          thisRecord: entityItem
-        }
+            //have to set entityType for related records
+        entityItem.entityType = entityType;
 
+         var resolvedData = {
+          'currentEntity': entityType,
+          'relatedRecords': [entityItem],
+          'activityType': 'todo'
+        };
 
-       var newTaskModal = modalManager.openModal('newTask', resolvedData);
+        var activityModal = modalManager.openModal('newTask', resolvedData);
+        var thisRecord = entityItem;
+        //
+        activityModal.result.then(function(results){
+           var thisActivity = results;
+            //build double layer activity & push into sidebar
+            var doubleLayerActivity = {
+              activityId: thisActivity.id,
+              type: 'todo',
+              completed: thisActivity.completed,
+              completedDate: thisActivity.completedDate,
+              createdBy: thisActivity.createdBy,
+              id: thisActivity.id,
+              updatedOn: thisActivity.updatedOn,
+              activity: thisActivity,
+            }
 
-       var thisRecord = entityItem;
+            //push into record real time
+            entityItem.activities.push(doubleLayerActivity);
+            entityItem.activityLinks.push(doubleLayerActivity);
 
-       newTaskModal.result.then(function(results){
-        return Activity.create(results.todo).$promise
-                .then(function(todo){
+            //ensure gets into scope
+            $timeout(function(){
+                  entityItem.openActivities = getOpenActivities(entityItem.activities);
+                  entityItem.history = getHistory(entityItem.activities);
+              }, 10);
 
-
-                    var allPromises = [];
-
-                    //add in owner promises
-                    _.forEach(results.owners, function(owner){
-                        allPromises.push(Activity.owners.create(
-                            {"id": todo.id},
-                            {
-                                "firstName": owner.firstName,
-                                "lastName": owner.lastName,
-                                "initials": owner.initials,
-                                "email": owner.email,
-                                "split": owner.splitPercent || null,
-                                "active": true,
-                                "ownerId": owner.id
-                            }).$promise
-                        )
-                    })
-
-                    //add in related promises
-                    _.forEach(results.related, function(relatedRecord){
-                       var name = relatedRecord.thisEntityType == 'Contact' ? relatedRecord.firstName + ' ' + relatedRecord.lastName : relatedRecord.name;
-                       //push in promise
-                       allPromises.push(
-                        RelationshipManager.linkActivity(todo.id, relatedRecord.id, entityType, 
-                              {
-                                "activity": {
-                                  "name": 'ToDo',
-                                  "type": "todo", 
-                                  "completed": todo.completed || false
-                                  
-                                }, 
-                                "entity": {
-                                  "name": name,
-                                  "description": "ToDo",
-                                  "isPrimary": false
-                                }
-                              })
-                        )
-                    })
-
-                    //$q all limit limits the concurrency so we dont overwhelm the server
-                    return $q.allLimit(1, allPromises)
-                      .then(function(data) {
-                         Logger.info('ToDo Created Succesfully');
-
-                          //build double layer activity & push into sidebar
-                            var doubleLayerActivity = {
-                              activityId: todo.activityId,
-                              type: 'todo',
-                              dueDate: todo.dueDate,
-                              completed: todo.completed,
-                              completedDate: todo.completedDate,
-                              createdBy: todo.createdBy,
-                              id: todo.id,
-                              updatedOn: todo.updatedOn,
-                              activity: todo,
-                            }
-
-                            //push into record real time
-                            entityItem.activities.push(doubleLayerActivity);
-                            entityItem.activityLinks.push(doubleLayerActivity);
-
-                            //get the history so its updated
-                            $timeout(function(){
-                                entityItem.openActivities = getOpenActivities(entityItem.activities);
-                                entityItem.history = getHistory(entityItem.activities);
-                                console.log(entityItem.history);
-                            }, 10)
-
-                      }, function(err) {
-                        // One promise died!
-                        Logger.error('Error Linking ToDo to all related records')
-                        console.log(err);
-                      }, function(progress) {
-                        // Progress updates! (progress will equal {completed: Number, count: Number, limit: Number})
-                        console.log(progress);
-                      });
-
-            });
         });
     }
 
@@ -730,109 +672,84 @@ angular.module('interloop.factory.sidebarActions', [])
     Log Call
     */
     function logCall(entityType, entityItem) {
+            //have to set entityType for related records
+        entityItem.entityType = entityType;
+
          var resolvedData = {
-          entityType: entityType,
-          thisRecord: entityItem
+          'currentEntity': entityType,
+          'relatedRecords': [entityItem],
+          'activityType': 'call'
         };
 
-        var newLoggedCallModal = modalManager.openModal('logCall', resolvedData);
+        var activityModal = modalManager.openModal('logCall', resolvedData);
         var thisRecord = entityItem;
         //
-        newLoggedCallModal.result.then(function(results){
+        activityModal.result.then(function(results){
+           var thisActivity = results;
+            //build double layer activity & push into sidebar
+            var doubleLayerActivity = {
+              activityId: thisActivity.id,
+              type: 'call',
+              completed: thisActivity.completed,
+              completedDate: thisActivity.completedDate,
+              createdBy: thisActivity.createdBy,
+              id: thisActivity.id,
+              updatedOn: thisActivity.updatedOn,
+              activity: thisActivity,
+            }
 
-          return Activity.create(results.loggedCall).$promise
-                .then(function(loggedCall){
+            //push into record real time
+            entityItem.activities.push(doubleLayerActivity);
+            entityItem.activityLinks.push(doubleLayerActivity);
 
+            //ensure gets into scope
+            $timeout(function(){
+                  entityItem.openActivities = getOpenActivities(entityItem.activities);
+                  entityItem.history = getHistory(entityItem.activities);
+              }, 10);
 
-                    var allPromises = [];
-
-                    //add in owner promises
-                    _.forEach(results.owners, function(owner){
-                        allPromises.push(Activity.owners.create(
-                            {"id": loggedCall.id},
-                            {
-                                "firstName": owner.firstName,
-                                "lastName": owner.lastName,
-                                "initials": owner.initials,
-                                "email": owner.email,
-                                "split": owner.splitPercent || null,
-                                "active": true,
-                                "ownerId": owner.id
-                            }).$promise
-                        )
-                    })
-
-                    //add in related promises
-                    _.forEach(results.related, function(relatedRecord){
-                       var name = relatedRecord.thisEntityType == 'Contact' ? relatedRecord.firstName + ' ' + relatedRecord.lastName : relatedRecord.name;
-                       //push in promise
-                       allPromises.push(
-                        RelationshipManager.linkActivity(loggedCall.id, relatedRecord.id, entityType, 
-                              {
-                                "activity": {
-                                  "name": 'Call',
-                                  "type": "call", 
-                                  "completed": loggedCall.completed || false
-                                  
-                                }, 
-                                "entity": {
-                                  "name": name,
-                                  "description": "Call",
-                                  "isPrimary": false
-                                }
-                              })
-                        )
-                    })
-
-                    //$q all limit limits the concurrency so we dont overwhelm the server
-                    return $q.allLimit(1, allPromises)
-                      .then(function(data) {
-                         Logger.info('Call Log Created Succesfully');
-
-                          //build double layer activity & push into sidebar
-                            var doubleLayerActivity = {
-                              activityId: loggedCall.id,
-                              type: 'call',
-                              completed: loggedCall.completed,
-                              completedDate: loggedCall.completedDate,
-                              createdBy: loggedCall.createdBy,
-                              id: loggedCall.id,
-                              updatedOn: loggedCall.updatedOn,
-                              activity: loggedCall,
-                            }
-
-                            //push into record real time
-                            entityItem.activities.push(doubleLayerActivity);
-                            entityItem.activityLinks.push(doubleLayerActivity);
-
-                      }, function(err) {
-                        // One promise died!
-                        Logger.error('Error Linking ToDo to all related records')
-                        console.log(err);
-                      }, function(progress) {
-                        // Progress updates! (progress will equal {completed: Number, count: Number, limit: Number})
-                        console.log(progress);
-                      });
-   
-            });
         });
     }
 
 
-    function addActivity(entityType, entityItem, activityType){
-      var resolvedData = {
-        entityType: entityType,
-        thisRecord: entityItem,
-        activityType: activityType
-      }
+    function addActivity(entityType, entityItem, activityType) {
+            //have to set entityType for related records
+        entityItem.entityType = entityType;
 
-      var customActivity = modalManager.openModal('customActivity', resolvedData);
+         var resolvedData = {
+          'currentEntity': entityType,
+          'relatedRecords': [entityItem],
+          'activityType': activityType
+        };
 
-        customActivity.result.then(function(results){
-          //push activity into history stream
-        }, function(){
-          //ignore
-        })
+        var activityModal = modalManager.openModal('customActivity', resolvedData);
+        var thisRecord = entityItem;
+        //
+        activityModal.result.then(function(results){
+           var thisActivity = results;
+            //build double layer activity & push into sidebar
+            var doubleLayerActivity = {
+              activityId: thisActivity.id,
+              type: activityType,
+              completed: thisActivity.completed,
+              completedDate: thisActivity.completedDate,
+              createdBy: thisActivity.createdBy,
+              id: thisActivity.id,
+              updatedOn: thisActivity.updatedOn,
+              activity: thisActivity,
+            }
+
+            //push into record real time
+            entityItem.activities.push(doubleLayerActivity);
+            entityItem.activityLinks.push(doubleLayerActivity);
+
+            //ensure gets into scope
+            $timeout(function(){
+                  entityItem.openActivities = getOpenActivities(entityItem.activities);
+                  entityItem.history = getHistory(entityItem.activities);
+              }, 10);
+
+        });
     }
 
     /*
@@ -846,73 +763,44 @@ angular.module('interloop.factory.sidebarActions', [])
     Create Note
     */
     function createNote(entityType, entityItem) {
+        //have to set entityType for related records
+        entityItem.entityType = entityType;
+
          var resolvedData = {
-          entityType: entityType,
-          thisRecord: entityItem
+          'currentEntity': entityType,
+          'relatedRecords': [entityItem],
+          'activityType': 'note'
         };
 
-        var newNoteModal = modalManager.openModal('newNote', resolvedData);
-
+        var activityModal = modalManager.openModal('newNote', resolvedData);
+        var thisRecord = entityItem;
         //
-        newNoteModal.result.then(function(results){
+        activityModal.result.then(function(results){
+           var thisActivity = results;
+            //build double layer activity & push into sidebar
+            var doubleLayerActivity = {
+              activityId: thisActivity.id,
+              type: 'note',
+              completed: thisActivity.completed,
+              completedDate: thisActivity.completedDate,
+              createdBy: thisActivity.createdBy,
+              id: thisActivity.id,
+              updatedOn: thisActivity.updatedOn,
+              activity: thisActivity,
+            }
 
-          return Activity.create(results).$promise
-            .then(function(note){
-              // console.log(results);
-              Logger.info('Note Created Successfully');
+            //push into record real time
+            entityItem.activities.push(doubleLayerActivity);
+            entityItem.activityLinks.push(doubleLayerActivity);
 
-              var thisRecord = entityItem;
-              var name = entityType == 'Contact' ? thisRecord.firstName + ' ' + thisRecord.lastName : thisRecord.name; 
+            //ensure gets into scope
+            $timeout(function(){
+                  entityItem.openActivities = getOpenActivities(entityItem.activities);
+                  entityItem.history = getHistory(entityItem.activities);
+              }, 10);
 
-              return RelationshipManager.linkActivity(note.id, thisRecord.id, entityType, 
-                        {
-                          "activity": {
-                            "name": note.name,
-                            "type": "note", 
-                            "completed": true
-                            
-                          }, 
-                          "entity": {
-                            "name": name,
-                            "description": "Note",
-                            "isPrimary": false
-                          }
-                        })
-                        .then(function(results){
-                          //build double layer activity
-                            var doubleLayerActivity = {
-                              activityId: note.id,
-                              type: 'note',
-                              completed: note.completed,
-                              completedDate: note.completedDate,
-                              createdBy: note.createdBy,
-                              id: results.id,
-                              updatedOn: note.updatedOn,
-                              activity: note,
-                            }
-
-                            //push into record real time
-                            entityItem.activities.push(doubleLayerActivity);
-                            entityItem.activityLinks.push(doubleLayerActivity);
-
-                            //get the history so its updated
-                             $timeout(function(){
-                                entityItem.openActivities = getOpenActivities(entityItem.activities);
-                                entityItem.history = getHistory(entityItem.activities);
-                                console.log(entityItem.history);
-                            }, 10)
-                        })
-            })
-            .catch(function(err){
-                Logger.error('Error Creating Note', 'Please Try Again in a moment');
-                console.log(err);
-            })
-   
-        }, function(){
-          //ignore
-        })
+        });
     }
-
 
     ///////////////////////
     // Manage Activities //

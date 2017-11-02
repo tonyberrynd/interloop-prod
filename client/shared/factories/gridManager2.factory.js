@@ -693,6 +693,7 @@ angular.module('interloop.factory.gridManager', [])
     	initGrid: initGrid,
         // initStaticGrid: initStaticGrid,
     	// getMetaData: getMetaData,
+        discardChanges: discardChanges,
     	getColumns: getColumns,
     	getColumnState: getColumnState,
         getSortModel: getSortModel,
@@ -1190,29 +1191,36 @@ angular.module('interloop.factory.gridManager', [])
     	//-----------------------------
     	grid = params;
 
-		//Set UP Grid Data Source
-		//TODO - WILL CHANGE WHEN AG_GRID 10 COMES OUT WITH ENTERPRISE ROWS MODEL
-		//----------------------------------
+        //setUpGrid
+        setUpGrid()
+
+    }   
+
+
+    function setUpGrid(){
+        //Set UP Grid Data Source
+        //TODO - WILL CHANGE WHEN AG_GRID 10 COMES OUT WITH ENTERPRISE ROWS MODEL
+        //----------------------------------
 
         //regular data source
-		// grid.api.setDatasource(dataSource);
+        // grid.api.setDatasource(dataSource);
 
         //enterprise data source
         grid.api.setEnterpriseDatasource(EnterpriseDatasource);
 
 
-		//if has a columnState, set column state
-		//-----------------------------------
+        //if has a columnState, set column state
+        //-----------------------------------
         if(currentView.columnState) {
             // console.log('set column State', currentView.columnState);
 
             var basePlusCurrentState = baseDefs.concat(currentView.columnState);
-    		grid.columnApi.setColumnState(basePlusCurrentState);
+            grid.columnApi.setColumnState(basePlusCurrentState);
         }
 
 
-		//if has sort model, set sort model
-		//------------------------------------
+        //if has sort model, set sort model
+        //------------------------------------
         if(currentView.sortModel) {
             // console.log('set sort model');
             grid.api.setSortModel(currentView.sortModel)
@@ -1220,7 +1228,6 @@ angular.module('interloop.factory.gridManager', [])
 
         //let controller know
         // $rootScope.$broadcast('GRID_READY', {});
-
     }
 
 
@@ -1656,6 +1663,15 @@ angular.module('interloop.factory.gridManager', [])
     //==================================
     //Getters / Setters
     //==================================
+
+    /*
+    reset grid
+    */
+    function discardChanges(view){
+        currentView = view;
+        //call grid ready - basically go back to the initial view
+        setUpGrid()
+    }
 
     /*
     Local Search
@@ -2547,9 +2563,9 @@ angular.module('interloop.factory.gridManager', [])
                 var addressHtml = '';
                 //build out visual array
                 _.forEach(params.value, function(address){
-                    var city = address.city || '--'
                     var locality = address.locality || '--'
-                    addressHtml += '<div class="tag"><icon class="fa fa-map-marker"></icon> ' + city + ', ' + locality + '</div>';
+                    var region = address.region || '--'
+                    addressHtml += '<div class="tag"><icon class="fa fa-map-marker"></icon> ' + locality + ', ' + region + '</div>';
                 })
                 return addressHtml;
             } else {
