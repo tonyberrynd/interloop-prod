@@ -4,6 +4,18 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        {
+            "name": "Launch Chrome against localhost, without sourcemaps",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3001",
+            "sourceMaps": false,
+            "runtimeArgs": [
+                "--disable-web-security",  
+                "--user-data-dir"
+            ], 
+            "webRoot": "${workspaceRoot}/client"
+        }, 
     {
         "type": "node",
         "request": "launch",

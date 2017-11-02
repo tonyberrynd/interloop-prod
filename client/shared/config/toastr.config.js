@@ -7,11 +7,11 @@ angular.module('interloop.config.toastr', [])
 //toastr container config
 .config(function(toastrConfig) {
   angular.extend(toastrConfig, {
-    autoDismiss: false,
+    autoDismiss: true,
     containerId: 'toast-container',
-    maxOpened: 0,    
+    maxOpened: 2,    
     newestOnTop: true,
-    positionClass: 'toast-bottom-left',
+    positionClass: 'toast-top-center',
     preventDuplicates: false,
     preventOpenDuplicates: false,
     target: 'body'
@@ -24,7 +24,7 @@ angular.module('interloop.config.toastr', [])
     allowHtml: false,
     closeButton: false,
     closeHtml: '<button class="btn btn-clear"><icon class="wb-close-mini"></icon></button>',
-    extendedTimeOut: 2000,
+    extendedTimeOut: 10000,
     iconClasses: {
       error: 'toast-error',
       info: 'toast-info',
@@ -38,10 +38,10 @@ angular.module('interloop.config.toastr', [])
     progressBar: false,
     tapToDismiss: true,
     templates: {
-      toast: 'directives/toast/toast.html',
+      toast: '../assets/html/toast.tpl.html',
       progressbar: 'directives/progressbar/progressbar.html'
     },
-    timeOut: 3000,
+    timeOut: 7500,
     titleClass: 'toast-title',
     toastClass: 'toast animated'
   });

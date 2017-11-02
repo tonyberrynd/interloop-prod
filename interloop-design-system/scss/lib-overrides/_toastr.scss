@@ -1,10 +1,29 @@
 .toast-title {
   font-weight: bold;
-  margin-bottom:5px;
+  margin-top:3px;
+  margin-bottom:3px;
+  font-weight:400;
 }
 .toast-message {
   word-wrap: break-word;
   color:$dragonstone;
+  font-weight:400;
+}
+
+.toast img {
+  width:16px;
+}
+
+.toast .dismiss {
+  position:absolute;
+  right:16px;
+  top:8px;
+  color:#fff;
+  opacity: .95;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 .toast-message a,
 .toast-message label {
@@ -94,6 +113,7 @@ button.toast-close-button {
 #toast-container {
   position: fixed;
   z-index: 999999;
+  top:60px;
   /*overrides*/
 }
 #toast-container * {
@@ -106,37 +126,38 @@ button.toast-close-button {
   overflow: hidden;
   margin: 0 0 6px;
   margin-left: 0px;
-  padding: 15px 15px 15px 50px;
+  padding: 8px 12px 8px 48px;
   width: 300px;
   -moz-border-radius: 3px 3px 3px 3px;
   -webkit-border-radius: 3px 3px 3px 3px;
   border-radius: 3px 3px 3px 3px;
-  background-position: 15px 16px;
+  background-position: 6px 12px;
   background-repeat: no-repeat;
-  box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
-  color: $seamonster;
+  // box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+  color: #fff;
   opacity: 1;
 }
 #toast-container .toast:hover {
-  box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+  // box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   opacity: 1;
   cursor: pointer;
 }
 #toast-container .toast.toast-info {
-  background-image: url("../img/icons/states/info.svg") !important;
+  background-image: url("../img/icons/states/info-light.svg") !important;
 }
 #toast-container .toast.toast-error {
-  background-image: url("../img/icons/states/danger.svg") !important;
+  background-image: url("../img/icons/states/danger-light.svg") !important;
 }
 #toast-container .toast.toast-success {
   background-image: url("../img/icons/states/success.svg") !important;
 }
 #toast-container .toast.toast-warning {
-  background-image: url("../img/icons/states/warning.svg") !important;
+  background-image: url("../img/icons/states/warning-light.svg") !important;
 }
 #toast-container.toast-top-center .toast,
 #toast-container.toast-bottom-center .toast {
-  width: 300px;
+  min-width:640px;
+  max-width:800px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -150,16 +171,16 @@ button.toast-close-button {
   background-color: #fff;
 }
 .toast-success {
-  background-color: #fff;
+  background-color: $success;
 }
 .toast-error {
-  background-color: #fff;
+  background-color: $danger;
 }
 .toast-info {
-  background-color: #fff;
+  background-color: $topaz;
 }
 .toast-warning {
-  background-color: #fff;
+  background-color: $warning;
 }
 progress-bar {
   position: absolute;
@@ -192,7 +213,7 @@ div[toast].ng-leave.ng-leave-active {
 /*Responsive Design*/
 @media all and (max-width: 240px) {
   #toast-container .toast.div {
-    padding: 8px 8px 8px 50px;
+    padding: 8px 8px 8px 48px;
     width: 11em;
   }
   #toast-container .toast-close-button {
@@ -202,7 +223,7 @@ div[toast].ng-leave.ng-leave-active {
 }
 @media all and (min-width: 241px) and (max-width: 480px) {
   #toast-container .toast.div {
-    padding: 8px 8px 8px 50px;
+    padding: 8px 8px 8px 48px;
     width: 18em;
   }
   #toast-container .toast-close-button {
@@ -212,7 +233,7 @@ div[toast].ng-leave.ng-leave-active {
 }
 @media all and (min-width: 481px) and (max-width: 768px) {
   #toast-container .toast.div {
-    padding: 15px 15px 15px 50px;
+    padding: 15px 15px 15px 48px;
     width: 25em;
   }
 }

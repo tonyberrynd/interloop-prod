@@ -1,0 +1,46 @@
+<!-- loading -->
+<div class="loop-loader loop-loader-light loop-loader-xs centered" ng-class="{'hidden': data.activated }"></div>
+
+<div class="settings-right" ng-class="{'hidden': !data.activated }">
+	<h4>Error Messages</h4>
+			
+	<div class="panel panel-default panel-light">
+		<div class="panel-heading">
+			Test Various Error Messages Below
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-3">
+					<h5>Error Messages:</h5>
+						
+					<br>
+
+					<button class="btn btn-primary btn-block" ng-click="info(data.title, data.body)">Info Message</button>
+
+					<button class="btn btn-success btn-block" ng-click="success(data.title, data.body)">Success Message</button>
+
+					<button class="btn btn-warning btn-block" ng-click="warning(data.title, data.body)">Warning Message</button>
+
+
+					<button class="btn btn-danger btn-block" ng-click="error(data.title, data.body)">Error Message</button>
+
+					<br>
+				</div>
+				<div class="col-xs-8 col-xs-offset-1">
+					<div class="form-group">
+						<label for="notification-title">Title</label>
+						<input id="notification-title" type="text" class="form-control" ng-model="data.title">
+					</div>
+
+					<div class="form-group">
+						<label for="notification-body">Message</label>
+						<textarea name="" id="notification-body" cols="30" rows="5" class="form-control" ng-model="data.message"></textarea>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+

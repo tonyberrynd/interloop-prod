@@ -101,7 +101,8 @@ angular.module('ngPrettyJson', [])
           editor.setAutoScrollEditorIntoView(true);    
           editor.setOptions({maxLines: Infinity});
           editor.on('change', editChanges);                        
-          editor.getSession().setMode("ace/mode/json");                        
+          editor.getSession().setMode("ace/mode/json");     
+          editor.setTheme("ace/theme/textmate");            
         }
         else {
           if (editor) { document.getElementById(scope.id).env = null; }

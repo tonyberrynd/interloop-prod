@@ -181,6 +181,7 @@ angular.module('interloop', [
   'interloop.bulkTagCtrl',
   'interloop.confirmCtrl',
   'interloop.warningCtrl',
+  'interloop.showFullRecordCtrl',
   'interloop.connectIcloudCtrl',
   'interloop.createViewCtrl',
   'interloop.deleteViewCtrl',
@@ -235,6 +236,7 @@ angular.module('interloop', [
   'interloop.configRawCtrl',
   'interloop.configBannersCtrl',
   'interloop.configNotificationsCtrl',
+  'interloop.configErrorHandlingCtrl',
   'interloop.configOnboardingCtrl',
 
   // settings

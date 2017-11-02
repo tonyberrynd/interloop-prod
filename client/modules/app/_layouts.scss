@@ -14,8 +14,25 @@
 	    display: block;
 
         .btn.show-sidebar {
+            padding:8px 10px;
             padding-bottom: 9px;
             margin-right: 2px !important;
+
+            img {
+                width:20px;
+            }
+
+            &.open-sidebar {
+                img {
+                    transform:translateX(2px);
+                }
+            }
+
+            &.close-sidebar {
+                img {
+                    transform:translateX(-2px);
+                }
+            }
         }
 
         .subheader-left {

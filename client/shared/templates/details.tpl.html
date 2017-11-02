@@ -159,9 +159,9 @@
 			<div class="form-group" ng-switch-when="phone" ng-repeat="phone in data.thisRecord[field.key]">
 				<label for="{{field.key}}">{{phone.type.label}} Phone</label>
 				<p class="form-control-static" ng-if="data.thisRecord[field.key].length">
-					<b ng-bind="phone.type.label"></b> - <a ng-href="tel:{{phone.value}}" ng-bind="phone.value"></a>
+					<a ng-href="mailto:{{phone.value}}" ng-bind="phone.value"></a>
 				</p>
-				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Phone Numbers</p>
+				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Phone Addresses</p>
 
 				<div class="copyValue" ng-click="copyValue(data.thisRecord[field.key][$index]['value'])" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key].length">
 		    	<icon class="fa fa-clone"></icon>
@@ -184,18 +184,17 @@
 
 
              <!-- social -->
-             <div class="form-group" ng-switch-when="social">
-             	<label for="{{field.key}}"><span ng-bind="field.type.label || 'Social'"></span></label>
-             	<p class="form-control-static" ng-repeat="social in data.thisRecord[field.key]" ng-if="data.thisRecord[field.key].length">
-					<a ng-if="social.value" ng-href="social" target="_blank" ng-bind="social.value"></a>
-					<span ng-if="!social.value">--</span>
+			<div class="form-group" ng-switch-when="social" ng-repeat="social in data.thisRecord[field.key]">
+				<label for="{{field.key}}"><icon ng-if="social.type.icon" ng-class="social.type.icon"></icon> {{social.type.label}}</label>
+				<p class="form-control-static" ng-if="data.thisRecord[field.key].length">
+					<a ng-href="mailto:{{social.value}}" ng-bind="social.value"></a>
 				</p>
 				<p class="form-control-static no-value" ng-if="!data.thisRecord[field.key].length"> No Social Accounts</p>
 
 				<div class="copyValue" ng-click="copyValue(data.thisRecord[field.key][$index]['value'])" uib-tooltip="Copy Value" tooltip-placement="left" ng-if="data.thisRecord[field.key].length">
 		    	<icon class="fa fa-clone"></icon>
 		    </div>
-             </div>
+			</div>
 
 
              </span>

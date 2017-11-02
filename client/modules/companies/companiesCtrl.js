@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Opportunities Ctrl
+   Companies Ctrl
    ========================================================================== */
 
 angular.module('interloop.companiesCtrl', [])
@@ -28,7 +28,6 @@ angular.module('interloop.companiesCtrl', [])
 
 // BINDABLES
 //===========================================
-
   
   //vars
   //----------------------
@@ -45,6 +44,7 @@ angular.module('interloop.companiesCtrl', [])
   //----------------------
   $scope.data = {};
   $scope.data.currentEntity = "Company";
+  $scope.data.currentEntityPlural = "Companies";
   $scope.data.lookupUsers = false;
   $scope.data.activated = false;
   $scope.data.drawerOpen = false;
@@ -568,7 +568,7 @@ function getLookupValue(filter, entityType, searchVal){
 
   //Switch based on entity type
   switch(entityType) {
-    case 'Company':
+    case 'Contact':
         var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
         break;
     case 'Company':
@@ -864,7 +864,7 @@ Export
 */
 function bulkExport() {
   var resolveData = {
-    entityModel: 'Company',
+    currentEntity: 'Company',
     query: gridManager.getCurrentQuery(),
     columns: $scope.data.columns 
   };

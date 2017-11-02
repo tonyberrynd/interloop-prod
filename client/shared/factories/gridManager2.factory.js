@@ -697,6 +697,8 @@ angular.module('interloop.factory.gridManager', [])
     	getColumnState: getColumnState,
         getSortModel: getSortModel,
     	getSelectedData: getSelectedData,
+        getSelectedRows: getSelectedRows,
+        getPaginationSize: getPaginationSize,
     	showHideColumn: showHideColumn,
         setRowGroupColumns: setRowGroupColumns,
         setColumnPinned: setColumnPinned,
@@ -1235,6 +1237,8 @@ angular.module('interloop.factory.gridManager', [])
     */
     function changeView(changeToView) {
     	grid.api.showLoadingOverlay()
+        //ensure clear selected
+        clearSelected();
     	//set current view
     	currentView = changeToView;
         //set current query
@@ -1248,8 +1252,7 @@ angular.module('interloop.factory.gridManager', [])
     	//wait 1/4 second to hide overlay
     	$timeout(function(){
    			//hide overlay
-    		grid.api.hideOverlay()
-            clearSelected();
+    		grid.api.hideOverlay();
     	}, 250)
     }
 
@@ -1718,10 +1721,24 @@ angular.module('interloop.factory.gridManager', [])
     }
 
     /*
-    Get Selected Data
+    Get Selected Data - the proxy for selected based on select all / not select all being turned on
     */
     function getSelectedData() {
     	return selectedData;
+    }
+
+    /*
+    Get Selected Data
+    */
+    function getSelectedRows() {
+        return grid.api.getSelectedRows();
+    }
+
+    /*
+    Get paginiation size for parity with the rest of the application
+    */
+    function getPaginationSize(){
+        return paginationSize;
     }
 
     /*
