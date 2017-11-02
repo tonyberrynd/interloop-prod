@@ -276,7 +276,8 @@ function newTask() {
 
 	var resolvedData = {
 		'currentEntity': 'Activity',
-		'relatedRecords': []
+		'relatedRecords': [],
+		'activityType': 'todo'
 	}
 
 	var newTaskModal = modalManager.openModal('newTask', resolvedData)
@@ -293,7 +294,8 @@ function newNote() {
 
 	var resolvedData = {
 		'currentEntity': 'Activity',
-		'relatedRecords': []
+		'relatedRecords': [],
+		'activityType': 'note'
 	}
 
 	var newNoteModal = modalManager.openModal('newNote', resolvedData)
@@ -310,7 +312,8 @@ function newMeeting() {
 
 	var resolvedData = {
 		'currentEntity': 'Activity',
-		'relatedRecords': []
+		'relatedRecords': [],
+		'activityType': 'meeting'
 	}
 
 	var newMeetingModal = modalManager.openModal('newMeeting', resolvedData)
@@ -327,7 +330,8 @@ function logCall() {
 
 	var resolvedData = {
 		'currentEntity': 'Activity',
-		'relatedRecords': []
+		'relatedRecords': [],
+		'activityType': 'call'
 	}
 
 	var logCallModal = modalManager.openModal('logCall', resolvedData)
@@ -347,7 +351,8 @@ function addActivity(activityType){
 
 	var resolvedData = {
 		'currentEntity': 'Activity',
-		'relatedRecords': []
+		'relatedRecords': [],
+		'activityType': activityType
 	}
 
   var customActivityModal = modalManager.openModal('customActivity', resolvedData)

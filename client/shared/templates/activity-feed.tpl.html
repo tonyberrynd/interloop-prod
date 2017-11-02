@@ -152,7 +152,7 @@
   <li class="feed-item call" ng-switch-when="call">
     <span class="text"><div class="avatar avatar-24 sky">
       <span ng-bind="activity.createdBy.firstName | limitTo:1"></span><span ng-bind="activity.createdBy.lastName | limitTo:1"></span>
-    </div><b><span ng-bind="activity.createdBy.firstName"></span> <span ng-bind="activity.createdBy.lastName"></span></b> logged a call <b ng-if="activity.activity.title">"<span ng-bind="activity.activity.title | limitTo: 32"></span>..."</b></span>
+    </div><b><span ng-bind="activity.createdBy.firstName"></span> <span ng-bind="activity.createdBy.lastName"></span></b> logged a call</span>
     <time class="date" datetime="{{activity.activity.completedDate | formatDate}}">
       <span ng-bind="activity.activity.completedDate | formatDate"></span>
     </time>
@@ -161,6 +161,7 @@
             <div class="panel-body">
                 <div class="name-wrapper">
                     <div class="avatar avatar-24 call-avatar square tangerine"></div>
+                    <h4><span ng-bind="activity.activity.title"></span></h4>
                     <p><span ng-bind-html="(activity.activity.description | limitTo: 90) || '--'"></span></p>
                 </div>
             </div>
@@ -182,6 +183,7 @@
             <div class="panel-body">
                 <div class="name-wrapper">
                     <div class="avatar avatar-24 note-avatar square clover"></div>
+                    <h4><span ng-bind="activity.activity.title"></span></h4>
                     <p><span ng-bind-html="(activity.activity.body | limitTo: 90) || '--'"></span></p>
                 </div>
             </div>
