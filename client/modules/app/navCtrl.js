@@ -256,8 +256,88 @@ function focusResult($event) {
 
 function newActivity() {
 	$mixpanel.track('NEW_ACTIVITY_MODAL');
-	var newActivityModal = modalManager.openModal('newActivity')
+
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
+
+	var newActivityModal = modalManager.openModal('newActivity', resolvedData)
+
+		newActivityModal.result.then(function(results){
+			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
+			$state.go('app.activity-details', {'id': results.id})
+		});
 }
+
+//add task
+function newTask() {
+	$mixpanel.track('NEW_TASK_MODAL');
+
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
+
+	var newTaskModal = modalManager.openModal('newTask', resolvedData)
+
+		newTaskModal.result.then(function(results){
+			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
+			$state.go('app.activity-details', {'id': results.id})
+		});
+}
+
+//add note
+function newNote() {
+	$mixpanel.track('NEW_NOTE_MODAL');
+
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
+
+	var newNoteModal = modalManager.openModal('newNote', resolvedData)
+
+		newNoteModal.result.then(function(results){
+			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
+			$state.go('app.activity-details', {'id': results.id})
+		});
+}
+
+//add meeting
+function newMeeting() {
+	$mixpanel.track('NEW_MEETINGS_MODAL');
+
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
+
+	var newMeetingModal = modalManager.openModal('newMeeting', resolvedData)
+
+		newMeetingModal.result.then(function(results){
+			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
+			$state.go('app.activity-details', {'id': results.id})
+		});
+}
+
+//addCall
+function logCall() {
+	$mixpanel.track('LOG_CALL_MODAL');
+
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
+
+	var logCallModal = modalManager.openModal('logCall', resolvedData)
+
+		logCallModal.result.then(function(results){
+			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
+			$state.go('app.activity-details', {'id': results.id})
+		});
+}
+
 
 /*
 Create New Custom Activity
@@ -265,72 +345,86 @@ Create New Custom Activity
 function addActivity(activityType){
   $mixpanel.track('NEW_ACTIVITY_' + _.upperCase(activityType));
 
-  var resolvedData = {
-  	activityType: activityType
-  }
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
 
-  var customActivity = modalManager.openModal('customActivity', resolvedData)
-}
+  var customActivityModal = modalManager.openModal('customActivity', resolvedData)
 
-function newTask() {
-	$mixpanel.track('NEW_MEETINGS_MODAL');
-	var newTaskModal = modalManager.openModal('newTask')
-}
-
-function newNote() {
-	$mixpanel.track('NEW_NOTE_MODAL');
-	var newNoteModal = modalManager.openModal('newNote')
+  	  customActivityModal.result.then(function(results){
+			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
+			$state.go('app.activity-details', {'id': results.id})
+		});
 }
 
 
-function newMeeting() {
-	$mixpanel.track('NEW_MEETINGS_MODAL');
-	var newMeeting = modalManager.openModal('newMeeting')
-}
-
-function logCall() {
-	$mixpanel.track('LOG_CALL_MODAL');
-	var logCallModal = modalManager.openModal('logCall')
-}
-
+//new forecast
 function submitForecast() {
 	$mixpanel.track('SUBMIT_FORECAST_MODAL');
-	var newForecastModal = modalManager.openModal('newForecast');
+	var resolvedData = {
+		'currentEntity': 'Forecast',
+		'relatedRecords': []
+	}
+
+	var newForecastModal = modalManager.openModal('newEntity', resolvedData);
 
 	newForecastModal.result.then(function(results){
+		$rootScope.$broadcast('NEW_FORECAST_CREATED');
 		$state.go('app.forecast-details', {'id': results.id})
 	}, function(){
 		//ignore
 	})
-}
+}	
 
+//new opportunity
 function newOpportunity() {
 	$mixpanel.track('NEW_OPPORTUNITY_MODAL');
-	var newOpportunityModal = modalManager.openModal('newOpportunity');
+	var resolvedData = {
+		'currentEntity': 'Opportunity',
+		'relatedRecords': []
+	}
+
+	var newOpportunityModal = modalManager.openModal('newEntity', resolvedData);
 
 	newOpportunityModal.result.then(function(results){
+		$rootScope.$broadcast('NEW_OPPORTUNITY_CREATED');
 		$state.go('app.opportunity-details', {'id': results.id})
 	}, function(){
 		//ignore
 	})
 }
 
+//new contact
 function newContact() {
 	$mixpanel.track('NEW_CONTACT_MODAL');
-	var newContactModal = modalManager.openModal('newContact');
+	var resolvedData = {
+		'currentEntity': 'Contact',
+		'relatedRecords': []
+	}
+
+	var newContactModal = modalManager.openModal('newEntity', resolvedData);
 
 	newContactModal.result.then(function(results){
+		$rootScope.$broadcast('NEW_CONTACT_CREATED');
 		$state.go('app.contact-details', {'id': results.id})
 	}, function(){
 		//ignore
 	})
 }
 
+//new company
 function newCompany() {
 	$mixpanel.track('NEW_COMPANY_MODAL');
-	var newCompanyModal = modalManager.openModal('newCompany');
+	var resolvedData = {
+		'currentEntity': 'Company',
+		'relatedRecords': []
+	}
+
+	var newCompanyModal = modalManager.openModal('newEntity', resolvedData);
 
 	newCompanyModal.result.then(function(results){
+		$rootScope.$broadcast('NEW_COMPANY_CREATED');
 		$state.go('app.company-details', {'id': results.id})
 	}, function(){
 		//ignore
@@ -358,7 +452,7 @@ function contactSupport() {
   		//show intercom
 		$intercom.show('showNewMessage');
 	} else {
-		alert('Intercom only active in production');
+		alert('Intercom only active in staging or production');
 	}
 }
 

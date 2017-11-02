@@ -246,29 +246,10 @@
     <script type="text/javascript" src="modules/dashboards/dashboardsCtrl.js"></script>
     <script type="text/javascript" src="modules/explorer/explorerCtrl.js"></script>
     <script type="text/javascript" src="modules/powerbi/powerbiCtrl.js"></script>
-    <!-- forecasts -->
-    <script type="text/javascript" src="modules/forecasts/forecastsCtrl.js"></script>
-    <script type="text/javascript" src="modules/forecasts/forecastDetailsCtrl.js"></script>
-    <!-- opps -->
-    <script type="text/javascript" src="modules/opportunities/opportunitiesCtrl.js"></script>
-    <script type="text/javascript" src="modules/opportunities/opportunityDetailsCtrl.js"></script>
-    <script type="text/javascript" src="modules/opportunities/opportunityEditCtrl.js"></script>
-    <!-- contacts -->
-    <script type="text/javascript" src="modules/contacts/contactsCtrl.js"></script>
-    <script type="text/javascript" src="modules/contacts/contactDetailsCtrl.js"></script>
-    <script type="text/javascript" src="modules/contacts/contactEditCtrl.js"></script>
-    <!-- companies -->
-    <script type="text/javascript" src="modules/companies/companiesCtrl.js"></script>
-    <script type="text/javascript" src="modules/companies/companyDetailsCtrl.js"></script>
-    <script type="text/javascript" src="modules/companies/companyEditCtrl.js"></script>
-    <!-- content -->
-    <script type="text/javascript" src="modules/content/contentCtrl.js"></script>
-    <script type="text/javascript" src="modules/content/contentDetailsCtrl.js"></script>
-    <script type="text/javascript" src="modules/content/contentEditCtrl.js"></script>
-    <!-- activities -->
-    <script type="text/javascript" src="modules/activities/activitiesCtrl.js"></script>
-    <script type="text/javascript" src="modules/activities/activityDetailsCtrl.js"></script>
-    <script type="text/javascript" src="modules/activities/activityEditCtrl.js"></script>
+    <!-- Manage Data - Shared list, record, & edit panel controllers -->
+    <script type="text/javascript" src="shared/controllers/listViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/controllers/recordDetailsCtrl.js"></script>
+    <script type="text/javascript" src="shared/controllers/recordEditCtrl.js"></script>
     <!-- more -->
     <script type="text/javascript" src="modules/more/agenda/agendaCtrl.js"></script>
     <script type="text/javascript" src="modules/more/files/filesCtrl.js"></script>
@@ -288,6 +269,21 @@
     <!-- ...other modules go here -->
 
     <!-- //modals -->
+
+    <!-- new entity -->
+    <script type="text/javascript" src="shared/modals/newEntity/newEntityCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newOpportunity/newOpportunityCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newProspect/newProspectCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newCompany/newCompanyCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newContact/newContactCtrl.js"></script>
+    <!-- new activity -->
+    <script type="text/javascript" src="shared/modals/newActivity/newActivityCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newTask/newTaskCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newMeeting/newMeetingCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/logCall/logCallCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/customActivity/customActivityCtrl.js"></script>
+
+    <!-- other -->
     <script type="text/javascript" src="shared/modals/mediaPicker/mediaPickerCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/addAddress/addAddressCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/editAddress/editAddressCtrl.js"></script>
@@ -319,6 +315,59 @@
     <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/paymentMethod/paymentMethodCtrl.js"></script>
     <script type="text/javascript" src="shared/modals/logDetails/logDetailsCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addActivityType/addActivityTypeCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addForecastCategory/addForecastCategoryCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addProduct/addProductCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addGoal/addGoalCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addOwner/addOwnerCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addProcess/addProcessCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addProduct/addProductCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addPipeline/addPipelineCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addReason/addReasonCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addRole/addRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addTag/addTagCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/addTeamMember/addTeamMemberCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/assignRole/assignRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/bulkAssign/bulkAssignCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/bulkDelete/bulkDeleteCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/bulkEdit/bulkEditCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/bulkTag/bulkTagCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/confirm/confirmCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/warning/warningCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/showFullRecord/showFullRecordCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/connectIcloud/connectIcloudCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/createView/createViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/deleteView/deleteViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editCustomField/editCustomFieldCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editForecastCategory/editForecastCategoryCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editField/editFieldCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editReason/editReasonCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editProduct/editProductCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editStatus/editStatusCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editSystemView/editSystemViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editTeam/editTeamCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editUser/editUserProfileCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/editView/editViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/export/exportCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/bulkExport/bulkExportCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/exportData/exportDataCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/exportView/exportViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/fileUpload/fileUploadCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/importData/importDataCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/inviteUsers/inviteUsersCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/lostReason/lostReasonCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/manageRelationships/manageRelationshipsCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/manageTags/manageTagsCtrl.js"></script>
+    
+
+    <script type="text/javascript" src="shared/modals/newCustomField/newCustomFieldCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newNote/newNoteCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newSystemView/newSystemViewCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/newTeam/newTeamCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/shareWith/shareWithCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/submitForecast/submitForecastCtrl.js"></script>
+    <script type="text/javascript" src="shared/modals/wonReason/wonReasonCtrl.js"></script>
     
     <!-- //configuration -->
     <script type="text/javascript" src="configure/createUser/createUserCtrl.js"></script>
@@ -366,67 +415,8 @@
     <script type="text/javascript" src="settings/import/settingsImportCtrl.js"></script>
     <script type="text/javascript" src="settings/duplicates/settingsDuplicatesCtrl.js"></script>
     <script type="text/javascript" src="settings/audit-log/settingsAuditLogCtrl.js"></script>
-    <!-- ////settings-modals -->
-    <script type="text/javascript" src="shared/modals/addActivityType/addActivityTypeCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addForecastCategory/addForecastCategoryCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addProduct/addProductCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addGoal/addGoalCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addOwner/addOwnerCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addProcess/addProcessCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addProduct/addProductCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addPipeline/addPipelineCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addReason/addReasonCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addRole/addRoleCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addTag/addTagCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/addTeamMember/addTeamMemberCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/assignRole/assignRoleCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/bulkAssign/bulkAssignCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/bulkDelete/bulkDeleteCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/bulkEdit/bulkEditCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/bulkTag/bulkTagCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/confirm/confirmCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/warning/warningCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/showFullRecord/showFullRecordCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/connectIcloud/connectIcloudCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/createView/createViewCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/deleteView/deleteViewCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editCustomField/editCustomFieldCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editForecastCategory/editForecastCategoryCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editField/editFieldCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editReason/editReasonCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editProduct/editProductCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editStatus/editStatusCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editRole/editRoleCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editSystemView/editSystemViewCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editTeam/editTeamCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editUser/editUserProfileCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/editView/editViewCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/export/exportCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/bulkExport/bulkExportCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/exportData/exportDataCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/exportView/exportViewCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/fileUpload/fileUploadCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/importData/importDataCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/inviteUsers/inviteUsersCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/lostReason/lostReasonCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/manageRelationships/manageRelationshipsCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/manageTags/manageTagsCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newActivity/newActivityCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/customActivity/customActivityCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newTask/newTaskCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newMeeting/newMeetingCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/logCall/logCallCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newCompany/newCompanyCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newContact/newContactCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newCustomField/newCustomFieldCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newNote/newNoteCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newOpportunity/newOpportunityCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newProspect/newProspectCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newSystemView/newSystemViewCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/newTeam/newTeamCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/shareWith/shareWithCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/submitForecast/submitForecastCtrl.js"></script>
-    <script type="text/javascript" src="shared/modals/wonReason/wonReasonCtrl.js"></script>
+    <!-- modals -->
+
     <!-- end controllers -->
 
     <!-- filters -->
@@ -436,6 +426,7 @@
     <script type="text/javascript" src="shared/filters/megaNumber.filter.js"></script>
     <script type="text/javascript" src="shared/filters/thousandSuffix.filter.js"></script>
     <script type="text/javascript" src="shared/filters/bytes.filter.js"></script>
+    <script type="text/javascript" src="shared/filters/isSelected.filter.js"></script>
     <script type="text/javascript" src="shared/filters/fileTypes.filter.js"></script>
     <script type="text/javascript" src="shared/filters/fileIcons.filter.js"></script>
 

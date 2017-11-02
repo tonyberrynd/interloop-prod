@@ -155,6 +155,16 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Share Record With'
     },
 
+
+    //new activity modal
+    newEntity: {
+        templateUrl: 'shared/modals/newEntity/newEntity.tpl.html',
+        controller: 'newEntityCtrl',
+        size: 'md',
+        ariaLabelledBy: 'New Record',
+        ariaDescribedBy: 'Create a new record'
+    },
+
     //submit forecast
     submitForecast: {
         templateUrl: 'shared/modals/submitForecast/submitForecast.tpl.html',
@@ -163,42 +173,6 @@ angular.module('interloop.value.modalDefs', [])
         ariaLabelledBy: 'Submit Forecast',
         ariaDescribedBy: 'Submit Forecast'
     },
-
-    customActivity: {
-        templateUrl: 'shared/modals/customActivity/customActivity.tpl.html',
-        controller: 'customActivityCtrl',
-        size: 'md',
-        ariaLabelledBy: 'New Activity',
-        ariaDescribedBy: 'Create a new activity'
-    },
-
-    //new activity modal
-    newActivity: {
-        templateUrl: 'shared/modals/newActivity/newActivity.tpl.html',
-        controller: 'newActivityCtrl',
-        size: 'md',
-        ariaLabelledBy: 'New Activity',
-        ariaDescribedBy: 'Create a new activity'
-    },
-
-    //new meeting
-    newMeeting: {
-        templateUrl: 'shared/modals/newMeeting/newMeeting.tpl.html',
-        controller: 'newMeetingCtrl',
-        size: 'md',
-        ariaLabelledBy: 'New Meeting',
-        ariaDescribedBy: 'Create a new Meeting'
-    },
-
-    //log call
-    logCall: {
-        templateUrl: 'shared/modals/logCall/logCall.tpl.html',
-        controller: 'logCallCtrl',
-        size: 'md',
-        ariaLabelledBy: 'Log Call',
-        ariaDescribedBy: 'Log Call'
-    },
-
 
 
     //new opportunity modal
@@ -234,7 +208,7 @@ angular.module('interloop.value.modalDefs', [])
     //new note modal
     newNote: {
         templateUrl: 'shared/modals/newNote/newNote.tpl.html',
-        controller: 'newNoteCtrl',
+        controller: 'newEntityCtrl',
         size: 'md',
         ariaLabelledBy: 'New Note',
         ariaDescribedBy: 'Create a new note'
@@ -243,21 +217,50 @@ angular.module('interloop.value.modalDefs', [])
      //new task modal
     newTask: {
         templateUrl: 'shared/modals/newTask/newTask.tpl.html',
-        controller: 'newTaskCtrl',
+        controller: 'newEntityCtrl',
         size: 'md',
         ariaLabelledBy: 'New Task',
         ariaDescribedBy: 'Create a new Task'
     },
 
-    // //new opportunity modal
-    // newProspect: {
-    //     templateUrl: 'shared/modals/newProspect/newProspect.tpl.html',
-    //     controller: 'newProspectCtrl',
-    //     size: 'lg',
-    //     windowClass: 'static-modal',
-    //     ariaLabelledBy: 'New Prospect',
-    //     ariaDescribedBy: 'Create a new prospect'
-    // },
+
+    //TODO - Need to clean up this mess of different activity modals & types
+
+    customActivity: {
+        templateUrl: 'shared/modals/customActivity/customActivity.tpl.html',
+        controller: 'newEntityCtrl',
+        size: 'md',
+        ariaLabelledBy: 'New Activity',
+        ariaDescribedBy: 'Create a new activity'
+    },
+
+    //new activity modal
+    newActivity: {
+        templateUrl: 'shared/modals/newActivity/newActivity.tpl.html',
+        controller: 'newEntityCtrl',
+        size: 'md',
+        ariaLabelledBy: 'New Activity',
+        ariaDescribedBy: 'Create a new activity'
+    },
+
+    //new meeting
+    newMeeting: {
+        templateUrl: 'shared/modals/newMeeting/newMeeting.tpl.html',
+        controller: 'newEntityCtrl',
+        size: 'md',
+        ariaLabelledBy: 'New Meeting',
+        ariaDescribedBy: 'Create a new Meeting'
+    },
+
+    //log call
+    logCall: {
+        templateUrl: 'shared/modals/logCall/logCall.tpl.html',
+        controller: 'newEntityCtrl',
+        size: 'md',
+        ariaLabelledBy: 'Log Call',
+        ariaDescribedBy: 'Log Call'
+    },
+
 
     //new note modal
     wonReason: {
