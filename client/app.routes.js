@@ -470,6 +470,7 @@ angular.module('interloop.routes', [])
         id: null,
       },
       data: {
+        editState: true,
         sidebarState: true,
         routeThroughState: 'app.opportunities',
         currentEntity: 'Opportunity',
@@ -545,6 +546,7 @@ angular.module('interloop.routes', [])
         id: null,
       },
       data: {
+        editState: true,
         sidebarState: true,
         routeThroughState: 'app.contacts',
         currentEntity: 'Contact',
@@ -620,6 +622,7 @@ angular.module('interloop.routes', [])
         id: null,
       },
       data: {
+        editState: true,
         sidebarState: true,
         routeThroughState: 'app.companies',
         currentEntity: 'Company',
@@ -763,6 +766,7 @@ angular.module('interloop.routes', [])
         id: null,
       },
       data: {
+        editState: true,
         currentEntity: 'Activity',
         currentEntityPlural: 'Activities'
       }

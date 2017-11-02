@@ -547,22 +547,16 @@ trix-toolbar { display: none; }
     }
 } 
 
-.ui-select-container {
-    // padding:6px !important;
-
-    .btn .avatar {
-        margin-right: 0px;
-        margin-top: -12px;
-        margin-right: 6px;
-    }
-}
-
 
 .modal-body .ui-select-container {
     max-width: 100% !important;
 
     .ui-select-no-choice {
         margin:0px;
+    }
+
+    .btn .avatar {
+        margin-top:-2px;
     }
 }
 

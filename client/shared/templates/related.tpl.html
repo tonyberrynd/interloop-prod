@@ -162,7 +162,7 @@
 
 	<!-- files cards -->
                     <div class="panel panel-default card file-card" ng-repeat="file in data.thisRecord.files | orderBy: 'createdOn' " ng-class="{'img-card': file.file.type == 'image/jpeg' || file.file.type == 'image/png'}" ng-mouseleave="file.isopen = false; console.log('mouseleave');">
-                        <div class="panel-body" ng-click="fileDetails(file.id)">
+                        <div class="panel-body">
                             <div class="name-wrapper">
                             <!-- img icon -->
                             <div class="file-icon" ng-if="file.file.type !== 'image/jpeg' && file.file.type !== 'image/png'">

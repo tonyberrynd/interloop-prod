@@ -443,7 +443,7 @@ angular.module('interloop.value.modalDefs', [])
     warning: {
         templateUrl: 'shared/modals/warning/warning.tpl.html',
         controller: 'warningCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Confirm Action',
         ariaDescribedBy: 'Confirm Action'
     },
@@ -451,7 +451,7 @@ angular.module('interloop.value.modalDefs', [])
     confirm: {
         templateUrl: 'shared/modals/confirm/confirm.tpl.html',
         controller: 'confirmCtrl',
-        size: 'md',
+        size: 'sm',
         ariaLabelledBy: 'Confirm Action',
         ariaDescribedBy: 'Confirm Action'
     },

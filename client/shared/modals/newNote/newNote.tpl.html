@@ -17,13 +17,13 @@
                                         <div class="col-xs-12">
                                            <div class="form-group">
                                             <label for="title">Title</label>
-                                            <input type="text" class="form-control" ng-model="data.note.title" autofocus>
+                                            <input type="text" class="form-control" ng-model="data.thisRecord.title" autofocus>
                                             </div>
                                         </div>
                                         <div class="col-xs-12">
                                            <div class="form-group">
                                             <label for="title">Description</label>
-                                            <div contenteditable="" class="form-control" ng-model="data.note.body"  style="min-height:120px; height:auto;"
+                                            <div contenteditable="" class="form-control" ng-model="data.thisRecord.body"  style="min-height:120px; height:auto;"
                                             strip-br="true" placeholder="Leave a note..."
                                             ></div>
                                             </div>
@@ -39,5 +39,5 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
-            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="newNoteForm.$invalid">Create</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="newNoteForm.$invalid" ladda="data.processing" data-style="slide-up">Create Note</button>
         </div>

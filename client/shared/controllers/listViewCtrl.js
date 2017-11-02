@@ -34,6 +34,7 @@ angular.module('interloop.listViewCtrl', [])
   //----------------------
   var initializing = true;
   var initFilters = true;
+  var initialView = null;
   var query = $location.search().query || null;
   var count = $location.search().count || 0;
   var backUrl = $location.search().backUrl || null;
@@ -127,6 +128,7 @@ angular.module('interloop.listViewCtrl', [])
   $scope.focusSelect = focusSelect;
   $scope.columnStateChanged = columnStateChanged;
   $scope.isObjectShouldBeString = isObjectShouldBeString;
+  $scope.isHiddenColumn = isHiddenColumn;
 
 //-------------------------------------------
 
@@ -148,6 +150,9 @@ function activate() {
               .then(function(results){
                 //set this view
                 $scope.data.thisView = results;
+
+                //copy original state
+                initialView = angular.copy($scope.data.thisView);
                 
                 //sort model
                 initialSortModel = angular.copy($scope.data.thisView.sortModel) || [];
@@ -176,30 +181,9 @@ function activate() {
                     $scope.data.grid = results;
                     // wrap in timeout to allow digest cycle for data.grid to get bound
                     $timeout(function(){
-                      //Filters
-                      //-----------------------
-                      //base field definitions for filters
-                      viewFilters = angular.copy($scope.data.thisView.filters) || [];
-                      //custom fields
-                      var customFields = _.filter($rootScope.customFields,function(o){
-                        return _.includes(o.useWith, currentEntity) && o.type !== 'divider';
-                      })
-                      //end fields
-                      var endFields = EndFields || [];
-                      //set up fields for filters
-                      var fields = _.union($injector.get(currentEntity + 'Fields'), customFields, endFields);
-                      //create filters
-                      $scope.data.filters = initialFilters(viewFilters, fields);
 
-                      //Columns
-                      //-------------------------
-                      $scope.data.columns = gridManager.getColumns();
-                      $scope.data.columns.splice(0, 3);
-
-                      //Groups
-                      //------------------------
-                      $scope.data.groups = _.filter(fields, function(o) { return o.type == 'category' || o.type == 'lookup' || o.allowGroup });
-                      $scope.data.activeGroups = []; //populate if view has groups
+                      //set up grid using data.thisView as the guide
+                      setUpGrid()
 
                       //Activate
                       //---------------------------
@@ -229,6 +213,43 @@ activate();
 
 // FUNCTIONS
 //===========================================
+
+
+function setUpGrid(){
+  //Filters
+  //-----------------------
+  //base field definitions for filters
+  viewFilters = angular.copy($scope.data.thisView.filters) || [];
+  //custom fields
+  var customFields = _.filter($rootScope.customFields,function(o){
+    return _.includes(o.useWith, currentEntity) && o.type !== 'divider';
+  })
+  //end fields
+  var endFields = EndFields || [];
+  //set up fields for filters
+  var fields = _.union($injector.get(currentEntity + 'Fields'), customFields, endFields);
+  //create filters
+  $scope.data.filters = initialFilters(viewFilters, fields);
+
+  //Columns
+  //-------------------------
+  $scope.data.columns = gridManager.getColumns();
+  // $scope.data.columns.splice(0, 3);
+
+  //Groups
+  //------------------------
+  $scope.data.groups = _.filter(fields, function(o) { return o.type == 'category' || o.type == 'lookup' || o.allowGroup });
+  $scope.data.activeGroups = []; //populate if view has groups
+
+}
+
+function isHiddenColumn(column){
+  if(column.colId == 'rightPinned' || column.colId == 'select' || column.colId == 'star'){
+    return true
+  } else {
+    return false;
+  }
+}
 
 /*
 Toggle Columns
@@ -335,11 +356,17 @@ function saveView() {
 Discard Changes
 */
 function discardChanges() {
-  $scope.data.filters = initialFilters(viewFilters, _.union($injector.get(currentEntity + 'Fields'), EndFields))
-  //set filter cahnged to false
-  $scope.data.filterChanged = false;
-  //update grid
-  updateGrid();
+  //bind in scope
+  $scope.data.thisView = initialView;
+  //tell grid to go back to what it was
+   gridManager.discardChanges(initialView);
+  //sets up everything around grid - filter tags, filters, etc
+   setUpGrid();
+   
+   $timeout(function(){
+    $scope.data.filterChanged = false;
+   }, 500)
+
 }
 
 /*
@@ -381,7 +408,13 @@ function editView() {
 Delete View
 */
 function deleteView(){
-  modalManager.openModal('deleteView', $scope.data.thisView);
+  var deleteViewModal = modalManager.openModal('deleteView', $scope.data.thisView);
+      //after view is deleted
+      deleteViewModal.result.then(function(results){
+        $state.go('app.' + _.lowerCase(currentEntityPlural), {viewId: 'default'});
+      }, function(){
+        //ignore
+      })
 }
 
 /*
