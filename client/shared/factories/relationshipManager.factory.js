@@ -127,7 +127,6 @@ angular.module('interloop.factory.relationshipManager', [])
         var linkEntityModel = $injector.get(linkEntityType);
         var activityModel = $injector.get("Activity");
         
-
         //to relationship 
         return linkEntityModel.prototype$__create__activities(
             {"id": linkItemId},
@@ -159,8 +158,9 @@ angular.module('interloop.factory.relationshipManager', [])
                     }
                 }
             ).$promise
-        }); 
-    }; 
+        });
+
+    };
 
     function unlinkActivity(activity, entityLink, entityLinkType){
         var entityLinkModel = $injector.get(entityLinkType);

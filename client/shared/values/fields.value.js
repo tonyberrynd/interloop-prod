@@ -219,8 +219,9 @@ angular.module('interloop.value.fields', [])
 		"key": "type",
 		"type": "category",
 		//new form
-		"excludeNew": false,
 		"newClass": "col-xs-6",
+		"excludeNew": true,
+		"excludeForm": true,
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -238,9 +239,31 @@ angular.module('interloop.value.fields', [])
 		//new form
 		"excludeNew": false,
 		"newClass": "col-xs-6",
-		"newRequired": true,
+		"newRequired": false,
 		//grid
 		"excludeGrid": false,
+		"hide": false,
+		"width": 300,
+		"valueGetter": null,
+		"cellRenderer": 'dueDateRender',
+		"pinned": false,
+
+		"allowGroup": true
+	},
+
+
+	{
+		"label": "Completed Date",
+		"key": "completedDate",
+		"type": "date",
+		"columnType": "date",
+		//new form
+		"excludeNew": true,
+		"newClass": "col-xs-6",
+		"newRequired": false,
+		//grid
+		"excludeGrid": false,
+		"exludeForm": true,
 		"hide": false,
 		"width": 300,
 		"valueGetter": null,

@@ -176,6 +176,7 @@ angular.module('interloop.config', [])
   $intercom,
   Appuser,
   gridManager,
+  modalManager,
   Logger,
   authService,
   SidebarRouter,
@@ -410,6 +411,26 @@ angular.module('interloop.config', [])
             });
         }
 
+
+        //Check if in edit mode - should alert user they are about to abandon changes
+        //-----------------------
+        // if(fromState.data && fromState.data.editState){
+        //   event.preventDefault();
+        //   var resolvedData = {
+        //     'helperTitle': 'Discard Changes',
+        //     'helperText': 'Are you sure you want to discard any changes to this record?',
+        //     'helperDescription': "Any updates made in edit mode will not be saved"
+        //   }
+
+        //   var warningModal = modalManager.openModal('warning', resolvedData)
+
+        //       warningModal.result.then(function(results){
+        //         $state.go(toState, toParams);
+        //       }, function(){
+        //         $state.transitionTo(fromState, fromParams);
+        //       })
+        // }
+
         //Close Sidebar if navigating to new state
         //-----------------------
         if(toState.data && toState.data.mainState) {
@@ -445,6 +466,9 @@ angular.module('interloop.config', [])
     //------------------
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){ 
 
+    if(fromState.data && fromState.data.editState){
+      leavingEditState = false;
+    }
 
     //save that first state has been loaded 
     //--------------------------------------------

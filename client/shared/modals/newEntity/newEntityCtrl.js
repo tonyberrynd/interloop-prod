@@ -29,12 +29,32 @@ angular.module('interloop.newEntityCtrl', [])
 //===========================================
   var currentEntity = _.get(resolvedData, 'currentEntity', null);
   var relatedRecords = _.get(resolvedData, 'relatedRecords', null);
+  var activityType = _.get(resolvedData, 'activityType', null);
 
   //data
   //----------------------
   $scope.data = {};
   $scope.data.thisRecord = {}; //will be filled in by user
   $scope.data.currentEntity = currentEntity || null;
+  $scope.data.activityType = activityType ? _.upperFirst(activityType) : null;
+
+  //for activity log call
+  $scope.data.callTypes = [
+  {
+    id: 1,
+    value: 'inbound',
+    label: 'Inbound Call'
+  },
+  {
+    id: 2,
+    value: 'outbound',
+    label: 'Outbound Call'
+  }];
+
+  //set default to first type
+  if(activityType == 'call'){
+    $scope.data.thisRecord.callType = $scope.data.callTypes[1];
+  }
 
   //loading indicators
   $scope.data.loadingOwners = false;
@@ -74,9 +94,9 @@ angular.module('interloop.newEntityCtrl', [])
       //set this entity type for searching filters
       record.thisEntityType = record.entityType;
       //push into scope
-      $scope.data.selectedRelated.push(thisRecord);
+      $scope.data.selectedRelated.push(record);
       //push other related items into search array for easy access
-      $scope.data.results.push(setUpPreSearch(records.entities));
+      $scope.data.results.push(setUpPreSearch(record.entities));
     });
   }
    
@@ -139,6 +159,34 @@ activate();
 function ok() {
 
   $scope.data.processing = true;
+
+  //if activity - set type / due date etc
+  //----------------------------------
+  if(currentEntity == 'Activity'){
+
+      $scope.data.thisRecord.type = activityType;
+
+      // todo specifics
+      if(activityType == 'todo'){
+        $scope.data.thisRecord.dueDate = $scope.data.customDate ? $scope.data.customDate : convertDate($scope.data.setDate);
+      }
+
+      if(activityType == 'note'){
+        $scope.data.thisRecord.completed = true;
+      }
+
+      //if completed set date and completed by
+      if($scope.data.thisRecord.completed){ 
+         $scope.data.thisRecord.completedDate = moment().format();
+         $scope.data.thisRecord.completedBy = {
+          'firstName': $rootScope.activeUser.firstName,
+          'lastName': $rootScope.activeUser.lastName,
+          'color': $rootScope.activeUser.color,
+          'id': $rootScope.activeUser.id
+        }
+      }
+  }
+
     
     //set up created by
     //----------------------------
@@ -207,7 +255,27 @@ function ok() {
               //----------------------------
               _.forEach($scope.data.selectedRelated, function(value){
                  var name = value.thisEntityType == 'Contact' ? value.firstName + ' ' + value.lastName : value.name;
-                 //push in promise
+                 // Link entity to activity
+                 if(currentEntity == 'Activity'){
+                   allPromises.push(
+
+                        RelationshipManager.linkActivity(thisRecord.id, value.id, value.thisEntityType,
+                              {
+                                "activity": {
+                                  "name": _.upperFirst(activityType),
+                                  "type": activityType, 
+                                  "completed": _.get(thisRecord, 'completed', false)
+                                  
+                                }, 
+                                "entity": {
+                                  "name": name,
+                                  "description": _.upperFirst(activityType),
+                                  "isPrimary": false
+                                }
+                              })
+                        )
+                //Link entity to entity
+                 } else {
                  allPromises.push(
                   RelationshipManager.linkEntity(thisRecord, value, currentEntity, value.thisEntityType, 
                         {
@@ -224,10 +292,12 @@ function ok() {
                             "isPrimary": false
                           }
                         }))
+                }
                })
 
               //$q all limit limits the concurrency so we dont overwhelm the server
               //----------------------------
+              console.log('all promises', allPromises);
               return $q.allLimit(1, allPromises)
                 .then(function(data) {
                    Logger.info(currentEntity + ' Created Succesfully');
@@ -260,6 +330,29 @@ function ok() {
     $uibModalInstance.dismiss('cancel');
   };
 
+
+
+  //Activity Specific Stuff
+  //-----------------------------------------
+
+  function convertDate(date){
+    switch(date) {
+        case 'today':
+            return moment().endOf("day").format();
+            break;
+        case 'tomorrow':
+            return moment().add(1, 'd').endOf("day").format();
+            break;
+        case 'next-week':
+            return moment().add(1, 'w').endOf("day").format();
+            break;
+        case 'next-month':
+            return moment().add(1, 'm').endOf("day").format();
+            break;
+        default:
+            return moment().endOf("day").format();
+    }
+}
 
 
   //Utility functions for array type values

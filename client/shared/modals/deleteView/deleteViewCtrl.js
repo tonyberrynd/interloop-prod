@@ -20,6 +20,7 @@ angular.module('interloop.deleteViewCtrl', [])
 
 // BINDABLES
 //===========================================
+
 	//data
 	//----------------------
 	$scope.data = {};
@@ -56,9 +57,6 @@ function ok() {
     .then(function(results) {
         //log info
         Logger.info("Succesfully Deleted View");
-
-        //remove from list of views
-        $state.go('app.opportunities', {viewId: 'default'});
 
         //close modal
         $uibModalInstance.close();
