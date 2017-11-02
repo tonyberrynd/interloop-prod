@@ -30,6 +30,18 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceRoot}/gulpfile.js"
+        },
+        {
+            "name": "Launch Chrome against localhost, without sourcemaps",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3001",
+            "sourceMaps": false,
+            "runtimeArgs": [
+                "--disable-web-security",  
+                "--user-data-dir"
+            ], 
+            "webRoot": "${workspaceRoot}/client"
         }
     ]
 }

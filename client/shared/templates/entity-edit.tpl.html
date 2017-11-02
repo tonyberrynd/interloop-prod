@@ -283,7 +283,7 @@
                 <form name="opportunityCustomFields" novalidate>
              
                     <div class="row">
-                          <div ng-class="field.class || 'col-xs-12'" ng-repeat="field in data.customFields | filter: {excludeForm: '!true'}" ng-switch="field.type">
+                          <div ng-class="field.class || 'col-xs-12'" ng-repeat="field in data.customFields | orderBy: 'fieldOrder' | filter: {excludeForm: '!true'}" ng-switch="field.type">
 
                               <!-- divider -->
                               <div class="form-group" ng-switch-when="divider">
