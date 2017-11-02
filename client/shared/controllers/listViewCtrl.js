@@ -1,11 +1,11 @@
 /* ==========================================================================
-   Contacts Ctrl
+   List View Ctrl
    ========================================================================== */
 
-angular.module('interloop.contactsCtrl', [])
+angular.module('interloop.listViewCtrl', [])
 
 //declare dependencies
-.controller('contactsCtrl', function(
+.controller('listViewCtrl', function(
   $injector,
   $location,
   $q,
@@ -20,7 +20,6 @@ angular.module('interloop.contactsCtrl', [])
   gridManager,
   Logger,
   modalManager,
-  ContactFields,
   SidebarRouter,
   View,
   ViewManager
@@ -28,6 +27,8 @@ angular.module('interloop.contactsCtrl', [])
 
 // BINDABLES
 //===========================================
+  var currentEntity = $state.current.data.currentEntity;
+  var currentEntityPlural = $state.current.data.currentEntityPlural;
   
   //vars
   //----------------------
@@ -36,15 +37,15 @@ angular.module('interloop.contactsCtrl', [])
   var query = $location.search().query || null;
   var count = $location.search().count || 0;
   var backUrl = $location.search().backUrl || null;
-  var oppId = $location.search().id || null;
+  var recordId = $location.search().id || null;
   var viewFilters = null;
 
   var initialSortModel = [];
   //data
   //----------------------
   $scope.data = {};
-  $scope.data.currentEntity = "Contact";
-  $scope.data.currentEntityPlural = "Contacts";
+  $scope.data.currentEntity = currentEntity;
+  $scope.data.currentEntityPlural = currentEntityPlural;
   $scope.data.lookupUsers = false;
   $scope.data.activated = false;
   $scope.data.drawerOpen = false;
@@ -136,14 +137,14 @@ function activate() {
 
   //Get All Views for List
   //------------------------------------------
-  return View.find({"filter": {"where": {"entity": "Contact"}}}).$promise
+  return View.find({"filter": {"where": {"entity": currentEntity}}}).$promise
           .then(function(results){
             //set views into scope
             $scope.data.views = results;
 
           //Get Current View
           //------------------------------------------
-          return ViewManager.getThisView('Contact', $scope.data.views, $stateParams.viewId, query, count)
+          return ViewManager.getThisView(currentEntity, $scope.data.views, $stateParams.viewId, query, count)
               .then(function(results){
                 //set this view
                 $scope.data.thisView = results;
@@ -163,13 +164,13 @@ function activate() {
 
 
                 //whether to show default toggle
-                if($scope.data.thisView.id == $rootScope.activeUser.defaultViews['Contact']) {
+                if($scope.data.thisView.id == $rootScope.activeUser.defaultViews[currentEntity]) {
                   $scope.data.default = true;
                 }
 
                 //Init Grid
                 //------------------------------------------
-                return gridManager.initGrid('Contact', $scope.data.thisView)
+                return gridManager.initGrid(currentEntity, $scope.data.thisView)
                   .then(function(results){
                     //grid instance
                     $scope.data.grid = results;
@@ -181,12 +182,12 @@ function activate() {
                       viewFilters = angular.copy($scope.data.thisView.filters) || [];
                       //custom fields
                       var customFields = _.filter($rootScope.customFields,function(o){
-                        return _.includes(o.useWith, 'Contact') && o.type !== 'divider';
+                        return _.includes(o.useWith, currentEntity) && o.type !== 'divider';
                       })
                       //end fields
                       var endFields = EndFields || [];
                       //set up fields for filters
-                      var fields = _.union(ContactFields, customFields, endFields);
+                      var fields = _.union($injector.get(currentEntity + 'Fields'), customFields, endFields);
                       //create filters
                       $scope.data.filters = initialFilters(viewFilters, fields);
 
@@ -206,19 +207,19 @@ function activate() {
 
                       //if link to individual opp - open sidebar
                       //--------------------------------------
-                      if(oppId) {
+                      if(recordId) {
                         //open sidebar
-                        SidebarRouter.openTo('Contact', oppId)
+                        SidebarRouter.openTo(currentEntity, recordId)
                       }
 
-                    },250);
+                    },500);
                 })
           })
   })
   .catch(function(err){
     Logger.log(err);
     //otherwise go to the default view for the user - would think most times this would work
-    $state.go('app.contacts', {viewId: 'default'});
+    $state.go('app.' + _.lowerCase(currentEntityPlural), {viewId: 'default'});
   })
 }
 //-------------------------------------------
@@ -310,7 +311,7 @@ Save View
 function saveView() {
   var viewDetails = {
       name: $scope.data.thisView.name,
-      entity: 'Contact',
+      entity: currentEntity,
       query: angular.toJson(gridManager.getCurrentQuery()),
       filters: getFilters(),
       columnState: gridManager.getColumnState(),
@@ -334,7 +335,7 @@ function saveView() {
 Discard Changes
 */
 function discardChanges() {
-  $scope.data.filters = initialFilters(viewFilters, _.union(ContactFields, EndFields))
+  $scope.data.filters = initialFilters(viewFilters, _.union($injector.get(currentEntity + 'Fields'), EndFields))
   //set filter cahnged to false
   $scope.data.filterChanged = false;
   //update grid
@@ -349,7 +350,7 @@ function saveViewAs() {
     console.log(gridManager.getColumnState());
     //get view details
     var resolvedData = {
-        entity: 'Contact',
+        entity: currentEntity,
         query: gridManager.getCurrentQuery(),
         filters: getFilters(),
         columnState: gridManager.getColumnState(),
@@ -414,12 +415,12 @@ Bulk Create View - Same as regular save as view but using buildBuilQuery to get 
 function bulkCreateView(){
     console.log('bulk create view;')
 
-    //creates static view that only includes these particular contacts
+    //creates static view that only includes these particular records
     var query = buildBulkQuery();
 
       //get view details
     var resolvedData = {
-        entity: 'Contact',
+        entity: currentEntity,
         query: buildBulkQuery(),
         filters: getFilters(),
         columnState: gridManager.getColumnState(),
@@ -573,13 +574,13 @@ function getLookupValue(filter, entityType, searchVal){
 
   //Switch based on entity type
   switch(entityType) {
-    case 'Contact':
+    case currentEntity:
         var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
         break;
     case 'Company':
         var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'domain']}
         break;
-    case 'Contact':
+    case currentEntity:
         var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryCompany', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
         break;
     case 'Appuser':
@@ -687,7 +688,7 @@ function changeView(view) {
   //close sideapnel
   $rootScope.filterPanelOpen = false;
   // change view
-  $state.go('app.contacts', {"viewId": view.id}, {reload: 'app.contacts'});
+  $state.go('app.' + _.lowerCase(currentEntityPlural), {"viewId": view.id}, {reload: 'app.' + _.lowerCase(currentEntityPlural) });
 }
 
 /*
@@ -730,7 +731,7 @@ Export To Excel
 */
 function exportView() {
   var resolvedData = {
-    entityModel: 'Contact',
+    entityModel: currentEntity,
     view: $scope.data.thisView,
     columns: $scope.data.columns 
   };
@@ -789,12 +790,12 @@ Set Unset Default View
 */
 function setUnsetDefault(value){
   if(value == true) {
-      ViewManager.setDefault($scope.data.thisView, 'Contact')
+      ViewManager.setDefault($scope.data.thisView, currentEntity)
       .then(function(){
         $scope.data.default = true;
       })
   } else {
-     ViewManager.clearDefault($scope.data.thisView, 'Contact')
+     ViewManager.clearDefault($scope.data.thisView, currentEntity)
       .then(function(){
         $scope.data.default = false;
       }) 
@@ -806,7 +807,7 @@ Assign
 */
 function bulkAssign() {
   var resolveData = {
-    entity: 'Contact',
+    entity: currentEntity,
     query: buildBulkQuery()
   };
 
@@ -821,7 +822,7 @@ Edit
 function bulkEdit() {
   //resolved information
   var resolveData = {
-    entity: 'Contact',
+    entity: currentEntity,
     query: buildBulkQuery()
   };
 
@@ -835,7 +836,7 @@ function bulkTag() {
   console.log(buildBulkQuery())
   //resolved information
   var resolveData = {
-    currentEntity: 'Contact',
+    currentEntity: currentEntity,
     query: buildBulkQuery()
   };
   //open bulk tag modal
@@ -864,7 +865,7 @@ Export
 */
 function bulkExport() {
   var resolveData = {
-    currentEntity: 'Contact',
+    currentEntity: currentEntity,
     query: buildBulkQuery(),
     columns: $scope.data.columns 
   };
@@ -878,7 +879,7 @@ Edit
 function bulkDelete() {
   //resolved information
   var resolveData = {
-    currentEntity: 'Contact',
+    currentEntity: currentEntity,
     query: buildBulkQuery()
   };
 
@@ -1131,7 +1132,7 @@ function focusSelect(string){
 // EVENTS
 //===========================================
 //WHEN NEW RECORD CREATED - REACTIVATE ON BEHALF OF USER
-$scope.$on('NEW_OPPORTUNITY_CREATED', function(event, args) {
+$scope.$on('NEW_' + _.upperCase(currentEntity) + '_CREATED', function(event, args) {
     activate();
 });
 

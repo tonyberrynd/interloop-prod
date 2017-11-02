@@ -1,0 +1,18 @@
+<div>
+      <button class="btn btn-link close-sharelink" ng-click="data.shareLinkOpen = false;">
+        <img src="../assets/img/icons/states/close.svg" alt="Close">
+      </button>
+
+      <div class="form-group" style="width:250px;">
+        <label>Record Url:</label>
+        <input type="text" ng-model="data.copyUrl" class="form-control" readonly focus-select>
+        <br>
+        <label>Record ID:</label>
+        <input type="text" ng-model="data.thisRecord.id" class="form-control" readonly>
+      </div>
+      </div>
+      
+      <div class="show-full-record" ng-if="$root.activeUser.superAdmin">
+        <button class="btn btn-block btn-default" ng-click="showFullRecord()"><icon class="wb-eye"></icon> View Full Record</button>
+      </div>
+</div>

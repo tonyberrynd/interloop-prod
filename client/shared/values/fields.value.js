@@ -189,7 +189,7 @@ angular.module('interloop.value.fields', [])
 		//new form
 		"excludeNew": false,
 		"newClass": "col-xs-12",
-		"required": true,
+		"newRequired": true,
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -238,7 +238,7 @@ angular.module('interloop.value.fields', [])
 		//new form
 		"excludeNew": false,
 		"newClass": "col-xs-6",
-		"required": true,
+		"newRequired": true,
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -972,7 +972,7 @@ angular.module('interloop.value.fields', [])
 		"excludeNew": false,
 		"newClass": "col-xs-6",
 	    //grid specifics
-		"required": true,
+		"newRequired": true,
 	    "excludeGrid": true,
 		"hide": false,
 		"width": 200,
@@ -1205,6 +1205,7 @@ angular.module('interloop.value.fields', [])
 	    //new form
 	    "excludeNew": false,
 		"newClass": "col-xs-12",
+		"newRequired": true,
 	   	//grid
 	    "excludeGrid": false,
     	"hide": false,

@@ -2,9 +2,9 @@
    Starter Controller Setup
    ========================================================================== */
 
-angular.module('interloop.contactEditCtrl', [])
+angular.module('interloop.recordEditCtrl', [])
 //declare dependencies
-.controller('contactEditCtrl', function(
+.controller('recordEditCtrl', function(
 	$scope,
 	$stateParams,
 	$rootScope,

@@ -155,6 +155,16 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Share Record With'
     },
 
+
+    //new activity modal
+    newEntity: {
+        templateUrl: 'shared/modals/newEntity/newEntity.tpl.html',
+        controller: 'newEntityCtrl',
+        size: 'md',
+        ariaLabelledBy: 'New Record',
+        ariaDescribedBy: 'Create a new record'
+    },
+
     //submit forecast
     submitForecast: {
         templateUrl: 'shared/modals/submitForecast/submitForecast.tpl.html',

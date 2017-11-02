@@ -1,0 +1,28 @@
+  <div class="modal-header header-dark  new-record"">
+            <h3 class="modal-title" id="modal-title">New {{data.currentEntity}}</h3>
+            
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
+
+        </div>
+        <div class="modal-body w-padding" id="modal-body">
+
+            <div class="row">
+              <div class="col-xs-9">
+                  <form name="newRecordForm" novalidate autocomplete="off">
+                    <span ng-include="'shared/templates/entity-new.tpl.html'"></span>
+                  </form>
+              </div>
+              <div class="col-xs-3">
+                 <span ng-include="'shared/templates/owners-related.tpl.html'"></span>
+              </div>
+              </div>
+
+          </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="newRecordForm.$invalid" ladda="data.processing" data-style="slide-up">Create Record</button>
+        </div>

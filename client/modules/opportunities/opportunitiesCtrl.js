@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Opportunities Ctrl
+   List View Ctrl
    ========================================================================== */
 
 angular.module('interloop.opportunitiesCtrl', [])
@@ -28,6 +28,8 @@ angular.module('interloop.opportunitiesCtrl', [])
 
 // BINDABLES
 //===========================================
+  var currentEntity = "Opportunity";
+  var currentEntityPlural = "Opportunities";
   
   //vars
   //----------------------
@@ -43,8 +45,8 @@ angular.module('interloop.opportunitiesCtrl', [])
   //data
   //----------------------
   $scope.data = {};
-  $scope.data.currentEntity = "Opportunity";
-  $scope.data.currentEntityPlural = "Opportunities";
+  $scope.data.currentEntity = currentEntity;
+  $scope.data.currentEntityPlural = currentEntityPlural;
   $scope.data.lookupUsers = false;
   $scope.data.activated = false;
   $scope.data.drawerOpen = false;
@@ -83,6 +85,7 @@ angular.module('interloop.opportunitiesCtrl', [])
   $scope.bulkDelete = bulkDelete;
   $scope.bulkEdit = bulkEdit;
   $scope.bulkExport = bulkExport;
+  $scope.bulkEmail = bulkEmail;
   $scope.bulkTag = bulkTag;
   $scope.changeContext = changeContext;
   $scope.changeLocalSearch = changeLocalSearch;
@@ -135,14 +138,14 @@ function activate() {
 
   //Get All Views for List
   //------------------------------------------
-  return View.find({"filter": {"where": {"entity": "Opportunity"}}}).$promise
+  return View.find({"filter": {"where": {"entity": currentEntity}}}).$promise
           .then(function(results){
             //set views into scope
             $scope.data.views = results;
 
           //Get Current View
           //------------------------------------------
-          return ViewManager.getThisView('Opportunity', $scope.data.views, $stateParams.viewId, query, count)
+          return ViewManager.getThisView(currentEntity, $scope.data.views, $stateParams.viewId, query, count)
               .then(function(results){
                 //set this view
                 $scope.data.thisView = results;
@@ -162,13 +165,13 @@ function activate() {
 
 
                 //whether to show default toggle
-                if($scope.data.thisView.id == $rootScope.activeUser.defaultViews['Opportunity']) {
+                if($scope.data.thisView.id == $rootScope.activeUser.defaultViews[currentEntity]) {
                   $scope.data.default = true;
                 }
 
                 //Init Grid
                 //------------------------------------------
-                return gridManager.initGrid('Opportunity', $scope.data.thisView)
+                return gridManager.initGrid(currentEntity, $scope.data.thisView)
                   .then(function(results){
                     //grid instance
                     $scope.data.grid = results;
@@ -180,7 +183,7 @@ function activate() {
                       viewFilters = angular.copy($scope.data.thisView.filters) || [];
                       //custom fields
                       var customFields = _.filter($rootScope.customFields,function(o){
-                        return _.includes(o.useWith, 'Opportunity') && o.type !== 'divider';
+                        return _.includes(o.useWith, currentEntity) && o.type !== 'divider';
                       })
                       //end fields
                       var endFields = EndFields || [];
@@ -207,7 +210,7 @@ function activate() {
                       //--------------------------------------
                       if(oppId) {
                         //open sidebar
-                        SidebarRouter.openTo('Opportunity', oppId)
+                        SidebarRouter.openTo(currentEntity, oppId)
                       }
 
                     },250);
@@ -217,7 +220,7 @@ function activate() {
   .catch(function(err){
     Logger.log(err);
     //otherwise go to the default view for the user - would think most times this would work
-    $state.go('app.opportunities', {viewId: 'default'});
+    $state.go('app.' + currentEntityPlural, {viewId: 'default'});
   })
 }
 //-------------------------------------------
@@ -309,7 +312,7 @@ Save View
 function saveView() {
   var viewDetails = {
       name: $scope.data.thisView.name,
-      entity: 'Opportunity',
+      entity: currentEntity,
       query: angular.toJson(gridManager.getCurrentQuery()),
       filters: getFilters(),
       columnState: gridManager.getColumnState(),
@@ -348,7 +351,7 @@ function saveViewAs() {
     console.log(gridManager.getColumnState());
     //get view details
     var resolvedData = {
-        entity: 'Opportunity',
+        entity: currentEntity,
         query: gridManager.getCurrentQuery(),
         filters: getFilters(),
         columnState: gridManager.getColumnState(),
@@ -386,42 +389,46 @@ function deleteView(){
 Build Bulk Query
 */
 function buildBulkQuery(){
+  var paginationSize = gridManager.getPaginationSize();
   var isSelectAllOn = angular.copy($scope.data.selectedData.selectAll);
   //if select all is selected - everything minus those unselected
-  if(isSelectAllOn){
-
+  if(isSelectAllOn && $scope.data.selectedData.length > paginationSize){
     var currentQuery = _.get($scope.data.thisView, 'query.where', null) || {};
-    var bulkQuery = {"filter": {"where": {"and": [{"id": {"nin": _.map($scope.data.selectedData.items, 'id')}}, currentQuery ]}}};
-    
-    console.log('bulkQuery', bulkQuery);
-
+    var bulkQuery = {"where": {"and": [{"id": {"nin": _.map($scope.data.selectedData.items, 'id')}}, currentQuery ]}};
     return bulkQuery;
   } 
+  else if(isSelectAllOn && $scope.data.selectedData <= paginationSize){
+     var bulkQuery = { "where" : {"id" : {"inq" : _.map(gridManager.getSelectedRows(), 'id')}}};
+    console.log('bulkQuery', bulkQuery);
+    return bulkQuery;
+
+  }
   else {
-    var bulkQuery = {"filter": { "where" : {"id" : {"inq" : _.map($scope.data.selectedData.items, 'id')}}}};
+    var bulkQuery = { "where" : {"id" : {"inq" : _.map(gridManager.getSelectedRows(), 'id')}}};
     console.log('bulkQuery', bulkQuery);
     return bulkQuery;
   }
 }
 
 /*
-Bulk Create View
+Bulk Create View - Same as regular save as view but using buildBuilQuery to get appropriate query
 */
 function bulkCreateView(){
     console.log('bulk create view;')
 
-    //creates static view that only includes these particular opportunities
+    //creates static view that only includes these particular records
     var query = buildBulkQuery();
 
       //get view details
     var resolvedData = {
-        entity: 'Opportunity',
-        query: query,
-        filters: null,
+        entity: currentEntity,
+        query: buildBulkQuery(),
+        filters: getFilters(),
         columnState: gridManager.getColumnState(),
-        sortModel: null,
-        static: false
+        sortModel: gridManager.getSortModel(),
+        matchType: $scope.data.filterMatches
     };
+
 
     //open modal
     var saveViewModal = modalManager.openModal('createView', resolvedData);
@@ -568,13 +575,13 @@ function getLookupValue(filter, entityType, searchVal){
 
   //Switch based on entity type
   switch(entityType) {
-    case 'Contact':
+    case currentEntity:
         var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
         break;
     case 'Company':
         var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'domain']}
         break;
-    case 'Opportunity':
+    case currentEntity:
         var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryCompany', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
         break;
     case 'Appuser':
@@ -677,10 +684,12 @@ function removeGroup(group) {
 Changes View
 */
 function changeView(view) {
+  //ensure slected records are cleared
+  gridManager.clearSelected();
   //close sideapnel
   $rootScope.filterPanelOpen = false;
   // change view
-  $state.go('app.opportunities', {"viewId": view.id}, {reload: 'app.opportunities'});
+  $state.go('app.' + currentEntityPlural, {"viewId": view.id}, {reload: 'app.' + currentEntityPlural});
 }
 
 /*
@@ -723,7 +732,7 @@ Export To Excel
 */
 function exportView() {
   var resolvedData = {
-    entityModel: 'Opportunity',
+    entityModel: currentEntity,
     view: $scope.data.thisView,
     columns: $scope.data.columns 
   };
@@ -782,12 +791,12 @@ Set Unset Default View
 */
 function setUnsetDefault(value){
   if(value == true) {
-      ViewManager.setDefault($scope.data.thisView, 'Opportunity')
+      ViewManager.setDefault($scope.data.thisView, currentEntity)
       .then(function(){
         $scope.data.default = true;
       })
   } else {
-     ViewManager.clearDefault($scope.data.thisView, 'Opportunity')
+     ViewManager.clearDefault($scope.data.thisView, currentEntity)
       .then(function(){
         $scope.data.default = false;
       }) 
@@ -799,27 +808,13 @@ Assign
 */
 function bulkAssign() {
   var resolveData = {
-    entity: 'Opportunity',
-    query: gridManager.getCurrentQuery()
+    entity: currentEntity,
+    query: buildBulkQuery()
   };
+
   //open bulk assign modal
   var bulkAssignModal = modalManager.openModal('bulkAssign', resolveData);
 
-      bulkAssignModal.result.then(function(results){
-
-        //need to create custom remote hook
-        return Opportunity.bulkAssign(query, owners).$promise
-                .then(function(results){
-                   //refresh view
-                   refreshView();
-                   //log
-                   Logger.info('Succesfully assigned owners');
-                })
-                .catch(function(err){
-                  Logger.error('Error assigning owners', 'Please try again in a moment');
-                })
-
-      })
 }
 
 /*
@@ -828,8 +823,8 @@ Edit
 function bulkEdit() {
   //resolved information
   var resolveData = {
-    entity: 'Opportunity',
-    query: gridManager.getCurrentQuery()
+    entity: currentEntity,
+    query: buildBulkQuery()
   };
 
   modalManager.openModal('bulkEdit', resolveData);
@@ -839,10 +834,11 @@ function bulkEdit() {
 Bulk Tag
 */
 function bulkTag() {
+  console.log(buildBulkQuery())
   //resolved information
   var resolveData = {
-    entity: 'Opportunity',
-    query: gridManager.getCurrentQuery()
+    currentEntity: currentEntity,
+    query: buildBulkQuery()
   };
   //open bulk tag modal
   modalManager.openModal('bulkTag', resolveData);
@@ -853,13 +849,9 @@ Bulk Email - Only Can Be Done for less than 30 Emails Right Noe - Look to mailch
 */
 function bulkEmail() {
 
-    console.log(gridManager.getSelectedRows());
-
     var emailAddresses = _.map(gridManager.getSelectedRows(), function(value, key){
       return value.emailAddresses.length ? value.emailAddresses[0].value : null;
     })
-
-    console.log(emailAddresses);
 
     if(!emailAddresses.length){
       Logger.error('No Emails for selected Records');
@@ -874,8 +866,8 @@ Export
 */
 function bulkExport() {
   var resolveData = {
-    currentEntity: 'Opportunity',
-    query: gridManager.getCurrentQuery(),
+    currentEntity: currentEntity,
+    query: buildBulkQuery(),
     columns: $scope.data.columns 
   };
   //exoprt data
@@ -888,8 +880,8 @@ Edit
 function bulkDelete() {
   //resolved information
   var resolveData = {
-    entity: 'Opportunity',
-    query: gridManager.getCurrentQuery()
+    currentEntity: currentEntity,
+    query: buildBulkQuery()
   };
 
   //open modal
@@ -1051,6 +1043,10 @@ function clearFilter(field) {
     field.filterActive = false;
 
   }
+
+  //need to remove selected if changing query
+  gridManager.clearSelected();
+
   //update grid to reflect changes
   updateGrid();
 
@@ -1136,10 +1132,16 @@ function focusSelect(string){
 
 // EVENTS
 //===========================================
+//WHEN NEW RECORD CREATED - REACTIVATE ON BEHALF OF USER
+$scope.$on('NEW_OPPORTUNITY_CREATED', function(event, args) {
+    activate();
+});
+
+
+//NEED TO CHECK VIEW FOR DIFFERENCES
 $scope.$on('SORT_MODEL_CHANGED', function(event, args) {
     checkDifferences();
 });
-
 
 $scope.$on('COLUMN_MOVED', function(event, args){
     checkDifferences()
@@ -1156,6 +1158,9 @@ $scope.$on('COLUMN_PINNED', function(event, args){
 $scope.$on('COLUMN_VISIBLE', function(event, args){
     checkDifferences()
 })
+$scope.$on('SORT_MODEL_CHANGED', function(event, args) {
+    checkDifferences();
+});
 //-------------------------------------------
 
 // WATCHES
