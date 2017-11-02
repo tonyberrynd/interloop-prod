@@ -1133,7 +1133,7 @@ function focusSelect(string){
 //===========================================
 //WHEN NEW RECORD CREATED - REACTIVATE ON BEHALF OF USER
 $scope.$on('NEW_' + _.upperCase(currentEntity) + '_CREATED', function(event, args) {
-    activate();
+  activate();
 });
 
 

@@ -181,7 +181,7 @@
                           </div>
                         </div>
                         <div class="add-related-footer" ng-if="!(data.results | filter: data.searchRelated ).length && data.searchRelated ">
-                         <button class="btn btn-block btn-subtle text-center" ng-click="data.createNewCollapse = !data.createNewCollapse">
+                         <button class="btn btn-block btn-primary text-center" ng-click="data.createNewCollapse = !data.createNewCollapse">
                            <span class="text-topaz">Create New
                             <icon class="wb-chevron-down-mini" ng-if="!data.createNewCollapse"></icon>
                             <icon class="wb-chevron-up-mini" ng-if="data.createNewCollapse"></icon>
@@ -192,13 +192,13 @@
 
                           <div id="createNew" class="create-new" uib-collapse="!data.createNewCollapse">
                             <button class="btn btn-block btn-default" ng-click="newEntity('Opportunity')" feature-flag="--FF_MODULE_OPPORTUNITIES--">
-                              + Opportunity
+                              + New Opportunity
                             </button>
                              <button class="btn btn-block btn-default" ng-click="newEntity('Contact')" feature-flag="--FF_MODULE_CONTACTS--">
-                              + Contact
+                              + New Contact
                             </button>
                              <button class="btn btn-block btn-default" ng-click="newEntity('Company')" feature-flag="--FF_MODULE_COMPANIES--">
-                              + Company
+                              + New Company
                             </button>
                           </div>
                         </div>

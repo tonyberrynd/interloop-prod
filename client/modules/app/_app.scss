@@ -360,7 +360,6 @@ address .btn.editAddress {
 
     .add-related-footer {
        
-       border-top:solid 1px $border;
        .btn-subtle {
         color:$topaz !important;
        }
@@ -469,6 +468,12 @@ trix-toolbar { display: none; }
 }
 
 .modal-body {
+
+    .ui-select-bootstrap {
+        * {
+            transition:none !important;
+        }
+    }
     .ui-select-bootstrap > .ui-select-no-choice li {
         padding:0px;
     }
@@ -483,7 +488,40 @@ trix-toolbar { display: none; }
             padding:0px !important;
         }
     }
-}
+
+    .ui-select-container:focus {
+        input {
+            border:solid 2px $topaz;
+        }
+    }
+    }
+
+    .single-select.hasValue {
+        .ui-select-bootstrap .ui-select-toggle i.caret {
+            display: none !important;
+        }
+
+        .ui-select-toggle a.btn {
+            display: block !important;
+            margin-top:0px;
+            right:10px;
+            margin-right:0px !important;
+
+            i {
+                color:$slate;
+
+                &::after {
+                    content: 'Remove';
+                    display: inline-block;
+                    margin-left:5px;
+                    transform:translateY(-2px);
+                    font-family:$font-main;
+                    font-weight:700;
+                    font-size:13px;
+                }
+            }
+        }
+    }
 
 .modal[data-bootstrap-modal-aria-hidden-count] {
     display: none !important;

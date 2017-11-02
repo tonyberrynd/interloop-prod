@@ -142,7 +142,7 @@
                                 <span class="required-field" ng-if="field.newRequired">*</span>
                                 <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
-                                <div class="single-select">
+                                <div class="single-select"  ng-class="{'hasValue': data.thisRecord[field.key]}">
                                     <ui-select allow-clear="true" ng-model="data.thisRecord[field.key]" theme="bootstrap">
                                        <ui-select-match placeholder="Search...">
                                                 <span ng-switch="field.lookupEntity">
@@ -174,7 +174,7 @@
                                                     </span>
                                                 </span>
                                               </ui-select-match>
-                                              <ui-select-choices repeat="item in data.lookupResults | orderBy:['name', 'firstName'] track by $index" refresh="getLookupValue(null, field.lookupEntity, $select.search)"" refresh-delay="250" group-by="'field.lookupEntity'" minimum-input-length="1">
+                                              <ui-select-choices repeat="item in data.lookupResults | orderBy:['name', 'firstName'] track by $index" refresh="getLookupValue(null, field.lookupEntity, $select.search)"" refresh-delay="0" group-by="'field.lookupEntity'" minimum-input-length="1">
                                                         <span ng-switch="field.lookupEntity">
                                                         <!-- Contact/User -->
                                                         <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
@@ -209,10 +209,10 @@
                                                       </span>
                                                       </ui-select-choices>
                                                        <ui-select-no-choice>
-                                                            <span class="loading" ng-if="data.loadingResults">
-                                                                  <div class="loop-loader loop-loader-xs">Loading...</div>
-                                                                </span>
-                                                                <span class="no-results" ng-if="!(data.lookupResults | filter: $select.search).length && !data.serverError && !data.loadingResults">
+                                                        <span class="loading" ng-if="data.loadingResults">
+                                                            <div class="loop-loader loop-loader-xs">Loading...</div>
+                                                          </span>
+                                                            <span class="no-results" ng-if="!(data.lookupResults | filter: $select.search).length && !data.serverError && !data.loadingResults && $select.search">
                                                           No Results Found Matching <b>"{{$select.search}}"</b>
                                                           </span>
                                                           <span class="server-error" ng-if="!(data.lookupResults | filter: $select.search).length && data.serverError && !data.loadingResults">
@@ -496,7 +496,7 @@
                                 <span class="required-field" ng-if="field.newRequired">*</span>
                                 <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                               </label>
-                                <div class="single-select">
+                                <div class="single-select" ng-class="{'hasValue': data.thisRecord[field.key]}">
                                     <ui-select allow-clear="true" ng-model="data.thisRecord[field.key]" theme="bootstrap">
                                        <ui-select-match placeholder="Search...">
                                                 <span ng-switch="field.lookupEntity">
@@ -528,7 +528,7 @@
                                                     </span>
                                                 </span>
                                               </ui-select-match>
-                                              <ui-select-choices repeat="item in data.lookupResults | orderBy:['name', 'firstName'] track by $index" refresh="getLookupValue(null, field.lookupEntity, $select.search)"" refresh-delay="250" group-by="'field.lookupEntity'" minimum-input-length="1">
+                                              <ui-select-choices repeat="item in data.lookupResults | orderBy:['name', 'firstName'] track by $index" refresh="getLookupValue(null, field.lookupEntity, $select.search)"" refresh-delay="0" group-by="'field.lookupEntity'" minimum-input-length="1">
                                                         <span ng-switch="field.lookupEntity">
                                                         <!-- Contact/User -->
                                                         <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">

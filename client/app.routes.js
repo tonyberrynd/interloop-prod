@@ -756,11 +756,15 @@ angular.module('interloop.routes', [])
       views: {
           'sidepanel-content@app': {
             templateUrl: 'shared/templates/entity-edit.tpl.html',
-            controller: 'activityEditCtrl'
+            controller: 'recordEditCtrl'
           }
       },
       params: {
         id: null,
+      },
+      data: {
+        currentEntity: 'Activity',
+        currentEntityPlural: 'Activities'
       }
    });
 

@@ -2,10 +2,10 @@
    New Contact Modal
    ========================================================================== */
 
-angular.module('interloop.newEntityCtrl', [])
+angular.module('interloop.newActivityCtrl', [])
 
 //declare dependencies
-.controller('newEntityCtrl', function(
+.controller('newActivityCtrl', function(
   $http,
   $injector,
   $q,

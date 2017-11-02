@@ -175,6 +175,7 @@ angular.module('interloop.config', [])
   $stickyState,
   $intercom,
   Appuser,
+  gridManager,
   Logger,
   authService,
   SidebarRouter,
@@ -412,6 +413,9 @@ angular.module('interloop.config', [])
         //Close Sidebar if navigating to new state
         //-----------------------
         if(toState.data && toState.data.mainState) {
+          //should bring local search when switching main states
+          gridManager.setLocalSearch('');
+          // ensure detail panel closes
           $rootScope.sidePanelOpen = false;
         }
 

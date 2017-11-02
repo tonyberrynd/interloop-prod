@@ -1,7 +1,7 @@
 .toast-title {
   font-weight: bold;
   margin-top:5px;
-  margin-bottom:5px;
+  margin-bottom:3px;
   font-weight:400;
 }
 .toast-message {
@@ -16,7 +16,7 @@
 
 .toast .dismiss {
   position:absolute;
-  right:10px;
+  right:15px;
   top:12px;
   color:#fff;
   opacity: .95;
@@ -130,7 +130,7 @@ button.toast-close-button {
   -moz-border-radius: 3px 3px 3px 3px;
   -webkit-border-radius: 3px 3px 3px 3px;
   border-radius: 3px 3px 3px 3px;
-  background-position: 10px 10px;
+  background-position: 16px 12px;
   background-repeat: no-repeat;
   // box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   color: #fff;
@@ -205,8 +205,8 @@ div[toast].ng-enter.ng-enter-active {
 div[toast].ng-leave {
   opacity: 1;
   transition: opacity .3s linear;
-  animation: .4s toastSlideOut;
-  -webkit-animation: .4s toastSlideOut;
+  // animation: .4s toastSlideOut;
+  // -webkit-animation: .4s toastSlideOut;
 }
 div[toast].ng-leave.ng-leave-active {
   opacity: 0 !important;

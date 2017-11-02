@@ -10,10 +10,8 @@ angular.module('interloop.recordEditCtrl', [])
 	$rootScope,
 	$injector,
 	$state,
-	Contact,
 	Logger,
 	modalManager,
-	ContactFields,
 	EndFields,
 	socialTypes,
 	emailTypes,
@@ -25,6 +23,7 @@ angular.module('interloop.recordEditCtrl', [])
 	//Vars
 	//---------------------
 	var currentEntity = angular.copy($state.current.data.currentEntity);
+	var currentEntityPlural = angular.copy($state.current.data.currentEntityPlural);
 
 	//data
 	//----------------------
@@ -36,7 +35,7 @@ angular.module('interloop.recordEditCtrl', [])
 	$scope.data.phoneTypes = phoneTypes;
 
 	//get fields
-	$scope.data.fields = ContactFields;
+	$scope.data.fields = $injector.get(currentEntity + 'Fields');
 
 	//custom fields
 	$scope.data.customFields = _.filter($rootScope.customFields,function(o){
@@ -65,7 +64,7 @@ angular.module('interloop.recordEditCtrl', [])
 //===========================================
 function activate(){
 
-	return Contact.findOne({"filter": {"where": {"id": $stateParams.id}}}).$promise	
+	return $injector.get(currentEntity).findOne({"filter": {"where": {"id": $stateParams.id}}}).$promise	
 				.then(function(results){
 					$scope.data.thisRecord = results
 
@@ -147,7 +146,7 @@ activate()
 
 
 		//save contact
-		 return Contact.prototype$patchAttributes({"id": $scope.data.thisRecord.id}, $scope.data.thisRecord).$promise
+		 return $injector.get(currentEntity).prototype$patchAttributes({"id": $scope.data.thisRecord.id}, $scope.data.thisRecord).$promise
         .then(function(response) {
             if(!noAlert) {
               Logger.info('Record updated');

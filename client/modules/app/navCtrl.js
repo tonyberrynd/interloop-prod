@@ -256,7 +256,13 @@ function focusResult($event) {
 
 function newActivity() {
 	$mixpanel.track('NEW_ACTIVITY_MODAL');
-	var newActivityModal = modalManager.openModal('newActivity')
+
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
+
+	var newActivityModal = modalManager.openModal('newActivity', resolvedData)
 
 		newActivityModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
@@ -267,7 +273,13 @@ function newActivity() {
 //add task
 function newTask() {
 	$mixpanel.track('NEW_TASK_MODAL');
-	var newTaskModal = modalManager.openModal('newTask')
+
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
+
+	var newTaskModal = modalManager.openModal('newTask', resolvedData)
 
 		newTaskModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
@@ -278,7 +290,13 @@ function newTask() {
 //add note
 function newNote() {
 	$mixpanel.track('NEW_NOTE_MODAL');
-	var newNoteModal = modalManager.openModal('newNote')
+
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
+
+	var newNoteModal = modalManager.openModal('newNote', resolvedData)
 
 		newNoteModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
@@ -289,7 +307,13 @@ function newNote() {
 //add meeting
 function newMeeting() {
 	$mixpanel.track('NEW_MEETINGS_MODAL');
-	var newMeetingModal = modalManager.openModal('newMeeting')
+
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
+
+	var newMeetingModal = modalManager.openModal('newMeeting', resolvedData)
 
 		newMeetingModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
@@ -300,7 +324,13 @@ function newMeeting() {
 //addCall
 function logCall() {
 	$mixpanel.track('LOG_CALL_MODAL');
-	var logCallModal = modalManager.openModal('logCall')
+
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
+
+	var logCallModal = modalManager.openModal('logCall', resolvedData)
 
 		logCallModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
@@ -315,9 +345,10 @@ Create New Custom Activity
 function addActivity(activityType){
   $mixpanel.track('NEW_ACTIVITY_' + _.upperCase(activityType));
 
-  var resolvedData = {
-  	activityType: activityType
-  }
+	var resolvedData = {
+		'currentEntity': 'Activity',
+		'relatedRecords': []
+	}
 
   var customActivityModal = modalManager.openModal('customActivity', resolvedData)
 
