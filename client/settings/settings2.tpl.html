@@ -104,10 +104,11 @@
       
               </ul>
 
-              <p class="version-number">
+              <p class="version-number" ng-class="{'absolute': !$root.activeUser.admin && !$root.activeUser.superAdmin }">
                 <span>Current Version</span>
                 <br>
-                <span ng-bind="$root.version"></span></p>
+                <span ng-bind="$root.version"></span>
+             </p>
             </div>
           </div>
 
