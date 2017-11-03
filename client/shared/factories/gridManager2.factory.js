@@ -1720,6 +1720,7 @@ angular.module('interloop.factory.gridManager', [])
             }, 0)
         }
 
+    }
     /*
     Gets Row Node By Id
     */
