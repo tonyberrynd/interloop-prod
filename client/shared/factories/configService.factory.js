@@ -179,13 +179,6 @@ angular.module('interloop.factory.configService', [])
                });
 
 
-              //full story
-              //---------------------
-              FS.identify($rootScope.activeUser.id, {
-                displayName: $rootScope.activeUser.firstName + ' ' + $rootScope.activeUser.lastName,
-                email: $rootScope.activeUser.email
-              });
-
               //mixpanel
               //----------------------
               $mixpanel.identify($rootScope.activeUser.id);

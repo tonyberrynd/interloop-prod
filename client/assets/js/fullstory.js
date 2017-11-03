@@ -1,7 +1,7 @@
 window['_fs_debug'] = false;
 window['_fs_host'] = 'fullstory.com';
 window['_fs_org'] = '7GMK9';
-window['_fs_namespace'] = 'Full-Story-Recording';
+window['_fs_namespace'] = 'FULL_STORY';
 (function(m,n,e,t,l,o,g,y){
     if (e in m) {if(m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');} return;}
     g=m[e]=function(a,b){g.q?g.q.push([a,b]):g._api(a,b);};g.q=[];
