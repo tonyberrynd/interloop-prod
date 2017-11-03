@@ -223,10 +223,12 @@ function ok() {
     })
 
     //Create Entity
+    console.log('about to create this thing',currentEntity);
     $injector.get(currentEntity).create($scope.data.thisRecord).$promise
       .then(function(results){
             //recieve this record from results
             var thisRecord = results;
+            console.log('created record', thisRecord);
 
             //set this entity type in case going back to another new entity form
                 thisRecord.thisEntityType = currentEntity;

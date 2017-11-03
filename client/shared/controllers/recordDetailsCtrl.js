@@ -625,7 +625,7 @@ function triggerUpload() {
 Upload Files
 */ 
 function uploadFiles(files) {
-  SidebarActions.uploadFiles(currentEntity, $scope.data.thisRecord, files)
+  SidebarActions.uploadFiles(currentEntity, $scope.data.thisRecord, files, $scope.data.currentTab)
 }
 
 /* 

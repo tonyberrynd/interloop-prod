@@ -19946,41 +19946,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
             /**
              * @ngdoc method
-             * @name lbServices.Opportunity#insights
-             * @methodOf lbServices.Opportunity
-             *
-             * @description
-             *
-             * <em>
-             * (The remote method definition does not provide any description.)
-             * </em>
-             *
-             * @param {Object=} parameters Request parameters.
-             *
-             *  - `id` – `{string=}` -
-             *
-             * @param {function(Object,Object)=} successCb
-             *   Success callback with two arguments: `value`, `responseHeaders`.
-             *
-             * @param {function(Object)=} errorCb Error callback with one argument:
-             *   `httpResponse`.
-             *
-             * @returns {Object} An empty reference that will be
-             *   populated with the actual data once the response is returned
-             *   from the server.
-             *
-             * <em>
-             * (The remote method definition does not provide any description.
-             * This usually means the response is a `Opportunity` object.)
-             * </em>
-             */
-            "insights": {
-              url: urlBase + "/Opportunities/:id/insights",
-              method: "GET",
-            },
-
-            /**
-             * @ngdoc method
              * @name lbServices.Opportunity#duplicates
              * @methodOf lbServices.Opportunity
              *
@@ -29163,6 +29128,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *  - `filter` – `{object=}` -
              *
              *  - `includeDeleted` – `{boolean=}` -
+             *
+             *  - `includeChangelog` – `{boolean=}` -
              *
              * @param {function(Object,Object)=} successCb
              *   Success callback with two arguments: `value`, `responseHeaders`.
