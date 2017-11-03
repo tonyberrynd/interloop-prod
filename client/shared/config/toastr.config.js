@@ -38,7 +38,7 @@ angular.module('interloop.config.toastr', [])
     progressBar: false,
     tapToDismiss: true,
     templates: {
-      toast: '../assets/html/toast.tpl.html',
+      toast: 'assets/html/toast.tpl.html',
       progressbar: 'directives/progressbar/progressbar.html'
     },
     timeOut: 7500,

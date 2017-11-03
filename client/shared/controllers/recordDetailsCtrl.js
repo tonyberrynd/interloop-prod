@@ -18,6 +18,7 @@ angular.module('interloop.recordDetailsCtrl', [])
   clipboard,
   CustomField,
   gridManager,
+  Activity,
   Lightbox,
   RelationshipManager,
   SidebarActions,
@@ -93,6 +94,7 @@ angular.module('interloop.recordDetailsCtrl', [])
   $scope.openGoogleMaps = openGoogleMaps;
   $scope.copyValue = copyValue;
   $scope.showFullRecord = showFullRecord;
+  $scope.toggleActivity = toggleActivity;
 
 //-------------------------------------------
 
@@ -603,8 +605,8 @@ function addMeeting() {
 /*
 Add Activity
 */
-function addActivity() {  
-    SidebarActions.createActivity(currentEntity, $scope.data.thisRecord)
+function addActivity(activityType) {  
+    SidebarActions.createActivity(currentEntity, $scope.data.thisRecord, activityType.key)
 };
 
 /*
@@ -682,6 +684,56 @@ Lost Reason Modal
 */
 function lostReason(value, oldValue) {
   SidebarActions.lostReason($scope.data.thisRecord, value, oldValue, $root.lostReasons)
+}
+
+
+
+//toggle activity status
+
+function toggleActivity(activity, activities){
+
+  console.log(activity);
+
+  if(activity.completed){
+
+    //ensure subactivty
+    activity.completed = true;
+    activity.completedDate = moment().format();
+
+    return Activity.prototype$patchAttributes({id: activity.id}, activity).$promise
+    .then(function(results){
+        Logger.info('Completed Task');
+
+         var doubleLayerActivity = {
+          activityId: results.activityId,
+          type: activity.type,
+          completed: results.completed,
+          completedDate: results.completedDate,
+          createdBy: results.createdBy,
+          id: results.id,
+          updatedOn: results.updatedOn,
+          activity: activity
+        }
+
+        //push into record real time
+        $scope.data.thisRecord.activities.push(doubleLayerActivity);
+        $scope.data.thisRecord.activityLinks.push(doubleLayerActivity);
+
+        //get the history so its updated
+        $timeout(function(){
+            //push into history
+            $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
+            //remove from open activities
+            activities.splice( activities.indexOf(activity), 1 );
+        }, 50)
+       
+    })
+    .catch(function(err){
+      Logger.error('Error Completing Task');
+    })
+
+
+  } 
 }
 
 //-------------------------------------------

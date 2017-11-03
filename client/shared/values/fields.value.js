@@ -258,7 +258,7 @@ angular.module('interloop.value.fields', [])
 		"type": "date",
 		"columnType": "date",
 		//new form
-		"excludeNew": true,
+		"excludeNew": false,
 		"newClass": "col-xs-6",
 		"newRequired": false,
 		//grid
