@@ -1713,23 +1713,12 @@ angular.module('interloop.factory.gridManager', [])
     function setLocalSearch(value) {
     	localSearch = value;
         //resets data source now using searching route vs basic query routes
-<<<<<<< HEAD
-        $timeout(function(){
-            // grid.api.setDatasource(dataSource);
-            //TB - Added Null check and 250ms timeout to avoid api not found error
-
-            if(grid != null) grid.api.setEnterpriseDatasource(EnterpriseDatasource);
-        }, 250)
-=======
         if(grid){
             $timeout(function(){
                 // grid.api.setDatasource(dataSource);
                 grid.api.setEnterpriseDatasource(EnterpriseDatasource);
             }, 0)
         }
->>>>>>> jordan-active-development
-    	
-    }
 
     /*
     Gets Row Node By Id
