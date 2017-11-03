@@ -101,8 +101,8 @@ activate()
 	/*
 	Return to Detail Page
 	*/
-	function returnToDetails(currentEntity, currentId){
-		$state.go('app.' + _.lowerCase(currentEntity) + '-details', {id: currentId })
+	function returnToDetails(){
+		$state.go('app.' + _.lowerCase(currentEntity) + '-details', {id: $stateParams.id })
 	}
 
 
