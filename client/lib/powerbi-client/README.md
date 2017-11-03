@@ -17,17 +17,17 @@ See the [wiki](https://github.com/Microsoft/PowerBI-JavaScript/wiki) for more de
 See the [code docs](https://microsoft.github.io/PowerBI-JavaScript) for detailed information about classes, interfaces, types, etc.
 
 ## Demo
-See the [live demo](https://microsoft.github.io/PowerBI-JavaScript/demo) for sample application using the powerbi-client library in scenarios such as page navigation, applying filters, updating settings, and more.
+New [live demo](https://microsoft.github.io/PowerBI-JavaScript/demo) for sample application using the powerbi-client library in scenarios such as page navigation, applying filters, updating settings, and more.
 
 ## Installation
 
 Install via Nuget:
 
-`Install-Package Microsoft.PowerBI.JavaScript -Pre`
+`Install-Package Microsoft.PowerBI.JavaScript`
 
 Install from NPM:
 
-`npm install -save powerbi-client`
+`npm install --save powerbi-client`
 
 Install from Bower:
 
