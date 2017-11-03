@@ -521,12 +521,14 @@ angular.module('interloop.config', [])
   $rootScope.$on('$viewContentLoaded', function(event){
     //hide loading screen if needed
     //---------------------------------------------
-     if ($window.loading_screen.loaded && $window.loading_screen.finishing) {
+     if (window.loading_screen.loaded && window.loading_screen.finishing) {
         return
      } else {
         $timeout(function() {
-            $window.loading_screen.finish();
-         }, 50)
+          if(window.loading_screen){
+            window.loading_screen.finish();
+          }
+        }, 0)
     }
   })
 

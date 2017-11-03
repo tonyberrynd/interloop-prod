@@ -328,9 +328,48 @@
             border-top:solid 1px $border;
         }
 
+
+        &.activity-panel {
+            .sidepanel-cover {
+                height: 80px !important;
+
+                .task-checkbox {
+                    position:absolute;
+                    left:30px;
+
+                    .magic-checkbox + label:before {
+                        width:25px;
+                        height:25px;
+                    }
+
+                    .magic-checkbox + label:after {
+                        width:8px;
+                        height:16px;
+                        left:9px;
+                    }
+                }
+
+                .name-wrapper {
+                    margin-left:75px;
+                }
+
+                .avatar {
+                    position:absolute;
+                    left:25px;
+                    margin-top:-2px;
+                }
+            }
+
+            .sidepanel-tabs {
+                top:120px !important;
+            }
+
+            .sidepanel-content {
+                top:160px !important;
+            }
+        }
+
     }
-
-
 }
 
 
@@ -514,7 +553,7 @@ li.menu-toggle > a::before {
 }
 
 .subheader {
-    min-width:760px !important;
+    min-width:840px !important;
     // height:48px;
     // width:100%;
     // position:absolute;

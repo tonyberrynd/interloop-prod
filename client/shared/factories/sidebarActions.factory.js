@@ -569,7 +569,7 @@ angular.module('interloop.factory.sidebarActions', [])
     /* 
     Upload Files
     */ 
-    function uploadFiles(entityType, entityItem, files) {
+    function uploadFiles(entityType, entityItem, files, tabsScope) {
 
       var uploadedFiles = {};
    
@@ -589,16 +589,22 @@ angular.module('interloop.factory.sidebarActions', [])
 
               console.log('after modal results', results);
  
-              var fileActivity = {};
-              fileActivity.name = "uploaded files";
-              fileActivity.type = "file";
-              fileActivity.files = files;
-              fileActivity.completed = true;
-              fileActivity.completedDate = moment().format();
-              fileActivity.createdBy = {
-                firstName: $rootScope.activeUser.fullName,
-                initials: $rootScope.activeUser.initials
-              };
+              // var fileActivity = {};
+              // fileActivity.name = "uploaded files";
+              // fileActivity.type = "file";
+              // fileActivity.files = files;
+              // fileActivity.completed = true;
+              // fileActivity.completedDate = moment().format();
+              // fileActivity.createdBy = {
+              //   firstName: $rootScope.activeUser.fullName,
+              //   initials: $rootScope.activeUser.initials
+              // };
+
+              
+              // $timeout(function(){
+              //   entityItem.files = getFiles(entityItem.items)
+              // }, 250)
+              
 
 
               //creates activity deleted
@@ -609,6 +615,10 @@ angular.module('interloop.factory.sidebarActions', [])
                   }
                 }
               activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+
+              //change tab to related so use has a smooth experience
+              tabScope = 4;
+              //
 
           }, function(err){
             console.log('err', err);
@@ -628,12 +638,12 @@ angular.module('interloop.factory.sidebarActions', [])
     /*
     Log Call
     */
-    function createTask(entityType, entityItem) {
+    function createTask(entityType, entityItem, activityType) {
             //have to set entityType for related records
         entityItem.entityType = entityType;
 
          var resolvedData = {
-          'currentEntity': entityType,
+          'currentEntity': 'Activity',
           'relatedRecords': [entityItem],
           'activityType': 'todo'
         };
@@ -676,7 +686,7 @@ angular.module('interloop.factory.sidebarActions', [])
         entityItem.entityType = entityType;
 
          var resolvedData = {
-          'currentEntity': entityType,
+          'currentEntity': 'Activity',
           'relatedRecords': [entityItem],
           'activityType': 'call'
         };
@@ -717,7 +727,7 @@ angular.module('interloop.factory.sidebarActions', [])
         entityItem.entityType = entityType;
 
          var resolvedData = {
-          'currentEntity': entityType,
+          'currentEntity': 'Activity',
           'relatedRecords': [entityItem],
           'activityType': activityType
         };
@@ -755,8 +765,44 @@ angular.module('interloop.factory.sidebarActions', [])
     /*
     Create Activity
     */
-    function createActivity(entityType, entityItem) {
-        modalManager.openModal('newActivity');
+    function createActivity(entityType, entityItem, activityType) {
+    //have to set entityType for related records
+        entityItem.entityType = entityType;
+
+         var resolvedData = {
+          'currentEntity': 'Activity',
+          'relatedRecords': [entityItem],
+          'activityType': activityType
+        };
+
+        var activityModal = modalManager.openModal('customActivity', resolvedData);
+        var thisRecord = entityItem;
+        //
+        activityModal.result.then(function(results){
+           var thisActivity = results;
+            //build double layer activity & push into sidebar
+            var doubleLayerActivity = {
+              activityId: thisActivity.id,
+              type: activityType,
+              completed: thisActivity.completed,
+              completedDate: thisActivity.completedDate,
+              createdBy: thisActivity.createdBy,
+              id: thisActivity.id,
+              updatedOn: thisActivity.updatedOn,
+              activity: thisActivity,
+            }
+
+            //push into record real time
+            entityItem.activities.push(doubleLayerActivity);
+            entityItem.activityLinks.push(doubleLayerActivity);
+
+            //ensure gets into scope
+            $timeout(function(){
+                  entityItem.openActivities = getOpenActivities(entityItem.activities);
+                  entityItem.history = getHistory(entityItem.activities);
+              }, 10);
+
+        });
     }
 
     /*
@@ -767,7 +813,7 @@ angular.module('interloop.factory.sidebarActions', [])
         entityItem.entityType = entityType;
 
          var resolvedData = {
-          'currentEntity': entityType,
+          'currentEntity': 'Activity',
           'relatedRecords': [entityItem],
           'activityType': 'note'
         };

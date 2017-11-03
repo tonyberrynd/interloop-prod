@@ -1,5 +1,5 @@
 
-            <div class="sidepanel">
+            <div class="sidepanel activity-panel">
 
                
                 <!-- sidebar overlay -->
@@ -44,10 +44,13 @@
                           <img src="../assets/img/icons/actions/add-relationship.svg" alt="Add Relationship"> Related Records</a></li>
                         <li role="menuitem"><a href ng-click="manageTags()">
                           <img src="../assets/img/icons/actions/add-tag.svg" alt="Add Tag"> Tags</a></li>
+
+                        <span ng-class="{'hidden': data.currentEntity == 'Activity'}">
                         <li class="text-divider">
                             <span class="text">Activities...</span>
                             <span class="line"></span>
                         </li>
+                        
                         <li role="menuitem"><a href ng-click="addNote()">
                           <img src="../assets/img/icons/actions/new-note.svg" alt="Add Note"> Add Note</a></li>
                         <li role="menuitem"><a href ng-click="logCall()">
@@ -61,6 +64,7 @@
                           <img src="../assets/img/icons/actions/new-task.svg" alt="Add Task"> Add {{activityType.label}}</a></li>
 
                         
+                        </span>
 
                         <li role="menuitem"><a href ng-click="triggerUpload()">
                           <img src="../assets/img/icons/actions/add-file.svg" alt="Upload File"> Upload File</a></li>
@@ -86,12 +90,36 @@
 
                     <!-- //different activity types have different headers -->
                     <div class="name-wrapper">
+                        
+                        <!-- activity type indicators -->
+                        <div class="activity-types" ng-switch="data.thisRecord.type">
+
+                          <div class="avatar avatar-32 call-avatar tangerine " ng-switch-when="call"></div>
+                          
+                          <div class="avatar avatar-32 note-avatar clover " ng-switch-when="note"></div>
+
+                          <div class="avatar avatar-32 email-avatar sky " ng-switch-when="email"></div>
+
+                          <div class="avatar avatar-32 changelog-avatar " ng-switch-when="changelog"></div>
+
+                          <div class="task-checkbox" ng-switch-when="todo">
+                            <input class="magic-checkbox ng-scope" type="checkbox" name="layout" id="1" value="option">
+                            <label class="text ng-scope" for="1"></label>
+                          </div>
+
+                          <div class="task-checkbox" ng-switch-default>
+                            <input class="magic-checkbox ng-scope" type="checkbox" name="layout" id="1" value="option">
+                            <label class="text ng-scope" for="1"></label>
+                          </div>
+
+                        </div>
+
                         <h4 title="{{data.thisRecord.title}}">
                             <span class="color-danger" ng-if="data.thisRecord._isDeleted">[DELETED] </span>
                             <span ng-bind="data.thisRecord.title || '--'"></span>
                         </h4>
                         <p>
-                          <span ng-bind="data.thisRecord.type || '--'"></span>
+                          <span ng-bind="(data.thisRecord.type | ucfirst) || '--'"></span>
                         </p>
                     </div>
 
