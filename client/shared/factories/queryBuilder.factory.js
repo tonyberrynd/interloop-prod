@@ -17,7 +17,7 @@ angular.module('interloop.factory.queryBuilder', [])
     // MONGO MATCH NEEDS BETWEEN TO PARSE CORRECTLY     //
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    function buildQuery(currentQuery, filters, matchType) {
+    function buildQuery(currentQuery, filters, matchType, currentEntity) {
 
         console.log(filters);
 
@@ -82,7 +82,12 @@ angular.module('interloop.factory.queryBuilder', [])
                 //category
                 //---------------------
                 case 'category-includes':
-                    queryParts.push({ [filter.key + ".value"]: { "in": _.map(filter.value, 'value') }});
+                    if(currentEntity == 'Activity'){
+                        queryParts.push({ [filter.key]: { "in": _.map(filter.value, 'value') }});
+                    } else {
+                        queryParts.push({ [filter.key + ".value"]: { "in": _.map(filter.value, 'value') }});
+                    }
+                    
                 break; 
 
                 //boolean

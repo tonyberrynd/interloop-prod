@@ -148,6 +148,29 @@
   </li>
 
 
+
+   <!-- task completed -->
+  <li class="feed-item call" ng-switch-when="sit">
+    <span class="text"><div class="avatar avatar-24 sky">
+      <span ng-bind="activity.createdBy.firstName | limitTo:1"></span><span ng-bind="activity.createdBy.lastName | limitTo:1"></span>
+    </div><b><span ng-bind="activity.createdBy.firstName"></span> <span ng-bind="activity.createdBy.lastName"></span></b> completed a "SIT"</span>
+    <time class="date" datetime="{{activity.activity.completedDate | formatDate}}">
+      <span ng-bind="activity.activity.completedDate | formatDate"></span>
+    </time>
+
+    <div class="panel panel-default card todo-card" ng-click="goToItem(activity.id, 'Call')">
+            <div class="panel-body">
+                <div class="name-wrapper">
+                    <div class="avatar avatar-24 todo-avatar square sky"></div>
+                    <h4><span ng-bind="activity.activity.title"></span></h4>
+                    <p><span ng-bind-html="(activity.activity.description | limitTo: 90) || '--'"></span></p>
+                </div>
+            </div>
+        </div>
+
+  </li>
+
+
   <!-- call-->
   <li class="feed-item call" ng-switch-when="call">
     <span class="text"><div class="avatar avatar-24 sky">
@@ -172,7 +195,7 @@
 
   <!-- note  //JB - completed -->
   <li class="feed-item note" ng-switch-when="note">
-    <span class="text"><div class="avatar avatar-24" ng-class="data.createdBy.color">
+    <span class="text"><div class="avatar avatar-24">
       <span ng-bind="activity.createdBy.firstName | limitTo:1"></span><span ng-bind="activity.createdBy.lastName | limitTo:1"></span>
     </div><b><span ng-bind="activity.createdBy.firstName"></span> <span ng-bind="activity.createdBy.lastName"></span></b> added a note</span>
     <time class="date" datetime="{{activity.activity.completedDate | formatDate}}">
@@ -234,7 +257,7 @@
   <!-- //creation date -->
   <li class="feed-item" ng-if="data.historyFilter == 'all' || data.historyFilter == 'changelog'">
        <span class="text" ng-if="data.thisRecord.createdBy">
-            <div class="avatar avatar-24" ng-class="data.thisRecord.createdBy.color">
+            <div class="avatar avatar-24">
               <span ng-bind="data.thisRecord.createdBy.firstName | limitTo:1"></span><span ng-bind="data.thisRecord.createdBy.lastName | limitTo:1"></span>
             </div><b>
               <span ng-bind="data.thisRecord.createdBy.firstName"></span>

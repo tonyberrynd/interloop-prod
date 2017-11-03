@@ -248,19 +248,6 @@ angular.module('interloop.factory.gridManager', [])
               }
 
 
-              //activities shouldnt pull back changelogs or anything like that
-              //---------------------------------------
-              if(currentEntityType == 'Activity'){
-                 if(_.isNil(_.get(currentQuery.filter, 'where', null))){
-                    currentQuery.filter['where'] = { "type": {"neq":"changelog"}}
-                 } else {
-                     _.assignIn(currentQuery.filter['where'], {
-                        "type": {"neq":"changelog"}
-                    })
-                 }
-              }
-              
-
 
             //Grouping & Data
             //---------------------------------------
@@ -403,6 +390,19 @@ angular.module('interloop.factory.gridManager', [])
             // console.log($injector.get('EXCLUDE-' + currentEntityType));
             currentQuery.filter['fields'] = $injector.get('EXCLUDE-' + currentEntityType);
         }
+
+
+      //activities shouldnt pull back changelogs or anything like that
+      //---------------------------------------
+      // if(currentEntityType == 'Activity'){
+      //    if(_.isNil(_.get(currentQuery.filter, 'where', null))){
+      //       currentQuery.filter['where'] = { "type": {"neq":"changelog"}}
+      //    } else {
+      //        _.assignIn(currentQuery.filter['where'], {
+      //           "type": {"neq":"changelog"}
+      //       })
+      //    }
+      // }
 
         //execute query
         return entityModel.find(currentQuery)
@@ -1304,7 +1304,7 @@ angular.module('interloop.factory.gridManager', [])
         // grid.api.showLoadingOverlay()
 
         //set current view
-        currentQuery.filter['where'] = QueryBuilder.buildQuery(currentQuery.filter['where'], filters, matchType);
+        currentQuery.filter['where'] = QueryBuilder.buildQuery(currentQuery.filter['where'], filters, matchType, currentEntityType);
 
         //get new metadata for this query
         // var entityModel = $injector.get(currentEntityType);

@@ -1,4 +1,4 @@
 angular.module("client.env", [])
-.constant("ENV", "PRODUCTION")
+.constant("ENV", "DEVELOPMENT")
 .constant("ELECTRON", false)
-.constant("VERSION", "3.0.0Beta");
+.constant("VERSION", "3.0.0");

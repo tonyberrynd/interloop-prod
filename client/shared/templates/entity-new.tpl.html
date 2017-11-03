@@ -602,6 +602,21 @@
                                   </div>
                               </div>
 
+
+
+                              <div class="col-xs-12" ng-if="data.currentEntity == 'Activity'">
+                                  <br>
+                                  <div class="complete-task">
+                                     <div class="form-group">
+                                          <input class="magic-checkbox" type="checkbox" name="layout" id="taskCompleted" value="true" ng-model="data.thisRecord.completed">
+                                          <label class="text" for="taskCompleted" tabindex="8">
+                                            Mark As Completed
+                                          </label>
+                                      </div>
+                                    </div>
+                                    <br>
+                                </div>        
+
                             <small ng-show="newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine" class="help-block text-danger" style="margin-top:-10px;margin-bottom:10px;">{{field.label}} is ng-required="field.newRequired" .</small>
 
                         </div>

@@ -14,6 +14,9 @@ angular.module('interloop.filter.fileTypes', [])
       case 'image/jpg':
           return 'JPG Image'
           break;
+      case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+          return 'Excel Spreadsheet'
+          break;
       default:
           return 'Uploaded File'
   }
