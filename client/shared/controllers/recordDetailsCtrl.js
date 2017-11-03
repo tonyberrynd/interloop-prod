@@ -95,6 +95,7 @@ angular.module('interloop.recordDetailsCtrl', [])
   $scope.copyValue = copyValue;
   $scope.showFullRecord = showFullRecord;
   $scope.toggleActivity = toggleActivity;
+  $scope.removeOwner = removeOwner;
 
 //-------------------------------------------
 
@@ -113,6 +114,7 @@ function activate() {
         console.log('thisRecord', results)
         //basic off details
         $scope.data.thisRecord = results;
+        console.log($scope.data.thisRecord);
 
         //get primary company
         $scope.data.thisRecord.primaryCompany = RelationshipManager.getPrimary($scope.data.thisRecord.entityLinks, "Company") || null;
@@ -264,6 +266,27 @@ Test
 */
 function fileDetails(id){
   $state.go('app.file-details', {'id': id})
+}
+
+
+
+/*
+TODO - Actually Persis back to server
+*/
+function removeOwner(owner, owners){
+  console.log(owners);
+
+  $injector.get(currentEntity).owners.destroyById({
+    fk: owner.id,
+    id: $scope.data.thisRecord.id
+  }).$promise
+    .then(function(results){
+      Logger.info('Removed Owner');
+        owners.splice(owners.indexOf(owner), 1);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
 }
 
 /*
@@ -606,6 +629,7 @@ function addMeeting() {
 Add Activity
 */
 function addActivity(activityType) {  
+  console.log(activityType)
     SidebarActions.createActivity(currentEntity, $scope.data.thisRecord, activityType.key)
 };
 
@@ -664,7 +688,7 @@ function viewTagList(entityType, tag){
 Relate Entity Wizard
 */
 function manageRelationships() {
-  SidebarActions.manageRelationships(currentEntity, $scope.data.thisRecord, $scope.data.pickLists)
+  SidebarActions.manageRelationships(currentEntity, $scope.data.thisRecord)
 }; 
 
 

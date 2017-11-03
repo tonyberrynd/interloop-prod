@@ -17,6 +17,7 @@
       <p class="empty-section">No Related {{entityType.plural}}</p>
     </span>
 
+
 	<span ng-if="(data.thisRecord.entities | filter: {entityType: entityType.singular}).length" ng-repeat="relatedEntity in data.thisRecord.entities | filter: { entityType: entityType.singular }" ng-switch="entityType.singular">
 
 		<!-- contact -->
@@ -153,26 +154,25 @@
     </span>
 
 	<!-- files cards -->
-                    <div class="panel panel-default card file-card" ng-repeat="file in data.thisRecord.files | orderBy: 'createdOn' " ng-class="{'img-card': file.file.type == 'image/jpeg' || file.file.type == 'image/png'}" ng-mouseleave="file.isopen = false; console.log('mouseleave');">
+                    <div class="panel panel-default card file-card" ng-repeat="file in data.thisRecord.files | orderBy: 'createdOn' " ng-class="{'img-card': file.item.type == 'image/jpeg' || file.item.type == 'image/png'}" ng-mouseleave="file.isopen = false; console.log('mouseleave');">
                         <div class="panel-body">
                             <div class="name-wrapper">
                             <!-- img icon -->
-                            <div class="file-icon" ng-if="file.file.type !== 'image/jpeg' && file.file.type !== 'image/png'">
-                                <img ng-src="{{file.file.type | fileIcons}}" alt="{{file.file.type}}">
+                            <div class="file-icon" ng-if="file.item.type !== 'image/jpeg' && file.item.type !== 'image/png'">
+                                <img ng-src="{{file.item.type | fileIcons}}" alt="{{file.item.type}}">
                             </div>
                             <!-- img preview -->
-                            <div class="image-preview" ng-click="previewImage(file); $event.stopPropagation();">
-                            <img ng-if="file.file.type == 'image/jpeg' || file.file.type == 'image/png'" ngf-thumbnail="file.url">
+                            <div class="image-preview" ng-click="previewImage(file); $event.stopPropagation();" ng-if="file.item.type == 'image/jpeg' || file.item.type == 'image/png'">
+                            <img ngf-thumbnail="file.url">
                             </div>
 							
 							<div class="name-wrapper">
                             <!-- details -->
-                            <h4 ng-bind="file.name || '--'">Important Document</h4>
+                            <h4 ng-bind="file.item.name || '--'"></h4>
                             <p>
-                                <span ng-if="file.size" ng-bind="file.size | bytes"></span> 
-                                <span ng-if="!file.size">-- MB</span>
-                                <span class="spacer">·</span> 
-                                <span ng-bind="file.file.type | fileTypes"></span>
+                                <span ng-if="file.item.size" ng-bind="file.size | bytes"></span> 
+                                <span ng-if="file.item.size" class="spacer">·</span> 
+                                <span ng-bind="file.item.type | fileTypes"></span>
                             </p>
                             <p class="uploaded" ng-bind="file.createdOn | date:'MMM d, y h:mm a'"></p>
                             </div>

@@ -65,19 +65,15 @@
 				<span ng-bind="activity.activity.title || '--'"></span>
 				</span>
 			</h4> 
-			<p  ng-click="goTo('Activity', activity.activityId)">
+<!-- 			<p  ng-click="goTo('Activity', activity.activityId)">
 				<span ng-bind="activity.activity.owners[0].fullName || 'No Owner'"></span>
 				<span ng-if="activity.activity.owners.length > 1">+ <span ng-bind="activity.activity.owners.length - 1"></span></span>
-			</p>
+			</p> -->
 			<p ng-class="{'text-danger': activity.activity.dueDate >= data.today }"  ng-click="goTo('Activity', activity.activityId)">Due: <span ng-bind="(activity.activity.dueDate | date: 'mediumDate') || 'No Due Date'"></span></p>
 			</div>
 		</div>
 	</div>
 
-
-	<p>
-		{{data.thisRecord.openActivities}}
-	</p>
 
 	<span class="empty-add" ng-if="!data.thisRecord.openActivities.length">
       <p class="empty-section">No Open Tasks</p>
