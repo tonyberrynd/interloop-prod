@@ -21,18 +21,6 @@
             img {
                 width:16px;
             }
-
-            &.open-sidebar {
-                img {
-                    transform:translateX(2px);
-                }
-            }
-
-            &.close-sidebar {
-                img {
-                    transform:translateX(-2px);
-                }
-            }
         }
 
         .subheader-left {
