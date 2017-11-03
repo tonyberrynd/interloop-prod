@@ -467,10 +467,6 @@ angular.module('interloop.config', [])
     //------------------
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){ 
 
-    if(fromState.data && fromState.data.editState){
-      leavingEditState = false;
-    }
-
     //save that first state has been loaded 
     //--------------------------------------------
 
