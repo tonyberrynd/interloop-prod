@@ -50,6 +50,19 @@
                                       id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired"></textarea>
                                </div>
 
+
+                               <div class="form-group" ng-switch-when="domain" ng-class="{ 'has-error' : newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine }">
+                                  <label for="{{field.key}}">
+                                    <span ng-bind="field.label"></span>
+                                    <span class="required-field" ng-if="field.newRequired">*</span>
+                                    <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                                  </label>
+                                  <div class="input-group">
+                                    <span class="input-group-addon">http(s)://</span>
+                                     <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
+                                  </div>
+                                 </div>
+
                                 <!-- number -->
                                <div class="form-group" ng-switch-when="number">
                                 <label for="{{field.key}}" ng-bind="field.label"></label>
@@ -323,6 +336,18 @@
                                 <textarea class="form-control" ng-model="data.thisRecord.description" msd-elastic style="min-height:120px;"
                                       id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired"></textarea>
                                </div>
+
+                                <div class="form-group" ng-switch-when="domain" ng-class="{ 'has-error' : newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine }">
+                                  <label for="{{field.key}}">
+                                    <span ng-bind="field.label"></span>
+                                    <span class="required-field" ng-if="field.newRequired">*</span>
+                                    <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                                  </label>
+                                  <div class="input-group">
+                                    <span class="input-group-addon">http(s)://</span>
+                                     <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
+                                  </div>
+                                 </div>
 
                                 <!-- number -->
                                <div class="form-group" ng-switch-when="number">
