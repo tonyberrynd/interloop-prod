@@ -589,16 +589,22 @@ angular.module('interloop.factory.sidebarActions', [])
 
               console.log('after modal results', results);
  
-              var fileActivity = {};
-              fileActivity.name = "uploaded files";
-              fileActivity.type = "file";
-              fileActivity.files = files;
-              fileActivity.completed = true;
-              fileActivity.completedDate = moment().format();
-              fileActivity.createdBy = {
-                firstName: $rootScope.activeUser.fullName,
-                initials: $rootScope.activeUser.initials
-              };
+              // var fileActivity = {};
+              // fileActivity.name = "uploaded files";
+              // fileActivity.type = "file";
+              // fileActivity.files = files;
+              // fileActivity.completed = true;
+              // fileActivity.completedDate = moment().format();
+              // fileActivity.createdBy = {
+              //   firstName: $rootScope.activeUser.fullName,
+              //   initials: $rootScope.activeUser.initials
+              // };
+
+              
+              // $timeout(function(){
+              //   entityItem.files = getFiles(entityItem.items)
+              // }, 250)
+              
 
 
               //creates activity deleted
@@ -613,7 +619,7 @@ angular.module('interloop.factory.sidebarActions', [])
               //change tab to related so use has a smooth experience
               tabScope = 4;
               //
-              
+
           }, function(err){
             console.log('err', err);
           })
@@ -637,7 +643,7 @@ angular.module('interloop.factory.sidebarActions', [])
         entityItem.entityType = entityType;
 
          var resolvedData = {
-          'currentEntity': entityType,
+          'currentEntity': 'Activity',
           'relatedRecords': [entityItem],
           'activityType': 'todo'
         };
@@ -680,7 +686,7 @@ angular.module('interloop.factory.sidebarActions', [])
         entityItem.entityType = entityType;
 
          var resolvedData = {
-          'currentEntity': entityType,
+          'currentEntity': 'Activity',
           'relatedRecords': [entityItem],
           'activityType': 'call'
         };
@@ -721,7 +727,7 @@ angular.module('interloop.factory.sidebarActions', [])
         entityItem.entityType = entityType;
 
          var resolvedData = {
-          'currentEntity': entityType,
+          'currentEntity': 'Activity',
           'relatedRecords': [entityItem],
           'activityType': activityType
         };
@@ -764,7 +770,7 @@ angular.module('interloop.factory.sidebarActions', [])
         entityItem.entityType = entityType;
 
          var resolvedData = {
-          'currentEntity': entityType,
+          'currentEntity': 'Activity',
           'relatedRecords': [entityItem],
           'activityType': activityType
         };
@@ -807,7 +813,7 @@ angular.module('interloop.factory.sidebarActions', [])
         entityItem.entityType = entityType;
 
          var resolvedData = {
-          'currentEntity': entityType,
+          'currentEntity': 'Activity',
           'relatedRecords': [entityItem],
           'activityType': 'note'
         };

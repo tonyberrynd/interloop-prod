@@ -1131,8 +1131,10 @@ angular.module('interloop.factory.gridManager', [])
             if($('.ui-popoover')){
                  $('.ui-popover').webuiPopover('destroy');
             }
-
-            $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'})
+            //check to make sure popover exists to prevent typerror
+            if($('.ui-popover')){
+                $('.ui-popover').webuiPopover({placement:'top', trigger:'hover', style:'inverse'})
+            }
           }
     }
 
@@ -1258,8 +1260,6 @@ angular.module('interloop.factory.gridManager', [])
     */
     function changeView(changeToView) {
     	grid.api.showLoadingOverlay()
-        //ensure clear selected
-        clearSelected();
     	//set current view
     	currentView = changeToView;
         //set current query
@@ -1273,8 +1273,9 @@ angular.module('interloop.factory.gridManager', [])
     	//wait 1/4 second to hide overlay
     	$timeout(function(){
    			//hide overlay
+            clearSelected();
     		grid.api.hideOverlay();
-    	}, 250)
+    	}, 500)
     }
 
 
@@ -1584,7 +1585,11 @@ angular.module('interloop.factory.gridManager', [])
 		//deselect rows
 		grid.api.deselectAll()
         //ensure select all checkbox is unchecked
-        $document[0].getElementById('selectAllCheckbox').checked = false;
+        //check prevents type error
+        var selectAllCheckbox = $document[0].getElementById('selectAllCheckbox');
+            if(selectAllCheckbox){
+                selectAllCheckbox.checked = false;
+            }
         }, 0)
     }
 
@@ -1693,11 +1698,12 @@ angular.module('interloop.factory.gridManager', [])
     function setLocalSearch(value) {
     	localSearch = value;
         //resets data source now using searching route vs basic query routes
-        $timeout(function(){
-            // grid.api.setDatasource(dataSource);
-
-            grid.api.setEnterpriseDatasource(EnterpriseDatasource);
-        }, 0)
+        if(grid){
+            $timeout(function(){
+                // grid.api.setDatasource(dataSource);
+                grid.api.setEnterpriseDatasource(EnterpriseDatasource);
+            }, 0)
+        }
     	
     }
 

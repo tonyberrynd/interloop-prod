@@ -267,6 +267,8 @@ function newActivity() {
 		newActivityModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
 			$state.go('app.activity-details', {'id': results.id})
+		}, function(){
+			//ignore
 		});
 }
 
@@ -285,6 +287,8 @@ function newTask() {
 		newTaskModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
 			$state.go('app.activity-details', {'id': results.id})
+		}, function(){
+			//ignore
 		});
 }
 
@@ -303,6 +307,8 @@ function newNote() {
 		newNoteModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
 			$state.go('app.activity-details', {'id': results.id})
+		}, function(){
+			//ignore
 		});
 }
 
@@ -321,6 +327,8 @@ function newMeeting() {
 		newMeetingModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
 			$state.go('app.activity-details', {'id': results.id})
+		}, function(){
+			//ignore
 		});
 }
 
@@ -339,6 +347,8 @@ function logCall() {
 		logCallModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
 			$state.go('app.activity-details', {'id': results.id})
+		}, function(){
+			//ignore
 		});
 }
 
@@ -360,6 +370,8 @@ function addActivity(activityType){
   	  customActivityModal.result.then(function(results){
 			$rootScope.$broadcast('NEW_ACTIVITY_CREATED');
 			$state.go('app.activity-details', {'id': results.id})
+		}, function(){
+			//ignore
 		});
 }
 
