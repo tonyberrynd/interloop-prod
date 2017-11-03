@@ -228,16 +228,23 @@ function ok() {
     console.log('about to create this thing',currentEntity);
     $injector.get(currentEntity).create($scope.data.thisRecord).$promise
       .then(function(results){
+
             //recieve this record from results
             var thisRecord = results;
             console.log('created record', thisRecord);
 
             //set this entity type in case going back to another new entity form
-                thisRecord.thisEntityType = currentEntity;
+            thisRecord.thisEntityType = currentEntity;
 
             //link to owners etc
             //----------------------------
             var allPromises = [];
+
+
+            //primary company
+            if($scope.data.thisRecord.primaryCompany) {
+              allPromises.push(linkCompany(thisRecord, $scope.data.thisRecord.primaryCompany, true))
+            } 
 
             //add in owner promises
             //----------------------------
@@ -333,6 +340,20 @@ function ok() {
   function cancel () {
     $uibModalInstance.dismiss('cancel');
   };
+
+
+
+    //TB - TODO - Look at moving the broadcast messages into a shared factory 
+function linkCompany(record, company, updateGrid){
+  return RelationshipManager.linkEntity(record, company, currentEntity, "Company",  
+  {
+    "from": { "name": record.name, "description": "Primary Org", "isPrimary": true}, 
+    "to" : { "name": company.name, "description": "Primary Org", "isPrimary": true}
+  })
+  .then(function(results){
+    return results; 
+  }); 
+}; 
 
 
 
@@ -500,56 +521,56 @@ function ok() {
 
 
   /*
-  Get Look Up Values for specific entity type
-  */
-  function getLookupValue(filter, entityType, searchVal){
-    var deferred = $q.defer();
+Get Look Up Values
+*/
+function getLookupValue(filter, entityType, searchVal){
+  var deferred = $q.defer();
 
-    $scope.data.searchVal = searchVal;
-    $scope.data.searching = true;
-    $scope.data.serverError = false;
-    $scope.data.loadingResults = true;
-    $scope.data.lookupResults = [{},{}];
+  $scope.data.searchVal = searchVal;
+  $scope.data.searching = true;
+  $scope.data.serverError = false;
+  $scope.data.loadingResults = true;
+  $scope.data.lookupResults = [{},{}];
 
-    //Switch based on entity type
-    switch(entityType) {
-      case 'Contact':
-          var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
-          break;
-      case 'Company':
-          var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'domain']}
-          break;
-      case 'Opportunity':
-          var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryCompany', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
-          break;
-      case 'Appuser':
-          var query = {"filter": {"where": {"fullName": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "fullName ASC", limit: 15}, "fields": ['id', 'firstName', 'lastName', 'initials', 'email']}
-          break;
-    }
-
-    //protects from making unnecessary api calls
-    if(searchVal){
-    //then return appropriate values
-    return $injector.get(entityType).find(query).$promise
-        .then(function(results){
-
-          $timeout(function(){
-            $scope.data.serverError = false;
-            $scope.data.searching = false;
-            $scope.data.loadingResults = false;
-            $scope.data.lookupResults = results;
-          }, 5000)
-        })
-        .catch(function(err){
-          $scope.data.serverError = true;
-          $scope.data.searching = false;
-          $scope.data.loadingResults = false;
-          console.log(err);
-        })
-    } else {
-      $scope.data.searching = false;
-    }
+  //Switch based on entity type
+  switch(entityType) {
+    case currentEntity:
+        var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
+        break;
+    case 'Company':
+        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'domain']}
+        break;
+    case currentEntity:
+        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryCompany', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
+        break;
+    case 'Appuser':
+        var query = {"filter": {"where": {"fullName": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "fullName ASC", limit: 15}, "fields": ['id', 'firstName', 'lastName', 'initials', 'email']}
+        break;
   }
+
+  //protects from making unnecessary api calls
+  if(searchVal){
+  //then return appropriate values
+  return $injector.get(entityType).find(query).$promise
+      .then(function(results){
+        $scope.data.serverError = false;
+        $scope.data.searching = false;
+        $scope.data.loadingResults = false;
+        $scope.data.lookupResults = results;
+
+        return results;
+      })
+      .catch(function(err){
+        $scope.data.serverError = true;
+        $scope.data.searching = false;
+        $scope.data.loadingResults = false;
+        console.log(err);
+        return err;
+      })
+  } else {
+    $scope.data.searching = false;
+  }
+}
 
   /*
   Searches Related Records
