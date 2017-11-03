@@ -114,7 +114,7 @@ function activate() {
 
         //get primary company
         $scope.data.thisRecord.primaryCompany = RelationshipManager.getPrimary($scope.data.thisRecord.entityLinks, "Company") || null;
-        $scope.data.prevPrimaryCompany = $scope.data.thisRecord.primaryCompany ? angular.copy($scope.data.thisRecord.primaryCompany) : null;
+        $scope.data.prevPrimaryCompany = _.get($scope.data.thisRecord, 'primaryCompany', null) ? angular.copy($scope.data.thisRecord.primaryCompany) : null;
         //set up fields
         $scope.data.fields = $injector.get(currentEntity + 'Fields');
 

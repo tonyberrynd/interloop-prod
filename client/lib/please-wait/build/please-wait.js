@@ -262,7 +262,8 @@
       }
       listener = (function(_this) {
         return function() {
-          document.body.removeChild(_this._loadingElem);
+          //TB - Added check of exists to avoid error
+          if (_this._loadingElem != null ) document.body.removeChild(_this._loadingElem);
           removeClass("pg-loading", document.body);
           if (animationSupport) {
             _this._loadingElem.removeEventListener(animationEvent, listener);
