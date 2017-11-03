@@ -191,6 +191,7 @@ angular.module('interloop.config', [])
     //vars
     //=====================
     var firstStateLoaded = false;
+    var leavingEditState = false; 
 
     //ELECTRON
     //----------------------

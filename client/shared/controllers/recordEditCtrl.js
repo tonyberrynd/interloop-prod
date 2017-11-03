@@ -70,7 +70,7 @@ function activate(){
 
 					_.forEach($scope.data.fields, function(value){
 						if(value.type == 'social' || value.type == 'phone' || value.type == 'email'){
-							$scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key].length ? $scope.data.thisRecord[value.key] : [{
+							$scope.data.thisRecord[value.key] = _.get($scope.data.thisRecord, value.key, []).length ? $scope.data.thisRecord[value.key] : [{
 								type: $scope.data[value.type + 'Types'][0]
 							}];
 						}
@@ -78,7 +78,7 @@ function activate(){
 
 					_.forEach($scope.data.customFields, function(value){
 						if(value.type == 'social' || value.type == 'phone' || value.type == 'email'){
-							$scope.data.thisRecord[value.key] = $scope.data.thisRecord[value.key].length ? $scope.data.thisRecord[value.key] : [{
+							$scope.data.thisRecord[value.key] = _.get($scope.data.thisRecord, value.key, []).length ? $scope.data.thisRecord[value.key] : [{
 								type: $scope.data[value.type + 'Types'][0]
 							}];
 						}
@@ -143,15 +143,13 @@ activate()
 			}
 		})
 
-
-
-		//save contact
+		//save record
 		 return $injector.get(currentEntity).prototype$patchAttributes({"id": $scope.data.thisRecord.id}, $scope.data.thisRecord).$promise
         .then(function(response) {
             if(!noAlert) {
               Logger.info('Record updated');
             }
-            returnToDetails();
+            returnToDetails(currentEntity, $scope.data.thisRecord.id);
         })
         .catch(function(err) {
             Logger.error('Error updating Record');

@@ -1222,25 +1222,40 @@ angular.module('interloop.factory.gridManager', [])
         // grid.api.setDatasource(dataSource);
 
         //enterprise data source
-        grid.api.setEnterpriseDatasource(EnterpriseDatasource);
+        //TB - wrapped in timeout  and null check 
+
+         //grid.api.setEnterpriseDatasource(EnterpriseDatasource);
+        $timeout(function(){
+            // grid.api.setDatasource(dataSource);
+            //TB - Added Null check and 250ms timeout to avoid api not found error
+
+            if(grid != null) {
+                grid.api.setEnterpriseDatasource(EnterpriseDatasource);
+            } 
+
+                //if has a columnState, set column state
+                //-----------------------------------
+                 if(currentView.columnState) {
+                // console.log('set column State', currentView.columnState);
+
+                var basePlusCurrentState = baseDefs.concat(currentView.columnState);
+                grid.columnApi.setColumnState(basePlusCurrentState);
+            }
 
 
-        //if has a columnState, set column state
-        //-----------------------------------
-        if(currentView.columnState) {
-            // console.log('set column State', currentView.columnState);
+            //if has sort model, set sort model
+            //------------------------------------
+            if(currentView.sortModel) {
+                // console.log('set sort model');
+                grid.api.setSortModel(currentView.sortModel)
+            }
+        }, 250)
 
-            var basePlusCurrentState = baseDefs.concat(currentView.columnState);
-            grid.columnApi.setColumnState(basePlusCurrentState);
-        }
+
+       
 
 
-        //if has sort model, set sort model
-        //------------------------------------
-        if(currentView.sortModel) {
-            // console.log('set sort model');
-            grid.api.setSortModel(currentView.sortModel)
-        }
+        
 
         //let controller know
         // $rootScope.$broadcast('GRID_READY', {});
@@ -1704,9 +1719,8 @@ angular.module('interloop.factory.gridManager', [])
                 grid.api.setEnterpriseDatasource(EnterpriseDatasource);
             }, 0)
         }
-    	
-    }
 
+    }
     /*
     Gets Row Node By Id
     */
