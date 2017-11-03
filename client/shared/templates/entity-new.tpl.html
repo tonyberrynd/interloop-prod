@@ -146,95 +146,31 @@
                             </div>
                           </div>
 
-                            <!-- lookup -->
-                              <div class="form-group"  ng-switch-when="lookup"  ng-class="{ 'has-error' : (newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine) || (field.noResults && field.newRequired) }">
-                                <label for="{{field.key}}">
-                                <span ng-bind="field.label"></span>
-                                <span class="required-field" ng-if="field.newRequired">*</span>
-                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
-                              </label>
-                                <div class="single-select"  ng-class="{'hasValue': data.thisRecord[field.key]}">
-                                    <ui-select allow-clear="true" ng-model="data.thisRecord[field.key]" theme="bootstrap">
-                                       <ui-select-match placeholder="Search...">
-                                                <span ng-switch="field.lookupEntity">
-                                                    <!-- contact / user -->
-                                                    <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
-                                                      <div class="avatar avatar-16">
-                                                      <span ng-bind="$select.selected.firstName | limitTo:1"></span><span ng-bind="$select.selected.lastName | limitTo:1"></span>
-                                                      </div>
-                                                      <span ng-bind="$select.selected.firstName"></span> <span ng-bind="$select.selected.lastName"></span>
-                                                    </span>
-                                                    <!-- company -->
-                                                    <span ng-switch-when="Company" ng-switch-when-separator="|">
-                                                      <div class="avatar avatar-16 square">
-                                                      <span ng-bind="$select.selected.name | limitTo:1"></span> 
-                                                      </div>
-                                                      <span ng-bind="$select.selected.name"></span>
-                                                    </span>
-                                                    <!-- opportunity -->
-                                                    <span ng-switch-when="Opportunity" ng-switch-when-separator="|">
-                                                        <span ng-bind="$select.selected.name"></span>
-                                                    </span>
-                                                    <!-- tag -->
-                                                    <span ng-switch-when="Tag" ng-switch-when-separator="|">
-                                                        <span ng-bind="$select.selected.name"></span>
-                                                    </span>
-                                                    <!-- default -->
-                                                    <span ng-switch-default>
-                                                        <span ng-bind="$select.selected.name"></span>
-                                                    </span>
-                                                </span>
-                                              </ui-select-match>
-                                              <ui-select-choices repeat="item in data.lookupResults | orderBy:['name', 'firstName'] track by $index" refresh="getLookupValue(null, field.lookupEntity, $select.search)"" refresh-delay="0" group-by="'field.lookupEntity'" minimum-input-length="1">
-                                                        <span ng-switch="field.lookupEntity">
-                                                        <!-- Contact/User -->
-                                                        <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
-                                                            <div class="avatar avatar-24">
-                                                              <span ng-bind="item.firstName | limitTo: 1"></span><span ng-bind="item.lastName | limitTo: 1"></span>
-                                                            </div>
-                                                            <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
-                                                            <span class="text-light"><small ng-bind-html="item.email"></small></span>
-                                                        </span>
-                                                        <!-- COMPANY -->
-                                                        <span ng-switch-when="Company" ng-switch-when-separator="|">
-                                                          <div class="avatar avatar-24 square">
-                                                            <span ng-bind="item.name | limitTo:1"></span>
-                                                          </div>
-                                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
-                                                          <span ng-bind-html="item.domain | highlight: $select.search"></span>
-                                                        </span>
-                                                        <!-- Opportunity -->
-                                                        <span ng-switch-when="Opportunity" ng-switch-when-separator="|">
-                                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
-                                                          <span ng-bind-html="getPrimaryCompany(item) || 'No Primary Company' | highlight: $select.search"></span>
-                                                        </span>
-                                                        <!-- tag -->
-                                                        <span ng-switch-when="Tag" ng-switch-when-separator="|">
-                                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
-                                                        </span>
-                                                        <!-- default -->
-                                                        <span ng-switch-default>
-                                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
-                                                        </span>
-                                                      
-                                                      </span>
-                                                      </ui-select-choices>
-                                                       <ui-select-no-choice>
-                                                        <span class="loading" ng-if="data.loadingResults">
-                                                            <div class="loop-loader loop-loader-xs">Loading...</div>
-                                                          </span>
-                                                            <span class="no-results" ng-if="!(data.lookupResults | filter: $select.search).length && !data.serverError && !data.loadingResults && $select.search">
-                                                          No Results Found Matching <b>"{{$select.search}}"</b>
-                                                          </span>
-                                                          <span class="server-error" ng-if="!(data.lookupResults | filter: $select.search).length && data.serverError && !data.loadingResults">
-                                                            The servier did not respond
-                                                            <br>
-                                                            <button class="btn btn-default">Retry</button>
-                                                          </span>
-                                                        </ui-select-no-choice>
-                                    </ui-select>
-                                  </div>
+                              <!-- lookup -->
+                              <div class="form-group" ng-switch-when="lookup">         
+                              <label for="{{field.key}}" ng-bind="field.label"></label>
+                                <input id="{{field.key}}" type="text" 
+                                      ng-model="data.thisRecord[field.key]" 
+                                      placeholder="Search..." 
+                                      typeahead-editable="false"
+                                      typeahead-on-select="saveData(field.key, data.thisRecord[field.key]);"
+                                      uib-typeahead="entity as entity.name for entity in getLookupValue(null, field.lookupEntity, $viewValue)" 
+                                      typeahead-loading="field.loadingValues" 
+                                      typeahead-no-results="field.noResults" 
+                                      typeahead-editable="false"
+                                      typeahead-min-length="1" class="form-control"
+                                      >
+
+                                      <span ng-show="field.loadingValues">
+                                        <i  class="wb-loop"></i>
+                                        Searching...
+                                      </span>
+                                      <div ng-show="field.noResults" style="padding:10px 0;">
+                                        No Records found matching search
+                                      </div>
+
                               </div>
+                              <!-- end form group -->
 
 
                               <div class="form-group" ng-switch-when="address"> 
@@ -513,95 +449,31 @@
                             </div>
                           </div>
 
-                              <div class="form-group"  ng-switch-when="lookup"  ng-class="{ 'has-error' : (newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine) || (field.noResults && field.newRequired) }">
-                                <label for="{{field.key}}">
-                                <span ng-bind="field.label"></span>
-                                <span class="required-field" ng-if="field.newRequired">*</span>
-                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
-                              </label>
-                                <div class="single-select" ng-class="{'hasValue': data.thisRecord[field.key]}">
-                                    <ui-select allow-clear="true" ng-model="data.thisRecord[field.key]" theme="bootstrap">
-                                       <ui-select-match placeholder="Search...">
-                                                <span ng-switch="field.lookupEntity">
-                                                    <!-- contact / user -->
-                                                    <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
-                                                      <div class="avatar avatar-16">
-                                                      <span ng-bind="$select.selected.firstName | limitTo:1"></span><span ng-bind="$select.selected.lastName | limitTo:1"></span>
-                                                      </div>
-                                                      <span ng-bind="$select.selected.firstName"></span> <span ng-bind="$select.selected.lastName"></span>
-                                                    </span>
-                                                    <!-- company -->
-                                                    <span ng-switch-when="Company" ng-switch-when-separator="|">
-                                                      <div class="avatar avatar-16 square">
-                                                      <span ng-bind="$select.selected.name | limitTo:1"></span> 
-                                                      </div>
-                                                      <span ng-bind="$select.selected.name"></span>
-                                                    </span>
-                                                    <!-- opportunity -->
-                                                    <span ng-switch-when="Opportunity" ng-switch-when-separator="|">
-                                                        <span ng-bind="$select.selected.name"></span>
-                                                    </span>
-                                                    <!-- tag -->
-                                                    <span ng-switch-when="Tag" ng-switch-when-separator="|">
-                                                        <span ng-bind="$select.selected.name"></span>
-                                                    </span>
-                                                    <!-- default -->
-                                                    <span ng-switch-default>
-                                                        <span ng-bind="$select.selected.name"></span>
-                                                    </span>
-                                                </span>
-                                              </ui-select-match>
-                                              <ui-select-choices repeat="item in data.lookupResults | orderBy:['name', 'firstName'] track by $index" refresh="getLookupValue(null, field.lookupEntity, $select.search)"" refresh-delay="0" group-by="'field.lookupEntity'" minimum-input-length="1">
-                                                        <span ng-switch="field.lookupEntity">
-                                                        <!-- Contact/User -->
-                                                        <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
-                                                            <div class="avatar avatar-24">
-                                                              <span ng-bind="item.firstName | limitTo: 1"></span><span ng-bind="item.lastName | limitTo: 1"></span>
-                                                            </div>
-                                                            <span ng-bind-html="item.firstName | highlight: $select.search"></span> <span ng-bind-html="item.lastName | highlight: $select.search"></span>
-                                                            <span class="text-light"><small ng-bind-html="item.email"></small></span>
-                                                        </span>
-                                                        <!-- COMPANY -->
-                                                        <span ng-switch-when="Company" ng-switch-when-separator="|">
-                                                          <div class="avatar avatar-24 square">
-                                                            <span ng-bind="item.name | limitTo:1"></span>
-                                                          </div>
-                                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
-                                                          <span ng-bind-html="item.domain | highlight: $select.search"></span>
-                                                        </span>
-                                                        <!-- Opportunity -->
-                                                        <span ng-switch-when="Opportunity" ng-switch-when-separator="|">
-                                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
-                                                          <span ng-bind-html="getPrimaryCompany(item) || 'No Primary Company' | highlight: $select.search"></span>
-                                                        </span>
-                                                        <!-- tag -->
-                                                        <span ng-switch-when="Tag" ng-switch-when-separator="|">
-                                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
-                                                        </span>
-                                                        <!-- default -->
-                                                        <span ng-switch-default>
-                                                          <span ng-bind-html="item.name | highlight: $select.search"></span>
-                                                        </span>
-                                                      
-                                                      </span>
-                                                      </ui-select-choices>
-                                                     <ui-select-no-choice>
-                                                            <span class="loading" ng-if="data.loadingResults">
-                                                                  <div class="loop-loader loop-loader-xs">Loading...</div>
-                                                                </span>
-                                                                <span class="no-results" ng-if="!(data.lookupResults | filter: $select.search).length && !data.serverError && !data.loadingResults">
-                                                          No Results Found Matching <b>"{{$select.search}}"</b>
-                                                          </span>
-                                                          <span class="server-error" ng-if="!(data.lookupResults | filter: $select.search).length && data.serverError && !data.loadingResults">
-                                                            The servier did not respond
-                                                            <br>
-                                                            <button class="btn btn-default">Retry</button>
-                                                          </span>
-                                                        </ui-select-no-choice>
-                                    </ui-select>
-                                  </div>
-                              </div>
+                               <!-- lookup -->
+                              <div class="form-group" ng-switch-when="lookup">         
+                              <label for="{{field.key}}" ng-bind="field.label"></label>
+                                <input id="{{field.key}}" type="text" 
+                                      ng-model="data.thisRecord[field.key]" 
+                                      placeholder="Search..." 
+                                      typeahead-editable="false"
+                                      typeahead-on-select="saveData(field.key, data.thisRecord[field.key]);"
+                                      uib-typeahead="entity as entity.name for entity in getLookupValue(null, field.lookupEntity, $viewValue)" 
+                                      typeahead-loading="field.loadingValues" 
+                                      typeahead-no-results="field.noResults" 
+                                      typeahead-editable="false"
+                                      typeahead-min-length="1" class="form-control"
+                                      >
 
+                                      <span ng-show="field.loadingValues">
+                                        <i  class="wb-loop"></i>
+                                        Searching...
+                                      </span>
+                                      <div ng-show="field.noResults" style="padding:10px 0;">
+                                        No Records found matching search
+                                      </div>
+
+                              </div>
+                              <!-- end form group -->
 
 
                               <div class="col-xs-12" ng-if="data.currentEntity == 'Activity'">

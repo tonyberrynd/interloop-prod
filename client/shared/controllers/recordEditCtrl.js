@@ -7,6 +7,7 @@ angular.module('interloop.recordEditCtrl', [])
 .controller('recordEditCtrl', function(
 	$scope,
 	$stateParams,
+	$q,
 	$rootScope,
 	$injector,
 	$state,
@@ -14,6 +15,7 @@ angular.module('interloop.recordEditCtrl', [])
 	modalManager,
 	EndFields,
 	socialTypes,
+	RelationshipManager,
 	emailTypes,
 	phoneTypes
  ) {
@@ -56,6 +58,7 @@ angular.module('interloop.recordEditCtrl', [])
 	$scope.save = save;
 	$scope.removeAddress = removeAddress;
 	$scope.socialPlaceholder = socialPlaceholder;
+	$scope.getLookupValue = getLookupValue;
 
 //-------------------------------------------
 
@@ -66,7 +69,10 @@ function activate(){
 
 	return $injector.get(currentEntity).findOne({"filter": {"where": {"id": $stateParams.id}}}).$promise	
 				.then(function(results){
-					$scope.data.thisRecord = results
+					$scope.data.thisRecord = results;
+
+					$scope.data.thisRecord.primaryCompany = RelationshipManager.getPrimary($scope.data.thisRecord.entityLinks, "Company") || null;
+					$scope.data.prevPrimaryCompany = $scope.data.thisRecord.primaryCompany ? angular.copy($scope.data.thisRecord.primaryCompany) : null;
 
 					_.forEach($scope.data.fields, function(value){
 						if(value.type == 'social' || value.type == 'phone' || value.type == 'email'){
@@ -88,6 +94,7 @@ function activate(){
 				})
 				.catch(function(err){
 					Logger.error('Error Fetching Record For Editing', 'You may not have access to edit this record');
+					console.log(err);
 				})
 
 }
@@ -149,7 +156,30 @@ activate()
             if(!noAlert) {
               Logger.info('Record updated');
             }
-            returnToDetails(currentEntity, $scope.data.thisRecord.id);
+
+            if($scope.data.thisRecord.primaryCompany && ($scope.data.thisRecord.primaryCompany !== $scope.data.prevPrimaryCompany)){
+
+				  $q.when(
+				     $scope.data.prevPrimaryCompany 
+				     ? unlinkCompany($scope.data.thisRecord, $scope.data.prevPrimaryCompany, false)
+				     : null
+				  )
+				  //Now create new link 
+				  .then(function(){ 
+				    return linkCompany($scope.data.thisRecord, $scope.data.thisRecord.primaryCompany, true)
+				    		.then(function(results){
+				    			returnToDetails(currentEntity, $scope.data.thisRecord.id);
+				    		})
+				  })
+				  .catch(function(err){
+				  	Logger.error('Error linking primary company', 'please remove before proceeding');
+				  })
+			}
+			else {
+				returnToDetails(currentEntity, $scope.data.thisRecord.id);
+			}
+
+            
         })
         .catch(function(err) {
             Logger.error('Error updating Record');
@@ -226,6 +256,89 @@ activate()
 			//ignore
 		})
 	}
+
+
+	/*
+Get Look Up Values
+*/
+function getLookupValue(filter, entityType, searchVal){
+  var deferred = $q.defer();
+
+  $scope.data.searchVal = searchVal;
+  $scope.data.searching = true;
+  $scope.data.serverError = false;
+  $scope.data.loadingResults = true;
+  $scope.data.lookupResults = [{},{}];
+
+  //Switch based on entity type
+  switch(entityType) {
+    case currentEntity:
+        var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
+        break;
+    case 'Company':
+        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'domain']}
+        break;
+    case currentEntity:
+        var query = {"filter": {"where": {"name": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "name ASC", limit: 15}, "fields": ['id', 'name', 'primaryCompany', 'value', 'status', 'stage', 'forecast', 'estimatedClose', 'score']}
+        break;
+    case 'Appuser':
+        var query = {"filter": {"where": {"fullName": {"regexp": "/" + searchVal + "/i"}}, "orderBy": "fullName ASC", limit: 15}, "fields": ['id', 'firstName', 'lastName', 'initials', 'email']}
+        break;
+  }
+
+  //protects from making unnecessary api calls
+  if(searchVal){
+  //then return appropriate values
+  return $injector.get(entityType).find(query).$promise
+      .then(function(results){
+        $scope.data.serverError = false;
+        $scope.data.searching = false;
+        $scope.data.loadingResults = false;
+        $scope.data.lookupResults = results;
+
+        return results;
+      })
+      .catch(function(err){
+        $scope.data.serverError = true;
+        $scope.data.searching = false;
+        $scope.data.loadingResults = false;
+        console.log(err);
+        return err;
+      })
+  } else {
+    $scope.data.searching = false;
+  }
+}
+
+
+//TB - TODO - Look at moving the broadcast messages into a shared factory 
+function linkCompany(record, company, updateGrid){
+  return RelationshipManager.linkEntity(record, company, currentEntity, "Company",  
+  {
+    "from": { "name": record.name, "description": "Primary Org", "isPrimary": true}, 
+    "to" : { "name": company.name, "description": "Primary Org", "isPrimary": true}
+  })
+  .then(function(results){
+    // console.log(results);
+      $scope.data.thisRecord.primaryCompany = results; 
+      $scope.data.prevPrimaryCompany = results; //set new current since link was changed 
+       //add this to entityLinks array of this opp
+      $scope.data.thisRecord.entityLinks.push(results); 
+      // console.log($scope.data.thisRecord);
+  }); 
+}; 
+
+function unlinkCompany(record, company, updateGrid) {
+    //do this from company side to get back in format that matches relatedEntities 
+    return RelationshipManager.unlinkEntity(record, company, currentEntity, "Company")
+    .then(function(results){
+      // console.log(results);
+      //remove from the loaded related items - keep as chained promise 
+      _.remove($scope.data.thisRecord.entityLinks, {'entityId' :  company.entityId}); 
+      //$rootScope.$broadcast('OPP_UPDATED', {"id": opp.id}); 
+    }); 
+};
+
 
 
 //-------------------------------------------
