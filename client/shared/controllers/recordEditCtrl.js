@@ -157,7 +157,7 @@ activate()
               Logger.info('Record updated');
             }
 
-            if($scope.data.thisRecord.primaryCompany && ($scope.data.thisRecord.primaryCompany !== $scope.data.prevPrimaryCompany)){
+            if($scope.data.thisRecord.primaryCompany && ($scope.data.thisRecord.primaryCompany.name !== _.get($scope.data.prevPrimaryCompany, 'name', null))){
 
 				  $q.when(
 				     $scope.data.prevPrimaryCompany 
