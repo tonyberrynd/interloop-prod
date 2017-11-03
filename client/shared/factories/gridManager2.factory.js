@@ -1681,9 +1681,10 @@ angular.module('interloop.factory.gridManager', [])
         //resets data source now using searching route vs basic query routes
         $timeout(function(){
             // grid.api.setDatasource(dataSource);
+            //TB - Added Null check and 250ms timeout to avoid api not found error
 
-            grid.api.setEnterpriseDatasource(EnterpriseDatasource);
-        }, 0)
+            if(grid != null) grid.api.setEnterpriseDatasource(EnterpriseDatasource);
+        }, 250)
     	
     }
 
