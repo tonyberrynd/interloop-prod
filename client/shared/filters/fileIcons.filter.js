@@ -14,8 +14,11 @@ angular.module('interloop.filter.fileIcons', [])
       case 'image/jpeg':
           return '../assets/img/icons/files/jpg.svg'
           break;
+      case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+          return '../assets/img/icons/files/spreadsheet.svg'
+          break;
       default:
-          return 'Uploaded File'
+          return '../assets/img/icons/files/file.svg'
   }
     
   }

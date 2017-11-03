@@ -61,6 +61,7 @@ angular.module('interloop.fileUploadCtrl', [])
       $rootScope.fileUploading = true;
       $rootScope.uploadMessage = 'Uploading: ' + $scope.data.name;
       $rootScope.uploadState = 'initial';
+      var latestFile = null;
 
       $timeout(function(){
   
@@ -90,9 +91,11 @@ angular.module('interloop.fileUploadCtrl', [])
               $rootScope.showBanner = false;
             }, 2500)
 
+            latestFile = resp.data;
+
             console.log('done', resp.data)
             //relate file to entity 
-            relateFile(entityItem, entityType, resp.data);
+            relateFile(entityItem, entityType, resp.data)
 
         }, function (resp) {
             console.log('Error status: ' + resp.status);

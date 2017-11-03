@@ -31,6 +31,8 @@ angular.module('interloop.newEntityCtrl', [])
   var relatedRecords = _.get(resolvedData, 'relatedRecords', null);
   var activityType = _.get(resolvedData, 'activityType', null);
 
+  console.log('activity type', activityType)
+
   //data
   //----------------------
   $scope.data = {};

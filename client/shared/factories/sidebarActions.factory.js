@@ -522,15 +522,27 @@ angular.module('interloop.factory.sidebarActions', [])
                       counter++
 
                       if(counter == promisesLength) {
-                        Logger.info('All Relationships Added');
+                        // Logger.info('All Relationships Added');
                       }
+
+                      var doubleLayerEntity = {
+                          entityId: result.id,
+                          entityType: result.entityType,
+                          id: result.id,
+                          entity: value,
+                        }
+
+                      console.log(result);
+
+                       entityItem.entityLinks.push(doubleLayerEntity);
+                      entityItem.entities.push(doubleLayerEntity);
                 })
                 .catch(function(err){
 
                     //still need to increment
                     counter++
                     if(counter == promisesLength) {
-                        Logger.info('All Relationships Added');
+                        // Logger.info('All Relationships Added');
                     }
                     
                   console.log(err);
@@ -546,19 +558,20 @@ angular.module('interloop.factory.sidebarActions', [])
           promisesLength = relatePromises.length;
           $q.serial(relatePromises)
               .then(function(results){
-                  entityItem.entityLinks.push(newRelated);
-                  entityItem.entities.push(newRelated);
+                 
+                  //relationships added
+                   Logger.info('All Relationships Added');
               })
 
 
         //creates activity deleted
-        var activityDetails = {
-            title: 'Added Relationship',
-            data: {
-              relationships: results
-            }
-          }
-          activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+        // var activityDetails = {
+        //     title: 'Added Relationship',
+        //     data: {
+        //       relationships: results
+        //     }
+        //   }
+        //   activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
         }
 
       }, function(){

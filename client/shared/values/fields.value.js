@@ -222,6 +222,16 @@ angular.module('interloop.value.fields', [])
 		"newClass": "col-xs-6",
 		"excludeNew": true,
 		"excludeForm": true,
+		  "values": [
+	    	{"label": "Call",
+	    	 "value": "call"},
+	    	 {"label": "ToDo",
+	    	 "value": "todo"},
+	    	 {"label": "Note",
+	    	 "value": "note"},
+	    	 {"label": "Sit",
+	    	 "value": "sit"}
+	    ],
 		//grid
 		"excludeGrid": false,
 		"hide": false,
@@ -273,6 +283,7 @@ angular.module('interloop.value.fields', [])
 		"allowGroup": true
 	}
 ])
+
 
 
 .constant("OpportunityFields", [
