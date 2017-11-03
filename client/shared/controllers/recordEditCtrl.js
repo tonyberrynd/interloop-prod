@@ -101,8 +101,8 @@ activate()
 	/*
 	Return to Detail Page
 	*/
-	function returnToDetails(){
-		$state.go('app.' + _.lowerCase(currentEntity) + '-details', {id: $stateParams.id })
+	function returnToDetails(currentEntity, currentId){
+		$state.go('app.' + _.lowerCase(currentEntity) + '-details', {id: currentId })
 	}
 
 
@@ -143,15 +143,13 @@ activate()
 			}
 		})
 
-
-
-		//save contact
+		//save record
 		 return $injector.get(currentEntity).prototype$patchAttributes({"id": $scope.data.thisRecord.id}, $scope.data.thisRecord).$promise
         .then(function(response) {
             if(!noAlert) {
               Logger.info('Record updated');
             }
-            returnToDetails();
+            returnToDetails(currentEntity, $scope.data.thisRecord.id);
         })
         .catch(function(err) {
             Logger.error('Error updating Record');
