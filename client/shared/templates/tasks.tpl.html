@@ -61,7 +61,7 @@
 				<label class="text ng-scope" for="{{activity.id}}"></label>
 			</div>
 			<h4  ng-click="goTo('Activity', activity.activityId)">
-				<span>[<span ng-bind="activity.type"></span>] 
+				<span>[<span ng-bind="(activity.type | ucfirst)"></span>] 
 				<span ng-bind="activity.activity.title || '--'"></span>
 				</span>
 			</h4> 
@@ -73,6 +73,11 @@
 			</div>
 		</div>
 	</div>
+
+
+	<p>
+		{{data.thisRecord.openActivities}}
+	</p>
 
 	<span class="empty-add" ng-if="!data.thisRecord.openActivities.length">
       <p class="empty-section">No Open Tasks</p>

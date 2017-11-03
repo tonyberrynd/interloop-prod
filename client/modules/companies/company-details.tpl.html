@@ -132,7 +132,7 @@
                           </a></li>
                           <li ng-class="{ 'active': data.currentTab == 3 }">
                             <a href ng-click="data.currentTab = 3">Activities
-                            <span ng-bind="'[' + data.overdueActivities.length + ']'" ng-if="data.overdueActivities.length">2</span>
+                            <span ng-bind="'[' + data.thisRecord.openActivities.length + ']'" ng-if="data.thisRecord.openActivities.length"></span>
                             </a>
                           </li>
                           <li ng-class="{ 'active': data.currentTab == 5 }"><a href ng-click="data.currentTab = 5">History</a></li>
