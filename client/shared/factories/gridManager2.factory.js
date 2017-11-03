@@ -248,6 +248,20 @@ angular.module('interloop.factory.gridManager', [])
               }
 
 
+              //activities shouldnt pull back changelogs or anything like that
+              //---------------------------------------
+              if(currentEntityType == 'Activity'){
+                 if(_.isNil(_.get(currentQuery.filter, 'where', null))){
+                    currentQuery.filter['where'] = { "type": {"neq":"changelog"}}
+                 } else {
+                     _.assignIn(currentQuery.filter['where'], {
+                        "type": {"neq":"changelog"}
+                    })
+                 }
+              }
+              
+
+
             //Grouping & Data
             //---------------------------------------
 

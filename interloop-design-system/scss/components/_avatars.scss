@@ -138,6 +138,49 @@
 	}
 }
 
+.todo-avatar {
+ 	background-image: url(../img/icons/light/checkmark.svg);
+    background-size:14px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.email-avatar {
+ 	background-image: url(../img/icons/light/envelope.svg);
+    background-size:14px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.call-avatar {
+ 	background-image: url(../img/icons/light/phone.svg);
+    background-size:14px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.meeting-avatar {
+ 	background-image: url(../img/icons/light/calendar.svg);
+    background-size:13px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.note-avatar {
+ 	background-image: url(../img/icons/light/pen-tool.svg);
+    background-size:13px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.changelog-avatar {
+ 	background-image: url(../img/icons/light/cog.svg);
+    background-size:13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color:$granite !important;
+}
 
 //avatar bundle
 
