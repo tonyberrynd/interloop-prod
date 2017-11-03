@@ -27,14 +27,15 @@
   "devDependencies": {
     "jquery": "~2.2.0"
   },
-  "version": "2.1.0",
-  "_release": "2.1.0",
+  "version": "2.4.2",
+  "_release": "2.4.2",
   "_resolution": {
     "type": "version",
-    "tag": "v2.1.0",
-    "commit": "98259c4fb139bb261b0e8eb8d5a257526896fe64"
+    "tag": "v2.4.2",
+    "commit": "bf5a1459a431edd7998e7ec40a49b39956fe8a03"
   },
   "_source": "https://github.com/Microsoft/PowerBI-JavaScript.git",
-  "_target": "2.1.0",
-  "_originalSource": "powerbi-client"
+  "_target": "^2.4.2",
+  "_originalSource": "powerbi-client",
+  "_direct": true
 }

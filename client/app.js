@@ -20,6 +20,7 @@ angular.module('interloop', [
   'ngResource',                           //https://docs.angularjs.org/api/ngResource
   'ngAnimate',                            //https://docs.angularjs.org/api/ngAnimate
   'ngSanitize',                           //https://docs.angularjs.org/api/ngSanitize
+  'ngTouch',                              //https://docs.angularjs.org/api/ngTouch
   'ui.router',                            //https://github.com/angular-ui/ui-router
   'ct.ui.router.extras',                  //https://github.com/christopherthielen/ui-router-extras
   'AdalAngular',                          //https://github.com/AzureAD/azure-activedirectory-library-for-js

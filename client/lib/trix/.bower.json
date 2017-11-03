@@ -31,12 +31,12 @@
     "LICENSE",
     "package.json"
   ],
-  "version": "0.11.0",
-  "_release": "0.11.0",
+  "version": "0.11.1",
+  "_release": "0.11.1",
   "_resolution": {
     "type": "version",
-    "tag": "0.11.0",
-    "commit": "f677a9429bb8838afb74783ae80019ec8b9608a3"
+    "tag": "0.11.1",
+    "commit": "b1ee8e2152a3ed1b6c11b72ca7283ba8fb0f405c"
   },
   "_source": "https://github.com/basecamp/trix.git",
   "_target": "*",

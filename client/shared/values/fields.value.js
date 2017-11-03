@@ -261,6 +261,7 @@ angular.module('interloop.value.fields', [])
 		"allowGroup": true
 	},
 
+<<<<<<< HEAD
 	{
 		"label": "Completed",
 		"key": "completed",
@@ -283,6 +284,8 @@ angular.module('interloop.value.fields', [])
 	},
 
 
+=======
+>>>>>>> development
 	{
 		"label": "Completed Date",
 		"key": "completedDate",
@@ -302,7 +305,28 @@ angular.module('interloop.value.fields', [])
 		"pinned": false,
 
 		"allowGroup": true
-	}
+	},
+
+	{
+		"label": "Completed",
+		"key": "completed",
+		"type": "boolean",
+		"columnType": "boolean",
+		//new form
+		"excludeNew": false,
+		"newClass": "col-xs-12",
+		"newRequired": false,
+		//grid
+		"excludeGrid": false,
+		"exludeForm": true,
+		"hide": false,
+		"width": 300,
+		"valueGetter": null,
+		"cellRenderer": null,
+		"pinned": false,
+
+		"allowGroup": false
+	},
 ])
 
 

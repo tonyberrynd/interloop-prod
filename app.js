@@ -32,6 +32,7 @@ app.use('/css', express.static(__dirname + '/build/assets/css', { maxAge: oneDay
 app.use('/fonts', express.static(__dirname + '/build/assets/fonts', { maxAge: oneDay }));
 app.use('/img', express.static(__dirname + '/build/assets/img', { maxAge: oneDay }));
 // serve the files out of ./public as our main files
+app.use(express.static(__dirname + '/assets/', { maxAge: oneDay }));
 app.use(express.static(__dirname + '/build/', { maxAge: oneDay }));
 
 // https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode
