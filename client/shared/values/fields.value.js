@@ -262,6 +262,7 @@ angular.module('interloop.value.fields', [])
 	},
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	{
 		"label": "Completed",
 		"key": "completed",
@@ -284,6 +285,8 @@ angular.module('interloop.value.fields', [])
 	},
 
 
+=======
+>>>>>>> development
 =======
 >>>>>>> development
 	{
