@@ -260,9 +260,6 @@ angular.module('interloop.value.fields', [])
 
 		"allowGroup": true
 	},
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 	{
 		"label": "Completed",
 		"key": "completed",
@@ -283,12 +280,6 @@ angular.module('interloop.value.fields', [])
 
 		"allowGroup": false
 	},
-
-
-=======
->>>>>>> development
-=======
->>>>>>> development
 	{
 		"label": "Completed Date",
 		"key": "completedDate",
