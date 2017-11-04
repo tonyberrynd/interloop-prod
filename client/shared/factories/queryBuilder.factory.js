@@ -93,7 +93,12 @@ angular.module('interloop.factory.queryBuilder', [])
                 //boolean
                 //---------------------
                 case 'boolean':
-                      queryParts.push({ [filter.key]: filter.value });   
+                      var filterValue = (filter.value == 'true')
+                      if(filterValue){
+                        queryParts.push({ [filter.key]: true });   
+                      } else {
+                        queryParts.push({ [filter.key]: {"neq": true }});   
+                      }
                 break; 
 
                 //Lookup
