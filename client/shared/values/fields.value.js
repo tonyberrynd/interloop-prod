@@ -261,6 +261,34 @@ angular.module('interloop.value.fields', [])
 		"allowGroup": true
 	},
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	{
+		"label": "Completed",
+		"key": "completed",
+		"type": "boolean",
+		"columnType": "boolean",
+		//new form
+		"excludeNew": false,
+		"newClass": "col-xs-12",
+		"newRequired": false,
+		//grid
+		"excludeGrid": false,
+		"exludeForm": true,
+		"hide": false,
+		"width": 300,
+		"valueGetter": null,
+		"cellRenderer": null,
+		"pinned": false,
+
+		"allowGroup": false
+	},
+
+
+=======
+>>>>>>> development
+>>>>>>> client-staging
 	{
 		"label": "Completed Date",
 		"key": "completedDate",
