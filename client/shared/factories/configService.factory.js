@@ -175,9 +175,14 @@ angular.module('interloop.factory.configService', [])
                 id: Appuser.getCurrentId(),
                 name: $rootScope.activeUser.firstName + ' ' + $rootScope.activeUser.lastName,
                 email: $rootScope.activeUser.email,
-                created_at: $rootScope.activeUser.createdOn
+                created_at: $rootScope.activeUser.createdOn,
+                //company information
+                company: {
+                    id: $rootScope.activeOrg.id,
+                    name: $rootScope.activeOrg.name,
+                    created_at: $rootScope.activeOrg.createdOn
+                  }
                });
-
 
               //mixpanel
               //----------------------
