@@ -65,26 +65,6 @@ angular.module('interloop.value.config', [])
         "itemLinks": false 
  })
 
-
-//used for social types dropdown
-.value("socialTypes", [
-	{
-		key: 'linkedIn',
-		label: 'LinkedIn',
-		icon: 'fa fa-linkedin-square'
-	},
-	{
-	    key: 'twitter',
-		label: 'Twitter',
-		icon: 'fa fa-twitter-square'
-	},
-	{
-		key: 'facebook',
-		label: 'Facebook',
-		icon: 'fa fa-facebook-square'
-	}
-])
-
 //used for email types dropdown
 .value("emailTypes", [
 	{
@@ -147,3 +127,247 @@ angular.module('interloop.value.config', [])
     'value': 'pie',
     'icon': 'wb-pie'
   }])
+
+
+.value("socialTypes", [
+ {
+   "label": "About.me",
+   "key": "aboutme",
+   "icon": "",
+   "mask": "" 
+ },
+ {
+   "label": "AngelList",
+   "key": "angellist",
+   "icon": "fa fa-angellist",
+   "mask": "" 
+ },
+ {
+   "label": "Bandcamp",
+   "key": "bandcamp",
+   "icon": "fa fa-bandcamp",
+   "mask": "" 
+ },
+ {
+   "label": "Bebo",
+   "key": "bebo",
+   "icon": "",
+   "mask": "" 
+ },
+ {
+   "label": "Behance",
+   "key": "behance",
+   "icon": "fa-behance",
+   "mask": "" 
+ },
+ {
+   "label": "BitBucket",
+   "key": "bitbucket",
+   "icon": "fa-bitbucket",
+   "mask": "" 
+ },
+ {
+   "label": "Crunchbase",
+   "key": "crunchbase",
+   "icon": "",
+   "mask": "" 
+ },
+ {
+   "label": "DandyId",
+   "key": "dandyid",
+   "icon": "",
+   "mask": "" 
+ },
+ {
+   "label": "Delicious",
+   "key": "delicious",
+   "icon": "fa fa-delicious",
+   "mask": "" 
+ },
+ {
+   "label": "Digg",
+   "key": "digg",
+   "icon": "fa-digg",
+   "mask": "" 
+ },
+ {
+   "label": "Dribbble",
+   "key": "dribble",
+   "icon": "fa fa-dribble",
+   "mask": "" 
+ },
+ {
+   "label": "Facebook",
+   "key": "facebook",
+   "icon": "fa fa-facebook",
+   "mask": "" 
+ },
+ {
+   "label": "Flickr",
+   "key": "flickr",
+   "icon": "fa fa-flickr",
+   "mask": "" 
+ },
+ {
+   "label": "FourSquare",
+   "key": "foursquare",
+   "icon": "fa fa-foursquare",
+   "mask": "" 
+ },
+ {
+   "label": "FriendFeed",
+   "key": "friendfeed",
+   "icon": "",
+   "mask": "" 
+ },
+ {
+   "label": "GitHub",
+   "key": "github",
+   "icon": "fa fa-github",
+   "mask": "" 
+ },
+ {
+   "label": "GoogleProfile",
+   "key": "googleprofile",
+   "icon": "",
+   "mask": "" 
+ },
+{
+   "label": "GooglePlus",
+   "key": "'google",
+   "icon": "fa fa-google-plus",
+   "mask": "" 
+ },
+ {
+   "label": "GooglePlus",
+   "key": "'googleplus",
+   "icon": "fa fa-google-plus",
+   "mask": "" 
+ },
+ {
+   "label": "HackerNews",
+   "key": "hackernews",
+   "icon": "fa fa-hacker-news",
+   "mask": "" 
+ },
+ {
+   "label": "HypeMachine",
+   "key": "hypemachine",
+   "icon": "",
+   "mask": "" 
+ },
+ {
+   "label": "IMDB",
+   "key": "imdb",
+   "icon": "fa fa-imdb",
+   "mask": "" 
+ },
+ {
+   "label": "Klout",
+   "key": "klout",
+   "icon": "",
+   "mask": "" 
+ },
+ {
+   "label": "LinkedIn",
+   "key": "linkedin",
+   "icon": "fa fa-linkedin",
+   "mask": "" 
+ },
+ {
+   "label": "Meetup",
+   "key": "meetup",
+   "icon": "fa fa-meetup",
+   "mask": "" 
+ },
+ {
+   "label": "Mixcloud",
+   "key": "mixcloud",
+   "icon": "fa fa-mixcloud",
+   "mask": "" 
+ },
+ {
+   "label": "Pinterest",
+   "key": "pinterest",
+   "icon": "fa fa-pinterest",
+   "mask": "" 
+ },
+ {
+   "label": "Quora",
+   "key": "quora",
+   "icon": "fa fa-quora",
+   "mask": "" 
+ },
+ {
+   "label": "Reddit",
+   "key": "reddit",
+   "icon": "fa fa-reddit",
+   "mask": "" 
+ },
+ {
+   "label": "SlideShare",
+   "key": "slideshare",
+   "icon": "fa fa-slideshare",
+   "mask": "" 
+ },
+ {
+   "label": "SoundCloud",
+   "key": "soundcloud",
+   "icon": "fa fa-soundcloud",
+   "mask": "" 
+ },
+ {
+   "label": "StackExchange",
+   "key": "stackexchange",
+   "icon": "fa fa-stack-exchange",
+   "mask": "" 
+ },
+ {
+   "label": "StackOverflow",
+   "key": "stackoverflow",
+   "icon": "fa fa-stack-overflow",
+   "mask": "" 
+ },
+ {
+   "label": "Steam",
+   "key": "steam",
+   "icon": "fa fa-steam",
+   "mask": "" 
+ },
+ {
+   "label": "Tumblr",
+   "key": "tumblr",
+   "icon": "fa fa-tumblr",
+   "mask": "" 
+ },
+ {
+   "label": "Twitter",
+   "key": "twitter",
+   "icon": "fa fa-twitter",
+   "mask": "" 
+ },
+ {
+   "label": "Vimeo",
+   "key": "vimeo",
+   "icon": "fa fa-vimeo",
+   "mask": "" 
+ },
+ {
+   "label": "WordPress.com",
+   "key": "wordpress",
+   "icon": "fa fa-wordpress",
+   "mask": "" 
+ },
+ {
+   "label": "Xing",
+   "key": "xing",
+   "icon": "fa fa-xing",
+   "mask": "" 
+ },
+ {
+   "label": "Yelp",
+   "key": "yelp",
+   "icon": "fa fa-yelp",
+   "mask": "" 
+ }
+]);

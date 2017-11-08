@@ -243,7 +243,7 @@ angular.module('interloop.config', [])
             applyLabel: "Apply",
             fromLabel: "Start",
             toLabel: "End",
-            format: 'MMM D, YYYY',
+            format: 'MM/DD/YYYY',
             cancelLabel: 'Cancel',
             customRangeLabel: 'Custom range'
           },
@@ -260,7 +260,7 @@ angular.module('interloop.config', [])
             applyLabel: "Apply",
             fromLabel: "Start",
             toLabel: "End",
-            format: 'MMM D, YYYY',
+            format: 'MM/DD/YYYY',
             cancelLabel: 'Cancel',
             customRangeLabel: 'Custom range'
           },
@@ -289,7 +289,7 @@ angular.module('interloop.config', [])
             applyLabel: "Apply",
             fromLabel: "Start",
             toLabel: "End",
-            format: 'MMM D, YYYY',
+            format: 'MM/DD/YYYY',
             cancelLabel: 'Cancel',
 
           },
@@ -305,7 +305,7 @@ angular.module('interloop.config', [])
             applyLabel: "Apply",
             fromLabel: "Start",
             toLabel: "End",
-            format: 'MMM D, YYYY',
+            format: 'MM/DD/YYYY',
             cancelLabel: 'Cancel',
             customRangeLabel: 'Custom range'
           },

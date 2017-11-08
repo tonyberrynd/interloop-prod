@@ -37,13 +37,17 @@ angular.module('interloop.recordEditCtrl', [])
 	$scope.data.phoneTypes = phoneTypes;
 
 	//get fields
-	$scope.data.fields = $injector.get(currentEntity + 'Fields');
+	$scope.data.basicFields = $injector.get(currentEntity + 'Fields');
 
 	//custom fields
 	$scope.data.customFields = _.filter($rootScope.customFields,function(o){
         return _.includes(o.useWith, currentEntity);
     })
 
+    //merge the two
+    $scope.data.fields = $scope.data.basicFields.concat($scope.data.customFields);
+
+    
 	//functions
 	//----------------------
 	$scope.returnToDetails = returnToDetails;

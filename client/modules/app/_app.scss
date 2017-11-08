@@ -9,11 +9,6 @@ html {
 
 //icons get wonky in production if there isn't an ovverride
 
-icon {
-    margin-right: 3px !important;
-    margin-left: -3px !important;
-}
-
 .btn.btn-link:active {
     opacity: .65;
 }

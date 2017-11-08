@@ -1550,31 +1550,27 @@ angular.module('interloop.factory.gridManager', [])
     Refresh View
     */
     function refreshView() {
-    	// console.log('refresh in factory');
-        // console.log('last selected', lastSelectedId)
-    	grid.api.showLoadingOverlay()
-		//refresh
-		// grid.api.refreshView();
-
-        //cell may be different so clear so isn't flash change
+        //show overlay no matter what for user experience
+        grid.api.showLoadingOverlay()
         grid.api.clearFocusedCell();
 
-        grid.api.purgeEnterpriseCache();
+        return View.findOne({"filter": {"where": {"id": currentView.id }}}).$promise
+            .then(function(results){
+                //set current view equal to the server side version of the same view
+                currentView = results;
+                currentQuery = angular.fromJson(currentView.query) || {'filter': {}};
+                lastRow = _.get(results, 'count', 0);
+                //have grid reflect changes
+                 grid.api.setFilterModel()
+                 grid.api.hideOverlay() // do we need this?
 
-
-		//hide overlay
-		$timeout(function(){
-			grid.api.hideOverlay()
-
-             grid.api.forEachNode( function(node) {
-              if(node.id == lastSelectedId){
-                // console.log('set focus');
-                grid.api.focusedCellController.setFocusedCell(node.rowIndex, grid.columnApi.getAllDisplayedColumns()[0].colId);
-              }
+                 console.log('returned view', results);
+                //return results to list view controller
+                return results;
+            })
+            .catch(function(err){
+                return err;
             });
-
-		}, 500)
-
     }
 
     /*

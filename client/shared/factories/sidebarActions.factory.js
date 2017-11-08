@@ -287,31 +287,40 @@ angular.module('interloop.factory.sidebarActions', [])
     Delete Opp - Soft Deletes entityItem
     */
     function deleteItem(entityType, entityItem) {
+      var resolvedData = {
+        "helperTitle": "Delete Record?",
+        "helperText": "Are you sure you want to delete this record?",
+        "helperDescription": "Records can only be un-archived by an admin"
+      }
 
-       var entityModel = $injector.get(entityType);
-       entityModel.deleteById({ id: entityItem.id }).$promise
-      .then(function() { 
-        Logger.info(entityType + ' Archived', 'Contact admin to retrieve')
-          //remove deleted row from the grid without refreshViewing
-        gridManager.refreshView()
-        //shows deleted
-        entityItem._isDeleted = true;
-        // // go back - or close sidebar (Close is handled by sidebar router)
-        SidebarRouter.goBack();
+      var confirmDeleteModal = modalManager.openModal('confirm', resolvedData);
 
-        //creates activity deleted
-        var activityDetails = {
-          title: 'Deleted ' + entityType,
-          data: {
-            deleted: true
-          }
-        }
-        activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
-      })
-      .catch(function(err){
-        Logger.error('Error Deleting ' + entityType)
-        Logger.log("failed to delete - ", err); 
-      })
+          confirmDeleteModal.result.then(function(results){
+
+             var entityModel = $injector.get(entityType);
+                 entityModel.deleteById({ id: entityItem.id }).$promise
+                .then(function() { 
+
+                  Logger.info(entityType + ' Archived', 'Contact admin to retrieve')
+                    //remove deleted row from the grid without refreshViewing
+                  //shows deleted
+                  entityItem._isDeleted = true;
+                  // // go back - or close sidebar (Close is handled by sidebar router)
+                  SidebarRouter.goBack();
+
+                  //need to give the server a 1/4 of a second to catch up before running refresh which retrieves new view counts
+                  $timeout(function(){
+                      $rootScope.$broadcast('REFRESH_VIEW'); // TODO- MOVE THIS TO FACTORY
+                  }, 1000);
+                })
+                .catch(function(err){
+                  Logger.error('Error Deleting ' + entityType)
+                 Logger.log("failed to delete - ", err); 
+                })
+
+          }, function(){
+            //ignroe
+          });
     };
 
 

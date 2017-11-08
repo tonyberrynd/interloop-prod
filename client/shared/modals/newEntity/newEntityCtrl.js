@@ -72,10 +72,14 @@ angular.module('interloop.newEntityCtrl', [])
 
   // Get fields
   //-------------------------------
-  $scope.data.fields = $injector.get(currentEntity + 'Fields');
+  $scope.data.basicFields = $injector.get(currentEntity + 'Fields');
   $scope.data.customFields = _.filter($rootScope.customFields,function(o){
       return _.includes(o.useWith, currentEntity);
   })
+
+  //merge two
+
+  $scope.data.fields = $scope.data.basicFields.concat($scope.data.customFields);
 
   //Data Holders
   //-------------------------------

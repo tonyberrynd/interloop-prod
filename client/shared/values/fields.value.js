@@ -1076,7 +1076,7 @@ angular.module('interloop.value.fields', [])
 	{
 	   	"label": "Website",
 	    "key": "website",
-	    "type": "string",
+	    "type": "domain",
 	    "locked": true,
 	    //new form
 		"excludeNew": false,
