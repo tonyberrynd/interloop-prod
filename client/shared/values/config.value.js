@@ -131,243 +131,159 @@ angular.module('interloop.value.config', [])
 
 .value("socialTypes", [
  {
-   "label": "About.me",
-   "key": "aboutme",
-   "icon": "",
-   "mask": "" 
- },
- {
    "label": "AngelList",
    "key": "angellist",
    "icon": "fa fa-angellist",
-   "mask": "" 
- },
- {
-   "label": "Bandcamp",
-   "key": "bandcamp",
-   "icon": "fa fa-bandcamp",
-   "mask": "" 
- },
- {
-   "label": "Bebo",
-   "key": "bebo",
-   "icon": "",
-   "mask": "" 
+   "mask": "https://angel.co/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
  {
    "label": "Behance",
    "key": "behance",
    "icon": "fa-behance",
-   "mask": "" 
+   "mask": "https://www.behance.net/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "BitBucket",
    "key": "bitbucket",
    "icon": "fa-bitbucket",
-   "mask": "" 
+   "mask": "https://bitbucket.org/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "Crunchbase",
    "key": "crunchbase",
    "icon": "",
-   "mask": "" 
- },
- {
-   "label": "DandyId",
-   "key": "dandyid",
-   "icon": "",
-   "mask": "" 
- },
- {
-   "label": "Delicious",
-   "key": "delicious",
-   "icon": "fa fa-delicious",
-   "mask": "" 
- },
- {
-   "label": "Digg",
-   "key": "digg",
-   "icon": "fa-digg",
-   "mask": "" 
+   "mask": "https://www.crunchbase.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
  {
    "label": "Dribbble",
    "key": "dribble",
    "icon": "fa fa-dribble",
-   "mask": "" 
+   "mask": "https://dribbble.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"  
  },
  {
    "label": "Facebook",
    "key": "facebook",
    "icon": "fa fa-facebook",
-   "mask": "" 
+   "mask": "https://www.facebook.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
  {
    "label": "Flickr",
    "key": "flickr",
    "icon": "fa fa-flickr",
-   "mask": "" 
+   "mask": "https://www.flickr.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "FourSquare",
    "key": "foursquare",
    "icon": "fa fa-foursquare",
-   "mask": "" 
- },
- {
-   "label": "FriendFeed",
-   "key": "friendfeed",
-   "icon": "",
-   "mask": "" 
+   "mask": "https://foursquare.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
  {
    "label": "GitHub",
    "key": "github",
    "icon": "fa fa-github",
-   "mask": "" 
- },
- {
-   "label": "GoogleProfile",
-   "key": "googleprofile",
-   "icon": "",
-   "mask": "" 
+   "mask": "https://github.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
 {
    "label": "GooglePlus",
    "key": "'google",
    "icon": "fa fa-google-plus",
-   "mask": "" 
+   "mask": "http://profiles.google.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "GooglePlus",
    "key": "'googleplus",
    "icon": "fa fa-google-plus",
-   "mask": "" 
- },
- {
-   "label": "HackerNews",
-   "key": "hackernews",
-   "icon": "fa fa-hacker-news",
-   "mask": "" 
- },
- {
-   "label": "HypeMachine",
-   "key": "hypemachine",
-   "icon": "",
-   "mask": "" 
- },
- {
-   "label": "IMDB",
-   "key": "imdb",
-   "icon": "fa fa-imdb",
-   "mask": "" 
+   "mask": "http://profiles.google.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
  {
    "label": "Klout",
    "key": "klout",
    "icon": "",
-   "mask": "" 
+   "mask": "https://klout.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "LinkedIn",
    "key": "linkedin",
    "icon": "fa fa-linkedin",
-   "mask": "" 
+   "mask": "https://www.linkedin.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
  {
    "label": "Meetup",
    "key": "meetup",
    "icon": "fa fa-meetup",
-   "mask": "" 
- },
- {
-   "label": "Mixcloud",
-   "key": "mixcloud",
-   "icon": "fa fa-mixcloud",
-   "mask": "" 
+   "mask": "https://www.meetup.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "Pinterest",
    "key": "pinterest",
    "icon": "fa fa-pinterest",
-   "mask": "" 
+   "mask": "http://www.pinterest.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
  {
    "label": "Quora",
    "key": "quora",
    "icon": "fa fa-quora",
-   "mask": "" 
+   "mask": "https://www.quora.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "Reddit",
    "key": "reddit",
    "icon": "fa fa-reddit",
-   "mask": "" 
+   "mask": "https://www.reddit.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "SlideShare",
    "key": "slideshare",
    "icon": "fa fa-slideshare",
-   "mask": "" 
+   "mask": "https://www.slideshare.net*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
  {
    "label": "SoundCloud",
    "key": "soundcloud",
    "icon": "fa fa-soundcloud",
-   "mask": "" 
+   "mask": "https://soundlcoud.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "StackExchange",
    "key": "stackexchange",
    "icon": "fa fa-stack-exchange",
-   "mask": "" 
+   "mask": "https://stackexchange.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
  {
    "label": "StackOverflow",
    "key": "stackoverflow",
    "icon": "fa fa-stack-overflow",
-   "mask": "" 
- },
- {
-   "label": "Steam",
-   "key": "steam",
-   "icon": "fa fa-steam",
-   "mask": "" 
+   "mask": "https://stackoverflow.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "Tumblr",
    "key": "tumblr",
    "icon": "fa fa-tumblr",
-   "mask": "" 
+   "mask": "http://*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?.tumblr.com" 
  },
  {
    "label": "Twitter",
    "key": "twitter",
    "icon": "fa fa-twitter",
-   "mask": "" 
+   "mask": "https://twitter.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
  },
  {
    "label": "Vimeo",
    "key": "vimeo",
    "icon": "fa fa-vimeo",
-   "mask": "" 
- },
- {
-   "label": "WordPress.com",
-   "key": "wordpress",
-   "icon": "fa fa-wordpress",
-   "mask": "" 
- },
- {
-   "label": "Xing",
-   "key": "xing",
-   "icon": "fa fa-xing",
-   "mask": "" 
+   "mask": "https://vimeo.com/*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?" 
  },
  {
    "label": "Yelp",
    "key": "yelp",
    "icon": "fa fa-yelp",
-   "mask": "" 
+   "mask": "http://*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?.yelp.com"
+ },
+  {
+   "label": "Other",
+   "key": "other",
+   "icon": "fa fa-link",
+   "mask": ""
  }
 ]);

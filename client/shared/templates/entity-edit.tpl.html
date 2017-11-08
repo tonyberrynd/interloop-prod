@@ -12,7 +12,7 @@
             </a>
               <h5>Edit {{data.currentEntity}}</h5>
             <div class="pull-right edit-header-right">
-              <button class="btn btn-success save-record" ng-click="save()">
+              <button class="btn btn-success save-record" ng-click="save()" ng-disabled="$root.detailsForm.$invalid">
                   Save
               </button>
             </div>

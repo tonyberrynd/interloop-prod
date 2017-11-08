@@ -7,10 +7,40 @@ html {
   touch-action: manipulation;
 }
 
+
+//fiel uploader - shows progress of file uploades
+
+
+.file-uploader {
+    position:absolute;
+    display: block;
+    top:60px;
+    left:50%;
+    margin-left:-270px;
+    width:540px;
+    height:auto;
+    border-radius: 5px;
+    background-color:$success;
+    z-index: 10000;
+
+    .progress {
+        height:24px;
+    }
+
+    .progress-bar {
+         line-height:24px;
+    }
+}   
+
+
 //icons get wonky in production if there isn't an ovverride
 
 .btn.btn-link:active {
     opacity: .65;
+}
+
+.btn-action span {
+    color:#fff !important;
 }
 
 .isSelected {

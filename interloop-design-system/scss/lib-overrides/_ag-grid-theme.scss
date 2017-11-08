@@ -129,6 +129,10 @@ $g-select-foreground: $seamonster !important;
 
 	.ag-row.ag-row-deleted {
 		background:  $danger-bg !important;
+
+		&.ag-row-hover {
+			background-color: #D7F1FF !important;
+		}
 	}
 
 

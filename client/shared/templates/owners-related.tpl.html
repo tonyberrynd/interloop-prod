@@ -1,11 +1,13 @@
  <!-- add users -->
                  <div class="btn-group modal-action" uib-dropdown auto-close="outsideClick" dropdown-append-to="'.modal-dialog'" is-open="data.searchUsersOpen">
+                    
+                    <a href id="add-users" class="btn btn-link text-left" uib-dropdown-toggle ng-disabled="disabled" uib-tooltip="Add Owners">
                     <h5>
-                    <button id="add-users" type="button" class="btn btn-link text-left" uib-dropdown-toggle ng-disabled="disabled" uib-tooltip="Add Owners">
                       <icon class="wb-plus-circle"></icon>
-                    </button>
-                    Owners (<span ng-bind="data.selectedOwners.length"></span>)
+                      Owners (<span ng-bind="data.selectedOwners.length"></span>)
                     </h5>
+                    </a>
+                    
 
                     <ul class="dropdown-menu add-related-dropdown" uib-dropdown-menu role="menu" aria-labelledby="search-users">
                         <div class="add-related-records">
@@ -80,12 +82,14 @@
 
                 <!-- add contacts -->
                  <div class="btn-group modal-action" uib-dropdown auto-close="outsideClick" dropdown-append-to="'.modal-dialog'" is-open="data.searchRelatedOpen">
-                   <h5>
-                    <button id="add-related" type="button" class="btn btn-link text-left" uib-dropdown-toggle ng-disabled="disabled" uib-tooltip="Add Related">
+                 
+                    <a href id="add-related" class="btn btn-link text-left" uib-dropdown-toggle ng-disabled="disabled" uib-tooltip="Add Related">
+                    <h5>
                       <icon class="wb-plus-circle"></icon>
-                    </button>
                     Related (<span ng-bind="data.selectedRelated.length"></span>)
                     </h5>
+                    </a>
+                    
                     <ul class="dropdown-menu add-related-dropdown" uib-dropdown-menu role="menu" aria-labelledby="search-users">
                         <div class="add-related-records">
                           <div class="add-related-header tect-center">

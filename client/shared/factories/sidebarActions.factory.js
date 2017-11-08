@@ -328,29 +328,34 @@ angular.module('interloop.factory.sidebarActions', [])
     Un-Archive Item
     */
     function unArchiveItem(entityType, entityItem) {
-
+       $rootScope.unarchiving = true;
        var entityModel = $injector.get(entityType);
         entityModel.unarchive(
-          { id: entityItem.id })
+          { recordId: entityItem.id })
           .$promise
           .then(function(results) {
              Logger.info(entityType + ' Un-Archived')
              //set entity item to correct data
              entityItem._isDeleted = false;
              entityItem.deletedAt = null;
-            //remove deleted row from the grid without refreshViewing
-             gridManager.refreshView();
 
-              //creates activity deleted
-              var activityDetails = {
-                title: 'Un-Archived ' + entityType,
-                data: {
-                  deleted: false
-                }
-              }
-              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+             //can stope ladda spinner
+             $rootScope.unarchiving = false;
+
+            //remove deleted row from the grid without refreshViewing
+              $rootScope.$broadcast('REFRESH_VIEW'); // TODO- MOVE THIS TO FACTORY
+
+              // //creates activity deleted
+              // var activityDetails = {
+              //   title: 'Un-Archived ' + entityType,
+              //   data: {
+              //     deleted: false
+              //   }
+              // }
+              // activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
           })
           .catch(function(err){
+          $rootScope.unarchiving = false;
           Logger.error('Error Un-Archiving ' + entityType);
         })
     };
@@ -606,7 +611,7 @@ angular.module('interloop.factory.sidebarActions', [])
 
           thisModal.result.then(function(results){
 
-            Logger.info('File Uploaded Successfully')
+            // Logger.info('File Uploaded Successfully')
             //moved relationship stuff to file upload controller
 
               console.log('after modal results', results);

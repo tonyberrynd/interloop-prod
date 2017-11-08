@@ -1,32 +1,32 @@
- <form name="detailsForm" novalidate>
+ <form name="$root.detailsForm" novalidate autocomplete="off">
                       <div class="row">
 
                           <div ng-class="field.class || 'col-xs-12'" ng-repeat="field in data.fields | filter: {excludeForm: '!true'}" ng-switch="field.type">
                                               <!-- divider -->
-                              <div class="form-group" ng-switch-when="divider">
+                              <div class="form-group" ng-switch-when="divider" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                                 <h5 class="pane-title">{{field.label}} <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                 </h5>
                               </div>
 
                                <!-- string -->
-                               <div class="form-group" ng-switch-when="string">
+                               <div class="form-group" ng-switch-when="string" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                                 <label for="{{field.key}}" ng-bind="field.label"></label>
-                                <input type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled">
+                                <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled">
                               </div>
 
                               <!-- textarea -->
-                               <div class="form-group" ng-switch-when="textarea" ng-class="{ 'has-error' : newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine }">
+                               <div class="form-group" ng-switch-when="textarea" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                                 <label for="{{field.key}}">
                                   <span ng-bind="field.label"></span>
                                   <span class="required-field" ng-if="field.newRequired">*</span>
                                   <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                 </label>
-                                <textarea class="form-control" ng-model="data.thisRecord.description" msd-elastic style="min-height:120px;"
+                                <textarea name="{{field.key}}" class="form-control" ng-model="data.thisRecord.description" msd-elastic style="min-height:120px;"
                                       id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired"></textarea>
                                </div>
 
 
-                               <div class="form-group" ng-switch-when="domain" ng-class="{ 'has-error' : newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine }">
+                               <div class="form-group" ng-switch-when="domain" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                                   <label for="{{field.key}}">
                                     <span ng-bind="field.label"></span>
                                     <span class="required-field" ng-if="field.newRequired">*</span>
@@ -36,35 +36,35 @@
                                  </div>
 
                                 <!-- number -->
-                               <div class="form-group" ng-switch-when="number">
+                               <div class="form-group" ng-switch-when="number" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                                 <label for="{{field.key}}" ng-bind="field.label"></label>
-                                <input type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
+                                <input name="{{field.key}}" type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                               </div>
 
                               <!-- currency -->
-                               <div class="form-group" ng-switch-when="currency">
+                               <div class="form-group" ng-switch-when="currency" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                                 <label for="{{field.key}}" ng-bind="field.label"></label>
-                                <input type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
+                                <input name="{{field.key}}" type="number" class="form-control" name="valueInputCurrency" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                               </div>
 
                               <!-- date -->
-                               <div class="form-group" ng-switch-when="date">
+                               <div class="form-group" ng-switch-when="date" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                                 <label for="{{field.key}}" ng-bind="field.label"></label>
-                                <input date-range-picker class="form-control date-picker" id="{{field.key}}" ng-model="data.thisRecord[field.key]" options="$root.options" ng-disabled="field.disabled" ui-mask="99/99/9999"  ui-mask-placeholder ui-mask-placeholder-char=" "/>
+                                <input name="{{field.key}}" type="text" date-range-picker class="form-control date-picker" id="{{field.key}}" ng-model="data.thisRecord[field.key]" options="$root.options" ng-disabled="field.disabled" ui-mask="99/99/9999"  ui-mask-placeholder ui-mask-placeholder-char=" "/>
                               </div>
 
                               <!-- boolean -->
                               <div class="form-group" ng-switch-when="boolean">
-                                <input class="magic-checkbox" type="checkbox" name="layout" id="{{field.key}}" ng-model="data.thisRecord[field.key]">
+                                <input name="{{field.key}}" class="magic-checkbox" type="checkbox" name="layout" id="{{field.key}}" ng-model="data.thisRecord[field.key]">
                                 <label class="text" for="{{field.key}}">
                                     {{field.label}}
                                 </label>
                               </div>
 
                               <!-- picklists -->
-                              <div class="form-group" ng-switch-when="category">
+                              <div class="form-group" ng-switch-when="category" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                               <label for="{{field.key}}" ng-bind="field.label"></label>
-                              <ui-select ng-model="data.thisRecord[field.key]" on-select="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
+                              <ui-select  name="{{field.key}}" ng-model="data.thisRecord[field.key]" on-select="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
                                 <ui-select-match placeholder="Select options...">
                                   <span>
                                     <span class="name">{{$select.selected.label}}</span>
@@ -78,14 +78,14 @@
 
 
                               <!-- multi select -->
-                              <div class="form-group" ng-switch-when="multi">
+                              <div class="form-group" ng-switch-when="multi" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                               <div class="multiple-select">
                                 <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Select Users">
                                   <label for="{{field.key}}">
                                       <span ng-bind="field.label"></span>
                                       <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
                                     </label>
-                                  <ui-select multiple ng-model="data.thisRecord[field.key]" on-select="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
+                                  <ui-select name="{{field.key}}"  multiple ng-model="data.thisRecord[field.key]" on-select="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled">
                                     <ui-select-match placeholder="Select options...">
                                       <span>
                                         <span class="name">{{$select.selected.label}}</span>
@@ -100,7 +100,7 @@
 
 
                               <!-- mixed select -->
-                            <div class="form-group" ng-switch-when="mixed-select">
+                            <div class="form-group" ng-switch-when="mixed-select" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                             <label for="{{field.key}}">
                               <span ng-bind="field.label"></span>
                               <span class="required-field" ng-if="field.newRequired">*</span>
@@ -126,9 +126,9 @@
                           </div>
 
                               <!-- lookup -->
-                              <div class="form-group" ng-switch-when="lookup">         
+                              <div class="form-group" ng-switch-when="lookup" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">         
                               <label for="{{field.key}}" ng-bind="field.label"></label>
-                                <input id="{{field.key}}" type="text" 
+                                <input name="{{field.key}}" id="{{field.key}}" type="text" 
                                       ng-model="data.thisRecord[field.key]" 
                                       placeholder="Search..." 
                                       typeahead-editable="false"
@@ -190,7 +190,7 @@
 
 
                              <!-- email inputs -->
-                            <div class="form-group" ng-switch-when="email">
+                            <div class="form-group" ng-switch-when="email" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                               <label for="{{field.key}}" ng-bind="field.label"></label>
 
                                 <div class="input-group array-input-wrapper" ng-repeat="email in data.thisRecord[field.key]">
@@ -202,7 +202,7 @@
                                       <li role="menuitem" ng-repeat="emailType in data.emailTypes"><a href ng-click="email.type = emailType">{{emailType.label}}</a></li>
                                     </ul>
                                   </div>
-                                  <input type="email" class="form-control pull-left" ng-model="email.value" placeholder="email@example.com">   
+                                  <input name="{{field.key}}" type="email" class="form-control pull-left" ng-model="email.value" placeholder="email@example.com">   
                                   <div class="input-group-btn" ng-hide="$first">
                                   <button class="btn btn-default remove-input" ng-click="removeEmail(email, field)">
                                     <icon class="fa fa-close"></icon>
@@ -216,7 +216,7 @@
 
 
                             <!-- phone inputs -->
-                           <div class="form-group" ng-switch-when="phone">
+                           <div class="form-group" ng-switch-when="phone" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                               <label for="{{field.key}}" ng-bind="field.label"></label>
 
                                 <div class="input-group array-input-wrapper" ng-repeat="phone in data.thisRecord[field.key]">
@@ -228,7 +228,7 @@
                                       <li role="menuitem" ng-repeat="phoneType in data.phoneTypes"><a href ng-click="phone.type = phoneType">{{phoneType.label}}</a></li>
                                     </ul>
                                   </div>
-                                  <input type="text" class="form-control pull-left" ng-model="phone.value" ui-mask="(999) 999-9999 ext. ?9?9?9"  ui-mask-placeholder ui-mask-placeholder-char=" ">   
+                                  <input name="{{field.key}}" type="text" class="form-control pull-left" ng-model="phone.value" ui-mask="(999) 999-9999 ext. ?9?9?9"  ui-mask-placeholder ui-mask-placeholder-char=" ">   
                                   <div class="input-group-btn" ng-hide="$first">
                                   <button class="btn btn-default remove-input" ng-click="removePhone(phone, field)">
                                     <icon class="fa fa-close"></icon>
@@ -242,7 +242,7 @@
 
 
                             <!-- social inputs -->
-                           <div class="form-group" ng-switch-when="social">
+                           <div class="form-group" ng-switch-when="social" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                               <label for="{{field.key}}" ng-bind="field.label"></label>
 
                                 <div class="input-group array-input-wrapper" ng-repeat="social in data.thisRecord[field.key]">
@@ -254,7 +254,7 @@
                                       <li role="menuitem" ng-repeat="socialType in data.socialTypes"><a href ng-click="social.type = socialType">{{socialType.label}}</a></li>
                                     </ul>
                                   </div>
-                                  <input type="text" class="form-control pull-left" ng-model="social.value" ui-mask="{{social.type['mask']}}"  ui-mask-placeholder ui-mask-placeholder-char=" ">   
+                                  <input name="{{field.key}}" type="text" class="form-control pull-left" ng-model="social.value" ui-mask="{{social.type['mask']}}"  ui-mask-placeholder ui-mask-placeholder-char=" ">   
                                   <div class="input-group-btn" ng-hide="$first">
                                   <button class="btn btn-default remove-input" ng-click="removeSocial(social, field)">
                                     <icon class="fa fa-close"></icon>
@@ -265,8 +265,6 @@
                                   <icon class="fa fa-plus-circle"></icon> Add Social
                                 </button>
                              </div>
-
-
 
                           </div>
 

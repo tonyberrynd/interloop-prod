@@ -58,8 +58,8 @@ angular.module('interloop.fileUploadCtrl', [])
   function ok() {
 
       $rootScope.showBanner = true;
-      $rootScope.fileUploading = true;
-      $rootScope.uploadMessage = 'Uploading: ' + $scope.data.name;
+      $rootScope.uploadingFile = true;
+      $rootScope.uploadingText = 'Uploading: ' + $scope.data.name;
       $rootScope.uploadState = 'initial';
       var latestFile = null;
 
@@ -82,14 +82,15 @@ angular.module('interloop.fileUploadCtrl', [])
         }).then(function (resp) {
             console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
 
-            $rootScope.uploadMessage = 'Successfully Uploaded!'
-            $rootScope.uploadState = 'success';
+            $rootScope.uploadingFile = true;
+            $rootScope.uploadingText = 'Successfully Uploaded!'
+            $rootScope.uploadingType = 'success';
             //once file is uploaded - link to user record
 
             $timeout(function(){
-              $rootScope.fileUploading = false;
+              $rootScope.uploadingFile = false;
               $rootScope.showBanner = false;
-            }, 2500)
+            }, 1500)
 
             latestFile = resp.data;
 
@@ -100,7 +101,7 @@ angular.module('interloop.fileUploadCtrl', [])
         }, function (resp) {
             console.log('Error status: ' + resp.status);
 
-            $rootScope.fileUploading = false;
+            $rootScope.uploadingFile = false;
             $rootScope.showBanner = false;
             $rootScope.uploadState = 'error';
 
@@ -109,15 +110,11 @@ angular.module('interloop.fileUploadCtrl', [])
 
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-
-            //bind to rootScope
-            $rootScope.showBanner = true;
-            $rootScope.fileUploading = true;
-            $rootScope.uploadMessage = 'progress: ' + progressPercentage + '% ' + evt.config.data.file.name;
+            $rootScope.uploadingText = 'Progress: ' + progressPercentage + '% ' + evt.config.data.file.name;
             $rootScope.uploadState = 'processing';
         });
 
-      }, 2500)
+      }, 0)
 
 
          //close whether done or not

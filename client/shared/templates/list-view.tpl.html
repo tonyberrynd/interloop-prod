@@ -324,7 +324,7 @@
                   </span>
                 </div>
                 <!-- category -->
-                <div ng-switch-when="lookup" class="tag primary rounded"  ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}}
+                <div ng-switch-when="lookup" class="tag primary rounded"  ng-if="filter.filterActive && filter.filterValue.length">{{filter.label}}: {{filter.filterApplied}}
                     <span ng-repeat="value in filter.filterValue | limitTo:2">
                     <!-- //switch through various lookup types -->
                     <span ng-switch="filter.lookupEntity">
