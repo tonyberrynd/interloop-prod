@@ -5,7 +5,7 @@ angular.module('coil.config.toastr', [])
   angular.extend(toastrConfig, {
     autoDismiss: false,
     containerId: 'toast-container',
-    maxOpened: 0,    
+    maxOpened: 1,    
     newestOnTop: true,
     positionClass: 'toast-bottom-left',
     preventDuplicates: false,

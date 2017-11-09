@@ -142,7 +142,7 @@ angular.module('interloop.fileUploadCtrl', [])
               entityItem.files = entityItem.files || [];
 
               //push file results into file
-              entityItem.files.push(results);
+              entityItem.files.push(file);
           })
           .catch(function(err){
             Logger.error('Error Adding File', 'Please Try Again In A Few Moments')

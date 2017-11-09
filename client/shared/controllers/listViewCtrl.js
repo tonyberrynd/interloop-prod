@@ -157,10 +157,10 @@ function activate() {
                 initialView = angular.copy($scope.data.thisView);
                 
                 //sort model
-                initialSortModel = angular.copy($scope.data.thisView.sortModel) || [];
+                initialSortModel = angular.copy(_.get($scope.data.thisView, 'sortModel', []));
 
                 //match type
-                $scope.data.filterMatches = $scope.data.thisView.matchType || 'all';
+                $scope.data.filterMatches = _.get($scope.data.thisView, 'matchType', 'all');
 
                 //metadata
                 $scope.data.count = $scope.data.thisView.count;

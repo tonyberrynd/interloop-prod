@@ -741,6 +741,7 @@ angular.module('interloop.factory.gridManager', [])
         updateRow: updateRow,
         selectAll: selectAll,
         doLayout: doLayout,
+        updateGridRow: updateGridRow,
         getRowNode: getRowNode
     };
 
@@ -1082,9 +1083,10 @@ angular.module('interloop.factory.gridManager', [])
                             //change histories
                             var changeHistories = _.filter(params.data.changeHistories, ['attribute', params.colDef.field]);
                             if(params.context.changeHistory !== 'none' && changeHistories.length){
-                                var html = '<span class="cell-wrapper ui-popover" data-title="Recent Changes">' + getParamValue(params) + '</span>'
-                                    html += '<div class="webui-popover-content">'
-                                    html += '<p>' + _.upperFirst(params.colDef.field) + '</p>'
+                                var html = '<span class="cell-wrapper ui-popover" data-title="Recent Changes">' + getParamValue(params) + '</span>';
+                                    // html += '<button class="btn btn-default edit-btn no-row-click"><icon class="fa fa-pencil now-row-click"></icon></button>';
+                                    html += '<div class="webui-popover-content">';
+                                    html += '<p>' + _.upperFirst(params.colDef.field) + '</p>';
                                     //rip through each change
                                     _.forEach(changeHistories, function(change){
                                         html += '<p style="whitespace:nowrap;">"' + change.previousValue['value'] + '" <icon class="wb-arrow-right"></icon> "' + change.newValue['value'] + '"</p>'
@@ -1093,7 +1095,10 @@ angular.module('interloop.factory.gridManager', [])
                                     html += '</div>'
                                     return html;
                             } else {
-                                    return '<span class="cell-wrapper">' + getParamValue(params) + '</span>'
+                                    var html = '<span class="cell-wrapper">' + getParamValue(params) + '</span>'
+                                        // html += '<button class="btn btn-default edit-btn no-row-click"><icon class="fa fa-pencil no-row-click"></icon></button>';
+
+                                    return html;
                             }
                         } else {
                           return  '<div class="loading-data"></div>';
@@ -1259,6 +1264,19 @@ angular.module('interloop.factory.gridManager', [])
 
         //let controller know
         // $rootScope.$broadcast('GRID_READY', {});
+    }
+
+
+        /*
+    Update Grid Row Data
+    */
+    function updateGridRow(rowNode, data){
+         grid.api.forEachNode(function (node) {
+            if(node.id == rowNode){
+                node.setData(data);
+                return;
+            }
+        });
     }
 
 

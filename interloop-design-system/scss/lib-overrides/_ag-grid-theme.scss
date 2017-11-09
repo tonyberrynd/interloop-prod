@@ -159,6 +159,25 @@ $g-select-foreground: $seamonster !important;
 		}
 	}
 
+	.ag-cell .edit-btn {
+		display: none;
+		position: absolute;
+	    right: 0px;
+	    top: 3px;
+	    background: transparent;
+	    border: none;
+
+	    icon {
+	    	color:$granite;
+	    }
+	}
+
+	.ag-cell:hover {
+		.edit-btn {
+			display: block;
+		}
+	}
+
 	.number .cell-wrapper {
 		//creates mono spaced numbers for easy scanning
 		-moz-font-feature-settings:"tnum" 1; /* Firefox 31+ */

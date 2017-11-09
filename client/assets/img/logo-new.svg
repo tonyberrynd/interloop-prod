@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="389px" height="210px" viewBox="0 0 389 210" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="501px" height="106px" viewBox="0 0 501 106" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
-    <title>Group 5</title>
+    <title>Group 7</title>
     <desc>Created with Sketch.</desc>
     <defs>
         <linearGradient x1="0%" y1="0%" x2="101.999998%" y2="100.999999%" id="linearGradient-1">
@@ -14,18 +14,20 @@
         </linearGradient>
     </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-2" transform="translate(-332.000000, -217.000000)">
-            <g id="Group-5" transform="translate(324.000000, 217.000000)">
-                <text id="Interloop" font-family="MuseoSans-700, Museo Sans" font-size="96" font-weight="500" letter-spacing="-2.66666667" fill="#0F244B">
-                    <tspan x="0" y="190">Interloop</tspan>
-                </text>
-                <g id="Group-4" transform="translate(199.000000, 50.000000) rotate(180.000000) translate(-199.000000, -50.000000) translate(148.000000, 0.000000)" stroke-width="10.6666667">
-                    <g id="Group-3">
-                        <g id="Group-2">
-                            <g id="Group">
-                                <g id="Group-6">
-                                    <path d="M41.9119497,57.4591195 L69.8216796,57.4591195 C84.215818,57.4591195 95.8845727,45.7903648 95.8845727,31.3962264 C95.8845727,17.002088 84.215818,5.33333333 69.8216796,5.33333333 L68.8982612,5.33333333 C53.9941329,5.33333333 41.9119497,17.4155165 41.9119497,32.3196448 L41.9119497,57.4591195 Z" id="Rectangle-3" stroke="url(#linearGradient-1)"></path>
-                                    <path d="M41.7610063,57.4523319 L23.5471698,57.4523319 C13.4879457,57.4523319 5.33333333,65.6069443 5.33333333,75.6661684 C5.33333333,85.7253925 13.4879457,93.8800049 23.5471698,93.8800049 C33.6063939,93.8800049 41.7610063,85.7253925 41.7610063,75.6661684 L41.7610063,57.4523319 Z" id="Rectangle-3" stroke="url(#linearGradient-2)"></path>
+        <g id="Artboard" transform="translate(-55.000000, -57.000000)">
+            <g id="Group-5" transform="translate(55.000000, 52.000000)">
+                <g id="Group-7">
+                    <text id="Interloop" font-family="MuseoSans-700, Museo Sans" font-size="96" font-weight="500" letter-spacing="-2.66666667" fill="#FFFFFF">
+                        <tspan x="104" y="90.3333333">Interloop</tspan>
+                    </text>
+                    <g id="Group-4" transform="translate(48.000000, 52.058824) rotate(180.000000) translate(-48.000000, -52.058824) translate(0.000000, 5.000000)" stroke-width="10.6666667">
+                        <g id="Group-3">
+                            <g id="Group-2">
+                                <g id="Group">
+                                    <g id="Group-6">
+                                        <path d="M39.7602664,53.7654458 L65.714522,53.7654458 C79.0886805,53.7654458 89.9305782,42.9235481 89.9305782,29.5493896 C89.9305782,16.175231 79.0886805,5.33333333 65.714522,5.33333333 L64.8454223,5.33333333 C50.9912732,5.33333333 39.7602664,16.5643402 39.7602664,30.4184893 L39.7602664,53.7654458 Z" id="Rectangle-3" stroke="url(#linearGradient-1)"></path>
+                                        <path d="M38.990751,54.3865085 L22.1620422,54.3865085 C12.8678029,54.3865085 5.33333333,61.9209781 5.33333333,71.2152173 C5.33333333,80.5094566 12.8678029,88.0439262 22.1620422,88.0439262 C31.4562814,88.0439262 38.990751,80.5094566 38.990751,71.2152173 L38.990751,54.3865085 Z" id="Rectangle-3" stroke="url(#linearGradient-2)"></path>
+                                    </g>
                                 </g>
                             </g>
                         </g>

@@ -9,7 +9,7 @@ angular.module('interloop.config.toastr', [])
   angular.extend(toastrConfig, {
     autoDismiss: true,
     containerId: 'toast-container',
-    maxOpened: 2,    
+    maxOpened: 1,    
     newestOnTop: true,
     positionClass: 'toast-top-center',
     preventDuplicates: false,

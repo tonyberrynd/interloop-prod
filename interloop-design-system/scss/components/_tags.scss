@@ -81,6 +81,9 @@
 		 @include tag-color-mixin($topaz, $diamond);
 	}
 
+	&.danger {
+		 @include tag-color-mixin($danger, $diamond);
+	}
 
 	&.clover {
 		 @include tag-color-mixin($clover, $diamond);

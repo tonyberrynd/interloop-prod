@@ -1,67 +1,45 @@
-    <div class="modal-header header-dark">
-        <h3 class="modal-title" id="modal-title">Add Tag</h3>
-        <p>Add a tag to <b>{{data.currentRecordName}}</b></p>
-        
-        <!-- close button -->
-        <button type="button" class="close" ng-click="$dismiss()">
-            <icon class="wb-close-mini"></icon>
-        </button>
+  <div class="modal-header short-header">
+            <h5 class="modal-title text-center" id="modal-title">Tags ({{data.selectedTags.length}})</h5> 
+            <!-- close button -->
+            <button type="button" class="close" ng-click="$dismiss()">
+                <icon class="wb-close-mini"></icon>
+            </button>
 
-    </div>
-    <div class="modal-body w-padding" id="modal-body">
-
-
-
-        <form name="bulkTagForm" class="form-horizontal" novalidate>
-          <div class="form-group">
-            <label for="existing-tag" class="col-sm-4 control-label">
-                    <!-- label -->
-                        <div class="radio-custom radio-primary pull-left" style="padding:0 25px;">
-                          <input class="magic-radio" type="radio" id="tagType-existing" name="tagType" ng-model="data.tagType" value="existing">
-                          <label for="tagType-existing">Existing Tag</label>
-                        </div>
-
-            </label>
-            <div class="col-sm-8">
-                <div class="single-select">
-                      <ui-select allow-clear="true" ng-model="data.selectedTag" minimum-input-length="1" theme="bootstrap" ng-disabled="data.tagType == 'new'">
-                        <ui-select-match placeholder="Choose a Tag">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="item in data.tags | filter: $select.search">
-                          <span ng-bind-html="item.name | highlight: $select.search"></span>
-                        </ui-select-choices>
-                        <ui-select-no-choice>
-                          <span class="no-results" ng-if="!(data.people | filter: $select.search).length && !data.serverError">
-                          No Results Found Matching <b>"{{$select.search}}"</b>
-                          </span>
-                              <span class="server-error" ng-if="!(data.people | filter: $select.search).length && data.serverError">
-                                The servier did not respond
-                                <br>
-                                <button class="btn btn-default">Retry</button>
-                              </span>
-                      </ui-select-no-choice>
-                  </ui-select>
+        </div>
+        <div class="modal-body no-padding manage-modal" id="modal-body">
+            
+            <div class="modal-subheader">
+                <div class="search">
+                    <icon class="search-icon wb-search"></icon>
+                    <input type="text" class="form-control" placeholder="Search..." ng-model="data.searchTags">
+                    <button class="btn btn-default" ng-click="data.searchTags = '';" ng-class="{'hidden': !data.searchTags }">
+                        <icon class="wb-plus-circle"></icon>
+                    </button>
                 </div>
+            </div>
+            
+            <div class="modal-subbody">
+
+            <div class="list-group">
+              <span ng-repeat="tag in data.tagList | limitTo: 15 | isSelected:data.selectedTags | orderBy:['-selected', 'name'] | filter: data.searchTags">
+                <a href class="list-group-item avatar-item no-avatar tag-item" ng-click="addRemoveTag(tag)" ng-class="{'active': tag.selected }">
+                  <h4>
+                    <icon class="wb-tag"></icon>
+                    <span ng-bind="tag.name"></span>
+                  </h4>
+                  <!-- //check mark -->
+                  <span class="isSelected" ng-if="tag.selected">
+                    <icon class="wb-check"></icon>
+                  </span>
+                </a>
+                </span>
+            </div>
 
             </div>
-          </div>
-          <div class="form-group">
-            <label for="new-tag" class="col-sm-4 control-label">
-                <!-- label -->
-                        <div class="radio-custom radio-primary pull-left" style="padding:0 25px;">
-                          <input class="magic-radio" type="radio" id="tagType-new" name="tagType" ng-model="data.tagType" value="new">
-                          <label for="tagType-new">New Tag</label>
-                        </div>
-            </label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" id="new-tag" placeholder="New Tag Name" ng-model="data.newTag" ng-disabled="data.tagType == 'existing'">
-            </div>
-          </div>
-        </form>
+          
 
-
-
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-subtle" type="button" ng-click="$dismiss()">Cancel</button>
-        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="shouldDisable()" ladda="data.processing" data-style="slide-up">Add Tag</button>
-    </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ladda="data.processing" data-style="slide-up">Save Tags</button>
+        </div>

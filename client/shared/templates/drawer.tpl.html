@@ -859,8 +859,21 @@
 
 <!-- settings / overlays -->
 <div class="groups" ng-class="{'hidden': data.filterView !== 'settings' }">
+  
+  <br>
 
-    <div class="panel panel-default panel-light" style="margin-top:10px !important;" ng-if="data.currentEntity == 'Opportunity'">
+  <div class="panel panel-default panel-light" style="margin-bottom:15px !important;">
+    <div class="panel-body set-default">
+           <h5>Default View</h5>
+           <p>{{data.currentEntityPlural}}</p>
+          <span class="toggle toggle-success">
+              <input class="toggle-range" id="defaultToggle" type="checkbox" ng-model="data.default" ng-change="setUnsetDefault(data.default)">
+              <label class="toggle-btn" for="defaultToggle"></label>
+          </span>
+    </div>
+  </div>
+
+  <div class="panel panel-default panel-light" style="margin-top:10px !important;" ng-if="data.currentEntity == 'Opportunity'">
     <div class="panel-heading">
       <h5>Displayed Value</h5>
     </div>

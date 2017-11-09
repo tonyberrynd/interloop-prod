@@ -82,13 +82,7 @@ angular.module('interloop.factory.sidebarActions', [])
     }
 
     function getFiles(items) {
-        var files = _.filter(items, {"itemType": 'Attachment'});
-
-        //turns file size into number needed for kb fileter
-        // _.forEach(files, function(value, key){
-        //   value.item.size = Number(value.item.size) ? Number(value.size) : 0;
-        // })
-
+        var files = _.map(_.filter(items, {"itemType": 'Attachment'}), 'item');
         //return files
         return  files;
     }
@@ -125,7 +119,7 @@ angular.module('interloop.factory.sidebarActions', [])
     //needs to have a completed date or will really mess up the visual on the timeline
     function getHistory(activities) {
         return _.filter(activities, function(o) {
-          return o.activity.completed;
+          return o.activity && o.activity.completed;
         });
     }
 
@@ -388,13 +382,9 @@ angular.module('interloop.factory.sidebarActions', [])
       //resolved information
       var resolveData = {
         entity: entityType,
-        thisRecord: entityItem
+        thisRecord: entityItem,
+        currentTags: entityItem.tags
       };
-
-
-      // var resolvedData = {
-      //   entity: entityType
-      // }
 
       var addTagModal = modalManager.openModal('addTag', resolveData);
 
@@ -403,41 +393,19 @@ angular.module('interloop.factory.sidebarActions', [])
         // console.log(results);
 
           //push in plain objects
-          _.forEach(results, function(value){
-                //append information so tooltips work well
-                value.item = value.item || {};
-                value['item']['createdBy'] = value['item']['createdBy'] || {
-                  firstName: $rootScope.activeUser.firstName,
-                  lastName: $rootScope.activeUser.lastName
-                };
-                //created on
-                value['item'].createdOn = value['item'].createdOn || moment().format();
+           var currentStateOfTags = [];
+            _.forEach(results, function(value){
+              var doubleLayerTag = {
+                name: value.name,
+                createdOn: value.createdOn,
+                createdBy: value.createdBy,
+                item: value
+              }
+              currentStateOfTags.push(doubleLayerTag);
+            })
 
-                entityItem.items.push(value);
-                entityItem.itemLinks.push(value);
-          })
-
-        // refreshes tags in view
-        $timeout(function(){
-             entityItem.tags = getTags(entityItem);
-        }, 0)
-        // $scope.data.thisOpp.tags = SidebarActions.getTags($scope.data.thisOpp.items);
-      })
-
-      // return TagManager.manageTags(entityItem, entityType, entityItem.tags)
-      // .then(function (tags) {
-      //     //update related items with Tags 
-      //     _.remove(entityItem.items, {"itemType": "Tag"}); 
-      //     _.extend(entityItem.items, tags); //update tags on successful return 
-
-      //     //update itemLinks
-      //     _.remove(entityItem.itemLinks, {"itemType": "Tag"}); 
-      //     var strippedTags = _.map(tags,function(tag){return _.omit(tag, ['item'])}); 
-      //     _.extend(entityItem.itemLinks, strippedTags);  //add tags to linkItems but remove item detail
-
-      //   }, function () {
-      //       $log.info('Modal dismissed at: ' + new Date());
-      //   });
+            entityItem.tags = currentStateOfTags;
+        });
     }
 
 
@@ -452,19 +420,12 @@ angular.module('interloop.factory.sidebarActions', [])
               // refreshes tags in view
             $timeout(function(){
                  entityItem.tags = getTags(entityItem);
+                    //update grid row to reflect current data 
+                gridManager.updateGridRow(entityItem.id, entityItem)
             }, 0)
                   
             //let user know
             Logger.info('Tag Removed');
-
-            //creates activity deleted
-            var activityDetails = {
-                title: 'Removed Tag',
-                data: {
-                  tag: tagItem
-                }
-              }
-              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
           })
           .catch(function(err){
             Logger.error('Error Removing Tag', "Please Try Again In A Few Moments")
@@ -614,7 +575,7 @@ angular.module('interloop.factory.sidebarActions', [])
             // Logger.info('File Uploaded Successfully')
             //moved relationship stuff to file upload controller
 
-              console.log('after modal results', results);
+              // console.log('after modal results', results);
  
               // var fileActivity = {};
               // fileActivity.name = "uploaded files";
@@ -635,13 +596,13 @@ angular.module('interloop.factory.sidebarActions', [])
 
 
               //creates activity deleted
-              var activityDetails = {
-                  title: 'Added Files',
-                  data: {
-                    files: files
-                  }
-                }
-              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+              // var activityDetails = {
+              //     title: 'Added Files',
+              //     data: {
+              //       files: files
+              //     }
+              //   }
+              // activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
 
               //change tab to related so use has a smooth experience
               tabScope = 4;
@@ -1048,10 +1009,15 @@ angular.module('interloop.factory.sidebarActions', [])
                   title: "Updated " + entityType,
                   data: newValue
                 }
-              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+              activityCreator.createActivity('changelog', 'updated_record', activityDetails, true, entityItem, entityType)
                 .then(function(results){
-                    return(response); 
+                  console.log('adding changelog');
+                    entityItem.history = getHistory(entityItem.activities)
                 })
+                .catch(function(err){
+                  console.log(err);
+                })
+
 
         })
         .catch(function(err) {

@@ -26,14 +26,25 @@
                                </div>
 
 
-                               <div class="form-group" ng-switch-when="domain" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
-                                  <label for="{{field.key}}">
-                                    <span ng-bind="field.label"></span>
-                                    <span class="required-field" ng-if="field.newRequired">*</span>
-                                    <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
-                                  </label>
-                                     <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" ng-required="field.newRequired" ui-mask="http(s)://*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"  ui-mask-placeholder ui-mask-placeholder-char=" ">
-                                 </div>
+                                <div class="form-group" ng-switch-when="domain" ng-class="{ 'has-error' : newRecordFormForm.{{field.key}}.$invalid && !newRecordFormForm.{{field.key}}.$pristine }">
+                              <label for="{{field.key}}">
+                                <span ng-bind="field.label"></span>
+                                <span class="required-field" ng-if="field.newRequired">*</span>
+                                <span class="field-description" ng-if="field.description"><icon class="wb-info-circle" uib-tooltip="{{field.description}}" tooltip-popup-delay="250"></icon></span>
+                              </label>
+                              <div class="input-group">
+                                <span class="input-group-addon">http(s)://</span>
+                                 <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" change-on-blur="saveData(field.key, data.thisRecord[field.key])" ng-disabled="field.disabled" ng-required="field.newRequired" >
+                              </div>
+                              
+                              <div class="domain-suggestion" ng-if="data.domainSuggestions.length">
+                                <p><small>Suggested domains:</small></p>
+                                <span class="tag tag-info rounded" ng-repeat="suggestion in data.domainSuggestions | limitTo: 5" ng-click="data.thisRecord[field.key] = suggestion.domain; data.domainSuggestions = [];">
+                                  <span ng-bind="suggestion.domain"></span>
+                                </span>
+                              </div>
+                             
+                            </div>
 
                                 <!-- number -->
                                <div class="form-group" ng-switch-when="number" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
@@ -180,7 +191,7 @@
                               </div>
                               <!-- //add new -->
                               <div class="col-xs-6">
-                                <div class="add-new-address" ng-click="addAddress(field)">
+                                <div class="add-new-address" ng-click="addAddress(field)" tabindex="0">
                                   <icon class="fa fa-map-marker"></icon>
                                   <p>+ Add Address</p>
                                 </div>

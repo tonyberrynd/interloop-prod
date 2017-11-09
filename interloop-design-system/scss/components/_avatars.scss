@@ -182,6 +182,11 @@
     background-color:$granite !important;
 }
 
+
+.tag-item .isSelected {
+	top:10px;
+}
+
 //avatar bundle
 
 .avatar-bundle {
@@ -341,6 +346,21 @@
 		font-size:95%;
 		font-weight:500;
 	}
+
+	&.no-avatar {
+		h3, h4 {
+			margin-left:5px;
+
+			icon {
+				margin-right:10px;
+			}
+		}
+
+		// icon {
+		// 	color:$granite;
+		// }
+	}
+
 
 	.spacer {
 		margin:0 3px;

@@ -50,7 +50,7 @@ angular.module('interloop.value.modalDefs', [])
     },
 
     addOwners: {
-        templateUrl: 'shared/modals/addOwners/addOwners.tpl.html',
+        templateUrl: 'shared/modals/addOwners/addOwners3.tpl.html',
         controller: 'addOwnersCtrl',
         size: 'sm',
         ariaLabelledBy: 'Add Owners',

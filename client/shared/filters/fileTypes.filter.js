@@ -17,6 +17,9 @@ angular.module('interloop.filter.fileTypes', [])
       case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
           return 'Excel Spreadsheet'
           break;
+      case 'application/pdf':
+          return "PDF Document"
+          break;
       default:
           return 'Uploaded File'
   }
