@@ -103,13 +103,13 @@
                           <div class="avatar avatar-32 changelog-avatar " ng-switch-when="changelog"></div>
 
                           <div class="task-checkbox" ng-switch-when="todo">
-                            <input class="magic-checkbox ng-scope" type="checkbox" name="layout" id="1" value="option">
-                            <label class="text ng-scope" for="1"></label>
+                            <input class="magic-checkbox ng-scope" type="checkbox" id="toggle-1" ng-model="data.thisRecord.completed" ng-change="toggleActivity(data.thisRecord)">
+                            <label class="text ng-scope" for="toggle-1"></label>
                           </div>
 
                           <div class="task-checkbox" ng-switch-default>
-                            <input class="magic-checkbox ng-scope" type="checkbox" name="layout" id="1" value="option">
-                            <label class="text ng-scope" for="1"></label>
+                            <input class="magic-checkbox ng-scope" type="checkbox" id="toggle-2" ng-model="data.thisRecord.completed" ng-change="toggleActivity(data.thisRecord)">
+                            <label class="text ng-scope" for="toggle-2"></label>
                           </div>
 
                         </div>

@@ -104,7 +104,7 @@ angular.module('interloop.factory.gridManager', [])
           headerClass: 'text-center', 
           cellRenderer: null,  
           cellClass: 'no-padding no-row-click', 
-          width: 1, 
+          width: 5, 
           suppressSizeToFit: true, 
           suppressMovable: true, 
           suppressResize: true,
@@ -904,7 +904,7 @@ angular.module('interloop.factory.gridManager', [])
 		        // height
 		        //==================================
                 headerHeight:36,
-                rowHeight: currentEntityType == 'forecast' ? 60 : 40,
+                rowHeight: currentEntityType == 'forecast' ? 50 : 36,
 
 		        // adjust
 		        //==================================
@@ -2678,11 +2678,11 @@ angular.module('interloop.factory.gridManager', [])
               else if(currentEntityType == 'Contact') {
                 var firstLetter = params.data.firstName ? params.data.firstName.charAt(0) : '';
                 var lastLetter = params.data.lastName ? params.data.lastName.charAt(0) : '';
-                var html = '<div class="avatar avatar-32 ' + params.data.color + '">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
+                var html = '<div class="avatar avatar-28 ' + params.data.color + '">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
               }
               else if(currentEntityType == 'Company') {
                 var firstLetter = params.data.name ? params.data.name.charAt(0) : '';
-                var html = '<div class="avatar avatar-32 square ' + params.data.color + '">' + firstLetter + '</div>' + params.value
+                var html = '<div class="avatar avatar-28 square ' + params.data.color + '">' + firstLetter + '</div>' + params.value
               } else {
                 var html = params.value;
               }

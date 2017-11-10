@@ -31,7 +31,20 @@
                         Action<icon class="wb-triangle-down"></icon>
                       </button>
                       <ul class="dropdown-menu dropdown-menu-right action-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" keyboard-nav="true">
-                      
+                        <span feature-flag="--FF_SMARTLINKS--">
+                        <li class="text-divider">
+                            <span class="text">Smart Links ...</span>
+                            <span class="line"></span>
+                        </li>
+                        <li role="menuitem"><a href ng-click="addOwner()">
+                          <img src="../assets/img/icons/actions/add-owner.svg" alt="Linkedin"> Linkedin Connections</a></li>
+                        <li role="menuitem"><a href ng-click="addOwner()">
+                          <img src="../assets/img/icons/actions/add-owner.svg" alt="Linkedin"> Company Profile</a></li>
+
+                        <li role="menuitem"><a href ng-click="addOwner()">
+                          <img src="../assets/img/icons/actions/add-owner.svg" alt="Linkedin"> Custom Third Party Link</a></li>
+                        </span>
+                        
                         <li class="text-divider">
                             <span class="text">Manage ...</span>
                             <span class="line"></span>
@@ -123,7 +136,7 @@
                 <div class="sidepanel-tabs">
                     <div class="tabs-wrapper">
                         <ul class="nav nav-tabs nav-justified">
-<!--                           <li ng-class="{ 'active': data.currentTab == 1 }"><a href ng-click="data.currentTab = 1">Insights</a></li> -->
+                          <!-- <li ng-class="{ 'active': data.currentTab == 1 }"><a href ng-click="data.currentTab = 1">Insights</a></li> -->
                           <li ng-class="{ 'active': data.currentTab == 2 }"><a href ng-click="data.currentTab = 2">Details</a></li>
 <!--                           <li ng-class="{ 'active': data.currentTab == 7 }"><a href ng-click="data.currentTab = 7">Milestones</a></li> -->
                           <li ng-class="{ 'active': data.currentTab == 4 }">

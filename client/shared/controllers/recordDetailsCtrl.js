@@ -9,6 +9,7 @@ angular.module('interloop.recordDetailsCtrl', [])
   $rootScope,
   $stateParams,
   $q,
+  $sce,
   $window,
   $state,
   $timeout,
@@ -258,8 +259,17 @@ function getScoreColor(score){
 Preview An Image
 */
 function previewImage(file){
-  var filesArray = [ file ];
-  Lightbox.openModal(filesArray, 0);
+
+  _.forEach($scope.data.thisRecord.files, function(file){
+    if(file.type == 'application/pdf'){
+      var url = file.url + '#toolbar=0&navpanes=0'
+      file.trustedUrl = $sce.trustAsResourceUrl(url);
+    }
+  })
+
+  var filesArray = $scope.data.thisRecord.files;
+  var index = $scope.data.thisRecord.files.indexOf(file);
+  Lightbox.openModal(filesArray, index);
 }
 
 /*
@@ -730,30 +740,37 @@ function toggleActivity(activity, activities){
   console.log(activity);
 
   if(activity.completed){
-
     //ensure subactivty
     activity.completed = true;
     activity.completedDate = moment().format();
+  } else {
+    activity.completed = false;
+    activity.completedDate = null;
+  }
 
     return Activity.prototype$patchAttributes({id: activity.id}, activity).$promise
     .then(function(results){
-        Logger.info('Completed Task');
+      if(activity.completed){
+        Logger.info('Completed Activity');
+      } else {
+        Logger.info('Updated Activity');
+      }
 
-        //get the history so its updated
-        $timeout(function(){
-            //push into history
-            $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
-            //remove from open activities
-            activities.splice( activities.indexOf(activity), 1 );
-        }, 50)
+        //get the history so its updated if not on an activity page
+        if(activities){
+          $timeout(function(){
+              //push into history
+              $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
+              //remove from open activities
+              activities.splice( activities.indexOf(activity), 1 );
+          }, 50)
+        }
        
     })
     .catch(function(err){
       Logger.error('Error Completing Task');
     })
 
-
-  } 
 }
 
 //-------------------------------------------

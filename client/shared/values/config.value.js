@@ -5,11 +5,6 @@ angular.module('interloop.value.config', [])
 
 //used to configure which entities are available
 .value("entityTypes", {
-	'forecast': {
-		singular: 'Forecast',
-		plural: 'Forecasts',
-		allowStars: false
-	},
 	'opportunity': {
 		singular: 'Opportunity',
 		plural: 'Opportunities',

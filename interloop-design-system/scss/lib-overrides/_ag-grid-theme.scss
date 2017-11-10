@@ -100,7 +100,7 @@ $g-select-foreground: $seamonster !important;
 	}
 
 	.ag-cell {
-		line-height: 34px;
+		line-height: 32px;
 		border:solid 1px transparent;
 		padding:0 10px !important;
 	}
@@ -156,6 +156,7 @@ $g-select-foreground: $seamonster !important;
 
 		.avatar {
 			margin-right:10px;
+			margin-top:-3px;
 		}
 	}
 
