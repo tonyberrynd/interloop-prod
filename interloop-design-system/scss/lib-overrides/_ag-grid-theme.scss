@@ -100,7 +100,7 @@ $g-select-foreground: $seamonster !important;
 	}
 
 	.ag-cell {
-		line-height: 34px;
+		line-height: 32px;
 		border:solid 1px transparent;
 		padding:0 10px !important;
 	}
@@ -129,6 +129,10 @@ $g-select-foreground: $seamonster !important;
 
 	.ag-row.ag-row-deleted {
 		background:  $danger-bg !important;
+
+		&.ag-row-hover {
+			background-color: #D7F1FF !important;
+		}
 	}
 
 
@@ -152,6 +156,26 @@ $g-select-foreground: $seamonster !important;
 
 		.avatar {
 			margin-right:10px;
+			margin-top:-3px;
+		}
+	}
+
+	.ag-cell .edit-btn {
+		display: none;
+		position: absolute;
+	    right: 0px;
+	    top: 3px;
+	    background: transparent;
+	    border: none;
+
+	    icon {
+	    	color:$granite;
+	    }
+	}
+
+	.ag-cell:hover {
+		.edit-btn {
+			display: block;
 		}
 	}
 

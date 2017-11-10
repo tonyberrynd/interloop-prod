@@ -15,6 +15,8 @@ angular.module('interloop.recordEditCtrl', [])
 	modalManager,
 	EndFields,
 	socialTypes,
+	gridManager,
+	activityCreator,
 	RelationshipManager,
 	emailTypes,
 	phoneTypes
@@ -37,13 +39,17 @@ angular.module('interloop.recordEditCtrl', [])
 	$scope.data.phoneTypes = phoneTypes;
 
 	//get fields
-	$scope.data.fields = $injector.get(currentEntity + 'Fields');
+	$scope.data.basicFields = $injector.get(currentEntity + 'Fields');
 
 	//custom fields
 	$scope.data.customFields = _.filter($rootScope.customFields,function(o){
         return _.includes(o.useWith, currentEntity);
     })
 
+    //merge the two
+    $scope.data.fields = $scope.data.basicFields.concat($scope.data.customFields);
+
+    
 	//functions
 	//----------------------
 	$scope.returnToDetails = returnToDetails;
@@ -109,6 +115,7 @@ activate()
 	Return to Detail Page
 	*/
 	function returnToDetails(){
+  		//go back to details page
 		$state.go('app.' + _.lowerCase(currentEntity) + '-details', {id: $stateParams.id })
 	}
 
@@ -153,9 +160,9 @@ activate()
 		//save record
 		 return $injector.get(currentEntity).prototype$patchAttributes({"id": $scope.data.thisRecord.id}, $scope.data.thisRecord).$promise
         .then(function(response) {
-            if(!noAlert) {
-              Logger.info('Record updated');
-            }
+            
+            Logger.info('Record updated');
+          
 
             if($scope.data.thisRecord.primaryCompany && ($scope.data.thisRecord.primaryCompany.name !== _.get($scope.data.prevPrimaryCompany, 'name', null))){
 
@@ -168,7 +175,25 @@ activate()
 				  .then(function(){ 
 				    return linkCompany($scope.data.thisRecord, $scope.data.thisRecord.primaryCompany, true)
 				    		.then(function(results){
-				    			returnToDetails(currentEntity, $scope.data.thisRecord.id);
+				    			
+				    			var activityDetails = {
+					                  title: "Updated " + currentEntity,
+					                  data: null
+					                }
+					              activityCreator.createActivity('changelog', 'updated_record', activityDetails, true, $scope.data.thisRecord, currentEntity)
+					                .then(function(results){
+					                  console.log('adding changelog');
+					                })
+					                .catch(function(err){
+					                  console.log(err);
+					                })
+
+					                //update grid row to reflect current data 
+  									gridManager.updateGridRow($scope.data.thisRecord.id, $scope.data.thisRecord)
+
+					                //return - activity will be created in background
+                 					returnToDetails(currentEntity, $scope.data.thisRecord.id);
+				    			
 				    		})
 				  })
 				  .catch(function(err){
@@ -176,7 +201,23 @@ activate()
 				  })
 			}
 			else {
-				returnToDetails(currentEntity, $scope.data.thisRecord.id);
+				var activityDetails = {
+                  title: "Updated " + currentEntity,
+                  data: null
+                }
+              activityCreator.createActivity('changelog', 'updated_record', activityDetails, true, $scope.data.thisRecord, currentEntity)
+                .then(function(results){
+                  console.log('adding changelog');
+                   //return to details
+                })
+                .catch(function(err){
+                  console.log(err);
+                })
+               	//update grid row to reflect current data 
+  				gridManager.updateGridRow($scope.data.thisRecord.id, $scope.data.thisRecord)
+
+                //return - activity will be created in background
+                 returnToDetails(currentEntity, $scope.data.thisRecord.id);
 			}
 
             
@@ -261,7 +302,7 @@ activate()
 	/*
 Get Look Up Values
 */
-function getLookupValue(filter, entityType, searchVal){
+function getLookupValue(filter, currentEntity, searchVal){
   var deferred = $q.defer();
 
   $scope.data.searchVal = searchVal;
@@ -271,7 +312,7 @@ function getLookupValue(filter, entityType, searchVal){
   $scope.data.lookupResults = [{},{}];
 
   //Switch based on entity type
-  switch(entityType) {
+  switch(currentEntity) {
     case currentEntity:
         var query = {"filter": {"where": {"or": [{"firstName": {"regexp": "/" + searchVal + "/i"}}, {"lastName": {"regexp": "/" + searchVal + "/i"}}]}, "orderBy": "firstName ASC", limit: 15, "fields": ['id', 'firstName', 'lastName', 'emails']}}
         break;
@@ -289,7 +330,7 @@ function getLookupValue(filter, entityType, searchVal){
   //protects from making unnecessary api calls
   if(searchVal){
   //then return appropriate values
-  return $injector.get(entityType).find(query).$promise
+  return $injector.get(currentEntity).find(query).$promise
       .then(function(results){
         $scope.data.serverError = false;
         $scope.data.searching = false;

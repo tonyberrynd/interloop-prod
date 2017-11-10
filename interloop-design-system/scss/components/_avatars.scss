@@ -55,6 +55,13 @@
 		font-size:16px;
 	}
 
+	&.avatar-28 {
+		width:28px;
+		height:28px;
+		line-height: 28px;
+		font-size:13px;
+	}
+
 	&.avatar-24 {
 		width:24px;
 		height:24px;
@@ -180,6 +187,11 @@
     background-repeat: no-repeat;
     background-position: center;
     background-color:$granite !important;
+}
+
+
+.tag-item .isSelected {
+	top:10px;
 }
 
 //avatar bundle
@@ -341,6 +353,21 @@
 		font-size:95%;
 		font-weight:500;
 	}
+
+	&.no-avatar {
+		h3, h4 {
+			margin-left:5px;
+
+			icon {
+				margin-right:10px;
+			}
+		}
+
+		// icon {
+		// 	color:$granite;
+		// }
+	}
+
 
 	.spacer {
 		margin:0 3px;

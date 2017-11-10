@@ -51,16 +51,19 @@ angular.module('interloop.factory.viewManager', [])
             }
             //dynamic query
             else if(query) {
-
                 var defer = $q.defer();
 
-                //build custom view
-                var dynamicQueryView = {"name": "CUSTOM", "query": query, "count": count, "sum": 0, "max": 0, "avg": 0};
-                //resolve view
-                defer.resolve(dynamicQueryView);
-                //return promise
-                return defer.promise;
+               return $injector.get(entityType).metadata({"filter": JSON.parse(query)['filter']['where'] }).$promise
+                        .then(function(results){
+                            var dynamicView = {"name": "CUSTOM", "entity": entityType, "query": query, "count": results.count || 0, "sum": results.sum || 0, "max": results.max || 0, "avg": results.avg || 0};
 
+                            defer.resolve(dynamicView);
+                        })
+                        .catch(function(err){
+                            defer.reject('No View Found');
+                        })
+
+                    return defer.promise;
             } 
             //view with ID
             else { 

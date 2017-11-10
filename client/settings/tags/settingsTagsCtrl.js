@@ -75,7 +75,7 @@ function viewTagRecords(tag){
 	//entity plural
 	var entityPlural = entityTypes[$scope.data.currentEntity.toLowerCase()].plural;
 	//go to dyanmic query location
-	$location.url("/" + entityPlural.toLowerCase() + "/view/query?query=" + strParam + '&count=' + tag.count + '&backUrl=' + $location.url());
+	$location.url("/" + entityPlural.toLowerCase() + "/view/query/list?query=" + strParam + '&count=' + tag.count + '&backUrl=' + $location.url());
 }
 
 //-------------------------------------------

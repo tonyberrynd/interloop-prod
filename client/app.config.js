@@ -217,6 +217,9 @@ angular.module('interloop.config', [])
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
+    //side panel is not loading on start
+    $rootScope.sidePanelLoading = false;
+
     //rich text areas
     $rootScope.richTextFocus = false;
 
@@ -243,7 +246,7 @@ angular.module('interloop.config', [])
             applyLabel: "Apply",
             fromLabel: "Start",
             toLabel: "End",
-            format: 'MMM D, YYYY',
+            format: 'MM/DD/YYYY',
             cancelLabel: 'Cancel',
             customRangeLabel: 'Custom range'
           },
@@ -260,7 +263,7 @@ angular.module('interloop.config', [])
             applyLabel: "Apply",
             fromLabel: "Start",
             toLabel: "End",
-            format: 'MMM D, YYYY',
+            format: 'MM/DD/YYYY',
             cancelLabel: 'Cancel',
             customRangeLabel: 'Custom range'
           },
@@ -289,7 +292,7 @@ angular.module('interloop.config', [])
             applyLabel: "Apply",
             fromLabel: "Start",
             toLabel: "End",
-            format: 'MMM D, YYYY',
+            format: 'MM/DD/YYYY',
             cancelLabel: 'Cancel',
 
           },
@@ -305,7 +308,7 @@ angular.module('interloop.config', [])
             applyLabel: "Apply",
             fromLabel: "Start",
             toLabel: "End",
-            format: 'MMM D, YYYY',
+            format: 'MM/DD/YYYY',
             cancelLabel: 'Cancel',
             customRangeLabel: 'Custom range'
           },
@@ -412,6 +415,12 @@ angular.module('interloop.config', [])
             });
         }
 
+        //change in sidebar state
+        //-----------------------
+        if(toState.data && toState.data.sidebarState) {
+          $rootScope.sidePanelLoading = true;
+        }
+
 
         //Check if in edit mode - should alert user they are about to abandon changes
         //-----------------------
@@ -466,6 +475,8 @@ angular.module('interloop.config', [])
   // success
     //------------------
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){ 
+
+    $rootScope.sidePanelLoading = false;
 
     //save that first state has been loaded 
     //--------------------------------------------

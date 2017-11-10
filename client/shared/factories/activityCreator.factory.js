@@ -19,10 +19,11 @@ angular.module('interloop.factory.activityCreator', [])
     // [ACTIVITY TYPES] = Task, Meeting, Email, Note, Files, Changelog, etc
 
     //creates activity and links it to an entity item
-    function createActivity(type, activityDetails, completed, entityItem, entityType) {
+    function createActivity(type, changelogType, activityDetails, completed, entityItem, entityType) {
 
           var thisActivity = activityDetails || {};
               thisActivity.type = type || 'activity';
+              thisActivity.changelogType = changelogType || null;
               thisActivity.completed = completed ? true : false;
               thisActivity.completedDate = completed ? moment().format() : null;
               //created by
@@ -35,18 +36,16 @@ angular.module('interloop.factory.activityCreator', [])
 
             //create activity promise
             return Activity.create(thisActivity).$promise
-                    .then(function(activity) { 
+                    .then(function(createdActivity) { 
                      //real time history push
                      if(entityItem) { 
-                        //create entity item
-                        entityItem.history.push(thisActivity)
                         //link this activity to this opp
-                        return RelationshipManager.linkActivity(activity.id, entityItem.id, entityType, 
+                        return RelationshipManager.linkActivity(createdActivity.id, entityItem.id, entityType, 
                             {
                               "activity": {
-                                "name": activity.name || activity.title,
+                                "name": createdActivity.name || createdActivity.title,
                                 "type": type, 
-                                "completed": activity.completed
+                                "completed": createdActivity.completed
                                 
                               }, 
                               "entity": {
@@ -57,6 +56,22 @@ angular.module('interloop.factory.activityCreator', [])
                           })
                           .then(function(results){
                             console.log('created and related activity', results);
+                            //push into entity item in real time
+
+                            var doubleLayerActivity = {
+                                activityId: createdActivity.id,
+                                type: 'changelog',
+                                changelogType: createdActivity.changelogType || null,
+                                completed: createdActivity.completed,
+                                completedDate: createdActivity.completedDate,
+                                createdBy: createdActivity.createdBy,
+                                id: createdActivity.id,
+                                updatedOn: createdActivity.updatedOn,
+                                activity: createdActivity,
+                              }
+
+                            //async so need to provide in an event based way - TODO look at changing
+                            $rootScope.$broadcast("HISTORY_CHANGED", {"id": entityItem.id, "activity": doubleLayerActivity})
                             return results;
                           })
                           .catch(function(err){

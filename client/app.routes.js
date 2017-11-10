@@ -394,22 +394,10 @@ angular.module('interloop.routes', [])
    });
 
 
-  //opportunities alias - makes sure the user gets to list in case urls change
-  $stateProvider.state('opportunities-alias', {
-    url:'/opportunities/view/:viewId',
-    controller: function($state, $stateParams){
-      $state.go('app.opportunities', $stateParams)
-    },
-    params: {
-      viewId: null,
-      query: null
-    }
-  });
-
   //opportunities
   $stateProvider.state('app.opportunities', {
       sticky: true,
-      url: "/opportunities/view/:viewId/:visualType",
+      url: "/opportunities/view/:viewId?query",
       views: {
           'page-content@app': {
             templateUrl: 'shared/templates/list-view.tpl.html',
@@ -419,7 +407,7 @@ angular.module('interloop.routes', [])
       params: {
         viewId: 'default',
         query: null,
-        visualType: 'list'
+        backUrl: null
       },
       data: {
           mainState: true,
@@ -478,10 +466,12 @@ angular.module('interloop.routes', [])
       }
    });
 
+
+
   //contacts
   $stateProvider.state('app.contacts', {
       sticky: true,
-      url: "/contacts/view/:viewId",
+      url: "/contacts/view/:viewId?query",
       views: {
          'nav-content@app': {
             templateUrl: 'modules/app/navbar.tpl.html',
@@ -494,7 +484,8 @@ angular.module('interloop.routes', [])
       },
       params: {
         viewId: 'default',
-        query: null
+        query: null,
+        backUrl: null
       },
       data: {
           mainState: true,
@@ -557,7 +548,7 @@ angular.module('interloop.routes', [])
    // companies
    $stateProvider.state('app.companies', {
       sticky: true,
-      url: "/companies/view/:viewId",
+      url: "/companies/view/:viewId?query",
       views: {
          'nav-content@app': {
             templateUrl: 'modules/app/navbar.tpl.html',
@@ -570,7 +561,8 @@ angular.module('interloop.routes', [])
       },
       params: {
         viewId: 'default',
-        query: null
+        query: null,
+        backUrl: null
       },
       data: {
           mainState: true,
@@ -702,9 +694,20 @@ angular.module('interloop.routes', [])
 
   /* Activities
    ========================================================================== */
+  //activities alias - makes sure the user gets to list in case urls change
+  $stateProvider.state('activities-alias', {
+    url:'/activities/view/:viewId?query',
+    controller: function($state, $stateParams){
+      $state.go('app.activities', $stateParams)
+    },
+    params: {
+      viewId: null,
+      query: null
+    }
+  });
 
   $stateProvider.state('app.activities', {
-      url: "/activities/view/:viewId",
+      url: "/activities/view/:viewId?query",
       sticky: true,
       views: {
          'nav-content@app': {

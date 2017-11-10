@@ -17,6 +17,9 @@ angular.module('interloop.filter.fileIcons', [])
       case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
           return '../assets/img/icons/files/spreadsheet.svg'
           break;
+      case 'application/pdf':
+          return "../assets/img/icons/files/pdf.svg"
+          break;
       default:
           return '../assets/img/icons/files/file.svg'
   }

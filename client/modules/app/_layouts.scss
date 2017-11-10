@@ -241,6 +241,11 @@
             &:visited {
                 background-color:#fff;
             }
+
+            .caret {
+                position:absolute;
+                right:15px;
+            }
         }
 
         .view-toggler.open {
@@ -277,9 +282,9 @@
                 .badge {
                     border-radius: 3px;
                     padding:4px 8px;
-                    // background:darken($gravel, 6%);
-                    // color:$seamonster;
                     font-weight:500;
+                    position:absolute;
+                    right:10px;
                 }
             }
 
@@ -295,6 +300,26 @@
            }
 
 //grid layout
+
+
+.set-default {
+    position:relative;
+
+    h5, p {
+        margin-bottom:0px;
+    }
+    p {
+        color:$dragonstone;
+        margin-bottom:10px;
+    }
+    .toggle {
+            float: right;
+            margin: 0px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+    }
+}
 
 .layout.grid-layout {
 	padding:0px;
@@ -344,13 +369,52 @@
 
         .filterTags {
             position:absolute;
-            left:185px;
-            right:150px;
-            top:0px;
+            left:2px;
+            right:2px;
+            top:2px;
             overflow-y:auto;
-            height:36px;
-            padding:0 5px;
+            height:30px;
+            padding-left:120px;
+
+            .tag {
+                margin:0px;
+                margin-right:3px;
+                font-size:12px;
+                margin-top:1px;
+                padding:4px 12px;
+                padding-right:6px;
+                // background-color:$topaz;
+                // border:solid 1px $border;
+                // color:$dragonstone;
+
+                .btn {
+                    margin-top: -2px;
+                }
+            }
          }
+
+        .active-filters {
+                position:absolute;
+                left:12px;
+                top:8px;
+                color:#6C798F;
+
+                icon {
+                    color:$granite;
+                }
+        }
+
+        .see-all {
+            position:absolute;
+            right:18px;
+            top:8px;
+            color:$dragonstone;
+            text-decoration:none;
+
+            &:hover {
+                color:$topaz;
+            }
+        }
 
            .filterDefault {
             border-left:solid 1px $border;
