@@ -82,13 +82,7 @@ angular.module('interloop.factory.sidebarActions', [])
     }
 
     function getFiles(items) {
-        var files = _.filter(items, {"itemType": 'Attachment'});
-
-        //turns file size into number needed for kb fileter
-        // _.forEach(files, function(value, key){
-        //   value.item.size = Number(value.item.size) ? Number(value.size) : 0;
-        // })
-
+        var files = _.map(_.filter(items, {"itemType": 'Attachment'}), 'item');
         //return files
         return  files;
     }
@@ -125,7 +119,7 @@ angular.module('interloop.factory.sidebarActions', [])
     //needs to have a completed date or will really mess up the visual on the timeline
     function getHistory(activities) {
         return _.filter(activities, function(o) {
-          return o.activity.completed;
+          return o.activity && o.activity.completed;
         });
     }
 
@@ -287,31 +281,40 @@ angular.module('interloop.factory.sidebarActions', [])
     Delete Opp - Soft Deletes entityItem
     */
     function deleteItem(entityType, entityItem) {
+      var resolvedData = {
+        "helperTitle": "Delete Record?",
+        "helperText": "Are you sure you want to delete this record?",
+        "helperDescription": "Records can only be un-archived by an admin"
+      }
 
-       var entityModel = $injector.get(entityType);
-       entityModel.deleteById({ id: entityItem.id }).$promise
-      .then(function() { 
-        Logger.info(entityType + ' Archived', 'Contact admin to retrieve')
-          //remove deleted row from the grid without refreshViewing
-        gridManager.refreshView()
-        //shows deleted
-        entityItem._isDeleted = true;
-        // // go back - or close sidebar (Close is handled by sidebar router)
-        SidebarRouter.goBack();
+      var confirmDeleteModal = modalManager.openModal('confirm', resolvedData);
 
-        //creates activity deleted
-        var activityDetails = {
-          title: 'Deleted ' + entityType,
-          data: {
-            deleted: true
-          }
-        }
-        activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
-      })
-      .catch(function(err){
-        Logger.error('Error Deleting ' + entityType)
-        Logger.log("failed to delete - ", err); 
-      })
+          confirmDeleteModal.result.then(function(results){
+
+             var entityModel = $injector.get(entityType);
+                 entityModel.deleteById({ id: entityItem.id }).$promise
+                .then(function() { 
+
+                  Logger.info(entityType + ' Archived', 'Contact admin to retrieve')
+                    //remove deleted row from the grid without refreshViewing
+                  //shows deleted
+                  entityItem._isDeleted = true;
+                  // // go back - or close sidebar (Close is handled by sidebar router)
+                  SidebarRouter.goBack();
+
+                  //need to give the server a 1/4 of a second to catch up before running refresh which retrieves new view counts
+                  $timeout(function(){
+                      $rootScope.$broadcast('REFRESH_VIEW'); // TODO- MOVE THIS TO FACTORY
+                  }, 1000);
+                })
+                .catch(function(err){
+                  Logger.error('Error Deleting ' + entityType)
+                 Logger.log("failed to delete - ", err); 
+                })
+
+          }, function(){
+            //ignroe
+          });
     };
 
 
@@ -319,29 +322,34 @@ angular.module('interloop.factory.sidebarActions', [])
     Un-Archive Item
     */
     function unArchiveItem(entityType, entityItem) {
-
+       $rootScope.unarchiving = true;
        var entityModel = $injector.get(entityType);
         entityModel.unarchive(
-          { id: entityItem.id })
+          { recordId: entityItem.id })
           .$promise
           .then(function(results) {
              Logger.info(entityType + ' Un-Archived')
              //set entity item to correct data
              entityItem._isDeleted = false;
              entityItem.deletedAt = null;
-            //remove deleted row from the grid without refreshViewing
-             gridManager.refreshView();
 
-              //creates activity deleted
-              var activityDetails = {
-                title: 'Un-Archived ' + entityType,
-                data: {
-                  deleted: false
-                }
-              }
-              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+             //can stope ladda spinner
+             $rootScope.unarchiving = false;
+
+            //remove deleted row from the grid without refreshViewing
+              $rootScope.$broadcast('REFRESH_VIEW'); // TODO- MOVE THIS TO FACTORY
+
+              // //creates activity deleted
+              // var activityDetails = {
+              //   title: 'Un-Archived ' + entityType,
+              //   data: {
+              //     deleted: false
+              //   }
+              // }
+              // activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
           })
           .catch(function(err){
+          $rootScope.unarchiving = false;
           Logger.error('Error Un-Archiving ' + entityType);
         })
     };
@@ -374,13 +382,9 @@ angular.module('interloop.factory.sidebarActions', [])
       //resolved information
       var resolveData = {
         entity: entityType,
-        thisRecord: entityItem
+        thisRecord: entityItem,
+        currentTags: entityItem.tags
       };
-
-
-      // var resolvedData = {
-      //   entity: entityType
-      // }
 
       var addTagModal = modalManager.openModal('addTag', resolveData);
 
@@ -389,41 +393,19 @@ angular.module('interloop.factory.sidebarActions', [])
         // console.log(results);
 
           //push in plain objects
-          _.forEach(results, function(value){
-                //append information so tooltips work well
-                value.item = value.item || {};
-                value['item']['createdBy'] = value['item']['createdBy'] || {
-                  firstName: $rootScope.activeUser.firstName,
-                  lastName: $rootScope.activeUser.lastName
-                };
-                //created on
-                value['item'].createdOn = value['item'].createdOn || moment().format();
+           var currentStateOfTags = [];
+            _.forEach(results, function(value){
+              var doubleLayerTag = {
+                name: value.name,
+                createdOn: value.createdOn,
+                createdBy: value.createdBy,
+                item: value
+              }
+              currentStateOfTags.push(doubleLayerTag);
+            })
 
-                entityItem.items.push(value);
-                entityItem.itemLinks.push(value);
-          })
-
-        // refreshes tags in view
-        $timeout(function(){
-             entityItem.tags = getTags(entityItem);
-        }, 0)
-        // $scope.data.thisOpp.tags = SidebarActions.getTags($scope.data.thisOpp.items);
-      })
-
-      // return TagManager.manageTags(entityItem, entityType, entityItem.tags)
-      // .then(function (tags) {
-      //     //update related items with Tags 
-      //     _.remove(entityItem.items, {"itemType": "Tag"}); 
-      //     _.extend(entityItem.items, tags); //update tags on successful return 
-
-      //     //update itemLinks
-      //     _.remove(entityItem.itemLinks, {"itemType": "Tag"}); 
-      //     var strippedTags = _.map(tags,function(tag){return _.omit(tag, ['item'])}); 
-      //     _.extend(entityItem.itemLinks, strippedTags);  //add tags to linkItems but remove item detail
-
-      //   }, function () {
-      //       $log.info('Modal dismissed at: ' + new Date());
-      //   });
+            entityItem.tags = currentStateOfTags;
+        });
     }
 
 
@@ -438,19 +420,12 @@ angular.module('interloop.factory.sidebarActions', [])
               // refreshes tags in view
             $timeout(function(){
                  entityItem.tags = getTags(entityItem);
+                    //update grid row to reflect current data 
+                gridManager.updateGridRow(entityItem.id, entityItem)
             }, 0)
                   
             //let user know
             Logger.info('Tag Removed');
-
-            //creates activity deleted
-            var activityDetails = {
-                title: 'Removed Tag',
-                data: {
-                  tag: tagItem
-                }
-              }
-              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
           })
           .catch(function(err){
             Logger.error('Error Removing Tag', "Please Try Again In A Few Moments")
@@ -597,10 +572,10 @@ angular.module('interloop.factory.sidebarActions', [])
 
           thisModal.result.then(function(results){
 
-            Logger.info('File Uploaded Successfully')
+            // Logger.info('File Uploaded Successfully')
             //moved relationship stuff to file upload controller
 
-              console.log('after modal results', results);
+              // console.log('after modal results', results);
  
               // var fileActivity = {};
               // fileActivity.name = "uploaded files";
@@ -621,13 +596,13 @@ angular.module('interloop.factory.sidebarActions', [])
 
 
               //creates activity deleted
-              var activityDetails = {
-                  title: 'Added Files',
-                  data: {
-                    files: files
-                  }
-                }
-              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+              // var activityDetails = {
+              //     title: 'Added Files',
+              //     data: {
+              //       files: files
+              //     }
+              //   }
+              // activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
 
               //change tab to related so use has a smooth experience
               tabScope = 4;
@@ -1034,10 +1009,15 @@ angular.module('interloop.factory.sidebarActions', [])
                   title: "Updated " + entityType,
                   data: newValue
                 }
-              activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+              activityCreator.createActivity('changelog', 'updated_record', activityDetails, true, entityItem, entityType)
                 .then(function(results){
-                    return(response); 
+                  console.log('adding changelog');
+                    entityItem.history = getHistory(entityItem.activities)
                 })
+                .catch(function(err){
+                  console.log(err);
+                })
+
 
         })
         .catch(function(err) {

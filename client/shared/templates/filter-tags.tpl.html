@@ -1,0 +1,120 @@
+<div class="filterTags">
+                     <!-- filter tags -->
+        <span ng-repeat="filter in data.filters">
+            <!-- number / currency -->
+            <span ng-switch="filter.type">
+                <!-- number currency -->
+                <div ng-switch-when="number" class="tag primary rounded"  ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}} 
+                <span ng-if="filter.filterApplied !== 'range' && filter.filterApplied !== 'has-any-value' && filter.filterApplied !== 'is-unknown'">
+                  <span ng-bind="(filter.filterValue | number:0 )"></span>
+                </span>
+                 <span ng-if="filter.filterApplied == 'range'">
+                  <span ng-bind="(filter.filterValue.lower | number:0 )"></span>
+                  -
+                  <span ng-bind="(filter.filterValue.upper | number:0 )"></span>
+                </span>
+
+                  <span class="remove-tag">
+                    <button class="btn btn-link" ng-click="clearFilter(filter)">
+                      <icon class="fa fa-close"></icon>
+                    </button>
+                  </span>
+                </div>
+                <!-- currency -->
+                <div ng-switch-when="currency" class="tag primary rounded"  ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}} 
+
+                <span ng-if="filter.filterApplied !== 'range'">
+                  <span ng-bind="'$' + (filter.filterValue | number:0 )"></span>
+                </span>
+                 <span ng-if="filter.filterApplied == 'range'">
+                  <span ng-bind="'$' + (filter.filterValue.lower | number:0 )"></span>
+                  -
+                  <span ng-bind="'$' + (filter.filterValue.upper | number:0 )"></span>
+                </span>
+                     <span class="remove-tag">
+                    <button class="btn btn-link" ng-click="clearFilter(filter)">
+                      <icon class="fa fa-close"></icon>
+                    </button>
+                  </span>
+                </div>
+                <!-- date -->
+                <div ng-switch-when="date|dateRange" ng-switch-when-separator="|" class="tag primary rounded"  ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}}
+                    <!-- //single date -->
+                    <span ng-if="filter.filterApplied == 'date-before' || filter.filterApplied == 'date-on' || filter.filterApplied == 'date-after'" ng-bind="(filter.filterValue | asDate | date: 'MMM d, y')"></span>
+                    
+                    <!-- //date range -->
+                     <span ng-if="filter.filterApplied == 'date-range'">
+                      <span ng-bind="(filter.filterValue.startDate | asDate | date: 'MMM d, y')"></span> 
+                      - 
+                      <span ng-bind="(filter.filterValue.endDate | asDate | date: 'MMM d, y')"></span>
+                     </span>
+
+                     <!-- relative date -->
+                     <span ng-if="filter.filterApplied == 'date-more-than' || filter.filterApplied == 'date-exactly' || filter.filterApplied == 'date-less-than'" ng-bind="filter.filterValue.days + ' days ' + filter.filterValue.timeframe"></span>
+                     <span class="remove-tag">
+                    <button class="btn btn-link" ng-click="clearFilter(filter)">
+                      <icon class="fa fa-close"></icon>
+                    </button>
+                  </span>
+                </div>
+                <!-- category -->
+                <div ng-switch-when="category" class="tag primary rounded"  ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}}
+                    <span ng-repeat="value in filter.filterValue">{{value.label}}<span ng-if="filter.filterValue.length > 1">,</span></span>
+                    <span class="remove-tag">
+                    <button class="btn btn-link" ng-click="clearFilter(filter)">
+                      <icon class="fa fa-close"></icon>
+                    </button>
+                  </span>
+                </div>
+                <!-- category -->
+                <div ng-switch-when="lookup" class="tag primary rounded"  ng-if="filter.filterActive && filter.filterValue.length">{{filter.label}}: {{filter.filterApplied}}
+                    <span ng-repeat="value in filter.filterValue | limitTo:2">
+                    <!-- //switch through various lookup types -->
+                    <span ng-switch="filter.lookupEntity">
+                      <!-- contact / appuser -->
+                      <span ng-switch-when="Contact|Appuser" ng-switch-when-separator="|">
+                        <span ng-bind="value.firstName"></span> <span ng-bind="value.lastName"></span>
+                    <div class="tag danger rounded" ng-if="data.includeDeleted == 'true'">
+                      Show Deleted
+                      <span class="remove-tag">
+                        <button class="btn btn-link" ng-click="data.includeDeleted = 'false';changeContext('showDeleted', data.includeDeleted)">
+                          <icon class="fa fa-close"></icon>
+                        </button>
+                      </span>
+                    </div>
+
+
+                      <!-- contact / appuser / tag-->
+                      <span ng-switch-when="Company|Opportunity|Tag" ng-switch-when-separator="|">
+                        <span ng-bind="value.name"></span>
+                   <div class="tag primary rounded" ng-repeat="filter in data.filters" ng-if="filter.filterActive">
+                     <span ng-bind="filter.label"></span>
+                     <span class="remove-tag">
+                        <button class="btn btn-link" ng-click="clearFilter(filter)">
+                          <icon class="fa fa-close"></icon>
+                        </button>
+                      </span>
+                   </div>
+
+                    </span>
+                    <span ng-if="filter.filterValue.length > 1" ng-class="{'hidden': $last }">,</span></span>
+
+                    <span ng-if="filter.filterValue.length > 2">+ {{filter.filterValue.length - 2}}</span>
+                                                            <!-- //clear filter -->
+                    <span class="remove-tag">
+                    <button class="btn btn-link" ng-click="clearFilter(filter)">
+                      <icon class="fa fa-close"></icon>
+                    </button>
+                  </span>
+                </div>
+                <!-- default -->
+                <div ng-switch-default class="tag primary rounded" ng-if="filter.filterActive">{{filter.label}}: {{filter.filterApplied}} "{{filter.filterValue}}"
+
+                                                          <!-- //clear filter -->
+                    <div class="clear-filter-tag remove-tag" ng-click="clearFilter(filter)">
+                      <icon class="wb-close"></icon>
+                    </div>
+                </div>
+
+            </span>
+        </span>

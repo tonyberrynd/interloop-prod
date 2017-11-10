@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="501px" height="106px" viewBox="0 0 501 106" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 7</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="101.999998%" y2="100.999999%" id="linearGradient-1">
+            <stop stop-color="#63D9DE" offset="0%"></stop>
+            <stop stop-color="#2F80ED" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="0%" x2="101.999998%" y2="100.999999%" id="linearGradient-2">
+            <stop stop-color="#56CCF2" offset="0%"></stop>
+            <stop stop-color="#2F80ED" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-55.000000, -57.000000)">
+            <g id="Group-5" transform="translate(55.000000, 52.000000)">
+                <g id="Group-7">
+                    <text id="Interloop" font-family="MuseoSans-700, Museo Sans" font-size="96" font-weight="500" letter-spacing="-2.66666667" fill="#FFFFFF">
+                        <tspan x="104" y="90.3333333">Interloop</tspan>
+                    </text>
+                    <g id="Group-4" transform="translate(48.000000, 52.058824) rotate(180.000000) translate(-48.000000, -52.058824) translate(0.000000, 5.000000)" stroke-width="10.6666667">
+                        <g id="Group-3">
+                            <g id="Group-2">
+                                <g id="Group">
+                                    <g id="Group-6">
+                                        <path d="M39.7602664,53.7654458 L65.714522,53.7654458 C79.0886805,53.7654458 89.9305782,42.9235481 89.9305782,29.5493896 C89.9305782,16.175231 79.0886805,5.33333333 65.714522,5.33333333 L64.8454223,5.33333333 C50.9912732,5.33333333 39.7602664,16.5643402 39.7602664,30.4184893 L39.7602664,53.7654458 Z" id="Rectangle-3" stroke="url(#linearGradient-1)"></path>
+                                        <path d="M38.990751,54.3865085 L22.1620422,54.3865085 C12.8678029,54.3865085 5.33333333,61.9209781 5.33333333,71.2152173 C5.33333333,80.5094566 12.8678029,88.0439262 22.1620422,88.0439262 C31.4562814,88.0439262 38.990751,80.5094566 38.990751,71.2152173 L38.990751,54.3865085 Z" id="Rectangle-3" stroke="url(#linearGradient-2)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

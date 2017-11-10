@@ -104,7 +104,7 @@ angular.module('interloop.factory.gridManager', [])
           headerClass: 'text-center', 
           cellRenderer: null,  
           cellClass: 'no-padding no-row-click', 
-          width: 1, 
+          width: 5, 
           suppressSizeToFit: true, 
           suppressMovable: true, 
           suppressResize: true,
@@ -741,6 +741,7 @@ angular.module('interloop.factory.gridManager', [])
         updateRow: updateRow,
         selectAll: selectAll,
         doLayout: doLayout,
+        updateGridRow: updateGridRow,
         getRowNode: getRowNode
     };
 
@@ -903,7 +904,7 @@ angular.module('interloop.factory.gridManager', [])
 		        // height
 		        //==================================
                 headerHeight:36,
-                rowHeight: currentEntityType == 'forecast' ? 60 : 40,
+                rowHeight: currentEntityType == 'forecast' ? 50 : 36,
 
 		        // adjust
 		        //==================================
@@ -1082,9 +1083,10 @@ angular.module('interloop.factory.gridManager', [])
                             //change histories
                             var changeHistories = _.filter(params.data.changeHistories, ['attribute', params.colDef.field]);
                             if(params.context.changeHistory !== 'none' && changeHistories.length){
-                                var html = '<span class="cell-wrapper ui-popover" data-title="Recent Changes">' + getParamValue(params) + '</span>'
-                                    html += '<div class="webui-popover-content">'
-                                    html += '<p>' + _.upperFirst(params.colDef.field) + '</p>'
+                                var html = '<span class="cell-wrapper ui-popover" data-title="Recent Changes">' + getParamValue(params) + '</span>';
+                                    // html += '<button class="btn btn-default edit-btn no-row-click"><icon class="fa fa-pencil now-row-click"></icon></button>';
+                                    html += '<div class="webui-popover-content">';
+                                    html += '<p>' + _.upperFirst(params.colDef.field) + '</p>';
                                     //rip through each change
                                     _.forEach(changeHistories, function(change){
                                         html += '<p style="whitespace:nowrap;">"' + change.previousValue['value'] + '" <icon class="wb-arrow-right"></icon> "' + change.newValue['value'] + '"</p>'
@@ -1093,7 +1095,10 @@ angular.module('interloop.factory.gridManager', [])
                                     html += '</div>'
                                     return html;
                             } else {
-                                    return '<span class="cell-wrapper">' + getParamValue(params) + '</span>'
+                                    var html = '<span class="cell-wrapper">' + getParamValue(params) + '</span>'
+                                        // html += '<button class="btn btn-default edit-btn no-row-click"><icon class="fa fa-pencil no-row-click"></icon></button>';
+
+                                    return html;
                             }
                         } else {
                           return  '<div class="loading-data"></div>';
@@ -1259,6 +1264,19 @@ angular.module('interloop.factory.gridManager', [])
 
         //let controller know
         // $rootScope.$broadcast('GRID_READY', {});
+    }
+
+
+        /*
+    Update Grid Row Data
+    */
+    function updateGridRow(rowNode, data){
+         grid.api.forEachNode(function (node) {
+            if(node.id == rowNode){
+                node.setData(data);
+                return;
+            }
+        });
     }
 
 
@@ -1550,31 +1568,27 @@ angular.module('interloop.factory.gridManager', [])
     Refresh View
     */
     function refreshView() {
-    	// console.log('refresh in factory');
-        // console.log('last selected', lastSelectedId)
-    	grid.api.showLoadingOverlay()
-		//refresh
-		// grid.api.refreshView();
-
-        //cell may be different so clear so isn't flash change
+        //show overlay no matter what for user experience
+        grid.api.showLoadingOverlay()
         grid.api.clearFocusedCell();
 
-        grid.api.purgeEnterpriseCache();
+        return View.findOne({"filter": {"where": {"id": currentView.id }}}).$promise
+            .then(function(results){
+                //set current view equal to the server side version of the same view
+                currentView = results;
+                currentQuery = angular.fromJson(currentView.query) || {'filter': {}};
+                lastRow = _.get(results, 'count', 0);
+                //have grid reflect changes
+                 grid.api.setFilterModel()
+                 grid.api.hideOverlay() // do we need this?
 
-
-		//hide overlay
-		$timeout(function(){
-			grid.api.hideOverlay()
-
-             grid.api.forEachNode( function(node) {
-              if(node.id == lastSelectedId){
-                // console.log('set focus');
-                grid.api.focusedCellController.setFocusedCell(node.rowIndex, grid.columnApi.getAllDisplayedColumns()[0].colId);
-              }
+                 console.log('returned view', results);
+                //return results to list view controller
+                return results;
+            })
+            .catch(function(err){
+                return err;
             });
-
-		}, 500)
-
     }
 
     /*
@@ -2664,11 +2678,11 @@ angular.module('interloop.factory.gridManager', [])
               else if(currentEntityType == 'Contact') {
                 var firstLetter = params.data.firstName ? params.data.firstName.charAt(0) : '';
                 var lastLetter = params.data.lastName ? params.data.lastName.charAt(0) : '';
-                var html = '<div class="avatar avatar-32 ' + params.data.color + '">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
+                var html = '<div class="avatar avatar-28 ' + params.data.color + '">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
               }
               else if(currentEntityType == 'Company') {
                 var firstLetter = params.data.name ? params.data.name.charAt(0) : '';
-                var html = '<div class="avatar avatar-32 square ' + params.data.color + '">' + firstLetter + '</div>' + params.value
+                var html = '<div class="avatar avatar-28 square ' + params.data.color + '">' + firstLetter + '</div>' + params.value
               } else {
                 var html = params.value;
               }

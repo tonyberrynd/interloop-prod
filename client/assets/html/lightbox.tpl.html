@@ -8,7 +8,7 @@
 			<img src="../assets/img/icons/light/download.svg" alt="Download">
 		</a>
 
-		<a ng-href={{Lightbox.imageUrl}} target=_blank class="btn btn-link" uib-tooltip="Open In New Window" tooltip-placement="bottom">
+		<a ng-href={{Lightbox.image.url}} target=_blank class="btn btn-link" uib-tooltip="Open In New Window" tooltip-placement="bottom">
 			<img src="../assets/img/icons/light/share-alt.svg" alt="Open In New Window">
 		</a>
 
@@ -33,12 +33,17 @@
         
 
     <div class=lightbox-image-container>
-        <div class=lightbox-image-caption><span>{{Lightbox.imageCaption}}</span></div><img ng-if=!Lightbox.isVideo(Lightbox.image) lightbox-src={{Lightbox.imageUrl}}>
+        <div class=lightbox-image-caption><span>{{Lightbox.imageCaption}}</span></div>
+        <img ng-if=!Lightbox.isVideo(Lightbox.image) lightbox-src={{Lightbox.imageUrl}}>
+
         <div ng-if=Lightbox.isVideo(Lightbox.image) class="embed-responsive embed-responsive-16by9">
             <video ng-if=!Lightbox.isSharedVideo(Lightbox.image) lightbox-src={{Lightbox.imageUrl}} controls autoplay></video>
             <embed-video ng-if=Lightbox.isSharedVideo(Lightbox.image) lightbox-src={{Lightbox.imageUrl}} ng-href={{Lightbox.imageUrl}} iframe-id=lightbox-video class=embed-responsive-item><a ng-href={{Lightbox.imageUrl}}>Watch video</a></embed-video>
         </div>
+
+        <embed ng-if="Lightbox.image.type == 'application/pdf'" class="lightbox-frame" ng-src="{{Lightbox.image.trustedUrl}}" frameborder="0" width="100%" height="100%"></embed>
     </div>
+
 	
 	<!-- next -->
     <a class="btn btn-link next" ng-click=Lightbox.nextImage() ng-if="Lightbox.images.length > 1">

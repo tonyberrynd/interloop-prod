@@ -154,25 +154,25 @@
     </span>
 
 	<!-- files cards -->
-                    <div class="panel panel-default card file-card" ng-repeat="file in data.thisRecord.files | orderBy: 'createdOn' " ng-class="{'img-card': file.item.type == 'image/jpeg' || file.item.type == 'image/png'}" ng-mouseleave="file.isopen = false; console.log('mouseleave');">
+                    <div class="panel panel-default card file-card" ng-repeat="file in data.thisRecord.files | orderBy: '-createdOn' " ng-class="{'img-card': file.type == 'image/jpeg' || file.type == 'image/png'}" ng-mouseleave="file.isopen = false; console.log('mouseleave');">
                         <div class="panel-body">
                             <div class="name-wrapper">
                             <!-- img icon -->
-                            <div class="file-icon" ng-if="file.item.type !== 'image/jpeg' && file.item.type !== 'image/png'">
-                                <img ng-src="{{file.item.type | fileIcons}}" alt="{{file.item.type}}">
+                            <div class="file-icon" ng-if="file.type !== 'image/jpeg' && file.type !== 'image/png'">
+                                <img ng-src="{{file.type | fileIcons}}" alt="{{file.type}}">
                             </div>
                             <!-- img preview -->
-                            <div class="image-preview" ng-click="previewImage(file); $event.stopPropagation();" ng-if="file.item.type == 'image/jpeg' || file.item.type == 'image/png'">
+                            <div class="image-preview" ng-click="previewImage(file); $event.stopPropagation();" ng-if="file.type == 'image/jpeg' || file.type == 'image/png'">
                             <img ngf-thumbnail="file.url">
                             </div>
 							
 							<div class="name-wrapper">
                             <!-- details -->
-                            <h4 ng-bind="file.item.name || '--'"></h4>
+                            <h4 ng-bind="file.name || '--'"></h4>
                             <p>
-                                <span ng-if="file.item.size" ng-bind="file.size | bytes"></span> 
-                                <span ng-if="file.item.size" class="spacer">·</span> 
-                                <span ng-bind="file.item.type | fileTypes"></span>
+                                <span ng-if="file.size" ng-bind="file.size | bytes | ucfirst"></span> 
+                                <span ng-if="file.size" class="spacer">·</span> 
+                                <span ng-bind="file.type | fileTypes"></span>
                             </p>
                             <p class="uploaded" ng-bind="file.createdOn | date:'MMM d, y h:mm a'"></p>
                             </div>
@@ -193,9 +193,9 @@
                               </ul>
                             </div>
                             <!-- star -->
-                            <button class="btn btn-default star-item" uib-tooltip="Star">
+ <!--                            <button class="btn btn-default star-item" uib-tooltip="Star">
                                 <icon class="wb-star-outline"></icon>
-                            </button>
+                            </button> -->
                         </div>
 
     			</div>

@@ -66,9 +66,19 @@
 
 		img {
 			 position: absolute;
+			 max-width:80%;
 			  top: 50%;
 			  left: 50%;
 			  transform: translate(-50%, -50%);
+		}
+
+		iframe,
+		embed {
+			    position: absolute;
+			    max-width: 80%;
+			    top: 50%;
+			    left: 50%;
+			    transform: translate(-50%, -50%);
 		}
 	}
 
@@ -127,7 +137,7 @@
 
 		.prev {
 			position:absolute;
-			left:0px;
+			left:25px;
 			top:50%;
 			margin-top:-50px;
 			z-index: 5;
@@ -151,7 +161,7 @@
 
 		.next {
 			position:absolute;
-			right:0px;
+			right:25px;
 			top:50%;
 			margin-top:-50px;
 			z-index: 5;
@@ -186,6 +196,7 @@
 	  border-radius: 0;
 	  box-shadow:none;
 	  border:none;
+	  margin-bottom:0px;
 
 	  background-color:rgba(0,0,0,.85);
 	}

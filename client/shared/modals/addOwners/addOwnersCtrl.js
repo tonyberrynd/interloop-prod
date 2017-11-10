@@ -31,17 +31,18 @@ angular.module('interloop.addOwnersCtrl', [])
   $scope.data = {};
   $scope.data.thisRecord = angular.copy(resolvedData.thisRecord);
 
-  // $scope.data.owners = $scope.data.thisRecord.owners || [{
-  //     value: {},
-  //     splitPercent: 100,
-  //     splitValue: $scope.data.thisRecord.value || 0,
-  //     splitNote: null
-  //   }];
+  $scope.data.selectedOwners = _.map(currentOwners, 'owner') || [];
+  $scope.data.selectedRelated = [];
 
   //functions
   //----------------------
   $scope.ok = ok;
   $scope.cancel = cancel;
+
+  $scope.addRemoveOwner = addRemoveOwner;
+  $scope.removeOwner = removeOwner;
+
+
   // $scope.addOwner = addOwner;
   // $scope.removeOwner = removeOwner;
   // $scope.checkValues = checkValues;
@@ -52,19 +53,11 @@ angular.module('interloop.addOwnersCtrl', [])
 
 // ACTIVATE
 //===========================================
-function activate() {
+// function activate() {
 
-  return Appuser.find().$promise
-    .then(function(results){
-      $scope.data.owners = results;
-    })
-    .catch(function(err){
-      Logger.error('Error Retrieving Owners', 'Please Try again in a moment');
-    })
-
-}
+// }
 //-------------------------------------------
-activate();
+// activate();
 //-------------------------------------------
 
 
@@ -74,6 +67,25 @@ activate();
   function cancel () {
     $uibModalInstance.dismiss('cancel');
   };
+
+
+    /*
+  Add Selected Owner
+  */
+  function addRemoveOwner(owner){
+    if(!_.find($scope.data.selectedOwners, ['id', owner.id])){
+           $scope.data.selectedOwners.push(owner);
+    } else {
+      removeOwner(owner);
+    }
+  }
+
+  /*
+  Remove Selected Owner
+  */
+  function removeOwner(owner){
+    $scope.data.selectedOwners.splice($scope.data.selectedOwners.indexOf(owner), 1);
+  }
 
 
   // function addOwner() {
@@ -131,20 +143,39 @@ activate();
 
   // }
 
+  //need to remove any non selected owners, update any current owners if data changes - TODO & then add some other owners that have been selected
 
   function ok() {
     $scope.data.processing = true;
 
+    var removeOwners = [];
     var newOwners = [];
     var ownerPromises = [];
 
+    //owners to remove
+    _.forEach(currentOwners, function(value, key){
+      if(!_.find($scope.data.selectedOwners, ['id', value.id])){
+        //collect new owners to be returned to side panel
+        removeOwners.push(value);
+        ownerPromises.push(
+          function() {
+            return $injector.get(entity).owners.destroyById({
+              "fk": value.id,
+              "id": $scope.data.thisRecord.id
+            }).$promise
+          })
+        }
+    });
+
+
+    //TODO - DO I NEED TO UPDATE? SPLITS, ROLES, RELATIONSHIPS etc
+
+
+    //owners to add
     _.forEach($scope.data.selectedOwners, function(value, key){
-
       if(!_.find(currentOwners, ['id', value.id])){
-
         //collect new owners to be returned to side panel
         newOwners.push(value);
-
         ownerPromises.push(
           function() {
             return $injector.get(entity).owners.create(
@@ -156,10 +187,9 @@ activate();
                   "active": true,
                   "ownerId": value.id
               }).$promise
-
           })
         }
-  });
+    });
 
   $q.serial(ownerPromises)
       .then(function(results){
@@ -167,7 +197,7 @@ activate();
 
         $scope.data.processing = false;
 
-        $uibModalInstance.close(newOwners);
+        $uibModalInstance.close($scope.data.selectedOwners);
 
       })
       .catch(function(err){

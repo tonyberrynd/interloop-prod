@@ -60,11 +60,11 @@ angular.module('interloop.factory.authService', [])
 
         if(next){
           //triage if next is login
-          if(next == '/login') { next = '/pulse/outlook'}
+          if(next == '/login') { next = '/dashboards/default'}
           //go to next loation
           $location.path(next);
         } else {
-          $state.go('app.pulse.outlook');
+          $state.go('app.dashboards');
         }
 
       ;

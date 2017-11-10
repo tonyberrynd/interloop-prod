@@ -262,27 +262,6 @@ angular.module('interloop.value.fields', [])
 	},
 
 	{
-		"label": "Completed Date",
-		"key": "completedDate",
-		"type": "date",
-		"columnType": "date",
-		//new form
-		"excludeNew": false,
-		"newClass": "col-xs-6",
-		"newRequired": false,
-		//grid
-		"excludeGrid": false,
-		"exludeForm": true,
-		"hide": false,
-		"width": 300,
-		"valueGetter": null,
-		"cellRenderer": 'dueDateRender',
-		"pinned": false,
-
-		"allowGroup": true
-	},
-
-	{
 		"label": "Completed",
 		"key": "completed",
 		"type": "boolean",
@@ -302,6 +281,27 @@ angular.module('interloop.value.fields', [])
 
 		"allowGroup": false
 	},
+
+	{
+		"label": "Completed Date",
+		"key": "completedDate",
+		"type": "date",
+		"columnType": "date",
+		//new form
+		"excludeNew": false,
+		"newClass": "col-xs-6",
+		"newRequired": false,
+		//grid
+		"excludeGrid": false,
+		"exludeForm": true,
+		"hide": false,
+		"width": 300,
+		"valueGetter": null,
+		"cellRenderer": 'dueDateRender',
+		"pinned": false,
+
+		"allowGroup": true
+	}
 ])
 
 
@@ -1076,7 +1076,7 @@ angular.module('interloop.value.fields', [])
 	{
 	   	"label": "Website",
 	    "key": "website",
-	    "type": "string",
+	    "type": "domain",
 	    "locked": true,
 	    //new form
 		"excludeNew": false,

@@ -32,7 +32,7 @@ angular.module('coil.config', [])
 
 //Run Block
 //----------------------
-.run(function($rootScope, $state, $stateParams, $timeout, $window, $timeout) {
+.run(function($rootScope, $state, $stateParams, $timeout, $window, $timeout, $sce) {
 
   // BINDABLES
   //===========================================
@@ -148,6 +148,11 @@ angular.module('coil.config', [])
     } else {
       return false;
     }
+  }
+
+
+  $rootScope.trustUrl = function(url){
+    return $sce.trustAsResourceUrl(url);
   }
 
   //-------------------------------------------

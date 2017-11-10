@@ -16,6 +16,13 @@
 
 <div id="wrapper" ng-class="{'toggled': $root.sidebarToggle, 'has-banner': $root.hasBanner || $root.offline || $root.adjustTimezone }">
 
+        <!-- //file progress uploader -->
+        <div class="file-uploader" ng-class="{'hidden': !$root.uploadingFile }">
+            <uib-progressbar class="progress-striped active" value="dynamic" type="{{$root.uploadingType}}">
+           {{$root.uploadingText}}
+        </div>
+
+
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
 

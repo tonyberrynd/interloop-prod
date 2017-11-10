@@ -93,7 +93,12 @@ angular.module('interloop.factory.queryBuilder', [])
                 //boolean
                 //---------------------
                 case 'boolean':
-                      queryParts.push({ [filter.key]: filter.value });   
+                      var filterValue = (filter.value == 'true')
+                      if(filterValue){
+                        queryParts.push({ [filter.key]: true });   
+                      } else {
+                        queryParts.push({ [filter.key]: {"neq": true }});   
+                      }
                 break; 
 
                 //Lookup
@@ -108,7 +113,11 @@ angular.module('interloop.factory.queryBuilder', [])
                             query.or.push({ "entityLinks": {"elemMatch": { "entityId": companyId, "entityType": "Company", "isPrimary":true }}})
                         })
 
-                        queryParts.push(query)
+                        if(query.or.length > 0){
+                            queryParts.push(query) 
+                        } else {
+                            queryParts.push
+                        }
                    }
                    else if(filter.key == 'tags'){
                          var query = {"or": []}
@@ -117,7 +126,11 @@ angular.module('interloop.factory.queryBuilder', [])
                             query.or.push({ "itemLinks": {"elemMatch": { "itemId": tagId, "itemType": "Tag" }}})
                         })
 
-                        queryParts.push(query)
+                        if(query.or.length > 0){
+                            queryParts.push(query) 
+                        } else {
+                            queryParts.push({});
+                        }
                    }
                    //probably custom field multi select - sits at top level
                    else {
@@ -131,7 +144,9 @@ angular.module('interloop.factory.queryBuilder', [])
                             query.or.push({"ownerLinks.ownerId": {"ne": ownerId }})
                         })
 
-                        queryParts.push(query)
+                         if(query.or.length > 0){
+                            queryParts.push(query) 
+                        }
                    }
                    else if(filter.key == 'primaryCompany'){
                         var query = {"or": []}
@@ -139,15 +154,19 @@ angular.module('interloop.factory.queryBuilder', [])
                             query.or.push({"entityLinks.entityId": {"ne": companyId }})
                         })
 
-                        queryParts.push(query)
+                         if(query.or.length > 0){
+                            queryParts.push(query) 
+                        }
                    }
                    else if(filter.key == 'tags'){
                         var query = {"or": []}
                         _.forEach(_.map(filter.value, 'id'), function(tagId){
                             query.or.push({"itemLinks.itemId": {"ne": tagId }})
                         })
-
-                        queryParts.push(query)
+                         if(query.or.length > 0){
+                            queryParts.push(query) 
+                        }
+                        
                    }
                    //probably custom field multi select - sits at top level
                    else {
@@ -156,7 +175,9 @@ angular.module('interloop.factory.queryBuilder', [])
                             query.or.push({[filter.key]: {"ne": itemId }})
                         })
 
-                        queryParts.push(query)
+                        if(query.or.length > 0){
+                            queryParts.push(query) 
+                        }
                    }
                     break; 
 
