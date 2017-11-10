@@ -291,7 +291,7 @@
                     <div class="multiple-wrapper">
                     <div class="multiple-select">
                       <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Search...">
-                            <ui-select multiple allow-clear="true" ng-model="filter.filterValue" theme="bootstrap" append-to-body="true" autofocus="true" on-select="isFilterActive(filter)">
+                            <ui-select multiple allow-clear="true" ng-model="filter.filterValue" theme="bootstrap" append-to-body="true" autofocus="true" ng-change="isFilterActive(filter)">
                               <ui-select-match placeholder="Search...">
                                 <span ng-switch="filter.lookupEntity">
                                     <!-- contact / user -->
@@ -396,7 +396,7 @@
                                  <div class="multiple-wrapper">
                     <div class="multiple-select">
                       <img class="multiple-icon" src="../assets/img/icons/dark/cheveron-down.svg" alt="Search...">
-                            <ui-select multiple allow-clear="true" ng-model="filter.filterValue" theme="bootstrap" append-to-body="true" autofocus="true" on-select="isFilterActive(filter)">
+                            <ui-select multiple allow-clear="true" ng-model="filter.filterValue" theme="bootstrap" append-to-body="true" autofocus="true" ng-change="isFilterActive(filter)">
                               <ui-select-match placeholder="Search...">
                                 <span ng-switch="filter.lookupEntity">
                                     <!-- contact / user -->
@@ -709,14 +709,14 @@
 <div ng-if="data.lookupUsers">
   <div class="panel panel-default">
   <div class="panel-heading" style="padding:5px;">
-    <a class="btn btn-sm btn-subtle" ng-click="applyUsers()"><icon class="wb-chevron-left-mini"></icon> Apply</a>
+    <a class="btn btn-sm btn-subtle" ng-click="goBackToUsers()"><icon class="wb-chevron-left-mini"></icon> Back</a>
 
     <a class="btn btn-sm btn-subtle pull-right" ng-click="data.selectedUsers = [];">Clear All</a>
   </div>
   <div class="panel-body">
 
     <span ng-repeat="user in $root.userList | orderBy: 'firstName' track by $index">
-    <input class="magic-checkbox" type="checkbox" name="layout" id="{{user.id}}" value="{{user}}" checklist-model="data.selectedUsers" checklist-value="user">
+    <input class="magic-checkbox" type="checkbox" name="layout" id="{{user.id}}" value="{{user}}" checklist-model="data.selectedUsers" checklist-value="user" checklist-change="applyUsers()">
     <label class="text ng-scope" for="{{user.id}}">
       <div class="avatar avatar-24" ng-class="user.color">
         <span ng-bind="user.initials"></span>
@@ -734,14 +734,14 @@
 <div ng-if="data.lookupTags">
   <div class="panel panel-default">
   <div class="panel-heading" style="padding:5px;">
-    <a class="btn btn-sm btn-subtle" ng-click="applyTags()"><icon class="wb-chevron-left-mini"></icon> Apply</a>
+    <a class="btn btn-sm btn-subtle" ng-click="goBackToTags()"><icon class="wb-chevron-left-mini"></icon> Back</a>
 
     <a class="btn btn-sm btn-subtle pull-right" ng-click="data.selectedTags = [];">Clear All</a>
   </div>
   <div class="panel-body select-tags">
 
     <span ng-repeat="tag in $root.tagList | orderBy: 'name' track by $index">
-    <input class="magic-checkbox" type="checkbox" name="layout" id="{{tag.id}}" value="{{tag}}" checklist-model="data.selectedTags" checklist-value="tag">
+    <input class="magic-checkbox" type="checkbox" name="layout" id="{{tag.id}}" value="{{tag}}" checklist-model="data.selectedTags" checklist-value="tag" checklist-change="applyTags()">
     <label class="text" for="{{tag.id}}">
       <span ng-bind="tag.name"></span>
     </label>
@@ -859,8 +859,21 @@
 
 <!-- settings / overlays -->
 <div class="groups" ng-class="{'hidden': data.filterView !== 'settings' }">
+  
+  <br>
 
-    <div class="panel panel-default panel-light" style="margin-top:10px !important;" ng-if="data.currentEntity == 'Opportunity'">
+  <div class="panel panel-default panel-light" style="margin-bottom:15px !important;">
+    <div class="panel-body set-default">
+           <h5>Default View</h5>
+           <p>{{data.currentEntityPlural}}</p>
+          <span class="toggle toggle-success">
+              <input class="toggle-range" id="defaultToggle" type="checkbox" ng-model="data.default" ng-change="setUnsetDefault(data.default)">
+              <label class="toggle-btn" for="defaultToggle"></label>
+          </span>
+    </div>
+  </div>
+
+  <div class="panel panel-default panel-light" style="margin-top:10px !important;" ng-if="data.currentEntity == 'Opportunity'">
     <div class="panel-heading">
       <h5>Displayed Value</h5>
     </div>

@@ -1,30 +1,49 @@
-  <div class="modal-header header-dark">
-            <h3 class="modal-title" id="modal-title">Add Owners</h3>
-            <p>Add Owners for <b><span ng-bind="data.thisRecord.name || 'this record'"></span></b></p>
-            
+  <div class="modal-header short-header">
+            <h5 class="modal-title text-center" id="modal-title">Owners ({{data.selectedOwners.length}})</h5> 
             <!-- close button -->
             <button type="button" class="close" ng-click="$dismiss()">
                 <icon class="wb-close-mini"></icon>
             </button>
 
         </div>
-        <div class="modal-body w-padding" id="modal-body">
-
-          <div class="row">
-            <div class="col-xs-3">
-                <!-- //search and find -->
-
-            </div>
-            <div class="col-xs-9">
-                <!-- manage -->
-
-
-            </div>
-          </div>
+        <div class="modal-body no-padding manage-modal" id="modal-body">
             
+            <div class="modal-subheader">
+                <div class="search">
+                    <icon class="search-icon wb-search"></icon>
+                    <input type="text" class="form-control" placeholder="Search..." ng-model="data.searchUsers">
+                    <button class="btn btn-default" ng-click="data.searchUsers = '';" ng-class="{'hidden': !data.searchUsers }">
+                        <icon class="wb-plus-circle"></icon>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="modal-subbody">
+
+            <div class="list-group">
+              <span ng-repeat="user in $root.userList | limitTo: 15 | isSelected:data.selectedOwners | orderBy:['-selected', 'firstName'] | filter: data.searchUsers">
+                <a href class="list-group-item avatar-item" ng-click="addRemoveOwner(user)" ng-class="{'active': user.selected }">
+                  <div class="avatar avatar-32" ng-class="user.color">
+                    <span ng-bind="user.firstName | limitTo:1"></span><span ng-bind="user.lastName | limitTo:1"></span>
+                  </div>
+                  <h4>
+                    <span ng-bind="user.firstName"></span> <span ng-bind="user.lastName"></span>
+                  </h4>
+                  <p>
+                    <span ng-bind="user.email"></span></p>
+                  <!-- //check mark -->
+                  <span class="isSelected" ng-if="user.selected">
+                    <icon class="wb-check"></icon>
+                  </span>
+                </a>
+                </span>
+            </div>
+
+            </div>
+          
 
         </div>
         <div class="modal-footer">
             <button class="btn btn-subtle" ng-click="$dismiss()">Cancel</button>
-            <button class="btn btn-primary" type="button" ng-click="ok()" ladda="data.processing" data-style="slide-up">Add Owners</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()" ladda="data.processing" data-style="slide-up">Save Owners</button>
         </div>

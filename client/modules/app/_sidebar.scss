@@ -158,11 +158,15 @@
 
 .btn.array-input-add {
 	background-color:#fff;
-	color:$topaz;
+	color:$dragonstone;
 	border:solid 1px transparent;
 	margin-bottom:0px;
 	padding:0px;
 	margin:0px;
+
+	&:hover {
+		color:$topaz;
+	}
 }
 
 .address-list {
@@ -192,6 +196,7 @@
 	border:solid 1px $border;
 	text-align:center;
 	cursor:pointer;
+	margin-bottom:10px;
 
 	icon {
 		font-size:24px;
@@ -201,6 +206,15 @@
 	&:hover {
 		color:$topaz;
 		border-color:$topaz;
+
+		icon {
+			color:$topaz;
+		}
+	}
+
+	&:focus {
+		border:solid 2px $topaz;
+		color:$topaz;
 
 		icon {
 			color:$topaz;

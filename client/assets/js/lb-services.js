@@ -19669,7 +19669,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * @param {Object} postData Request data.
              *
-             *  - `id` – `{string=}` -
+             *  - `recordId` – `{string=}` -
              *
              * @param {function(Object,Object)=} successCb
              *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -19681,9 +19681,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *   populated with the actual data once the response is returned
              *   from the server.
              *
-             * Data properties:
-             *
-             *  - `result` – `{object=}` -
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Opportunity` object.)
+             * </em>
              */
             "unarchive": {
               url: urlBase + "/Opportunities/unarchive",
@@ -19823,7 +19824,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
             /**
              * @ngdoc method
-             * @name lbServices.Opportunity#unarchive
+             * @name lbServices.Opportunity#bulkAssign
              * @methodOf lbServices.Opportunity
              *
              * @description
@@ -19857,7 +19858,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `result` – `{object=}` -
              */
-            "unarchive": {
+            "bulkAssign": {
               url: urlBase + "/Opportunities/bulkAssign",
               method: "POST",
             },
@@ -23159,7 +23160,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * @param {Object} postData Request data.
              *
-             *  - `id` – `{string=}` -
+             *  - `recordId` – `{string=}` -
              *
              * @param {function(Object,Object)=} successCb
              *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -23171,9 +23172,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *   populated with the actual data once the response is returned
              *   from the server.
              *
-             * Data properties:
-             *
-             *  - `result` – `{object=}` -
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Contact` object.)
+             * </em>
              */
             "unarchive": {
               url: urlBase + "/Contacts/unarchive",
@@ -23313,7 +23315,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
             /**
              * @ngdoc method
-             * @name lbServices.Contact#unarchive
+             * @name lbServices.Contact#bulkAssign
              * @methodOf lbServices.Contact
              *
              * @description
@@ -23347,7 +23349,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `result` – `{object=}` -
              */
-            "unarchive": {
+            "bulkAssign": {
               url: urlBase + "/Contacts/bulkAssign",
               method: "POST",
             },
@@ -26311,7 +26313,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              * @param {Object} postData Request data.
              *
-             *  - `id` – `{string=}` -
+             *  - `recordId` – `{string=}` -
              *
              * @param {function(Object,Object)=} successCb
              *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -26323,9 +26325,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *   populated with the actual data once the response is returned
              *   from the server.
              *
-             * Data properties:
-             *
-             *  - `result` – `{object=}` -
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Company` object.)
+             * </em>
              */
             "unarchive": {
               url: urlBase + "/Companies/unarchive",
@@ -26465,7 +26468,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
             /**
              * @ngdoc method
-             * @name lbServices.Company#unarchive
+             * @name lbServices.Company#bulkAssign
              * @methodOf lbServices.Company
              *
              * @description
@@ -26499,7 +26502,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *
              *  - `result` – `{object=}` -
              */
-            "unarchive": {
+            "bulkAssign": {
               url: urlBase + "/Companies/bulkAssign",
               method: "POST",
             },

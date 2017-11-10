@@ -72,10 +72,14 @@ angular.module('interloop.newEntityCtrl', [])
 
   // Get fields
   //-------------------------------
-  $scope.data.fields = $injector.get(currentEntity + 'Fields');
+  $scope.data.basicFields = $injector.get(currentEntity + 'Fields');
   $scope.data.customFields = _.filter($rootScope.customFields,function(o){
       return _.includes(o.useWith, currentEntity);
   })
+
+  //merge two
+
+  $scope.data.fields = $scope.data.basicFields.concat($scope.data.customFields);
 
   //Data Holders
   //-------------------------------
@@ -160,27 +164,30 @@ activate();
 //entity created & relating to other records
 function ok() {
 
+  //prevents social inputs from flashing on create
+  var copiedRecord = angular.copy($scope.data.thisRecord);
+
   $scope.data.processing = true;
 
   //if activity - set type / due date etc
   //----------------------------------
   if(currentEntity == 'Activity'){
 
-      $scope.data.thisRecord.type = activityType;
+      copiedRecord.type = activityType;
 
       // todo specifics
       if(activityType == 'todo'){
-        $scope.data.thisRecord.dueDate = $scope.data.customDate ? $scope.data.customDate : convertDate($scope.data.setDate);
+        copiedRecord.dueDate = $scope.data.customDate ? $scope.data.customDate : convertDate($scope.data.setDate);
       }
 
       if(activityType == 'note'){
-        $scope.data.thisRecord.completed = true;
+        copiedRecord.completed = true;
       }
 
       //if completed set date and completed by
-      if($scope.data.thisRecord.completed){ 
-         $scope.data.thisRecord.completedDate = moment().format();
-         $scope.data.thisRecord.completedBy = {
+      if(copiedRecord.completed){ 
+         copiedRecord.completedDate = moment().format();
+         copiedRecord.completedBy = {
           'firstName': $rootScope.activeUser.firstName,
           'lastName': $rootScope.activeUser.lastName,
           'color': $rootScope.activeUser.color,
@@ -192,7 +199,7 @@ function ok() {
     
     //set up created by
     //----------------------------
-    $scope.data.thisRecord.createdBy = {
+    copiedRecord.createdBy = {
       'firstName': $rootScope.activeUser.firstName,
       'lastName': $rootScope.activeUser.lastName,
       'color': $rootScope.activeUser.color,
@@ -201,7 +208,7 @@ function ok() {
 
     //set up updated by
     //----------------------------
-    $scope.data.thisRecord.updatedBy = {
+    copiedRecord.updatedBy = {
       'firstName': $rootScope.activeUser.firstName,
       'lastName': $rootScope.activeUser.lastName,
       'color': $rootScope.activeUser.color,
@@ -210,9 +217,9 @@ function ok() {
 
      //need to clear out empty array
      //----------------------------
-    _.forOwn($scope.data.thisRecord, function(value, key){
-      if(_.isArray($scope.data.thisRecord[key])){
-        _.forEach($scope.data.thisRecord[key], function(subvalue){
+    _.forOwn(copiedRecord, function(value, key){
+      if(_.isArray(copiedRecord[key])){
+        _.forEach(copiedRecord[key], function(subvalue){
           var keys = _.filter(_.keys(subvalue), function(o) {
             return o !== "$$hashKey";
           });
@@ -226,7 +233,7 @@ function ok() {
 
     //Create Entity
     console.log('about to create this thing',currentEntity);
-    $injector.get(currentEntity).create($scope.data.thisRecord).$promise
+    $injector.get(currentEntity).create(copiedRecord).$promise
       .then(function(results){
 
             //recieve this record from results
@@ -242,8 +249,8 @@ function ok() {
 
 
             //primary company
-            if($scope.data.thisRecord.primaryCompany) {
-              allPromises.push(linkCompany(thisRecord, $scope.data.thisRecord.primaryCompany, true))
+            if(copiedRecord.primaryCompany) {
+              allPromises.push(linkCompany(thisRecord, copiedRecord.primaryCompany, true))
             } 
 
             //add in owner promises

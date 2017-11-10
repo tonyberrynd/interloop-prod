@@ -9,6 +9,7 @@ angular.module('interloop.recordDetailsCtrl', [])
   $rootScope,
   $stateParams,
   $q,
+  $sce,
   $window,
   $state,
   $timeout,
@@ -215,6 +216,7 @@ $timeout(function(){
 // FUNCTIONS
 //===========================================
 
+
 function showFullRecord(){
   var resolvedData = {
     thisRecord: $scope.data.thisRecord
@@ -257,8 +259,17 @@ function getScoreColor(score){
 Preview An Image
 */
 function previewImage(file){
-  var filesArray = [ file ];
-  Lightbox.openModal(filesArray, 0);
+
+  _.forEach($scope.data.thisRecord.files, function(file){
+    if(file.type == 'application/pdf'){
+      var url = file.url + '#toolbar=0&navpanes=0'
+      file.trustedUrl = $sce.trustAsResourceUrl(url);
+    }
+  })
+
+  var filesArray = $scope.data.thisRecord.files;
+  var index = $scope.data.thisRecord.files.indexOf(file);
+  Lightbox.openModal(filesArray, index);
 }
 
 /*
@@ -283,6 +294,8 @@ function removeOwner(owner, owners){
     .then(function(results){
       Logger.info('Removed Owner');
         owners.splice(owners.indexOf(owner), 1);
+        //update grid
+        gridManager.updateGridRow($scope.data.thisRecord.id, $scope.data.thisRecord)
     })
     .catch(function(err){
       console.log(err);
@@ -573,12 +586,19 @@ function addOwner() {
   //after result - add / remove from UI
 
   addOwnerModal.result.then(function(results){
-    // console.log(results);
-    //update this record
-    //comes back as array so need to loop through to push in properly
+    var currentStateOfOwners = [];
     _.forEach(results, function(value){
-      $scope.data.thisRecord.ownerLinks.push(value);
+      var doubleLayerOwner = {
+        firstName: value.firstName,
+        lastName: value.lastName,
+        email: value.email,
+        value: value
+      }
+      currentStateOfOwners.push(doubleLayerOwner);
     })
+
+    //set equal to new state of owners
+    $scope.data.thisRecord.ownerLinks = currentStateOfOwners;
 
   })
 }
@@ -674,14 +694,15 @@ function removeTag(tag) {
 View Tag List
 */ 
 function viewTagList(entityType, tag){
+  console.log(tag);
   //close sidebar
   $rootScope.sidePanelOpen = false;
   //query param to be passed
-  var strParam = '{"filter": {"where": {"and": [{"itemLinks.itemType": {"inq": ["Tag"]}}, {"itemLinks.name":"' + tag.name + '"}]}}}';
+  var strParam = '{"filter": {"where": {"and": [{"itemLinks.itemType": {"inq": ["tag"]}}, {"itemLinks.name":"' + tag.name + '"}]}}}';
   //entity plural
   var entityPlural = entityTypes[entityType.toLowerCase()].plural;
   //go to dyanmic query location
-  $location.url("/" + entityPlural.toLowerCase() + "/view/query?query=" + strParam + '&count=' + tag.count + '&backUrl=' + $location.url());
+  $location.url("/" + entityPlural.toLowerCase() + "/view/custom?query=" + strParam + '&backUrl=' + $location.url());
 }
 
 /*
@@ -719,45 +740,37 @@ function toggleActivity(activity, activities){
   console.log(activity);
 
   if(activity.completed){
-
     //ensure subactivty
     activity.completed = true;
     activity.completedDate = moment().format();
+  } else {
+    activity.completed = false;
+    activity.completedDate = null;
+  }
 
     return Activity.prototype$patchAttributes({id: activity.id}, activity).$promise
     .then(function(results){
-        Logger.info('Completed Task');
+      if(activity.completed){
+        Logger.info('Completed Activity');
+      } else {
+        Logger.info('Updated Activity');
+      }
 
-         var doubleLayerActivity = {
-          activityId: results.activityId,
-          type: activity.type,
-          completed: results.completed,
-          completedDate: results.completedDate,
-          createdBy: results.createdBy,
-          id: results.id,
-          updatedOn: results.updatedOn,
-          activity: activity
+        //get the history so its updated if not on an activity page
+        if(activities){
+          $timeout(function(){
+              //push into history
+              $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
+              //remove from open activities
+              activities.splice( activities.indexOf(activity), 1 );
+          }, 50)
         }
-
-        //push into record real time
-        $scope.data.thisRecord.activities.push(doubleLayerActivity);
-        $scope.data.thisRecord.activityLinks.push(doubleLayerActivity);
-
-        //get the history so its updated
-        $timeout(function(){
-            //push into history
-            $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
-            //remove from open activities
-            activities.splice( activities.indexOf(activity), 1 );
-        }, 50)
        
     })
     .catch(function(err){
       Logger.error('Error Completing Task');
     })
 
-
-  } 
 }
 
 //-------------------------------------------
@@ -765,7 +778,18 @@ function toggleActivity(activity, activities){
 
 // EVENTS
 //===========================================
-// Events go here
+//NEED TO CHECK VIEW FOR DIFFERENCES
+$scope.$on('HISTORY_CHANGED', function(event, args) {
+  if(args.id == $scope.data.thisRecord.id){
+    console.log('updating history');
+    $scope.data.thisRecord.activities.push(args.activity);
+    $scope.data.thisRecord.activityLinks.push(args.activity);
+
+    $timeout(function(){
+        $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
+      }, 10)
+  }
+});
 //-------------------------------------------
 
 // WATCHES

@@ -129,6 +129,8 @@ angular.module('interloop.listViewCtrl', [])
   $scope.columnStateChanged = columnStateChanged;
   $scope.isObjectShouldBeString = isObjectShouldBeString;
   $scope.isHiddenColumn = isHiddenColumn;
+  $scope.goBackToTags = goBackToTags;
+  $scope.goBackToUsers = goBackToUsers;
 
 //-------------------------------------------
 
@@ -155,10 +157,10 @@ function activate() {
                 initialView = angular.copy($scope.data.thisView);
                 
                 //sort model
-                initialSortModel = angular.copy($scope.data.thisView.sortModel) || [];
+                initialSortModel = angular.copy(_.get($scope.data.thisView, 'sortModel', []));
 
                 //match type
-                $scope.data.filterMatches = $scope.data.thisView.matchType || 'all';
+                $scope.data.filterMatches = _.get($scope.data.thisView, 'matchType', 'all');
 
                 //metadata
                 $scope.data.count = $scope.data.thisView.count;
@@ -735,7 +737,24 @@ function changeLocalSearch(){
 Refresh View
 */
 function refreshView() {
-    gridManager.refreshView();
+    //need to pass in current view so can get correct counts / metadata etc
+    gridManager.refreshView()
+      .then(function(results){
+        $scope.data.thisView = results;
+
+        $scope.data.count = results.count || 0;
+        $scope.data.sum = results.sum || 0;
+        $scope.data.min = results.min || 0;
+        $scope.data.max = results.max || 0;
+        $scope.data.avg = results.avg || 0;
+
+        //need to update within the views array as well
+        $scope.data.views[_.findIndex($scope.data.views, ['id', results.id])] = results;
+
+      })
+      .catch(function(err){
+        Logger.error('Error Refreshing View');
+      })
 }
 
 /*
@@ -1064,16 +1083,28 @@ function isCategoryActive(value, checked, field) {
 /*
 Clear Filter
 */
-function clearFilter(field) {
-  if(field.type == 'category') {
-    field.filterValue = []; 
-    field.filterApplied = 'category-includes'
-    field.filterActive = false;
-  } else {
-    field.filterApplied = null;
-    field.filterValue = null;
-    field.filterActive = false;
+function clearFilter(filter) {
+  var filterValue = angular.copy(filter.filterApplied);
 
+  //for some need to keep the filter filterApplied so that the tags stay in sync
+  if(filter.type == 'category') {
+    filter.filterValue = []; 
+    filter.filterApplied = filterValue
+    filter.filterActive = false;
+  } else {
+    filter.filterApplied = null;
+    filter.filterValue = null;
+    filter.filterActive = false;
+
+  }
+
+  //clear out selected users or tags if doing that from the tags
+  if(filter.key == 'tags'){
+    $scope.data.selectedTags = []
+  }
+
+  if(filter.lookupEntity && filter.lookupEntity == 'Appuser') {
+    $scope.data.selectedUsers = []
   }
 
   //need to remove selected if changing query
@@ -1129,14 +1160,22 @@ function selectUsers(filter){
   $scope.data.selectingForFilter = filter;
 }
 
-function applyUsers(){
-  $scope.data.selectingForFilter.filterValue = $scope.data.selectedUsers;
+
+function goBackToUsers(){
   $scope.data.selectingForFilter.filterActive = true; // fires filter
   $scope.data.lookupUsers = false;
-  //check if should fire grid update
-  isFilterActive($scope.data.selectingForFilter.filterValue);
 }
 
+function applyUsers(){
+  $scope.data.selectingForFilter.filterValue = $scope.data.selectedUsers;
+  //check if should fire grid update
+  isFilterActive($scope.data.selectingForFilter);
+}
+
+function goBackToTags(){
+  $scope.data.selectingForFilter.filterActive = true; // fires filter
+  $scope.data.lookupTags = false;
+}
 
 function selectTags(filter){
   $scope.data.lookupTags = true;
@@ -1146,10 +1185,8 @@ function selectTags(filter){
 
 function applyTags(){
   $scope.data.selectingForFilter.filterValue = $scope.data.selectedTags;
-  $scope.data.selectingForFilter.filterActive = true; // fires filter
-  $scope.data.lookupTags = false;
   //check if should fire grid update
-  isFilterActive($scope.data.selectingForFilter.filterValue);
+  isFilterActive($scope.data.selectingForFilter);
 }
 
 
@@ -1169,6 +1206,10 @@ $scope.$on('NEW_' + _.upperCase(currentEntity) + '_CREATED', function(event, arg
   refreshView();
 });
 
+
+$scope.$on('REFRESH_VIEW', function(event, args) {
+  refreshView();
+});
 
 //NEED TO CHECK VIEW FOR DIFFERENCES
 $scope.$on('SORT_MODEL_CHANGED', function(event, args) {
