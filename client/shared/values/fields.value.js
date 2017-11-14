@@ -185,6 +185,7 @@ angular.module('interloop.value.fields', [])
 		"label": "Title",
 		"key": "title",
 		"type": "string",
+		"columnType": "activityTitle",
 		"locked": true,
 		//new form
 		"excludeNew": false,
@@ -1339,10 +1340,64 @@ angular.module('interloop.value.fields', [])
 	    "excludeNew": true,
 	    "excludeGrid": true,
 	},
+
 ])
 
 
 .constant("EndFields", [
+
+    {
+		"label": "Overdue Activities",
+		"key": "overDueActivitiesCount",
+		"type": "number",
+		//grid
+		"excludeGrid": false,
+		"hide": false,
+		"width": 150,
+		"valueGetter": null,
+		"cellRenderer": null,
+		"pinned": false,
+		// forms
+		"class": "col-xs-6",
+		"excludeNew": true,
+		"excludeForm": true
+	},
+
+
+	{
+		"label": "Open Activities",
+		"key": "openActivitiesCount",
+		"type": "number",
+		//grid
+		"excludeGrid": false,
+		"hide": false,
+		"width": 150,
+		"valueGetter": null,
+		"cellRenderer": null,
+		"pinned": false,
+		// forms
+		"class": "col-xs-6",
+		"excludeNew": true,
+		"excludeForm": true
+	},
+
+
+	{
+		"label": "Completed Activities",
+		"key": "completedActivitiesCount",
+		"type": "number",
+		//grid
+		"excludeGrid": false,
+		"hide": false,
+		"width": 150,
+		"valueGetter": null,
+		"cellRenderer": null,
+		"pinned": false,
+		// forms
+		"class": "col-xs-6",
+		"excludeNew": true,
+		"excludeForm": true
+	},
 
 	{
 		"label": "Tags",

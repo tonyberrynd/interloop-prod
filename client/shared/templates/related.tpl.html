@@ -40,7 +40,7 @@
 				</p>
 				</div>
 			</div>
-			<div class="panel-footer" ng-if="relatedEntity.description" ng-click="viewRelationship(relatedEntity)">
+			<div class="panel-footer" ng-if="relatedEntity.description && data.currentEntity !== 'Activity'" ng-click="viewRelationship(relatedEntity)">
 				<span class="relationship">
 				<img src="../assets/img/icons/actions/add-relationship.svg" alt="Relationship" uib-tooltip="This Describes the relationship between '{{relatedEntity.name}}' and '{{data.thisRecord.name}}'" tooltip-append-to-body="true"><span ng-bind="relatedEntity.description"></span>
 
@@ -66,7 +66,7 @@
 				</p>
 				</div>
 			</div>
-			<div class="panel-footer" ng-if="relatedEntity.description" ng-click="viewRelationship(relatedEntity)">
+			<div class="panel-footer" ng-if="relatedEntity.description  && data.currentEntity !== 'Activity'" ng-click="viewRelationship(relatedEntity)">
 				<span class="relationship">
 				<img src="../assets/img/icons/actions/add-relationship.svg" alt="Relationship" uib-tooltip="This Describes the relationship between '{{relatedEntity.name}}' and '{{data.thisRecord.name}}'" tooltip-append-to-body="true"><span ng-bind="relatedEntity.description"></span>
 				
@@ -116,7 +116,7 @@
 				</div>
 
 			</div>
-			<div class="panel-footer" ng-if="relatedEntity.description" ng-click="viewRelationship(relatedEntity)">
+			<div class="panel-footer" ng-if="relatedEntity.description  && data.currentEntity !== 'Activity'" ng-click="viewRelationship(relatedEntity)">
 				<span class="relationship">
 				<img src="../assets/img/icons/actions/add-relationship.svg" alt="Relationship" uib-tooltip="This Describes the relationship between '{{relatedEntity.name}}' and '{{data.thisRecord.name}}'" tooltip-append-to-body="true"><span ng-bind="relatedEntity.description"></span>
 				
@@ -156,7 +156,6 @@
 	<!-- files cards -->
                     <div class="panel panel-default card file-card" ng-repeat="file in data.thisRecord.files | orderBy: '-createdOn' " ng-class="{'img-card': file.type == 'image/jpeg' || file.type == 'image/png'}" ng-mouseleave="file.isopen = false; console.log('mouseleave');">
                         <div class="panel-body">
-                            <div class="name-wrapper">
                             <!-- img icon -->
                             <div class="file-icon" ng-if="file.type !== 'image/jpeg' && file.type !== 'image/png'">
                                 <img ng-src="{{file.type | fileIcons}}" alt="{{file.type}}">
@@ -176,7 +175,6 @@
                             </p>
                             <p class="uploaded" ng-bind="file.createdOn | date:'MMM d, y h:mm a'"></p>
                             </div>
-                            </div>
                         </div>
 
                         <div class="card-actions">
@@ -185,11 +183,16 @@
                                 <icon class="wb-more-horizontal"></icon>
                               </button>
                               <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                <li role="menuitem"><a ng-href={{file.url}} target="_blank">Open In New Window</a></li>
-                                <li role="menuitem"><a href clipboard supported="supported" text="file.url" on-copied="copySuccess()" on-error="copyFail(err)">Copy Link</a></li>
-                                <li role="menuitem"><a ng-href={{file.url}} download>Download</a></li>
+                                <li role="menuitem"><a ng-href={{file.url}} target="_blank">
+                                	<icon class="fa fa-share-alt"></icon> Open In New Window</a></li>
+                                <li role="menuitem"><a href clipboard supported="supported" text="file.url" on-copied="copySuccess()" on-error="copyFail(err)"><icon class="fa fa-clone"></icon> Copy Link</a></li>
+                                <li role="menuitem"><a ng-href={{file.url}} download><icon class="wb-download"></icon> Download</a></li>
                                 <li class="divider" ng-if="file.createdBy.id == $root.activeUser.id"></li>
-                                <li role="menuitem" class="text-danger" ng-if="file.createdBy.id == $root.activeUser.id"><a href ng-click="deleteFile(file)">Delete Files</a></li>
+                                <li role="menuitem" class="text-danger" ng-if="file.createdBy.id == $root.activeUser.id">
+                                	<a href ng-click="deleteFile(file)">
+                                	<icon class="fa wb-trash"></icon> Delete Files
+                                	</a>
+                               	</li>
                               </ul>
                             </div>
                             <!-- star -->

@@ -5,7 +5,7 @@
                         <img src="../assets/img/icons/states/close.svg" alt="Close">
                     </a>
 
-                    Files 
+                    My Files 
                 </div>
 
                 <div class="sidepanel-content">
@@ -15,17 +15,17 @@
                     <!-- files -->
                     <div class="panel panel-default card file-card" ng-repeat="file in data.files | orderBy: 'createdOn' " ng-class="{'img-card': file.type == 'image/jpeg' || file.type == 'image/png'}" ng-mouseleave="file.isopen = false; console.log('mouseleave');">
                         <div class="panel-body" ng-click="fileDetails(file.id)">
-                            <div class="name-wrapper">
                             <!-- img icon -->
                             <div class="file-icon" ng-if="file.type !== 'image/jpeg' && file.type !== 'image/png'">
                                 <img ng-src="{{file.type | fileIcons}}" alt="{{file.type}}">
                             </div>
                             <!-- img preview -->
-                            <div class="image-preview" ng-click="previewImage(file); $event.stopPropagation();">
-                            <img ng-if="file.type == 'image/jpeg' || file.type == 'image/png'" ngf-thumbnail="file.url">
+                            <div class="image-preview" ng-click="previewImage(file); $event.stopPropagation();" ng-if="file.type == 'image/jpeg' || file.type == 'image/png'">
+                            <img ngf-thumbnail="file.url">
                             </div>
 
                             <!-- details -->
+                            <div class="name-wrapper">
                             <h4 ng-bind="file.name || '--'">Important Document</h4>
                             <p>
                                 <span ng-if="file.size" ng-bind="file.size | bytes"></span> 

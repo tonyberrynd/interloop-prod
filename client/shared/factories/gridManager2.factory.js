@@ -1046,6 +1046,7 @@ angular.module('interloop.factory.gridManager', [])
 		        // default column
 		        //==================================
                 columnTypes: {
+                    "activityTitle": {},
                     "string": {},
                     "email": {},
                     "phone": {},
@@ -1070,6 +1071,7 @@ angular.module('interloop.factory.gridManager', [])
                 defaultColDef: {
                     // make every column editable
                     editable: false,
+                    enableCellChangeFlash: true,
                     menuTabs:[],
                     cellClass: function(params) { 
                       //looks up change histories
@@ -1274,6 +1276,7 @@ angular.module('interloop.factory.gridManager', [])
          grid.api.forEachNode(function (node) {
             if(node.id == rowNode){
                 node.setData(data);
+                node.setDataValue('name', 'test this');
                 return;
             }
         });
@@ -2180,7 +2183,7 @@ angular.module('interloop.factory.gridManager', [])
                   }; 
                   Activity.prototype$patchAttributes(
                     { id: params.data.id }, 
-                    { 'completed': params.data.completed, 'completedDate': params.data.completedDate, 'status': params.data.status }).$promise
+                    { 'completed': params.data.completed, 'completedDate': params.data.completedDate }).$promise
                     .then(function(results){
                       Logger.info('Successfully Completed Task');
                       //refresh row
@@ -2555,6 +2558,9 @@ angular.module('interloop.factory.gridManager', [])
           case 'string':
             return params.value ?  params.value : nullCell;
           break
+          case 'activityTitle':
+            return params.value ?  params.value : nullCell;
+          break
           case 'domain':
             return params.value ? params.value : nullCell;
           break
@@ -2683,7 +2689,8 @@ angular.module('interloop.factory.gridManager', [])
               else if(currentEntityType == 'Company') {
                 var firstLetter = params.data.name ? params.data.name.charAt(0) : '';
                 var html = '<div class="avatar avatar-28 square ' + params.data.color + '">' + firstLetter + '</div>' + params.value
-              } else {
+              }
+               else {
                 var html = params.value;
               }
               return html;

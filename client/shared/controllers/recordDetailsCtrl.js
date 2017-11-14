@@ -101,13 +101,13 @@ angular.module('interloop.recordDetailsCtrl', [])
 //-------------------------------------------
 
 
+  //adjust whether to include activities (obviously can't do that for activities themselves)
+  var include = (currentEntity == 'Activity') ? ["owners", "sharedWith", "entities", "items", {"entities": ["comments"]}] : ["owners", "sharedWith", "entities", "items", "activities", {"entities": ["comments"]}];
+
 // ACTIVATE
 //===========================================
 function activate() {
   // console.log($stateParams.id);
-
-  //adjust whether to include activities (obviously can't do that for activities themselves)
-  var include = (currentEntity == 'Activity') ? ["owners", "sharedWith", "entities", "items", {"entities": ["comments"]}] : ["owners", "sharedWith", "entities", "items", "activities", {"entities": ["comments"]}];
 
   
   return $injector.get(currentEntity).findOne({"filter": {"where": {"id": $stateParams.id}, "include": include, "deleted": true}}).$promise
@@ -197,6 +197,8 @@ function activate() {
           //monitor scroll once activated
           // monitorScroll();
 
+          return;
+
       })
       .catch(function(err){
         Logger.error('Error Retrieving ' + currentEntity);
@@ -215,6 +217,13 @@ $timeout(function(){
 
 // FUNCTIONS
 //===========================================
+
+
+function updateRecord(){
+  activate().then(function(results){
+    gridManager.updateGridRow($scope.data.thisRecord.id, $scope.data.thisRecord)
+  })
+}
 
 
 function showFullRecord(){
@@ -756,18 +765,28 @@ function toggleActivity(activity, activities){
         Logger.info('Updated Activity');
       }
 
-        //get the history so its updated if not on an activity page
-        if(activities){
-          $timeout(function(){
-              //push into history
-              $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
-              //remove from open activities
-              activities.splice( activities.indexOf(activity), 1 );
-          }, 50)
-        }
+
+      updateRecord();
+
+
+        // //get the history so its updated if not on an activity page
+        // if(activities){
+        //   $timeout(function(){
+        //       //push into history
+        //       $scope.data.thisRecord.history = SidebarActions.getHistory($scope.data.thisRecord.activities);
+        //       //remove from open activities
+        //       activities.splice( activities.indexOf(activity), 1 );
+        //       //needs to happen after splice or will cuase flashing issues
+              
+        //       //todo - see how this works out
+              
+
+        //   }, 50)
+        // }
        
     })
     .catch(function(err){
+      console.log(err);
       Logger.error('Error Completing Task');
     })
 

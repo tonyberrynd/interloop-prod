@@ -105,6 +105,12 @@ $g-select-foreground: $seamonster !important;
 		padding:0 10px !important;
 	}
 
+	.ag-cell.ag-cell-data-changed {
+		.ag-cell {
+			background-color: green;
+		}
+	}
+
 	.ag-cell-not-inline-editing {
 	    padding: 0px !important;
 	    padding-left: 1px;
@@ -223,8 +229,8 @@ $g-select-foreground: $seamonster !important;
 	.ag-body-viewport-wrapper, 
 	.ag-pinned-left-cols-viewport,
 	.ag-pinned-right-cols-viewport {
-	    background: repeating-linear-gradient(to bottom, $limestone 0px, $limestone 40px, #FFFFFF 40px, #FFFFFF 80px);
-	    background-position: 0px 52px;
+	    background: repeating-linear-gradient(to bottom, $limestone 0px, $limestone 36px, #FFFFFF 36px, #FFFFFF 72px);
+	    background-position: 0px -4px;
 	    background-attachment:fixed;
 	}
 

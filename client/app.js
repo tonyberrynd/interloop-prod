@@ -232,6 +232,7 @@ angular.module('interloop', [
 
   // settings
   'interloop.addActivityTypeCtrl',
+  'interloop.addAddressTypeCtrl',
   'interloop.addForecastCategoryCtrl',
   'interloop.addGoalCtrl',
   'interloop.addOwnerCtrl',
@@ -244,6 +245,7 @@ angular.module('interloop', [
   'interloop.addTeamMemberCtrl',
   'interloop.assignRoleCtrl',
   'interloop.editRoleCtrl',
+  'interloop.settingsAddressTypesCtrl',
   'interloop.settingsAuditLogCtrl',
   'interloop.settingsCompanyCtrl',
   'interloop.settingsConnectedCtrl',
