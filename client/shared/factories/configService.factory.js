@@ -17,6 +17,7 @@ angular.module('interloop.factory.configService', [])
     AppRole, 
     CustomField, 
     Appuser, 
+    AddressType,
     modalManager,
     ActivityType,
     $injector,
@@ -55,7 +56,8 @@ angular.module('interloop.factory.configService', [])
             Appuser.notifications.count({'id': Appuser.getCurrentId(), "where": {'read': false} }).$promise,
             ActivityType.find().$promise,
             Appuser.find({"filter": {"fields": {"starredLinks": false}}}).$promise,
-            Tag.find().$promise
+            Tag.find().$promise,
+            AddressType.find().$promise
         ])
          .then(function(results){
 
@@ -89,6 +91,9 @@ angular.module('interloop.factory.configService', [])
           console.log('user list', $rootScope.userList);
 
           $rootScope.tagList = angular.copy(results[6]);
+
+          //address types
+          $rootScope.addressTypes = angular.copy(results[7]);
 
           //appusers
           var peopleLabels = [];

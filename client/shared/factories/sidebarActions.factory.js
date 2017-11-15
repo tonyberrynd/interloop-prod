@@ -466,16 +466,49 @@ angular.module('interloop.factory.sidebarActions', [])
           //create array of promises
           _.forEach(results, function(value){
 
+            var name = value.thisEntityType == 'Contact' ? value.firstName + ' ' + value.lastName : value.name;
 
-           if(!_.find(entityItem.entities, ['entityId', value.id])){
 
-            newRelated.push(value);
+            if(!_.find(entityItem.entities, ['entityId', value.id])){
+              newRelated.push(value);
+            }
 
             //need to transform contacts slightly
             if(value.entityType == 'Contact') {
               value.name = value.fullName;
             }
 
+            if(entityType == 'Activity'){
+              relatePromises.push(
+              function(){
+              return RelationshipManager.linkActivity(entityItem.id, value.id, value.thisEntityType,
+                            {
+                              "activity": {
+                                "name": _.upperFirst(entityItem.name),
+                                "type": entityItem.type, 
+                                "completed": _.get(entityItem, 'completed', false)
+                                
+                              }, 
+                              "entity": {
+                                "name": name,
+                                "description": _.upperFirst(entityItem.type),
+                                "isPrimary": false
+                              }
+                            })
+                            .then(function(result){
+                                // /adds entity to record 
+                                 var doubleLayerEntity = {
+                                    entityId: result.entityId,
+                                    entityType: result.entityType,
+                                    id: result.id,
+                                    entity: value,
+                                  }
+                                 entityItem.entityLinks.push(doubleLayerEntity);
+                                 entityItem.entities.push(doubleLayerEntity);
+                              })
+                    })
+          } 
+          else {
             relatePromises.push(
             function() {
               return RelationshipManager.linkEntity(entityItem, value, entityType, value.thisEntityType, 
@@ -494,23 +527,14 @@ angular.module('interloop.factory.sidebarActions', [])
                   }
                 }).then(function(result){
 
-                      counter++
-
-                      if(counter == promisesLength) {
-                        // Logger.info('All Relationships Added');
-                      }
-
                       var doubleLayerEntity = {
-                          entityId: result.id,
+                          entityId: result.entityId,
                           entityType: result.entityType,
                           id: result.id,
                           entity: value,
                         }
-
-                      console.log(result);
-
                        entityItem.entityLinks.push(doubleLayerEntity);
-                      entityItem.entities.push(doubleLayerEntity);
+                       entityItem.entities.push(doubleLayerEntity);
                 })
                 .catch(function(err){
 
@@ -522,33 +546,19 @@ angular.module('interloop.factory.sidebarActions', [])
                     
                   console.log(err);
                 })
-
             });
           }
 
-          })
-
+        });
 
           //execute serially to prodect relationship mismatches
           promisesLength = relatePromises.length;
           $q.serial(relatePromises)
-              .then(function(results){
-                 
-                  //relationships added
-                   Logger.info('All Relationships Added');
-              })
-
-
-        //creates activity deleted
-        // var activityDetails = {
-        //     title: 'Added Relationship',
-        //     data: {
-        //       relationships: results
-        //     }
-        //   }
-        //   activityCreator.createActivity('changelog', activityDetails, true, entityItem, entityType)
+            .then(function(results){
+                //relationships added
+                 Logger.info('All Relationships Added');
+            })
         }
-
       }, function(){
         //ignore
       })

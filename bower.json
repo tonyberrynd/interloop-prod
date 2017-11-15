@@ -79,7 +79,8 @@
     "favico.js": "^0.3.10",
     "angular-q-limit": "*",
     "angular-touch": "^1.6.6",
-    "powerbi-client": "^2.4.2"
+    "powerbi-client": "^2.4.2",
+    "ng-img-crop": "ngImgCrop#^0.3.2"
   },
   "resolutions": {
     "angular": "^1.6.6"

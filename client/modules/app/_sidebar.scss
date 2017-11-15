@@ -271,6 +271,13 @@
 	z-index: 13;
 }
 
+.card-actions {
+
+    icon {
+    	color:$granite;
+    	margin-right:5px;
+    }
+}
 
 .action-menu {
 	min-width: 240px;
@@ -278,7 +285,7 @@
     max-height: unset;
 
     icon {
-    	color:$dragonstone;
+    	color:$granite;
     	margin-right:5px;
     }
 

@@ -36,6 +36,7 @@ angular.module('interloop.newEntityCtrl', [])
   //data
   //----------------------
   $scope.data = {};
+  $scope.data.newForm = true;
   $scope.data.thisRecord = {}; //will be filled in by user
   $scope.data.currentEntity = currentEntity || null;
   $scope.data.activityType = activityType ? _.upperFirst(activityType) : null;

@@ -212,8 +212,12 @@
             }
 
             .name-wrapper {
-                margin-left:80px;
+                margin-left:30px;
                 margin-bottom:6px;
+
+                &.with-avatar {
+                    margin-left:72px;
+                }
 
                 h4 {
                     margin:0px;
@@ -243,11 +247,21 @@
                 }
             }
 
+            &.with-score {
+                .name-wrapper {
+                    margin-left:80px;
+                }
+
+                .detail-wrapper {
+                    margin-left:65px;
+                }
+            }
+
                 .detail-wrapper {
 
                     .row {
                         margin:0px;
-                        margin-left:65px;
+                        margin-left:15px;
                     }
 
                     h5 {

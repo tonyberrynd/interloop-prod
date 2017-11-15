@@ -113,7 +113,11 @@
 
 		.row {
 			margin:0px;
-			margin-left:15px;
+			margin-left:0px;
+		}
+
+		.col-xs-3 {
+			padding:0px;
 		}
 
 		h5 {
@@ -137,12 +141,25 @@
 
 	}
 
+
+	&.with-score {
+		.detail-wrapper {
+			.row {
+				margin-left:12px;
+			}
+		}
+	}
+
 	//Card Types
 
 	&.opportunity-card {
 		.name-wrapper {
-			margin-left:32px;
+			margin-left:0px;
 			margin-bottom:12px;
+		}
+
+		&.with-score .name-wrapper {
+			margin-left: 32px;
 		}
 	}
 
@@ -201,7 +218,7 @@
 		}
 
 		.name-wrapper {
-			margin-left:36px;
+			margin-left:64px;
 			margin-bottom:0px;
 		}
 

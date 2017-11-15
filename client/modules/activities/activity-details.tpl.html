@@ -16,7 +16,7 @@
                         <img src="../assets/img/icons/states/cheveron-left.svg" alt="Go Back">
                         Back
                     </a>
-                    <!-- <span class="text-left">Opportunity</span> -->
+                    <!-- <span class="text-left">Activity</span> -->
                     <a class="btn btn-link edit-button" ui-sref="app.activity-edit({id: data.thisRecord.id})" ng-if="!data.thisRecord._isDeleted">
                         <icon class="fa fa-pencil"></icon> Edit
                     </a>
@@ -155,7 +155,7 @@
 
 
               <!-- //hidden file upload button -->
-              <button id="OpportunityFileUpload" type="file" ngf-select="uploadFiles($files)" ngf-multiple="true" accept="image/*, .pdf, .doc, .docx, .xlsx" class="btn upload-btn hidden" ng-model="data.files" ngf-max-size="100MB">
+              <button id="ActivityFileUpload" type="file" ngf-select="uploadFiles($files)" ngf-multiple="true" accept="image/*, .pdf, .doc, .docx, .xlsx" class="btn upload-btn hidden" ng-model="data.files" ngf-max-size="100MB">
                 Browse Files
               </button>
 

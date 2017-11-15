@@ -96,10 +96,11 @@
 
                 </div>
                <div class="sidepanel-cover" ng-class="{'hidden': !data.activated }">
-                   <div class="avatar avatar-48 square" ng-class="data.thisRecord.color">
+                   <div class="avatar avatar-48 square" ng-class="data.thisRecord.color" ng-if="!data.thisRecord.domain">
                         <span ng-bind="data.thisRecord.name | limitTo:1"></span>
                     </div>
-                    <div class="name-wrapper">
+                    <div class="avatar avatar-48 square with-border" ng-class="data.thisRecord.color" ng-if="data.thisRecord.domain" ng-style="{'background-image':'url(https://logo.clearbit.com/{{data.thisRecord.domain}}?size=48)'}"></div> 
+                    <div class="name-wrapper with-avatar">
                         <h4>
                             <span class="color-danger" ng-if="data.thisRecord._isDeleted">[DELETED] </span>
                             <span ng-bind="data.thisRecord.name || '--'"></span>

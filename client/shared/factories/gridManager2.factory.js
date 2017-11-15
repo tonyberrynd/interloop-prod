@@ -1046,6 +1046,7 @@ angular.module('interloop.factory.gridManager', [])
 		        // default column
 		        //==================================
                 columnTypes: {
+                    "activityTitle": {},
                     "string": {},
                     "email": {},
                     "phone": {},
@@ -1070,6 +1071,7 @@ angular.module('interloop.factory.gridManager', [])
                 defaultColDef: {
                     // make every column editable
                     editable: false,
+                    enableCellChangeFlash: true,
                     menuTabs:[],
                     cellClass: function(params) { 
                       //looks up change histories
@@ -1274,6 +1276,7 @@ angular.module('interloop.factory.gridManager', [])
          grid.api.forEachNode(function (node) {
             if(node.id == rowNode){
                 node.setData(data);
+                node.setDataValue('name', 'test this');
                 return;
             }
         });
@@ -2180,7 +2183,7 @@ angular.module('interloop.factory.gridManager', [])
                   }; 
                   Activity.prototype$patchAttributes(
                     { id: params.data.id }, 
-                    { 'completed': params.data.completed, 'completedDate': params.data.completedDate, 'status': params.data.status }).$promise
+                    { 'completed': params.data.completed, 'completedDate': params.data.completedDate }).$promise
                     .then(function(results){
                       Logger.info('Successfully Completed Task');
                       //refresh row
@@ -2555,6 +2558,9 @@ angular.module('interloop.factory.gridManager', [])
           case 'string':
             return params.value ?  params.value : nullCell;
           break
+          case 'activityTitle':
+            return params.value ?  params.value : nullCell;
+          break
           case 'domain':
             return params.value ? params.value : nullCell;
           break
@@ -2678,12 +2684,22 @@ angular.module('interloop.factory.gridManager', [])
               else if(currentEntityType == 'Contact') {
                 var firstLetter = params.data.firstName ? params.data.firstName.charAt(0) : '';
                 var lastLetter = params.data.lastName ? params.data.lastName.charAt(0) : '';
-                var html = '<div class="avatar avatar-28 ' + params.data.color + '">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
+                if(params.data.avatar){
+                     var html = '<div class="avatar avatar-28 with-border" style="background-image: url(' + params.data.avatar + ');"></div>'
+                } else {
+                     var html = '<div class="avatar avatar-28' + params.data.color + '">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
+                }   
               }
               else if(currentEntityType == 'Company') {
                 var firstLetter = params.data.name ? params.data.name.charAt(0) : '';
-                var html = '<div class="avatar avatar-28 square ' + params.data.color + '">' + firstLetter + '</div>' + params.value
-              } else {
+                if(params.data.domain){
+                    var html = '<div class="avatar avatar-28 square with-border" style="background-image: url(//logo.clearbit.com/' + params.data.domain + '?size=28);"></div>'
+                } else {
+                     var html = '<div class="avatar avatar-28 square">' + firstLetter + '</div>'
+                }
+                 html += params.value
+              }
+               else {
                 var html = params.value;
               }
               return html;

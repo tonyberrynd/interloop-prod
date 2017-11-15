@@ -76,6 +76,7 @@ angular.module('interloop', [
   'gavruk.card',                          //https://github.com/gavruk/angular-card
   'ui.calendar',                          //https://github.com/angular-ui/ui-calendar
   'ksSwiper',                             //https://github.com/ksachdeva/angular-swiper
+  'ngImgCrop',                            //https://github.com/alexk111/ngImgCrop
 
 
   //Support Services
@@ -232,6 +233,7 @@ angular.module('interloop', [
 
   // settings
   'interloop.addActivityTypeCtrl',
+  'interloop.addAddressTypeCtrl',
   'interloop.addForecastCategoryCtrl',
   'interloop.addGoalCtrl',
   'interloop.addOwnerCtrl',
@@ -244,6 +246,7 @@ angular.module('interloop', [
   'interloop.addTeamMemberCtrl',
   'interloop.assignRoleCtrl',
   'interloop.editRoleCtrl',
+  'interloop.settingsAddressTypesCtrl',
   'interloop.settingsAuditLogCtrl',
   'interloop.settingsCompanyCtrl',
   'interloop.settingsConnectedCtrl',

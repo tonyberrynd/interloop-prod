@@ -14,6 +14,12 @@
                                 <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled">
                               </div>
 
+                              <!-- formula field - readonly & not shown on new form -->
+                               <div class="form-group" ng-switch-when="formula" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
+                                <label for="{{field.key}}" ng-bind="field.label"></label>
+                                <input name="{{field.key}}" type="text" class="form-control" id="{{field.key}}" placeholder="" ng-model="data.thisRecord[field.key]" ng-disabled="field.disabled" readonly ng-if="!data.newForm">
+                              </div>
+
                               <!-- textarea -->
                                <div class="form-group" ng-switch-when="textarea" ng-class="{ 'has-error' : detailsForm[field.key].$invalid && !detailsForm[field.key].$pristine }">
                                 <label for="{{field.key}}">
@@ -171,7 +177,7 @@
                               <div class="col-xs-6" ng-repeat="address in data.thisRecord[field.key]">
                                 <address>
                                   <strong><icon class="fa fa-map-marker"></icon> 
-                                  <span ng-bind="address.label || 'Address'"></span>
+                                  <span ng-bind="address.type['label'] || 'Address'"></span>
                                   </strong><br>
                                   <span class="address-body">
                                     <span ng-bind="address.address_line1" ng-if="address.address_line1"></span>
