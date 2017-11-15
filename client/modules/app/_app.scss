@@ -9,6 +9,9 @@ html {
 }
 
 
+.avatar.with-border {
+    border:solid 1px $border;
+}
 //custom scroll bar styles
 
 // *::-webkit-scrollbar {

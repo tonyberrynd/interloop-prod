@@ -684,6 +684,35 @@ function uploadFiles(files) {
 }
 
 /* 
+Add Avatar
+*/ 
+angular.element(document.querySelector('#uploadAvatar')).on('change', addAvatar());
+function addAvatar(evt){
+  //gets current file
+  var file=evt.currentTarget.files[0];
+  var reader = new FileReader();
+  reader.onload = function (evt) {
+    $scope.$apply(function($scope){
+      $scope.myImage=evt.target.result;
+    });
+  };
+  var uploadedFile = reader.readAsDataURL(file);
+
+  var resolvedData {
+    entityType: currentEntity,
+    thisRecord: $scope.data.thisRecord,
+    thisImage: uploadedFile
+  }
+
+  var addAvatarModal = modalManager.openModal('addAvatar', resolvedData)
+      addAvatarModal.result.then(function(results){
+        //update image
+      }, function(){
+        //ignore
+      })
+}
+
+/* 
 Manage Tags Modal
 */ 
 function manageTags() {

@@ -76,6 +76,7 @@ angular.module('interloop', [
   'gavruk.card',                          //https://github.com/gavruk/angular-card
   'ui.calendar',                          //https://github.com/angular-ui/ui-calendar
   'ksSwiper',                             //https://github.com/ksachdeva/angular-swiper
+  'ngImgCrop',                            //https://github.com/alexk111/ngImgCrop
 
 
   //Support Services
