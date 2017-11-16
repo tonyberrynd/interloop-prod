@@ -686,7 +686,7 @@ function uploadFiles(files) {
 /* 
 Add Avatar
 */ 
-angular.element(document.querySelector('#uploadAvatar')).on('change', addAvatar());
+// angular.element(document.querySelector('#uploadAvatar')).on('change', addAvatar());
 function addAvatar(evt){
   //gets current file
   var file=evt.currentTarget.files[0];
@@ -698,7 +698,7 @@ function addAvatar(evt){
   };
   var uploadedFile = reader.readAsDataURL(file);
 
-  var resolvedData {
+  var resolvedData = {
     entityType: currentEntity,
     thisRecord: $scope.data.thisRecord,
     thisImage: uploadedFile
