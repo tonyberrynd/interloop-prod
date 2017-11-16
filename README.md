@@ -1,56 +1,5 @@
 # Interloop Client
 
-Version 3.0.1-Beta - 11/16/17
-###Interloop Version 3 is now live and in Beta! 
-<br>
-Our biggest updates yet - Version 3 has been built from the ground up to improvement performance, usability, and the ability to handle much larger data sets with ease. Version 3 now relies on server side filtering, infinite scrolling, and advanced view management to make it easier to sort, filter, and take action on your sales data. 
-<br>
-In adition, Interloop v3.0.0-Beta ships with a whole new administration section so Interloop Admins can set up, modify, import data, export data in a self serve manner. 
-Check out the detailed changelog below and be sure to stay tuned as we've got big plans for our next updates. 
-
-
-####New Features
-
-- <b>Infinite Scrolling</b> - View management is now done server side and allows filters to be applied to large lists in less than a second (500K+ Records)
-- <b>"Easy Relate"</b> - Our new easy relate feature allows users to relate entities, activites, and more to other records from whereever they are in the application. This streamlines the creation process and makes updating Opps, Companies, etc much easier.
-- <b>Visual History Stream</b> - We listened to customer feedback and have made the history stream much more visible - making it easier to see what is happening within any given entity. 
-- <b>Configuration & Setup</b> - Interloop is now fully self-serve and configurable for our clients. You can easily manage users, update sales stages, statuses, manage forecast categories & cadences, and much much more.
-- <b>Security Rules & Administration</b> - Interloop now supports advanced security rules so you can sequester data by user, team, role, & more. Records can also be shared individually to handle any sort of advanced security needs. 
-
-
-#####Improvements
-
-- <b>Enhanced Detail Panels</b> - Detail panels can now be directly navigated from the URL bar and now provides advanced editing capabilities.
-- <b>Advanced View Management</b> - Views can now be shared with teams, individuals, or the whole organization. 
-- <b>Advanced Filters</b> - V3 now ships with a host of new filter options including the ability to support "and" / "or" type queries across filters.
-
-	
-#####Bug Fixes
-- <b>Filter Issues</b> - ensuring filters are much more solid and can handle multiple "date" type filters
-- <b>Data validation</b> - adding data validation rules to prevent document sizes from getting too big
-- <b>Password reset</b> - wasn't always sending password reset email to correct email address
-
-
-Version 2.0.16 - 8/13/2017
-- Moved Fontastic to CDN
-
-Version 2.0.15 - 7/23/2017
-- Election Counter fix
-- Update Needed Indicator fix
-
-
-
-Version 2.0.14 - 7/16/2017
-- Data update indcators
-- Data validation on sidebar
-- Data Update flag on filters
-
-
-Version 2.0.13 - 6/15/2017
-- New Sales Process 
-- Sales Conditions
-- Sales Triggers 
-
 [Interloop](https://interloop.ai) is a Sales Execution & Forecasting Platform for B2B Sales
 
 ### Overview
@@ -93,7 +42,7 @@ gulp serve
 ```
 gulp serve
 ```
-Serves the develop
+Serves the app using browser sync - will automatically compile style and html updates
 
 ```
 gulp build
@@ -108,6 +57,33 @@ Serves the app from the build folder
 
 ## Changelog
 
+[Version 3.0.1-Beta](https://headwayapp.co/interloop-release-notes/interloop-v3.0.0-beta-28076) - 11/16/17
+- <b>Infinite Scrolling</b> - View management is now done server side and allows filters to be applied to large lists in less than a second (500K+ Records)
+- <b>"Easy Relate"</b> - Our new easy relate feature allows users to relate entities, activites, and more to other records from whereever they are in the application. This streamlines the creation process and makes updating Opps, Companies, etc much easier.
+- <b>Visual History Stream</b> - We listened to customer feedback and have made the history stream much more visible - making it easier to see what is happening within any given entity. 
+- <b>Configuration & Setup</b> - Interloop is now fully self-serve and configurable for our clients. You can easily manage users, update sales stages, statuses, manage forecast categories & cadences, and much much more.
+- <b>Security Rules & Administration</b> - Interloop now supports advanced security rules so you can sequester data by user, team, role, & more. Records can also be shared individually to handle any sort of advanced security needs. 
+
+
+Version 2.0.16 - 8/13/2017
+- Moved Fontastic to CDN
+
+Version 2.0.15 - 7/23/2017
+- Election Counter fix
+- Update Needed Indicator fix
+
+
+
+Version 2.0.14 - 7/16/2017
+- Data update indcators
+- Data validation on sidebar
+- Data Update flag on filters
+
+
+Version 2.0.13 - 6/15/2017
+- New Sales Process 
+- Sales Conditions
+- Sales Triggers 
 
 Interloop Client  - V2.0.13 - (05/18/2017)
 - Added Start and End Dates 
