@@ -204,7 +204,9 @@ angular.module('interloop.config', [])
 
     //window vars
     //----------------------
-    $window.client = new Pusher('9730e70eeebf029780f6');
+    $window.client = new Pusher('9730e70eeebf029780f6', {
+      cluster: 'mt1'
+    });
 
     //connectivity monitor
     //-----------------------

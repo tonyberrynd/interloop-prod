@@ -1,13 +1,21 @@
-<div>
+<div class="share-popover">
       <button class="btn btn-link close-sharelink" ng-click="data.shareLinkOpen = false;">
         <img src="../assets/img/icons/states/close.svg" alt="Close">
       </button>
 
       <div class="form-group" style="width:250px;">
-        <label>Record Url:</label>
+        <label>Record Url:
+          <span class="copy-this">
+            <button class="btn btn-link" ng-click="copyValue(data.copyUrl)" uib-tooltip="Copy Url" tooltip-placement="left"><icon class="fa fa-clone"></icon></button>
+          </span>
+        </label>
         <input type="text" ng-model="data.copyUrl" class="form-control" readonly focus-select>
         <br>
-        <label>Record ID:</label>
+        <label>Record ID:
+        <span class="copy-this">
+            <button class="btn btn-link" ng-click="copyValue(data.thisRecord.id)" uib-tooltip="Copy ID" tooltip-placement="left"><icon class="fa fa-clone"></icon></button>
+          </span>
+        </label>
         <input type="text" ng-model="data.thisRecord.id" class="form-control" readonly>
       </div>
       </div>

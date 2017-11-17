@@ -25,6 +25,15 @@ angular.module('interloop.value.modalDefs', [])
         ariaDescribedBy: 'Media Picker'
     },
 
+    addAvatar: {
+        templateUrl: 'shared/modals/addAvatar/addAvatar.tpl.html',
+        controller: 'addAvatarCtrl',
+        size: 'sm',
+        ariaLabelledBy: 'Add Avatar',
+        ariaDescribedBy: 'Add Avatar'
+    },
+
+
     inviteUsers: {
         templateUrl: 'shared/modals/inviteUsers/inviteUsers.tpl.html',
         controller: 'inviteUsersCtrl',

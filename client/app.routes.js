@@ -695,16 +695,16 @@ angular.module('interloop.routes', [])
   /* Activities
    ========================================================================== */
   //activities alias - makes sure the user gets to list in case urls change
-  $stateProvider.state('activities-alias', {
-    url:'/activities/view/:viewId?query',
-    controller: function($state, $stateParams){
-      $state.go('app.activities', $stateParams)
-    },
-    params: {
-      viewId: null,
-      query: null
-    }
-  });
+  // $stateProvider.state('activities-alias', {
+  //   url:'/activities/view/:viewId?query',
+  //   controller: function($state, $stateParams){
+  //     $state.go('app.activities', $stateParams)
+  //   },
+  //   params: {
+  //     viewId: null,
+  //     query: null
+  //   }
+  // });
 
   $stateProvider.state('app.activities', {
       url: "/activities/view/:viewId?query",
@@ -724,9 +724,9 @@ angular.module('interloop.routes', [])
         query: null
       },
       data: {
+          mainState: true,
           pageTitle: 'Activities',
           navTitle: 'Activities',
-          mainState: true,
           currentEntity: 'Activity',
           currentEntityPlural: 'Activities'
       }
@@ -752,7 +752,7 @@ angular.module('interloop.routes', [])
         sidebarState: true,
         routeThroughState: 'app.activities',
         currentEntity: 'Activity',
-        currentEntityPlural: 'Activities'
+        currentEntityPlural: 'Activity'
       }
    });
 

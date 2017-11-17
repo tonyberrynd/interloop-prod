@@ -137,7 +137,7 @@
       <span ng-bind="activity.activity.completedDate | formatDate"></span>
     </time>
 
-    <div class="panel panel-default card todo-card" ng-click="goToItem(activity.id, 'Call')">
+    <div class="panel panel-default card todo-card" ng-click="goTo('Activity', activity.activityId)">
             <div class="panel-body">
                 <div class="name-wrapper">
                     <div class="avatar avatar-24 todo-avatar square sky"></div>
