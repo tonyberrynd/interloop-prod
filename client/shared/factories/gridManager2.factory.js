@@ -2687,7 +2687,7 @@ angular.module('interloop.factory.gridManager', [])
                 if(params.data.avatar){
                      var html = '<div class="avatar avatar-28 with-border" style="background-image: url(' + params.data.avatar + ');"></div>'
                 } else {
-                     var html = '<div class="avatar avatar-28' + params.data.color + '">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
+                     var html = '<div class="avatar avatar-28">' + firstLetter + lastLetter + '</div>' + params.data.firstName + ' ' + params.data.lastName;
                 }   
               }
               else if(currentEntityType == 'Company') {

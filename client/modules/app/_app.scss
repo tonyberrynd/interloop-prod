@@ -12,6 +12,12 @@ html {
 .avatar.with-border {
     border:solid 1px $border;
 }
+
+.modal-body {
+    max-height: 65vh;
+    overflow: auto;
+}
+
 //custom scroll bar styles
 
 // *::-webkit-scrollbar {
